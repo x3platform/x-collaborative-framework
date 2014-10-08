@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="NAnt Common Properties" >
+    <description>公用属性</description>
+    <!-- 指定目标框架-->
+    <!-- mono 3.5 -->
+    <!-- <property name="nant.settings.currentframework" value="mono-3.5" /> -->
+    <!-- net 3.5 -->
+    <!--
+    <property name="nant.settings.currentframework" value="net-2.0" />
+    <property name="nant.settings.currentframework" value="net-3.5" />
+    <property name="nant.settings.currentframework" value="net-4.0" />
+    <property name="nant.settings.currentframework" value="net-3.5" />
+    -->
+    <property name="framework.version" value="" />
+    <if test="${nant.settings.currentframework=='mono-3.5'}">
+        <property name="framework.version" value="MONO35" />
+    </if>
+    <if test="${nant.settings.currentframework=='net-3.5'}">
+        <property name="framework.version" value="NET35" />
+    </if>
+    <if test="${nant.settings.currentframework=='net-4.0'}">
+        <property name="framework.version" value="NET40" />
+    </if>
+    <property name="platform.name" value="${platform::get-name()}" />
+    <!-- 读取环境变量路径 -->
+    <property name="path.windows" value="${environment::get-variable('windir')}/" />
+    <property name="path.programFiles" value="${environment::get-variable('ProgramFiles')}/" />
+    <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles')}/" />
+    <if test="${directory::exists(environment::get-variable('ProgramFiles') + ' (x86)')}">
+        <property name="path.programFiles86" value="${path.programFiles + ' (x86)'}/" />
+    </if>
+    <property name="path.referenceAssemblies" value="${path.programFiles86}Reference Assemblies/" />
+    <!-- 开发框架 系统目录 -->
+    <property name="framework.assemblyDirectory" value="${framework::get-assembly-directory(framework::get-target-framework())}/" />
+    <!-- 开发框架 名称空间 -->
+    <property name="framework.namespace" value="X3Platform" />
+    <!-- 开发框架 输出目录  -->
+    <property name="framework.build.output" value="dist/${nant.settings.currentframework}/" />
+    <!-- 开发框架 是否允许调试 true | false -->
+    <property name="framework.debug" value="true" />
+    <!-- 控制台输出彩色文本脚本 -->
+    <script language="C#">
+        <code>
+            [TaskName("text")]
+            public class TextTask : Task
+            {
+                private string _color;
+
+                [TaskAttribute("color",Required=true)]
+                public string Color
+                {
+                    get { return _color; }
+                    set { _color = value; }
+                }
+
+                protected override void ExecuteTask()
+                {
+                    System.Console.ForegroundColor = (System.ConsoleColor) Enum.Parse(typeof(System.ConsoleColor),Color);
+                }
+            }
+        </code>
+    </script>
+</project>
