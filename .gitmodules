@@ -1,0 +1,4 @@
+[submodule "nant"]
+	path = tools/nant
+	url = https://github.com/nant/nant.git
+	branch = master
