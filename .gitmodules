@@ -1,4 +1,4 @@
 [submodule "nant"]
-	path = tools\nant
+	path = nant
 	url = https://github.com/nant/nant.git
 	branch = master
