@@ -1,0 +1,5 @@
+bin
+dist
+doc
+node_modules
+/src/tests
