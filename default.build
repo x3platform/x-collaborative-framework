@@ -12,6 +12,7 @@
                 <include name="src/Services/Services.Host/default.build" />
                 <include name="src/Storages/Storages/default.build" />
                 <include name="src/ActiveDirectory/ActiveDirectory/default.build" />
+                <include name="src/Email/Email.Client/default.build" />
                 <include name="src/Location/Location.IPQuery/default.build" />
                 <include name="src/Sessions/Sessions/default.build" />
                 <include name="src/Membership/Membership/default.build" />
@@ -20,6 +21,7 @@
                 <include name="src/Entities/Entities/default.build" />
                 <include name="src/AttachmentStorage/AttachmentStorage/default.build" />
                 <include name="src/Navigation/Navigation/default.build" />
+                <include name="src/Web/Web.UserAgents/default.build" />
                 <include name="src/Web/Web/default.build" />
                 <include name="src/Web/Web.APIs/default.build" />
                 <include name="src/Tasks/Tasks/default.build" />
@@ -34,14 +36,5 @@
                 -->
             </buildfiles>
         </nant>
-        <!-- 复制程序集文件到项目的lib目录 -->
-        <text color="Yellow" />
-        <copy todir="E:/Workspace/X3Platform/lib/X3Platform" >
-            <fileset basedir="${framework.build.output}" >
-                <include name="**/*.dll"/>
-                <include name="**/*.pdb"/>
-            </fileset>
-        </copy>
-        <text color="Gray" />
     </target>
 </project>

@@ -1,5 +1,15 @@
+# 文件夹
+obj
 bin
 dist
 doc
 node_modules
 /src/tests
+
+# 临时文件
+*.suo
+*.suo
+
+# 文件
+App.config
+Web.config
