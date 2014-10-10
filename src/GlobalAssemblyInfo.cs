@@ -39,10 +39,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("2.0.0.0")]
 #endif
 
-#if NONSTRONGNAME
-[assembly: AssemblyKeyFile("")]
-#else
-[assembly: AssemblyKeyFile("..\\..\\Licence.snk")]
-#endif
-
 [assembly: AssemblyKeyName("")]
