@@ -27,7 +27,7 @@
     <property name="path.programFiles" value="${environment::get-variable('ProgramFiles')}/" />
     <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles')}/" />
     <if test="${directory::exists(environment::get-variable('ProgramFiles') + ' (x86)')}">
-        <property name="path.programFiles86" value="${path.programFiles + ' (x86)'}/" />
+        <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles') + ' (x86)'}/" />
     </if>
     <property name="path.referenceAssemblies" value="${path.programFiles86}Reference Assemblies/" />
     <!-- 开发框架 系统目录 -->
