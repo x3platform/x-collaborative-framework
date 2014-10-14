@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Tasks.DAL.MySQL.TaskProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="TaskInfo" type="X3Platform.Tasks.Model.TaskInfo, X3Platform.Tasks" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Task_FindOne_Result" class="TaskInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Task_FindAll_Result" class="TaskInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Task_Insert" parameterClass="X3Platform.Tasks.Model.TaskWorkItemInfo, X3Platform.Tasks" >
+            INSERT INTO `tb_Task_WorkItem`
+            (
+                `Id`,
+                `ApplicationId`,
+                `TaskCode`,
+                `Type`,
+                `Title`,
+                `Content`,
+                `Tags`,
+                `SenderId`,
+                `ReceiverId`,
+                `Status`,
+                `IsRead`,
+                `FinishTime`,
+                `CreateDate`
+            )
+            SELECT
+                #Id#,
+                #ApplicationId#,
+                #TaskCode#,
+                #Type#,
+                #Title#,
+                #Content#,
+                #Tags#,
+                #SenderId#,
+                #ReceiverId#,
+                #Status#,
+                #IsRead#,
+                #FinishTime#,
+                Now()
+            FROM DUAL
+            WHERE NOT EXISTS ( SELECT * FROM `tb_Task_WorkItem` WHERE `tb_Task_WorkItem`.`Id` = #Id# AND `tb_Task_WorkItem`.`ReceiverId` = #ReceiverId#)
+        </insert>
+
+        <update id="proc_Task_Update" parameterClass="TaskInfo">
+            UPDATE `tb_Task_WorkItem` SET
+
+                `ApplicationId` = #ApplicationId#,
+                `TaskCode` = #TaskCode#,
+                `Type` = #Type#,
+                `Title` = #Title#,
+                `Content` = #Content#,
+                `Tags` = #Tags#,
+                `SenderId` = #SenderId#
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <insert id="proc_Task_Save" parameterClass="TaskInfo">
+            IF EXISTS(SELECT 0 FROM `tb_Task` WHERE `Id` = #Id#)
+            BEGIN
+                UPDATE `tb_Task` SET
+
+                    `ApplicationId` = #ApplicationId#,
+                    `TaskCode` = #TaskCode#,
+                    `Type` = #Type#,
+                    `Title` = #Title#,
+                    `Content` = #Content#,
+                    `Tags` = #Tags#,
+                    `SenderId` = #SenderId#
+
+                WHERE `Id` = #Id#
+            END
+            ELSE
+            BEGIN
+                INSERT INTO `tb_Task`
+                (
+                    `Id`,
+                    `ApplicationId`,
+                    `TaskCode`,
+                    `Type`,
+                    `Title`,
+                    `Content`,
+                    `Tags`,
+                    `SenderId`,
+                    `CreateDate`
+                )
+                VALUES
+                (
+                    #Id#,
+                    #ApplicationId#,
+                    #TaskCode#,
+                    #Type#,
+                    #Title#,
+                    #Content#,
+                    #Tags#,
+                    #SenderId#,
+                    GETDATE()
+                )
+            END
+        </insert>
+
+        <delete id="proc_Task_Delete">
+            DELETE FROM `tb_Task_WorkItem` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Task_FindOne" parameterClass="TaskInfo" resultMap="proc_Task_FindOne_Result" >
+            SELECT * FROM `tb_Task_WorkItem` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Task_FindOneByTaskCode" parameterClass="TaskInfo" resultMap="proc_Task_FindOne_Result" >
+            SELECT * FROM `tb_Task_WorkItem` WHERE `ApplicationId` = #ApplicationId# AND `TaskCode` = #TaskCode#
+        </select>
+
+        <select id="proc_Task_FindAll" resultMap="proc_Task_FindAll_Result" >
+            SELECT * FROM `view_Task_WorkItem` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Task_GetPages" resultMap="proc_Task_FindAll_Result" >
+            SELECT * FROM `view_Task_WorkItem` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Task_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `view_Task_WorkItem` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Task_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Task_WorkItem` T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Task_SetTitle" parameterClass="TaskInfo" >
+            UPDATE `tb_Task` SET Title = #Title# WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
+        </update>
+
+        <update id="proc_Task_SetFinished" parameterClass="TaskInfo" >
+            UPDATE `tb_Task_WorkItem` SET Status = 1, FinishTime = Now() WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
+        </update>
+
+        <select id="proc_Task_GetIdsByTaskCodes" >
+            SELECT DISTINCT Id FROM `tb_Task_WorkItem` WHERE $WhereClause$
+        </select>
+
+        <select id="proc_Task_GetTaskTags" >
+            SELECT DISTINCT Tags FROM `tb_Task_WorkItem` T
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <insert id="proc_Task_Archive">
+            INSERT INTO tb_Task_HistoryItem
+                SELECT * FROM tb_Task_WorkItem WHERE Status = 1 AND $WhereClause$
+        </insert>
+
+        <delete id="proc_Task_RemoveHistoryItems">
+            DELETE FROM `tb_Task_HistoryItem` WHERE $WhereClause$
+        </delete>
+    </statements>
+</sqlMap>
