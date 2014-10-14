@@ -1,0 +1,1 @@
+﻿<%@ Application Language="C#" Inherits="X3Platform.WebSiteV10.MvcApplication" %>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Tasks.DAL.SQLServer.TimingTaskProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="TimingTaskInfo" type="X3Platform.Tasks.Model.TimingTaskInfo, X3Platform.Tasks" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_TimingTask_FindOne_Result" class="TimingTaskInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="TriggerTime" column="TriggerTime" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_TimingTask_FindAll_Result" class="TimingTaskInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="TriggerTime" column="TriggerTime" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_TimingTask_Insert" parameterClass="TimingTaskInfo">
+            INSERT INTO [tb_TimingTask] (
+            [Id],
+            [ApplicationId],
+            [TaskCode],
+            [Type],
+            [Title],
+            [Content],
+            [Tags],
+            [SenderId],
+            [TriggerTime],
+            [CreateDate]
+            )
+            VALUES
+            (
+            #Id#,
+            #ApplicationId#,
+            #TaskCode#,
+            #Type#,
+            #Title#,
+            #Content#,
+            #Tags#,
+            #SenderId#,
+            #TriggerTime#,
+            #CreateDate#
+            )
+        </insert>
+
+        <update id="proc_TimingTask_Update" parameterClass="TimingTaskInfo">
+            UPDATE [tb_TimingTask] SET
+
+            [Id] = #Id#,
+            [ApplicationId] = #ApplicationId#,
+            [TaskCode] = #TaskCode#,
+            [Type] = #Type#,
+            [Title] = #Title#,
+            [Content] = #Content#,
+            [Tags] = #Tags#,
+            [SenderId] = #SenderId#,
+            [TriggerTime] = #TriggerTime#,
+            [CreateDate] = #CreateDate#
+
+            WHERE [Id] = #Id#
+        </update>
+        
+        <insert id="proc_TimingTask_Save" parameterClass="TimingTaskInfo">
+            IF EXISTS(SELECT 0 FROM [tb_TimingTask] WHERE [Id] = #Id#)
+            BEGIN
+            UPDATE [tb_TimingTask] SET
+
+            [Id] = #Id#,
+            [ApplicationId] = #ApplicationId#,
+            [TaskCode] = #TaskCode#,
+            [Type] = #Type#,
+            [Title] = #Title#,
+            [Content] = #Content#,
+            [Tags] = #Tags#,
+            [SenderId] = #SenderId#,
+            [TriggerTime] = #TriggerTime#,
+            [CreateDate] = #CreateDate#
+
+            WHERE [Id] = #Id#
+            END
+            ELSE
+            BEGIN
+            INSERT INTO [tb_TimingTask](
+            [Id],
+            [ApplicationId],
+            [TaskCode],
+            [Type],
+            [Title],
+            [Content],
+            [Tags],
+            [SenderId],
+            [TriggerTime],
+            [CreateDate]
+            )
+            VALUES
+            (
+            #Id#,
+            #ApplicationId#,
+            #TaskCode#,
+            #Type#,
+            #Title#,
+            #Content#,
+            #Tags#,
+            #SenderId#,
+            #TriggerTime#,
+            #CreateDate#
+            )
+            END
+        </insert>
+        
+        <delete id="proc_TimingTask_Delete" parameterClass="TimingTaskInfo">
+            DELETE FROM [tb_TimingTask] WHERE Id IN ($Ids$)
+        </delete>
+        
+        <select id="proc_TimingTask_FindOne" resultMap="proc_TimingTask_FindOne_Result" >
+            SELECT * FROM [tb_TimingTask] T WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_TimingTask_FindOneByTaskCode" parameterClass="TimingTaskInfo" resultMap="proc_TimingTask_FindOne_Result" >
+            SELECT * FROM [tb_TimingTask] T WHERE [ApplicationId] = #ApplicationId# AND [TaskCode] = #TaskCode#
+        </select>
+
+        <select id="proc_TimingTask_FindAll" resultMap="proc_TimingTask_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_TimingTask] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_TimingTask_GetPages" resultMap="proc_TimingTask_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_TimingTask] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_TimingTask_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_TimingTask] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_TimingTask_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM [tb_TimingTask] T WHERE $WhereClause$
+        </select>
+
+    </statements>
+</sqlMap>

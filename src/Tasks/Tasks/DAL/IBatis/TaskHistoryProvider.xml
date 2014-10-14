@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Tasks.DAL.IBatis.TaskCateogryProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="TaskHistoryItemInfo" type="X3Platform.Tasks.Model.TaskHistoryItemInfo,X3Platform.Tasks" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Task_HistoryItem_FindOne_Result" class="TaskHistoryItemInfo">
+			<result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsRead" column="IsRead" />
+            <result property="FinishTime" column="FinishTime" />
+            <result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Task_HistoryItem_FindAll_Result" class="TaskHistoryItemInfo">
+			<result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsRead" column="IsRead" />
+            <result property="FinishTime" column="FinishTime" />
+            <result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+
+	<statements>
+		<insert id="proc_Task_HistoryItem_Insert" parameterClass="TaskHistoryItemInfo">
+			INSERT INTO [tb_Task_HistoryItem] 
+            (
+			    [Id],
+                [ApplicationId],
+                [TaskCode],
+                [Type],
+                [Title],
+                [Content],
+                [Tags],
+                [SenderId],
+                [ReceiverId],
+                [Status],
+                [IsRead],
+                [FinishTime],
+			    [CreateDate]
+			)
+			VALUES
+			(
+			    #Id#,
+                #ApplicationId#,
+                #TaskCode#,
+                #Type#,
+                #Title#,
+                #Content#,
+                #Tags#,
+                #SenderId#,
+                #ReceiverId#,
+                #Status#,
+                #IsRead#,
+                '2000-01-01',
+			    GetDate()
+			)
+		</insert>
+
+		<update id="proc_Task_HistoryItem_Update" parameterClass="TaskHistoryItemInfo">
+			UPDATE [tb_Task_HistoryItem] SET
+            
+                ApplicationId = #ApplicationId#,
+                TaskCode = #TaskCode#,
+                Type = #Type#,
+                Title = #Title#,
+                Content = #Content#,
+                Tags = #Tags#,
+                SenderId = #SenderId#,
+                ReceiverId = #ReceiverId#,
+                Status = #Status#,
+                IsRead = #IsRead#,
+                FinishTime = #FinishTime#
+            
+			WHERE [Id] = #Id# AND ReceiverId = #ReceiverId#
+		</update>
+
+		<insert id="proc_Task_HistoryItem_Save" parameterClass="TaskHistoryItemInfo">
+			IF EXISTS(SELECT 0 FROM [tb_Task_HistoryItem] WHERE [Id] = #Id# AND ReceiverId = #ReceiverId#)
+			BEGIN
+		        UPDATE [tb_Task_HistoryItem] SET
+            
+                    ApplicationId = #ApplicationId#,
+                    TaskCode = #TaskCode#,
+                    Type = #Type#,
+                    Title = #Title#,
+                    Content = #Content#,
+                    Tags = #Tags#,
+                    SenderId = #SenderId#,
+                    ReceiverId = #ReceiverId#,
+                    Status = #Status#,
+                    IsRead = #IsRead#,
+                    FinishTime = #FinishTime#
+            
+			    WHERE [Id] = #Id# AND ReceiverId = #ReceiverId#
+		    END
+			ELSE
+			BEGIN
+			    INSERT INTO [tb_Task_HistoryItem] 
+                (
+			        [Id],
+                    [ApplicationId],
+                    [TaskCode],
+                    [Type],
+                    [Title],
+                    [Content],
+                    [Tags],
+                    [SenderId],
+                    [ReceiverId],
+                    [Status],
+                    [IsRead],
+                    [FinishTime],
+			        [CreateDate]
+			    )
+			    VALUES
+			    (
+			        #Id#,
+                    #ApplicationId#,
+                    #TaskCode#,
+                    #Type#,
+                    #Title#,
+                    #Content#,
+                    #Tags#,
+                    #SenderId#,
+                    #ReceiverId#,
+                    #Status#,
+                    #IsRead#,
+                    '2000-01-01',
+			        GetDate()
+			    )
+            END
+		</insert>
+
+		<delete id="proc_Task_HistoryItem_Delete">
+            DELETE FROM [tb_Task_HistoryItem] WHERE $WhereClause$
+		</delete>
+
+		<select id="proc_Task_HistoryItem_FindOne" resultMap="proc_Task_HistoryItem_FindOne_Result" >
+			SELECT * FROM [tb_Task_HistoryItem] WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Task_HistoryItem_GetPages" resultMap="proc_Task_HistoryItem_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+			FROM [tb_Task_HistoryItem] T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Task_HistoryItem_GetRowCount" >
+			SELECT COUNT(1) AS 'RowCount' FROM [tb_Task_HistoryItem] T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Task_HistoryItem_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Task_HistoryItem] T WHERE $WhereClause$
+		</select>
+	</statements>
+</sqlMap>
