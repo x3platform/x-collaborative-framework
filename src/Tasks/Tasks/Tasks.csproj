@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9073B99C-92F4-4BA7-9089-128241A01920}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>X3Platform.Tasks</RootNamespace>
+    <AssemblyName>X3Platform.Tasks</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\X3Platform.Tasks.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
+    <OutputPath>bin\longfor\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
+    <OutputPath>bin\junfa\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Spring.Core">
+      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Apps">
+      <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Membership">
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Services">
+      <HintPath>..\..\..\bin\X3Platform.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Storages">
+      <HintPath>..\..\..\bin\X3Platform.Storages.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Velocity">
+      <HintPath>..\..\..\bin\X3Platform.Velocity.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Web">
+      <HintPath>..\..\..\bin\X3Platform.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Ajax\TaskCategoryWrapper.cs" />
+    <Compile Include="Ajax\TaskHistoryWrapper.cs" />
+    <Compile Include="Ajax\TimingTaskWrapper.cs" />
+    <Compile Include="BLL\TaskCategoryService.cs" />
+    <Compile Include="BLL\TaskHistoryService.cs" />
+    <Compile Include="BLL\TimingTaskReceiverService.cs" />
+    <Compile Include="BLL\TimingTaskService.cs" />
+    <Compile Include="Configuration\TasksConfiguration.cs" />
+    <Compile Include="Configuration\TasksConfigurationView.cs" />
+    <Compile Include="Customize\TaskWidget.cs" />
+    <Compile Include="DAL\IBatis\TaskCategoryProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskHistoryProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskReceiverProvider.cs" />
+    <Compile Include="Ajax\TaskWrapper.cs" />
+    <Compile Include="Ajax\TaskReadingWrapper.cs" />
+    <Compile Include="Ajax\TaskReceiverWrapper.cs" />
+    <Compile Include="BLL\TaskService.cs" />
+    <Compile Include="DAL\IBatis\TimingTaskProvider.cs" />
+    <Compile Include="DAL\IBatis\TimingTaskReceiverProvider.cs" />
+    <Compile Include="DAL\MySQL\TaskCategoryProvider.cs" />
+    <Compile Include="DAL\MySQL\TaskHistoryProvider.cs" />
+    <Compile Include="DAL\SQLServer\TaskCategoryProvider.cs" />
+    <Compile Include="DAL\SQLServer\TaskHistoryProvider.cs" />
+    <Compile Include="DAL\SQLServer\TaskProvider.cs" />
+    <Compile Include="DAL\SQLServer\TaskReceiverProvider.cs" />
+    <Compile Include="DAL\SQLServer\TimingTaskProvider.cs" />
+    <Compile Include="DAL\SQLServer\TimingTaskReceiverProvider.cs" />
+    <Compile Include="DAL\MySQL\TaskProvider.cs" />
+    <Compile Include="DAL\MySQL\TaskReceiverProvider.cs" />
+    <Compile Include="DAL\MySQL\TimingTaskProvider.cs" />
+    <Compile Include="DAL\MySQL\TimingTaskReceiverProvider.cs" />
+    <Compile Include="IBLL\ITaskCategoryService.cs" />
+    <Compile Include="IBLL\ITaskHistoryService.cs" />
+    <Compile Include="IBLL\ITimingTaskReceiverService.cs" />
+    <Compile Include="IBLL\ITimingTaskService.cs" />
+    <Compile Include="IDAL\ITaskCategoryProvider.cs" />
+    <Compile Include="IDAL\ITaskHistoryProvider.cs" />
+    <Compile Include="IDAL\ITimingTaskProvider.cs" />
+    <Compile Include="IDAL\ITimingTaskReceiverProvider.cs" />
+    <Compile Include="IServiceContracts\ITaskWebService.cs" />
+    <Compile Include="Model\TaskCategoryInfo.cs" />
+    <Compile Include="Model\TaskHistoryItemInfo.cs" />
+    <Compile Include="Model\TimingTaskInfo.cs" />
+    <Compile Include="Model\TimingTaskReceiverInfo.cs" />
+    <Compile Include="Model\TaskWorkItemInfo.cs" />
+    <Compile Include="Model\TaskWaitingItemInfo.cs" />
+    <Compile Include="MSMQ\TaskQueue.cs" />
+    <Compile Include="ServiceObservers\TaskServiceObserver.cs" />
+    <Compile Include="TasksContext.cs" />
+    <Compile Include="IBLL\ITaskService.cs" />
+    <Compile Include="IBLL\ITaskReceiverService.cs" />
+    <Compile Include="IDAL\ITaskProvider.cs" />
+    <Compile Include="IDAL\ITaskReceiverProvider.cs" />
+    <Compile Include="Model\TaskInfo.cs" />
+    <Compile Include="Model\TaskReceiverInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BLL\TaskReceiverService.cs" />
+    <Compile Include="Proxy\TaskProxy.cs">
+    </Compile>
+    <Compile Include="ServiceContracts\TaskWebService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\TaskCategoryProvider.xml">
+      <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\TaskHistoryProvider.xml">
+      <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\TaskCategoryProvider.xml">
+      <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\TaskHistoryProvider.xml">
+      <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\SQLServer\TaskCategoryProvider.xml">
+      <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\SQLServer\TaskHistoryProvider.xml">
+      <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\SQLServer\TaskProvider.xml">
+      <DependentUpon>TaskProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\SQLServer\TaskReceiverProvider.xml">
+      <DependentUpon>TaskReceiverProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\SQLServer\TimingTaskProvider.xml">
+      <DependentUpon>TimingTaskProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\SQLServer\TimingTaskReceiverProvider.xml">
+      <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\TaskProvider.xml">
+      <DependentUpon>TaskProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\TaskReceiverProvider.xml">
+      <DependentUpon>TaskReceiverProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\TimingTaskProvider.xml">
+      <DependentUpon>TimingTaskProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\TimingTaskReceiverProvider.xml">
+      <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="db\任务管理初始化脚本%28SQLServer%29.sql" />
+    <Content Include="db\任务管理初始化脚本%28MySQL%29.sql" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\X3Platform.Tasks.IBatis.SqlMap.config" />
+    <Content Include="DAL\IBatis\TimingTaskProvider.xml">
+      <DependentUpon>TimingTaskProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\TimingTaskReceiverProvider.xml">
+      <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\TaskReceiverProvider.xml">
+      <DependentUpon>TaskReceiverProvider.cs</DependentUpon>
+    </Content>
+    <None Include="build.publish.bat" />
+    <Content Include="config\MySQL\X3Platform.Tasks.IBatis.SqlMap.config" />
+    <None Include="config\MySQL\X3Platform.Tasks.Spring.config" />
+    <Content Include="config\SQLServer\X3Platform.Tasks.IBatis.SqlMap.config" />
+    <None Include="config\SQLServer\X3Platform.Tasks.Spring.config" />
+    <None Include="config\X3Platform.Tasks.config" />
+    <None Include="config\X3Platform.Tasks.Spring.config" />
+    <Content Include="DAL\IBatis\TaskProvider.xml">
+      <DependentUpon>TaskProvider.cs</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
