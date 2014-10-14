@@ -8,7 +8,7 @@ node_modules
 
 # 临时文件
 *.suo
-*.suo
+*.user
 
 # 文件
 App.config

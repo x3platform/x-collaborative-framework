@@ -1,0 +1,528 @@
+﻿#region Copyright & Author
+// =============================================================================
+//
+// Copyright (c) ruanyu@live.com
+//
+// FileName     :
+//
+// Description  :
+//
+// Author       :ruanyu@x3platfrom.com
+//
+// Date         :2010-01-01
+//
+// =============================================================================
+#endregion
+
+namespace X3Platform.Tasks.BLL
+{
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+
+    using X3Platform.CacheBuffer;
+    using X3Platform.Configuration;
+    using X3Platform.Messages;
+    using X3Platform.Spring;
+    using X3Platform.Util;
+
+    using X3Platform.Tasks.Configuration;
+    using X3Platform.Tasks.IBLL;
+    using X3Platform.Tasks.IDAL;
+    using X3Platform.Tasks.Model;
+    using X3Platform.Tasks.MSMQ;
+    #endregion
+
+    /// <summary>任务服务</summary>
+    public class TaskService : ContextBoundObject, ITaskService
+    {
+        /// <summary>数据提供器</summary>
+        private ITaskProvider provider = null;
+
+        private TasksConfiguration configuration = null;
+
+        private Dictionary<string, TaskInfo> Dictionary = new Dictionary<string, TaskInfo>();
+
+        private DateTime actionTime = DateTime.Now;
+
+        /// <summary>任务队列</summary>
+        private TaskQueue queue = new TaskQueue();
+
+        #region 构造函数:TaskService()
+        /// <summary>构造函数:TaskService()</summary>
+        public TaskService()
+        {
+            configuration = TasksConfigurationView.Instance.Configuration;
+
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(TasksConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据提供器
+            provider = objectBuilder.GetObject<ITaskProvider>(typeof(ITaskProvider));
+        }
+        #endregion
+
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
+        ///<param name="id">任务标识</param>
+        /// <returns></returns>
+        public TaskInfo this[string id]
+        {
+            get { return this.FindOne(id); }
+        }
+        #endregion
+
+        #region 索引:this[string applicationId, string taskCode]
+        /// <summary>索引</summary>
+        ///<param name="applicationId">应用系统的标识</param>
+        ///<param name="taskCode">任务编码</param>
+        /// <returns></returns>
+        public TaskInfo this[string applicationId, string taskCode]
+        {
+            get { return this.FindOneByTaskCode(applicationId, taskCode); }
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 添加 删除 修改
+        // -------------------------------------------------------
+
+        #region 函数:Save(TaskInfo param)
+        ///<summary>保存记录</summary>
+        ///<param name="param"> 实例<see cref="TaskInfo"/>详细信息</param>
+        ///<returns>TaskInfo 实例详细信息</returns>
+        public TaskInfo Save(TaskInfo param)
+        {
+            if (string.IsNullOrEmpty(param.ApplicationId))
+            {
+                throw new ArgumentException("没有应用标识信息，请填写此任务所属的应用标识。");
+            }
+
+            if (string.IsNullOrEmpty(param.TaskCode))
+            {
+                throw new ArgumentException("没有任务编码信息，请填写此任务的编码。");
+            }
+
+            if (string.IsNullOrEmpty(param.Title))
+            {
+                throw new ArgumentException("没有任务标题信息，请填写此任务的标题。");
+            }
+
+            if (param.ReceiverGroup.Count == 0)
+            {
+                throw new ArgumentException("没有任何接收人数据，请确认此任务信息的接收人数据。");
+            }
+
+            if (string.IsNullOrEmpty(param.Id))
+            {
+                param.Id = StringHelper.ToGuid();
+            }
+
+            // 设置待办信息内容 
+            param.Content = param.Content.Trim();
+
+            if (param.Content.IndexOf("http://") == 0 || param.Content.IndexOf("https://") == 0)
+            {
+                // 内容为完整的Url地址的数据不处理。
+            }
+            else
+            {
+                string prefixTargetUrl = TasksConfigurationView.Instance.PrefixTargetUrl;
+
+                if (!string.IsNullOrEmpty(prefixTargetUrl))
+                {
+                    prefixTargetUrl = prefixTargetUrl.TrimEnd(new char[] { '/' });
+
+                    // 第一个字符不为 / 。
+                    if (param.Content.IndexOf("/") != 0)
+                    {
+                        param.Content = "/" + param.Content;
+                    }
+
+                    param.Content = prefixTargetUrl + param.Content;
+                }
+            }
+
+            param = StringHelper.ToSafeXSS<TaskInfo>(param);
+
+            // 如果消息队列可用，则将数据发送到队列。
+            if (TasksConfigurationView.Instance.MessageQueueMode == "ON" && queue.Enabled)
+            {
+                queue.Send(param);
+
+                return param;
+            }
+            else
+            {
+                return provider.Save(param);
+            }
+        }
+        #endregion
+
+        #region 函数:Delete(string ids)
+        ///<summary>删除记录</summary>
+        ///<param name="ids">实例的标识信息,多个以逗号分开.</param>
+        public void Delete(string ids)
+        {
+            string[] keys = ids.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string key in keys)
+            {
+                if (Dictionary.ContainsKey(key))
+                {
+                    Dictionary.Remove(key);
+                }
+            }
+
+            provider.Delete(ids);
+        }
+        #endregion
+
+        #region 函数:DeleteByTaskCode(string applicationId, string taskCode)
+        ///<summary>删除记录</summary>
+        ///<param name="applicationId">应用系统的标识</param>
+        ///<param name="taskCode">任务编码</param>
+        public void DeleteByTaskCode(string applicationId, string taskCode)
+        {
+            TaskInfo param = FindOneByTaskCode(applicationId, taskCode);
+
+            if (param != null)
+            {
+                if (Dictionary.ContainsKey(param.Id))
+                {
+                    Dictionary.Remove(param.Id);
+                }
+
+                provider.DeleteByTaskCode(applicationId, taskCode);
+            }
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 查询
+        // -------------------------------------------------------
+
+        #region 函数:FindOne(string id)
+        ///<summary>查询某条记录</summary>
+        ///<param name="id">任务标识</param>
+        ///<returns>返回一个 TaskInfo 实例的详细信息</returns>
+        public TaskInfo FindOne(string id)
+        {
+            TaskInfo param = null;
+
+            if (Dictionary.ContainsKey(id))
+            {
+                param = Dictionary[id];
+            }
+            else
+            {
+                param = provider.FindOne(id);
+
+                if (param != null)
+                {
+                    Dictionary.Add(param.Id, param);
+                }
+            }
+
+            return param;
+        }
+        #endregion
+
+        #region 函数:FindOneByTaskCode(string applicationId, string taskCode)
+        ///<summary>查询某条记录</summary>
+        ///<param name="applicationId">应用系统的标识</param>
+        ///<param name="taskCode">任务编码</param>
+        ///<returns>返回一个 TaskInfo 实例的详细信息</returns>
+        public TaskInfo FindOneByTaskCode(string applicationId, string taskCode)
+        {
+            TaskInfo param = provider.FindOneByTaskCode(applicationId, taskCode);
+
+            if (param != null)
+            {
+                param = this[param.Id];
+            }
+
+            return param;
+        }
+        #endregion
+
+        #region 函数:FindAll()
+        ///<summary>查询所有相关记录</summary>
+        ///<returns>返回所有 TaskInfo 实例的详细信息</returns>
+        public IList<TaskInfo> FindAll()
+        {
+            return FindAll(string.Empty, 0);
+        }
+        #endregion
+
+        #region 函数:FindAll(string whereClause)
+        ///<summary>查询所有相关记录</summary>
+        ///<param name="whereClause">SQL 查询条件</param>
+        ///<returns>返回所有 TaskInfo 实例的详细信息</returns>
+        public IList<TaskInfo> FindAll(string whereClause)
+        {
+            return FindAll(whereClause, 0);
+        }
+        #endregion
+
+        #region 函数:FindAll(string whereClause,int length)
+        ///<summary>查询所有相关记录</summary>
+        ///<param name="whereClause">SQL 查询条件</param>
+        ///<param name="length">条数</param>
+        ///<returns>返回所有 TaskInfo 实例的详细信息</returns>
+        public IList<TaskInfo> FindAll(string whereClause, int length)
+        {
+            IList<TaskInfo> list = provider.FindAll(whereClause, length);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (Dictionary.ContainsKey(list[i].Id))
+                {
+                    list[i] = Dictionary[list[i].Id];
+                }
+            }
+
+            return list;
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 自定义
+        // -------------------------------------------------------
+
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="TaskInfo"/></returns>
+        public IList<TaskInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        {
+            return provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+        }
+        #endregion
+
+        #region 函数:IsExist(string id)
+        ///<summary>查询是否存在相关的记录</summary>
+        ///<param name="id">标识</param>
+        ///<returns>布尔值</returns>
+        public bool IsExist(string id)
+        {
+            return provider.IsExist(id);
+        }
+        #endregion
+
+        #region 函数:IsExistTaskCode(string applicationId, string taskCode)
+        ///<summary>查询是否存在相关的记录</summary>
+        ///<param name="applicationId">应用系统的标识</param>
+        ///<param name="taskCode">任务编码</param>
+        ///<returns>布尔值</returns>
+        public bool IsExistTaskCode(string applicationId, string taskCode)
+        {
+            return provider.IsExistTaskCode(applicationId, taskCode);
+        }
+        #endregion
+
+        #region 函数:Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId)
+        /// <summary>发送一对一的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者</param>
+        /// <param name="receiverId">接收者</param>
+        public void Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId)
+        {
+            TaskInfo task = new TaskInfo();
+
+            task.Id = StringHelper.ToGuid();
+
+            task.ApplicationId = applicationId;
+            task.TaskCode = taskCode;
+            task.Title = title;
+            task.Content = content;
+            task.Type = type;
+            task.Tags = tags;
+            task.SenderId = senderId;
+
+            if (!string.IsNullOrEmpty(receiverId))
+            {
+                task.AddReceiver(receiverId);
+            }
+
+            task.CreateDate = DateTime.Now;
+
+            Save(task);
+        }
+        #endregion
+
+        #region 函数:SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds)
+        /// <summary>发送一对多的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者</param>
+        /// <param name="receiverIds">接收者</param>
+        public void SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds)
+        {
+            TaskInfo task = new TaskInfo();
+
+            task.Id = StringHelper.ToGuid();
+
+            task.ApplicationId = applicationId;
+            task.TaskCode = taskCode;
+            task.Title = title;
+            task.Content = content;
+            task.Type = type;
+            task.Tags = tags;
+            task.SenderId = senderId;
+
+            string[] keys = receiverIds.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string key in keys)
+            {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    task.AddReceiver(key);
+                }
+            }
+
+            task.CreateDate = DateTime.Now;
+
+            Save(task);
+        }
+        #endregion
+
+        #region 函数:AsyncReceive()
+        /// <summary>异步接收待办信息</summary>
+        public void AsyncReceive()
+        {
+            IMessageObject message = this.queue.Receive();
+
+            while (message != null)
+            {
+                if (message is TaskInfo)
+                {
+                    try
+                    {
+                        this.provider.Save((TaskInfo)message);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.queue.Send(message);
+
+                        throw ex;
+                    }
+                }
+
+                message = this.queue.Receive();
+            }
+        }
+        #endregion
+
+        #region 函数:SetTitle(string applicationId, string taskCode, string title)
+        /// <summary>设置任务标题</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="title">任务标题</param>
+        public void SetTitle(string applicationId, string taskCode, string title)
+        {
+            provider.SetTitle(applicationId, taskCode, title);
+        }
+        #endregion
+
+        #region 函数:SetFinished(string applicationId, string taskCode)
+        /// <summary>设置任务完成</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编号</param>
+        public void SetFinished(string applicationId, string taskCode)
+        {
+            provider.SetFinished(applicationId, taskCode);
+        }
+        #endregion
+
+        #region 函数:GetTaskTags()
+        /// <summary></summary>
+        /// <returns></returns>
+        public IList<string> GetTaskTags()
+        {
+            return provider.GetTaskTags(string.Empty);
+        }
+        #endregion
+
+        #region 函数:GetTaskTags(string key)
+        /// <summary></summary>
+        public IList<string> GetTaskTags(string key)
+        {
+            return provider.GetTaskTags(key);
+        }
+        #endregion
+
+        #region 函数:GetIdsByTaskCodes(string applicationId,string taskCodes)
+        /// <summary>将任务编号转换为标识信息</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCodes">任务编号,多个以逗号分开</param>
+        public string GetIdsByTaskCodes(string applicationId, string taskCodes)
+        {
+            return provider.GetIdsByTaskCodes(applicationId, taskCodes);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 归档、删除某一时段的待办记录
+        // -------------------------------------------------------
+
+        #region 函数:Archive()
+        /// <summary>将已完成的待办归档到历史数据表</summary>
+        public int Archive()
+        {
+            return this.Archive(DateTime.Now);
+        }
+        #endregion
+
+        #region 函数:Archive(DateTime archiveDate)
+        /// <summary>将归档日期之前已完成的待办归档到历史数据表</summary>
+        ///<param name="archiveDate">归档日期</param>
+        public int Archive(DateTime archiveDate)
+        {
+            return this.provider.Archive(archiveDate);
+        }
+        #endregion
+
+        #region 函数:RemoveUnfinishedWorkItems(DateTime expireDate)
+        ///<summary>删除过期时间之前未完成的工作项记录</summary>
+        ///<param name="expireDate">过期时间</param>
+        public void RemoveUnfinishedWorkItems(DateTime expireDate)
+        {
+            this.provider.RemoveUnfinishedWorkItems(expireDate);
+        }
+        #endregion
+
+        #region 函数:RemoveWorkItems(DateTime expireDate)
+        ///<summary>删除过期时间之前的工作项记录</summary>
+        ///<param name="expireDate">过期时间</param>
+        public void RemoveWorkItems(DateTime expireDate)
+        {
+            this.provider.RemoveWorkItems(expireDate);
+        }
+        #endregion
+
+        #region 函数:RemoveHistoryItems(DateTime expireDate)
+        ///<summary>删除过期时间之前的历史记录</summary>
+        ///<param name="expireDate">过期时间</param>
+        public void RemoveHistoryItems(DateTime expireDate)
+        {
+            this.provider.RemoveHistoryItems(expireDate);
+        }
+        #endregion
+    }
+}

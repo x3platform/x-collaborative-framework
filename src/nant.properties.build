@@ -22,14 +22,16 @@
         <property name="framework.version" value="NET40" />
     </if>
     <property name="platform.name" value="${platform::get-name()}" />
-    <!-- 读取环境变量路径 -->
-    <property name="path.windows" value="${environment::get-variable('windir')}/" />
-    <property name="path.programFiles" value="${environment::get-variable('ProgramFiles')}/" />
-    <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles')}/" />
-    <if test="${directory::exists(environment::get-variable('ProgramFiles') + ' (x86)')}">
-        <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles') + ' (x86)'}/" />
+    <if test="${platform::is-windows() }">
+        <!-- 读取环境变量路径 -->
+        <!-- <property name="path.windows" value="${environment::get-variable('windir')}/" /> -->
+        <property name="path.programFiles" value="${environment::get-variable('ProgramFiles')}/" />
+        <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles')}/" />
+        <if test="${directory::exists(environment::get-variable('ProgramFiles') + ' (x86)')}">
+            <property name="path.programFiles86" value="${environment::get-variable('ProgramFiles') + ' (x86)'}/" />
+        </if>
+        <property name="path.referenceAssemblies" value="${path.programFiles86}Reference Assemblies/" />
     </if>
-    <property name="path.referenceAssemblies" value="${path.programFiles86}Reference Assemblies/" />
     <!-- 开发框架 系统目录 -->
     <property name="framework.assemblyDirectory" value="${framework::get-assembly-directory(framework::get-target-framework())}/" />
     <!-- 开发框架 名称空间 -->

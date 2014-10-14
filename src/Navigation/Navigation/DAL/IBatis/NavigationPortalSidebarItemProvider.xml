@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Navigation.DAL.IBatis.NavigationPortalSidebarItemProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="NavigationPortalSidebarItemInfo" type="X3Platform.Navigation.Model.NavigationPortalSidebarItemInfo,X3Platform.Navigation" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Navigation_Portal_SidebarItem_FindOne_Result" class="NavigationPortalSidebarItemInfo">
+			<result property="Id" column="Id" />
+			<result property="ParentId" column="ParentId" />
+			<result property="SidebarItemGroupId" column="SidebarItemGroupId" />
+			<result property="Text" column="Text" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="InheritTemplate" column="InheritTemplate" />
+			<result property="SidebarItemGroupTemplateId" column="SidebarItemGroupTemplateId" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Navigation_Portal_SidebarItem_FindAll_Result" class="NavigationPortalSidebarItemInfo">
+			<result property="Id" column="Id" />
+			<result property="ParentId" column="ParentId" />
+			<result property="SidebarItemGroupId" column="SidebarItemGroupId" />
+			<result property="Text" column="Text" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="InheritTemplate" column="InheritTemplate" />
+			<result property="SidebarItemGroupTemplateId" column="SidebarItemGroupTemplateId" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<insert id="proc_Navigation_Portal_SidebarItem_Insert" parameterClass="NavigationPortalSidebarItemInfo">
+			INSERT INTO [tb_Navigation_Portal_SidebarItem] 
+            (
+				[Id],
+				[ParentId],
+                [PortalId],
+				[SidebarItemGroupId],
+				[Text],
+				[Description],
+				[Url],
+				[InheritTemplate],
+				[SidebarItemGroupTemplateId],
+				[Target],
+                [IconPath],
+                [BigIconPath],
+				[OrderId],
+				[Status],
+				[Remark],
+				[UpdateDate],
+				[CreateDate]
+			)
+			VALUES
+			(
+				#Id#,
+				#ParentId#,
+                #PortalId#,
+				#SidebarItemGroupId#,
+				#Text#,
+				#Description#,
+				#Url#,
+				#InheritTemplate#,
+				#SidebarItemGroupTemplateId#,
+				#Target#,
+                #IconPath#,
+                #BigIconPath#,
+				#OrderId#,
+				#Status#,
+				#Remark#,
+				GetDate(),
+				GetDate()
+			)
+		</insert>
+
+		<update id="proc_Navigation_Portal_SidebarItem_Update" parameterClass="NavigationPortalSidebarItemInfo">
+			UPDATE [tb_Navigation_Portal_SidebarItem] SET
+
+				[ParentId] = #ParentId#,
+                [PortalId] = #PortalId#,
+				[SidebarItemGroupId] = #SidebarItemGroupId#,
+				[Text] = #Text#,
+				[Description] = #Description#,
+				[Url] = #Url#,
+				[InheritTemplate] = #InheritTemplate#,
+				[SidebarItemGroupTemplateId] = #SidebarItemGroupTemplateId#,
+				[Target] = #Target#,
+                [IconPath] = #IconPath#,
+                [BigIconPath] = #BigIconPath#,
+				[OrderId] = #OrderId#,
+				[Status] = #Status#,
+				[Remark] = #Remark#,
+				[UpdateDate] = GetDate()
+
+			WHERE [Id] = #Id#
+		</update>
+
+		<update id="proc_Navigation_Portal_SidebarItem_Delete" >
+			UPDATE [tb_Navigation_Portal_SidebarItem] SET [Status] = 2 WHERE $WhereClause$
+		</update>
+
+		<delete id="proc_Navigation_Portal_SidebarItem_Delete(PhysicallyRemoved)" >
+			DELETE FROM [tb_Navigation_Portal_SidebarItem] WHERE $WhereClause$
+		</delete>
+
+		<update id="proc_Navigation_Portal_SidebarItem_Delete(VirtualRemoved)" >
+			UPDATE [tb_Navigation_Portal_SidebarItem] SET [Status] = 0 WHERE $WhereClause$
+		</update>
+
+		<select id="proc_Navigation_Portal_SidebarItem_FindOne" resultMap="proc_Navigation_Portal_SidebarItem_FindOne_Result" >
+			SELECT * FROM [tb_Navigation_Portal_SidebarItem] T WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Navigation_Portal_SidebarItem_FindAll" resultMap="proc_Navigation_Portal_SidebarItem_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Navigation_Portal_SidebarItem] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Navigation_Portal_SidebarItem_GetPages" resultMap="proc_Navigation_Portal_SidebarItem_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+				FROM [tb_Navigation_Portal_SidebarItem] T
+
+				<dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+				</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+        <!-- SQL Server 2000 -->
+		<select id="proc_Navigation_Portal_SidebarItem_GetPages(SQLServer2000)" resultMap="proc_Navigation_Portal_SidebarItem_FindAll_Result" >
+			SELECT TOP $PageSize$ *
+
+			FROM [tb_Navigation_Portal_SidebarItem] T
+
+			WHERE Id NOT IN (
+				SELECT TOP $StartIndex$ Id FROM [tb_Navigation_Portal_SidebarItem] T
+				<dynamic prepend="WHERE">
+					<isParameterPresent>
+						<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+						</isNotEmpty>
+					</isParameterPresent>
+				</dynamic> ORDER BY $OrderBy$ )
+
+			<dynamic prepend="AND">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+			ORDER BY $OrderBy$
+		</select>
+
+        <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
+		<select id="proc_Navigation_Portal_SidebarItem_GetPages(SQLServer2008)" resultMap="proc_Navigation_Portal_SidebarItem_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+				FROM [tb_Navigation_Portal_SidebarItem] T
+
+				<dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+				</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Navigation_Portal_SidebarItem_GetRowCount" >
+			SELECT COUNT(0) AS 'RowCount' FROM [tb_Navigation_Portal_SidebarItem] T
+
+			<dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Navigation_Portal_SidebarItem_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Navigation_Portal_SidebarItem] T WHERE $WhereClause$
+		</select>
+	</statements>
+</sqlMap>
