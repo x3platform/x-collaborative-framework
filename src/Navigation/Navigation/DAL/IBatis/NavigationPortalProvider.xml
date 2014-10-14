@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Navigation.DAL.IBatis.NavigationPortalProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="NavigationPortalInfo" type="X3Platform.Navigation.Model.NavigationPortalInfo,X3Platform.Navigation" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Navigation_Portal_FindOne_Result" class="NavigationPortalInfo">
+			<result property="Id" column="Id" />
+			<result property="OrganizationId" column="OrganizationId" />
+			<result property="Text" column="Text" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="GroupId" column="GroupId" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Navigation_Portal_FindAll_Result" class="NavigationPortalInfo">
+			<result property="Id" column="Id" />
+			<result property="OrganizationId" column="OrganizationId" />
+			<result property="Text" column="Text" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="GroupId" column="GroupId" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<insert id="proc_Navigation_Portal_Insert" parameterClass="NavigationPortalInfo">
+			INSERT INTO [tb_Navigation_Portal] 
+            (
+					[Id],
+					[OrganizationId],
+					[Text],
+					[Description],
+					[Url],
+					[GroupId],
+					[Target],
+                    [IconPath],
+                    [BigIconPath],
+					[OrderId],
+					[Status],
+					[Remark],
+					[UpdateDate],
+					[CreateDate]
+				)
+				VALUES
+				(
+					#Id#,
+					#OrganizationId#,
+					#Text#,
+					#Description#,
+					#Url#,
+					#GroupId#,
+					#Target#,
+                    #IconPath#,
+                    #BigIconPath#,
+					#OrderId#,
+					#Status#,
+					#Remark#,
+					GetDate(),
+					GetDate()
+				)
+		</insert>
+
+		<update id="proc_Navigation_Portal_Update" parameterClass="NavigationPortalInfo">
+			UPDATE [tb_Navigation_Portal] SET
+
+					[Id] = #Id#,
+					[OrganizationId] = #OrganizationId#,
+					[Text] = #Text#,
+					[Description] = #Description#,
+					[Url] = #Url#,
+					[GroupId] = #GroupId#,
+					[Target] = #Target#,
+                    [IconPath] = #IconPath#,
+                    [BigIconPath] = #BigIconPath#,
+					[OrderId] = #OrderId#,
+					[Status] = #Status#,
+					[Remark] = #Remark#,
+					[UpdateDate] = GetDate()
+
+				WHERE [Id] = #Id#
+		</update>
+
+		<update id="proc_Navigation_Portal_Delete" >
+			UPDATE [tb_Navigation_Portal] SET [Status] = 2 WHERE $WhereClause$
+		</update>
+
+		<delete id="proc_Navigation_Portal_Delete(PhysicallyRemoved)" >
+			DELETE FROM [tb_Navigation_Portal] WHERE $WhereClause$
+		</delete>
+
+		<update id="proc_Navigation_Portal_Delete(VirtualRemoved)" >
+			UPDATE [tb_Navigation_Portal] SET [Status] = 0 WHERE $WhereClause$
+		</update>
+
+		<select id="proc_Navigation_Portal_FindOne" resultMap="proc_Navigation_Portal_FindOne_Result" >
+			SELECT * FROM [tb_Navigation_Portal] T WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Navigation_Portal_FindAll" resultMap="proc_Navigation_Portal_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Navigation_Portal] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Navigation_Portal_GetPages" resultMap="proc_Navigation_Portal_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+				FROM [tb_Navigation_Portal] T
+
+				<dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+				</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+        <!-- SQL Server 2000 -->
+		<select id="proc_Navigation_Portal_GetPages(SQLServer2000)" resultMap="proc_Navigation_Portal_FindAll_Result" >
+			SELECT TOP $PageSize$ *
+
+			FROM [tb_Navigation_Portal] T
+
+			WHERE Id NOT IN (
+				SELECT TOP $StartIndex$ Id FROM [tb_Navigation_Portal] T
+				<dynamic prepend="WHERE">
+					<isParameterPresent>
+						<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+						</isNotEmpty>
+					</isParameterPresent>
+				</dynamic> ORDER BY $OrderBy$ )
+
+			<dynamic prepend="AND">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+			ORDER BY $OrderBy$
+		</select>
+
+        <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
+		<select id="proc_Navigation_Portal_GetPages(SQLServer2008)" resultMap="proc_Navigation_Portal_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+				FROM [tb_Navigation_Portal] T
+
+				<dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+				</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Navigation_Portal_GetRowCount" >
+			SELECT COUNT(0) AS 'RowCount' FROM [tb_Navigation_Portal] T
+
+			<dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Navigation_Portal_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Navigation_Portal] T WHERE $WhereClause$
+		</select>
+	</statements>
+</sqlMap>

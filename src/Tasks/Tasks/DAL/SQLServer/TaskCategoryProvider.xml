@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Tasks.DAL.IBatis.TaskCateogryProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="TaskCategoryInfo" type="X3Platform.Tasks.Model.TaskCategoryInfo,X3Platform.Tasks" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Task_Category_FindOne_Result" class="TaskCategoryInfo">
+			<result property="Id" column="Id" />
+			<result property="AccountId" column="AccountId" />
+			<result property="AccountName" column="AccountName" />
+			<result property="CategoryIndex" column="CategoryIndex" />
+			<result property="Description" column="Description" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Task_Category_FindAll_Result" class="TaskCategoryInfo">
+			<result property="Id" column="Id" />
+			<result property="AccountId" column="AccountId" />
+			<result property="AccountName" column="AccountName" />
+			<result property="CategoryIndex" column="CategoryIndex" />
+			<result property="Description" column="Description" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+
+	<statements>
+		<insert id="proc_Task_Category_Insert" parameterClass="TaskCategoryInfo">
+			INSERT INTO [tb_Task_Category] 
+            (
+			    [Id],
+			    [AccountId],
+			    [AccountName],
+			    [CategoryIndex],
+			    [Description],
+			    [OrderId],
+			    [Status],
+			    [UpdateDate],
+			    [CreateDate]
+			)
+			VALUES
+			(
+			    #Id#,
+			    #AccountId#,
+			    #AccountName#,
+			    #CategoryIndex#,
+			    #Description#,
+			    #OrderId#,
+			    #Status#,
+			    GetDate(),
+			    GetDate()
+			)
+		</insert>
+
+		<update id="proc_Task_Category_Update" parameterClass="TaskCategoryInfo">
+			UPDATE [tb_Task_Category] SET
+
+                [CategoryIndex] = #CategoryIndex#,
+			    [Description] = #Description#,
+			    [OrderId] = #OrderId#,
+			    [Status] = #Status#,
+			    [UpdateDate] = GetDate()
+
+			WHERE [Id] = #Id#
+		</update>
+
+		<insert id="proc_Task_Category_Save" parameterClass="TaskCategoryInfo">
+			IF EXISTS(SELECT 0 FROM [tb_Task_Category] WHERE [Id] = #Id#)
+			BEGIN
+			    UPDATE [tb_Task_Category] SET
+
+                    [CategoryIndex] = #CategoryIndex#,
+			        [Description] = #Description#,
+			        [OrderId] = #OrderId#,
+			        [Status] = #Status#,
+			        [UpdateDate] = GetDate(),
+
+			    WHERE [Id] = #Id#
+            END
+			ELSE
+			BEGIN
+			    INSERT INTO [tb_Task_Category] 
+                (
+			        [Id],
+			        [AccountId],
+			        [AccountName],
+			        [CategoryIndex],
+			        [Description],
+			        [OrderId],
+			        [Status],
+			        [UpdateDate],
+			        [CreateDate]
+			    )
+			    VALUES
+			    (
+			        #Id#,
+			        #AccountId#,
+			        #AccountName#,
+			        #CategoryIndex#,
+			        #Description#,
+			        #OrderId#,
+			        #Status#,
+			        GetDate(),
+			        GetDate()
+			    )
+			END
+		</insert>
+
+		<select id="proc_Task_Category_CanDelete" >
+			SELECT COUNT(1) AS 'RowCount' FROM tb_Task_Mapping WHERE CategoryId = #CategoryId#
+		</select>
+
+		<delete id="proc_Task_Category_Delete">
+			UPDATE [tb_Task_Category] SET Status = 2, UpdateDate = GetDate() WHERE Id = #Id#
+		</delete>
+
+		<select id="proc_Task_Category_FindOne" resultMap="proc_Task_Category_FindOne_Result" >
+			SELECT * FROM [tb_Task_Category] WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Task_Category_FindAll" resultMap="proc_Task_Category_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Task_Category]
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Task_Category_GetPages" resultMap="proc_Task_Category_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+			FROM [tb_Task_Category] T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Task_Category_GetRowCount" >
+			SELECT COUNT(1) AS 'RowCount' FROM [tb_Task_Category] T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Task_Category_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Task_Category] T WHERE $WhereClause$
+		</select>
+
+		<update id="proc_Task_Category_SetStatus">
+			UPDATE [tb_Task_Category] SET Status = #Status#, UpdateDate = GetDate() WHERE Id = #Id#
+		</update>
+
+		<select id="proc_Task_Category_GetComboboxByWhereClause" >
+			SELECT CategoryIndex AS Text, CONVERT(nvarchar(36),Id) AS VALUE, OrderId FROM tb_Task_Category 
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+		</select>
+	</statements>
+</sqlMap>
