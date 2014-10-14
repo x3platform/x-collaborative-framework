@@ -93,9 +93,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts", "Plugins\Contact
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.TestSuite", "Plugins\Contacts\Contacts.TestSuite\Contacts.TestSuite.csproj", "{CAB0161C-DA35-4398-B831-23CBAB425731}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Support.TestSuite", "Kernel\Support.Tests\Support.TestSuite.csproj", "{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email.Client.Tests", "Email\Email.Client.Tests\Email.Client.Tests.csproj", "{6586AF2B-587F-4BFE-A239-8469E171D0C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Support.Tests", "Kernel\Support.Tests\Support.Tests.csproj", "{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -329,14 +329,6 @@ Global
 		{CAB0161C-DA35-4398-B831-23CBAB425731}.longfor|Any CPU.Build.0 = Release|Any CPU
 		{CAB0161C-DA35-4398-B831-23CBAB425731}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB0161C-DA35-4398-B831-23CBAB425731}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.junfa|Any CPU.ActiveCfg = Release|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.junfa|Any CPU.Build.0 = Release|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.longfor|Any CPU.ActiveCfg = Release|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.longfor|Any CPU.Build.0 = Release|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6586AF2B-587F-4BFE-A239-8469E171D0C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6586AF2B-587F-4BFE-A239-8469E171D0C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6586AF2B-587F-4BFE-A239-8469E171D0C9}.junfa|Any CPU.ActiveCfg = Release|Any CPU
@@ -345,6 +337,14 @@ Global
 		{6586AF2B-587F-4BFE-A239-8469E171D0C9}.longfor|Any CPU.Build.0 = Release|Any CPU
 		{6586AF2B-587F-4BFE-A239-8469E171D0C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6586AF2B-587F-4BFE-A239-8469E171D0C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.junfa|Any CPU.ActiveCfg = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.junfa|Any CPU.Build.0 = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.longfor|Any CPU.ActiveCfg = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.longfor|Any CPU.Build.0 = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
