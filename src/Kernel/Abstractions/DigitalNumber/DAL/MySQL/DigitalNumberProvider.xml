@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.DigitalNumber.DAL.IBatis.DigitalNumberProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="DigitalNumberInfo" type="X3Platform.DigitalNumber.Model.DigitalNumberInfo,X3Platform.Abstractions" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_DigitalNumber_FindOne_Result" class="DigitalNumberInfo">
+            <result property="Name" column="Name" />
+            <result property="Expression" column="Expression" />
+            <result property="Seed" column="Seed" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_DigitalNumber_FindAll_Result" class="DigitalNumberInfo">
+            <result property="Name" column="Name" />
+            <result property="Expression" column="Expression" />
+            <result property="Seed" column="Seed" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_DigitalNumber_Insert" parameterClass="DigitalNumberInfo">
+            INSERT INTO `tb_DigitalNumber` 
+            (
+                `Name`,
+                `Expression`,
+                `Seed`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Name#,
+                #Expression#,
+                #Seed#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_DigitalNumber_Update" parameterClass="DigitalNumberInfo">
+            UPDATE `tb_DigitalNumber` SET
+
+                `Expression` = #Expression#,
+                `Seed` = #Seed#,
+                `UpdateDate` = Now()
+
+            WHERE `Name` = #Name#
+        </update>
+        <insert id="proc_DigitalNumber_Save" parameterClass="DigitalNumberInfo">
+            IF EXISTS(SELECT 0 FROM `tb_DigitalNumber` WHERE `Name` = #Name#)
+            BEGIN
+                UPDATE `tb_DigitalNumber` SET
+
+                    `Expression` = #Expression#,
+                    `Seed` = #Seed#,
+                    `UpdateDate` = Now()
+
+                WHERE `Name` = #Name#
+            END
+            ELSE
+            BEGIN
+                INSERT INTO `tb_DigitalNumber`
+                (
+                    `Name`,
+                    `Expression`,
+                    `Seed`,
+                    `UpdateDate`,
+                    `CreateDate`
+                )
+                VALUES
+                (
+                    #Name#,
+                    #Expression#,
+                    #Seed#,
+                    Now(),
+                    Now()
+                )
+            END
+        </insert>
+        <delete id="proc_DigitalNumber_Delete" >
+            DELETE FROM `tb_DigitalNumber` WHERE Name = $Name$
+        </delete>
+        <select id="proc_DigitalNumber_FindOne" resultMap="proc_DigitalNumber_FindOne_Result" >
+            SELECT * FROM `tb_DigitalNumber` WHERE `Name` = #Name#
+        </select>
+
+        <select id="proc_DigitalNumber_FindAll" resultMap="proc_DigitalNumber_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM `tb_DigitalNumber` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_DigitalNumber_GetPages" resultMap="proc_DigitalNumber_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `tb_DigitalNumber` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_DigitalNumber_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_DigitalNumber` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_DigitalNumber_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_DigitalNumber` T WHERE $WhereClause$
+        </select>
+        
+        <select id="proc_DigitalNumber_GetMaxSeedByPrefix" >
+            SELECT 
+                IF( COUNT(0)>0,
+                    (SELECT CAST(MAX(REPLACE(Code, '$Prefix$', '')) AS SIGNED) FROM `$EntityTableName$` WHERE Code LIKE '$Prefix$%'),
+                    0
+                ) AS MaxCode 
+            FROM `$EntityTableName$`
+            WHERE Code LIKE '$Prefix$%' ;
+        </select>
+
+        <select id="proc_DigitalNumber_GetPrefixCodeByCategoryId" >
+            SELECT PrefixCode FROM `$EntityCategoryTableName$` T WHERE Id = '$EntityCategoryId$'
+        </select>
+
+    </statements>
+</sqlMap>

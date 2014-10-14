@@ -1,0 +1,58 @@
+﻿// =============================================================================
+//
+// Copyright (c) x3platfrom.com
+//
+// FileName     :IAuthorizationObject.cs
+//
+// Description  :权限对象接口
+//
+// Author       :ruanyu@x3platfrom.com
+//
+// Date         :2010-01-01
+//
+// =============================================================================
+
+namespace X3Platform
+{
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>权限对象接口</summary>
+    public interface IAuthorizationObject : ISerializedObject
+    {
+        #region 属性:Type
+        /// <summary>类型</summary>
+        string Type { get; }
+        #endregion
+
+        #region 属性:Id
+        /// <summary>标识</summary>
+        string Id { get; set; }
+        #endregion
+
+        #region 属性:Name
+        /// <summary>名称</summary>
+        string Name { get; set; }
+        #endregion
+
+        #region 属性:Lock
+        /// <summary>防止意外删除 0 不锁定 | 1 锁定(默认)</summary>
+        int Lock { get; set; }
+        #endregion
+
+        #region 属性:Status
+        /// <summary>状态</summary>
+        int Status { get; set; }
+        #endregion
+
+        #region 属性:Remark
+        /// <summary>备注</summary>
+        string Remark { get; set; }
+        #endregion
+
+        #region 属性:UpdateDate
+        /// <summary>更新时间</summary>
+        DateTime UpdateDate { get; set; }
+        #endregion
+    }
+}

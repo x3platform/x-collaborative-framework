@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Support" default="Build" >
+    <description>Product 1.0 release build file for NAnt. By ruanyu@live.com</description>
+    <include buildfile="../../nant.properties.build" />
+    <!-- 解决方案根目录 -->
+    <property name="solution.dir" value="../../../" />
+    <!-- 项目名称 -->
+    <property name="project.name" value="Support Class Libraries" />
+    <!-- 程序集名称 -->
+    <property name="project.assembly.name" value="${framework.namespace}.Support" />
+    <!-- 项目根目录 -->
+    <property name="project.dir" value="." />
+    <!-- 是否允许调试 -->
+    <property name="code.debug" value="${framework.debug}" />
+    <!-- 目标输出根目录 -->
+    <if test="${framework.debug}">
+        <property name="code.define" value="DEBUG;TRACE;${framework.version}" />
+        <property name="code.optimize" value="false" />
+        <property name="project.target.dir" value="bin/Debug/" />
+    </if>
+    <ifnot test="${framework.debug}">
+        <property name="code.define" value="TRACE;${framework.version}" />
+        <property name="project.target.dir" value="bin/Release/" />
+        <property name="code.optimize" value="true" />
+    </ifnot>
+
+    <!-- 清理程序集 -->
+    <target name="Clean" >
+        <delete>
+            <fileset>
+                <include name="${project.target.dir}${project.assembly.name}.dll"/>
+                <include name="${project.target.dir}${project.assembly.name}.pdb"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- 编译程序集 -->
+    <target name="Compile" depends="Clean" >
+        <echo message="Compiling:${project.name}" />
+        <mkdir dir="${project.target.dir}" />
+        <!-- 编译目标文件 -->
+        <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" keyfile="../../Licence.snk" >
+            <references>
+                <!--<include name="${solution.dir}${framework.build.output}\**.dll" />-->
+                <include name="${framework.assemblyDirectory}System.dll" />
+                <include name="${framework.assemblyDirectory}System.Configuration.dll" />
+                <include name="${framework.assemblyDirectory}System.Data.dll" />
+                <include name="${framework.assemblyDirectory}System.EnterpriseServices.dll" />
+                <include name="${framework.assemblyDirectory}System.Management.dll" />
+                <include name="${framework.assemblyDirectory}System.Messaging.dll" />
+                <include name="${framework.assemblyDirectory}System.Web.dll" />
+                <include name="${framework.assemblyDirectory}System.Web.Extensions.dll" />
+                <include name="${framework.assemblyDirectory}System.Windows.Forms.dll" />
+                <include name="${framework.assemblyDirectory}System.Xml.dll" />
+                <include name="${path.programFiles86}Microsoft ASP.NET/ASP.NET MVC 3/Assemblies/System.Web.Mvc.dll" />
+                <include name="${solution.dir}lib/Common.Logging/Common.Logging.dll" />
+            </references>
+            <resources>
+                <!-- 嵌入的资源 -->
+                <include name="IBatis/DataAccess/DaoConfig.xsd" />
+                <include name="IBatis/DataMapper/SqlMap.xsd" />
+                <include name="IBatis/DataMapper/SqlMapConfig.xsd" />
+            </resources>
+            <sources>
+                <!-- 编译所有cs文件 -->
+                <!-- <include name="**/*.cs" /> -->
+                <include name="Properties/AssemblyInfo.cs" />
+                <include name="*.cs" />
+                <include name="Ajax/**/*.cs" />
+                <include name="CacheBuffer/ICacheable.cs" />
+                <include name="Collections/**/*.cs" />
+                <include name="CommandLine/**/*.cs" />
+                <include name="Configuration/**/*.cs" />
+                <include name="Data/**/*.cs" />
+                <include name="DynamicProxy/**/*.cs" />
+                <include name="IBatis/**/*.cs" />
+                <include name="Json/**/*.cs" />
+                <include name="Logging/**/*.cs" />
+                <include name="Messages/**/*.cs" />
+                <include name="Security/Encrypter.cs" />
+                <include name="Util/**/*.cs" />
+                <include name="Web/UrlRewriter/**/*.cs" />
+                <include name="Web/Util/**/*.cs" />
+                <include name="Yaml/**/*.cs" />
+                <include name="${project.dir}/../../GlobalAssemblyInfo.cs" />
+            </sources>
+        </csc>
+        <!-- 复制程序集文件到项目的build目录 -->
+        <copy todir="${solution.dir}${framework.build.output}" >
+            <fileset basedir="${project.target.dir}" >
+                <include name="${project.assembly.name}.dll"/>
+                <include name="${project.assembly.name}.pdb"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- 构建程序集 -->
+    <target name="Build" description="Build Project" >
+        <echo message="Parameters" />
+        <echo message="ProjectName:${project.name}" />
+        <echo message="AssemblyName:${project.assembly.name}" />
+        <call target="Compile" />
+    </target>
+</project>

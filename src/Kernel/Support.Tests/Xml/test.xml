@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<response>
+<root>
+<list>
+<id><![CDATA[5]]></id><date><![CDATA[2009-05-16 08:03:13]]></date><thread><![CDATA[Agent: adapter run thread for test TestWrite with id f7ba2c2b-69c2-4148-8c1f-16552fd543ce]]></thread>
+<level><![CDATA[WARN]]></level><message><![CDATA[warn]]></message>
+<exception><![CDATA[System.Exception]]></exception>
+
+<id><![CDATA[4]]></id><date><![CDATA[2009-05-16 08:03:13]]></date><thread><![CDATA[Agent: adapter run thread for test TestWrite with id f7ba2c2b-69c2-4148-8c1f-16552fd543ce]]></thread><level><![CDATA[DEBUG]]></level><message><![CDATA[debug]]></message><exception><![CDATA[System.Exception]]></exception><id><![CDATA[3]]></id><date><![CDATA[2009-05-16 08:03:13]]></date><thread><![CDATA[Agent: adapter run thread for test TestWrite with id f7ba2c2b-69c2-4148-8c1f-16552fd543ce]]></thread><level><![CDATA[INFO]]></level><message><![CDATA[info]]></message><exception><![CDATA[System.Exception]]></exception><id><![CDATA[2]]></id><date><![CDATA[2009-05-16 08:03:13]]></date><thread><![CDATA[Agent: adapter run thread for test TestWrite with id f7ba2c2b-69c2-4148-8c1f-16552fd543ce]]></thread><level><![CDATA[FATAL]]></level><message><![CDATA[fatal]]></message><exception><![CDATA[System.Exception: System.Exception: 发生了一个致命错误\u000d\u000a]]></exception><id><![CDATA[1]]></id><date><![CDATA[2009-05-16 08:03:13]]></date><thread><![CDATA[Agent: adapter run thread for test TestWrite with id f7ba2c2b-69c2-4148-8c1f-16552fd543ce]]></thread><level><![CDATA[ERROR]]></level><message><![CDATA[error]]></message><exception><![CDATA[System.Exception: System.Exception: 发生了一个异常\u000d\u000a]]></exception></list></root><message><returnCode><![CDATA[0]]></returnCode><value><![CDATA[查询成功。]]></value></message></response>
