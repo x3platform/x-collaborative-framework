@@ -78,9 +78,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -111,6 +108,7 @@
   <ItemGroup>
     <None Include="config\X3Platform.ActiveDirectory.config" />
     <EmbeddedResource Include="defaults\ActiveDirectory.yaml" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

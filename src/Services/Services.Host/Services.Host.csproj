@@ -108,7 +108,6 @@
     <Compile Include="ServicesManagement.Designer.cs">
       <DependentUpon>ServicesManagement.cs</DependentUpon>
     </Compile>
-    <Compile Include="SynchronizeContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -139,17 +138,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="build.publish.bat" />
-    <None Include="console.install.services.bat" />
-    <None Include="console.start.services.bat" />
-    <None Include="console.stop.services.bat" />
-    <None Include="console.uninstall.services.bat" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
