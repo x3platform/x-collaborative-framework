@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<project name="Web" default="Build" >
+<project name="Drawing.Captcha" default="Build" >
     <description>Product 1.0 release build file for NAnt. By ruanyu@live.com</description>
     <include buildfile="../../nant.properties.build" />
     <!-- 解决方案根目录 -->
     <property name="solution.dir" value="../../../" />
     <!-- 项目名称 -->
-    <property name="project.name" value="Web" />
+    <property name="project.name" value="Drawing Captcha" />
     <!-- 程序集名称 -->
-    <property name="project.assembly.name" value="${framework.namespace}.Web" />
+    <property name="project.assembly.name" value="${framework.namespace}.Drawing.Captcha" />
     <!-- 项目根目录 -->
     <property name="project.dir" value="." />
     <!-- 是否允许调试 -->
@@ -38,40 +38,29 @@
     <target name="Compile" depends="Clean" >
         <echo message="Compiling:${project.name}" />
         <mkdir dir="${project.target.dir}" />
-        <echo message="${solution.dir}${framework.build.output}${framework.namespace}.Web.UserAgents.dll" />
         <!-- 编译目标文件 -->
         <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" keyfile="../../Licence.snk" >
             <references>
                 <!--<include name="${solution.dir}${framework.build.output}\**.dll" />-->
                 <include name="${framework.assemblyDirectory}System.dll" />
-                <include name="${framework.assemblyDirectory}System.Configuration.dll" />
-                <include name="${framework.assemblyDirectory}System.Data.dll" />
-                <include name="${framework.assemblyDirectory}System.ServiceModel.dll" />
+                <include name="${framework.assemblyDirectory}System.Drawing.dll" />
                 <include name="${framework.assemblyDirectory}System.Web.dll" />
-                <include name="${framework.assemblyDirectory}System.Web.Services.dll" />
-                <include name="${framework.assemblyDirectory}System.Xml.dll" />
-                <include name="${solution.dir}lib/ASP.NET MVC 3/System.Web.Mvc.dll" />
                 <include name="${solution.dir}lib/Common.Logging/Common.Logging.dll" />
-                <include name="${solution.dir}lib/Spring.NET/Spring.Core.dll" />
                 <include name="${solution.dir}${framework.build.output}${framework.namespace}.Support.dll" />
                 <include name="${solution.dir}${framework.build.output}${framework.namespace}.Abstractions.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Services.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Velocity.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Storages.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Membership.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Apps.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Navigation.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Location.IPQuery.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Drawing.Captcha.dll" />
             </references>
             <resources>  
                 <!-- 嵌入的资源 -->  
-                <include name="defaults/*.properties" />  
-                <include name="UserAgents/defaults/*.properties" /> 
+                <include name="Runtime/Defaults/*.properties" />  
             </resources>  
             <sources>
                 <!-- 编译所有cs文件 -->
-                <include name="**/*.cs" />
+                <!-- <include name="**/*.cs" /> -->
+                <include name="*.cs" />
+                <include name="Configuration/*.cs" />
+                <include name="Fonts/*.cs" />
+                <include name="Utils/**/*.cs" />
+                <include name="Web/**/*.cs" />
                 <include name="${project.dir}/../../GlobalAssemblyInfo.cs" />
             </sources>
         </csc>
@@ -85,7 +74,7 @@
     </target>
 
     <!-- 构建程序集 -->
-    <target name="Build" description="构建解决项目" >
+    <target name="Build" description="Build Project" >
         <echo message="Parameters" />
         <echo message="ProjectName:${project.name}" />
         <echo message="AssemblyName:${project.assembly.name}" />

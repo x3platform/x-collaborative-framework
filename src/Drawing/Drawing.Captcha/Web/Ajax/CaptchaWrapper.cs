@@ -17,20 +17,11 @@
 namespace X3Platform.Membership.Ajax
 {
     #region Using Libraries
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Text;
-    using System.Xml;
 
-    using X3Platform.Ajax;
-    using X3Platform.DigitalNumber;
-    using X3Platform.Util;
-    using X3Platform.Membership.IBLL;
-    using X3Platform.Membership.Model;
+
     #endregion
 
     /// <summary></summary>
-    public sealed class RoleWrapper : ContextWrapper
+    public sealed class CaptchaWrapper : ContextWrapper
     {}
 }
