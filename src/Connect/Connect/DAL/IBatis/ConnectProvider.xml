@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Connect.DAL.IBatis.ConnectProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ConnectInfo" type="X3Platform.Connect.Model.ConnectInfo, X3Platform.Connect" />
+        <typeAlias alias="ConnectQueryInfo" type="X3Platform.Connect.Model.ConnectQueryInfo, X3Platform.Connect" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Connect_FindOne_Result" class="ConnectInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="AppKey" column="AppKey" />
+            <result property="AppSecret" column="AppSecret" />
+            <result property="AppType" column="AppType" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Domain" column="Domain" />
+            <result property="RedirectUri" column="RedirectUri" />
+            <result property="Options" column="Options" />
+            <result property="CertifiedCode" column="CertifiedCode" />
+            <result property="Status" column="Status" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Connect_FindAll_Result" class="ConnectInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="AppKey" column="AppKey" />
+            <result property="AppSecret" column="AppSecret" />
+            <result property="AppType" column="AppType" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Domain" column="Domain" />
+            <result property="RedirectUri" column="RedirectUri" />
+            <result property="CertifiedCode" column="CertifiedCode" />
+            <result property="Status" column="Status" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_ConnectQueryInfo_FindAll_Result" class="ConnectQueryInfo">      
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="AppKey" column="AppKey" />
+            <result property="AppType" column="AppType" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Domain" column="Domain" />
+            <result property="RedirectUri" column="RedirectUri" />
+            <result property="Status" column="Status" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Connect_Insert" parameterClass="ConnectInfo" >
+            INSERT INTO [tb_Connect]
+            (
+                [Id],
+                [AccountId],
+                [AccountName],
+                [AppKey],
+                [AppSecret],
+                [AppType],
+                [Code],
+                [Name],
+                [Description],
+                [Domain],
+                [RedirectUri],
+                [Options],
+                [CertifiedCode],
+                [Status],
+                [UpdateDate],
+                [CreateDate]
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #AccountName#,
+                #AppKey#,
+                #AppSecret#,
+                #AppType#,
+                #Code#,
+                #Name#,
+                #Description#,
+                #Domain#,
+                #RedirectUri#,
+                #Options#,
+                #CertifiedCode#,
+                #Status#,
+                GetDate(),
+                GetDate()
+            )
+        </insert>
+
+        <update id="proc_Connect_Update" parameterClass="ConnectInfo" >
+            UPDATE [tb_Connect] SET
+
+                [Name] = #Name#,
+                [Description] = #Description#,
+                [Domain] = #Domain#,
+                [RedirectUri] = #RedirectUri#,
+                [Options] = #Options#,
+                [Status] = #Status#,
+                [UpdateDate] = GetDate()
+
+            WHERE AccountId = #AccountId# AND AppKey = #AppKey#
+        </update>
+
+        <delete id="proc_Connect_Delete">
+            DELETE FROM [tb_Connect] WHERE Id = #Id#
+        </delete>
+
+        <select id="proc_Connect_FindOne" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
+            SELECT * FROM [tb_Connect] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Connect_FindOneByAppKey" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
+            SELECT Top 1 * FROM [tb_Connect] WHERE [AppKey] = #AppKey#
+        </select>
+
+        <select id="proc_Connect_FindAll" resultMap="proc_Connect_FindAll_Result" parameterClass="ConnectInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Connect] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Connect_GetPages" parameterClass="ConnectInfo" resultMap="proc_Connect_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Connect] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_Connect_GetQueryObjectPages" resultMap="proc_ConnectQueryInfo_FindAll_Result" >      
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Connect] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                    $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Connect_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Connect] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        
+        <select id="proc_Connect_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Connect] T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Connect_ResetAppSecret" parameterClass="ConnectInfo" >
+            UPDATE [tb_Connect] SET [AppSecret] = #AppSecret#, [UpdateDate] = GetDate() WHERE AppKey = #AppKey#
+        </update>
+    </statements>
+</sqlMap>

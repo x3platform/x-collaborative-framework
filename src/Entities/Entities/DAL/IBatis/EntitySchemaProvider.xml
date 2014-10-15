@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Entities.DAL.IBatis.EntitySchemaProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="EntitySchemaInfo" type="X3Platform.Entities.Model.EntitySchemaInfo, X3Platform.Entities" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Entity_Schema_FindOne_Result" class="EntitySchemaInfo">
+			<result property="Id" column="Id" />
+			<result property="Code" column="Code" />
+			<result property="Name" column="Name" />
+			<result property="Description" column="Description" />
+			<result property="EntityClassName" column="EntityClassName" />
+			<result property="DataTableName" column="DataTableName" />
+			<result property="DataTablePrimaryKey" column="DataTablePrimaryKey" />
+			<result property="Tags" column="Tags" />
+			<result property="Lock" column="Lock" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Entity_Schema_FindAll_Result" class="EntitySchemaInfo">
+			<result property="Id" column="Id" />
+			<result property="Code" column="Code" />
+			<result property="Name" column="Name" />
+			<result property="Description" column="Description" />
+			<result property="EntityClassName" column="EntityClassName" />
+			<result property="DataTableName" column="DataTableName" />
+			<result property="DataTablePrimaryKey" column="DataTablePrimaryKey" />
+			<result property="Tags" column="Tags" />
+			<result property="Lock" column="Lock" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+    
+	<statements>
+		<insert id="proc_Entity_Schema_Insert" parameterClass="EntitySchemaInfo">
+			INSERT INTO [tb_Entity_Schema] 
+            (
+				[Id],
+				[Code],
+				[Name],
+				[Description],
+				[EntityClassName],
+				[DataTableName],
+                [DataTablePrimaryKey],
+                [Tags],
+				[Lock],
+				[OrderId],
+				[Status],
+				[Remark],
+				[UpdateDate],
+				[CreateDate]
+			)
+			VALUES
+			(
+				#Id#,
+				#Code#,
+				#Name#,
+				#Description#,
+				#EntityClassName#,
+				#DataTableName#,
+                #DataTablePrimaryKey#,
+				#Tags#,
+				#Lock#,
+				#OrderId#,
+				#Status#,
+				#Remark#,
+				GetDate(),
+				GetDate()
+			)
+		</insert>
+
+		<update id="proc_Entity_Schema_Update" parameterClass="EntitySchemaInfo">
+			UPDATE [tb_Entity_Schema] SET
+
+                [Code] = #Code#,
+				[Name] = #Name#,
+				[Description] = #Description#,
+				[EntityClassName] = #EntityClassName#,
+				[DataTableName] = #DataTableName#,
+				[DataTablePrimaryKey] = #DataTablePrimaryKey#,
+                [Tags] = #Tags#,
+				[Lock] = #Lock#,
+				[OrderId] = #OrderId#,
+				[Status] = #Status#,
+				[Remark] = #Remark#,
+				[UpdateDate] = GetDate()
+
+			WHERE [Id] = #Id#
+		</update>
+
+		<delete id="proc_Entity_Schema_Delete" >
+			DELETE FROM [tb_Entity_Schema] WHERE $WhereClause$
+		</delete>
+
+		<select id="proc_Entity_Schema_FindOne" resultMap="proc_Entity_Schema_FindOne_Result" >
+			SELECT * FROM [tb_Entity_Schema] WHERE [Id] = #Id#
+		</select>
+
+        <select id="proc_Entity_Schema_FindOneByName" resultMap="proc_Entity_Schema_FindOne_Result" >
+			SELECT * FROM [tb_Entity_Schema] WHERE [Name] = #Name#
+		</select>
+
+        <select id="proc_Entity_Schema_FindOneByEntityClassName" resultMap="proc_Entity_Schema_FindOne_Result" >
+			SELECT * FROM [tb_Entity_Schema] WHERE [EntityClassName] = #EntityClassName#
+		</select>
+
+		<select id="proc_Entity_Schema_FindAll" resultMap="proc_Entity_Schema_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Entity_Schema] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Entity_Schema_GetPages" resultMap="proc_Entity_Schema_FindAll_Result" >
+		  SELECT *
+
+		  FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+		  FROM [tb_Entity_Schema] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>) TableIndex
+
+		  WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Entity_Schema_GetRowCount" >
+
+		  SELECT COUNT(*) AS 'RowCount' FROM [tb_Entity_Schema] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>
+		</select>
+
+		<select id="proc_Entity_Schema_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Entity_Schema] T WHERE $WhereClause$
+		</select>
+	</statements>
+</sqlMap>

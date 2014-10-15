@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Connect.DAL.MySQL.ConnectAuthorizationCodeProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ConnectAuthorizationCodeInfo" type="X3Platform.Connect.Model.ConnectAuthorizationCodeInfo, X3Platform.Connect" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Connect_AuthorizationCode_FindOne_Result" class="ConnectAuthorizationCodeInfo">
+            <result property="Id" column="Id" />
+            <result property="AppKey" column="AppKey" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AuthorizationScope" column="AuthorizationScope" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Connect_AuthorizationCode_FindAll_Result" class="ConnectAuthorizationCodeInfo">
+            <result property="Id" column="Id" />
+            <result property="AppKey" column="AppKey" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AuthorizationScope" column="AuthorizationScope" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Connect_AuthorizationCode_Insert" parameterClass="ConnectAuthorizationCodeInfo" >
+            INSERT INTO `tb_Connect_AuthorizationCode`
+            (
+                `Id`,
+                `AppKey`,
+                `AccountId`,
+                `AuthorizationScope`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #AppKey#,
+                #AccountId#,
+                #AuthorizationScope#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_Connect_AuthorizationCode_Update" parameterClass="ConnectAuthorizationCodeInfo" >
+            UPDATE `tb_Connect_AuthorizationCode` SET
+
+                `AuthorizationScope` = #AuthorizationScope#,
+                `UpdateDate` = Now()
+
+            WHERE AccountId = #AccountId# AND AppKey = #AppKey#
+        </update>
+
+        <delete id="proc_Connect_AuthorizationCode_Delete">
+            DELETE FROM `tb_Connect_AuthorizationCode` WHERE Id = #Id#
+        </delete>
+
+        <select id="proc_Connect_AuthorizationCode_FindOne" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
+            SELECT * FROM `tb_Connect_AuthorizationCode` WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Connect_AuthorizationCode_FindOneByAccountId" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
+            SELECT * FROM `tb_Connect_AuthorizationCode` WHERE `AppKey` = #AppKey# AND `AccountId` = #AccountId# LIMIT 1
+        </select>
+
+        <select id="proc_Connect_AuthorizationCode_FindAll" resultMap="proc_Connect_AuthorizationCode_FindAll_Result" parameterClass="ConnectAuthorizationCodeInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM `tb_Connect_AuthorizationCode` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Connect_AuthorizationCode_GetPages" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `tb_Connect_AuthorizationCode` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_Connect_AuthorizationCode_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Connect_AuthorizationCode` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        
+        <select id="proc_Connect_AuthorizationCode_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM `tb_Connect_AuthorizationCode` WHERE $WhereClause$
+        </select>
+    </statements>
+</sqlMap>

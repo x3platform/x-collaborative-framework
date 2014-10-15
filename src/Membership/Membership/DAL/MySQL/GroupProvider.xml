@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.GroupProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="GroupInfo" type="X3Platform.Membership.Model.GroupInfo,X3Platform.Membership" />
+        <typeAlias alias="AccountGroupRelationInfo" type="X3Platform.Membership.Model.AccountGroupRelationInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Group_FindOne_Result" class="GroupInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="PinYin" column="PinYin" />
+            <result property="GroupTreeNodeId" column="GroupTreeNodeId" /> 
+            <result property="EnableExchangeEmail" column="EnableExchangeEmail" /> 
+            <result property="Lock" column="Lock" /> 
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="FullPath" column="FullPath" />
+            <result property="DistinguishedName" column="DistinguishedName" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Group_FindAll_Result" class="GroupInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="PinYin" column="PinYin" />
+            <result property="GroupTreeNodeId" column="GroupTreeNodeId" /> 
+            <result property="EnableExchangeEmail" column="EnableExchangeEmail" /> 
+            <result property="Lock" column="Lock" /> 
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="FullPath" column="FullPath" />
+            <result property="DistinguishedName" column="DistinguishedName" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Group_FindAllRelation_Result" class="AccountGroupRelationInfo" >
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountGlobalName" column="AccountGlobalName" />
+            <result property="GroupId" column="GroupId" />
+            <result property="GroupGlobalName" column="GroupGlobalName" />
+            <result property="BeginDate" column="BeginDate" />
+            <result property="EndDate" column="EndDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_Group_Insert" parameterClass="GroupInfo">
+            INSERT INTO `tb_Group` 
+            (
+                `Id`,
+                `Code`,
+                `Name`,
+                `GlobalName`,
+                `PinYin`,
+                `GroupTreeNodeId`,
+                `EnableExchangeEmail`,
+                `Lock`,
+                `OrderId`,
+                `Status`,
+                `Remark`,
+                `FullPath`,
+                `DistinguishedName`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #Code#,
+                #Name#,
+                #GlobalName#,
+                #PinYin#,
+                #GroupTreeNodeId#,
+                #EnableExchangeEmail#,
+                #Lock#,
+                #OrderId#,
+                #Status#,
+                #Remark#,
+                #FullPath#,
+                #DistinguishedName#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_Group_Update" parameterClass="GroupInfo">
+            UPDATE `tb_Group` SET
+
+                `Id` = #Id#,
+                `Code` = #Code#,
+                `Name` = #Name#,
+                `GlobalName` = #GlobalName#,
+                `PinYin` = #PinYin#,
+                `GroupTreeNodeId` = #GroupTreeNodeId#,
+                `EnableExchangeEmail` = #EnableExchangeEmail#,
+                `Lock` = #Lock#,
+                `OrderId` = #OrderId#,
+                `Status` = #Status#,
+                `Remark` = #Remark#,
+                `FullPath` = #FullPath#,
+                `DistinguishedName` = #DistinguishedName#,
+                `UpdateDate` = Now()
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <delete id="proc_Group_Delete" parameterClass="GroupInfo">
+            DELETE FROM `tb_Group` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Group_FindOne" resultMap="proc_Group_FindOne_Result" >
+            SELECT * FROM `tb_Group` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Group_FindAll" resultMap="proc_Group_FindAll_Result" >
+            SELECT * FROM `tb_Group` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Group_GetPages" resultMap="proc_Group_FindAll_Result" >
+            SELECT * FROM `tb_Group` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Group_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Group` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Group_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Group` T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Group_Rename" parameterClass="GroupInfo">
+            UPDATE `tb_Group` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+        </update>
+
+        <update id="proc_Group_SetGlobalName" >
+            Update `tb_Group` SET GlobalName = #GlobalName#, `UpdateDate` = Now() WHERE Id = #Id#
+        </update>
+
+        <update id="proc_Group_SetExchangeStatus" >
+            UPDATE `tb_Group` SET `EnableExchangeEmail` = #EnableExchangeEmail#, `UpdateDate` = Now() WHERE `Id` = #Id#
+        </update>
+        
+        <select id="proc_Group_FindAllRelation" resultMap="proc_Group_FindAllRelation_Result" >
+            SELECT 
+	            AccountId, 
+	            tb_Account.GlobalName AS AccountGlobalName, 
+	            GroupId,
+	            tb_Group.GlobalName AS GroupGlobalName, 
+	            BeginDate,
+	            EndDate 
+            FROM 
+	            `tb_Account_Group`
+		            INNER JOIN tb_Account ON tb_Account_Group.AccountId = tb_Account.Id
+		            INNER JOIN tb_Group ON tb_Account_Group.GroupId = tb_Group.Id
+            WHERE 
+                $WhereClause$
+        </select>
+        
+        <insert id="proc_Group_AddRelation" >
+            IF EXISTS ( SELECT 0 FROM `tb_Account_Group` WHERE `AccountId` = '$AccountId$' AND `GroupId` = '$GroupId$' )
+            BEGIN
+                UPDATE `tb_Account_Group` SET
+
+                    `BeginDate` = '$BeginDate$',
+                    `EndDate` = '$EndDate$'
+
+                WHERE `AccountId` = '$AccountId$' AND `GroupId` = '$GroupId$'
+            END
+            ELSE
+            BEGIN
+                INSERT INTO `tb_Account_Group` 
+                (
+                    `AccountId`,
+                    `GroupId`,
+                    `BeginDate`,
+                    `EndDate`
+                )
+                VALUES
+                (
+                    '$AccountId$',
+                    '$GroupId$',
+                    '$BeginDate$',
+                    '$EndDate$'
+                )
+            END
+        </insert>
+
+        <update id="proc_Group_ExtendRelation" >
+            UPDATE `tb_Account_Group` SET `EndDate` = '$EndDate$' WHERE `AccountId` = '$AccountId$' AND `GroupId` = '$GroupId$'
+        </update>
+
+        <delete id="proc_Group_RemoveRelation" >
+            DELETE FROM `tb_Account_Group` WHERE $WhereClause$
+        </delete>
+    </statements>
+</sqlMap>
