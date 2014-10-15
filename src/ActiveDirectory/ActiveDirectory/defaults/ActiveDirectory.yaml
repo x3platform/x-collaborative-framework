@@ -1,0 +1,27 @@
+---
+keys: 
+  # Active Directory 集成模式 On | Off(默认)
+  IntegratedMode: Off
+  # Active Directory 域
+  Domain: x3platform.com
+  # Active Directory 邮箱的后缀域名
+  SuffixEmailDomain: @x3platform.com
+  # Active Directory 对象唯一名称的后缀
+  SuffixDistinguishedName: ,DC=x3platform,DC=com
+  # Active Directory LDAP Path
+  LDAPPath: LDAP://192.168.1.1/DC=x3platform,DC=com
+  # Active Directory 登录名
+  LoginName: x3platform\admin
+  # Active Directory 密码
+  Password: ${password}
+  # Active Directory 公司组织存放的根目录 (包括角色)
+  CorporationOrganizationFolderRoot: 组织结构
+  # Active Directory 公司用户存放的根目录
+  CorporationUserFolderRoot: 组织用户
+  # Active Directory 公司群组存放的根目录
+  CorporationGroupFolderRoot: 常用群组
+  # Active Directory 公司角色存放的根目录 (非组织结构中的角色数据)
+  CorporationRoleFolderRoot: 通用角色
+  # Active Directory 新建帐号的默认密码
+  NewlyCreatedAccountPassword: ${password}
+...

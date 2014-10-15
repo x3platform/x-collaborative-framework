@@ -1,0 +1,95 @@
+         <param name="applicationId">应用系统的标识</param>
+            <param name="taskCode">任务编码</param>
+            <returns>布尔值</returns>
+        </member>
+        <member name="M:X3platform.Tasks.IDAL.ITaskProvider.SetFinished(System.String,System.String)">
+            <summary>设置任务完成</summary>
+            <param name="applicationId">应用系统的标识</param>
+            <param name="taskCode">任务编号</param>
+        </member>
+        <member name="M:X3platform.Tasks.IDAL.ITaskProvider.GetTaskTagsView(System.String)">
+            <summary>获取任务标签列表</summary>
+            <param name="key">匹配标签的关键字, 空值则全部匹配</param>
+        </member>
+        <member name="M:X3platform.Tasks.IDAL.ITaskProvider.GetIdsByTaskCodes(System.String,System.String)">
+            <summary>将任务编号转换为标识信息</summary>
+            <param name="applicationId">应用系统的标识</param>
+            <param name="taskCodes">任务编号,多个以[,]号分开</param>
+        </member>
+        <member name="T:X3platform.Spring.SpringObjectAttribute">
+            <summary>Srping对象属性标签</summary>
+        </member>
+        <member name="M:X3platform.Spring.SpringObjectAttribute.#ctor(System.String)">
+            <summary>构造函数</summary>
+            <param name="name">接口名称</param>
+        </member>
+        <member name="P:X3platform.Spring.SpringObjectAttribute.Name">
+            <summary>接口名称</summary>
+        </member>
+        <member name="T:X3platform.Services.IServiceContracts.IDebugServiceCallback">
+            <summary>调试服务回调接口</summary>
+        </member>
+        <member name="M:X3platform.Services.IServiceContracts.IDebugServiceCallback.Response(System.String)">
+            <summary>接收调试信息</summary>
+            <param name="text"></param>
+        </member>
+        <member name="T:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1">
+            <summary>
+            Implementation of <see cref="T:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1"/> suitable for direct calls
+            to the <see cref="T:System.Reflection.MethodBase"/> class.
+            </summary>
+            <typeparam name="TMemberInfo"></typeparam>
+        </member>
+        <member name="T:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1">
+            <summary>
+            Interface used by the <see cref="T:Microsoft.Practices.ObjectBuilder.ReflectionStrategy`1"/> base class to encapsulate the information
+            required from members that use the strategy. This interface is required because direct access to
+            the <see cref="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.MemberInfo"/> object may not give the desired results.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetCustomAttributes(System.Type,System.Boolean)">
+            <summary>
+            Gets the custom attributes of the member.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetParameters">
+            <summary>
+            Gets the parameters to be passed to the member.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.MemberInfo">
+            <summary>
+            Gets the original member info object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.Name">
+            <summary>
+            Gets the name of the member.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1"/> class.
+            </summary>
+            <param name="memberInfo">The member used to satisfy the interface calls.</param>
+        </member>
+        <member name="M:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.GetCustomAttributes(System.Type,System.Boolean)">
+            <summary>
+            See <see cref="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetCustomAttributes(System.Type,System.Boolean)"/> for more information.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.GetParameters">
+            <summary>
+            See <see cref="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetParameters"/> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.MemberInfo">
+            <summary>
+            See <see cref="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.MemberInfo"/> for more information.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.Name">
+            <summary>
+            See <see cref="P:Microsoft.Practices.ObjectBuilder.IReflecti
