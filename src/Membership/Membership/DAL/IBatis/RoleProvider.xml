@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.RoleProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="RoleInfo" type="X3Platform.Membership.Model.RoleInfo,X3Platform.Membership" />
+        <typeAlias alias="AccountRoleRelationInfo" type="X3Platform.Membership.Model.AccountRoleRelationInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Role_FindOne_Result" class="RoleInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="PinYin" column="PinYin" />
+            <result property="Type" column="Type" />
+            <result property="ParentId" column="ParentId" />
+            <result property="StandardRoleId" column="StandardRoleId" />
+            <result property="OrganizationId" column="OrganizationId" />
+            <result property="GeneralRoleId" column="GeneralRoleId" />
+            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+            <result property="EffectScope" column="EffectScope" />
+            <result property="Lock" column="Lock" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="FullPath" column="FullPath" />
+            <result property="DistinguishedName" column="DistinguishedName" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Role_FindAll_Result" class="RoleInfo" >
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="PinYin" column="PinYin" />
+            <result property="Type" column="Type" />
+            <result property="ParentId" column="ParentId" />
+            <result property="StandardRoleId" column="StandardRoleId" />
+            <result property="OrganizationId" column="OrganizationId" />
+            <result property="GeneralRoleId" column="GeneralRoleId" />
+            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+            <result property="EffectScope" column="EffectScope" />
+            <result property="Lock" column="Lock" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="FullPath" column="FullPath" />
+            <result property="DistinguishedName" column="DistinguishedName" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Role_FindAllRelation_Result" class="AccountRoleRelationInfo" >
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountGlobalName" column="AccountGlobalName" />
+            <result property="RoleId" column="RoleId" />
+            <result property="RoleGlobalName" column="RoleGlobalName" />
+            <result property="IsDefault" column="IsDefault" />
+            <result property="BeginDate" column="BeginDate" />
+            <result property="EndDate" column="EndDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Role_Insert" parameterClass="RoleInfo" >
+            INSERT INTO [tb_Role] 
+            (
+                Id,
+                Code,
+                Name,
+                GlobalName,
+                PinYin,
+                Type,
+                ParentId,
+                StandardRoleId,
+                OrganizationId,
+                GeneralRoleId,
+                EnableExchangeEmail,
+                EffectScope,
+                Lock,
+                OrderId,
+                Status,
+                Remark,
+                FullPath,
+                DistinguishedName,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #Code#,
+                #Name#,
+                #GlobalName#,
+                #PinYin#,
+                #Type#,
+                #ParentId#,
+                #StandardRoleId#,
+                #OrganizationId#,
+                #GeneralRoleId#,
+                #EnableExchangeEmail#,
+                #EffectScope#,
+                #Lock#,
+                #OrderId#,
+                #Status#,
+                #Remark#,
+                #FullPath#,
+                #DistinguishedName#,
+                GetDate(),
+                GetDate()
+            )
+        </insert>
+
+        <update id="proc_Role_Update" parameterClass="RoleInfo" >
+            UPDATE [tb_Role] SET
+
+                Code = #Code#,
+                Name = #Name#,
+                GlobalName = #GlobalName#,
+                PinYin = #PinYin#,
+                Type = #Type#,
+                ParentId = #ParentId#,
+                StandardRoleId = #StandardRoleId#,
+                OrganizationId = #OrganizationId#,
+                GeneralRoleId = #GeneralRoleId#,
+                EnableExchangeEmail = #EnableExchangeEmail#,
+                EffectScope = #EffectScope#,
+                Lock = #Lock#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                FullPath = #FullPath#,
+                DistinguishedName = #DistinguishedName#,
+                UpdateDate = GetDate()
+
+            WHERE Id = #Id#
+        </update>
+
+        <insert id="proc_Role_Authority_Insert" >
+            INSERT INTO [tb_Role_Authority] ([RoleId],[AuthorityId]) VALUES (#RoleId#, #AuthorityId#)
+        </insert>
+
+        <delete id="proc_Role_Authority_DeleteByRoleId">
+            DELETE FROM [tb_Role_Authority] WHERE [RoleId] = #RoleId#
+        </delete>
+
+        <delete id="proc_Role_Delete">
+            DELETE FROM [tb_Role] WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Role_FindOne" resultMap="proc_Role_FindOne_Result" >
+            SELECT * FROM [tb_Role] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Role_FindAll" resultMap="proc_Role_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Role] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Role_FindAllByAccountId" resultMap="proc_Role_FindAll_Result" >
+            SELECT * FROM [tb_Role] T
+
+            WHERE T.Id IN (SELECT RoleId FROM tb_Account_Role WHERE AccountId = #AccountId#)
+        </select>
+
+        <select id="proc_Role_FindAllByCorporationId" resultMap="proc_Role_FindAll_Result" >
+            SELECT * 
+            
+            FROM (SELECT func_GetCorporationIdByOrganizationId(OrganizationId) CorporationId, * from [tb_Role] ) AS T
+
+            WHERE $WhereClause$
+        </select>
+
+        <select id="proc_Role_GetPages" parameterClass="RoleInfo" resultMap="proc_Role_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Role] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Role_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Role] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Role_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Role] T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Role_Rename" parameterClass="RoleInfo" >
+            UPDATE [tb_Role] SET [Name] = #Name#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+        </update>
+        
+        <update id="proc_Role_SetGlobalName" >
+            UPDATE [tb_Role] SET [GlobalName] = #GlobalName#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+        </update>
+
+        <update id="proc_Role_SetParentId" >
+            UPDATE [tb_Role] SET [ParentId] = #ParentId#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+        </update>
+
+        <update id="proc_Role_SetExchangeStatus" >
+            UPDATE [tb_Role] SET [EnableExchangeEmail] = #EnableExchangeEmail#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+        </update>
+
+        <select id="proc_Role_GetAuthorities" resultClass="string" >
+            SELECT AuthorityId FROM tb_Role_Authority WHERE RoleId = #RoleId#
+        </select>
+
+        <insert id="proc_Role_SyncFromPackPage" parameterClass="RoleInfo" >
+            IF EXISTS(SELECT 0 FROM [tb_Role] WHERE [Id] = #Id#)
+            BEGIN
+                UPDATE [tb_Role] SET
+
+                    Code = #Code#,
+                    Name = #Name#,
+                    Type = #Type#,
+                    ParentId = #ParentId#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+                    Remark = #Remark#,
+                    UpdateDate = GetDate()
+
+                WHERE Id = #Id#
+
+            END
+            ELSE
+            BEGIN
+
+                INSERT INTO [tb_Role] 
+                (
+                    Id,
+                    Code,
+                    Name,
+                    Type,
+                    ParentId,
+                    OrderId,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES 
+                (
+                    #Id#,
+                    #Code#,
+                    #Name#,
+                    #Type#,
+                    #ParentId#,
+                    #OrderId#,
+                    #Status#,
+                    #Remark#,
+                    GetDate(),
+                    GetDate()
+                )
+
+            END
+        </insert>
+
+        <select id="proc_Role_FindAllRelation" resultMap="proc_Role_FindAllRelation_Result" >
+            SELECT 
+	            AccountId, 
+	            tb_Account.GlobalName AS AccountGlobalName, 
+	            RoleId,
+	            tb_Role.GlobalName AS RoleGlobalName, 
+	            IsDefault, 
+	            BeginDate,
+	            EndDate 
+            FROM 
+	            [tb_Account_Role]
+		            INNER JOIN tb_Account ON tb_Account_Role.AccountId = tb_Account.Id
+		            INNER JOIN tb_Role ON tb_Account_Role.RoleId = tb_Role.Id
+            WHERE 
+                $WhereClause$
+        </select>
+        
+        <insert id="proc_Role_AddRelation" >
+            IF EXISTS ( SELECT 0 FROM [tb_Account_Role] WHERE [AccountId] = '$AccountId$' AND [RoleId] = '$RoleId$' )
+            BEGIN
+
+                UPDATE [tb_Account_Role] SET
+
+                    [IsDefault] = '$IsDefault$',
+                    [BeginDate] = '$BeginDate$',
+                    [EndDate] = '$EndDate$'
+
+                WHERE [AccountId] = '$AccountId$' AND [RoleId] = '$RoleId$'
+
+            END
+            ELSE
+            BEGIN
+
+                INSERT INTO [tb_Account_Role] 
+                (
+                    [AccountId],
+                    [RoleId],
+                    [IsDefault],
+                    [BeginDate],
+                    [EndDate]
+                )
+                VALUES
+                (
+                    '$AccountId$',
+                    '$RoleId$',
+                    '$IsDefault$',
+                    '$BeginDate$',
+                    '$EndDate$'
+                )
+                
+            END
+        </insert>
+
+        <update id="proc_Role_ExtendRelation" >
+            UPDATE [tb_Account_Role] SET [EndDate] = '$EndDate$' WHERE [AccountId] = '$AccountId$' AND [RoleId] = '$RoleId$'
+        </update>
+
+        <delete id="proc_Role_RemoveRelation" >
+            DELETE FROM [tb_Account_Role] WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Role_HasDefaultRelation" >
+            SELECT COUNT(0) AS 'Count' FROM [tb_Account_Role] T WHERE [AccountId] = '$AccountId$' AND [IsDefault] = 1
+        </select>
+
+        <update id="proc_Role_ResetRelation" >
+            UPDATE [tb_Account_Role] SET [IsDefault] = 0 WHERE [AccountId] = '$AccountId$'
+        </update>
+
+        <update id="proc_Role_SetDefaultRelationIsDefault" >
+            UPDATE [tb_Account_Role] SET [IsDefault] = 1 WHERE [AccountId] = '$AccountId$' AND [RoleId] = '$RoleId$'
+        </update>
+        
+        <update id="proc_Role_SetDefaultRelation" >
+            UPDATE [tb_Member] SET [RoleId] = '$RoleId$', UpdateDate = GetDate() WHERE [AccountId] = '$AccountId$'
+        </update>
+        
+        <update id="proc_Role_SetNullDefaultRelation" >
+            UPDATE [tb_Member] SET [RoleId] = '', UpdateDate = GetDate() WHERE [AccountId] = '$AccountId$'
+        </update>
+    </statements>
+</sqlMap>

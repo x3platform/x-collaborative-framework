@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Entities.DAL.IBatis.EntityMetaDataProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="EntityMetaDataInfo" type="X3Platform.Entities.Model.EntityMetaDataInfo, X3Platform.Entities" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Entity_MetaData_FindOne_Result" class="EntityMetaDataInfo">
+			<result property="Id" column="Id" />
+			<result property="EntitySchemaId" column="EntitySchemaId" />
+			<result property="FieldName" column="FieldName" />
+			<result property="FieldType" column="FieldType" />
+			<result property="Description" column="Description" />
+			<result property="DataColumnName" column="DataColumnName" />
+			<result property="EffectScope" column="EffectScope" />
+			<result property="Lock" column="Lock" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Entity_MetaData_FindAll_Result" class="EntityMetaDataInfo">
+			<result property="Id" column="Id" />
+			<result property="EntitySchemaId" column="EntitySchemaId" />
+			<result property="FieldName" column="FieldName" />
+			<result property="FieldType" column="FieldType" />
+			<result property="Description" column="Description" />
+			<result property="DataColumnName" column="DataColumnName" />
+			<result property="EffectScope" column="EffectScope" />
+			<result property="Lock" column="Lock" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+
+		<insert id="proc_Entity_MetaData_Insert" parameterClass="EntityMetaDataInfo">
+			INSERT INTO [tb_Entity_MetaData] 
+            (
+				[Id],
+				[EntitySchemaId],
+				[FieldName],
+				[FieldType],
+				[Description],
+                [DataColumnName],
+                [EffectScope],
+				[Lock],
+				[OrderId],
+				[Status],
+				[Remark],
+				[UpdateDate],
+				[CreateDate]
+			)
+			VALUES
+			(
+				#Id#,
+				#EntitySchemaId#,
+				#FieldName#,
+				#FieldType#,
+				#Description#,
+                #DataColumnName#,
+                #EffectScope#,
+                #Lock#,
+				#OrderId#,
+				#Status#,
+				#Remark#,
+				GetDate(),
+				GetDate()
+			)
+		</insert>
+
+		<update id="proc_Entity_MetaData_Update" parameterClass="EntityMetaDataInfo">
+			UPDATE [tb_Entity_MetaData] SET
+
+				[FieldName] = #FieldName#,
+				[FieldType] = #FieldType#,
+				[Description] = #Description#,
+				[DataColumnName] = #DataColumnName#,
+				[EffectScope] = #EffectScope#,
+				[Lock] = #Lock#,
+				[OrderId] = #OrderId#,
+				[Status] = #Status#,
+				[Remark] = #Remark#,
+				[UpdateDate] = GetDate()
+
+			WHERE [Id] = #Id#
+		</update>
+
+		<delete id="proc_Entity_MetaData_Delete" >
+			DELETE FROM [tb_Entity_MetaData] WHERE $WhereClause$
+		</delete>
+
+		<select id="proc_Entity_MetaData_FindOne" resultMap="proc_Entity_MetaData_FindOne_Result" >
+			SELECT * FROM [tb_Entity_MetaData] T WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Entity_MetaData_FindAll" resultMap="proc_Entity_MetaData_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Entity_MetaData] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Entity_MetaData_GetPages" resultMap="proc_Entity_MetaData_FindAll_Result" >
+		  SELECT *
+
+		  FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+		  FROM [tb_Entity_MetaData] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>) TableIndex
+
+		  WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Entity_MetaData_GetRowCount" >
+		  SELECT COUNT(*) AS 'RowCount' FROM [tb_Entity_MetaData] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>
+		</select>
+
+		<select id="proc_Entity_MetaData_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Entity_MetaData] T WHERE $WhereClause$
+		</select>
+	</statements>
+</sqlMap>

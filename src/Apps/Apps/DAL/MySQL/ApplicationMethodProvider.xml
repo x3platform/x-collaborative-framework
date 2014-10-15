@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ApplicationMethodInfo" type="X3Platform.Apps.Model.ApplicationMethodInfo,X3Platform.Apps" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Application_Method_FindOne_Result" class="ApplicationMethodInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Type" column="Type" />
+            <result property="Options" column="Options" />
+            <result property="EffectScope" column="EffectScope" />
+            <result property="Version" column="Version" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Application_Method_FindAll_Result" class="ApplicationMethodInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Type" column="Type" />
+            <result property="Options" column="Options" />
+            <result property="EffectScope" column="EffectScope" />
+            <result property="Version" column="Version" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Application_Method_Insert" parameterClass="ApplicationMethodInfo">
+            INSERT INTO `tb_Application_Method` 
+            (
+                `Id`,
+                `ApplicationId`,
+                `Code`,
+                `Name`,
+                `Description`,
+                `Type`,
+                `Options`,
+                `EffectScope`,
+                `Version`,
+                `OrderId`,
+                `Status`,
+                `Remark`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #ApplicationId#,
+                #Code#,
+                #Name#,
+                #Description#,
+                #Type#,
+                #Options#,
+                #EffectScope#,
+                #Version#,
+                #OrderId#,
+                #Status#,
+                #Remark#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_Application_Method_Update" parameterClass="ApplicationMethodInfo">
+            UPDATE `tb_Application_Method` SET
+
+                `ApplicationId` = #ApplicationId#,
+                `Code` = #Code#,
+                `Name` = #Name#,
+                `Description` = #Description#,
+                `Type` = #Type#,
+                `Options` = #Options#,
+                `EffectScope` = #EffectScope#,
+                `Version` = #Version#,
+                `OrderId` = #OrderId#,
+                `Status` = #Status#,
+                `Remark` = #Remark#,
+                `UpdateDate` = Now()
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <delete id="proc_Application_Method_Delete" >
+            DELETE FROM `tb_Application_Method` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Application_Method_FindOne" resultMap="proc_Application_Method_FindOne_Result" >
+            SELECT * FROM `tb_Application_Method` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Application_Method_FindOneByName" resultMap="proc_Application_Method_FindOne_Result" >
+            SELECT * FROM `tb_Application_Method` T WHERE `Name` = #Name#
+        </select>
+
+        <select id="proc_Application_Method_FindAll" resultMap="proc_Application_Method_FindAll_Result" >
+            SELECT * FROM `tb_Application_Method` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Method_GetPages" resultMap="proc_Application_Method_FindAll_Result" >
+            SELECT * FROM `tb_Application_Method` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Application_Method_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Application_Method` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Method_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Application_Method` T WHERE $WhereClause$
+        </select>
+    </statements>
+</sqlMap>
