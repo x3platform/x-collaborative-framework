@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A1F5A0D3-954F-4E7F-BB3A-59807805B0C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>X3Platform.Apps</RootNamespace>
+    <AssemblyName>X3Platform.Apps</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\X3Platform.Apps.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Location.IPQuery">
+      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Membership">
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Ajax\ApplicationErrorWrapper.cs" />
+    <Compile Include="Ajax\ApplicationFeatureDateLimitWrapper.cs" />
+    <Compile Include="Ajax\ApplicationMenuWrapper.cs" />
+    <Compile Include="Ajax\ApplicationMethodWrapper.cs" />
+    <Compile Include="Ajax\ApplicationOptionWrapper.cs" />
+    <Compile Include="Ajax\ApplicationWrapper.cs" />
+    <Compile Include="Ajax\ApplicationEventWrapper.cs" />
+    <Compile Include="Ajax\ApplicationFeatureWrapper.cs" />
+    <Compile Include="Ajax\ApplicationPackageWrapper.cs" />
+    <Compile Include="Ajax\ApplicationPackageLogWrapper.cs" />
+    <Compile Include="Ajax\ApplicationSettingWrapper.cs" />
+    <Compile Include="Ajax\ApplicationSettingGroupWrapper.cs" />
+    <Compile Include="DAL\MySQL\ApplicationErrorProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationEventProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationFeatureDateLimitProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationFeatureProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationMenuProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationMethodProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationOptionProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationPackageLogProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationPackageProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationSettingGroupProvider.cs" />
+    <Compile Include="DAL\MySQL\ApplicationSettingProvider.cs" />
+    <Compile Include="ApplicationError.cs" />
+    <Compile Include="BLL\ApplicationErrorService.cs" />
+    <Compile Include="BLL\ApplicationFeatureDateLimitService.cs" />
+    <Compile Include="BLL\ApplicationFeatureService.cs" />
+    <Compile Include="BLL\ApplicationMenuService.cs" />
+    <Compile Include="BLL\ApplicationMethodService.cs" />
+    <Compile Include="BLL\ApplicationOptionService.cs" />
+    <Compile Include="BLL\ApplicationPackageService.cs" />
+    <Compile Include="BLL\ApplicationPackageLogService.cs" />
+    <Compile Include="BLL\ApplicationSettingService.cs" />
+    <Compile Include="BLL\ApplicationSettingGroupService.cs" />
+    <Compile Include="Configuration\AppsConfiguration.cs" />
+    <Compile Include="Configuration\AppsConfigurationView.cs" />
+    <Compile Include="DAL\IBatis\ApplicationErrorProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationFeatureDateLimitProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationMenuProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationMethodProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationOptionProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationEventProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationPackageLogProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationPackageProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationFeatureProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationSettingGroupProvider.cs" />
+    <Compile Include="DAL\IBatis\ApplicationSettingProvider.cs" />
+    <Compile Include="BLL\ApplicationService.cs" />
+    <Compile Include="AppsContext.cs" />
+    <Compile Include="IBLL\IApplicationErrorService.cs" />
+    <Compile Include="IBLL\IApplicationFeatureDateLimitService.cs" />
+    <Compile Include="IBLL\IApplicationMenuService.cs" />
+    <Compile Include="IBLL\IApplicationMethodService.cs" />
+    <Compile Include="IBLL\IApplicationOptionService.cs" />
+    <Compile Include="IBLL\IApplicationSettingGroupService.cs" />
+    <Compile Include="IBLL\IApplicationSettingService.cs" />
+    <Compile Include="IBLL\IApplicationFeatureService.cs" />
+    <Compile Include="IBLL\IApplicationPackageLogService.cs" />
+    <Compile Include="IBLL\IApplicationPackageService.cs" />
+    <Compile Include="IBLL\IApplicationService.cs" />
+    <Compile Include="IBLL\IApplicationEventService.cs" />
+    <Compile Include="IDAL\IApplicationErrorProvider.cs" />
+    <Compile Include="IDAL\IApplicationFeatureDateLimitProvider.cs" />
+    <Compile Include="IDAL\IApplicationMenuProvider.cs" />
+    <Compile Include="IDAL\IApplicationMethodProvider.cs" />
+    <Compile Include="IDAL\IApplicationOptionProvider.cs" />
+    <Compile Include="IDAL\IApplicationSettingProvider.cs" />
+    <Compile Include="IDAL\IApplicationSettingGroupProvider.cs" />
+    <Compile Include="IDAL\IApplicationFeatureProvider.cs" />
+    <Compile Include="IDAL\IApplicationPackageProvider.cs" />
+    <Compile Include="IDAL\IApplicationPackageLogProvider.cs" />
+    <Compile Include="IDAL\IApplicationProvider.cs" />
+    <Compile Include="IDAL\IApplicationEventProvider.cs" />
+    <Compile Include="Model\ApplicationErrorInfo.cs" />
+    <Compile Include="Model\ApplicationFeatureDateLimitInfo.cs" />
+    <Compile Include="Model\ApplicationInfo.cs" />
+    <Compile Include="Model\ApplicationEventInfo.cs" />
+    <Compile Include="Model\ApplicationMenuInfo.cs" />
+    <Compile Include="Model\ApplicationMenuQueryInfo.cs" />
+    <Compile Include="Model\ApplicationMethodInfo.cs" />
+    <Compile Include="Model\ApplicationOptionInfo.cs" />
+    <Compile Include="Model\ApplicationPackageInfo.cs" />
+    <Compile Include="Model\ApplicationPackageLogInfo.cs" />
+    <Compile Include="Model\ApplicationFeatureInfo.cs" />
+    <Compile Include="Model\ApplicationSettingInfo.cs" />
+    <Compile Include="Model\ApplicationSettingGroupInfo.cs" />
+    <Compile Include="Model\ApplicationSettingQueryInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BLL\ApplicationEventService.cs" />
+    <Compile Include="AppsSecurity.cs" />
+    <Compile Include="SecurityTokenManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\ApplicationErrorProvider.xml">
+      <DependentUpon>ApplicationErrorProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationFeatureDateLimitProvider.xml">
+      <DependentUpon>ApplicationFeatureDateLimitProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationMenuProvider.xml">
+      <DependentUpon>ApplicationMenuProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationMethodProvider.xml">
+      <DependentUpon>ApplicationMethodProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationOptionProvider.xml">
+      <DependentUpon>ApplicationOptionProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationProvider.xml">
+      <DependentUpon>ApplicationProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationEventProvider.xml">
+      <DependentUpon>ApplicationEventProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationPackageLogProvider.xml">
+      <DependentUpon>ApplicationPackageLogProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationPackageProvider.xml">
+      <DependentUpon>ApplicationPackageProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationFeatureProvider.xml">
+      <DependentUpon>ApplicationFeatureProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationSettingGroupProvider.xml">
+      <DependentUpon>ApplicationSettingGroupProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ApplicationSettingProvider.xml">
+      <DependentUpon>ApplicationSettingProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationErrorProvider.xml">
+      <DependentUpon>ApplicationErrorProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationEventProvider.xml">
+      <DependentUpon>ApplicationEventProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationFeatureDateLimitProvider.xml">
+      <DependentUpon>ApplicationFeatureDateLimitProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationFeatureProvider.xml">
+      <DependentUpon>ApplicationFeatureProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationMenuProvider.xml">
+      <DependentUpon>ApplicationMenuProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationMethodProvider.xml">
+      <DependentUpon>ApplicationMethodProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationOptionProvider.xml">
+      <DependentUpon>ApplicationOptionProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationPackageLogProvider.xml">
+      <DependentUpon>ApplicationPackageLogProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationPackageProvider.xml">
+      <DependentUpon>ApplicationPackageProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationProvider.xml">
+      <DependentUpon>ApplicationProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationSettingGroupProvider.xml">
+      <DependentUpon>ApplicationSettingGroupProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\ApplicationSettingProvider.xml">
+      <DependentUpon>ApplicationSettingProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="db\应用管理初始化脚本%28MySQL%29.sql" />
+    <Content Include="db\应用管理初始化脚本%28SQLServer%29.sql" />
+    <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build.publish.bat" />
+    <None Include="config\MySQL\X3Platform.Apps.IBatis.SqlMap.config" />
+    <None Include="config\MySQL\X3Platform.Apps.Spring.config" />
+    <None Include="config\X3Platform.Apps.config" />
+    <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Apps.Spring.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="config\IBatis\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

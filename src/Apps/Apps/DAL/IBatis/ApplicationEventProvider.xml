@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentStorageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ApplicationEventInfo" type="X3Platform.Apps.Model.ApplicationEventInfo,X3Platform.Apps" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Application_Event_FindOne_Result" class="ApplicationEventInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="Tags" column="Tags" />
+            <result property="Description" column="Description" />
+            <result property="StartTime" column="StartTime" />
+            <result property="FinishTime" column="FinishTime" />
+            <result property="TimeSpan" column="TimeSpan" />
+            <result property="IP" column="IP" />
+            <result property="Date" column="Date" />
+        </resultMap>
+        <resultMap id="proc_Application_Event_FindAll_Result" class="ApplicationEventInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="Tags" column="Tags" />
+            <result property="Description" column="Description" />
+            <result property="StartTime" column="StartTime" />
+            <result property="FinishTime" column="FinishTime" />
+            <result property="TimeSpan" column="TimeSpan" />
+            <result property="IP" column="IP" />
+            <result property="Date" column="Date" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Application_Event_Save" parameterClass="ApplicationEventInfo" >
+            IF NOT EXISTS(SELECT 0 FROM [tb_Application_Event] WHERE [Id] = #Id#)
+			BEGIN
+			    INSERT INTO [tb_Application_Event] 
+                (
+                    [Id],
+                    [ApplicationId],
+                    [Tags],
+                    [Description],
+                    [StartTime],
+                    [FinishTime],
+                    [TimeSpan],
+                    [IP],
+                    [Date]
+                )
+                VALUES
+                (
+                    #Id#,
+                    #ApplicationId#,
+                    #Tags#,
+                    #Description#,
+                    #StartTime#,
+                    #FinishTime#,
+                    #TimeSpan#,
+                    #IP#,
+                    GetDate()
+                )
+            END
+        </insert>
+
+        <delete id="proc_Application_Event_Delete">
+            DELETE FROM [tb_Application_Event] WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Application_Event_FindOne" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindOne_Result" >
+            SELECT * FROM [tb_Application_Event] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Application_Event_FindAll" resultMap="proc_Application_Event_FindAll_Result" parameterClass="ApplicationEventInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Application_Event] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Event_GetPages" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Application_Event] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_Application_Event_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_Event] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Event_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Application_Event] T WHERE $WhereClause$
+        </select>
+    </statements>
+</sqlMap>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ApplicationPackageInfo" type="X3Platform.Apps.Model.ApplicationPackageInfo, X3Platform.Apps" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Application_Package_FindOne_Result" class="ApplicationPackageInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="Direction" column="Direction" />
+            <result property="Code" column="Code" />
+            <result property="ParentCode" column="ParentCode" />
+            <result property="Type" column="Type" />
+            <result property="Path" column="Path" />
+            <result property="BeginDate" column="BeginDate" />
+            <result property="EndDate" column="EndDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Application_Package_FindAll_Result" class="ApplicationPackageInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="Direction" column="Direction" />
+            <result property="Code" column="Code" />
+            <result property="ParentCode" column="ParentCode" />
+            <result property="Type" column="Type" />
+            <result property="Path" column="Path" />
+            <result property="BeginDate" column="BeginDate" />
+            <result property="EndDate" column="EndDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Application_Package_Insert" parameterClass="ApplicationPackageInfo">
+            INSERT INTO [tb_Application_Package] (
+            [Id],
+            [ApplicationId],
+            [Direction],
+            [Code],
+            [ParentCode],
+            [Type],
+            [Path],
+            [BeginDate],
+            [EndDate],
+            [CreateDate]
+            )
+            VALUES
+            (
+            #Id#,
+            #ApplicationId#,
+            #Direction#,
+            #Code#,
+            #ParentCode#,
+            #Type#,
+            #Path#,
+            #BeginDate#,
+            #EndDate#,
+            GETDATE()
+            )
+        </insert>
+
+        <update id="proc_Application_Package_Update" parameterClass="ApplicationPackageInfo">
+            UPDATE [tb_Application_Package] SET
+
+            [Id] = #Id#,
+            [ApplicationId] = #ApplicationId#,
+            [Direction] = #Direction#,
+            [Code] = #Code#,
+            [ParentCode] = #ParentCode#,
+            [Type] = #Type#,
+            [Path] = #Path#,
+            [BeginDate] = #BeginDate#,
+            [EndDate] = #EndDate#
+
+            WHERE [Id] = #Id#
+        </update>
+
+        <delete id="proc_Application_Package_Delete" >
+            DELETE FROM [tb_Application_Package] WHERE $WhereClause$
+        </delete>
+
+        <update id="proc_Application_Package_ResetPackageCode" >
+            UPDATE [tb_DigitalNumber] SET Seed = 0 WHERE Name = 'Table_Application_Package_Key_Code'
+        </update>
+
+        <select id="proc_Application_Package_FindOne" resultMap="proc_Application_Package_FindOne_Result" >
+            SELECT * FROM [tb_Application_Package] T WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Application_Package_FindAll" resultMap="proc_Application_Package_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Application_Package] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Package_GetPages" resultMap="proc_Application_Package_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Application_Package] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_Application_Package_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_Package] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Package_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM [tb_Application_Package] T WHERE $WhereClause$
+        </select>
+
+        <select id="proc_Application_Package_GetLatestPackage" resultMap="proc_Application_Package_FindOne_Result" >
+            SELECT TOP 1 * FROM [tb_Application_Package] T 
+            WHERE [ApplicationId] = #ApplicationId# AND [Direction] = #Direction#
+            ORDER BY Code DESC
+        </select>
+    </statements>
+</sqlMap>

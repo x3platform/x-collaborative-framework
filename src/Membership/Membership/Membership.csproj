@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9A63480D-AE1B-485B-A813-9F0E50FD7BC7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>X3Platform.Membership</RootNamespace>
+    <AssemblyName>X3Platform.Membership</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/Elane.Framework.Membership/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <JSLintSkip>\DAL\MySQL\</JSLintSkip>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\X3Platform.Membership.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
+    <OutputPath>bin\longfor\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
+    <OutputPath>bin\junfa\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.ActiveDirectory">
+      <HintPath>..\..\..\bin\X3Platform.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Location.IPQuery">
+      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Sessions">
+      <HintPath>..\..\..\bin\X3Platform.Sessions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Ajax\AccountGrantWrapper.cs" />
+    <Compile Include="Ajax\AccountLogWrapper.cs" />
+    <Compile Include="Ajax\AccountWrapper.cs" />
+    <Compile Include="Ajax\AssignedJobWrapper.cs" />
+    <Compile Include="Ajax\ContactsWrapper.cs" />
+    <Compile Include="Ajax\JobFamilyWrapper.cs" />
+    <Compile Include="Ajax\StandardGeneralRoleWrapper.cs" />
+    <Compile Include="Ajax\GroupTreeWrapper.cs" />
+    <Compile Include="Ajax\GroupTreeNodeWrapper.cs" />
+    <Compile Include="Ajax\JobGradeWrapper.cs" />
+    <Compile Include="Ajax\JobWrapper.cs" />
+    <Compile Include="Ajax\StandardRoleWrapper.cs" />
+    <Compile Include="Ajax\StandardOrganizationWrapper.cs" />
+    <Compile Include="Authentication\GenericAuthenticationManagement.cs" />
+    <Compile Include="BLL\AccountGrantService.cs" />
+    <Compile Include="BLL\AccountLogService.cs" />
+    <Compile Include="BLL\AccountService.cs" />
+    <Compile Include="BLL\JobFamilyService.cs" />
+    <Compile Include="BLL\SettingService.cs" />
+    <Compile Include="BLL\AssignedJobService.cs" />
+    <Compile Include="BLL\AuthorizationObjectService.cs" />
+    <Compile Include="BLL\ContactService.cs" />
+    <Compile Include="BLL\GeneralRoleService.cs" />
+    <Compile Include="BLL\GroupService.cs" />
+    <Compile Include="BLL\GroupTreeNodeService.cs" />
+    <Compile Include="BLL\GroupTreeService.cs" />
+    <Compile Include="BLL\JobGradeService.cs" />
+    <Compile Include="BLL\JobService.cs" />
+    <Compile Include="BLL\MemberService.cs" />
+    <Compile Include="BLL\OrganizationService.cs" />
+    <Compile Include="BLL\RoleService.cs" />
+    <Compile Include="BLL\StandardGeneralRoleService.cs" />
+    <Compile Include="BLL\StandardOrganizationService.cs" />
+    <Compile Include="BLL\StandardRoleService.cs" />
+    <Compile Include="Configuration\MembershipConfiguration.cs" />
+    <Compile Include="Configuration\MembershipConfigurationView.cs" />
+    <Compile Include="DAL\IBatis\AccountGrantProvider.cs" />
+    <Compile Include="DAL\IBatis\AccountLogProvider.cs" />
+    <Compile Include="DAL\IBatis\AccountProvider.cs" />
+    <Compile Include="DAL\IBatis\JobFamilyProvider.cs" />
+    <Compile Include="DAL\IBatis\SettingProvider.cs" />
+    <Compile Include="DAL\IBatis\AssignedJobProvider.cs" />
+    <Compile Include="DAL\IBatis\AuthorizationObjectProvider.cs" />
+    <Compile Include="DAL\IBatis\ContactProvider.cs" />
+    <Compile Include="DAL\IBatis\GeneralRoleProvider.cs" />
+    <Compile Include="DAL\IBatis\GroupProvider.cs" />
+    <Compile Include="DAL\IBatis\GroupTreeNodeProvider.cs" />
+    <Compile Include="DAL\IBatis\GroupTreeProvider.cs" />
+    <Compile Include="DAL\IBatis\JobGradeProvider.cs" />
+    <Compile Include="DAL\IBatis\JobProvider.cs" />
+    <Compile Include="DAL\IBatis\MemberProvider.cs" />
+    <Compile Include="DAL\IBatis\OrganizationProvider.cs" />
+    <Compile Include="DAL\IBatis\RoleProvider.cs" />
+    <Compile Include="DAL\IBatis\StandardGeneralRoleProvider.cs" />
+    <Compile Include="DAL\IBatis\StandardOrganizationProvider.cs" />
+    <Compile Include="DAL\IBatis\StandardRoleProvider.cs" />
+    <Compile Include="DAL\MySQL\AccountGrantProvider.cs" />
+    <Compile Include="DAL\MySQL\AccountLogProvider.cs" />
+    <Compile Include="DAL\MySQL\AccountProvider.cs" />
+    <Compile Include="DAL\MySQL\AssignedJobProvider.cs" />
+    <Compile Include="DAL\MySQL\AuthorizationObjectProvider.cs" />
+    <Compile Include="DAL\MySQL\ContactProvider.cs" />
+    <Compile Include="DAL\MySQL\GeneralRoleProvider.cs" />
+    <Compile Include="DAL\MySQL\GroupProvider.cs" />
+    <Compile Include="DAL\MySQL\GroupTreeNodeProvider.cs" />
+    <Compile Include="DAL\MySQL\GroupTreeProvider.cs" />
+    <Compile Include="DAL\MySQL\JobFamilyProvider.cs" />
+    <Compile Include="DAL\MySQL\JobGradeProvider.cs" />
+    <Compile Include="DAL\MySQL\JobProvider.cs" />
+    <Compile Include="DAL\MySQL\MemberProvider.cs" />
+    <Compile Include="DAL\MySQL\OrganizationProvider.cs" />
+    <Compile Include="DAL\MySQL\RoleProvider.cs" />
+    <Compile Include="DAL\MySQL\SettingProvider.cs" />
+    <Compile Include="DAL\MySQL\StandardGeneralRoleProvider.cs" />
+    <Compile Include="DAL\MySQL\StandardOrganizationProvider.cs" />
+    <Compile Include="DAL\MySQL\StandardRoleProvider.cs" />
+    <Compile Include="IBLL\IAccountGrantService.cs" />
+    <Compile Include="IBLL\IAccountLogService.cs" />
+    <Compile Include="IBLL\IAccountService.cs" />
+    <Compile Include="IBLL\IJobFamilyService.cs" />
+    <Compile Include="IBLL\ISettingService.cs" />
+    <Compile Include="IBLL\IAssignedJobService.cs" />
+    <Compile Include="IBLL\IAuthorizationObjectService.cs" />
+    <Compile Include="IBLL\IContactService.cs" />
+    <Compile Include="IBLL\IGeneralRoleService.cs" />
+    <Compile Include="IBLL\IGroupService.cs" />
+    <Compile Include="IBLL\IGroupTreeNodeService.cs" />
+    <Compile Include="IBLL\IGroupTreeService.cs" />
+    <Compile Include="IBLL\IJobGradeService.cs" />
+    <Compile Include="IBLL\IJobService.cs" />
+    <Compile Include="IBLL\IMemberService.cs" />
+    <Compile Include="IBLL\IOrganizationService.cs" />
+    <Compile Include="IBLL\IRoleService.cs" />
+    <Compile Include="IBLL\IStandardGeneralRoleService.cs" />
+    <Compile Include="IBLL\IStandardOrganizationService.cs" />
+    <Compile Include="IBLL\IStandardRoleService.cs" />
+    <Compile Include="IDAL\IAccountGrantProvider.cs" />
+    <Compile Include="IDAL\IAccountLogProvider.cs" />
+    <Compile Include="IDAL\IAccountProvider.cs" />
+    <Compile Include="IDAL\IJobFamilyProvider.cs" />
+    <Compile Include="IDAL\ISettingProvider.cs" />
+    <Compile Include="IDAL\IAssignedJobProvider.cs" />
+    <Compile Include="IDAL\IAuthorizationObjectProvider.cs" />
+    <Compile Include="IDAL\IContactProvider.cs" />
+    <Compile Include="IDAL\IGeneralRoleProvider.cs" />
+    <Compile Include="IDAL\IGroupProvider.cs" />
+    <Compile Include="IDAL\IGroupTreeNodeProvider.cs" />
+    <Compile Include="IDAL\IGroupTreeProvider.cs" />
+    <Compile Include="IDAL\IJobGradeProvider.cs" />
+    <Compile Include="IDAL\IJobProvider.cs" />
+    <Compile Include="IDAL\IMemberProvider.cs" />
+    <Compile Include="IDAL\IOrganizationProvider.cs" />
+    <Compile Include="IDAL\IRoleProvider.cs" />
+    <Compile Include="IDAL\IStandardGeneralRoleProvider.cs" />
+    <Compile Include="IDAL\IStandardOrganizationProvider.cs" />
+    <Compile Include="IDAL\IStandardRoleProvider.cs" />
+    <Compile Include="MembershipManagement.cs" />
+    <Compile Include="Model\AccountAssignedJobRelationInfo.cs" />
+    <Compile Include="Model\AccountGrantInfo.cs" />
+    <Compile Include="Model\AccountGroupRelationInfo.cs" />
+    <Compile Include="Model\AccountInfo.cs" />
+    <Compile Include="Model\AccountLogInfo.cs" />
+    <Compile Include="Model\AccountOrganizationRelationInfo.cs" />
+    <Compile Include="Model\AccountRoleRelationInfo.cs" />
+    <Compile Include="Model\JobFamilyInfo.cs" />
+    <Compile Include="Model\SettingInfo.cs" />
+    <Compile Include="Model\AssignedJobInfo.cs" />
+    <Compile Include="Model\ContactInfo.cs" />
+    <Compile Include="Model\ContactType.cs" />
+    <Compile Include="Model\GeneralRoleInfo.cs" />
+    <Compile Include="Model\GroupInfo.cs" />
+    <Compile Include="Model\GroupTreeInfo.cs" />
+    <Compile Include="Model\GroupTreeNodeInfo.cs" />
+    <Compile Include="Model\JobGradeInfo.cs" />
+    <Compile Include="Model\JobInfo.cs" />
+    <Compile Include="Model\MemberInfo.cs" />
+    <Compile Include="Model\OrganizationInfo.cs" />
+    <Compile Include="Model\RoleInfo.cs" />
+    <Compile Include="Model\StandardGeneralRoleInfo.cs" />
+    <Compile Include="Model\StandardGeneralRoleMappingRelationInfo.cs" />
+    <Compile Include="Model\StandardOrganizationInfo.cs" />
+    <Compile Include="Model\StandardRoleInfo.cs" />
+    <Compile Include="OrganizationCharts\OrganizationChartNode.cs" />
+    <Compile Include="OrganizationCharts\OrganizationChartView.cs" />
+    <Compile Include="OrganizationCharts\OrganizationChartNodeType.cs" />
+    <Compile Include="OrganizationCharts\OrganizationChartNodeStatus.cs" />
+    <Compile Include="Ajax\MemberWrapper.cs" />
+    <Compile Include="Ajax\OrganizationWrapper.cs" />
+    <Compile Include="Ajax\RoleWrapper.cs" />
+    <Compile Include="Authentication\HttpAuthenticationManagement.cs" />
+    <Compile Include="Authentication\NLMAuthenticationManagement.cs" />
+    <Compile Include="Authentication\HttpAuthenticationCookieSetter.cs" />
+    <Compile Include="Authentication\MockAuthenticationManagement.cs" />
+    <Compile Include="GenericAccountStorageStrategy.cs" />
+    <Compile Include="MembershipStorage.cs" />
+    <Compile Include="Passwords\ASEPasswordEncryptionManagement.cs" />
+    <Compile Include="Passwords\IPasswordEncryptionManagement.cs" />
+    <Compile Include="Passwords\NonePasswordEncryptionManagement.cs" />
+    <Compile Include="Passwords\SHA1PasswordEncryptionManagement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MembershipUitily.cs" />
+    <Compile Include="MembershipProviders\FormsAuthenticationMembershipProvider.cs" />
+    <Compile Include="Scope\MembershipAuthorizationScope.cs" />
+    <Compile Include="Scope\MembershipAuthorizationScopeManagement.cs" />
+    <Compile Include="Scope\MembershipAuthorizationScopeObject.cs" />
+    <Compile Include="MembershipProviders\TextFileMembershipProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ajax\ContactWrapper.cs" />
+    <Compile Include="Ajax\GroupWrapper.cs" />
+    <Compile Include="Ajax\GeneralRoleWrapper.cs" />
+    <Compile Include="Authentication\SSOAuthenticationManagement.cs" />
+    <None Include="build.publish.bat" />
+    <None Include="config\MySQL\X3Platform.Membership.IBatis.SqlMap.config" />
+    <None Include="config\MySQL\X3Platform.Membership.Spring.config" />
+    <None Include="config\X3Platform.Membership.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="config\X3Platform.Membership.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Membership.Spring.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\AccountGrantProvider.xml">
+      <DependentUpon>AccountGrantProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\AccountLogProvider.xml">
+      <DependentUpon>AccountLogProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\AccountProvider.xml">
+      <DependentUpon>AccountProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\JobFamilyProvider.xml">
+      <DependentUpon>JobFamilyProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\SettingProvider.xml">
+      <DependentUpon>SettingProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\AssignedJobProvider.xml">
+      <DependentUpon>AssignedJobProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\AuthorizationObjectProvider.xml">
+      <DependentUpon>AuthorizationObjectProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\ContactProvider.xml">
+      <DependentUpon>ContactProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\GeneralRoleProvider.xml">
+      <DependentUpon>GeneralRoleProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\GroupProvider.xml">
+      <DependentUpon>GroupProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\GroupTreeNodeProvider.xml">
+      <DependentUpon>GroupTreeNodeProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\GroupTreeProvider.xml">
+      <DependentUpon>GroupTreeProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\JobGradeProvider.xml">
+      <DependentUpon>JobGradeProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\JobProvider.xml">
+      <DependentUpon>JobProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\MemberProvider.xml">
+      <DependentUpon>MemberProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\OrganizationProvider.xml">
+      <DependentUpon>OrganizationProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\RoleProvider.xml">
+      <DependentUpon>RoleProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\StandardGeneralRoleProvider.xml">
+      <DependentUpon>StandardGeneralRoleProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\StandardOrganizationProvider.xml">
+      <DependentUpon>StandardOrganizationProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\StandardRoleProvider.xml">
+      <DependentUpon>StandardRoleProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\AccountGrantProvider.xml">
+      <DependentUpon>AccountGrantProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\AccountLogProvider.xml">
+      <DependentUpon>AccountLogProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\AccountProvider.xml">
+      <DependentUpon>AccountProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\AssignedJobProvider.xml">
+      <DependentUpon>AssignedJobProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\AuthorizationObjectProvider.xml">
+      <DependentUpon>AuthorizationObjectProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\ContactProvider.xml">
+      <DependentUpon>ContactProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\GeneralRoleProvider.xml">
+      <DependentUpon>GeneralRoleProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\GroupProvider.xml">
+      <DependentUpon>GroupProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\GroupTreeNodeProvider.xml">
+      <DependentUpon>GroupTreeNodeProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\GroupTreeProvider.xml">
+      <DependentUpon>GroupTreeProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\JobFamilyProvider.xml">
+      <DependentUpon>JobFamilyProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\JobGradeProvider.xml">
+      <DependentUpon>JobGradeProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\JobProvider.xml">
+      <DependentUpon>JobProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\MemberProvider.xml">
+      <DependentUpon>MemberProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\OrganizationProvider.xml">
+      <DependentUpon>OrganizationProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\RoleProvider.xml">
+      <DependentUpon>RoleProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\SettingProvider.xml">
+      <DependentUpon>SettingProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\StandardGeneralRoleProvider.xml">
+      <DependentUpon>StandardGeneralRoleProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\StandardOrganizationProvider.xml">
+      <DependentUpon>StandardOrganizationProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\StandardRoleProvider.xml">
+      <DependentUpon>StandardRoleProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="db\Functions%28SQLServer%29\func_GetCorporationIdByOrganizationId.sql" />
+    <Content Include="db\人员及权限管理初始化脚本%28MySQL%29.sql" />
+    <Content Include="db\人员及权限管理初始化脚本%28SQLServer%29.sql" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db\Functions%28MySQL%29\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

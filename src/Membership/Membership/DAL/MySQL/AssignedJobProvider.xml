@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.AccountGrantProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="AssignedJobInfo" type="X3Platform.Membership.Model.AssignedJobInfo,X3Platform.Membership" />
+        <typeAlias alias="AccountAssignedJobRelationInfo" type="X3Platform.Membership.Model.AccountAssignedJobRelationInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_AssignedJob_FindOne_Result" class="AssignedJobInfo">
+            <result property="Id" column="Id" />
+            <result property="JobId" column="JobId" />
+            <result property="OrganizationId" column="OrganizationId" />
+            <result property="ParentId" column="ParentId" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Status" column="Status" />
+            <result property="UpdateDate" column="UpdateDate" />
+        </resultMap>
+        <resultMap id="proc_AssignedJob_FindAll_Result" class="AssignedJobInfo">
+            <result property="Id" column="Id" />
+            <result property="JobId" column="JobId" />
+            <result property="OrganizationId" column="OrganizationId" />
+            <result property="ParentId" column="ParentId" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="Status" column="Status" />
+            <result property="UpdateDate" column="UpdateDate" />
+        </resultMap>
+        <resultMap id="proc_AssignedJob_FindAllRelation_Result" class="AccountAssignedJobRelationInfo" >
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountGlobalName" column="AccountGlobalName" />
+            <result property="AssignedJobId" column="AssignedJobId" />
+            <result property="AssignedJobGlobalName" column="AssignedJobGlobalName" />
+            <result property="IsDefault" column="IsDefault" />
+            <result property="BeginDate" column="BeginDate" />
+            <result property="EndDate" column="EndDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_AssignedJob_Insert" parameterClass="AssignedJobInfo">
+            INSERT INTO `tb_AssignedJob` 
+            (
+                `Id`,
+                `JobId`,
+                `OrganizationId`,
+                `ParentId`,
+                `Code`,
+                `Name`,
+                `Status`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #JobId#,
+                #OrganizationId#,
+                #ParentId#,
+                #Code#,
+                #Name#,
+                #Status#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_AssignedJob_Update" parameterClass="AssignedJobInfo">
+            UPDATE `tb_AssignedJob` SET
+
+                `JobId` = #JobId#,
+                `OrganizationId` = #OrganizationId#,
+                `ParentId` = #ParentId#,
+                `Code` = #Code#,
+                `Name` = #Name#,
+                `Status` = #Status#,
+                `UpdateDate` = Now()
+
+            WHERE `Id` = #Id#
+
+        </update>
+
+        <delete id="proc_AssignedJob_Delete" >
+            DELETE FROM `tb_AssignedJob` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_AssignedJob_FindOne" resultMap="proc_AssignedJob_FindOne_Result" >
+            SELECT * FROM `tb_AssignedJob` WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_AssignedJob_FindAll" resultMap="proc_AssignedJob_FindAll_Result" >
+            SELECT * FROM `tb_AssignedJob` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_AssignedJob_GetPages" resultMap="proc_AssignedJob_FindAll_Result" >
+            SELECT * FROM `tb_AssignedJob` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_AssignedJob_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_AssignedJob` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_AssignedJob_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_AssignedJob` T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_AssignedJob_Rename" parameterClass="AssignedJobInfo">
+            UPDATE `tb_AssignedJob` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+        </update>
+
+        <update id="proc_AssignedJob_SetJobId" >
+            UPDATE `tb_AssignedJob` SET `JobId` = #JobId# WHERE `Id` = #Id#
+        </update>
+
+        <insert id="proc_AssignedJob_SyncFromPackPage" parameterClass="AssignedJobInfo" >
+            IF EXISTS(SELECT 0 FROM `tb_AssignedJob` WHERE `Id` = #Id#)
+            BEGIN
+
+                UPDATE `tb_AssignedJob` SET
+
+                    `JobId` = #JobId#,
+                    `OrganizationId` = #OrganizationId#,
+                    `Code` = #Code#,
+                    `Name` = #Name#,
+                    `Status` = #Status#,
+                    `UpdateDate` = Now()
+
+                WHERE `Id` = #Id#
+
+            END
+            ELSE
+            BEGIN
+
+                INSERT INTO `tb_AssignedJob` 
+                (
+                    `Id`,
+                    `JobId`,
+                    `OrganizationId`,
+                    `Code`,
+                    `Name`,
+                    `Status`,
+                    `UpdateDate`,
+                    `CreateDate`
+                )
+                VALUES
+                (
+                    #Id#,
+                    #JobId#,
+                    #OrganizationId#,
+                    #Code#,
+                    #Name#,
+                    #Status#,
+                    Now(),
+                    Now()
+                )
+
+            END
+        </insert>
+
+        <select id="proc_AssignedJob_FindAllRelation" resultMap="proc_AssignedJob_FindAllRelation_Result" >
+            SELECT 
+	            AccountId, 
+	            tb_Account.GlobalName AS AccountGlobalName, 
+	            RoleId,
+	            tb_AssignedJob.Name AS AssignedJobGlobalName, 
+	            IsDefault, 
+	            BeginDate,
+	            EndDate 
+            FROM 
+	            `tb_Account_AssignedJob`
+		            INNER JOIN tb_Account ON tb_Account_AssignedJob.AccountId = tb_Account.Id
+		            INNER JOIN tb_AssignedJob ON tb_Account_AssignedJob.AssignedJobId = tb_AssignedJob.Id
+            WHERE 
+                $WhereClause$
+        </select>
+        
+        <insert id="proc_AssignedJob_AddRelation" >
+            IF EXISTS ( SELECT 0 FROM `tb_Account_AssignedJob` WHERE `AccountId` = '$AccountId$' AND `AssignedJobId` = '$AssignedJobId$' )
+            BEGIN
+
+            UPDATE `tb_Account_AssignedJob` SET
+
+            `IsDefault` = '$IsDefault$',
+            `BeginDate` = '$BeginDate$',
+            `EndDate` = '$EndDate$'
+
+            WHERE `AccountId` = '$AccountId$' AND `AssignedJobId` = '$AssignedJobId$'
+
+            END
+            ELSE
+            BEGIN
+
+            INSERT INTO `tb_Account_AssignedJob` (
+            `AccountId`,
+            `AssignedJobId`,
+            `IsDefault`,
+            `BeginDate`,
+            `EndDate`
+            )
+            VALUES
+            (
+            '$AccountId$',
+            '$AssignedJobId$',
+            '$IsDefault$',
+            '$BeginDate$',
+            '$EndDate$'
+            )
+            END
+        </insert>
+
+        <update id="proc_AssignedJob_ExtendRelation" >
+
+            UPDATE `tb_Account_AssignedJob` SET
+
+            `EndDate` = '$EndDate$'
+
+            WHERE `AccountId` = '$AccountId$' AND `AssignedJobId` = '$AssignedJobId$'
+
+        </update>
+
+        <delete id="proc_AssignedJob_RemoveRelation" >
+            DELETE FROM `tb_Account_AssignedJob` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_AssignedJob_HasDefaultRelation" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Account_AssignedJob` T WHERE `AccountId` = '$AccountId$' AND `IsDefault` = 1
+        </select>
+
+        <update id="proc_AssignedJob_ResetRelation" >
+            UPDATE `tb_Account_AssignedJob` SET `IsDefault` = 0 WHERE `AccountId` = '$AccountId$'
+        </update>
+
+        <update id="proc_AssignedJob_SetDefaultRelationIsDefault" >
+            UPDATE `tb_Account_AssignedJob` SET `IsDefault` = 1 WHERE `AccountId` = '$AccountId$' AND `AssignedJobId` = '$AssignedJobId$'
+        </update>
+        
+        <update id="proc_AssignedJob_SetDefaultRelation" >
+            UPDATE `tb_Member` SET `AssignedJobId` = '$AssignedJobId$', UpdateDate = Now() WHERE `AccountId` = '$AccountId$'
+        </update>
+        
+        <update id="proc_AssignedJob_SetNullDefaultRelation" >
+            UPDATE `tb_Member` SET `AssignedJobId` = '', UpdateDate = Now() WHERE `AccountId` = '$AccountId$'
+        </update>
+        
+    </statements>
+</sqlMap>
