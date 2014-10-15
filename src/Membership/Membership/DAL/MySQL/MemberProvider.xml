@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.MemberProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="MemberInfo" type="X3Platform.Membership.Model.MemberInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Member_FindOne_Result" class="MemberInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="CorporationId" column="CorporationId" />
+            <result property="DepartmentId" column="DepartmentId" />
+            <result property="Department2Id" column="Department2Id" />
+            <result property="Department3Id" column="Department3Id" />
+            <result property="OrganizationId" column="OrganizationId" />
+            <result property="RoleId" column="RoleId" />
+            <result property="JobId" column="JobId" />
+            <result property="AssignedJobId" column="AssignedJobId" />
+            <result property="JobGradeId" column="JobGradeId" />
+            <result property="JobGradeDisplayName" column="JobGradeDisplayName" />
+            <result property="Headship" column="Headship" />
+            <result property="Sex" column="Sex" />
+            <result property="Birthday" column="Birthday" />
+            <result property="GraduationDate" column="GraduationDate" />
+            <result property="EntryDate" column="EntryDate" />
+            <result property="PromotionDate" column="PromotionDate" />
+            <result property="Hometown" column="Hometown" />
+            <result property="City" column="City" />
+            <result property="Mobile" column="Mobile" />
+            <result property="Telephone" column="Telephone" />
+            <result property="Email" column="Email" />
+            <result property="QQ" column="QQ" />
+            <result property="MSN" column="MSN" />
+            <result property="Rtx" column="Rtx" />
+            <result property="PostCode" column="PostCode" />
+            <result property="Address" column="Address" />
+            <result property="Url" column="Url" />
+            <result property="FullPath" column="FullPath" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+
+        <resultMap id="proc_Member_FindAll_Result" class="MemberInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="CorporationId" column="CorporationId" />
+            <result property="DepartmentId" column="DepartmentId" />
+            <result property="Department2Id" column="Department2Id" />
+            <result property="Department3Id" column="Department3Id" />
+            <result property="OrganizationId" column="OrganizationId" />
+            <result property="RoleId" column="RoleId" />
+            <result property="JobId" column="JobId" />
+            <result property="AssignedJobId" column="AssignedJobId" />
+            <result property="JobGradeId" column="JobGradeId" />
+            <result property="JobGradeDisplayName" column="JobGradeDisplayName" />
+            <result property="Headship" column="Headship" />
+            <result property="Sex" column="Sex" />
+            <result property="Birthday" column="Birthday" />
+            <result property="GraduationDate" column="GraduationDate" />
+            <result property="EntryDate" column="EntryDate" />
+            <result property="PromotionDate" column="PromotionDate" />
+            <result property="Hometown" column="Hometown" />
+            <result property="City" column="City" />
+            <result property="Mobile" column="Mobile" />
+            <result property="Telephone" column="Telephone" />
+            <result property="Email" column="Email" />
+            <result property="QQ" column="QQ" />
+            <result property="MSN" column="MSN" />
+            <result property="Rtx" column="Rtx" />
+            <result property="PostCode" column="PostCode" />
+            <result property="Address" column="Address" />
+            <result property="Url" column="Url" />
+            <result property="FullPath" column="FullPath" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Member_Insert" parameterClass="MemberInfo" >
+            INSERT INTO `tb_Member` (
+                Id,
+                AccountId,
+                Headship,
+                Sex,
+                Telephone,
+                Email,
+                QQ,
+                MSN,
+                Birthday,
+                GraduationDate,
+                EntryDate,
+                PromotionDate,
+                Hometown,
+                City,
+                PostCode,
+                Address,
+                Url,
+                FullPath,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES 
+            (
+                #Id#,
+                #AccountId#,
+                #Headship#,
+                #Sex#,
+                #Telephone#,
+                #Email#,
+                #QQ#,
+                #MSN#,
+                #Birthday#,
+                #GraduationDate#,
+                #EntryDate#,
+                #PromotionDate#,
+                #Hometown#,
+                #City#,
+                #PostCode#,
+                #Address#,
+                #Url#,
+                #FullPath#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_Member_Update" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET
+
+                Headship = #Headship#,
+                Sex = #Sex#,
+                Birthday = #Birthday#,
+                GraduationDate = #GraduationDate#,
+                EntryDate = #EntryDate#,
+                PromotionDate = #PromotionDate#,
+                Hometown = #Hometown#,
+                City = #City#,
+                Mobile = #Mobile#,
+                Telephone = #Telephone#,
+                QQ = #QQ#,
+                MSN = #MSN#,
+                Email = #Email#,
+                Rtx = #Rtx#,
+                PostCode = #PostCode#,
+                Address = #Address#,
+                Url = #Url#,
+                FullPath = #FullPath#,
+                UpdateDate = Now()
+
+            WHERE Id = #Id#
+        </update>
+
+        <delete id="proc_Member_Delete">
+            DELETE FROM `tb_Member` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Member_FindOne" resultMap="proc_Member_FindOne_Result" >
+            SELECT * FROM `tb_Member` WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Member_FindOneByAccountId" resultMap="proc_Member_FindOne_Result" >
+            SELECT * FROM `tb_Member` WHERE AccountId = #AccountId#
+        </select>
+
+        <select id="proc_Member_FindOneByLoginName" resultMap="proc_Member_FindOne_Result" >
+            SELECT * FROM `tb_Member` WHERE AccountId IN (SELECT Id FROM tb_Account WHERE `LoginName` = #LoginName#)
+        </select>
+
+        <select id="proc_Member_FindAll" resultMap="proc_Member_FindAll_Result" >
+            SELECT
+
+            * FROM `tb_Member`
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Member_GetPages" parameterClass="MemberInfo" resultMap="proc_Member_FindAll_Result" >
+            SELECT * FROM `tb_Member` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Member_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Member` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Member_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM `tb_Member` T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Member_SetContactCard" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET 
+            
+                Mobile = #Mobile#, 
+                Telephone = #Telephone#, 
+                QQ = #QQ#, 
+                MSN = #MSN#, 
+                Email = #Email#, 
+                Rtx = #Rtx#, 
+                PostCode = #PostCode#, 
+                Address = #Address#, 
+                UpdateDate = Now() 
+            
+            WHERE AccountId = #AccountId#
+        </update>
+        
+        <update id="proc_Member_SetDefaultCorporationAndDepartments" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET 
+            
+                CorporationId = #CorporationId#, 
+                DepartmentId = #DepartmentId#, 
+                Department2Id = #Department2Id#, 
+                Department3Id = #Department3Id#, 
+                UpdateDate = Now() 
+            
+            WHERE AccountId = #AccountId#
+        </update>
+        
+        <update id="proc_Member_SetDefaultOrganization" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET OrganizationId = #OrganizationId#, UpdateDate = Now() WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Member_SetDefaultRole" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET RoleId = #RoleId#, UpdateDate = Now() WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Member_SetDefaultJob" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET JobId = #JobId#, UpdateDate = Now() WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Member_SetDefaultAssignedJob" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET AssignedJobId = #AssignedJobId#, UpdateDate = Now() WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Member_SetDefaultJobGrade" parameterClass="MemberInfo" >
+            UPDATE `tb_Member` SET JobGradeId = #JobGradeId#, UpdateDate = Now() WHERE AccountId = #AccountId#
+        </update>
+
+        <insert id="proc_Member_SyncFromPackPage" parameterClass="MemberInfo" >
+            IF EXISTS(SELECT 0 FROM `tb_Member` WHERE `Id` = #Id#)
+            BEGIN
+                UPDATE `tb_Member` SET
+
+                    AccountId = #AccountId#,
+                    CorporationId = #CorporationId#,
+                    DepartmentId = #DepartmentId#,
+                    Department2Id = #Department2Id#,
+                    OrganizationId = #OrganizationId#,
+                    JobId = #JobId#,
+                    AssignedJobId = #AssignedJobId#,
+                    JobGradeDisplayName = #JobGradeDisplayName#,
+                    Headship = #Headship#,
+                    Sex = #Sex#,
+                    GraduationDate = #GraduationDate#,
+                    EntryDate = #EntryDate#,
+                    PromotionDate = #PromotionDate#,
+                    UpdateDate = Now()
+
+                WHERE Id = #Id#
+            END
+            ELSE
+            BEGIN
+                INSERT INTO `tb_Member` 
+                (
+                    Id,
+                    AccountId,
+                    CorporationId,
+                    DepartmentId,
+                    Department2Id,
+                    OrganizationId,
+                    JobId,
+                    AssignedJobId,
+                    JobGradeDisplayName,
+                    Headship,
+                    Sex,
+                    GraduationDate,
+                    EntryDate,
+                    PromotionDate,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES
+                (
+                    #Id#,
+                    #AccountId#,
+                    #CorporationId#,
+                    #DepartmentId#,
+                    #Department2Id#,
+                    #OrganizationId#,
+                    #JobId#,
+                    #AssignedJobId#,
+                    #JobGradeDisplayName#,
+                    #Headship#,
+                    #Sex#,
+                    #GraduationDate#,
+                    #EntryDate#,
+                    #PromotionDate#,
+                    Now(),
+                    Now()
+                )
+            END
+        </insert>
+    </statements>
+</sqlMap>

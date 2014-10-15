@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.GeneralRoleProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="GeneralRoleInfo" type="X3Platform.Membership.Model.GeneralRoleInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_GeneralRole_FindOne_Result" class="GeneralRoleInfo" >
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="PinYin" column="PinYin" />
+            <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+            <result property="Lock" column="Lock" />
+            <result property="Status" column="Status" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Remark" column="Remark" />
+            <result property="FullPath" column="FullPath" />
+            <result property="DistinguishedName" column="DistinguishedName" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_GeneralRole_FindAll_Result" class="GeneralRoleInfo">
+           <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="PinYin" column="PinYin" />
+            <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+            <result property="Lock" column="Lock" />
+            <result property="Status" column="Status" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Remark" column="Remark" />
+            <result property="FullPath" column="FullPath" />
+            <result property="DistinguishedName" column="DistinguishedName" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_GeneralRole_Insert" parameterClass="GeneralRoleInfo">
+            INSERT INTO `tb_GeneralRole` (
+                `Id`,
+                `Code`,
+                `Name`,
+                `GlobalName`,
+                `PinYin`,
+                `GroupTreeNodeId`,
+                `EnableExchangeEmail`,
+                `Lock`,
+                `Status`,
+                `OrderId`,
+                `Remark`,
+                `FullPath`,
+                `DistinguishedName`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #Code#,
+                #Name#,
+                #GlobalName#,
+                #PinYin#,
+                #GroupTreeNodeId#,
+                #EnableExchangeEmail#,
+                #Lock#,
+                #Status#,
+                #OrderId#,
+                #Remark#,
+                #FullPath#,
+                #DistinguishedName#,
+                GetDate(),
+                GetDate()
+            )
+        </insert>
+
+        <update id="proc_GeneralRole_Update" parameterClass="GeneralRoleInfo">
+            UPDATE `tb_GeneralRole` SET
+                
+                `Code` = #Code#,
+                `Name` = #Name#,
+                `GlobalName` = #GlobalName#,
+                `PinYin` = #PinYin#,
+                `GroupTreeNodeId` = #GroupTreeNodeId#,
+                `EnableExchangeEmail` = #EnableExchangeEmail#,
+                `Lock` = #Lock#,
+                `Status` = #Status#,
+                `OrderId` = #OrderId#,
+                `Remark` = #Remark#,
+                `FullPath` = #FullPath#,
+                `DistinguishedName` = #DistinguishedName#,
+                `UpdateDate` = GetDate()
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <delete id="proc_GeneralRole_Delete" parameterClass="GeneralRoleInfo">
+            DELETE FROM `tb_GeneralRole` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_GeneralRole_FindOne" resultMap="proc_GeneralRole_FindOne_Result" >
+            SELECT * FROM `tb_GeneralRole` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_GeneralRole_FindAll" resultMap="proc_GeneralRole_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM `tb_GeneralRole` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_GeneralRole_GetPages" resultMap="proc_GeneralRole_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `tb_GeneralRole` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_GeneralRole_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_GeneralRole` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_GeneralRole_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_GeneralRole` T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_GeneralRole_Rename" >
+            UPDATE `tb_GeneralRole` SET `Name` = #Name#, `UpdateDate` = GetDate() WHERE `Id` = #Id#
+        </update>
+
+        <update id="proc_GeneralRole_SetGlobalName" >
+            Update `tb_GeneralRole` SET GlobalName = #GlobalName#, `UpdateDate` = GetDate() WHERE Id = #Id#
+        </update>
+
+    </statements>
+</sqlMap>

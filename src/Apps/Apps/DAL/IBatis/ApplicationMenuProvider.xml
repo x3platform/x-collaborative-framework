@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="ApplicationMenuInfo" type="X3Platform.Apps.Model.ApplicationMenuInfo,X3Platform.Apps" />
+		<typeAlias alias="ApplicationMenuQueryInfo" type="X3Platform.Apps.Model.ApplicationMenuQueryInfo,X3Platform.Apps" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Application_Menu_FindOne_Result" class="ApplicationMenuInfo">
+			<result property="Id" column="Id" />
+			<result property="ApplicationId" column="ApplicationId" />
+			<result property="ParentId" column="ParentId" />
+			<result property="Code" column="Code" />
+			<result property="Name" column="Name" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="MenuType" column="MenuType" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="DisplayType" column="DisplayType" />
+			<result property="HasChild" column="HasChild" />
+			<result property="ContextObject" column="ContextObject" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="FullPath" column="FullPath" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Application_Menu_FindAll_Result" class="ApplicationMenuInfo">
+			<result property="Id" column="Id" />
+			<result property="ApplicationId" column="ApplicationId" />
+			<result property="ParentId" column="ParentId" />
+			<result property="Code" column="Code" />
+			<result property="Name" column="Name" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="MenuType" column="MenuType" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="DisplayType" column="DisplayType" />
+			<result property="HasChild" column="HasChild" />
+			<result property="ContextObject" column="ContextObject" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="FullPath" column="FullPath" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+        <resultMap id="proc_Application_Menu_FindAllQueryObject_Result" class="ApplicationMenuQueryInfo">
+            <result property="Id" column="Id" />
+			<result property="ApplicationId" column="ApplicationId" />
+			<result property="ParentId" column="ParentId" />
+			<result property="Code" column="Code" />
+			<result property="Name" column="Name" />
+			<result property="Description" column="Description" />
+			<result property="Url" column="Url" />
+			<result property="Target" column="Target" />
+			<result property="MenuType" column="MenuType" />
+			<result property="IconPath" column="IconPath" />
+			<result property="BigIconPath" column="BigIconPath" />
+			<result property="DisplayType" column="DisplayType" />
+			<result property="HasChild" column="HasChild" />
+			<result property="ContextObject" column="ContextObject" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="Remark" column="Remark" />
+			<result property="FullPath" column="FullPath" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+        </resultMap>
+	</resultMaps>
+	<statements>
+
+		<insert id="proc_Application_Menu_Insert" parameterClass="ApplicationMenuInfo">
+			INSERT INTO [tb_Application_Menu] (
+					[Id],
+					[ApplicationId],
+					[ParentId],
+					[Code],
+					[Name],
+					[Description],
+					[Url],
+					[Target],
+                    [MenuType],
+					[IconPath],
+					[BigIconPath],
+                    [DisplayType],
+                    [HasChild],
+					[ContextObject],
+					[OrderId],
+					[Status],
+					[Remark],
+					[FullPath],
+					[UpdateDate],
+					[CreateDate]
+				)
+				VALUES
+				(
+					#Id#,
+					#ApplicationId#,
+					#ParentId#,
+					#Code#,
+					#Name#,
+					#Description#,
+					#Url#,
+					#Target#,
+                    #MenuType#,
+					#IconPath#,
+					#BigIconPath#,
+                    #DisplayType#,
+                    #HasChild#,
+					#ContextObject#,
+					#OrderId#,
+					#Status#,
+					#Remark#,
+					#FullPath#,
+					GetDate(),
+					GetDate()
+				)
+		</insert>
+
+		<update id="proc_Application_Menu_Update" parameterClass="ApplicationMenuInfo">
+			UPDATE [tb_Application_Menu] SET
+
+					[ApplicationId] = #ApplicationId#,
+					[ParentId] = #ParentId#,
+					[Code] = #Code#,
+					[Name] = #Name#,
+					[Description] = #Description#,
+					[Url] = #Url#,
+					[Target] = #Target#,
+                    [MenuType] = #MenuType#,
+					[IconPath] = #IconPath#,
+					[BigIconPath] = #BigIconPath#,
+                    [DisplayType] = #DisplayType#,
+                    [HasChild] = #HasChild#,
+					[ContextObject] = #ContextObject#,
+					[OrderId] = #OrderId#,
+					[Status] = #Status#,
+					[Remark] = #Remark#,
+					[FullPath] = #FullPath#,
+					[UpdateDate] = GetDate()
+
+				WHERE [Id] = #Id#
+		</update>
+
+		<delete id="proc_Application_Menu_Delete" >
+			DELETE FROM [tb_Application_Menu] WHERE $WhereClause$
+		</delete>
+
+		<select id="proc_Application_Menu_FindOne" resultMap="proc_Application_Menu_FindOne_Result" >
+			SELECT * FROM [tb_Application_Menu] T
+				WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Application_Menu_FindAll" resultMap="proc_Application_Menu_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Application_Menu] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Application_Menu_FindAllQueryObject" resultMap="proc_Application_Menu_FindAllQueryObject_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Application_Menu] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Application_Menu_GetPages" resultMap="proc_Application_Menu_FindAll_Result" >
+		  SELECT *
+
+		  FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+		  FROM [tb_Application_Menu] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>) TableIndex
+
+		  WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+		</select>
+
+		<select id="proc_Application_Menu_GetQueryObjectPages" resultMap="proc_Application_Menu_FindAllQueryObject_Result" >
+		  SELECT *
+
+		  FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+		  FROM [tb_Application_Menu] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>) TableIndex
+
+		  WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+		</select>
+
+		<select id="proc_Application_Menu_GetRowCount" >
+
+		  SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_Menu] T
+
+		  <dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+		  </dynamic>
+		</select>
+
+		<select id="proc_Application_Menu_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Application_Menu] T WHERE $WhereClause$
+		</select>
+
+        <insert id="proc_Application_Menu_SyncFromPackPage" parameterClass="ApplicationMenuInfo" >
+            IF EXISTS(SELECT 0 FROM [tb_Application_Menu] WHERE [Id] = #Id#)
+            BEGIN
+                UPDATE [tb_Application_Menu] SET
+
+					[ApplicationId] = #ApplicationId#,
+					[ParentId] = #ParentId#,
+					[Code] = #Code#,
+					[Name] = #Name#,
+					[Description] = #Description#,
+					[Url] = #Url#,
+					[Target] = #Target#,
+                    [MenuType] = #MenuType#,
+					[IconPath] = #IconPath#,
+					[BigIconPath] = #BigIconPath#,
+                    [DisplayType] = #DisplayType#,
+                    [HasChild] = #HasChild#,
+					[ContextObject] = #ContextObject#,
+					[OrderId] = #OrderId#,
+					[Status] = #Status#,
+					[Remark] = #Remark#,
+					[FullPath] = #FullPath#,
+					[UpdateDate] = GetDate()
+
+				WHERE [Id] = #Id#
+
+            END
+            ELSE
+            BEGIN
+                INSERT INTO [tb_Application_Menu] (
+					[Id],
+					[ApplicationId],
+					[ParentId],
+					[Code],
+					[Name],
+					[Description],
+					[Url],
+					[Target],
+                    [MenuType],
+					[IconPath],
+					[BigIconPath],
+                    [DisplayType],
+                    [HasChild],
+					[ContextObject],
+					[OrderId],
+					[Status],
+					[Remark],
+					[FullPath],
+					[UpdateDate],
+					[CreateDate]
+				)
+				VALUES
+				(
+					#Id#,
+					#ApplicationId#,
+					#ParentId#,
+					#Code#,
+					#Name#,
+					#Description#,
+					#Url#,
+					#Target#,
+                    #MenuType#,
+					#IconPath#,
+					#BigIconPath#,
+                    #DisplayType#,
+                    #HasChild#,
+					#ContextObject#,
+					#OrderId#,
+					#Status#,
+					#Remark#,
+					#FullPath#,
+					GetDate(),
+					GetDate()
+				)
+            END
+        </insert>
+
+	</statements>
+</sqlMap>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.MySQL.AccountLogProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="AccountLogInfo" type="X3Platform.Membership.Model.AccountLogInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Account_Log_FindOne_Result" class="AccountLogInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="OriginalObjectValue" column="OriginalObjectValue" />
+            <result property="OptionAccountId" column="OptionAccountId" />
+            <result property="OptionName" column="OptionName" />
+            <result property="Description" column="Description" />
+            <result property="Date" column="Date" />
+        </resultMap>
+        <resultMap id="proc_Account_Log_FindAll_Result" class="AccountLogInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="OriginalObjectValue" column="OriginalObjectValue" />
+            <result property="OptionAccountId" column="OptionAccountId" />
+            <result property="OptionName" column="OptionName" />
+            <result property="Description" column="Description" />
+            <result property="Date" column="Date" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Account_Log_Insert" parameterClass="AccountLogInfo">
+            INSERT INTO `tb_Account_Log` 
+            (
+                `Id`,
+                `AccountId`,
+                `OriginalObjectValue`,
+                `OptionAccountId`,
+                `OptionName`,
+                `Description`,
+                `Date`
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #OriginalObjectValue#,
+                #OptionAccountId#,
+                #OptionName#,
+                #Description#,
+                #Date#
+            )
+        </insert>
+
+        <update id="proc_Account_Log_Update" parameterClass="AccountLogInfo">
+            UPDATE `tb_Account_Log` SET
+
+                `Id` = #Id#,
+                `AccountId` = #AccountId#,
+                `OriginalObjectValue` = #OriginalObjectValue#,
+                `OptionAccountId` = #OptionAccountId#,
+                `OptionName` = #OptionName#,
+                `Description` = #Description#,
+                `Date` = #Date#
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <delete id="proc_Account_Log_Delete" >
+            DELETE FROM `tb_Account_Log` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Account_Log_FindOne" resultMap="proc_Account_Log_FindOne_Result" >
+            SELECT * FROM `tb_Account_Log` WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Account_Log_FindAll" resultMap="proc_Account_Log_FindAll_Result" >
+            SELECT * FROM `tb_Account_Log` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Account_Log_GetPages" resultMap="proc_Account_Log_FindAll_Result" >
+            SELECT * FROM `tb_Account_Log` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Account_Log_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Account_Log` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Account_Log_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Account_Log` T WHERE $WhereClause$
+        </select>
+    </statements>
+</sqlMap>

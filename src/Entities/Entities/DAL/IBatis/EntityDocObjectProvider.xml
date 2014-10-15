@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Entities.DAL.IBatis.EntityDocObjectProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="EntityDocObjectInfo" type="X3Platform.Entities.Model.EntityDocObjectInfo, X3Platform.Entities" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Entity_DocObject_FindOne_Result" class="EntityDocObjectInfo">
+            <result property="Id" column="Id" />
+            <result property="DocToken" column="DocToken" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="DocTitle" column="DocTitle" />
+            <result property="DocVersion" column="DocVersion" />
+            <result property="DocStatus" column="DocStatus" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Entity_DocObject_FindAll_Result" class="EntityDocObjectInfo">
+            <result property="Id" column="Id" />
+            <result property="DocToken" column="DocToken" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="DocTitle" column="DocTitle" />
+            <result property="DocVersion" column="DocVersion" />
+            <result property="DocStatus" column="DocStatus" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <select id="proc_Entity_DocObject_FindOne" resultMap="proc_Entity_DocObject_FindOne_Result" >
+            SELECT * FROM $CustomTableName$ WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Entity_DocObject_FindAll" resultMap="proc_Entity_DocObject_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            <dynamic>
+                <isEmpty property="DataColumnSql" >
+                    *
+                </isEmpty>
+            </dynamic>
+            <dynamic>
+                <isNotEmpty property="DataColumnSql" >
+                    $DataColumnSql$
+                </isNotEmpty>
+            </dynamic>
+            
+            FROM $CustomTableName$ T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Entity_DocObject_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ T WHERE $WhereClause$
+        </select>
+
+    </statements>
+</sqlMap>
