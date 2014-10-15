@@ -51,7 +51,6 @@
                 <include name="${solution.dir}lib/Common.Logging/Common.Logging.dll" />
                 <include name="${solution.dir}lib/Spring.NET/Spring.Core.dll" />
                 <include name="${solution.dir}${framework.build.output}${framework.namespace}.Support.dll" />
-                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Support.dll" />
                 <include name="${solution.dir}${framework.build.output}${framework.namespace}.Abstractions.dll" />
             </references>
             <resources>  
