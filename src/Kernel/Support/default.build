@@ -52,7 +52,7 @@
                 <include name="${framework.assemblyDirectory}System.Web.Extensions.dll" />
                 <include name="${framework.assemblyDirectory}System.Windows.Forms.dll" />
                 <include name="${framework.assemblyDirectory}System.Xml.dll" />
-                <include name="${path.programFiles86}Microsoft ASP.NET/ASP.NET MVC 3/Assemblies/System.Web.Mvc.dll" />
+                <include name="${solution.dir}lib/ASP.NET MVC 3/System.Web.Mvc.dll" />
                 <include name="${solution.dir}lib/Common.Logging/Common.Logging.dll" />
             </references>
             <resources>
