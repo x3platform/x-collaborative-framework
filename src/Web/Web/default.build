@@ -38,7 +38,6 @@
     <target name="Compile" depends="Clean" >
         <echo message="Compiling:${project.name}" />
         <mkdir dir="${project.target.dir}" />
-        <echo message="${solution.dir}${framework.build.output}${framework.namespace}.Web.UserAgents.dll" />
         <!-- 编译目标文件 -->
         <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" keyfile="../../Licence.snk" >
             <references>
@@ -72,7 +71,14 @@
             </resources>  
             <sources>
                 <!-- 编译所有cs文件 -->
-                <include name="**/*.cs" />
+                <include name="*.cs" />
+                <include name="Builder/**/*.cs" />
+                <include name="Component/**/*.cs" />
+                <include name="Configuration/**/*.cs" />
+                <include name="Customize/**/*.cs" />
+                <!-- <include name="Mvc/**/*.cs" /> -->
+                <include name="Pages/**/*.cs" />
+                <include name="UserAgents/**/*.cs" />
                 <include name="${project.dir}/../../GlobalAssemblyInfo.cs" />
             </sources>
         </csc>
