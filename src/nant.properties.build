@@ -12,6 +12,9 @@
     <property name="nant.settings.currentframework" value="net-3.5" />
     -->
     <property name="framework.version" value="" />
+    <if test="${nant.settings.currentframework=='mono-2.0'}">
+        <property name="framework.version" value="MONO20" />
+    </if>
     <if test="${nant.settings.currentframework=='mono-3.5'}">
         <property name="framework.version" value="MONO35" />
     </if>
@@ -22,7 +25,7 @@
         <property name="framework.version" value="NET40" />
     </if>
     <property name="platform.name" value="${platform::get-name()}" />
-    <if test="${platform::is-windows() }">
+    <if test="${platform::is-windows()}">
         <!-- 读取环境变量路径 -->
         <!-- <property name="path.windows" value="${environment::get-variable('windir')}/" /> -->
         <property name="path.programFiles" value="${environment::get-variable('ProgramFiles')}/" />
