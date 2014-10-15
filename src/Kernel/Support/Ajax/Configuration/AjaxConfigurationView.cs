@@ -28,7 +28,7 @@ namespace X3Platform.Ajax.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = AjaxConfiguration.ApplicationName;
 
-        #region ��̬����:Instance
+        #region ��̬属性:Instance
         private static volatile AjaxConfigurationView instance = null;
 
         private static object lockObject = new object();
@@ -62,7 +62,7 @@ namespace X3Platform.Ajax.Configuration
         }
         #endregion
 
-        #region ����:Reload()
+        #region 属性:Reload()
         /// <summary>���¼���������Ϣ</summary>
         public override void Reload()
         {
@@ -77,7 +77,7 @@ namespace X3Platform.Ajax.Configuration
         // �Զ�������
         // -------------------------------------------------------
 
-        #region ����:CamelStyle
+        #region 属性:CamelStyle
         private string m_CamelStyle = string.Empty;
 
         /// <summary>CamelStyle Camel��д��ʽ, On : �� | Off : ��</summary>

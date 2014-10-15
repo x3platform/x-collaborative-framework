@@ -26,14 +26,14 @@ namespace X3Platform.DigitalNumber
     /// <summary>��ˮ�������Ļ���</summary>
     public class DigitalNumberContext : CustomPlugin
     {
-        #region ����:Name
+        #region 属性:Name
         public override string Name
         {
             get { return "��Ŀ�б�"; }
         }
         #endregion
 
-        #region ����:Instance
+        #region 属性:Instance
         private static volatile DigitalNumberContext instance = null;
 
         private static object lockObject = new object();
@@ -58,7 +58,7 @@ namespace X3Platform.DigitalNumber
         }
         #endregion
 
-        #region ����:DigitalNumberService
+        #region 属性:DigitalNumberService
         private IDigitalNumberService m_DigitalNumberService = null;
 
         /// <summary>���±��ṩ��</summary>
@@ -75,7 +75,7 @@ namespace X3Platform.DigitalNumber
             Restart();
         }
 
-        #region ����:Restart()
+        #region 属性:Restart()
         /// <summary>��������</summary>
         /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
         public override int Restart()

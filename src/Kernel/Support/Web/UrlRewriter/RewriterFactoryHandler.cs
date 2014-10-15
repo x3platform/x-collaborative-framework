@@ -31,7 +31,7 @@ namespace X3Platform.Web.UrlRewriter
     /// used by the <b>PageHandlerFactory</b> class).</remarks>
     public class RewriterFactoryHandler : IHttpHandlerFactory
     {
-        /// <summary>��־��¼��</summary>
+        /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>

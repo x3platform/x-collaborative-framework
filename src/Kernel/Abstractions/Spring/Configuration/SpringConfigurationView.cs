@@ -25,7 +25,7 @@ namespace X3Platform.Spring.Configuration
         /// <summary>�����ļ���Ĭ��·��</summary>
         private const string configFile = "config\\X3Platform.Spring.config";
 
-        #region ��̬����:Instance
+        #region ��̬属性:Instance
         private static volatile SpringConfigurationView instance = null;
 
         private static object lockObject = new object();
@@ -67,7 +67,7 @@ namespace X3Platform.Spring.Configuration
         }
         #endregion
 
-        #region ��̬����:LoadInstance(string fullConfigPath)
+        #region ��̬属性:LoadInstance(string fullConfigPath)
         /// <summary>ͨ�������ļ�����ʵ��</summary>
         /// <param name="fullConfigPath"></param>
         public static void LoadInstance(string fullConfigPath)

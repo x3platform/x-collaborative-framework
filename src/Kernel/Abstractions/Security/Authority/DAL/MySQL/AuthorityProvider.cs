@@ -35,7 +35,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
     [DataObject]
     public class AuthorityProvider : IAuthorityProvider
     {
-        /// <summary>��־��¼��</summary>
+        /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>����</summary>
@@ -66,7 +66,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         // ����֧��
         // -------------------------------------------------------
 
-        #region ����:BeginTransaction()
+        #region 属性:BeginTransaction()
         /// <summary>��������</summary>
         public void BeginTransaction()
         {
@@ -74,7 +74,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:BeginTransaction(IsolationLevel isolationLevel)
+        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
         /// <summary>��������</summary>
         /// <param name="isolationLevel">�������뼶��</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
@@ -83,7 +83,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:CommitTransaction()
+        #region 属性:CommitTransaction()
         /// <summary>�ύ����</summary>
         public void CommitTransaction()
         {
@@ -91,7 +91,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:RollBackTransaction()
+        #region 属性:RollBackTransaction()
         /// <summary>�ع�����</summary>
         public void RollBackTransaction()
         {
@@ -103,7 +103,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         // ���� ɾ�� �޸�
         // -------------------------------------------------------
 
-        #region ����:Save(AuthorityInfo param)
+        #region 属性:Save(AuthorityInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
         /// <returns>ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</returns>
@@ -122,7 +122,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:Insert(AuthorityInfo param)
+        #region 属性:Insert(AuthorityInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
         public void Insert(AuthorityInfo param)
@@ -131,7 +131,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:Update(AuthorityInfo param)
+        #region 属性:Update(AuthorityInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
         public void Update(AuthorityInfo param)
@@ -140,7 +140,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
         public void Delete(string ids)
@@ -160,7 +160,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
@@ -174,7 +174,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:FindOneByName(string name)
+        #region 属性:FindOneByName(string name)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="name">Ȩ������</param>
         /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
@@ -232,7 +232,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:FindAll(DataQuery query)
+        #region 属性:FindAll(DataQuery query)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="query">���ݲ�ѯ����</param>
         /// <returns>��������ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
@@ -251,7 +251,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        #region 属性:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -279,7 +279,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
         }
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ֵ</returns>

@@ -33,26 +33,26 @@ namespace X3Platform.Security.Authority.IDAL
         // ���� ���� �޸� ɾ��
         //-------------------------------------------------------
 
-        #region ����:Save(AuthorityInfo param)
+        #region 属性:Save(AuthorityInfo param)
         /// <summary>������¼</summary>
         /// <param name="param"> ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
         /// <returns>ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</returns>
         AuthorityInfo Save(AuthorityInfo param);
         #endregion
 
-        #region ����:Insert(AuthorityInfo param)
+        #region 属性:Insert(AuthorityInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">AuthorityInfo ʵ������ϸ��Ϣ</param>
         void Insert(AuthorityInfo param);
         #endregion
 
-        #region ����:Update(AuthorityInfo param)
+        #region 属性:Update(AuthorityInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">AuthorityInfo ʵ������ϸ��Ϣ</param>
         void Update(AuthorityInfo param);
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">ʵ���ı�ʶ��Ϣ,�����Զ��ŷֿ�.</param>
         void Delete(string ids);
@@ -62,21 +62,21 @@ namespace X3Platform.Security.Authority.IDAL
         // ��ѯ
         //-------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">AuthorityInfo id��</param>
         /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
         AuthorityInfo FindOne(string id);
         #endregion
 
-        #region ����:FindOneByName(string name)
+        #region 属性:FindOneByName(string name)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="name">Ȩ������</param>
         /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
         AuthorityInfo FindOneByName(string name);
         #endregion
 
-        #region ����:FindAll(DataQuery query)
+        #region 属性:FindAll(DataQuery query)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="query">���ݲ�ѯ����</param>
         /// <returns>��������ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
@@ -87,7 +87,7 @@ namespace X3Platform.Security.Authority.IDAL
         // �Զ��幦��
         //-------------------------------------------------------
 
-        #region ����:Query(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:Query(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -97,7 +97,7 @@ namespace X3Platform.Security.Authority.IDAL
         IList<AuthorityInfo> Query(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ֵ</returns>

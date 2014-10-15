@@ -26,7 +26,7 @@ namespace X3Platform.DigitalNumber.Model
         public DigitalNumberInfo() { }
         #endregion
 
-        #region ����:Name
+        #region 属性:Name
         private string m_Name;
 
         /// <summary></summary>
@@ -37,7 +37,7 @@ namespace X3Platform.DigitalNumber.Model
         }
         #endregion
 
-        #region ����:Expression
+        #region 属性:Expression
         private string m_Expression;
 
         /// <summary></summary>
@@ -48,7 +48,7 @@ namespace X3Platform.DigitalNumber.Model
         }
         #endregion
 
-        #region ����:Seed
+        #region 属性:Seed
         private int m_Seed;
 
         /// <summary></summary>
@@ -59,7 +59,7 @@ namespace X3Platform.DigitalNumber.Model
         }
         #endregion
 
-        #region ����:UpdateDate
+        #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
         /// <summary></summary>
@@ -70,7 +70,7 @@ namespace X3Platform.DigitalNumber.Model
         }
         #endregion
 
-        #region ����:CreateDate
+        #region 属性:CreateDate
         private DateTime m_CreateDate;
 
         /// <summary></summary>

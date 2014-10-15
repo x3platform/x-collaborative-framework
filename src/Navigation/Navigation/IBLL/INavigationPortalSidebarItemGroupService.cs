@@ -30,7 +30,7 @@ namespace X3Platform.Navigation.IBLL
     [SpringObject("X3Platform.Navigation.IBLL.INavigationPortalSidebarItemGroupService")]
     public interface INavigationPortalSidebarItemGroupService
     {
-        #region ����:this[string id]
+        #region 属性:this[string id]
         /// <summary>����</summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -41,14 +41,14 @@ namespace X3Platform.Navigation.IBLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(NavigationPortalSidebarItemGroupInfo param)
+        #region 属性:Save(NavigationPortalSidebarItemGroupInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalSidebarItemGroupInfo"/>��ϸ��Ϣ</param>
         /// <returns>ʵ��<see cref="NavigationPortalSidebarItemGroupInfo"/>��ϸ��Ϣ</returns>
         NavigationPortalSidebarItemGroupInfo Save(NavigationPortalSidebarItemGroupInfo param);
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
         void Delete(string ids);
@@ -58,27 +58,27 @@ namespace X3Platform.Navigation.IBLL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ʵ��<see cref="NavigationPortalSidebarItemGroupInfo"/>����ϸ��Ϣ</returns>
         NavigationPortalSidebarItemGroupInfo FindOne(string id);
         #endregion
 
-        #region ����:FindAll()
+        #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <returns>��������ʵ��<see cref="NavigationPortalSidebarItemGroupInfo"/>����ϸ��Ϣ</returns>
         IList<NavigationPortalSidebarItemGroupInfo> FindAll();
         #endregion
 
-        #region ����:FindAll(string whereClause)
+        #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <returns>��������ʵ��<see cref="NavigationPortalSidebarItemGroupInfo"/>����ϸ��Ϣ</returns>
         IList<NavigationPortalSidebarItemGroupInfo> FindAll(string whereClause);
         #endregion
 
-        #region ����:FindAll(string whereClause, int length)
+        #region 属性:FindAll(string whereClause, int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -86,7 +86,7 @@ namespace X3Platform.Navigation.IBLL
         IList<NavigationPortalSidebarItemGroupInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region ����:FindAllByPortalId(string portalId)
+        #region 属性:FindAllByPortalId(string portalId)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="portalId">�����Ż���ʶ</param>
         /// <returns>��������ʵ��<see cref="NavigationPortalShortcutGroupInfo"/>����ϸ��Ϣ</returns>
@@ -97,7 +97,7 @@ namespace X3Platform.Navigation.IBLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -108,7 +108,7 @@ namespace X3Platform.Navigation.IBLL
         IList<NavigationPortalSidebarItemGroupInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ֵ</returns>

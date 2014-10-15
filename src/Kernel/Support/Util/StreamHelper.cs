@@ -20,7 +20,7 @@ namespace X3Platform.Util
     /// <summary>��������</summary>
     public sealed class StreamHelper
     {
-        #region ����:ToFile(Stream stream, string path)
+        #region 属性:ToFile(Stream stream, string path)
         public static long ToFile(Stream stream, string path)
         {
             long length = stream.Length;
@@ -41,7 +41,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToBytes(Stream stream)
+        #region 属性:ToBytes(Stream stream)
         public static byte[] ToBytes(Stream stream)
         {
             long length = stream.Length;
@@ -62,7 +62,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToString(Stream stream)
+        #region 属性:ToString(Stream stream)
         /// <summary></summary>
         /// <param name="stream"></param>
         /// <returns></returns>
@@ -87,7 +87,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToUTF8String(Stream stream)
+        #region 属性:ToUTF8String(Stream stream)
         /// <summary></summary>
         /// <param name="stream"></param>
         /// <returns></returns>

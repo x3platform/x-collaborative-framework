@@ -63,7 +63,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         // ����֧��
         // -------------------------------------------------------
 
-        #region ����:BeginTransaction()
+        #region 属性:BeginTransaction()
         /// <summary>��������</summary>
         public void BeginTransaction()
         {
@@ -71,7 +71,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:BeginTransaction(IsolationLevel isolationLevel)
+        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
         /// <summary>��������</summary>
         /// <param name="isolationLevel">�������뼶��</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
@@ -80,7 +80,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:CommitTransaction()
+        #region 属性:CommitTransaction()
         /// <summary>�ύ����</summary>
         public void CommitTransaction()
         {
@@ -88,7 +88,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:RollBackTransaction()
+        #region 属性:RollBackTransaction()
         /// <summary>�ع�����</summary>
         public void RollBackTransaction()
         {
@@ -100,7 +100,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         // ���� ���� �޸� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(TaskCategoryInfo param)
+        #region 属性:Save(TaskCategoryInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ����ϸ��Ϣ</param>
         /// <returns></returns>
@@ -119,7 +119,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:Insert(TaskCategoryInfo param)
+        #region 属性:Insert(TaskCategoryInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">ʵ������ϸ��Ϣ</param>
         public void Insert(TaskCategoryInfo param)
@@ -128,7 +128,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:Update(TaskCategoryInfo param)
+        #region 属性:Update(TaskCategoryInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">ʵ������ϸ��Ϣ</param>
         public void Update(TaskCategoryInfo param)
@@ -137,7 +137,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:CanDelete(string id)
+        #region 属性:CanDelete(string id)
         /// <summary>�ж����������Ƿ��ܹ���ɾ��</summary>
         /// <param name="id">����������ʶ</param>
         /// <returns>true����ɾ����false������ɾ����</returns>
@@ -155,7 +155,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:Delete(string id)
+        #region 属性:Delete(string id)
         /// <summary>ɾ����¼</summary>
         /// <param name="id">����������ʶ</param>
         public void Delete(string id)
@@ -211,7 +211,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ʵ������ϸ��Ϣ</returns>
@@ -227,7 +227,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:FindOneByCategoryIndex(string categoryIndex)
+        #region 属性:FindOneByCategoryIndex(string categoryIndex)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="categoryIndex">��������</param>
         /// <returns>����ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
@@ -243,7 +243,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:FindAll(string whereClause,int length)
+        #region 属性:FindAll(string whereClause,int length)
         /// <summary>
         /// ��ѯ�������ؼ�¼
         /// </summary>
@@ -263,7 +263,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:FindAllQueryObject(string whereClause,int length)
+        #region 属性:FindAllQueryObject(string whereClause,int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -285,7 +285,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��.</param>
         /// <param name="pageSize">ÿҳ��ʾ����������</param>
@@ -314,7 +314,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>
         /// ��ѯ�Ƿ��������صļ�¼
         /// </summary>
@@ -332,7 +332,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
-        #region ����:SetStatus(string id, int status)
+        #region 属性:SetStatus(string id, int status)
         /// <summary>��������״̬(ͣ��/����)</summary>
         /// <param name="id">����������ʶ</param>
         /// <param name="status">1��ͣ�õ��������ã�0�����õ�����ͣ��</param>

@@ -21,7 +21,7 @@ namespace X3Platform.Ajax.Net
     /// <summary>Ajax����������</summary>
     public class AjaxRequestData
     {
-        #region ����:LoginName
+        #region 属性:LoginName
         private string m_LoginName;
 
         /// <summary>��¼��</summary>
@@ -32,7 +32,7 @@ namespace X3Platform.Ajax.Net
         }
         #endregion
 
-        #region ����:Password
+        #region 属性:Password
         private string m_Password;
 
         /// <summary>����</summary>
@@ -43,7 +43,7 @@ namespace X3Platform.Ajax.Net
         }
         #endregion
 
-        #region ����:Args
+        #region 属性:Args
         private Dictionary<string, string> m_Args = new Dictionary<string, string>();
 
         /// <summary>������Ϣ</summary>
@@ -54,7 +54,7 @@ namespace X3Platform.Ajax.Net
         }
         #endregion
 
-        #region ����:ActionUri
+        #region 属性:ActionUri
         private Uri m_ActionUri;
 
         /// <summary>������Դ�ĵ�ַ</summary>

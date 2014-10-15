@@ -34,7 +34,7 @@ namespace X3Platform.Tasks.Ajax
     {
         ITaskHistoryService service = TasksContext.Instance.TaskHistoryService;
 
-        #region ����:GetPages(XmlDocument doc)
+        #region 属性:GetPages(XmlDocument doc)
         /// <summary>��ȡ��ҳ����</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>����һ�����ص�ʵ���б�.</returns> 
@@ -60,7 +60,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:Redirect(XmlDocument doc)
+        #region 属性:Redirect(XmlDocument doc)
         /// <summary>��ȡ������Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param> 
         public string Redirect(XmlDocument doc)

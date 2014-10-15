@@ -26,7 +26,7 @@ namespace X3Platform.Plugins
     /// <summary>�Զ�������</summary>
     public abstract class CustomPlugin : ICustomPlugin
     {
-        #region ����:Id
+        #region 属性:Id
         private string m_Id = string.Empty;
 
         /// <summary>��ʶ</summary>
@@ -37,7 +37,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Name
+        #region 属性:Name
         private string m_Name = string.Empty;
 
         /// <summary>����</summary>
@@ -47,7 +47,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Version
+        #region 属性:Version
         private string m_Version = "1.0.0.0";
 
         /// <summary>�汾</summary>
@@ -57,7 +57,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Author
+        #region 属性:Author
         private string m_Author = "ruanyu83@gmail.com";
 
         /// <summary>����</summary>
@@ -67,7 +67,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Copyright
+        #region 属性:Copyright
         private string m_Copyright = "MIT";
 
         /// <summary>��Ȩ</summary>
@@ -77,7 +77,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Url
+        #region 属性:Url
         private string m_Url = string.Empty;
 
         /// <summary>������ȡ��ַ</summary>
@@ -87,7 +87,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:ThumbnailUrl
+        #region 属性:ThumbnailUrl
         private string m_ThumbnailUrl = string.Empty;
 
         /// <summary>����ͼ</summary>
@@ -97,7 +97,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Description
+        #region 属性:Description
         private string m_Description = string.Empty;
 
         /// <summary>������Ϣ</summary>
@@ -107,7 +107,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Status
+        #region 属性:Status
         private int m_Status = 0;
 
         /// <summary>״̬, 0 δ����, 1 �Ѽ���.</summary>
@@ -118,7 +118,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Install()
+        #region 属性:Install()
         /// <summary>��װ����</summary>
         /// <returns>������Ϣ. =0����װ�ɹ�, >0����װʧ��.</returns>
         public virtual int Install()
@@ -127,7 +127,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Uninstall()
+        #region 属性:Uninstall()
         /// <summary>ж�ز���</summary>
         /// <returns>������Ϣ. =0����ж�سɹ�, >0����ж��ʧ��.</returns>
         public virtual int Uninstall()
@@ -136,7 +136,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Restart()
+        #region 属性:Restart()
         /// <summary>��������</summary>
         /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
         public virtual int Restart()
@@ -145,7 +145,7 @@ namespace X3Platform.Plugins
         }
         #endregion
 
-        #region ����:Command(Hashtable agrs)
+        #region 属性:Command(Hashtable agrs)
         /// <summary>ִ������</summary>
         /// <returns>������Ϣ. =0����ִ�гɹ�, >0����ִ��ʧ��.</returns>
         public virtual int Command(Hashtable agrs)

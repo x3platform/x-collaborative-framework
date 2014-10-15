@@ -34,7 +34,7 @@ namespace X3Platform.Security.Authority.BLL
     /// <summary>Ȩ�޷���</summary>
     public class AuthorityService : IAuthorityService
     {
-        /// <summary>��־��¼��</summary>
+        /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>����</summary>
@@ -59,7 +59,7 @@ namespace X3Platform.Security.Authority.BLL
         }
         #endregion
 
-        #region ����:this[string name]
+        #region 属性:this[string name]
         /// <summary>����</summary>
         /// <param name="name">Ȩ������</param>
         /// <returns></returns>
@@ -85,7 +85,7 @@ namespace X3Platform.Security.Authority.BLL
         // ���� ɾ��
         //-------------------------------------------------------
 
-        #region ����:Save(AuthorityInfo param)
+        #region 属性:Save(AuthorityInfo param)
         /// <summary>������¼</summary>
         /// <param name="param"> ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
         /// <returns>AuthorityInfo ʵ����ϸ��Ϣ</returns>
@@ -95,7 +95,7 @@ namespace X3Platform.Security.Authority.BLL
         }
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">AuthorityInfo ʵ���ı�ʶ,�����Զ��ŷֿ�.</param>
         public void Delete(string ids)
@@ -108,7 +108,7 @@ namespace X3Platform.Security.Authority.BLL
         // ��ѯ
         //-------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">AuthorityInfo id��</param>
         /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
@@ -118,7 +118,7 @@ namespace X3Platform.Security.Authority.BLL
         }
         #endregion
 
-        #region ����:FindOneByName(string name)
+        #region 属性:FindOneByName(string name)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="name">Ȩ������</param>
         /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
@@ -128,7 +128,7 @@ namespace X3Platform.Security.Authority.BLL
         }
         #endregion
 
-        #region ����:FindAll()
+        #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <returns>�������� AuthorityInfo ʵ������ϸ��Ϣ</returns>
         public IList<AuthorityInfo> FindAll()
@@ -137,7 +137,7 @@ namespace X3Platform.Security.Authority.BLL
         }
         #endregion
 
-        #region ����:FindAll(DataQuery query)
+        #region 属性:FindAll(DataQuery query)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="query">���ݲ�ѯ����</param>
         /// <returns>��������ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
@@ -151,7 +151,7 @@ namespace X3Platform.Security.Authority.BLL
         // �Զ��幦��
         //-------------------------------------------------------
 
-        #region ����:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        #region 属性:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -164,7 +164,7 @@ namespace X3Platform.Security.Authority.BLL
         }
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ֵ</returns>

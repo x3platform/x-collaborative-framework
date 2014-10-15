@@ -32,7 +32,7 @@ namespace X3Platform.Util
     /// <summary>XML ������</summary>
     public class XmlHelper
     {
-        #region ����:ToXml(object value)
+        #region 属性:ToXml(object value)
         /// <summary>��һ���������л�ΪXml��Ϣ.</summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToXml(string json)
+        #region 属性:ToXml(string json)
         /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
         /// <param name="json">Json�ַ���</param>
         /// <returns>XML��ʽ ����.</returns>
@@ -97,7 +97,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ConvertJsonToXml(StringBuilder outString, string node)
+        #region 属性:ConvertJsonToXml(StringBuilder outString, string node)
         private static void ConvertJsonToXml(StringBuilder outString, string node)
         {
             if (node.IndexOf(":") == -1)
@@ -175,7 +175,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToXmlDocument(string json)
+        #region 属性:ToXmlDocument(string json)
         /// <summary>
         /// ��Json��ʽתΪXML Document����.
         /// </summary>
@@ -191,7 +191,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToXmlTable(DataTable table)
+        #region 属性:ToXmlTable(DataTable table)
         /// <summary>��һ��DataTableת��ΪXml��Ϣ.</summary>
         /// <param name="table"></param>
         /// <returns></returns>
@@ -214,7 +214,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsNullOrEmpty(string value)
+        #region 属性:IsNullOrEmpty(string value)
         /// <summary>�ж��Ƿ��ǿյ�Xml��Ϣ.</summary>
         /// <param name="table"></param>
         /// <returns></returns>
@@ -224,7 +224,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:TryFetchNodeAttribute(XmlNode node, string attributeName)
+        #region 属性:TryFetchNodeAttribute(XmlNode node, string attributeName)
         /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
         /// <param name="node"></param>
         /// <param name="attributeName"></param>
@@ -235,7 +235,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:TryFetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
+        #region 属性:TryFetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
         /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
         /// <param name="node"></param>
         /// <param name="attributeName"></param>
@@ -251,7 +251,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:TryFetchNodeAttribute(XmlElement element, string attributeName)
+        #region 属性:TryFetchNodeAttribute(XmlElement element, string attributeName)
         /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
         /// <param name="element"></param>
         /// <param name="attributeName"></param>
@@ -262,7 +262,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:TryFetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
+        #region 属性:TryFetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
         /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
         /// <param name="element"></param>
         /// <param name="attributeName"></param>

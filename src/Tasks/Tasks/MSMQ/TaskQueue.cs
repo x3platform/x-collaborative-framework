@@ -43,7 +43,7 @@ namespace X3Platform.Tasks.MSMQ
         }
         #endregion
 
-        #region ����:Receive()
+        #region 属性:Receive()
         /// <summary>��������</summary>
         /// <returns></returns>
         public override IMessageObject Receive()

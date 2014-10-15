@@ -21,12 +21,12 @@ namespace X3Platform
     /// <summary>���л����ӿ�</summary>
     public interface IContext
 	{
-        #region ����:����
+        #region 属性:����
         /// <summary>����</summary>
         string Name { get; }
         #endregion
 
-        #region ����:Reload()
+        #region 属性:Reload()
         /// <summary>���¼���</summary>
         void Reload();
         #endregion

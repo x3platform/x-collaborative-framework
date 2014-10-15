@@ -130,7 +130,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:OpenConnection()
+        #region 属性:OpenConnection()
         /// <summary>��������</summary>
         public void OpenConnection()
         {
@@ -148,7 +148,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:CloseConnection()
+        #region 属性:CloseConnection()
         /// <summary>�ر�����</summary>
         public void CloseConnection()
         {
@@ -266,7 +266,7 @@ namespace X3Platform.Data
         // ����֧��
         // -------------------------------------------------------
 
-        #region ����:BeginTransaction()
+        #region 属性:BeginTransaction()
         /// <summary>��������</summary>
         public void BeginTransaction()
         {
@@ -274,7 +274,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:BeginTransaction(IsolationLevel isolationLevel)
+        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
         /// <summary>��������</summary>
         /// <param name="isolationLevel">�������뼶��</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
@@ -285,7 +285,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:CommitTransaction()
+        #region 属性:CommitTransaction()
         /// <summary>�ύ����</summary>
         public void CommitTransaction()
         {
@@ -298,7 +298,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:RollBackTransaction()
+        #region 属性:RollBackTransaction()
         /// <summary>�ع�����</summary>
         public void RollBackTransaction()
         {
@@ -316,7 +316,7 @@ namespace X3Platform.Data
         // ִ�������������Ӱ����������
         // -------------------------------------------------------
 
-        #region ����:ExecuteNonQuery(string commandText)
+        #region 属性:ExecuteNonQuery(string commandText)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(string commandText)
         {
@@ -324,7 +324,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(CommandType commandType, string commandText)
+        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText)
         {
@@ -334,7 +334,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters)
         {
@@ -342,7 +342,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
@@ -352,7 +352,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
@@ -360,7 +360,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
@@ -370,7 +370,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText)
+        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText)
         {
@@ -380,7 +380,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         {
@@ -388,7 +388,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
@@ -398,7 +398,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
@@ -406,7 +406,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�������������Ӱ����������</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
@@ -450,7 +450,7 @@ namespace X3Platform.Data
         // ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�
         // -------------------------------------------------------
 
-        #region ����:ExecuteScalar(string commandText)
+        #region 属性:ExecuteScalar(string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(string commandText)
         {
@@ -458,7 +458,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(CommandType commandType, string commandText)
+        #region 属性:ExecuteScalar(CommandType commandType, string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(CommandType commandType, string commandText)
         {
@@ -468,7 +468,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters)
         {
@@ -476,7 +476,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
@@ -484,7 +484,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
@@ -492,7 +492,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
@@ -500,7 +500,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         {
@@ -508,7 +508,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
@@ -518,7 +518,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
@@ -526,7 +526,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
+        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
@@ -570,7 +570,7 @@ namespace X3Platform.Data
         // ִ�в�ѯ��������ز�ѯ�����ص� DataTable ��������
         // -------------------------------------------------------
 
-        #region ����:ExecuteQueryForDataTable(string commandText)
+        #region 属性:ExecuteQueryForDataTable(string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� ExecuteQueryForDataTable ��������</summary>
         public DataTable ExecuteQueryForDataTable(string commandText)
         {
@@ -578,7 +578,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForDataSet(CommandType commandType, string commandText)
+        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� ExecuteQueryForDataTable ��������</summary>
         public DataTable ExecuteQueryForDataTable(CommandType commandType, string commandText)
         {
@@ -588,7 +588,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForDataTable(CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteQueryForDataTable(CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public DataTable ExecuteQueryForDataTable(CommandType commandType, string commandText, object[,] commandParameters)
         {
@@ -598,7 +598,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForDataTable(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteQueryForDataTable(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public DataTable ExecuteQueryForDataTable(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
@@ -668,7 +668,7 @@ namespace X3Platform.Data
         // ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������
         // -------------------------------------------------------
 
-        #region ����:ExecuteQueryForDataSet(string commandText)
+        #region 属性:ExecuteQueryForDataSet(string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public DataSet ExecuteQueryForDataSet(string commandText)
         {
@@ -676,7 +676,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForDataSet(CommandType commandType, string commandText)
+        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public DataSet ExecuteQueryForDataSet(CommandType commandType, string commandText)
         {
@@ -686,7 +686,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForDataSet(CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public DataSet ExecuteQueryForDataSet(CommandType commandType, string commandText, object[,] commandParameters)
         {
@@ -696,7 +696,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForDataSet(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public DataSet ExecuteQueryForDataSet(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
@@ -745,7 +745,7 @@ namespace X3Platform.Data
         // ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�
         // -------------------------------------------------------
 
-        #region ����:ExecuteQueryForList<T>(string commandText)
+        #region 属性:ExecuteQueryForList<T>(string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public IList<T> ExecuteQueryForList<T>(string commandText)
            where T : new()
@@ -754,7 +754,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForList<T>(CommandType commandType, string commandText)
+        #region 属性:ExecuteQueryForList<T>(CommandType commandType, string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public IList<T> ExecuteQueryForList<T>(CommandType commandType, string commandText)
            where T : new()
@@ -765,7 +765,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForList(CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteQueryForList(CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public IList<T> ExecuteQueryForList<T>(CommandType commandType, string commandText, object[,] commandParameters)
            where T : new()
@@ -776,7 +776,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForList(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteQueryForList(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public IList<T> ExecuteQueryForList<T>(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
            where T : new()
@@ -832,7 +832,7 @@ namespace X3Platform.Data
         // ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�
         // -------------------------------------------------------
 
-        #region ����:ExecuteQueryForObject(string commandText)
+        #region 属性:ExecuteQueryForObject(string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public T ExecuteQueryForObject<T>(string commandText)
            where T : new()
@@ -841,7 +841,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForObject(CommandType commandType, string commandText)
+        #region 属性:ExecuteQueryForObject(CommandType commandType, string commandText)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public T ExecuteQueryForObject<T>(CommandType commandType, string commandText)
            where T : new()
@@ -852,7 +852,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForObject(CommandType commandType, string commandText, object[,] commandParameters)
+        #region 属性:ExecuteQueryForObject(CommandType commandType, string commandText, object[,] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public T ExecuteQueryForObject<T>(CommandType commandType, string commandText, object[,] commandParameters)
            where T : new()
@@ -863,7 +863,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:ExecuteQueryForObject(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        #region 属性:ExecuteQueryForObject(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
         public T ExecuteQueryForObject<T>(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
            where T : new()

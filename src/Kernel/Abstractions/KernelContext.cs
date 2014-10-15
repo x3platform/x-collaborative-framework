@@ -31,7 +31,7 @@ namespace X3Platform
     /// <summary>���Ļ���</summary>
     public sealed class KernelContext : IContext
     {
-        #region ����:Name
+        #region 属性:Name
         /// <summary>
         /// ����
         /// </summary>
@@ -41,7 +41,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Current
+        #region 属性:Current
         private static volatile KernelContext instance = null;
 
         private static object lockObject = new object();
@@ -69,7 +69,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:User
+        #region 属性:User
         private IDictionary<string, IAccountInfo> cacheStorage = new SyncDictionary<string, IAccountInfo>();
 
         /// <summary>�û���Ϣ</summary>
@@ -116,7 +116,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Configuration
+        #region 属性:Configuration
         private KernelConfiguration configuration = null;
 
         /// <summary>������Ϣ</summary>
@@ -126,7 +126,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:AuthenticationManagement
+        #region 属性:AuthenticationManagement
         private IAuthenticationManagement authenticationManagement = null;
 
         /// <summary>��֤����</summary>
@@ -143,7 +143,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Reload()
+        #region 属性:Reload()
         /// <summary>���¼���</summary>
         public void Reload()
         {
@@ -159,7 +159,7 @@ namespace X3Platform
         // ���ߺ���
         // -------------------------------------------------------
 
-        #region ����:CreateObject(string type)
+        #region 属性:CreateObject(string type)
         /// <summary>��������</summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -169,7 +169,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:CreateObject(string type, object[] args)
+        #region 属性:CreateObject(string type, object[] args)
         /// <summary>��������</summary>
         /// <param name="type"></param>
         /// <param name="args"></param>
@@ -186,7 +186,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:ParseObjectType(Type type)
+        #region 属性:ParseObjectType(Type type)
         /// <summary>������������</summary>
         /// <param name="type"></param>
         /// <returns>��ʽ:X3Platform.KernelContext,X3Platform</returns>

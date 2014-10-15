@@ -31,7 +31,7 @@ namespace X3Platform.Tasks.IBLL
     [SpringObject("X3Platform.Tasks.IBLL.ITaskCategoryService")]
     public interface ITaskCategoryService
     {
-        #region ����:this[string id]
+        #region 属性:this[string id]
         /// <summary>
         /// ����
         /// </summary>
@@ -44,7 +44,7 @@ namespace X3Platform.Tasks.IBLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(FavoriteInfo param)
+        #region 属性:Save(FavoriteInfo param)
         /// <summary>
         /// ������¼
         /// </summary>
@@ -53,14 +53,14 @@ namespace X3Platform.Tasks.IBLL
         TaskCategoryInfo Save(TaskCategoryInfo param);
         #endregion
 
-        #region ����:CanDelete(string id)
+        #region 属性:CanDelete(string id)
         /// <summary>�ж����������Ƿ��ܹ���ɾ��</summary>
         /// <param name="id">����������ʶ</param>
         /// <returns></returns>
         bool CanDelete(string id);
         #endregion
 
-        #region ����:Delete(string id)
+        #region 属性:Delete(string id)
         /// <summary>
         /// ɾ����¼
         /// </summary>
@@ -72,7 +72,7 @@ namespace X3Platform.Tasks.IBLL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>
         /// ��ѯĳ����¼
         /// </summary>
@@ -81,14 +81,14 @@ namespace X3Platform.Tasks.IBLL
         TaskCategoryInfo FindOne(string id);
         #endregion
 
-        #region ����:FindOneByCategoryIndex(string categoryIndex)
+        #region 属性:FindOneByCategoryIndex(string categoryIndex)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="categoryIndex">��������</param>
         /// <returns>����ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
         TaskCategoryInfo FindOneByCategoryIndex(string categoryIndex);
         #endregion
 
-        #region ����:FindAll()
+        #region 属性:FindAll()
         /// <summary>
         /// ��ѯ�������ؼ�¼
         /// </summary>
@@ -96,7 +96,7 @@ namespace X3Platform.Tasks.IBLL
         IList<TaskCategoryInfo> FindAll();
         #endregion
 
-        #region ����:FindAll(string whereClause)
+        #region 属性:FindAll(string whereClause)
         /// <summary>
         /// ��ѯ�������ؼ�¼
         /// </summary>
@@ -105,7 +105,7 @@ namespace X3Platform.Tasks.IBLL
         IList<TaskCategoryInfo> FindAll(string whereClause);
         #endregion
 
-        #region ����:FindAll(string whereClause, int length)
+        #region 属性:FindAll(string whereClause, int length)
         /// <summary>
         /// ��ѯ�������ؼ�¼
         /// </summary>
@@ -119,7 +119,7 @@ namespace X3Platform.Tasks.IBLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��.</param>
         /// <param name="pageSize">ÿҳ��ʾ����������</param>
@@ -130,7 +130,7 @@ namespace X3Platform.Tasks.IBLL
         IList<TaskCategoryInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>
         /// ��ѯ�Ƿ��������صļ�¼
         /// </summary>
@@ -139,7 +139,7 @@ namespace X3Platform.Tasks.IBLL
         bool IsExist(string id);
         #endregion
 
-        #region ����:SetStatus(string id, int status)
+        #region 属性:SetStatus(string id, int status)
         /// <summary>
         /// ͣ��/��������
         /// </summary>

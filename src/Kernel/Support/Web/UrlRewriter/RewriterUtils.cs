@@ -21,7 +21,7 @@ namespace X3Platform.Web.UrlRewriter
 	/// <remarks>This class is marked as internal, meaning only classes in the same assembly will be able to access its methods.</remarks>
 	internal class RewriterUtils
     {
-        #region ��̬����:RewriteUrl(HttpContext context, string sendToUrl)
+        #region ��̬属性:RewriteUrl(HttpContext context, string sendToUrl)
         /// <summary>
 		/// Rewrite's a URL using <b>HttpContext.RewriteUrl()</b>.
 		/// </summary>
@@ -35,7 +35,7 @@ namespace X3Platform.Web.UrlRewriter
 		}
         #endregion
 
-        #region ��̬����:RewriteUrl(HttpContext context, string sendToUrl, out string sendToUrlLessQueryString, out string filePath)
+        #region ��̬属性:RewriteUrl(HttpContext context, string sendToUrl, out string sendToUrlLessQueryString, out string filePath)
         /// <summary>
 		/// Rewrite's a URL using <b>HttpContext.RewriteUrl()</b>.
 		/// </summary>
@@ -82,7 +82,7 @@ namespace X3Platform.Web.UrlRewriter
 		}
 		#endregion
 
-        #region ��̬����:ResolveUrl(string appPath, string url)
+        #region ��̬属性:ResolveUrl(string appPath, string url)
         /// <summary>����Url</summary>
 		/// <remarks>Converts ~ to the requesting application path.  Mimics the behavior of the 
 		/// <b>Control.ResolveUrl()</b> method, which is often used by control developers.</remarks>

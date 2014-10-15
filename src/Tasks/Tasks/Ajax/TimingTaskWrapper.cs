@@ -39,7 +39,7 @@ namespace X3Platform.Tasks.Ajax
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(XmlDocument doc)
+        #region 属性:Save(XmlDocument doc)
         /// <summary>������¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -55,7 +55,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:Delete(XmlDocument doc)
+        #region 属性:Delete(XmlDocument doc)
         /// <summary>ɾ����¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -73,7 +73,7 @@ namespace X3Platform.Tasks.Ajax
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(XmlDocument doc)
+        #region 属性:GetPages(XmlDocument doc)
         /// <summary>��ȡ��ҳ����</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>����һ�����ص�ʵ���б�.</returns> 

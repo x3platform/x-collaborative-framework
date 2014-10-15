@@ -85,8 +85,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.APIs", "Web\Web.APIs\Web.APIs.csproj", "{298A1C39-A186-4032-AFD1-4D40F9278182}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.TestSuite", "Web\Web.TestSuite\Web.TestSuite.csproj", "{5999BC80-B981-477C-9E7E-3B978701E6EE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contacts", "Contacts", "{0168638D-E9D5-4A02-9B0E-C2C2C76ACA55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts", "Plugins\Contacts\Contacts\Contacts.csproj", "{2ECD3B7B-068F-410F-8D6D-A5C6735C2AE8}"
@@ -96,6 +94,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email.Client.Tests", "Email\Email.Client.Tests\Email.Client.Tests.csproj", "{6586AF2B-587F-4BFE-A239-8469E171D0C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Support.Tests", "Kernel\Support.Tests\Support.Tests.csproj", "{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web\Web.Tests\Web.Tests.csproj", "{5999BC80-B981-477C-9E7E-3B978701E6EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -305,14 +305,6 @@ Global
 		{298A1C39-A186-4032-AFD1-4D40F9278182}.longfor|Any CPU.Build.0 = longfor|Any CPU
 		{298A1C39-A186-4032-AFD1-4D40F9278182}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{298A1C39-A186-4032-AFD1-4D40F9278182}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.junfa|Any CPU.ActiveCfg = Release|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.junfa|Any CPU.Build.0 = Release|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.longfor|Any CPU.ActiveCfg = Release|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.longfor|Any CPU.Build.0 = Release|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2ECD3B7B-068F-410F-8D6D-A5C6735C2AE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2ECD3B7B-068F-410F-8D6D-A5C6735C2AE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ECD3B7B-068F-410F-8D6D-A5C6735C2AE8}.junfa|Any CPU.ActiveCfg = junfa|Any CPU
@@ -345,6 +337,14 @@ Global
 		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.longfor|Any CPU.Build.0 = Release|Any CPU
 		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.junfa|Any CPU.ActiveCfg = Release|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.junfa|Any CPU.Build.0 = Release|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.longfor|Any CPU.ActiveCfg = Release|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.longfor|Any CPU.Build.0 = Release|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5999BC80-B981-477C-9E7E-3B978701E6EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

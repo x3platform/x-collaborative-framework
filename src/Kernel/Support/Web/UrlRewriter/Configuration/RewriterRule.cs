@@ -21,7 +21,7 @@ namespace X3Platform.Web.UrlRewriter.Configuration
     [Serializable()]
     public class RewriterRule
     {
-        #region ����:Lookfor
+        #region 属性:Lookfor
         private string lookfor;
 
         /// <summary>������ַ</summary>
@@ -33,7 +33,7 @@ namespace X3Platform.Web.UrlRewriter.Configuration
         }
         #endregion
 
-        #region ����:Sendto
+        #region 属性:Sendto
         private string sendto;
 
         /// <summary>��д��ַ</summary>
@@ -45,7 +45,7 @@ namespace X3Platform.Web.UrlRewriter.Configuration
         }
         #endregion
 
-        #region ����:Remark
+        #region 属性:Remark
         private string remark;
 
         /// <summary>��ע��Ϣ</summary>

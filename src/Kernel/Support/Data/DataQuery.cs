@@ -25,7 +25,7 @@ namespace X3Platform.Data
     /// <summary>���ݲ�ѯ��������������</summary>
     public class DataQuery : ISerializedObject
     {
-        #region ����:Variables
+        #region 属性:Variables
         private Dictionary<string, string> m_Variables = new Dictionary<string, string>() {
            { "ElevatedPrivileges", "0" }
         };
@@ -37,7 +37,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Table
+        #region 属性:Table
         private string m_Table = string.Empty;
 
         /// <summary>���ݱ�����</summary>
@@ -48,7 +48,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Fields
+        #region 属性:Fields
         private IList<string> m_Fields = new List<string>();
 
         /// <summary>SQL ��ѯ�ֶμ���</summary>
@@ -58,7 +58,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Where
+        #region 属性:Where
         private Dictionary<string, object> m_Where = new Dictionary<string, object>();
 
         /// <summary>SQL ��ѯ�����Ĳ�������</summary>
@@ -68,7 +68,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Orders
+        #region 属性:Orders
         private IList<string> m_Orders = new List<string>();
 
         /// <summary>SQL ���������Ĳ�������</summary>
@@ -78,7 +78,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Limit
+        #region 属性:Limit
         private int m_Limit = 1000;
 
         /// <summary>�������� Ĭ��ֵ(1000)</summary>
@@ -89,7 +89,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:GetWhereSql()
+        #region 属性:GetWhereSql()
         /// <summary>��ȡ SQL ��ѯ����������</summary>
         /// <returns></returns>
         public string GetWhereSql()
@@ -98,7 +98,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:GetWhereSql(Dictionary<string, string> operators)
+        #region 属性:GetWhereSql(Dictionary<string, string> operators)
         /// <summary>��ȡ SQL ��ѯ����������</summary>
         /// <param name="defaults">Ĭ�������ֶ�</param>
         /// <returns></returns>
@@ -181,7 +181,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:GetOrderBySql()
+        #region 属性:GetOrderBySql()
         /// <summary>��ȡ SQL ����������</summary>
         /// <returns></returns>
         public string GetOrderBySql()
@@ -190,7 +190,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:GetOrderBySql(string defaults)
+        #region 属性:GetOrderBySql(string defaults)
         /// <summary>��ȡ SQL ����������</summary>
         /// <param name="defaults">Ĭ�������ֶ�</param>
         /// <returns></returns>
@@ -215,7 +215,7 @@ namespace X3Platform.Data
         // ʵ�� ISerializedObject ���л�
         // -------------------------------------------------------
 
-        #region ����:Serializable()
+        #region 属性:Serializable()
         /// <summary>���ݶ��󵼳�XmlԪ��</summary>
         /// <returns></returns>
         public string Serializable()
@@ -224,7 +224,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Serializable(bool displayComment, bool displayFriendlyName)
+        #region 属性:Serializable(bool displayComment, bool displayFriendlyName)
         /// <summary>���ݶ��󵼳�XmlԪ��</summary>
         /// <param name="displayComment">��ʾע��</param>
         /// <param name="displayFriendlyName">��ʾ�Ѻ�����</param>
@@ -278,7 +278,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ����:Deserialize(XmlElement element)
+        #region 属性:Deserialize(XmlElement element)
         /// <summary>����XmlԪ�ؼ��ض���</summary>
         /// <param name="element">XmlԪ��</param>
         public void Deserialize(System.Xml.XmlElement element)

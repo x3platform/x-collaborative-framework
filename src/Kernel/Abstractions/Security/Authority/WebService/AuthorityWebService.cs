@@ -32,7 +32,7 @@ namespace X3Platform.Security.Authority.WebService
         // ��ѯ
         //-------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="Id">AuthorityInfo Id��</param>
         /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>

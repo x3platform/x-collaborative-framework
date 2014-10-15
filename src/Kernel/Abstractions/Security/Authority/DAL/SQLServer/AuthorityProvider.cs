@@ -54,7 +54,7 @@ namespace X3Platform.Security.Authority.DAL.SQLServer
         // ���� ���� �޸� ɾ�� 
         // -------------------------------------------------------
 
-        #region ����:Save(AuthorityInfo param)
+        #region 属性:Save(AuthorityInfo param)
         ///<summary>������¼</summary>
         ///<param name="param">AuthorityInfo ʵ����ϸ��Ϣ</param>
         ///<returns>AuthorityInfo ʵ����ϸ��Ϣ</returns>
@@ -73,7 +73,7 @@ namespace X3Platform.Security.Authority.DAL.SQLServer
         }
         #endregion
 
-        #region ����:Insert(AuthorityInfo param)
+        #region 属性:Insert(AuthorityInfo param)
         ///<summary>���Ӽ�¼</summary>
         ///<param name="param">AuthorityInfo ʵ������ϸ��Ϣ</param>
         public void Insert(AuthorityInfo param)
@@ -120,7 +120,7 @@ VALUES
         }
         #endregion
 
-        #region ����:Update(AuthorityInfo param)
+        #region 属性:Update(AuthorityInfo param)
         ///<summary>�޸ļ�¼</summary>
         ///<param name="param">AuthorityInfo ʵ������ϸ��Ϣ</param>
         public void Update(AuthorityInfo param)
@@ -150,7 +150,7 @@ WHERE
         }
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         ///<summary>ɾ����¼</summary>
         ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
         public void Delete(string ids)
@@ -165,7 +165,7 @@ WHERE
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         ///<summary>��ѯĳ����¼</summary>
         ///<param name="id">AuthorityInfo Id��</param>
         ///<returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
@@ -177,7 +177,7 @@ WHERE
         }
         #endregion
 
-        #region ����:FindOneByName(string name)
+        #region 属性:FindOneByName(string name)
         ///<summary>��ѯĳ����¼</summary>
         ///<param name="name">Ȩ������</param>
         ///<returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
@@ -189,7 +189,7 @@ WHERE
         }
         #endregion
 
-        #region ����:FindAll(string whereClause,int length)
+        #region 属性:FindAll(string whereClause,int length)
         ///<summary>��ѯ�������ؼ�¼</summary>
         ///<param name="whereClause">SQL ��ѯ����</param>
         ///<param name="length">����</param>
@@ -210,7 +210,7 @@ WHERE
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -256,7 +256,7 @@ WHERE TableIndex.RowIndex BETWEEN @StartIndex + 1 AND @StartIndex + @PageSize
         }
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
         ///<param name="id">��ʶ</param>
         ///<returns>����ֵ</returns>
@@ -270,7 +270,7 @@ WHERE TableIndex.RowIndex BETWEEN @StartIndex + 1 AND @StartIndex + @PageSize
         }
         #endregion
 
-        #region ����:IsExistName(string name)
+        #region 属性:IsExistName(string name)
         ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
         ///<param name="name">����</param>
         ///<returns>����ֵ</returns>
@@ -284,7 +284,7 @@ WHERE TableIndex.RowIndex BETWEEN @StartIndex + 1 AND @StartIndex + @PageSize
         }
         #endregion
 
-        #region ����:HasAuthorizationObject(string accountId, string authorizationObjectType, string authorizationObjectNames)
+        #region 属性:HasAuthorizationObject(string accountId, string authorizationObjectType, string authorizationObjectNames)
         ///<summary>��ѯ�Ƿ��������ص���Ȩ��¼.</summary>
         ///<param name="accountId">�ʺű�ʶ</param>
         ///<param name="authorizationObjectType">��Ȩ��������</param>

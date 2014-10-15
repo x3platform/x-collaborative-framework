@@ -43,7 +43,7 @@ namespace X3Platform.DigitalNumber.BLL
             provider = SpringContext.Instance.GetObject<IDigitalNumberProvider>(typeof(IDigitalNumberProvider));
         }
 
-        #region ����:this[string name]
+        #region 属性:this[string name]
         /// <summary>����</summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -57,7 +57,7 @@ namespace X3Platform.DigitalNumber.BLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(DigitalNumberInfo param)
+        #region 属性:Save(DigitalNumberInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">DigitalNumberInfo ʵ����ϸ��Ϣ</param>
         /// <returns>DigitalNumberInfo ʵ����ϸ��Ϣ</returns>
@@ -67,7 +67,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="keys">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
         public void Delete(string ids)
@@ -80,7 +80,7 @@ namespace X3Platform.DigitalNumber.BLL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string name)
+        #region 属性:FindOne(string name)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="name">DigitalNumberInfo Id��</param>
         /// <returns>����һ�� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
@@ -90,7 +90,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:FindAll()
+        #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <returns>�������� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
         public IList<DigitalNumberInfo> FindAll()
@@ -99,7 +99,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:FindAll(string whereClause)
+        #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <returns>�������� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
@@ -109,7 +109,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:FindAll(string whereClause,int length)
+        #region 属性:FindAll(string whereClause,int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -124,7 +124,7 @@ namespace X3Platform.DigitalNumber.BLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <returns>����һ���б�</returns>
         public IList<DigitalNumberInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
@@ -133,7 +133,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:IsExistName(string name)
+        #region 属性:IsExistName(string name)
         /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
         /// <param name="name">����</param>
         /// <returns>����ֵ</returns>
@@ -143,7 +143,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:Generate(string name)
+        #region 属性:Generate(string name)
 
         private object lockObject = new object();
 
@@ -189,7 +189,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
+        #region 属性:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         /// <summary>����ǰ׺�������ֱ���</summary>
         /// <param name="entityTableName">ʵ�����ݱ�</param>
         /// <param name="prefixCode">ǰ׺����</param>
@@ -201,7 +201,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
+        #region 属性:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         /// <summary>����ǰ׺�������ֱ���</summary>
         /// <param name="command">ͨ��SQL��������</param>
         /// <param name="entityTableName">ʵ�����ݱ�</param>
@@ -214,7 +214,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
+        #region 属性:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         /// <summary>����������ʶ�����ֱ���</summary>
         /// <param name="entityTableName">ʵ�����ݱ�</param>
         /// <param name="entityCategoryTableName">ʵ���������ݱ�</param>
@@ -227,7 +227,7 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region ����:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
+        #region 属性:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         /// <summary>����������ʶ�����ֱ���</summary>
         /// <param name="command">ͨ��SQL��������</param>
         /// <param name="entityTableName">ʵ�����ݱ�</param>

@@ -27,10 +27,10 @@ namespace X3Platform.Security.Authority
     /// <summary>Ȩ������</summary>
     public sealed class AuthorityContext : CustomPlugin
     {
-        /// <summary>��־��¼��</summary>
+        /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        #region ��̬����:Instance
+        #region ��̬属性:Instance
         private static volatile AuthorityContext instance = null;
 
         private static object lockObject = new object();
@@ -56,7 +56,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Name
+        #region 属性:Name
         /// <summary>����</summary>
         public override string Name
         {
@@ -64,7 +64,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Configuration
+        #region 属性:Configuration
         private AuthorityConfiguration configuration = null;
 
         /// <summary>����</summary>
@@ -74,7 +74,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:AuthorityService
+        #region 属性:AuthorityService
         private IAuthorityService m_AuthorityService = null;
 
         /// <summary>Ȩ�޷���</summary>
@@ -92,7 +92,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Restart()
+        #region 属性:Restart()
         /// <summary>��������</summary>
         /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
         public override int Restart()
@@ -111,7 +111,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Reload()
+        #region 属性:Reload()
         /// <summary>���¼���</summary>
         public void Reload()
         {

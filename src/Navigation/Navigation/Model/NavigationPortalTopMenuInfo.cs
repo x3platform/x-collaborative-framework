@@ -35,7 +35,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Id
+        #region 属性:Id
         private string m_Id;
 
         /// <summary></summary>
@@ -46,7 +46,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:PortalId
+        #region 属性:PortalId
         private string m_PortalId;
 
         /// <summary></summary>
@@ -57,7 +57,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:PortalName
+        #region 属性:PortalName
         private string m_PortalName;
 
         /// <summary></summary>
@@ -76,7 +76,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Text
+        #region 属性:Text
         private string m_Text;
 
         /// <summary></summary>
@@ -87,7 +87,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Description
+        #region 属性:Description
         private string m_Description;
 
         /// <summary></summary>
@@ -98,7 +98,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Url
+        #region 属性:Url
         private string m_Url;
 
         /// <summary></summary>
@@ -109,7 +109,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Target
+        #region 属性:Target
         private string m_Target;
 
         /// <summary></summary>
@@ -120,7 +120,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:TargetView
+        #region 属性:TargetView
         private string m_TargetView;
         public string TargetView
         {
@@ -135,7 +135,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:IconPath
+        #region 属性:IconPath
         private string m_IconPath = string.Empty;
 
         /// <summary></summary>
@@ -146,7 +146,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:BigIconPath
+        #region 属性:BigIconPath
         private string m_BigIconPath = string.Empty;
 
         /// <summary></summary>
@@ -157,7 +157,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:OrderId
+        #region 属性:OrderId
         private string m_OrderId;
 
         /// <summary></summary>
@@ -168,7 +168,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Status
+        #region 属性:Status
         private int m_Status;
 
         /// <summary></summary>
@@ -179,7 +179,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:Remark
+        #region 属性:Remark
         private string m_Remark;
 
         /// <summary></summary>
@@ -190,7 +190,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:UpdateDate
+        #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
         /// <summary></summary>
@@ -201,7 +201,7 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region ����:CreateDate
+        #region 属性:CreateDate
         private DateTime m_CreateDate;
 
         /// <summary></summary>
@@ -216,7 +216,7 @@ namespace X3Platform.Navigation.Model
         // ��ʽʵ�� ICacheable
         // -------------------------------------------------------
 
-        #region ����:Expires
+        #region 属性:Expires
         private DateTime m_Expires = DateTime.MaxValue;
 
         /// <summary>����ʱ��</summary>

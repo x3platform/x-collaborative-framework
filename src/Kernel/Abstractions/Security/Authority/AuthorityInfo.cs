@@ -30,7 +30,7 @@ namespace X3Platform.Security.Authority
             this.m_Id = id;
         }
 
-        #region ����:Id
+        #region 属性:Id
         private string m_Id;
 
         /// <summary></summary>
@@ -41,7 +41,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Name
+        #region 属性:Name
         private string m_NickName;
 
         /// <summary></summary>
@@ -52,7 +52,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Description
+        #region 属性:Description
         private string m_Description;
 
         /// <summary>������Ϣ</summary>
@@ -63,7 +63,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Lock
+        #region 属性:Lock
         private int m_Lock;
 
         /// <summary>������Ϣ</summary>
@@ -74,7 +74,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:Tags
+        #region 属性:Tags
         private string m_Tags;
 
         /// <summary>��ǩ</summary>
@@ -85,7 +85,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:OrderId
+        #region 属性:OrderId
         private string m_OrderId;
 
         /// <summary></summary>
@@ -96,7 +96,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:UpdateDate
+        #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
         /// <summary>�޸�ʱ��</summary>
@@ -107,7 +107,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:CreateDate
+        #region 属性:CreateDate
         private DateTime m_CreateDate;
 
         /// <summary>����ʱ��</summary>
@@ -122,7 +122,7 @@ namespace X3Platform.Security.Authority
         // ��ʽʵ�� ICacheable
         // 
 
-        #region ����:Expires
+        #region 属性:Expires
         private DateTime m_Expires = DateTime.Now.AddHours(6);
 
         /// <summary>����ʱ��</summary>

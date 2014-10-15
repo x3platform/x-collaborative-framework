@@ -33,7 +33,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Id
+        #region 属性:Id
         private string m_Id = string.Empty;
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:AccountId
+        #region 属性:AccountId
         private string m_AccountId = string.Empty;
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:AccountName
+        #region 属性:AccountName
         private string m_AccountName = string.Empty;
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:CategoryIndex
+        #region 属性:CategoryIndex
         private string m_CategoryIndex = string.Empty;
 
         /// <summary>��������</summary>
@@ -96,7 +96,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Description
+        #region 属性:Description
         private string m_Description = string.Empty;
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Tags
+        #region 属性:Tags
         private string m_Tags = string.Empty;
 
         /// <summary>��ǩ</summary>
@@ -120,7 +120,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:OrderId
+        #region 属性:OrderId
         private string m_OrderId = string.Empty;
 
         /// <summary>��������</summary>
@@ -131,7 +131,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Status
+        #region 属性:Status
         private int m_Status = 1;
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:UpdateDate
+        #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:CreateDate
+        #region 属性:CreateDate
         private DateTime m_CreateDate;
 
         /// <summary>

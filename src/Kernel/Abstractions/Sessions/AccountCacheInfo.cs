@@ -25,7 +25,7 @@ namespace X3Platform.Sessions
         /// <summary>���캯��</summary>
         public AccountCacheInfo() { }
 
-        #region ����:AccountIdentity
+        #region 属性:AccountIdentity
         private string m_AccountIdentity;
 
         /// <summary>�ʺŻỰΨһ��ʶ</summary>
@@ -36,7 +36,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:AppKey
+        #region 属性:AppKey
         private string m_AppKey;
 
         /// <summary>Ӧ�ñ�ʶ</summary>
@@ -47,7 +47,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:AccountCacheValue
+        #region 属性:AccountCacheValue
         private string m_AccountCacheValue;
 
         /// <summary>�ʺŻỰ�Ļ�����Ϣ</summary>
@@ -58,7 +58,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:AccountObject
+        #region 属性:AccountObject
         private string m_AccountObject;
 
         /// <summary>�ʺŻỰ�Ļ�������</summary>
@@ -69,7 +69,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:AccountObjectType
+        #region 属性:AccountObjectType
         private string m_AccountObjectType;
 
         /// <summary>AccountObject������</summary>
@@ -80,7 +80,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:IP
+        #region 属性:IP
         private string m_IP;
 
         /// <summary>�ʺŻỰ��IP��ַ</summary>
@@ -91,7 +91,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:BeginDate
+        #region 属性:BeginDate
         private DateTime m_BeginDate;
 
         /// <summary>��ʼʱ��</summary>
@@ -102,7 +102,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:EndDate
+        #region 属性:EndDate
         private DateTime m_EndDate;
 
         /// <summary>����ʱ��</summary>
@@ -113,7 +113,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region ����:UpdateDate
+        #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
         /// <summary>����ʱ��</summary>
@@ -128,7 +128,7 @@ namespace X3Platform.Sessions
         // ��ʽʵ�� ICacheable
         // -------------------------------------------------------
 
-        #region ����:Expires
+        #region 属性:Expires
         private DateTime m_Expires = DateTime.Now.AddDays(1);
 
         DateTime ICacheable.Expires

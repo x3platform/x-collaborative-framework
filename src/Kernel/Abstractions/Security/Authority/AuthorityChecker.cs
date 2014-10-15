@@ -21,7 +21,7 @@ namespace X3Platform.Security.Authority
     /// <summary>Ȩ�޼�����</summary>
     public sealed class AuthorityChecker
     {
-        //#region ����:HasOrganization(string accountId, string organizationNames)
+        //#region 属性:HasOrganization(string accountId, string organizationNames)
         ///// <summary>
         ///// �����û��Ƿ�ӵ��Ȩ��
         ///// </summary>
@@ -34,7 +34,7 @@ namespace X3Platform.Security.Authority
         //}
         //#endregion
 
-        //#region ����:HasRole(string accountId, string roleNames)
+        //#region 属性:HasRole(string accountId, string roleNames)
         ///// <summary>
         ///// �����û��Ƿ�ӵ��Ȩ��
         ///// </summary>
@@ -47,7 +47,7 @@ namespace X3Platform.Security.Authority
         //}
         //#endregion
 
-        //#region ����:Check(IAccountInfo account, string[] roleName)
+        //#region 属性:Check(IAccountInfo account, string[] roleName)
         ///// <summary>
         ///// �����û��Ƿ�ӵ��Ȩ��
         ///// </summary>
@@ -60,7 +60,7 @@ namespace X3Platform.Security.Authority
         //}
         //#endregion
 
-        ////#region ����:Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
+        ////#region 属性:Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
         /////// <summary>
         /////// �����û��Ƿ�ӵ��Ȩ��
         /////// </summary>
@@ -90,7 +90,7 @@ namespace X3Platform.Security.Authority
         ////}
         ////#endregion
 
-        #region ����:GetAuthorities(IAccountInfo account)
+        #region 属性:GetAuthorities(IAccountInfo account)
         /// <summary>��ȡȨ���б�</summary>
         /// <param name="account"></param>
         /// <returns></returns>
@@ -107,7 +107,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:GetAuthorities(IRoleInfo[] roles)
+        #region 属性:GetAuthorities(IRoleInfo[] roles)
         /// <summary>��ȡȨ���б�</summary>
         /// <param name="roles"></param>
         /// <returns></returns>
@@ -132,7 +132,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:GetAuthorities(string[] authorityKeys)
+        #region 属性:GetAuthorities(string[] authorityKeys)
         /// <summary>��ȡȨ���б�</summary>
         /// <param name="authorityKeys"></param>
         /// <returns></returns>
@@ -157,7 +157,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:GetIntersectionAuthorities(IList<AuthorityInfo> listA, params IList<AuthorityInfo>[] listB)
+        #region 属性:GetIntersectionAuthorities(IList<AuthorityInfo> listA, params IList<AuthorityInfo>[] listB)
         /// <summary>��ȡ����Ȩ���б��Ľ���</summary>
         /// <param name="listA"></param>
         /// <param name="listB"></param>
@@ -193,7 +193,7 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region ����:GetUnionAuthorities(IList<AuthorityInfo> listA, params IList<AuthorityInfo>[] listB)
+        #region 属性:GetUnionAuthorities(IList<AuthorityInfo> listA, params IList<AuthorityInfo>[] listB)
         /// <summary>��ȡ����Ȩ���б��Ĳ���</summary>
         /// <param name="listA"></param>
         /// <param name="listB"></param>

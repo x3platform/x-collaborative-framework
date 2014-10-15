@@ -62,7 +62,7 @@ namespace X3Platform.Tasks.BLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(TaskCategoryInfo param)
+        #region 属性:Save(TaskCategoryInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ��<see cref="TaskCategoryInfo"/>��ϸ��Ϣ</param>
         /// <returns>ʵ��<see cref="TaskCategoryInfo"/>��ϸ��Ϣ</returns>
@@ -94,7 +94,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:CanDelete(string id)
+        #region 属性:CanDelete(string id)
         /// <summary>�������������ܷ���ɾ��</summary>
         /// <param name="id">����������ʶ</param>
         /// <returns></returns>
@@ -104,7 +104,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:Delete(string id)
+        #region 属性:Delete(string id)
         /// <summary>ɾ����¼</summary>
         /// <param name="id">����������ʶ</param>
         public void Delete(string id)
@@ -120,7 +120,7 @@ namespace X3Platform.Tasks.BLL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
@@ -130,7 +130,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:FindOneByCategoryIndex(string categoryIndex)
+        #region 属性:FindOneByCategoryIndex(string categoryIndex)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="categoryIndex">��������</param>
         /// <returns>����ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
@@ -140,7 +140,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:FindAll()
+        #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <returns>��������ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
         public IList<TaskCategoryInfo> FindAll()
@@ -149,7 +149,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:FindAll(string whereClause)
+        #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <returns>��������ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
@@ -159,7 +159,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:FindAll(string whereClause, int length)
+        #region 属性:FindAll(string whereClause, int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -174,7 +174,7 @@ namespace X3Platform.Tasks.BLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -188,7 +188,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
         /// <param name="id">��Ա��ʶ</param>
         /// <returns>����ֵ</returns>
@@ -198,7 +198,7 @@ namespace X3Platform.Tasks.BLL
         }
         #endregion
 
-        #region ����:SetStatus(int status)
+        #region 属性:SetStatus(int status)
         /// <summary>��������״̬(ͣ��/����)</summary>
         /// <param name="id">����������ʶ</param>
         /// <param name="status">1 ��ͣ�õ��������ã�0 �����õ�����ͣ��</param>

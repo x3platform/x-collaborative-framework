@@ -41,7 +41,7 @@ namespace X3Platform.Util
             return outString.ToString();
         }
 
-        #region ����:MDYToDMY(string text)
+        #region 属性:MDYToDMY(string text)
         /// <summary>dd-mm-yy ��������ʽ���� mm/dd/yy ��������ʽ</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -51,7 +51,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsUnsafeSQL(string text)
+        #region 属性:IsUnsafeSQL(string text)
         /// <summary>�����Ƿ��ǲ���ȫ��SQL����</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsEmail(string text)
+        #region 属性:IsEmail(string text)
         /// <summary>�����ַ��Ƿ�ΪEmail��ַ</summary>
         /// <param name="text">Email��ַ��Ϣ.</param>
         /// <returns>true | false</returns>
@@ -89,7 +89,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsDecimal(string text)
+        #region 属性:IsDecimal(string text)
         /// <summary>�����ַ��Ƿ�Ϊʮ������.</summary>
         /// <param name="text">���������ַ���</param>
         /// <returns></returns>
@@ -101,7 +101,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsNumeric(string text)
+        #region 属性:IsNumeric(string text)
         /// <summary>�����ַ��Ƿ�Ϊ����</summary>
         /// <param name="text">���������ַ���</param>
         /// <returns>����ֵ</returns>
@@ -121,7 +121,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsTelephone(string text)
+        #region 属性:IsTelephone(string text)
         /// <summary>�����Ƿ�Ϊ�绰����</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -131,7 +131,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsDate(string text)
+        #region 属性:IsDate(string text)
         /// <summary>����������</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -142,7 +142,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsSafeFilePostfix(string text, string postfix)
+        #region 属性:IsSafeFilePostfix(string text, string postfix)
         /// <summary>���ⰲȫ���ļ�����׺</summary>
         public static bool IsSafeFilePostfix(string text, string postfix)
         {
@@ -152,7 +152,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsByte(string text)
+        #region 属性:IsByte(string text)
         /// <summary>�����ַ��Ƿ���4��12֮��</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -162,7 +162,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsIP(string text)
+        #region 属性:IsIP(string text)
         /// <summary>����IP</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -172,7 +172,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:IsGuid(string text)
+        #region 属性:IsGuid(string text)
         /// <summary>����Guid</summary>
         /// <param name="text"></param>
         /// <returns></returns>

@@ -35,7 +35,7 @@ namespace X3Platform.Tasks.Ajax
     {
         ITaskReceiverService service = TasksContext.Instance.TaskReceiverService;
 
-        #region ����:GetPages(XmlDocument doc)
+        #region 属性:GetPages(XmlDocument doc)
         /// <summary>��ȡ��ҳ����</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>����һ�����ص�ʵ���б�.</returns> 
@@ -87,7 +87,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:FindAllByReceiverId(XmlDocument doc)
+        #region 属性:FindAllByReceiverId(XmlDocument doc)
         /// <summary>��ȡ�б�</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>����һ�����ص�ʵ���б�.</returns> 
@@ -142,7 +142,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:SetStatus(XmlDocument doc)
+        #region 属性:SetStatus(XmlDocument doc)
         /// <summary>��������״̬</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string SetStatus(XmlDocument doc)
@@ -157,7 +157,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:SetFinished(XmlDocument doc)
+        #region 属性:SetFinished(XmlDocument doc)
         /// <summary>������������</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string SetFinished(XmlDocument doc)
@@ -181,7 +181,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:GetUnfinishedQuantities(XmlDocument doc)
+        #region 属性:GetUnfinishedQuantities(XmlDocument doc)
         /// <summary>��ȡ�б�</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>����һ�����ص�ʵ���б�.</returns> 
