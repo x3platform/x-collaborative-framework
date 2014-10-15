@@ -13,6 +13,7 @@
                 <include name="src/Storages/Storages/default.build" />
                 <include name="src/ActiveDirectory/ActiveDirectory/default.build" />
                 <include name="src/Email/Email.Client/default.build" />
+                <include name="src/Drawing/Drawing.Captcha/default.build" />
                 <include name="src/Location/Location.IPQuery/default.build" />
                 <include name="src/Sessions/Sessions/default.build" />
                 <include name="src/Membership/Membership/default.build" />
