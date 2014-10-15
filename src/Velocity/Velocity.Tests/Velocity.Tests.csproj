@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E1B10210-6A42-4993-B383-0F6AAC255A24}</ProjectGuid>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>X3platform.Velocity.TestSuite</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>X3platform.Velocity.TestSuite</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/RuanYu.Velocity.TestSuite/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>0</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\lib\NUnit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="mscorlib">
+      <Name>mscorlib</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Velocity">
+      <HintPath>..\..\..\bin\X3Platform.Velocity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AjaxHelper2.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="AssemblyResourceLoaderTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BaseTestCase.cs" />
+    <Compile Include="Bugs\NVelocity11.cs" />
+    <Compile Include="CommonsTest.cs" />
+    <Compile Include="Commons\KeyedListTest.cs" />
+    <Compile Include="Commons\LRUMapTest.cs" />
+    <Compile Include="ComponentDirectiveTestCase.cs" />
+    <Compile Include="ContextTest.cs" />
+    <Compile Include="MultiThreadTestCase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VelocityManagerTestSuite.cs" />
+    <Compile Include="DictHelper.cs" />
+    <Compile Include="EncodingTestCase.cs" />
+    <Compile Include="Extensions\CustomRenderingTestCase.cs" />
+    <Compile Include="ForeachTest.cs" />
+    <Compile Include="IntrospectorTest.cs" />
+    <Compile Include="ObjectComparisonTestCase.cs" />
+    <Compile Include="Provider\BoolObj.cs" />
+    <Compile Include="Provider\Child.cs" />
+    <Compile Include="Provider\Person.cs" />
+    <Compile Include="Provider\TestProvider.cs" />
+    <Compile Include="StringInterpolationTestCase.cs" />
+    <Compile Include="TemplateTestCase.cs" />
+    <Compile Include="VelocimacroTestCase.cs" />
+    <Compile Include="VelocityAppTestCase.cs" />
+    <Compile Include="VelocityTest.cs" />
+    <Compile Include="VTLTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="config\RuanYu.Velocity.config" />
+    <None Include="templates\arithmetic.vm" />
+    <None Include="templates\array.vm" />
+    <None Include="templates\block.vm" />
+    <None Include="templates\comment.vm" />
+    <None Include="templates\compare\arithmetic.cmp" />
+    <None Include="templates\compare\array.cmp" />
+    <None Include="templates\compare\block.cmp" />
+    <None Include="templates\compare\comment.cmp" />
+    <None Include="templates\compare\context_safety1.cmp" />
+    <None Include="templates\compare\context_safety2.cmp" />
+    <None Include="templates\compare\diabolical.cmp" />
+    <None Include="templates\compare\directive.cmp" />
+    <None Include="templates\compare\encodingtest.cmp" />
+    <None Include="templates\compare\encodingtest2.cmp" />
+    <None Include="templates\compare\encodingtest3.cmp" />
+    <None Include="templates\compare\encodingtest_ISO-8859-1.cmp" />
+    <None Include="templates\compare\encodingtest_KOI8-R.cmp" />
+    <None Include="templates\compare\equality.cmp" />
+    <None Include="templates\compare\escape.cmp" />
+    <None Include="templates\compare\escape2.cmp" />
+    <None Include="templates\compare\foreach-array.cmp" />
+    <None Include="templates\compare\foreach-introspect.cmp" />
+    <None Include="templates\compare\foreach-map.cmp" />
+    <None Include="templates\compare\foreach-method.cmp" />
+    <None Include="templates\compare\foreach-type.cmp" />
+    <None Include="templates\compare\foreach-variable.cmp" />
+    <None Include="templates\compare\formal.cmp" />
+    <None Include="templates\compare\get.cmp" />
+    <None Include="templates\compare\if.cmp" />
+    <None Include="templates\compare\ifstatement.cmp" />
+    <None Include="templates\compare\include.cmp" />
+    <None Include="templates\compare\interpolation.cmp" />
+    <None Include="templates\compare\literal.cmp" />
+    <None Include="templates\compare\logical.cmp" />
+    <None Include="templates\compare\loop.cmp" />
+    <None Include="templates\compare\map.cmp" />
+    <None Include="templates\compare\math.cmp" />
+    <None Include="templates\compare\method.cmp" />
+    <None Include="templates\compare\parse.cmp" />
+    <None Include="templates\compare\pedantic.cmp" />
+    <None Include="templates\compare\quotes.cmp" />
+    <None Include="templates\compare\range.cmp" />
+    <None Include="templates\compare\reference.cmp" />
+    <None Include="templates\compare\sample.cmp" />
+    <None Include="templates\compare\shorthand.cmp" />
+    <None Include="templates\compare\string-interpolation.cmp" />
+    <None Include="templates\compare\subclass.cmp" />
+    <None Include="templates\compare\test.cmp" />
+    <None Include="templates\compare\velocimacro.cmp" />
+    <None Include="templates\compare\velocimacro2.cmp" />
+    <None Include="templates\compare\vm_test1.cmp" />
+    <None Include="templates\compare\vm_test2.cmp" />
+    <None Include="templates\componentusage1.vm" />
+    <None Include="templates\context_safety.vm" />
+    <None Include="templates\diabolical.vm" />
+    <None Include="templates\dicthelper.vm" />
+    <None Include="templates\ed.bat" />
+    <None Include="templates\encodingtest.vm" />
+    <None Include="templates\encodingtest2.vm" />
+    <None Include="templates\encodingtest3.vm" />
+    <None Include="templates\encodingtest_ISO-8859-1.vm" />
+    <None Include="templates\encodingtest_KOI8-R.vm" />
+    <None Include="templates\equality.vm" />
+    <None Include="templates\escape.vm" />
+    <None Include="templates\escape2.vm" />
+    <None Include="templates\example1.vm" />
+    <None Include="templates\foreach-array.vm" />
+    <None Include="templates\foreach-introspect.vm" />
+    <None Include="templates\foreach-map.vm.disabled" />
+    <None Include="templates\foreach-method.vm" />
+    <None Include="templates\foreach-type.vm.disabled" />
+    <None Include="templates\foreach-variable.vm" />
+    <None Include="templates\formal.vm" />
+    <None Include="templates\get.vm" />
+    <None Include="templates\if.vm" />
+    <None Include="templates\ifstatement.vm" />
+    <None Include="templates\include.vm" />
+    <None Include="templates\interpolation.vm" />
+    <None Include="templates\literal.vm" />
+    <None Include="templates\logical.vm" />
+    <None Include="templates\loop.vm" />
+    <None Include="templates\map.vm" />
+    <None Include="templates\math.vm" />
+    <None Include="templates\method.vm" />
+    <None Include="templates\parse.vm" />
+    <None Include="templates\parse1.vm" />
+    <None Include="templates\parse2.vm" />
+    <None Include="templates\pedantic.vm" />
+    <None Include="templates\quotes.vm" />
+    <None Include="templates\range.vm" />
+    <None Include="templates\reference.vm" />
+    <None Include="templates\results\arithmetic.res" />
+    <None Include="templates\results\array.res" />
+    <None Include="templates\results\block.res" />
+    <None Include="templates\results\comment.res" />
+    <None Include="templates\results\equality.res" />
+    <None Include="templates\results\escape.res" />
+    <None Include="templates\results\foreach-array.res" />
+    <None Include="templates\results\foreach-method.res" />
+    <None Include="templates\results\foreach-variable.res" />
+    <None Include="templates\results\formal.res" />
+    <None Include="templates\results\if.res" />
+    <None Include="templates\sample.vm" />
+    <None Include="templates\shorthand.vm" />
+    <None Include="templates\subclass.vm" />
+    <None Include="templates\templates.properties" />
+    <None Include="templates\test.vm" />
+    <None Include="templates\velocimacro.vm" />
+    <None Include="templates\velocimacro2.vm" />
+    <None Include="templates\VM_global_library.vm" />
+    <None Include="templates\vm_test1.vm" />
+    <None Include="templates\vm_test2.vm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt" />
+    <Content Include="templates\subdir\test.txt" />
+    <Content Include="templates\test.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dvsl\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

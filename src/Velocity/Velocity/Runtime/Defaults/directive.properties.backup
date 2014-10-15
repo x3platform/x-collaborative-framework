@@ -1,0 +1,5 @@
+directive.1=RuanYu.Velocity.Runtime.Directive.Foreach\,RuanYu.Velocity
+directive.2=RuanYu.Velocity.Runtime.Directive.Include\,RuanYu.Velocity
+directive.3=RuanYu.Velocity.Runtime.Directive.Parse\,RuanYu.Velocity
+directive.4=RuanYu.Velocity.Runtime.Directive.Macro\,RuanYu.Velocity
+directive.5=RuanYu.Velocity.Runtime.Directive.Literal\,RuanYu.Velocity
