@@ -59,7 +59,7 @@ namespace X3Platform.Messages
             waitHandles = new WaitHandle[maxWorkerThreadCount];
         }
 
-        #region ����:MachineName
+        #region 属性:MachineName
         private string m_MachineName = @".\private$";
 
         /// <summary>��������</summary>
@@ -83,7 +83,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:QueueName
+        #region 属性:QueueName
         private string m_QueueName = string.Empty;
 
         /// <summary>��������</summary>
@@ -107,7 +107,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:QueuePath
+        #region 属性:QueuePath
         /// <summary>����·��</summary>
         public string QueuePath
         {
@@ -115,7 +115,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Enabled
+        #region 属性:Enabled
         private bool m_Enabled = false;
 
         /// <summary>���п���</summary>
@@ -341,7 +341,7 @@ namespace X3Platform.Messages
             return;
         }
 
-        #region ����:Dispose()
+        #region 属性:Dispose()
         public void Dispose()
         {
             lock (lockObject)

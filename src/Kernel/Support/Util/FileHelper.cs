@@ -40,7 +40,7 @@ namespace X3Platform.Util
             return new MemoryStream(buffer);
         }
 
-        #region ����:Create(string path)
+        #region 属性:Create(string path)
         public static void Create(string path)
         {
             // �ж�Ŀ��Ŀ¼�Ƿ������������������½�֮
@@ -53,7 +53,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Copy(string fromPath, string toPath)
+        #region 属性:Copy(string fromPath, string toPath)
         public static void Copy(string fromPath, string toPath)
         {
             //
@@ -64,7 +64,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Delete(string path)
+        #region 属性:Delete(string path)
         public static void Delete(string path)
         {
             //ɾ���ļ���
@@ -76,7 +76,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Encoding GetEncoding(string path)
+        #region 属性:Encoding GetEncoding(string path)
         /// <summary>��ȡ�ļ��ַ�����</summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -95,7 +95,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Encoding GetEncoding(FileStream fileStream)
+        #region 属性:Encoding GetEncoding(FileStream fileStream)
         /// <summary>��ȡ�ļ����ַ�����</summary>
         public static Encoding GetEncoding(FileStream fileStream)
         {
@@ -140,7 +140,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:GetTempFileName()
+        #region 属性:GetTempFileName()
         /// <summary>��ȡ��ʱ�ļ�����</summary>
         public static string GetTempFileName()
         {

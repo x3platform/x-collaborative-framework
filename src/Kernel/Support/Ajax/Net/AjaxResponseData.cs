@@ -22,7 +22,7 @@ namespace X3Platform.Ajax.Net
     /// <summary>Ajax��Ӧ������</summary>
     public class AjaxResponseData
     {
-        #region ����:ResponseText
+        #region 属性:ResponseText
         private string m_ResponseText;
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace X3Platform.Ajax.Net
         }
         #endregion
 
-        #region ����:Result
+        #region 属性:Result
         private MessageObject m_Result;
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace X3Platform.Ajax.Net
         }
         #endregion
 
-        #region ����:ResponseException
+        #region 属性:ResponseException
         private WebException m_ResponseException;
 
         /// <summary>

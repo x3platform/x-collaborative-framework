@@ -31,7 +31,7 @@ namespace X3Platform.Spring
     [CLSCompliantAttribute(false)]
     public sealed class SpringContext : CustomPlugin
     {
-        #region ��̬����:Instance
+        #region ��̬属性:Instance
         private static volatile SpringContext instance = null;
 
         private static object lockObject = new object();
@@ -57,7 +57,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:Name
+        #region 属性:Name
         /// <summary>
         /// ����
         /// </summary>
@@ -67,7 +67,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:Application
+        #region 属性:Application
         private IApplicationContext context = null;
 
         /// <summary>Ӧ�������Ľӿ�</summary>
@@ -77,7 +77,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:Configuration
+        #region 属性:Configuration
         private SpringConfiguration configuration = null;
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:Restart()
+        #region 属性:Restart()
         /// <summary>��������</summary>
         /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
         public override int Restart()
@@ -118,7 +118,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:Reload()
+        #region 属性:Reload()
         /// <summary>���¼���</summary>
         private void Reload()
         {
@@ -148,7 +148,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:GetObject<T>(Type type)
+        #region 属性:GetObject<T>(Type type)
         /// <summary>��ȡ����</summary>
         /// <param name="type">����</param>
         public T GetObject<T>(Type type)
@@ -157,7 +157,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:GetObject<T>(Type type, object[] args)
+        #region 属性:GetObject<T>(Type type, object[] args)
         /// <summary>��ȡ����</summary>
         /// <param name="type">����</param>
         public T GetObject<T>(Type type, object[] args)
@@ -179,7 +179,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:GetObject<T>(string name)
+        #region 属性:GetObject<T>(string name)
         /// <summary>��ȡ����</summary>
         /// <param name="name">Sring�����ļ��еĶ�������</param>
         public T GetObject<T>(string name)
@@ -188,7 +188,7 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ����:GetObject<T>(string name)
+        #region 属性:GetObject<T>(string name)
         /// <summary>��ȡ����</summary>
         /// <param name="name">Sring�����ļ��еĶ�������</param>
         public T GetObject<T>(string name, object[] args)

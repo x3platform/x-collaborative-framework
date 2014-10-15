@@ -33,7 +33,7 @@ namespace X3Platform.Security.Authority.Ajax
         // ���� ɾ��
         //-------------------------------------------------------
 
-        #region ����:Save(XmlDocument doc)
+        #region 属性:Save(XmlDocument doc)
         /// <summary>������Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -50,7 +50,7 @@ namespace X3Platform.Security.Authority.Ajax
         }
         #endregion
 
-        #region ����:Delete(XmlDocument doc)
+        #region 属性:Delete(XmlDocument doc)
         /// <summary>ɾ������</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -69,7 +69,7 @@ namespace X3Platform.Security.Authority.Ajax
         // ��ѯ
         //-------------------------------------------------------
 
-        #region ����:FindOne(XmlDocument doc)
+        #region 属性:FindOne(XmlDocument doc)
         /// <summary>��ȡ��ϸ��Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns> 
@@ -90,7 +90,7 @@ namespace X3Platform.Security.Authority.Ajax
         }
         #endregion
 
-        #region ����:FindAll(XmlDocument doc)
+        #region 属性:FindAll(XmlDocument doc)
         /// <summary>��ȡ��ϸ��Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns> 
@@ -114,7 +114,7 @@ namespace X3Platform.Security.Authority.Ajax
         // �Զ��幦��
         //-------------------------------------------------------
 
-        #region ����:Query(XmlDocument doc)
+        #region 属性:Query(XmlDocument doc)
         /// <summary>��ҳ����</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>

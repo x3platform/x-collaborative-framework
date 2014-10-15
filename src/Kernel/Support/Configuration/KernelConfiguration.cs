@@ -26,7 +26,7 @@ namespace X3Platform.Configuration
 
         private const string keyProperty = "key";
 
-        #region ����:Keys
+        #region 属性:Keys
         private KernelConfigurationKeyCollection keys = new KernelConfigurationKeyCollection();
 
         /// <summary>������Ϣ�ļ���</summary>

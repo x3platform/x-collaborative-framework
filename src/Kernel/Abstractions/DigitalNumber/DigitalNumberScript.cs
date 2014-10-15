@@ -49,7 +49,7 @@ namespace X3Platform.DigitalNumber
 
             foreach (string[] subexpression in subexpressions)
             {
-                // ������Ҫ�������ӵı���ʽ����: code | int | dailyIncrement
+                // ������Ҫ�������ӵı���ʽ属性: code | int | dailyIncrement
                 if (subexpression[0] == "code" || subexpression[0] == "int" || subexpression[0] == "dailyIncrement")
                 {
                     continue;

@@ -26,7 +26,7 @@ namespace X3Platform.Security
     /// <summary>��ȫ����</summary>
     public sealed class SecurityManagement
     {
-        //#region ����:CheckAuthority(IList<AuthorityInfo> authorities)
+        //#region 属性:CheckAuthority(IList<AuthorityInfo> authorities)
         ///// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
         ///// <param name="account"></param>
         ///// <param name="authorities"></param>
@@ -42,7 +42,7 @@ namespace X3Platform.Security
         //}
         //#endregion
 
-        //#region ����:CheckAuthority( string[] authorityNames)
+        //#region 属性:CheckAuthority( string[] authorityNames)
         ///// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
         ///// <param name="account"></param>
         ///// <param name="authorityKeys"></param>
@@ -54,7 +54,7 @@ namespace X3Platform.Security
         //}
         //#endregion
 
-        #region ����:Check(IAccountInfo account, IRoleInfo[] roles)
+        #region 属性:Check(IAccountInfo account, IRoleInfo[] roles)
         /// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
         /// <param name="account"></param>
         /// <param name="roles"></param>
@@ -66,7 +66,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:Check(IAccountInfo account, IAuthorizationScope[] authorizationScopes)
+        #region 属性:Check(IAccountInfo account, IAuthorizationScope[] authorizationScopes)
         /// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
         /// <param name="account"></param>
         /// <param name="roles"></param>
@@ -136,7 +136,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        //#region ����:Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
+        //#region 属性:Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
         ///// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
         ///// <param name="account"></param>
         ///// <param name="roles"></param>

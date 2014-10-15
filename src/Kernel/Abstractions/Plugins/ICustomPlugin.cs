@@ -26,70 +26,70 @@ namespace X3Platform.Plugins
     /// <summary>�Զ��������ӿ�</summary>
     public interface ICustomPlugin
     {
-        #region ����:Id
+        #region 属性:Id
         /// <summary>��ʶ</summary>
         string Id { get; set; }
         #endregion
 
-        #region ����:Name
+        #region 属性:Name
         /// <summary>����</summary>
         string Name { get; }
         #endregion
 
-        #region ����:Version
+        #region 属性:Version
         /// <summary>�汾</summary>
         string Version { get; }
         #endregion
 
-        #region ����:Author
+        #region 属性:Author
         /// <summary>����</summary>
         string Author { get; }
         #endregion
 
-        #region ����:Copyright
+        #region 属性:Copyright
         /// <summary>��Ȩ</summary>
         string Copyright { get; }
         #endregion
 
-        #region ����:Url
+        #region 属性:Url
         /// <summary>������ȡ��ַ</summary>
         string Url { get; }
         #endregion
 
-        #region ����:ThumbnailUrl
+        #region 属性:ThumbnailUrl
         /// <summary>����ͼ</summary>
         string ThumbnailUrl { get; }
         #endregion
 
-        #region ����:Description
+        #region 属性:Description
         /// <summary>������Ϣ</summary>
         string Description { get; }
         #endregion
 
-        #region ����:Status
+        #region 属性:Status
         /// <summary>״̬: 0 �ر� | 1 ����</summary>
         int Status { get; set; }
         #endregion
 
-        #region ����:Install()
+        #region 属性:Install()
         /// <summary>��װ����</summary>
         /// <returns>������Ϣ. =0����װ�ɹ�, >0����װʧ��.</returns>
         int Install();
         #endregion
 
-        #region ����:Uninstall()
+        #region 属性:Uninstall()
         /// <summary>ж�ز���</summary>
         /// <returns>������Ϣ. =0����ж�سɹ�, >0����ж��ʧ��.</returns>
         int Uninstall();
         #endregion
 
-        #region ����:Restart()
+        #region 属性:Restart()
         /// <summary>��������</summary>
         /// <returns>������Ϣ. =0����ж�سɹ�, >0����ж��ʧ��.</returns>
         int Restart();
         #endregion
 
-        #region ����:Command(Hashtable agrs)
+        #region 属性:Command(Hashtable agrs)
         /// <summary>ִ������</summary>
         /// <returns>������Ϣ. =0����ִ�гɹ�, >0����ִ��ʧ��.</returns>
         int Command(Hashtable agrs);

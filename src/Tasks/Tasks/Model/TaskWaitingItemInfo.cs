@@ -32,7 +32,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Id
+        #region 属性:Id
         private string m_Id;
 
         /// <summary></summary>
@@ -43,7 +43,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:TaskCode
+        #region 属性:TaskCode
         private string m_TaskCode;
 
         /// <summary></summary>
@@ -54,7 +54,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:ApplicationId
+        #region 属性:ApplicationId
         private string m_ApplicationId;
 
         /// <summary></summary>
@@ -65,7 +65,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Type
+        #region 属性:Type
         private string m_Type;
 
         /// <summary></summary>
@@ -76,7 +76,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Title
+        #region 属性:Title
         private string m_Title;
 
         /// <summary></summary>
@@ -87,7 +87,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Content
+        #region 属性:Content
         private string m_Content;
 
         /// <summary></summary>
@@ -98,7 +98,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Tags
+        #region 属性:Tags
         private string m_Tags;
 
         /// <summary></summary>
@@ -109,7 +109,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:SenderId
+        #region 属性:SenderId
         private string m_SenderId;
 
         /// <summary></summary>
@@ -120,7 +120,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:ReceiverId
+        #region 属性:ReceiverId
         private string m_ReceiverId;
 
         /// <summary></summary>
@@ -131,7 +131,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:IsSend
+        #region 属性:IsSend
         private bool m_IsSend;
 
         /// <summary></summary>
@@ -142,7 +142,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:Status
+        #region 属性:Status
         private int m_Status;
 
         /// <summary></summary>
@@ -153,7 +153,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:SendTime
+        #region 属性:SendTime
         private DateTime m_SendTime;
 
         /// <summary>ʵ�ʷ���ʱ��</summary>
@@ -164,7 +164,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:TriggerTime
+        #region 属性:TriggerTime
         private DateTime m_TriggerTime;
 
         /// <summary>����ʱ��</summary>
@@ -175,7 +175,7 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
-        #region ����:CreateDate
+        #region 属性:CreateDate
         private DateTime m_CreateDate;
 
         /// <summary></summary>

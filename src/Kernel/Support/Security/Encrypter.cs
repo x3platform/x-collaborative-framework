@@ -42,7 +42,7 @@ namespace X3Platform.Security
         // http://en.wikipedia.org/wiki/Data_Encryption_Standard
         //-------------------------------------------------------
 
-        #region ����:EncryptDES(string text)
+        #region 属性:EncryptDES(string text)
         ///<summary>����-DES��ʽ</summary>
         ///<param name="text">�ı�</param>
         public static string EncryptDES(string text)
@@ -51,7 +51,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:EncryptDES(string text, byte[] rgbKey, byte[] rgbIV)
+        #region 属性:EncryptDES(string text, byte[] rgbKey, byte[] rgbIV)
         ///<summary>����-DES��ʽ</summary>
         ///<param name="text">�ı�</param>
         ///<param name="rgbKey">���ܵ�Key</param>
@@ -73,7 +73,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:DecryptDES(string text)
+        #region 属性:DecryptDES(string text)
         ///<summary>����-DES��ʽ</summary>
         ///<param name="text">�ı�</param>
         public static string DecryptDES(string text)
@@ -82,7 +82,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:DecryptDES(string text, byte[] rgbKey, byte[] rgbIV)
+        #region 属性:DecryptDES(string text, byte[] rgbKey, byte[] rgbIV)
         ///<summary>����-DES��ʽ</summary>
         ///<param name="text">�ı�</param>
         ///<param name="rgbKey">Key</param>
@@ -128,7 +128,7 @@ namespace X3Platform.Security
         /// <summary>Ĭ�ϵļ�����Կ</summary>
         private const string ASECryptoKey = "12345678901234567890123456789abc";
 
-        #region ����:EncryptAES(string text)
+        #region 属性:EncryptAES(string text)
         ///<summary>����-AES��ʽ</summary>
         ///<param name="text">�ı�</param>
         public static string EncryptAES(string text)
@@ -139,7 +139,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:EncryptAES(string text, byte[] key)
+        #region 属性:EncryptAES(string text, byte[] key)
         /// <summary>����-AES��ʽ</summary>
         /// <param name="text">�ı�</param>
         /// <param name="key">��Կ</param>
@@ -165,7 +165,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:DecryptAES(string text)
+        #region 属性:DecryptAES(string text)
         ///<summary>����-AES��ʽ</summary>
         /// <param name="text">�ı�</param>
         public static string DecryptAES(string text)
@@ -176,7 +176,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region ����:DecryptAES(string text, byte[] key)
+        #region 属性:DecryptAES(string text, byte[] key)
         ///<summary>����-AES��ʽ</summary>
         /// <param name="text">�ı�</param>
         /// <param name="key">��Կ</param>

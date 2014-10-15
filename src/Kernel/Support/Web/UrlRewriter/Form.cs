@@ -23,7 +23,7 @@ namespace X3Platform.Web.UrlRewriter
     /// <summary>��ַ��д����ʹ�õ�Form����</summary>
     public class Form : HtmlForm
     {
-        #region ����:RenderAttributes(HtmlTextWriter writer)
+        #region 属性:RenderAttributes(HtmlTextWriter writer)
         /// <summary> ����ҳ�汻�ض���, ��дHtmlForm��RenderAttributes�����Ƴ�Ĭ��action����, ��ֹҳ���ύ.</summary>
         protected override void RenderAttributes(HtmlTextWriter writer)
         {

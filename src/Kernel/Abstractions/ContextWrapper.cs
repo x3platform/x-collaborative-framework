@@ -34,7 +34,7 @@ namespace X3Platform
         /// <summary>��������</summary>
         private string resultType = "xml";
 
-        #region ����:IsReusable
+        #region 属性:IsReusable
         /// <summary>�����õ�</summary>
         public bool IsReusable
         {
@@ -42,7 +42,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:ProcessRequest(HttpContext context)
+        #region 属性:ProcessRequest(HttpContext context)
         /// <summary>��������</summary>
         /// <param name="context">�����Ļ���</param>
         public virtual void ProcessRequest(HttpContext context)
@@ -103,7 +103,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Export(HttpContext context, string resultType, string responseText, Hashtable agrs)
+        #region 属性:Export(HttpContext context, string resultType, string responseText, Hashtable agrs)
         /// <summary>����</summary>
         /// <param name="context">�����Ļ���</param>
         /// <param name="resultType">��������</param>
@@ -155,7 +155,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:ParseXml(string json)
+        #region 属性:ParseXml(string json)
         private string ParseXml(string json)
         {
             string message = string.Empty;

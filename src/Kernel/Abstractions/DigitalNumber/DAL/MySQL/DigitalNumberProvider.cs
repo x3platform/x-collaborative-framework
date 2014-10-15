@@ -59,7 +59,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         // ���� ���� �޸� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(DigitalNumberInfo param)
+        #region 属性:Save(DigitalNumberInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">DigitalNumberInfo ʵ����ϸ��Ϣ</param>
         /// <returns>DigitalNumberInfo ʵ����ϸ��Ϣ</returns>
@@ -78,7 +78,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:Insert(DigitalNumberInfo param)
+        #region 属性:Insert(DigitalNumberInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">DigitalNumberInfo ʵ������ϸ��Ϣ</param>
         public void Insert(DigitalNumberInfo param)
@@ -89,7 +89,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:Update(DigitalNumberInfo param)
+        #region 属性:Update(DigitalNumberInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">DigitalNumberInfo ʵ������ϸ��Ϣ</param>
         public void Update(DigitalNumberInfo param)
@@ -98,7 +98,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">��ʶ,�����Զ��ŷֿ�</param>
         public void Delete(string ids)
@@ -118,7 +118,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string name)
+        #region 属性:FindOne(string name)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="name">DigitalNumberInfo Id��</param>
         /// <returns>����һ�� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
@@ -132,7 +132,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:FindAll(string whereClause,int length)
+        #region 属性:FindAll(string whereClause,int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -181,7 +181,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
             return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
 
-        #region ����:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
+        #region 属性:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         /// <summary>����ǰ׺�������ֱ���</summary>
         /// <param name="entityTableName">ʵ�����ݱ�</param>
         /// <param name="prefixCode">ǰ׺����</param>
@@ -206,7 +206,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
+        #region 属性:GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
         /// <summary>����ǰ׺�������ֱ���</summary>
         /// <param name="command">ͨ��SQL��������</param>
         /// <param name="entityTableName">ʵ�����ݱ�</param>
@@ -232,7 +232,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
+        #region 属性:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         /// <summary>����������ʶ�����ֱ���</summary>
         /// <param name="entityTableName">ʵ�����ݱ�</param>
         /// <param name="entityCategoryTableName">ʵ���������ݱ�</param>
@@ -252,7 +252,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
         }
         #endregion
 
-        #region ����:GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
+        #region 属性:GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         /// <summary>����������ʶ�����ֱ���</summary>
         /// <param name="command">ͨ��SQL��������</param>
         /// <param name="entityTableName">ʵ�����ݱ�</param>

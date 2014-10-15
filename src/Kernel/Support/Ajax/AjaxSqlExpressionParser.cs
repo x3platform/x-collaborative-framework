@@ -22,7 +22,7 @@ namespace X3Platform.Ajax
     /// <summary>Ajax SQL ����ʽ������</summary>
     public sealed class AjaxSqlExpressionParser
     {
-        #region ��̬����:Parse(string xml)
+        #region ��̬属性:Parse(string xml)
         /// <summary></summary>
         /// <param name="xml"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ��̬����:Parse(XmlElement element)
+        #region ��̬属性:Parse(XmlElement element)
         /// <summary></summary>
         /// <param name="element"></param>
         /// <returns></returns>

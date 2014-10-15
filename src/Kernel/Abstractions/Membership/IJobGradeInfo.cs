@@ -19,12 +19,12 @@ namespace X3Platform.Membership
     /// <summary>ְ����Ϣ</summary>
     public interface IJobGradeInfo : IAuthorizationObject
     {
-        #region ����:DisplayName
+        #region 属性:DisplayName
         /// <summary>ȫ������</summary>
         string DisplayName { get; }
         #endregion
 
-        #region ����:Value
+        #region 属性:Value
         /// <summary>ְ����ֵ</summary>
         int Value { get; set; }
         #endregion

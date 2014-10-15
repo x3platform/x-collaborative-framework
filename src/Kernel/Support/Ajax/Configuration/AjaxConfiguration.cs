@@ -28,7 +28,7 @@ namespace X3Platform.Ajax.Configuration
     /// <summary>������Ϣ</summary>
     public class AjaxConfiguration : XmlConfiguraton
     {
-        /// <summary>��־��¼��</summary>
+        /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>����Ӧ�õ�����</summary>
@@ -43,7 +43,7 @@ namespace X3Platform.Ajax.Configuration
             return SectionName;
         }
 
-        #region ����:SpecialWords
+        #region 属性:SpecialWords
         private NameValueConfigurationCollection m_SpecialWords = new NameValueConfigurationCollection();
 
         /// <summary>�����ʻ�</summary>
@@ -54,7 +54,7 @@ namespace X3Platform.Ajax.Configuration
         }
         #endregion
 
-        #region ����:Configure(XmlElement element)
+        #region 属性:Configure(XmlElement element)
         /// <summary>����XmlԪ�����ö�����Ϣ</summary>
         /// <param name="element">���ýڵ���XmlԪ��</param>
         public override void Configure(XmlElement element)

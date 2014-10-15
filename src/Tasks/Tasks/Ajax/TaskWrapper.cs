@@ -40,7 +40,7 @@ namespace X3Platform.Tasks.Ajax
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(XmlDocument doc)
+        #region 属性:Save(XmlDocument doc)
         /// <summary>������¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -126,7 +126,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:Delete(XmlDocument doc)
+        #region 属性:Delete(XmlDocument doc)
         /// <summary>ɾ����¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -155,7 +155,7 @@ namespace X3Platform.Tasks.Ajax
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(XmlDocument doc)
+        #region 属性:GetPages(XmlDocument doc)
         /// <summary>��ȡ��ҳ����</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>����һ�����ص�ʵ���б�.</returns> 
@@ -204,7 +204,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:SetFinished(XmlDocument doc)
+        #region 属性:SetFinished(XmlDocument doc)
         /// <summary>������������</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string SetFinished(XmlDocument doc)
@@ -219,7 +219,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:SetUsersFinished(XmlDocument doc)
+        #region 属性:SetUsersFinished(XmlDocument doc)
         /// <summary>������������</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string SetUsersFinished(XmlDocument doc)
@@ -258,7 +258,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:GetTaskTags(XmlDocument doc)
+        #region 属性:GetTaskTags(XmlDocument doc)
         /// <summary>��ȡ��ǩ�б�</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string GetTaskTags(XmlDocument doc)
@@ -292,7 +292,7 @@ namespace X3Platform.Tasks.Ajax
         // �鵵��ɾ��ĳһʱ�εĴ�����¼
         // -------------------------------------------------------
 
-        #region ����:Archive(XmlDocument doc)
+        #region 属性:Archive(XmlDocument doc)
         /// <summary>���鵵����֮ǰ�����ɵĴ����鵵����ʷ���ݱ�</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string Archive(XmlDocument doc)
@@ -305,7 +305,7 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ����:RemoveUnfinishedWorkItems(XmlDocument doc)
+        #region 属性:RemoveUnfinishedWorkItems(XmlDocument doc)
         ///<summary>ɾ������ʱ��֮ǰδ���ɵĹ�������¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         public string RemoveUnfinishedWorkItems(XmlDocument doc)

@@ -32,7 +32,7 @@ namespace X3Platform.Configuration
     /// <summary>������ͼ</summary>
     public class KernelConfigurationView
     {
-        #region ��̬����:Instance
+        #region ��̬属性:Instance
         private static volatile KernelConfigurationView instance = null;
 
         private static object lockObject = new object();
@@ -60,7 +60,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:Configuration
+        #region 属性:Configuration
         private KernelConfiguration configurationSource;
 
         /// <summary>����������Ϣ</summary>
@@ -141,7 +141,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:Save()
+        #region 属性:Save()
         /// <summary>����������Ϣ</summary>
         public void Save()
         {
@@ -160,7 +160,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:Serialize(string path, string sectionName, object value)
+        #region 属性:Serialize(string path, string sectionName, object value)
         /// <summary>���л�������Ϣ</summary>
         public void Serialize(string path, string sectionName, object value)
         {
@@ -178,7 +178,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ReplaceKeyValue(string text)
+        #region 属性:ReplaceKeyValue(string text)
         /// <summary>�滻����ռλ��Ϊʵ�ʵ�ֵ</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -200,7 +200,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:AddKeyValues(string configGlobalPrefix, NameValueConfigurationCollection list, bool forceUpdate)
+        #region 属性:AddKeyValues(string configGlobalPrefix, NameValueConfigurationCollection list, bool forceUpdate)
         /// <summary></summary>
         /// <param name="configGlobalPrefix"></param>
         /// <param name="list"></param>
@@ -215,7 +215,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:AddKeyValue(string name, string value)
+        #region 属性:AddKeyValue(string name, string value)
         /// <summary></summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -225,7 +225,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:AddKeyValue(string name, string value, bool forceUpdate)
+        #region 属性:AddKeyValue(string name, string value, bool forceUpdate)
         /// <summary></summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
@@ -244,7 +244,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:GetKeyValue(string configGlobalPrefix, string propertyName, NameValueConfigurationCollection defaultOptions)
+        #region 属性:GetKeyValue(string configGlobalPrefix, string propertyName, NameValueConfigurationCollection defaultOptions)
         /// <summary>��ȡ������Ϣ��ֵ</summary>
         /// <param name="configGlobalPrefix">������Ϣ��ȫ��ǰ׺</param>
         /// <param name="propertyName">������������</param>
@@ -274,7 +274,7 @@ namespace X3Platform.Configuration
         // �Զ�������
         // -------------------------------------------------------
 
-        #region ����:SystemName
+        #region 属性:SystemName
         private string m_SystemName = string.Empty;
 
         /// <summary>ϵͳ����</summary>
@@ -301,7 +301,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:SystemStatus
+        #region 属性:SystemStatus
         private string m_SystemStatus = string.Empty;
 
         /// <summary>ϵͳ״̬����ѡ��ֵ�� Development(����ģʽ) | Test(����ģʽ) | Production(����ģʽ)</summary>
@@ -328,7 +328,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:HostName
+        #region 属性:HostName
         private string m_HostName = string.Empty;
 
         /// <summary>Ӧ�÷���������</summary>
@@ -355,7 +355,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:FileHostName
+        #region 属性:FileHostName
         private string m_FileHostName = string.Empty;
 
         /// <summary>�ļ�����������</summary>
@@ -383,7 +383,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:StaticFileHostName
+        #region 属性:StaticFileHostName
         private string m_StaticFileHostName = string.Empty;
 
         /// <summary>��̬�ļ�����������</summary>
@@ -411,7 +411,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:SafeRefererHosts
+        #region 属性:SafeRefererHosts
         private string m_SafeRefererHosts = string.Empty;
 
         /// <summary>��ȫ�ĵ����÷�����</summary>
@@ -438,7 +438,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:Domain
+        #region 属性:Domain
         private string m_Domain = string.Empty;
 
         /// <summary>����Ϣ</summary>
@@ -474,7 +474,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:NetworkCredentialDomain
+        #region 属性:NetworkCredentialDomain
         private string m_NetworkCredentialDomain = string.Empty;
 
         /// <summary>������֤����������Ϣ</summary>
@@ -501,7 +501,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:Version
+        #region 属性:Version
         private string m_Version = string.Empty;
 
         /// <summary>�汾</summary>
@@ -528,7 +528,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:Author
+        #region 属性:Author
         private string m_Author = string.Empty;
 
         /// <summary>����</summary>
@@ -555,7 +555,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:WebmasterEmail
+        #region 属性:WebmasterEmail
         private string m_WebmasterEmail = string.Empty;
 
         /// <summary>����Ա�ʼ���ַ</summary>
@@ -582,7 +582,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:AuthenticationManagementType
+        #region 属性:AuthenticationManagementType
         private string m_AuthenticationManagementType = string.Empty;
 
         /// <summary>��֤��������</summary>
@@ -609,7 +609,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationPathRoot
+        #region 属性:ApplicationPathRoot
         private string m_ApplicationPathRoot = string.Empty;
 
         /// <summary>����·������ַ</summary>
@@ -638,7 +638,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationTempPathRoot
+        #region 属性:ApplicationTempPathRoot
         private string m_ApplicationTempPathRoot = string.Empty;
 
         /// <summary>����·����ʱ�ļ��и���ַ</summary>
@@ -666,7 +666,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationSpringConfigFilePath
+        #region 属性:ApplicationSpringConfigFilePath
         private string m_ApplicationSpringConfigFilePath = string.Empty;
 
         /// <summary>Ӧ�ó���Spring�����ļ�·��</summary>
@@ -693,7 +693,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationHomePage
+        #region 属性:ApplicationHomePage
         private string m_ApplicationHomePage = string.Empty;
 
         /// <summary>Ӧ�ó�����ҳ</summary>
@@ -720,7 +720,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationIconPath
+        #region 属性:ApplicationIconPath
         private string m_ApplicationIconPath = string.Empty;
 
         /// <summary>Ӧ�ó���ͼ��</summary>
@@ -747,7 +747,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationClientId
+        #region 属性:ApplicationClientId
         private string m_ApplicationClientId = string.Empty;
 
         /// <summary>Ӧ�ÿͻ��˵��õ� AppKey</summary>
@@ -774,7 +774,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationClientSecret
+        #region 属性:ApplicationClientSecret
         private string m_ApplicationClientSecret = string.Empty;
 
         /// <summary>Ӧ�ÿͻ��˵��õ� AppSecret</summary>
@@ -801,7 +801,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:ApplicationClientSignature
+        #region 属性:ApplicationClientSignature
         private string m_ApplicationClientSignature = string.Empty;
 
         /// <summary>Ӧ�ÿͻ��˵��õ� AppKey</summary>
@@ -823,7 +823,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:DataSourceName
+        #region 属性:DataSourceName
         private string m_DataSourceName = string.Empty;
 
         /// <summary>Ӧ�ó������������ݿ�����</summary>
@@ -850,7 +850,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:DataSourceType
+        #region 属性:DataSourceType
         private string m_DataSourceType = string.Empty;
 
         /// <summary>Ӧ�ó������������ݿ�����</summary>
@@ -877,7 +877,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:UploadFileWizard
+        #region 属性:UploadFileWizard
         private string m_UploadFileWizard = string.Empty;
 
         /// <summary>�ϴ��ļ�����</summary>
@@ -904,7 +904,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region ����:MSTestPathRoot
+        #region 属性:MSTestPathRoot
         private string m_MSTestPathRoot = string.Empty;
 
         /// <summary>����Ŀ¼��ַ</summary>

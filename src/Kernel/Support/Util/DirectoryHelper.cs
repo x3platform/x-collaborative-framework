@@ -20,7 +20,7 @@ namespace X3Platform.Util
     /// <summary>Ŀ¼������</summary>
     public class DirectoryHelper
     {
-        #region ����:Create(string path)
+        #region 属性:Create(string path)
         public static void Create(string path)
         {
             // ����Ŀ��Ŀ¼�Ƿ���Ŀ¼�ָ��ַ�������������������֮
@@ -35,7 +35,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Copy(string fromPath, string toPath)
+        #region 属性:Copy(string fromPath, string toPath)
         public static void Copy(string fromPath, string toPath)
         {
             //
@@ -75,7 +75,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Delete(string path)
+        #region 属性:Delete(string path)
         public static void Delete(string path)
         {
             /* 
@@ -120,7 +120,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:FormatLocalPath(string path)
+        #region 属性:FormatLocalPath(string path)
         /// <summary>��ʽ�����ؾ���·��</summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -137,7 +137,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:FormatTimePath()
+        #region 属性:FormatTimePath()
         /// <summary></summary>
         /// <returns></returns>
         public static string FormatTimePath()
@@ -146,7 +146,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:FormatTimePath(DateTime datetime)
+        #region 属性:FormatTimePath(DateTime datetime)
         /// <summary></summary>
         /// <returns></returns>
         public static string FormatTimePath(DateTime datetime)

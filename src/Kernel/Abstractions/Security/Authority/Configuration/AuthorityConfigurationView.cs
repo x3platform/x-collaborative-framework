@@ -25,7 +25,7 @@ namespace X3Platform.Security.Authority
     /// <summary>Ȩ��������ͼ</summary>
     public class AuthorityConfigurationView
     {
-        #region ��̬����:Instance
+        #region ��̬属性:Instance
         private static volatile AuthorityConfigurationView instance = null;
 
         private static object lockObject = new object();
@@ -54,7 +54,7 @@ namespace X3Platform.Security.Authority
         /// <summary>�����ļ���Ĭ��·��</summary>
         private const string configFile = "config\\X3Platform.Security.Authority.config";
 
-        #region ����:ConfigFilePath
+        #region 属性:ConfigFilePath
         private string configFilePath = null;
 
         /// <summary>�����ļ�������·��.</summary>
@@ -67,7 +67,7 @@ namespace X3Platform.Security.Authority
         /// <summary>�����ļ������޸ĵ�ʱ��</summary>
         private DateTime lastModifiedTime;
 
-        #region ����:Configuration
+        #region 属性:Configuration
         private AuthorityConfiguration configuration = null;
 
         /// <summary>������Ϣ</summary>

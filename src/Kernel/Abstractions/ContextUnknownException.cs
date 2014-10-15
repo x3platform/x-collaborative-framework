@@ -45,7 +45,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:ToString()
+        #region 属性:ToString()
         /// <summary>ת��Ϊ�ַ���</summary>
         /// <returns></returns>
         public override string ToString()

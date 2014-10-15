@@ -26,7 +26,7 @@ namespace X3Platform.Spring.Configuration
     /// <summary>Spring������Ϣ</summary>
     public class SpringConfiguration : XmlConfiguraton
     {
-        /// <summary>��־��¼��</summary>
+        /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>Name of the WorkflowPlus configuration section.</summary>
@@ -46,7 +46,7 @@ namespace X3Platform.Spring.Configuration
             get { return this.m_Files; }
         }
 
-        #region ����:Configure(XmlElement element)
+        #region 属性:Configure(XmlElement element)
         /// <summary>����XmlԪ�����ö�����Ϣ</summary>
         /// <param name="element">���ýڵ���XmlԪ��</param>
         public override void Configure(XmlElement element)

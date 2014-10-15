@@ -25,7 +25,7 @@ namespace X3Platform.Util
     /// <summary>��ҳ������</summary>
     public class PagingHelper
     {
-        #region ��̬����:Create(string xml)
+        #region ��̬属性:Create(string xml)
         /// <summary>����Xml�ַ�����������</summary>
         public static PagingHelper Create(string xml)
         {
@@ -39,7 +39,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ��̬����:Create(string xml)
+        #region ��̬属性:Create(string xml)
         /// <summary>����Xml�ַ�����������</summary>
         public static PagingHelper Create(string xml, string queryXml)
         {
@@ -80,7 +80,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:Parse()
+        #region 属性:Parse()
         /// <summary>����</summary>
         private void Parse()
         {
@@ -109,7 +109,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:PageSize
+        #region 属性:PageSize
         private int m_PageSize;
 
         /// <summary>ÿҳ��ʾ����</summary>
@@ -128,7 +128,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:RowIndex
+        #region 属性:RowIndex
         private int m_RowIndex;
 
         /// <summary>��������</summary>
@@ -148,7 +148,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:RowCount
+        #region 属性:RowCount
         private int m_RowCount;
 
         /// <summary>����ͳ��</summary>
@@ -164,7 +164,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:PageCount
+        #region 属性:PageCount
         private int m_PageCount;
 
         /// <summary>ҳ��ͳ��</summary>
@@ -174,7 +174,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:CurrentPage
+        #region 属性:CurrentPage
         private int m_CurrentPage;
 
         /// <summary>��ǰҳ</summary>
@@ -193,7 +193,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:FirstPage
+        #region 属性:FirstPage
         public int m_FirstPage;
 
         /// <summary>��ҳ</summary>
@@ -203,7 +203,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:PreviousPage
+        #region 属性:PreviousPage
         /// <summary>��ҳ</summary>
         private int m_PreviousPage;
 
@@ -213,7 +213,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:NextPage
+        #region 属性:NextPage
         private int m_NextPage;
 
         /// <summary>��ҳ</summary>
@@ -223,7 +223,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:LastPage
+        #region 属性:LastPage
         private int m_LastPage;
 
         /// <summary>ĩҳ</summary>
@@ -237,7 +237,7 @@ namespace X3Platform.Util
         // ��ҳ����
         // -------------------------------------------------------
 
-        #region ����:Query
+        #region 属性:Query
         private DataQuery m_Query = new DataQuery();
 
         /// <summary>���ݲ�ѯ����</summary>
@@ -247,7 +247,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:WhereClause
+        #region 属性:WhereClause
         private string m_WhereClause;
 
         /// <summary>SQL ��ѯ����</summary>
@@ -259,7 +259,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:OrderBy
+        #region 属性:OrderBy
         private string m_OrderBy;
 
         /// <summary>SQL ��������</summary>
@@ -271,7 +271,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToString()
+        #region 属性:ToString()
         /// <summary></summary>
         /// <returns></returns>
         public override string ToString()

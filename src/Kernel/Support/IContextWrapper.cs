@@ -19,7 +19,7 @@ namespace X3Platform
     /// <summary>���л����Ĵ������ӿ�</summary>
     public interface IContextWrapper
     {
-        #region ����:ProcessRequest(HttpContext context)
+        #region 属性:ProcessRequest(HttpContext context)
         /// <summary>��������</summary>
         /// <param name="context">�����Ļ���</param>
         void ProcessRequest(HttpContext context);
