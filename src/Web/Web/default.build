@@ -39,7 +39,7 @@
         <echo message="Compiling:${project.name}" />
         <mkdir dir="${project.target.dir}" />
         <!-- 编译目标文件 -->
-        <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" keyfile="../../Licence.snk" >
+        <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" warninglevel="1" keyfile="../../Licence.snk" >
             <references>
                 <!--<include name="${solution.dir}${framework.build.output}\**.dll" />-->
                 <include name="${framework.assemblyDirectory}System.dll" />
