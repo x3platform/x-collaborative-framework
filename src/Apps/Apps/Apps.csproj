@@ -253,7 +253,6 @@
     </Content>
     <Content Include="db\应用管理初始化脚本%28MySQL%29.sql" />
     <Content Include="db\应用管理初始化脚本%28SQLServer%29.sql" />
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -289,6 +288,7 @@
     <None Include="config\X3Platform.Apps.config" />
     <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Apps.Spring.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\IBatis\" />
