@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Velocity", "Velocity", "{4DD8FA15-A20F-4B5E-AF9C-B4FFF36875D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSite", "WebSite", "{F2705283-665E-49E6-96C1-9CF4B84A470E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kernel", "Kernel", "{A29E37A3-5437-4C7C-90FB-1729AF6629C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel", "..\Kernel\Kernel\Kernel.csproj", "{2F09FE39-F06B-4686-9FEF-33589C3F9625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSite.1.0.0", "..\WebSite\1.0.0\WebSite.1.0.0.csproj", "{02A3DE83-7FA4-41B6-9BC0-2B99D17AD75C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kernel.TestSuite", "..\Kernel\Kernel.TestSuite\Kernel.TestSuite.csproj", "{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Velocity", "Velocity\Velocity.csproj", "{10AE9F9A-C23F-44D0-9E78-B4C125597ECE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Velocity.TestSuite", "Velocity.TestSuite\Velocity.TestSuite.csproj", "{E1B10210-6A42-4993-B383-0F6AAC255A24}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.4.241:8080/
+		SccProjectUniqueName0 = ..\\Kernel\\Kernel\\Kernel.csproj
+		SccProjectTopLevelParentUniqueName0 = Velocity.sln
+		SccProjectName0 = ../Kernel/Kernel
+		SccAuxPath0 = http://192.168.4.241:8080
+		SccLocalPath0 = ..\\Kernel\\Kernel
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = ..\\WebSite\\1.0.0\\WebSite.1.0.0.csproj
+		SccProjectTopLevelParentUniqueName1 = Velocity.sln
+		SccProjectName1 = ../WebSite/1.0.0
+		SccAuxPath1 = http://192.168.4.241:8080
+		SccLocalPath1 = ..\\WebSite\\1.0.0
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = ..\\Kernel\\Kernel.TestSuite\\Kernel.TestSuite.csproj
+		SccProjectTopLevelParentUniqueName2 = Velocity.sln
+		SccProjectName2 = ../Kernel/Kernel.TestSuite
+		SccAuxPath2 = http://192.168.4.241:8080
+		SccLocalPath2 = ..\\Kernel\\Kernel.TestSuite
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = Velocity\\Velocity.csproj
+		SccProjectTopLevelParentUniqueName3 = Velocity.sln
+		SccProjectName3 = Velocity
+		SccAuxPath3 = http://192.168.4.241:8080
+		SccLocalPath3 = Velocity
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = Velocity.TestSuite\\Velocity.TestSuite.csproj
+		SccProjectTopLevelParentUniqueName4 = Velocity.sln
+		SccProjectName4 = Velocity.TestSuite
+		SccAuxPath4 = http://192.168.4.241:8080
+		SccLocalPath4 = Velocity.TestSuite
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A3DE83-7FA4-41B6-9BC0-2B99D17AD75C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A3DE83-7FA4-41B6-9BC0-2B99D17AD75C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A3DE83-7FA4-41B6-9BC0-2B99D17AD75C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A3DE83-7FA4-41B6-9BC0-2B99D17AD75C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10AE9F9A-C23F-44D0-9E78-B4C125597ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10AE9F9A-C23F-44D0-9E78-B4C125597ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10AE9F9A-C23F-44D0-9E78-B4C125597ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10AE9F9A-C23F-44D0-9E78-B4C125597ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1B10210-6A42-4993-B383-0F6AAC255A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B10210-6A42-4993-B383-0F6AAC255A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B10210-6A42-4993-B383-0F6AAC255A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B10210-6A42-4993-B383-0F6AAC255A24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10AE9F9A-C23F-44D0-9E78-B4C125597ECE} = {4DD8FA15-A20F-4B5E-AF9C-B4FFF36875D4}
+		{E1B10210-6A42-4993-B383-0F6AAC255A24} = {4DD8FA15-A20F-4B5E-AF9C-B4FFF36875D4}
+		{02A3DE83-7FA4-41B6-9BC0-2B99D17AD75C} = {F2705283-665E-49E6-96C1-9CF4B84A470E}
+		{2F09FE39-F06B-4686-9FEF-33589C3F9625} = {A29E37A3-5437-4C7C-90FB-1729AF6629C9}
+		{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC} = {A29E37A3-5437-4C7C-90FB-1729AF6629C9}
+	EndGlobalSection
+EndGlobal
