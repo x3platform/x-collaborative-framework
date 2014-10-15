@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.MySQL.StandardOrganizationProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="StandardOrganizationInfo" type="X3Platform.Membership.Model.StandardOrganizationInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_StandardOrganization_FindOne_Result" class="StandardOrganizationInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="ParentId" column="ParentId" />
+            <result property="Lock" column="Lock" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_StandardOrganization_FindAll_Result" class="StandardOrganizationInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="Name" column="Name" />
+            <result property="GlobalName" column="GlobalName" />
+            <result property="ParentId" column="ParentId" />
+            <result property="Lock" column="Lock" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_StandardOrganization_Insert" parameterClass="StandardOrganizationInfo">
+            INSERT INTO `tb_StandardOrganization` (
+            `Id`,
+            `Code`,
+            `Name`,
+            `GlobalName`,
+            `ParentId`,
+            `Lock`,
+            `OrderId`,
+            `Status`,
+            `Remark`,
+            `UpdateDate`,
+            `CreateDate`
+            )
+            VALUES
+            (
+            #Id#,
+            #Code#,
+            #Name#,
+            #GlobalName#,
+            #ParentId#,
+            #Lock#,
+            #OrderId#,
+            #Status#,
+            #Remark#,
+            GetDate(),
+            GetDate()
+            )
+        </insert>
+
+        <update id="proc_StandardOrganization_Update" parameterClass="StandardOrganizationInfo">
+            UPDATE `tb_StandardOrganization` SET
+
+            `Code` = #Code#,
+            `Name` = #Name#,
+            `GlobalName` = #GlobalName#,
+            `ParentId` = #ParentId#,
+            `Lock` = #Lock#,
+            `OrderId` = #OrderId#,
+            `Status` = #Status#,
+            `Remark` = #Remark#,
+            `UpdateDate` = GetDate()
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <delete id="proc_StandardOrganization_Delete" >
+            DELETE FROM `tb_StandardOrganization` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_StandardOrganization_FindOne" resultMap="proc_StandardOrganization_FindOne_Result" >
+            SELECT * FROM `tb_StandardOrganization` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_StandardOrganization_FindAll" resultMap="proc_StandardOrganization_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM `tb_StandardOrganization` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_StandardOrganization_GetPages" resultMap="proc_StandardOrganization_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `tb_StandardOrganization` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_StandardOrganization_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_StandardOrganization` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_StandardOrganization_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_StandardOrganization` T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_StandardOrganization_Rename" parameterClass="StandardOrganizationInfo">
+            UPDATE `tb_StandardOrganization` SET `Name` = #Name#, `UpdateDate` = GetDate() WHERE `Id` = #Id#
+        </update>
+
+        <update id="proc_StandardOrganization_SetGlobalName" >
+            Update `tb_StandardOrganization` SET GlobalName = #GlobalName#, `UpdateDate` = GetDate() WHERE Id = #Id#
+        </update>
+
+        <update id="proc_StandardOrganization_SetParentId" >
+            UPDATE `tb_StandardOrganization` SET `ParentId` = #ParentId#, `UpdateDate` = GetDate() WHERE `Id` = #Id#
+        </update>
+
+        <insert id="proc_StandardOrganization_SyncFromPackPage" parameterClass="StandardOrganizationInfo" >
+            IF EXISTS(SELECT 0 FROM `tb_StandardOrganization` WHERE `Id` = #Id#)
+            BEGIN
+            UPDATE `tb_StandardOrganization` SET
+
+            `Code` = #Code#,
+            `Name` = #Name#,
+            `ParentId` = #ParentId#,
+            `OrderId` = #OrderId#,
+            `Status` = #Status#,
+            `Remark` = #Remark#,
+            `UpdateDate` = GetDate()
+
+            WHERE `Id` = #Id#
+            END
+            ELSE
+            BEGIN
+            INSERT INTO `tb_StandardOrganization` (
+            `Id`,
+            `Code`,
+            `Name`,
+            `ParentId`,
+            `OrderId`,
+            `Status`,
+            `Remark`,
+            `UpdateDate`,
+            `CreateDate`
+            )
+            VALUES
+            (
+            #Id#,
+            #Code#,
+            #Name#,
+            #ParentId#,
+            #OrderId#,
+            #Status#,
+            #Remark#,
+            GetDate(),
+            GetDate()
+            )
+            END
+        </insert>
+    </statements>
+</sqlMap>

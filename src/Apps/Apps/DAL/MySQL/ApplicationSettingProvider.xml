@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ApplicationSettingInfo" type="X3Platform.Apps.Model.ApplicationSettingInfo,X3Platform.Apps" />
+        <typeAlias alias="ApplicationSettingQueryInfo" type="X3Platform.Apps.Model.ApplicationSettingQueryInfo,X3Platform.Apps" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Application_Setting_FindOne_Result" class="ApplicationSettingInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="ApplicationSettingGroupId" column="ApplicationSettingGroupId" />
+            <result property="Code" column="Code" />
+            <result property="Text" column="Text" />
+            <result property="Value" column="Value" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Application_Setting_FindAll_Result" class="ApplicationSettingInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="ApplicationSettingGroupId" column="ApplicationSettingGroupId" />
+            <result property="Code" column="Code" />
+            <result property="Text" column="Text" />
+            <result property="Value" column="Value" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Application_Setting_FindAllQueryObject_Result" class="ApplicationSettingQueryInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="ApplicationSettingGroupId" column="ApplicationSettingGroupId" />
+            <result property="Code" column="Code" />
+            <result property="Text" column="Text" />
+            <result property="Value" column="Value" />
+            <result property="OrderId" column="OrderId" />
+            <result property="Status" column="Status" />
+            <result property="Remark" column="Remark" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Application_Setting_Insert" parameterClass="ApplicationSettingInfo">
+            INSERT INTO `tb_Application_Setting` (
+                `Id`,
+                `ApplicationId`,
+                `ApplicationSettingGroupId`,
+                `Code`,
+                `Text`,
+                `Value`,
+                `OrderId`,
+                `Status`,
+                `Remark`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #ApplicationId#,
+                #ApplicationSettingGroupId#,
+                #Code#,
+                #Text#,
+                #Value#,
+                #OrderId#,
+                #Status#,
+                #Remark#,
+                Now(),
+                Now()
+            )
+        </insert>
+
+        <update id="proc_Application_Setting_Update" parameterClass="ApplicationSettingInfo">
+            UPDATE `tb_Application_Setting` SET
+
+                `ApplicationId` = #ApplicationId#,
+                `ApplicationSettingGroupId` = #ApplicationSettingGroupId#,
+                `Code` = #Code#,
+                `Text` = #Text#,
+                `Value` = #Value#,
+                `OrderId` = #OrderId#,
+                `Status` = #Status#,
+                `Remark` = #Remark#,
+                `UpdateDate` = Now()
+
+            WHERE `Id` = #Id# AND `UpdateDate` = #UpdateDate#
+        </update>
+
+        <delete id="proc_Application_Setting_Delete" >
+            DELETE FROM `tb_Application_Setting` WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Application_Setting_FindOne" resultMap="proc_Application_Setting_FindOne_Result" >
+            SELECT * FROM `tb_Application_Setting` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Application_Setting_FindAll" resultMap="proc_Application_Setting_FindAll_Result" >
+            SELECT * FROM `tb_Application_Setting` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Setting_FindAllQueryObject" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
+            SELECT * FROM `tb_Application_Setting` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Setting_GetPages" resultMap="proc_Application_Setting_FindAll_Result" >
+            SELECT * FROM `tb_Application_Setting` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$ 
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Application_Setting_GetQueryObjectPages" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
+            SELECT * FROM `tb_Application_Setting` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$ 
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Application_Setting_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Application_Setting` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Setting_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Application_Setting` T WHERE $WhereClause$
+        </select>
+
+        <insert id="proc_Application_Setting_SyncFromPackPage" parameterClass="ApplicationSettingInfo" >
+            IF EXISTS(SELECT 0 FROM `tb_Application_Setting` WHERE `Id` = #Id#)
+            BEGIN
+                UPDATE `tb_Application_Setting` SET
+
+                    `ApplicationId` = #ApplicationId#,
+                    `ApplicationSettingGroupId` = #ApplicationSettingGroupId#,
+                    `Code` = #Code#,
+                    `Text` = #Text#,
+                    `Value` = #Value#,
+                    `OrderId` = #OrderId#,
+                    `Status` = #Status#,
+                    `Remark` = #Remark#,
+                    `UpdateDate` = Now()
+
+                WHERE `Id` = #Id#
+            END
+            ELSE
+            BEGIN
+                INSERT INTO `tb_Application_Setting` 
+                (
+                    `Id`,
+                    `ApplicationId`,
+                    `ApplicationSettingGroupId`,
+                    `Code`,
+                    `Text`,
+                    `Value`,
+                    `OrderId`,
+                    `Status`,
+                    `Remark`,
+                    `UpdateDate`,
+                    `CreateDate`
+                )
+                VALUES
+                (
+                    #Id#,
+                    #ApplicationId#,
+                    #ApplicationSettingGroupId#,
+                    #Code#,
+                    #Text#,
+                    #Value#,
+                    #OrderId#,
+                    #Status#,
+                    #Remark#,
+                    Now(),
+                    Now()
+                )
+            END
+        </insert>
+
+    </statements>
+</sqlMap>

@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{02956B66-4BBF-446D-8961-60245CE6BA10}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>X3Platform.Entities</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>X3Platform.Entities</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Apps">
+      <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Membership">
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="BLL\EntityImplementationService.cs" />
+    <Compile Include="BLL\EntityOperationLogService.cs" />
+    <Compile Include="BLL\EntitySnapshotService.cs" />
+    <Compile Include="BLL\EntityMetaDataService.cs" />
+    <Compile Include="BLL\EntitySchemaService.cs" />
+    <Compile Include="BLL\EntityDraftService.cs" />
+    <Compile Include="BLL\EntityLifeHistroyService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\EntityClickService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BLL\EntityDocObjectService.cs" />
+    <Compile Include="Configuration\EntitiesConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\EntitiesConfigurationView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DAL\IBatis\EntityImplementationProvider.cs" />
+    <Compile Include="DAL\IBatis\EntityDocObjectProvider.cs" />
+    <Compile Include="IBLL\IEntityImplementationService.cs" />
+    <Compile Include="IBLL\IEntityOperationLogService.cs" />
+    <Compile Include="IBLL\IEntitySnapshotService.cs" />
+    <Compile Include="IBLL\IEntitySchemaService.cs" />
+    <Compile Include="IBLL\IEntityMetaDataService.cs" />
+    <Compile Include="IBLL\IEntityDraftService.cs" />
+    <Compile Include="IBLL\IEntityDocObjectService.cs" />
+    <Compile Include="IDAL\IEntityImplementationProvider.cs" />
+    <Compile Include="IDAL\IEntityOperationLogProvider.cs" />
+    <Compile Include="IDAL\IEntitySnapshotProvider.cs" />
+    <Compile Include="IDAL\IEntitySchemaProvider.cs" />
+    <Compile Include="IDAL\IEntityMetaDataProvider.cs" />
+    <Compile Include="IDAL\IEntityDraftProvider.cs" />
+    <Compile Include="DAL\IBatis\EntityOperationLogProvider.cs" />
+    <Compile Include="DAL\IBatis\EntitySnapshotProvider.cs" />
+    <Compile Include="DAL\IBatis\EntitySchemaProvider.cs" />
+    <Compile Include="DAL\IBatis\EntityMetaDataProvider.cs" />
+    <Compile Include="DAL\IBatis\EntityDraftProvider.cs" />
+    <Compile Include="DAL\IBatis\EntityLifeHistoryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DAL\IBatis\EntityClickProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntitiesManagement.cs" />
+    <Compile Include="IBLL\IEntityLifeHistroyService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IBLL\IEntityClickService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDAL\IEntityLifeHistroyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDAL\IEntityClickProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDAL\IEntityDocObjectProvider.cs" />
+    <Compile Include="Model\EntityImplementationInfo.cs" />
+    <Compile Include="Model\EntityOperationLogInfo.cs" />
+    <Compile Include="Model\EntitySnapshotInfo.cs" />
+    <Compile Include="Model\EntityDraftInfo.cs" />
+    <Compile Include="Model\EntityLifeHistoryInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\EntityClickInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\EntityMetaDataInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\EntitySchemaInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\EntityDocObjectInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build.publish.bat" />
+    <None Include="config\X3Platform.Entities.config" />
+    <None Include="config\X3Platform.Entities.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Entities.Spring.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\EntityImplementationProvider.xml">
+      <DependentUpon>EntityImplementationProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntityOperationLogProvider.xml">
+      <DependentUpon>EntityOperationLogProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntitySnapshotProvider.xml">
+      <DependentUpon>EntitySnapshotProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntitySchemaProvider.xml">
+      <DependentUpon>EntitySchemaProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntityMetaDataProvider.xml">
+      <DependentUpon>EntityMetaDataProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntityDraftProvider.xml">
+      <DependentUpon>EntityDraftProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntityLifeHistoryProvider.xml">
+      <DependentUpon>EntityLifeHistoryProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntityClickProvider.xml">
+      <DependentUpon>EntityClickProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\EntityDocObjectProvider.xml">
+      <DependentUpon>EntityDocObjectProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{706E4735-DB76-4359-8E2C-83AB42FC4720}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>X3Platform.Connect</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>X3Platform.Connect</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
+    <OutputPath>bin\longfor\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
+    <OutputPath>bin\junfa\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Location.IPQuery">
+      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Membership">
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Ajax\ConnectWrapper.cs" />
+    <Compile Include="Ajax\ConnectCallWrapper.cs" />
+    <Compile Include="Ajax\ConnectAuthWrapper.cs" />
+    <Compile Include="Ajax\ConnectOAuth2Wrapper.cs" />
+    <Compile Include="BLL\ConnectAuthorizationCodeService.cs" />
+    <Compile Include="BLL\ConnectService.cs" />
+    <Compile Include="BLL\ConnectCallService.cs" />
+    <Compile Include="BLL\ConnectAccessTokenService.cs" />
+    <Compile Include="ConnectContext.cs" />
+    <Compile Include="DAL\IBatis\ConnectAccessTokenProvider.cs" />
+    <Compile Include="DAL\IBatis\ConnectProvider.cs" />
+    <Compile Include="DAL\IBatis\ConnectCallProvider.cs" />
+    <Compile Include="DAL\IBatis\ConnectAuthorizationCodeProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectAuthorizationCodeProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectCallProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectAccessTokenProvider.cs" />
+    <Compile Include="IBLL\IConnectService.cs" />
+    <Compile Include="IBLL\IConnectCallService.cs" />
+    <Compile Include="IBLL\IConnectAuthorizationCodeService.cs" />
+    <Compile Include="IBLL\IConnectAccessTokenService.cs" />
+    <Compile Include="IDAL\IConnectCallProvider.cs" />
+    <Compile Include="IDAL\IConnectAuthorizationCodeProvider.cs" />
+    <Compile Include="IDAL\IConnectAccessTokenProvider.cs" />
+    <Compile Include="IServiceContracts\IConnectWebService.cs" />
+    <Compile Include="Model\ConnectInfo.cs" />
+    <Compile Include="Configuration\ConnectConfigurationView.cs" />
+    <Compile Include="Configuration\ConnectConfiguration.cs" />
+    <Compile Include="IDAL\IConnectProvider.cs" />
+    <Compile Include="Model\ConnectCallInfo.cs" />
+    <Compile Include="Model\ConnectQueryInfo.cs" />
+    <Compile Include="Model\ConnectAuthorizationCodeInfo.cs" />
+    <Compile Include="Model\ConnectTrafficInfo.cs" />
+    <Compile Include="Model\ConnectAccessTokenInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ServiceContracts\ConnectWebService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build.publish.bat" />
+    <Content Include="config\MySQL\X3Platform.Connect.IBatis.SqlMap.config" />
+    <Content Include="config\MySQL\X3Platform.Connect.Spring.config" />
+    <None Include="config\X3Platform.Connect.config" />
+    <Content Include="config\X3Platform.Connect.IBatis.SqlMap.config" />
+    <Content Include="config\X3Platform.Connect.Spring.config" />
+    <None Include="default.build">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\ConnectAccessTokenProvider.xml">
+      <DependentUpon>ConnectAccessTokenProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ConnectProvider.xml">
+      <DependentUpon>ConnectProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ConnectCallProvider.xml">
+      <DependentUpon>ConnectCallProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\IBatis\ConnectAuthorizationCodeProvider.xml">
+      <DependentUpon>ConnectAuthorizationCodeProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="db\应用连接管理初始化脚本%28SQLServer%29.sql" />
+    <Content Include="DAL\MySQL\ConnectAuthorizationCodeProvider.xml">
+      <DependentUpon>ConnectAuthorizationCodeProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\ConnectCallProvider.xml">
+      <DependentUpon>ConnectCallProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\ConnectProvider.xml">
+      <DependentUpon>ConnectProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="db\应用连接管理初始化脚本%28MySQL%29.sql" />
+    <Content Include="DAL\MySQL\ConnectAccessTokenProvider.xml">
+      <DependentUpon>ConnectAccessTokenProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

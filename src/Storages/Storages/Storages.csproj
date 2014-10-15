@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A634FB9B-6CAB-4759-9FA5-E76B1CC108CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>X3Platform.Storages</RootNamespace>
+    <AssemblyName>X3Platform.Storages</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\X3Platform.Storages.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
+    <OutputPath>bin\longfor\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
+    <OutputPath>bin\junfa\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>E:\Workspace\X3Platform\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Adapters\SharedingStorageAdapter.cs" />
+    <Compile Include="Adapters\MasterSlavesStorageAdapter.cs" />
+    <Compile Include="Adapters\SingletonStorageAdapter.cs" />
+    <Compile Include="Ajax\StorageSchemaWrapper.cs" />
+    <Compile Include="Ajax\StorageNodeWrapper.cs" />
+    <Compile Include="BLL\StorageSchemaService.cs" />
+    <Compile Include="DAL\IBatis\StorageSchemaProvider.cs" />
+    <Compile Include="DAL\MySQL\StorageNodeProvider.cs" />
+    <Compile Include="DAL\MySQL\StorageSchemaProvider.cs" />
+    <Compile Include="IDAL\IStorageSchemaProvider.cs" />
+    <Compile Include="IBLL\IStorageSchemaService.cs" />
+    <Compile Include="Model\StorageSchemaInfo.cs" />
+    <Compile Include="StorageContext.cs" />
+    <Compile Include="IStorageNode.cs" />
+    <Compile Include="BLL\StorageNodeService.cs" />
+    <Compile Include="Configuration\StoragesConfiguration.cs" />
+    <Compile Include="Configuration\StoragesConfigurationView.cs" />
+    <Compile Include="DAL\IBatis\StorageNodeProvider.cs" />
+    <Compile Include="Strategies\IntegerStorageStrategy.cs" />
+    <Compile Include="Strategies\AbstractStorageStrategy.cs" />
+    <Compile Include="IBLL\IStorageNodeService.cs" />
+    <Compile Include="Strategies\DateTimeStorageStrategy.cs" />
+    <Compile Include="IDAL\IStorageNodeProvider.cs" />
+    <Compile Include="IStorageStrategy.cs" />
+    <Compile Include="Model\StorageNodeInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Adapters\AbstractStorageAdapter.cs" />
+    <Compile Include="IStorageAdapter.cs" />
+    <Compile Include="IStorageSchema.cs" />
+    <Compile Include="Strategies\HashCodeStorageStrategy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\StorageNodeProvider.xml">
+      <DependentUpon>StorageNodeProvider.cs</DependentUpon>
+    </Content>
+    <Compile Include="Strategies\SingletonStorageStrategy.cs" />
+    <Content Include="DAL\IBatis\StorageSchemaProvider.xml">
+      <DependentUpon>StorageSchemaProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAL\MySQL\StorageNodeProvider.xml">
+      <DependentUpon>StorageNodeProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\StorageSchemaProvider.xml">
+      <DependentUpon>StorageSchemaProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="db\存储管理初始化脚本%28MySQL%29.sql" />
+    <Content Include="db\存储管理初始化脚本%28SQLServer%29.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\X3Platform.Storages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\X3Platform.Storages.Spring.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config\X3Platform.Storages.IBatis.SqlMap.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build.publish.bat" />
+    <Content Include="config\MySQL\X3Platform.Storages.Spring.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\MySQL\X3Platform.Storages.IBatis.SqlMap.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

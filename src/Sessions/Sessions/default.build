@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Sessions" default="Build" >
+    <description>Product 1.0 release build file for NAnt. By ruanyu@live.com</description>
+    <include buildfile="../../nant.properties.build" />
+    <!-- 解决方案根目录 -->
+    <property name="solution.dir" value="../../../" />
+    <!-- 项目名称 -->
+    <property name="project.name" value="Sessions Management" />
+    <!-- 程序集名称 -->
+    <property name="project.assembly.name" value="${framework.namespace}.Sessions" />
+    <!-- 项目根目录 -->
+    <property name="project.dir" value="." />
+    <!-- 是否允许调试 -->
+    <property name="code.debug" value="${framework.debug}" />
+    <!-- 目标输出根目录 -->
+    <if test="${framework.debug}">
+        <property name="code.define" value="DEBUG;TRACE;${framework.version}" />
+        <property name="code.optimize" value="false" />
+        <property name="project.target.dir" value="bin/Debug/" />
+    </if>
+    <ifnot test="${framework.debug}">
+        <property name="code.define" value="TRACE;${framework.version}" />
+        <property name="project.target.dir" value="bin/Release/" />
+        <property name="code.optimize" value="true" />
+    </ifnot> 
+
+    <!-- 清理程序集 -->
+    <target name="Clean" >
+        <delete>
+            <fileset>
+                <include name="${project.target.dir}${project.assembly.name}.dll"/>
+                <include name="${project.target.dir}${project.assembly.name}.pdb"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- 编译程序集 -->
+    <target name="Compile" depends="Clean" >
+        <echo message="Compiling:${project.name}" />
+        <mkdir dir="${project.target.dir}" />
+        <!-- 编译目标文件 -->
+        <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" keyfile="../../Licence.snk" >
+            <references>
+                <!--<include name="${solution.dir}${framework.build.output}\**.dll" />-->
+                <include name="${framework.assemblyDirectory}System.dll" />
+                <include name="${framework.assemblyDirectory}System.Configuration.dll" />
+                <include name="${framework.assemblyDirectory}System.Data.dll" />
+                <include name="${framework.assemblyDirectory}System.ServiceModel.dll" />
+                <include name="${framework.assemblyDirectory}System.Web.dll" />
+                <include name="${framework.assemblyDirectory}System.Web.Extensions.dll" />
+                <include name="${framework.assemblyDirectory}System.Xml.dll" />
+                <include name="${solution.dir}lib/Common.Logging/Common.Logging.dll" />
+                <include name="${solution.dir}lib/Spring.NET/Spring.Core.dll" />
+                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Support.dll" />
+                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Abstractions.dll" />
+                <include name="${solution.dir}${framework.build.output}${framework.namespace}.Storages.dll" />
+            </references>
+            <resources>  
+                <!-- 嵌入的资源 -->  
+                <include name="Runtime/Defaults/*.properties" />  
+            </resources>  
+            <sources>
+                <!-- 编译所有cs文件 -->
+                <include name="**/*.cs" />
+                <include name="${project.dir}/../../GlobalAssemblyInfo.cs" />
+            </sources>
+        </csc>
+        <!-- 复制程序集文件到项目的bin目录 -->
+        <copy todir="${solution.dir}${framework.build.output}" >
+            <fileset basedir="${project.target.dir}" >
+                <include name="${project.assembly.name}.dll"/>
+                <include name="${project.assembly.name}.pdb"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- 构建程序集 -->
+    <target name="Build" description="Build Project" >
+        <echo message="Parameters" />
+        <echo message="ProjectName:${project.name}" />
+        <echo message="AssemblyName:${project.assembly.name}" />
+        <call target="Compile" />
+        <!-- <exec program="${project.dir}build.publish.bat" basedir="." /> -->
+    </target>
+</project>

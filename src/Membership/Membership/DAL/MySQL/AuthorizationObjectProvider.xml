@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.AuthorizationObjectProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <statements>
+        <select id="proc_AuthorizationObject_Filter" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `view_AuthorizationObject_Account` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_AuthorizationObject_FilterRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM `view_AuthorizationObject_Account` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_AuthorizationObject_HasAuthority" >
+            SELECT COUNT(*) AS 'Count' 
+            FROM 
+                $ScopeTableName$
+            WHERE
+                EntityId = '$EntityId$'
+                AND EntityClassName = '$EntityClassName$'
+                AND AuthorityId = '$AuthorityId$'
+                AND View1.AuthorizationObjectType = '$AuthorizationObjectType$'
+                AND AuthorizationObjectId = '$AuthorizationObjectId$'
+        </select>
+
+        <select id="proc_AuthorizationObject_HasAuthorityWithAccount" >
+            SELECT COUNT(*) AS 'Count' 
+            FROM 
+                $ScopeTableName$ LEFT JOIN view_AuthorizationObject_Account ON (
+                    `view_AuthorizationObject_Account`.`AuthorizationObjectType` = $ScopeTableName$.`AuthorizationObjectType`
+                    AND `view_AuthorizationObject_Account`.`AuthorizationObjectId` = $ScopeTableName$.`AuthorizationObjectId` 
+                    AND `view_AuthorizationObject_Account`.`AccountId` = '$AuthorizationObjectId$')
+            WHERE
+                EntityId = '$EntityId$'
+                AND EntityClassName = '$EntityClassName$'
+                AND AuthorityId = '$AuthorityId$'
+        </select>
+
+        <insert id="proc_AuthorizationObject_AddAuthorizationScopeObject">
+            INSERT INTO $ScopeTableName$ 
+            ( 
+                EntityId, 
+                EntityClassName, 
+                AuthorityId, 
+                AuthorizationObjectType, 
+                AuthorizationObjectId
+            )
+            SELECT    
+                '$EntityId$', 
+                '$EntityClassName$', 
+                '$AuthorityId$', 
+                '$AuthorizationObjectType$', 
+                '$AuthorizationObjectId$'
+            FROM DUAL
+            WHERE NOT EXISTS ( SELECT * FROM $ScopeTableName$ WHERE `EntityId` = '$EntityId$' AND `AuthorityId` = '$AuthorityId$' AND `AuthorizationObjectType` = '$AuthorizationObjectType$' AND `AuthorizationObjectId` = '$AuthorizationObjectId$')
+        </insert>
+
+        <delete id="proc_AuthorizationObject_RemoveAuthorizationScopeObjects">
+            DELETE FROM $ScopeTableName$ 
+            WHERE EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AuthorityId = '$AuthorityId$'
+        </delete>
+
+        <select id="proc_AuthorizationObject_GetAuthorizationScopeObjects" >
+            SELECT DISTINCT $ScopeTableName$.`AuthorizationObjectType`, $ScopeTableName$.`AuthorizationObjectId`, `AuthorizationObjectName`
+            FROM $ScopeTableName$ LEFT JOIN `view_AuthorizationObject` ON (
+            `view_AuthorizationObject`.`AuthorizationObjectType` = $ScopeTableName$.`AuthorizationObjectType`
+            AND `view_AuthorizationObject`.`AuthorizationObjectId` = $ScopeTableName$.`AuthorizationObjectId` )
+            WHERE
+            EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AuthorityId = '$AuthorityId$'
+        </select>
+    </statements>
+</sqlMap>
