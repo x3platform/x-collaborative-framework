@@ -42,7 +42,7 @@ namespace X3Platform.Navigation.Ajax
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(XmlDocument doc)
+        #region 属性:Save(XmlDocument doc)
         /// <summary>������¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -59,7 +59,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:Delete(XmlDocument doc)
+        #region 属性:Delete(XmlDocument doc)
         /// <summary>ɾ����¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -78,7 +78,7 @@ namespace X3Platform.Navigation.Ajax
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(XmlDocument doc)
+        #region 属性:FindOne(XmlDocument doc)
         /// <summary>��ȡ��ϸ��Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -99,7 +99,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:FindAll(XmlDocument doc)
+        #region 属性:FindAll(XmlDocument doc)
         /// <summary>��ȡ�б���Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -126,7 +126,7 @@ namespace X3Platform.Navigation.Ajax
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(XmlDocument doc)
+        #region 属性:GetPages(XmlDocument doc)
         /// <summary>��ȡ��ҳ����</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -153,7 +153,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:IsExist(XmlDocument doc)
+        #region 属性:IsExist(XmlDocument doc)
         /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -168,7 +168,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:CreateNewObject(XmlDocument doc)
+        #region 属性:CreateNewObject(XmlDocument doc)
         /// <summary>�����µĶ���</summary>
         /// <param name="doc">Xml �ĵ�����</param>
         /// <returns>���ز�������</returns>
@@ -193,7 +193,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:getCombobox(XmlDocument doc)
+        #region 属性:getCombobox(XmlDocument doc)
         [AjaxMethod("getCombobox")]
         public string GetCombobox(XmlDocument doc)
         {
@@ -226,7 +226,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:GetDynamicTreeView(XmlDocument doc)
+        #region 属性:GetDynamicTreeView(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
@@ -285,7 +285,7 @@ namespace X3Platform.Navigation.Ajax
         }
         #endregion
 
-        #region ����:GetOrgDynamicTreeView(XmlDocument doc)
+        #region 属性:GetOrgDynamicTreeView(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>

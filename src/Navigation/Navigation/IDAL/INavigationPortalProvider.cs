@@ -35,23 +35,23 @@ namespace X3Platform.Navigation.IDAL
         // ����֧��
         // -------------------------------------------------------
 
-        #region ����:BeginTransaction()
+        #region 属性:BeginTransaction()
         /// <summary>��������</summary>
         void BeginTransaction();
         #endregion
 
-        #region ����:BeginTransaction(IsolationLevel isolationLevel)
+        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
         /// <summary>��������</summary>
         /// <param name="isolationLevel">�������뼶��</param>
         void BeginTransaction(IsolationLevel isolationLevel);
         #endregion
 
-        #region ����:CommitTransaction()
+        #region 属性:CommitTransaction()
         /// <summary>�ύ����</summary>
         void CommitTransaction();
         #endregion
 
-        #region ����:RollBackTransaction()
+        #region 属性:RollBackTransaction()
         /// <summary>�ع�����</summary>
         void RollBackTransaction();
         #endregion
@@ -60,26 +60,26 @@ namespace X3Platform.Navigation.IDAL
         // ���� ���� �޸� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(NavigationPortalInfo param)
+        #region 属性:Save(NavigationPortalInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalInfo"/>��ϸ��Ϣ</param>
         /// <returns>ʵ��<see cref="NavigationPortalInfo"/>��ϸ��Ϣ</returns>
         NavigationPortalInfo Save(NavigationPortalInfo param);
         #endregion
 
-        #region ����:Insert(NavigationPortalInfo param)
+        #region 属性:Insert(NavigationPortalInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalInfo"/>��ϸ��Ϣ</param>
         void Insert(NavigationPortalInfo param);
         #endregion
 
-        #region ����:Update(NavigationPortalInfo param)
+        #region 属性:Update(NavigationPortalInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalInfo"/>��ϸ��Ϣ</param>
         void Update(NavigationPortalInfo param);
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
         void Delete(string ids);
@@ -89,21 +89,21 @@ namespace X3Platform.Navigation.IDAL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ʵ��<see cref="NavigationPortalInfo"/>����ϸ��Ϣ</returns>
         NavigationPortalInfo FindOne(string id);
         #endregion
 
-        #region ����:FindOneByOrganizationId(string organizationId)
+        #region 属性:FindOneByOrganizationId(string organizationId)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="organizationId">��֯��ʶ</param>
         /// <returns>����ʵ��<see cref="NavigationPortalInfo"/>����ϸ��Ϣ</returns>
         NavigationPortalInfo FindOneByOrganizationId(string organizationId);
         #endregion
 
-        #region ����:FindAll(string whereClause, int length)
+        #region 属性:FindAll(string whereClause, int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -115,7 +115,7 @@ namespace X3Platform.Navigation.IDAL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -126,7 +126,7 @@ namespace X3Platform.Navigation.IDAL
         IList<NavigationPortalInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ֵ</returns>

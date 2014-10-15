@@ -29,7 +29,7 @@ namespace X3Platform.Web.UrlRewriter.Configuration
 
         private RewriterRuleCollection rules;
 
-        #region ����:Rules
+        #region 属性:Rules
         /// <summary>��д��ַ�Ĺ���</summary>
         [XmlElement(ruleProperty)]
         public RewriterRuleCollection Rules

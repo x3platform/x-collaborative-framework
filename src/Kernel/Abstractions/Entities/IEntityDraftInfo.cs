@@ -19,12 +19,12 @@ namespace X3Platform.Entities
     /// <summary>ʵ�����ݸ��ӿ�</summary>
     public interface IEntityDraftInfo : ISerializedObject
     {
-        #region ����:EnetiyId
+        #region 属性:EnetiyId
         /// <summary></summary>
         string EnetiyId { get; set; }
         #endregion
 
-        #region ����:EntityClassName
+        #region 属性:EntityClassName
         /// <summary></summary>
         string EntityClassName { get; set; }
         #endregion

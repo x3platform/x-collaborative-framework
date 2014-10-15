@@ -19,12 +19,12 @@ namespace X3Platform.WorkflowPlus
     /// <summary>����ʱ������ʵ��</summary>
     public interface IWorkflowInstanceInfo
     {
-        #region ����:Id
+        #region 属性:Id
         /// <summary>��ʶ</summary>
         string Id { get; }
         #endregion
 
-        #region ����:WorkflowEntity
+        #region 属性:WorkflowEntity
         /// <summary>����������ʵ����Ϣ</summary>
         IWorkflowEntity WorkflowEntity { get; }
         #endregion

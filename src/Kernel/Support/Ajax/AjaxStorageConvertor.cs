@@ -33,7 +33,7 @@ namespace X3Platform.Ajax
         // C# ���� => JOSN ����
         //-------------------------------------------------------
 
-        #region ����:Parse<T>(IList<T> list)
+        #region 属性:Parse<T>(IList<T> list)
         /// <summary>��������ΪJOSN�ַ���</summary>
         public static string Parse<T>(IList<T> list)
         {
@@ -41,7 +41,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Parse<T>(IList<T> list, List<string> banKeys)
+        #region 属性:Parse<T>(IList<T> list, List<string> banKeys)
         /// <summary>��������ΪJOSN�ַ���</summary>
         public static string Parse<T>(IList<T> list, List<string> banKeys)
         {
@@ -63,7 +63,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Parse<T>(T targetObject)
+        #region 属性:Parse<T>(T targetObject)
         /// <summary>��������ΪJOSN�ַ���</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
@@ -74,7 +74,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Parse<T>(T targetObject, List<string> banKeys)
+        #region 属性:Parse<T>(T targetObject, List<string> banKeys)
         /// <summary>��������ΪJOSN�ַ���</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
@@ -189,7 +189,7 @@ namespace X3Platform.Ajax
         // Xml �ַ��� => C# ����
         //-------------------------------------------------------
 
-        #region ����:Deserialize<T>(T targetObject, string xml)
+        #region 属性:Deserialize<T>(T targetObject, string xml)
         /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
@@ -203,7 +203,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Deserialize<T>(T targetObject, XmlDocument doc)
+        #region 属性:Deserialize<T>(T targetObject, XmlDocument doc)
         /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
         /// <param name="targetObject">��Ҫ�����л��Ķ���</param>
         /// <param name="doc">Xml �ĵ�����</param>
@@ -214,7 +214,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Deserialize<T>(T targetObject, string xml, List<string> banKeys)
+        #region 属性:Deserialize<T>(T targetObject, string xml, List<string> banKeys)
         /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
@@ -228,7 +228,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
+        #region 属性:Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
         /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
@@ -347,7 +347,7 @@ namespace X3Platform.Ajax
         // ץȡ Xml �ĵ��нڵ�������
         //-------------------------------------------------------
 
-        #region ����:Fetch(string nodeName, string xml)
+        #region 属性:Fetch(string nodeName, string xml)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="nodeName">�ڵ�����</param>
         /// <param name="xml">Xml �ַ���</param>
@@ -362,7 +362,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string nodeName, XmlDocument doc)
+        #region 属性:Fetch(string nodeName, XmlDocument doc)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="nodeName">�ڵ�����</param>
         /// <param name="doc">Xml �ĵ�����</param>
@@ -373,7 +373,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string nodeName, XmlDocument doc, string resultType)
+        #region 属性:Fetch(string nodeName, XmlDocument doc, string resultType)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="nodeName">�ڵ�����</param>
         /// <param name="doc">Xml �ĵ�����</param>
@@ -385,7 +385,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string nodeName, XmlElement element)
+        #region 属性:Fetch(string nodeName, XmlElement element)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="nodeName">�ڵ�����</param>
         /// <param name="element">Xml Ԫ��</param>
@@ -396,7 +396,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string nodeName, XmlElement element, string resultType)
+        #region 属性:Fetch(string nodeName, XmlElement element, string resultType)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="nodeName">�ڵ�����</param>
         /// <param name="element">Xml Ԫ��</param>
@@ -425,7 +425,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string parentNodeName, string nodeName, string xml)
+        #region 属性:Fetch(string parentNodeName, string nodeName, string xml)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="parentNodeName">���ڵ�����</param>
         /// <param name="nodeName">�ڵ�����</param>
@@ -441,7 +441,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string parentNodeName, string nodeName, XmlDocument doc)
+        #region 属性:Fetch(string parentNodeName, string nodeName, XmlDocument doc)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="parentNodeName">���ڵ�����</param>
         /// <param name="nodeName">�ڵ�����</param>
@@ -453,7 +453,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
+        #region 属性:Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="parentNodeName">���ڵ�����</param>
         /// <param name="nodeName">�ڵ�����</param>
@@ -466,7 +466,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string parentNodeName, string nodeName, XmlElement element)
+        #region 属性:Fetch(string parentNodeName, string nodeName, XmlElement element)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="parentNodeName">���ڵ�����</param>
         /// <param name="nodeName">�ڵ�����</param>
@@ -478,7 +478,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
+        #region 属性:Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
         /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
         /// <param name="parentNodeName">���ڵ�����</param>
         /// <param name="nodeName">�ڵ�����</param>

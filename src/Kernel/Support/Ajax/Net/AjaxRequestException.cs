@@ -19,7 +19,7 @@ namespace X3Platform.Ajax.Net
     /// <summary>Ajax�����쳣</summary>
     public class AjaxRequestException : Exception
     {
-        #region ����:RequestData
+        #region 属性:RequestData
         private AjaxRequestData requestData;
 
         /// <summary>����������</summary>
@@ -30,7 +30,7 @@ namespace X3Platform.Ajax.Net
         }
         #endregion
 
-        #region ����:ResponseData
+        #region 属性:ResponseData
         private AjaxResponseData responseData;
 
         /// <summary>��Ӧ������</summary>

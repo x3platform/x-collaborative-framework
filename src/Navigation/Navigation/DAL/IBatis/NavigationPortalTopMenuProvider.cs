@@ -62,7 +62,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         // ����֧��
         // -------------------------------------------------------
 
-        #region ����:BeginTransaction()
+        #region 属性:BeginTransaction()
         /// <summary>��������</summary>
         public void BeginTransaction()
         {
@@ -70,7 +70,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:BeginTransaction(IsolationLevel isolationLevel)
+        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
         /// <summary>��������</summary>
         /// <param name="isolationLevel">�������뼶��</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
@@ -79,7 +79,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:CommitTransaction()
+        #region 属性:CommitTransaction()
         /// <summary>�ύ����</summary>
         public void CommitTransaction()
         {
@@ -87,7 +87,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:RollBackTransaction()
+        #region 属性:RollBackTransaction()
         /// <summary>�ع�����</summary>
         public void RollBackTransaction()
         {
@@ -99,7 +99,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         // ���� ɾ�� �޸�
         // -------------------------------------------------------
 
-        #region ����:Save(NavigationPortalTopMenuInfo param)
+        #region 属性:Save(NavigationPortalTopMenuInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalTopMenuInfo"/>��ϸ��Ϣ</param>
         /// <returns>ʵ��<see cref="NavigationPortalTopMenuInfo"/>��ϸ��Ϣ</returns>
@@ -118,7 +118,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:Insert(NavigationPortalTopMenuInfo param)
+        #region 属性:Insert(NavigationPortalTopMenuInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalTopMenuInfo"/>��ϸ��Ϣ</param>
         public void Insert(NavigationPortalTopMenuInfo param)
@@ -127,7 +127,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:Update(NavigationPortalTopMenuInfo param)
+        #region 属性:Update(NavigationPortalTopMenuInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">ʵ��<see cref="NavigationPortalTopMenuInfo"/>��ϸ��Ϣ</param>
         public void Update(NavigationPortalTopMenuInfo param)
@@ -136,7 +136,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:Delete(string ids)
+        #region 属性:Delete(string ids)
         /// <summary>ɾ����¼</summary>
         /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
         public void Delete(string ids)
@@ -158,7 +158,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id)
+        #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ʵ��<see cref="NavigationPortalTopMenuInfo"/>����ϸ��Ϣ</returns>
@@ -172,7 +172,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:FindAll(string whereClause,int length)
+        #region 属性:FindAll(string whereClause,int length)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
@@ -192,7 +192,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
         /// <param name="pageSize">ҳ����С</param>
@@ -221,7 +221,7 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region ����:IsExist(string id)
+        #region 属性:IsExist(string id)
         /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
         /// <param name="id">��ʶ</param>
         /// <returns>����ֵ</returns>

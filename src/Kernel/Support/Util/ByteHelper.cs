@@ -20,7 +20,7 @@ namespace X3Platform.Util
     /// <summary>�ֽڴ�������</summary>
     public sealed class ByteHelper
     {
-        #region ����:ToFile(byte[] buffer, string path)
+        #region 属性:ToFile(byte[] buffer, string path)
         /// <summary></summary>
         /// <param name="buffer"></param>
         /// <param name="path"></param>
@@ -47,7 +47,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToStream(byte[] buffer)
+        #region 属性:ToStream(byte[] buffer)
         /// <summary></summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
@@ -59,7 +59,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToString(byte[] buffer)
+        #region 属性:ToString(byte[] buffer)
         /// <summary></summary>
         /// <param name="buffer"></param>
         /// <returns></returns>

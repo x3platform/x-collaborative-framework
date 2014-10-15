@@ -61,7 +61,7 @@ namespace X3Platform.Tasks.Ajax
             }
         }
 
-        #region ����:Redirect(XmlDocument doc)
+        #region 属性:Redirect(XmlDocument doc)
         /// <summary>��ȡ������Ϣ</summary>
         /// <param name="doc">Xml �ĵ�����</param> 
         public string Redirect(XmlDocument doc)

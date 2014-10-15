@@ -27,7 +27,7 @@ namespace X3Platform.Util
     /// <summary>�ַ���������</summary>
     public sealed class StringHelper
     {
-        #region ����:UnicodeEncode(string text)
+        #region 属性:UnicodeEncode(string text)
         /// <summary></summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -46,7 +46,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:UnicodeDecode(string text)
+        #region 属性:UnicodeDecode(string text)
         /// <summary></summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -81,7 +81,7 @@ namespace X3Platform.Util
         // �ַ������ô���
         //-------------------------------------------------------
 
-        #region ����:ToBytes(string text)
+        #region 属性:ToBytes(string text)
         /// <summary>���ı���Ϣת���ֽ���Ϣ</summary>
         /// <param name="text">�ı���Ϣ</param>
         /// <returns>�ֽ�����</returns>
@@ -91,7 +91,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToStream(string text)
+        #region 属性:ToStream(string text)
         /// <summary></summary>
         /// <param name="text"></param>
         /// <returns>string</returns>
@@ -105,7 +105,7 @@ namespace X3Platform.Util
         // �ַ�����ʽ������
         //-------------------------------------------------------
 
-        #region ����:ToLeftString(string text, int length)
+        #region 属性:ToLeftString(string text, int length)
         /// <summary>��ȡ�ı�����������</summary>
         /// <param name="text">�ı���Ϣ</param>
         /// <param name="length">�ַ�����</param>
@@ -128,7 +128,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToRightString(string text, int length, bool hasEllipsis)
+        #region 属性:ToRightString(string text, int length, bool hasEllipsis)
         /// <summary>��ȡ�ı��Ҳ�������</summary>
         /// <param name="text">�ı���Ϣ</param>
         /// <param name="length">�ַ�����</param>
@@ -142,7 +142,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSubString(string text, string tagStart, bool tagStartBool, string tagEnd, bool tagEndBool)
+        #region 属性:ToSubString(string text, string tagStart, bool tagStartBool, string tagEnd, bool tagEndBool)
         /// <summary>��ȡ�����ַ�</summary>
         /// <param name="text">���������ַ���</param>
         /// <param name="tagStart">��ʼ��ǩ</param>
@@ -187,7 +187,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToCutString(string text, int length)
+        #region 属性:ToCutString(string text, int length)
         /// <summary>�ַ����ȿ��� ���� Ӣ��ʶ��,һ��������Ϊ2���ַ����ȴ���</summary>
         /// <param name="text">Ҫ�����и����ַ���</param>
         /// <param name="length">���صĳ��ȣ��Զ�ʶ����Ӣ�ģ�</param>
@@ -217,7 +217,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToDate(string date)
+        #region 属性:ToDate(string date)
         /// <summary>��ʽ������</summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -246,7 +246,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToTime(string date)
+        #region 属性:ToTime(string date)
         /// <summary>
         /// ��ʽ��ʱ��
         /// </summary>
@@ -258,7 +258,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSmartTime(string date)
+        #region 属性:ToSmartTime(string date)
         /// <summary>�������ڸ�ʽ</summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -296,7 +296,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToGuid(Guid g)
+        #region 属性:ToGuid(Guid g)
         /// <summary>����һ��Guid��ʽ�ַ���</summary>
         /// <returns></returns>
         public static string ToGuid()
@@ -329,7 +329,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:To16DigitGuid(Guid g)
+        #region 属性:To16DigitGuid(Guid g)
         /// <summary>��һ��GuidΪ��������һ��16λ��ʽ���ַ���</summary>
         /// <returns></returns>
         public static string To16DigitGuid()
@@ -367,7 +367,7 @@ namespace X3Platform.Util
             return BitConverter.ToInt64(buffer, 0).ToString();
         }
 
-        #region ����:ToMD5(string text)
+        #region 属性:ToMD5(string text)
         /// <summary>ȡ��MD5 Hashֵ</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -394,7 +394,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToChineseTag(string text)
+        #region 属性:ToChineseTag(string text)
         /// <summary>��Ӣ�ı�������ת��Ϊ���ı������� , Punctuation</summary>
         /// <param name="text">�账�����ַ���</param>
         /// <returns>�ַ���</returns>
@@ -438,7 +438,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToFirstUpper(string text)
+        #region 属性:ToFirstUpper(string text)
         /// <summary>���������ַ�����ʽ�����õ�����ĸΪ��д���ַ���. e.g. user -> User.</summary>
         /// <param name="text">��Ҫ�������ַ���</param>
         /// <returns></returns>
@@ -451,7 +451,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToFirstLower(string text)
+        #region 属性:ToFirstLower(string text)
         /// <summary>���������ַ���ʽ�����õ�����ĸΪСд���ַ���. ���� User -> user.</summary>
         /// <param name="text">��Ҫ�������ַ���</param>
         /// <returns></returns>
@@ -464,7 +464,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToProcedurePrefix(string text)
+        #region 属性:ToProcedurePrefix(string text)
         /// <summary>���������ַ���ʽ�����õ�����ĸΪСд���ַ���. ���� tb_User -> proc_User.</summary>
         /// <param name="text">���ݱ�����</param>
         /// <returns></returns>
@@ -482,7 +482,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToProcedurePrefix(string text, string tablePrefix)
+        #region 属性:ToProcedurePrefix(string text, string tablePrefix)
         /// <summary>���������ַ���ʽ�����õ�����ĸΪСд���ַ���. ���� tb_User -> proc_User.</summary>
         /// <param name="text">���ݱ�����</param>
         /// <param name="tablePrefix">���ݱ���ǰ׺</param>
@@ -500,7 +500,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeXml(string text)
+        #region 属性:ToSafeXml(string text)
         /// <summary>����Xml�ڵ��еķǷ��ַ�</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -510,7 +510,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeJson(string text)
+        #region 属性:ToSafeJson(string text)
         /// <summary>Json��ʽ�ַ����е������ַ�.</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -540,7 +540,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeSQL(string text)
+        #region 属性:ToSafeSQL(string text)
         /// <summary>����SQL��ʽ�еķǷ��ַ�</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -551,7 +551,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeSQL(string text, bool removeQuotes)
+        #region 属性:ToSafeSQL(string text, bool removeQuotes)
         /// <summary>����SQL��ʽ�еķǷ��ַ�</summary>
         /// <param name="text"></param>
         /// <param name="removeQuotes"></param>
@@ -564,7 +564,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeSQL(string text, string[] removeTags)
+        #region 属性:ToSafeSQL(string text, string[] removeTags)
         /// <summary>����SQL��ʽ�еķǷ��ַ�</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -611,7 +611,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeLike(string text)
+        #region 属性:ToSafeLike(string text)
         /// <summary>����SQL Like �����е�ͨ���ַ�</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -621,7 +621,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeHtml(string text)
+        #region 属性:ToSafeHtml(string text)
         /// <summary>����ȫ��Html�ַ�</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -633,7 +633,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeXSS<T>(T targetObject)
+        #region 属性:ToSafeXSS<T>(T targetObject)
         /// <summary>����ȫ�Ŀ�վ�ű������ַ�</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
@@ -686,7 +686,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeXSS(string text)
+        #region 属性:ToSafeXSS(string text)
         /// <summary>����ȫ�Ŀ�վ�ű������ַ�</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -876,7 +876,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToSafeUrl(string text)
+        #region 属性:ToSafeUrl(string text)
         /// <summary>����Url��ַ</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -899,7 +899,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToRandom(int length)
+        #region 属性:ToRandom(int length)
         /// <summary>ȡ��һ���������ַ���</summary>
         /// <param Name="length">�ַ����ĳ���</param>
         /// <returns>��Ϊlength���������ַ���</returns>
@@ -909,7 +909,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToRandom(string chars, int length)
+        #region 属性:ToRandom(string chars, int length)
         /// <summary>ȡ��һ���������ַ���</summary>
         /// <param Name="chars">ָ���ַ�</param>
         /// <param Name="length">�ַ����ĳ���</param>
@@ -939,7 +939,7 @@ namespace X3Platform.Util
         // ���ַ�������
         //-------------------------------------------------------
 
-        #region ����:NullTo(string text)
+        #region 属性:NullTo(string text)
         /// <summary>Ĭ�ϵĿ�ֵת��, �� null ת��Ϊ "" .</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -949,7 +949,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:NullTo(string text, string replaceText)
+        #region 属性:NullTo(string text, string replaceText)
         /// <summary>��ֵת������ null ת��Ϊ replaceText. e.g. NullTo(null,"ok") ���� "ok", NullTo("1","ok")����"1"</summary>
         /// <param name="text"></param>
         /// <param name="replaceText"></param>
@@ -960,7 +960,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:NullOrEmptyTo(string text, string replaceText)
+        #region 属性:NullOrEmptyTo(string text, string replaceText)
         /// <summary>���ַ���ת������ null �� "" ת��Ϊ replaceText. e.g. NullOrEmptyTo(null,"ok")����"ok", NullOrEmptyTo("","ok")����"ok".</summary>
         /// <param name="text"></param>
         /// <param name="replaceText"></param>
@@ -975,7 +975,7 @@ namespace X3Platform.Util
         // ��������
         //-------------------------------------------------------
 
-        #region ����:TrimEnd(string text, string trimText)
+        #region 属性:TrimEnd(string text, string trimText)
         /// <summary>�����ı������ı���</summary>
         /// <param name="text">�账�����ַ�</param>
         /// <param name="trimText">��ǩ</param>
@@ -986,7 +986,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:TrimEnd(string text, string trimText)
+        #region 属性:TrimEnd(string text, string trimText)
         /// <summary>�����ı������ı���</summary>
         /// <param name="text">�账�����ַ�</param>
         /// <param name="trimText">��ǩ</param>
@@ -997,7 +997,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:RemoveEnterTag(string text)
+        #region 属性:RemoveEnterTag(string text)
         /// <summary>�Ƴ����з�</summary>
         /// <param name="text">��Ҫ�������ַ���</param>
         public static string RemoveEnterTag(string text)
@@ -1009,7 +1009,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:RemoveHtmlTag(string text)
+        #region 属性:RemoveHtmlTag(string text)
         /// <summary>clear html tag of the text.</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -1076,7 +1076,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:FixSQL(string text, string type)
+        #region 属性:FixSQL(string text, string type)
         /// <summary>��SQL���������ַ�</summary>
         /// <param name="text"></param>
         /// <param name="type"></param>

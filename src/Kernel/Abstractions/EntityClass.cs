@@ -21,7 +21,7 @@ namespace X3Platform
     /// <summary>����ʵ����</summary>
     public abstract class EntityClass : ISerializedObject
     {
-        #region ����:EntityId
+        #region 属性:EntityId
         /// <summary>ʵ��������</summary>
         public abstract string EntityId
         {
@@ -29,7 +29,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:EntityClassName
+        #region 属性:EntityClassName
         /// <summary>ʵ��������</summary>
         public string EntityClassName
         {
@@ -37,7 +37,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Properties
+        #region 属性:Properties
         /// <summary>����</summary>
         private Hashtable propertieCache = new Hashtable(13);
 
@@ -48,7 +48,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Serializable()
+        #region 属性:Serializable()
         /// <summary>���л�����</summary>
         public virtual string Serializable()
         {
@@ -57,7 +57,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Serializable(bool displayComment, bool displayFriendlyName)
+        #region 属性:Serializable(bool displayComment, bool displayFriendlyName)
         /// <summary>���л�����</summary>
         /// <param name="displayComment">��ʾע����Ϣ</param>
         /// <param name="displayFriendlyName">��ʾ�Ѻ�������Ϣ</param>
@@ -69,7 +69,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Deserialize(XmlElement element)
+        #region 属性:Deserialize(XmlElement element)
         /// <summary>�����л�����</summary>
         /// <param name="element">XmlԪ��</param>
         public virtual void Deserialize(XmlElement element)
@@ -79,7 +79,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region ����:Find(string id)
+        #region 属性:Find(string id)
         /// <summary>����ʵ������</summary>
         /// <param name="id">��ʶ</param>
         public virtual void Find(string id)

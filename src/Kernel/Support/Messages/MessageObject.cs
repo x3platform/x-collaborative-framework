@@ -31,7 +31,7 @@ namespace X3Platform.Messages
     /// <summary>Ĭ����Ϣ����</summary>
     public sealed class MessageObject : IMessageObject, ICacheable, IDisposable
     {
-        #region ����:Value
+        #region 属性:Value
         private object m_Value = null;
 
         /// <summary>���ص�ֵ</summary>
@@ -42,7 +42,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:ReturnCode
+        #region 属性:ReturnCode
         private string m_ReturnCode = null;
 
         /// <summary>���صĴ���</summary>
@@ -53,7 +53,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Result
+        #region 属性:Result
         private object m_Result = null;
 
         /// <summary>����</summary>
@@ -64,7 +64,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Description
+        #region 属性:Description
         private string m_Description = string.Empty;
 
         /// <summary>����</summary>
@@ -75,7 +75,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Url
+        #region 属性:Url
         private string m_Url = string.Empty;
 
         /// <summary>Url</summary>
@@ -86,7 +86,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Clear()
+        #region 属性:Clear()
         /// <summary>������Ϣ</summary>
         public void Clear()
         {
@@ -94,7 +94,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Set(string returnCode, object value, object result, string description, string url)
+        #region 属性:Set(string returnCode, object value, object result, string description, string url)
         /// <summary>������Ϣ</summary>
         public void Set(string returnCode, object value)
         {
@@ -130,7 +130,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:ToString()
+        #region 属性:ToString()
         /// <summary>ת��ΪJSON��ʽ���ַ�������.</summary>
         /// <returns></returns>
         public override string ToString()
@@ -153,7 +153,7 @@ namespace X3Platform.Messages
         // ʵ�� EntityClass ���л�
         // 
 
-        #region ����:Serializable()
+        #region 属性:Serializable()
         /// <summary>���л�����</summary>
         public string Serializable()
         {
@@ -161,7 +161,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Serializable(bool displayComment, bool displayFriendlyName)
+        #region 属性:Serializable(bool displayComment, bool displayFriendlyName)
         /// <summary>���л�����</summary>
         /// <param name="displayComment">��ʾע����Ϣ</param>
         /// <param name="displayFriendlyName">��ʾ�Ѻ�������Ϣ</param>
@@ -181,7 +181,7 @@ namespace X3Platform.Messages
         }
         #endregion
 
-        #region ����:Deserialize(XmlElement element)
+        #region 属性:Deserialize(XmlElement element)
         /// <summary>�����л�����</summary>
         /// <param name="element">Xml Ԫ��</param>
         public void Deserialize(XmlElement element)
@@ -197,7 +197,7 @@ namespace X3Platform.Messages
         // ��ʽʵ�� ICacheable
         // 
 
-        #region ����:Expires
+        #region 属性:Expires
         private DateTime m_Expires = DateTime.Now.AddHours(1);
 
         /// <summary>��������ʱ��</summary>
@@ -212,7 +212,7 @@ namespace X3Platform.Messages
         // ��ʽʵ�� ICacheable
         // 
 
-        #region ����:Dispose()
+        #region 属性:Dispose()
         void IDisposable.Dispose()
         {
         }

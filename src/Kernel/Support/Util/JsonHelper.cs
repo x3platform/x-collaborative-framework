@@ -39,7 +39,7 @@ namespace X3Platform.Util
         // ������ת��ΪJson��ʽ�ı�
         // -------------------------------------------------------
 
-        #region ����:ToJson<T>(List<T> list, Type type)
+        #region 属性:ToJson<T>(List<T> list, Type type)
         /// <summary>��һ��ʵ��������ת����Json��ʽ</summary>
         /// <param name="list"></param>
         /// <param name="type"></param>
@@ -61,7 +61,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJson(object param, Type type)
+        #region 属性:ToJson(object param, Type type)
         /// <summary>��һ��ʵ��������ת����Json��ʽ</summary>
         /// <param name="param"></param>
         /// <param name="type"></param>
@@ -80,7 +80,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataView dataView)
+        #region 属性:ToJosn(DataView dataView)
         /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
         /// <param name="dataView"></param>
         /// <returns></returns>
@@ -90,7 +90,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataView dataView, bool removeAjaxStorageRoot)
+        #region 属性:ToJosn(DataView dataView, bool removeAjaxStorageRoot)
         /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
         /// <param name="dataView"></param>
         /// <param name="selectedColumnName"></param>
@@ -103,7 +103,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataTable dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        #region 属性:ToJosn(DataTable dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
         /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
         /// <param name="dataTable"></param>
         /// <param name="columnNameFirstCharLower">�������ַ�Сд</param>
@@ -123,7 +123,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
+        #region 属性:ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
         /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
         /// <param name="dataView"></param>
         /// <param name="selectedColumnName"></param>
@@ -191,7 +191,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataTable dataTable)
+        #region 属性:ToJosn(DataTable dataTable)
         /// <summary>��һ��DataTable����ת����Json��ʽ�ı�</summary>
         /// <param name="dataTable"></param>
         /// <returns></returns>
@@ -201,7 +201,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        #region 属性:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
         /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
         /// <param name="dataTable"></param>
         /// <param name="removeAjaxStorageRoot"></param>
@@ -212,7 +212,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        #region 属性:ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
         /// <summary>��һ��DataTable����ת����Json��ʽ�ı�</summary>
         /// <param name="dataTable"></param>
         /// <param name="columnNameFirstCharLower">�������ַ�Сд</param>
@@ -232,7 +232,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        #region 属性:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
         /// <summary>�� DataTable ��ʽ������ת����Json����ʽ������</summary>
         /// <param name="dataTable">����Դ</param>
         /// <param name="selectedColumnName">������ƥ��������</param>
@@ -347,7 +347,7 @@ namespace X3Platform.Util
         // 2.��Json�ַ���ת��ΪXml�ַ���.
         // -------------------------------------------------------
 
-        #region ����:ToXmlDocument(string json)
+        #region 属性:ToXmlDocument(string json)
         /// <summary>��Json��ʽתΪXML Document����</summary>
         /// <param name="json">Json��ʽ ����.</param>
         /// <returns>XML Document ����.</returns>
@@ -364,7 +364,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToXml(string json)
+        #region 属性:ToXml(string json)
         /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
         /// <param name="json">Json�ַ���</param>
         /// <returns>XML��ʽ ����.</returns>
@@ -481,7 +481,7 @@ namespace X3Platform.Util
         // 3.��Json�ַ���ת��ΪHashTable.
         // -------------------------------------------------------
 
-        #region ����:ToHashtable(string json)
+        #region 属性:ToHashtable(string json)
         /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
         /// <param name="json">Json�ַ���</param>
         /// <returns>XML��ʽ ����.</returns>
@@ -515,7 +515,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ����:ToDictionary(string json)
+        #region 属性:ToDictionary(string json)
         /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
         /// <param name="json">Json�ַ���</param>
         /// <returns>XML��ʽ ����.</returns>

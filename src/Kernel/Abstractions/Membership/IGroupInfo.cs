@@ -23,42 +23,42 @@ namespace X3Platform.Membership
     /// <summary>Ⱥ����Ϣ</summary>
     public interface IGroupInfo : IAuthorizationObject
     {
-        #region ����:Code
+        #region 属性:Code
         /// <summary>����</summary>
         string Code { get; set; }
         #endregion
 
-        #region ����:GlobalName
+        #region 属性:GlobalName
         /// <summary>ȫ������</summary>
         string GlobalName { get; }
         #endregion
 
-        #region ����:PinYin
+        #region 属性:PinYin
         /// <summary>ƴ��</summary>
         string PinYin { get; set; }
         #endregion
 
-        #region ����:GroupTreeNodeId
+        #region 属性:GroupTreeNodeId
         /// <summary>���������ڵ���ʶ</summary>
         string GroupTreeNodeId { get; set; }
         #endregion
 
-        #region ����:EnableExchangeEmail
+        #region 属性:EnableExchangeEmail
         /// <summary>������ҵ����</summary>
         int EnableExchangeEmail { get; set; }
         #endregion
 
-        #region ����:FullPath
+        #region 属性:FullPath
         /// <summary>������֯�ܹ�ȫ·��</summary>
         string FullPath { get; set; }
         #endregion
 
-        #region ����:DistinguishedName
+        #region 属性:DistinguishedName
         /// <summary>Ψһ����</summary>
         string DistinguishedName { get; set; }
         #endregion
 
-        #region ����:Members
+        #region 属性:Members
         /// <summary>��Ա�б�</summary>
         IList<IAccountInfo> Members { get; }
         #endregion
@@ -67,7 +67,7 @@ namespace X3Platform.Membership
         // ���ó�Ա��ϵ
         // -------------------------------------------------------
 
-        #region ����:ResetMemberRelations(string relationText)
+        #region 属性:ResetMemberRelations(string relationText)
         /// <summary>���ó�Ա��ϵ</summary>
         /// <param name="relationText"></param>
         void ResetMemberRelations(string relationText);

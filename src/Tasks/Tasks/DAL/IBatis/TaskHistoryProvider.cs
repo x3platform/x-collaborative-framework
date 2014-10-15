@@ -63,7 +63,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         // ����֧��
         // -------------------------------------------------------
 
-        #region ����:BeginTransaction()
+        #region 属性:BeginTransaction()
         /// <summary>��������</summary>
         public void BeginTransaction()
         {
@@ -71,7 +71,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:BeginTransaction(IsolationLevel isolationLevel)
+        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
         /// <summary>��������</summary>
         /// <param name="isolationLevel">�������뼶��</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
@@ -80,7 +80,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:CommitTransaction()
+        #region 属性:CommitTransaction()
         /// <summary>�ύ����</summary>
         public void CommitTransaction()
         {
@@ -88,7 +88,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:RollBackTransaction()
+        #region 属性:RollBackTransaction()
         /// <summary>�ع�����</summary>
         public void RollBackTransaction()
         {
@@ -100,7 +100,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         // ���� ���� �޸� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(TaskHistoryItemInfo param)
+        #region 属性:Save(TaskHistoryItemInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ����ϸ��Ϣ</param>
         /// <returns></returns>
@@ -119,7 +119,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:Insert(TaskHistoryItemInfo param)
+        #region 属性:Insert(TaskHistoryItemInfo param)
         /// <summary>���Ӽ�¼</summary>
         /// <param name="param">ʵ������ϸ��Ϣ</param>
         public void Insert(TaskHistoryItemInfo param)
@@ -128,7 +128,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:Update(TaskHistoryItemInfo param)
+        #region 属性:Update(TaskHistoryItemInfo param)
         /// <summary>�޸ļ�¼</summary>
         /// <param name="param">ʵ������ϸ��Ϣ</param>
         public void Update(TaskHistoryItemInfo param)
@@ -137,7 +137,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:Delete(string id, string receiverId)
+        #region 属性:Delete(string id, string receiverId)
         /// <summary>ɾ����¼</summary>
         /// <param name="id">������ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>
@@ -157,7 +157,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id, string receiverId)
+        #region 属性:FindOne(string id, string receiverId)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">������ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>
@@ -178,7 +178,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         // -------------------------------------------------------
 
 
-        #region ����:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="receiverId">�����˱�ʶ</param>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
@@ -217,7 +217,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         }
         #endregion
 
-        #region ����:IsExist(string id, string receiverId)
+        #region 属性:IsExist(string id, string receiverId)
         /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
         /// <param name="id">��ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>

@@ -24,7 +24,7 @@ namespace X3Platform.Ajax
     [Serializable()]
     public class AjaxSqlParameter
     {
-        #region ����:Key
+        #region 属性:Key
         private string m_Key = null;
 
         /// <summary>��</summary>
@@ -36,7 +36,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Operation
+        #region 属性:Operation
         private string m_Operation = null;
 
         /// <summary>������</summary>
@@ -48,7 +48,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Value
+        #region 属性:Value
         private string m_Value = null;
 
         /// <summary>ֵ</summary>
@@ -60,7 +60,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:Type
+        #region 属性:Type
         private string m_Type = null;
 
         /// <summary>ֵ������</summary>
@@ -92,7 +92,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ����:ToString()
+        #region 属性:ToString()
         /// <summary>תΪ�ַ���</summary>
         /// <returns></returns>
         public override string ToString()

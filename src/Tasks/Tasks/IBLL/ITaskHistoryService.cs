@@ -31,7 +31,7 @@ namespace X3Platform.Tasks.IBLL
     [SpringObject("X3Platform.Tasks.IBLL.ITaskHistoryService")]
     public interface ITaskHistoryService
     {
-        #region ����:this[string id, string receiverId]
+        #region 属性:this[string id, string receiverId]
         /// <summary>����</summary>
         /// <param name="id">������ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>
@@ -43,14 +43,14 @@ namespace X3Platform.Tasks.IBLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region ����:Save(TaskHistoryItemInfo param)
+        #region 属性:Save(TaskHistoryItemInfo param)
         /// <summary>������¼</summary>
         /// <param name="param">ʵ����ϸ��Ϣ</param>
         /// <returns>����ʵ��<see cref="TaskHistoryItemInfo"/></returns>
         TaskHistoryItemInfo Save(TaskHistoryItemInfo param);
         #endregion
 
-        #region ����:Delete(string id, string receiverId)
+        #region 属性:Delete(string id, string receiverId)
         /// <summary>ɾ����¼</summary>
         /// <param name="id">������ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>
@@ -61,7 +61,7 @@ namespace X3Platform.Tasks.IBLL
         // ��ѯ
         // -------------------------------------------------------
 
-        #region ����:FindOne(string id, string receiverId)
+        #region 属性:FindOne(string id, string receiverId)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">������ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>
@@ -73,7 +73,7 @@ namespace X3Platform.Tasks.IBLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region ����:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="receiverId">�����˱�ʶ</param>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
@@ -85,7 +85,7 @@ namespace X3Platform.Tasks.IBLL
         IList<TaskHistoryItemInfo> GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region ����:IsExist(string id, string receiverId)
+        #region 属性:IsExist(string id, string receiverId)
         /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
         /// <param name="id">��ʶ</param>
         /// <param name="receiverId">�����˱�ʶ</param>

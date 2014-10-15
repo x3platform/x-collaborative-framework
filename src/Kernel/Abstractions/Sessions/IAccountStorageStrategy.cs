@@ -21,13 +21,13 @@ namespace X3Platform.Sessions
     /// <summary>�ʺŴ洢���Խӿ�</summary>
     public interface IAccountStorageStrategy
     {
-        #region ����:Deserialize(AccountCacheInfo accountCache)
+        #region 属性:Deserialize(AccountCacheInfo accountCache)
         /// <summary>�����л�������Ϣ��Ϣ</summary>
         /// <returns></returns>
         IAccountInfo Deserialize(AccountCacheInfo accountCache);
         #endregion
 
-        #region ����:Serialize(string accountIdentity, IAccountInfo account)
+        #region 属性:Serialize(string accountIdentity, IAccountInfo account)
         /// <summary>���л�������Ϣ��Ϣ</summary>
         /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
         /// <param name="account">�ʺ���Ϣ</param>

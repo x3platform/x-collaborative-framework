@@ -19,32 +19,32 @@ namespace X3Platform.Membership
     /// <summary>��λ��Ϣ</summary>
     public interface IAssignedJobInfo : IAuthorizationObject
     {
-        #region ����:OrganizationId
+        #region 属性:OrganizationId
         /// <summary>������֯��ʶ</summary>
         string OrganizationId { get; set; }
         #endregion
 
-        #region ����:Organization
+        #region 属性:Organization
         /// <summary>������֯��Ϣ</summary>
         IOrganizationInfo Organization { get; }
         #endregion
 
-        #region ����:JobId
+        #region 属性:JobId
         /// <summary>����ְλ��ʶ</summary>
         string JobId { get; set; }
         #endregion
 
-        #region ����:Job
+        #region 属性:Job
         /// <summary>����ְλ��Ϣ</summary>
         IJobInfo Job { get; }
         #endregion
 
-        #region ����:JobGradeId
+        #region 属性:JobGradeId
         /// <summary>����ְ����ʶ</summary>
         string JobGradeId { get; set; }
         #endregion
 
-        #region ����:Job
+        #region 属性:Job
         /// <summary>����ְ����Ϣ</summary>
         IJobGradeInfo JobGrade { get; }
         #endregion

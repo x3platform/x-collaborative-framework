@@ -120,7 +120,7 @@ namespace X3Platform.Membership
         /// <summary>������֯�ܹ�ȫ·��</summary>
         string FullPath { get; set; }
 
-        #region ����:ExtensionInformation
+        #region 属性:ExtensionInformation
         /// <summary>��Ա��չ��Ϣ</summary>
         IExtensionInformation ExtensionInformation { get; }
         #endregion
