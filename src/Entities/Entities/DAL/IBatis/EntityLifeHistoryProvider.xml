@@ -43,7 +43,7 @@
                 #AccountId#,
                 #MethodName#,
                 #ContextDiffLog#,
-                GetDate()
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -55,7 +55,7 @@
             [AccountId] = #AccountId#,
             [MethodName] = #MethodName#,
             [ContextDiffLog] = #ContextDiffLog#,
-            [Date] = GetDate()
+            [Date] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>

@@ -47,8 +47,8 @@
                 #Lock#,
                 #Tags#,
                 #OrderId#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -61,7 +61,7 @@
                 `Lock` = #Lock#,
                 `Tags` = #Tags#,
                 `OrderId` = #OrderId#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>

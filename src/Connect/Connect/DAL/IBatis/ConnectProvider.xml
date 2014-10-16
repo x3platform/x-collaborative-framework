@@ -94,8 +94,8 @@
                 #Options#,
                 #CertifiedCode#,
                 #Status#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -108,7 +108,7 @@
                 [RedirectUri] = #RedirectUri#,
                 [Options] = #Options#,
                 [Status] = #Status#,
-                [UpdateDate] = GetDate()
+                [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
@@ -200,7 +200,7 @@
         </select>
 
         <update id="proc_Connect_ResetAppSecret" parameterClass="ConnectInfo" >
-            UPDATE [tb_Connect] SET [AppSecret] = #AppSecret#, [UpdateDate] = GetDate() WHERE AppKey = #AppKey#
+            UPDATE [tb_Connect] SET [AppSecret] = #AppSecret#, [UpdateDate] = CURRENT_TIMESTAMP WHERE AppKey = #AppKey#
         </update>
     </statements>
 </sqlMap>

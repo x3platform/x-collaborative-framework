@@ -1,30 +1,29 @@
-
-#region Using Libraries
-using System;
-using System.Configuration;
-using System.Collections.Generic;
-using System.Xml;
-
-using Common.Logging;
-
-using X3Platform.Configuration;
-#endregion
-
 namespace X3Platform.DigitalNumber.Configuration
 {
-    /// <summary>Á÷Ë®ºÅÅäÖÃĞÅÏ¢</summary>
+    #region Using Libraries
+    using System;
+    using System.Configuration;
+    using System.Collections.Generic;
+    using System.Xml;
+
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    #endregion
+
+    /// <summary>æµæ°´å· é…ç½®ä¿¡æ¯</summary>
     public class DigitalNumberConfiguration : XmlConfiguraton
     {
-        /// <summary>ÈÕÖ¾¼ÇÂ¼Æ÷</summary>
+        /// <summary>æ—¥å¿—è®°å½•å™¨</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>ËùÊôÓ¦ÓÃµÄÃû³Æ</summary>
+        /// <summary>æ‰€å±åº”ç”¨çš„åç§°</summary>
         public const string ApplicationName = "DigitalNumber";
 
-        /// <summary>ÅäÖÃÇøµÄÃû³Æ</summary>
+        /// <summary>é…ç½®åŒºçš„åç§°</summary>
         public const string SectionName = "digitalNumber";
 
-        /// <summary>»ñÈ¡ÅäÖÃÇøµÄÃû³Æ</summary>
+        /// <summary>è·å–é…ç½®åŒºçš„åç§°</summary>
         public override string GetSectionName()
         {
             return SectionName;

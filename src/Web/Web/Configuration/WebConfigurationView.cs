@@ -14,15 +14,17 @@
 
 namespace X3Platform.Web.Configuration
 {
+    #region Using Libraries
     using System;
+    using System.Configuration;
     using System.Diagnostics;
     using System.IO;
     using System.Security;
-
-    using X3Platform.Configuration;
     using System.Xml;
     using System.Xml.Serialization;
-    using System.Configuration;
+    
+    using X3Platform.Configuration;
+    #endregion
 
     /// <summary>������ͼ</summary>
     public class WebConfigurationView : XmlConfigurationView<WebConfiguration>
@@ -33,7 +35,7 @@ namespace X3Platform.Web.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = "Web";
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile WebConfigurationView instance = null;
 
         private static object lockObject = new object();

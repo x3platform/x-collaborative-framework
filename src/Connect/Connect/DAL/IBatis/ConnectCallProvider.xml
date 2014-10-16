@@ -56,7 +56,7 @@
                     #TimeSpan#,
                     #IP#,
                     #ReturnCode#,
-                    GetDate()
+                    CURRENT_TIMESTAMP
                 )
             END
 		</insert>

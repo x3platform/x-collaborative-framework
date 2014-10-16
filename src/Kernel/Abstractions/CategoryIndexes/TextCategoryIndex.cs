@@ -1,22 +1,10 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-
-namespace X3Platform.CategoryIndexes
+﻿namespace X3Platform.CategoryIndexes
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    #endregion
+
     /// <summary>文本分类索引</summary>
     public class TextCategoryIndex : ICategoryIndex
     {

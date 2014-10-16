@@ -58,8 +58,8 @@
                 #Code#,
                 #Name#,
                 #Status#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -72,7 +72,7 @@
                 `Code` = #Code#,
                 `Name` = #Name#,
                 `Status` = #Status#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
 
@@ -137,7 +137,7 @@
         </select>
 
         <update id="proc_AssignedJob_Rename" parameterClass="AssignedJobInfo">
-            UPDATE `tb_AssignedJob` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_AssignedJob` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <update id="proc_AssignedJob_SetJobId" >
@@ -155,7 +155,7 @@
                     `Code` = #Code#,
                     `Name` = #Name#,
                     `Status` = #Status#,
-                    `UpdateDate` = Now()
+                    `UpdateDate` = CURRENT_TIMESTAMP
 
                 WHERE `Id` = #Id#
 
@@ -182,8 +182,8 @@
                     #Code#,
                     #Name#,
                     #Status#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
 
             END
@@ -267,11 +267,11 @@
         </update>
         
         <update id="proc_AssignedJob_SetDefaultRelation" >
-            UPDATE `tb_Member` SET `AssignedJobId` = '$AssignedJobId$', UpdateDate = Now() WHERE `AccountId` = '$AccountId$'
+            UPDATE `tb_Member` SET `AssignedJobId` = '$AssignedJobId$', UpdateDate = CURRENT_TIMESTAMP WHERE `AccountId` = '$AccountId$'
         </update>
         
         <update id="proc_AssignedJob_SetNullDefaultRelation" >
-            UPDATE `tb_Member` SET `AssignedJobId` = '', UpdateDate = Now() WHERE `AccountId` = '$AccountId$'
+            UPDATE `tb_Member` SET `AssignedJobId` = '', UpdateDate = CURRENT_TIMESTAMP WHERE `AccountId` = '$AccountId$'
         </update>
         
     </statements>

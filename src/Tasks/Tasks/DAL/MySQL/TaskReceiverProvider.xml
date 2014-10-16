@@ -214,11 +214,11 @@
         </update>
 
         <update id="proc_Task_Receiver_SetFinished" >
-            UPDATE `tb_Task_WorkItem` SET Status = 1, FinishTime = Now()  WHERE $WhereClause$
+            UPDATE `tb_Task_WorkItem` SET Status = 1, FinishTime = CURRENT_TIMESTAMP  WHERE $WhereClause$
         </update>
 
         <update id="proc_Task_Receiver_SetUnfinished" >
-            UPDATE `tb_Task_WorkItem` SET Status = 0, CreateDate = Now() WHERE $WhereClause$
+            UPDATE `tb_Task_WorkItem` SET Status = 0, CreateDate = CURRENT_TIMESTAMP WHERE $WhereClause$
         </update>
 
         <select id="proc_Task_Receiver_GetUnfinishedQuantities" >

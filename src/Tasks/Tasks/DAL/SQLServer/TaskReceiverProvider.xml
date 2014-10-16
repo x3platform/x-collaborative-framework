@@ -218,7 +218,7 @@
         </update>
 
         <update id="proc_Task_Receiver_SetFinished" >
-            UPDATE [tb_Task_Receiver] SET Status = 1, FinishTime = GETDATE()  WHERE $WhereClause$
+            UPDATE [tb_Task_Receiver] SET Status = 1, FinishTime = CURRENT_TIMESTAMP  WHERE $WhereClause$
         </update>
 
         <update id="proc_Task_Receiver_SetUnfinished" >
@@ -226,7 +226,7 @@
         </update>
         
         <update id="proc_Task_Receiver_SetUnfinished_RefreshCreateDate" >
-            UPDATE [tb_Task] SET CreateDate = GetDate() WHERE $WhereClause$
+            UPDATE [tb_Task] SET CreateDate = CURRENT_TIMESTAMP WHERE $WhereClause$
         </update>
         
         <select id="proc_Task_Receiver_GetUnfinishedQuantities" >

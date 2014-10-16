@@ -68,7 +68,7 @@
                 #Status#,
                 #IsRead#,
                 '2000-01-01',
-			    Now()
+			    CURRENT_TIMESTAMP
 			)
 		</insert>
 
@@ -141,7 +141,7 @@
                     #Status#,
                     #IsRead#,
                     '2000-01-01',
-			        Now()
+			        CURRENT_TIMESTAMP
 			    )
             END
 		</insert>

@@ -96,7 +96,7 @@ namespace X3Platform.Apps.Configuration
                              this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(this.m_Administrators))
                     {
                         this.m_Administrators = "#";
@@ -124,7 +124,7 @@ namespace X3Platform.Apps.Configuration
                         "HiddenStartMenu",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_HiddenStartMenu = StringHelper.NullOrEmptyTo(this.m_HiddenStartMenu, "Off");
 
                     this.m_HiddenStartMenu = this.m_HiddenStartMenu.ToUpper();
@@ -151,7 +151,7 @@ namespace X3Platform.Apps.Configuration
                         "HiddenTopMenu",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_HiddenTopMenu = StringHelper.NullOrEmptyTo(this.m_HiddenTopMenu, "Off");
 
                     this.m_HiddenTopMenu = this.m_HiddenTopMenu.ToUpper();
@@ -178,7 +178,7 @@ namespace X3Platform.Apps.Configuration
                         "HiddenShortcutMenu",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_HiddenShortcutMenu = StringHelper.NullOrEmptyTo(this.m_HiddenShortcutMenu, "Off");
 
                     this.m_HiddenShortcutMenu = this.m_HiddenShortcutMenu.ToUpper();

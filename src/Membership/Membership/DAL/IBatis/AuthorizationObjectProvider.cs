@@ -504,7 +504,7 @@ namespace X3Platform.Membership.DAL.IBatis
             outString.AppendFormat("SELECT N##Account## AS AuthorizationObjectType, ##{0}## AS AuthorizationObjectId\r\n", accountId);
 
             // �ʺ�ί��
-            outString.AppendFormat("UNION SELECT N##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}[tb_Account_Grant] WHERE GrantedTimeFrom < GETDATE() AND GrantedTimeTo > GETDATE() AND GrantorId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+            outString.AppendFormat("UNION SELECT N##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}[tb_Account_Grant] WHERE GrantedTimeFrom < CURRENT_TIMESTAMP AND GrantedTimeTo > CURRENT_TIMESTAMP AND GrantorId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
 
             // ��֯
             if ((contactType & ContactType.Organization) == ContactType.Organization)
