@@ -1,12 +1,14 @@
-using System;
-using System.DirectoryServices;
-
-using Common.Logging;
-
-using X3Platform.ActiveDirectory.Configuration;
-
 namespace X3Platform.ActiveDirectory.Interop
 {
+    #region Using Libraries
+    using System;
+    using System.DirectoryServices;
+
+    using Common.Logging;
+
+    using X3Platform.ActiveDirectory.Configuration;
+    #endregion
+
     public sealed class GroupHelper
     {
         /// <summary>日志记录器</summary>
@@ -202,7 +204,7 @@ namespace X3Platform.ActiveDirectory.Interop
         #region 函数:MoveTo(string groupName, string parentPath)
         /// <summary>移动群组</summary>
         /// <param name="groupName">集团总部信息中心</param>
-        /// <param name="parentPath">组织单位的显名,例如:OU=微软技术中心,OU=合作伙伴,OU=组织结构</param>
+        /// <param name="parentPath">组织单位的显名,例如:OU=微软创新中心,OU=合作伙伴,OU=组织结构</param>
         public int MoveTo(string groupName, string parentPath)
         {
             try

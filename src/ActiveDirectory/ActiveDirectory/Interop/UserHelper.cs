@@ -1,12 +1,13 @@
-
 namespace X3Platform.ActiveDirectory.Interop
 {
+    #region Using Libraries
     using System;
     using System.DirectoryServices;
 
     using Common.Logging;
 
     using X3Platform.ActiveDirectory.Configuration;
+    #endregion
 
     public sealed class UserHelper
     {
@@ -148,15 +149,15 @@ namespace X3Platform.ActiveDirectory.Interop
         }
         #endregion
 
-        /// <summary>查找默认OU下面的所有人员.</summary>
+        /// <summary>查找默认OU下面的所有人员</summary>
         /// <returns></returns>
         public SearchResultCollection FindAll()
         {
             return FindAll(string.Format("OU={0}", directoryName));
         }
 
-        /// <summary>查找某个组织单位下面的所有人员.</summary>
-        /// <param name="fullName">组织单位的显名,例如:OU=微软技术中心,OU=合作伙伴,OU=组织结构</param>
+        /// <summary>查找某个组织单位下面的所有人员</summary>
+        /// <param name="fullName">组织单位的显名,例如:OU=微软创新中心,OU=合作伙伴,OU=组织结构</param>
         /// <returns></returns>
         public SearchResultCollection FindAll(string fullName)
         {
@@ -178,8 +179,8 @@ namespace X3Platform.ActiveDirectory.Interop
 
         #region 函数:MoveTo(string parentPath, string loginName)
         /// <summary>移动用户</summary>
-        /// <param name="parentPath">组织单位的显名,例如:OU=微软技术中心,OU=合作伙伴,OU=组织结构</param>
-        /// <param name="fullName">用户的显名,例如:CN=Administrator,OU=微软技术中心,OU=合作伙伴,OU=组织结构</param>
+        /// <param name="parentPath">组织单位的显名,例如:OU=微软创新中心,OU=合作伙伴,OU=组织结构</param>
+        /// <param name="fullName">用户的显名,例如:CN=Administrator,OU=微软创新中心,OU=合作伙伴,OU=组织结构</param>
         public void MoveTo(string parentPath, string loginName)
         {
             try
