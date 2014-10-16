@@ -1,21 +1,21 @@
-﻿#region Using Libraries
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-using System.DirectoryServices;
-
-using Common.Logging;
-
-using X3Platform.Plugins;
-
-using X3Platform.ActiveDirectory.Configuration;
-using X3Platform.ActiveDirectory.Interop;
-#endregion
-
-namespace X3Platform.ActiveDirectory
+﻿namespace X3Platform.ActiveDirectory
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Xml;
+    using System.Xml.Serialization;
+    using System.DirectoryServices;
+
+    using Common.Logging;
+
+    using X3Platform.Plugins;
+
+    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.ActiveDirectory.Interop;
+    #endregion
+
     public sealed class ActiveDirectoryManagement : CustomPlugin
     {
         /// <summary>日志记录器</summary>
@@ -206,14 +206,14 @@ namespace X3Platform.ActiveDirectory
         }
         #endregion
 
+        #region 函数:Find(string name, string schemaClassName)
         /// <summary></summary>
         /// <param name="name"></param>
         /// <param name="schemaClassName"></param>
         /// <returns></returns>
         public DirectoryEntry Find(string name, string schemaClassName)
         {
-            if (this.integratedMode == "OFF")
-                return null;
+            if (this.integratedMode == "OFF") { return null; }
 
             directorySearcher.SearchRoot = directoryEntry;
 
@@ -226,5 +226,6 @@ namespace X3Platform.ActiveDirectory
 
             return (list.Count == 0) ? null : list[0].GetDirectoryEntry();
         }
+        #endregion
     }
 }
