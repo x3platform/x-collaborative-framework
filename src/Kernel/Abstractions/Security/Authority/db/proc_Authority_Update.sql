@@ -37,7 +37,7 @@ BEGIN
 		[Lock] = @Lock,
 		[Tags] = @Tags,
 		[OrderId] = @OrderId,
-		[UpdateDate] = GETDATE()
+		[UpdateDate] = CURRENT_TIMESTAMP
 		
 	WHERE
 		[Id] = @Id

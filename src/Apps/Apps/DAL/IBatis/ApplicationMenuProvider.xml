@@ -117,8 +117,8 @@
 					#Status#,
 					#Remark#,
 					#FullPath#,
-					GetDate(),
-					GetDate()
+					CURRENT_TIMESTAMP,
+					CURRENT_TIMESTAMP
 				)
 		</insert>
 
@@ -142,7 +142,7 @@
 					[Status] = #Status#,
 					[Remark] = #Remark#,
 					[FullPath] = #FullPath#,
-					[UpdateDate] = GetDate()
+					[UpdateDate] = CURRENT_TIMESTAMP
 
 				WHERE [Id] = #Id#
 		</update>
@@ -273,7 +273,7 @@
 					[Status] = #Status#,
 					[Remark] = #Remark#,
 					[FullPath] = #FullPath#,
-					[UpdateDate] = GetDate()
+					[UpdateDate] = CURRENT_TIMESTAMP
 
 				WHERE [Id] = #Id#
 
@@ -322,8 +322,8 @@
 					#Status#,
 					#Remark#,
 					#FullPath#,
-					GetDate(),
-					GetDate()
+					CURRENT_TIMESTAMP,
+					CURRENT_TIMESTAMP
 				)
             END
         </insert>

@@ -39,8 +39,8 @@
                 #AppKey#,
                 #AccountId#,
                 #AuthorizationScope#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -48,7 +48,7 @@
             UPDATE `tb_Connect_AuthorizationCode` SET
 
                 `AuthorizationScope` = #AuthorizationScope#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>

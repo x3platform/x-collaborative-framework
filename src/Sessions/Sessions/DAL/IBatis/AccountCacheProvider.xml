@@ -47,7 +47,7 @@
                 #IP#,
                 #BeginDate#,
                 #EndDate#,
-                GetDate()
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -58,7 +58,7 @@
                 AccountObject = #AccountObject#,
                 AccountObjectType = #AccountObjectType#,
                 EndDate = #EndDate#,
-                UpdateDate = GetDate()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE AccountIdentity = #AccountIdentity#
         </update>

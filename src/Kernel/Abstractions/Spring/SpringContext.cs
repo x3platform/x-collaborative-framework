@@ -31,7 +31,7 @@ namespace X3Platform.Spring
     [CLSCompliantAttribute(false)]
     public sealed class SpringContext : CustomPlugin
     {
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile SpringContext instance = null;
 
         private static object lockObject = new object();

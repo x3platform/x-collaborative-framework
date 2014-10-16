@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :DigitalNumberScript.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.DigitalNumber
 {
     using System;
@@ -19,10 +5,10 @@ namespace X3Platform.DigitalNumber
 
     using X3Platform.Util;
 
-    /// <summary>��ˮ�Žű�</summary>
+    /// <summary>流水号脚本</summary>
     public class DigitalNumberScript
     {
-        /// <summary>������ˮ��ǰ׺�ű�</summary>
+        /// <summary>运行流水号前缀脚本</summary>
         /// <param name="expression"></param>
         /// <param name="prefixCode"></param>
         /// <returns></returns>
@@ -31,7 +17,7 @@ namespace X3Platform.DigitalNumber
             return RunPrefixScript(expression, prefixCode, DateTime.Now);
         }
 
-        /// <summary>������ˮ��ǰ׺�ű�</summary>
+        /// <summary>运行流水号前缀脚本</summary>
         /// <param name="expression"></param>
         /// <param name="prefixCode"></param>
         /// <param name="updateDate"></param>
@@ -40,16 +26,16 @@ namespace X3Platform.DigitalNumber
         {
             string result = null;
 
-            // ����ǰ׺��ǩ
+            // 处理前缀标签
             expression = string.IsNullOrEmpty(prefixCode) ?
                 expression.Replace("{prefix}", string.Empty) : expression.Replace("{prefix}", "{tag:" + prefixCode + "}");
 
-            // ����Ϊ�ӱ���ʽ�б�
+            // 拆分为子表达式列表
             IList<string[]> subexpressions = SplitExpression(expression);
 
             foreach (string[] subexpression in subexpressions)
             {
-                // ������Ҫ�������ӵı���ʽ属性: code | int | dailyIncrement
+                // 忽略需要自增种子的表达式类型: code | int | dailyIncrement
                 if (subexpression[0] == "code" || subexpression[0] == "int" || subexpression[0] == "dailyIncrement")
                 {
                     continue;
@@ -89,14 +75,14 @@ namespace X3Platform.DigitalNumber
         {
             string result = null;
 
-            // ����ǰ׺��ǩ
+            // 处理前缀标签
             expression = string.IsNullOrEmpty(prefixCode) ?
                 expression.Replace("{prefix}", string.Empty) : expression.Replace("{prefix}", "{tag:" + prefixCode + "}");
 
-            // ��������
+            // 种子自增
             seed++;
 
-            // ����Ϊ�ӱ���ʽ�б�
+            // 拆分为子表达式列表
             IList<string[]> subexpressions = SplitExpression(expression);
 
             foreach (string[] subexpression in subexpressions)
@@ -112,7 +98,7 @@ namespace X3Platform.DigitalNumber
         /// <returns></returns>
         private static IList<string[]> SplitExpression(string expression)
         {
-            // ����ʽ ʾ��
+            // 表达式 示例
             // {dailyIncrement:seed:6}
             // {date:yyyyMMdd}{tag:-}{int:seed}
             IList<string[]> subexpressions = new List<string[]>();
@@ -132,20 +118,20 @@ namespace X3Platform.DigitalNumber
             return subexpressions;
         }
 
-        /// <summary>��������ʽ</summary>
+        /// <summary>分析表达式</summary>
         /// <param name="subexpression"></param>
         /// <param name="updateDate"></param>
         /// <param name="seed"></param>
-        /// <returns>����</returns>
+        /// <returns>结果</returns>
         private static string AnalyzeExpression(string[] subexpression, DateTime updateDate, int seed)
         {
             switch (subexpression[0])
             {
-                // ��ǩ����
+                // 标签类型
                 case "tag":
                     return subexpression[1];
 
-                // ��������
+                // 日期类型
                 case "date":
                     if (subexpression.Length == 2)
                     {
@@ -156,7 +142,7 @@ namespace X3Platform.DigitalNumber
                         return DateTime.Now.ToString("yyyyMMdd");
                     }
 
-                // Guid����
+                // Guid类型
                 case "guid":
                     if (subexpression.Length == 1)
                     {
@@ -174,7 +160,7 @@ namespace X3Platform.DigitalNumber
                         }
                     }
 
-                // �����ַ���
+                // 随机字符串
                 case "random":
                     if (subexpression.Length == 3)
                     {
@@ -195,7 +181,7 @@ namespace X3Platform.DigitalNumber
                         return seed.ToString();
                     }
 
-                // ÿ������������
+                // 每日自增型数字
                 case "dailyIncrement":
                     if (updateDate.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd"))
                     {
@@ -220,7 +206,7 @@ namespace X3Platform.DigitalNumber
                         }
                     }
 
-                // ������������������
+                // 整数类型自增型数字
                 case "code":
                     if (subexpression.Length == 2)
                     {
@@ -236,7 +222,7 @@ namespace X3Platform.DigitalNumber
             }
         }
 
-        /// <summary>���ֲ���</summary>
+        /// <summary>数字补零</summary>
         /// <param name="seed"></param>
         /// <param name="lengthText"></param>
         /// <returns></returns>

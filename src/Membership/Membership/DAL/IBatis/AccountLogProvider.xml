@@ -43,7 +43,7 @@
                 #OptionAccountId#,
                 #OptionName#,
                 #Description#,
-                GetDate()
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -56,7 +56,7 @@
                 [OptionAccountId] = #OptionAccountId#,
                 [OptionName] = #OptionName#,
                 [Description] = #Description#,
-                [Date] = GetDate()
+                [Date] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>

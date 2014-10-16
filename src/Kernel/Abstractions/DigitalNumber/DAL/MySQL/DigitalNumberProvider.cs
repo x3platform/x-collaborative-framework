@@ -1,19 +1,6 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.DigitalNumber.DAL.MySQL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -25,6 +12,7 @@ namespace X3Platform.DigitalNumber.DAL.MySQL
     using X3Platform.DigitalNumber.IDAL;
     using X3Platform.DigitalNumber.Model;
     using X3Platform.Data;
+    #endregion
 
     [DataObject]
     public class DigitalNumberProvider : IDigitalNumberProvider

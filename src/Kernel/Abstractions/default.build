@@ -39,17 +39,17 @@
         <echo message="Compiling:${project.name}" />
         <mkdir dir="${project.target.dir}" />
         <!-- 编译目标文件 -->
-        <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" keyfile="../../Licence.snk" >
+        <csc target="library" output="${project.target.dir}${project.assembly.name}.dll" debug="${code.debug}" define="${code.define}" optimize="${code.optimize}" warninglevel="1" keyfile="../../Licence.snk" >
             <references>
                 <!--<include name="${solution.dir}${framework.build.output}\**.dll" />-->
-                <include name="${framework.assemblyDirectory}System.dll" />
+                <!--<include name="${framework.assemblyDirectory}System.dll" />-->
                 <include name="${framework.assemblyDirectory}System.Configuration.dll" />
                 <include name="${framework.assemblyDirectory}System.Data.dll" />
                 <include name="${framework.assemblyDirectory}System.Management.dll" />
                 <include name="${framework.assemblyDirectory}System.Web.dll" />
                 <include name="${framework.assemblyDirectory}System.Web.Extensions.dll" />
                 <include name="${framework.assemblyDirectory}System.Web.Services.dll" />
-                <include name="${framework.assemblyDirectory}System.Xml.dll" />
+                <!--<include name="${framework.assemblyDirectory}System.Xml.dll" />-->
                 <include name="${solution.dir}lib/Common.Logging/Common.Logging.dll" />
                 <include name="${solution.dir}lib/Spring.NET/Spring.Core.dll" />
                 <include name="${solution.dir}${framework.build.output}${framework.namespace}.Support.dll" />

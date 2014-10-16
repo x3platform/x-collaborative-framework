@@ -50,8 +50,8 @@ BEGIN
 		@Lock,
 		@Tags,
 		@OrderId,
-		GETDATE(),
-		GETDATE()	
+		CURRENT_TIMESTAMP,
+		CURRENT_TIMESTAMP	
 	)
 	SET @Id = @@IDENTITY
 END

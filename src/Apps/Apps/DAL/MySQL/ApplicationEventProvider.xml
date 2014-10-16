@@ -50,7 +50,7 @@
                 #FinishTime#,
                 #TimeSpan#,
                 #IP#,
-                Now()
+                CURRENT_TIMESTAMP
             FROM DUAL
             WHERE NOT EXISTS ( SELECT * FROM `tb_Application_Event` WHERE `tb_Application_Event`.`Id` = #Id#)
         </insert>

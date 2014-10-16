@@ -69,8 +69,8 @@
                 #ApprovedUrl#,
                 #Status#,
                 #Remark#,
-                GETDATE(),
-                GETDATE()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -88,7 +88,7 @@
             ApprovedUrl = #ApprovedUrl#,
             Status = #Status#,
             Remark = #Remark#,
-            UpdateDate = GETDATE()
+            UpdateDate = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -104,7 +104,7 @@
             GrantedTimeFrom = #GrantedTimeFrom#,
             GrantedTimeTo = #GrantedTimeTo#,
             Remark = #Remark#,
-            UpdateDate = GETDATE()
+            UpdateDate = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
             END
@@ -128,8 +128,8 @@
             #GrantedTimeFrom#,
             #GrantedTimeTo#,
             #Remark#,
-            GETDATE(),
-            GETDATE()
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
             )
             END
         </insert>
@@ -204,8 +204,8 @@
             UPDATE `tb_Account_Grant` SET
 
             IsAborted = 1,
-            GrantedTimeTo = GETDATE(),
-            UpdateDate = GETDATE()
+            GrantedTimeTo = CURRENT_TIMESTAMP,
+            UpdateDate = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -225,7 +225,7 @@
                 IsAborted = #IsAborted#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = GETDATE()
+                UpdateDate = CURRENT_TIMESTAMP
 
                 WHERE `Id` = #Id#
 
@@ -263,8 +263,8 @@
                     #ApprovedUrl#,
                     #Status#,
                     #Remark#,
-                    GETDATE(),
-                    GETDATE()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
 
             END

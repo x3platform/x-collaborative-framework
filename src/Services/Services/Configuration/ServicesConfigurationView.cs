@@ -208,7 +208,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_ServiceName))
                     {
                         m_ServiceName = "Elane X Unkown Service";
@@ -246,7 +246,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_ServiceDisplayName))
                     {
                         m_ServiceDisplayName = this.ServiceName;
@@ -284,7 +284,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_ServiceDescription))
                     {
                         m_ServiceDescription = string.Format("{0}未填写任何描述信息", this.ServiceName);
@@ -322,7 +322,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_ServiceLoginName))
                     {
                         m_ServiceLoginName = "administrator";
@@ -360,7 +360,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_ServicePassword))
                     {
                         m_ServicePassword = "111111";
@@ -400,7 +400,7 @@ namespace X3Platform.Services.Configuration
                                this.Configuration.Keys[propertyName].Value));
                         }
 
-                        // 如果配置文件里没有设置，设置一个默认值。
+                        // 如果配置文件里未设置则设置一个默认值
                         if (m_TimerInterval == 0)
                         {
                             m_TimerInterval = 300;
@@ -443,7 +443,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_TrackRunTime))
                     {
                         m_TrackRunTime = "OFF";
@@ -481,7 +481,7 @@ namespace X3Platform.Services.Configuration
                            this.Configuration.Keys[propertyName].Value));
                     }
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (m_TcpPort == 0)
                     {
                         m_TcpPort = 12345;

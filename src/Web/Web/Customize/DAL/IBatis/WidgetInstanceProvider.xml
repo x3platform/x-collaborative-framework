@@ -59,8 +59,8 @@
                 #Height#,
                 #Width#,
                 #Options#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -75,7 +75,7 @@
                 Height = #Height#,
                 Width = #Width#,
                 Options = #Options#,
-                UpdateDate = GetDate()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>

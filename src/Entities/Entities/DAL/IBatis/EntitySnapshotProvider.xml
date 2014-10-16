@@ -36,7 +36,7 @@
                 #EntityId#,
                 #EntityClassName#,
                 #SnapshotObject#,
-                GetDate()
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -46,7 +46,7 @@
                 [EntityId] = #EntityId#,
                 [EntityClassName] = #EntityClassName#,
                 [SnapshotObject] = #SnapshotObject#,
-                [Date] = GetDate()
+                [Date] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>

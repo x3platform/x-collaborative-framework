@@ -58,8 +58,8 @@
             #OrderId#,
             #Status#,
             #Remark#,
-            GetDate(),
-            GetDate()
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -74,7 +74,7 @@
             [OrderId] = #OrderId#,
             [Status] = #Status#,
             [Remark] = #Remark#,
-            [UpdateDate] = GetDate()
+            [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>
@@ -144,15 +144,15 @@
         </select>
 
         <update id="proc_StandardOrganization_Rename" parameterClass="StandardOrganizationInfo">
-            UPDATE [tb_StandardOrganization] SET [Name] = #Name#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_StandardOrganization] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
 
         <update id="proc_StandardOrganization_SetGlobalName" >
-            Update [tb_StandardOrganization] SET GlobalName = #GlobalName#, [UpdateDate] = GetDate() WHERE Id = #Id#
+            Update [tb_StandardOrganization] SET GlobalName = #GlobalName#, [UpdateDate] = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_StandardOrganization_SetParentId" >
-            UPDATE [tb_StandardOrganization] SET [ParentId] = #ParentId#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_StandardOrganization] SET [ParentId] = #ParentId#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
 
         <insert id="proc_StandardOrganization_SyncFromPackPage" parameterClass="StandardOrganizationInfo" >
@@ -166,7 +166,7 @@
             [OrderId] = #OrderId#,
             [Status] = #Status#,
             [Remark] = #Remark#,
-            [UpdateDate] = GetDate()
+            [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
             END
@@ -192,8 +192,8 @@
             #OrderId#,
             #Status#,
             #Remark#,
-            GetDate(),
-            GetDate()
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
             )
             END
         </insert>

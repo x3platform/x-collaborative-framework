@@ -50,8 +50,8 @@
 				#Options#,
 				#OrderId#,
 				#Remark#,
-				Now(),
-				Now()
+				CURRENT_TIMESTAMP,
+				CURRENT_TIMESTAMP
 			)
 		</insert>
 
@@ -64,7 +64,7 @@
 				`Options` = #Options#,
 				`OrderId` = #OrderId#,
 				`Remark` = #Remark#,
-				`UpdateDate` = Now()
+				`UpdateDate` = CURRENT_TIMESTAMP
 			
 			WHERE `Id` = #Id#
 		</update>
