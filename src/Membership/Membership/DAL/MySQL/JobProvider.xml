@@ -36,8 +36,8 @@
                 #Code#,
                 #Name#,
                 #Status#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -47,7 +47,7 @@
                 `Code` = #Code#,
                 `Name` = #Name#,
                 `Status` = #Status#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -111,7 +111,7 @@
         </select>
 
         <update id="proc_Job_Rename" parameterClass="JobInfo">
-            UPDATE `tb_Job` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Job` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
         
         <delete id="proc_Job_StandardRole_DeleteByJobId" >
@@ -130,7 +130,7 @@
                 `Code` = #Code#,
                 `Name` = #Name#,
                 `Status` = #Status#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
                 WHERE `Id` = #Id#
             END
@@ -151,8 +151,8 @@
                     #Code#,
                     #Name#,
                     #Status#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

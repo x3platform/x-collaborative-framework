@@ -33,7 +33,7 @@ namespace X3Platform.Sessions.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = SessionsConfiguration.ApplicationName;
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile SessionsConfigurationView instance = null;
 
         private static object lockObject = new object();

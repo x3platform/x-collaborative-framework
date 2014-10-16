@@ -81,7 +81,7 @@ namespace X3Platform.Tasks.Configuration
                         "MessageQueueMode",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_MessageQueueMode = StringHelper.NullOrEmptyTo(this.m_MessageQueueMode, "OFF");
 
                     this.m_MessageQueueMode = this.m_MessageQueueMode.ToUpper();
@@ -108,7 +108,7 @@ namespace X3Platform.Tasks.Configuration
                         "MessageQueueMachineName",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_MessageQueueMachineName = StringHelper.NullOrEmptyTo(this.m_MessageQueueMachineName, @".\private$");
                 }
 
@@ -133,7 +133,7 @@ namespace X3Platform.Tasks.Configuration
                         "MessageQueueName",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_MessageQueueName = StringHelper.NullOrEmptyTo(this.m_MessageQueueName, "tasks$default$queue");
                 }
 
@@ -158,7 +158,7 @@ namespace X3Platform.Tasks.Configuration
                         "PrefixTargetUrl",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_PrefixTargetUrl = StringHelper.NullOrEmptyTo(this.m_PrefixTargetUrl, KernelConfigurationView.Instance.HostName);
                 }
 
@@ -183,7 +183,7 @@ namespace X3Platform.Tasks.Configuration
                         "ClientRefreshInterval",
                         this.Configuration.Keys));
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (this.m_ClientRefreshInterval == 0)
                     {
                         this.m_ClientRefreshInterval = 10;

@@ -32,7 +32,7 @@ namespace X3Platform.Storages.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = StoragesConfiguration.ApplicationName;
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile StoragesConfigurationView instance = null;
 
         private static object lockObject = new object();

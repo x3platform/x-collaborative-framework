@@ -48,8 +48,8 @@
             #Lock#,
             #Tags#,
             #OrderId#,
-            GetDate(),
-            GetDate()
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -62,7 +62,7 @@
             [Lock] = #Lock#,
             [Tags] = #Tags#,
             [OrderId] = #OrderId#,
-            [UpdateDate] = GetDate()
+            [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>

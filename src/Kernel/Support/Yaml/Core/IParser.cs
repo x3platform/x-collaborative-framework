@@ -19,7 +19,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-﻿using X3Platform.Yaml.Core.Events;
+using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Core
 {

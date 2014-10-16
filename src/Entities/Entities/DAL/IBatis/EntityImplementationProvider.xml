@@ -50,8 +50,8 @@
             #CompletionStatus#,
             #WorkContent#,
             #Status#,
-            GetDate(),
-            GetDate()
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -65,7 +65,7 @@
             [CompletionStatus] = #CompletionStatus#,
             [WorkContent] = #WorkContent#,
             [Status] = #Status#,
-            [UpdateDate] = GetDate()
+            [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>

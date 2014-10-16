@@ -38,8 +38,8 @@
                 #Name#,
                 #Value#,
                 #Status#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -49,7 +49,7 @@
                 `Name` = #Name#,
                 `Value` = #Value#,
                 `Status` = #Status#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -113,7 +113,7 @@
         </select>
 
         <update id="proc_JobGrade_Rename" parameterClass="JobGradeInfo">
-            UPDATE `tb_JobGrade` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_JobGrade` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <insert id="proc_JobGrade_SyncFromPackPage" parameterClass="JobGradeInfo" >
@@ -124,7 +124,7 @@
                     `Name` = #Name#,
                     `Value` = #Value#,
                     `Status` = #Status#,
-                    `UpdateDate` = Now()
+                    `UpdateDate` = CURRENT_TIMESTAMP
 
                 WHERE `Id` = #Id#
             END
@@ -145,8 +145,8 @@
                     #Name#,
                     #Value#,
                     #Status#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

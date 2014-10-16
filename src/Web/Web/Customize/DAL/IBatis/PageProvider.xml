@@ -50,8 +50,8 @@
                 #Name#,
                 #Title#,
                 #Html#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -60,7 +60,7 @@
 
             Title = #Title#,
             Html = #Html#,
-            UpdateDate = GetDate()
+            UpdateDate = CURRENT_TIMESTAMP
 
             WHERE AuthorizationObjectType = #AuthorizationObjectType# AND AuthorizationObjectId = #AuthorizationObjectId# AND Name = #Name#
         </update>

@@ -117,8 +117,8 @@
             #Status#,
             #Remark#,
             #FullPath#,
-            Now(),
-            Now()
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -142,7 +142,7 @@
             `Status` = #Status#,
             `Remark` = #Remark#,
             `FullPath` = #FullPath#,
-            `UpdateDate` = Now()
+            `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -261,7 +261,7 @@
                     `Status` = #Status#,
                     `Remark` = #Remark#,
                     `FullPath` = #FullPath#,
-                    `UpdateDate` = Now()
+                    `UpdateDate` = CURRENT_TIMESTAMP
 
                 WHERE `Id` = #Id#
             END
@@ -310,8 +310,8 @@
                     #Status#,
                     #Remark#,
                     #FullPath#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

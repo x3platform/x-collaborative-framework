@@ -121,8 +121,8 @@
                 #OrderId#,
                 #Status#,
                 #Remark#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -151,7 +151,7 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = GetDate()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id# AND UpdateDate = #UpdateDate#
         </update>
@@ -239,7 +239,7 @@
             (AuthorizationObjectType, AuthorizationObjectId, AuthorityId, ApplicationId, UpdateDate, CreateDate)
 
             VALUES
-            (#AuthorizationObjectType#, #AuthorizationObjectId#, #AuthorityId#, #ApplicationId#, GetDate(), GetDate())
+            (#AuthorizationObjectType#, #AuthorizationObjectId#, #AuthorityId#, #ApplicationId#, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
         </insert>
 
         <delete id="proc_Application_RemoveAuthorizationScopeObjects">
@@ -260,7 +260,7 @@
                 ApplicationName = #ApplicationName#,
                 ApplicationDisplayName = #ApplicationDisplayName#,
 
-                UpdateDate = GetDate()
+                UpdateDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
 
@@ -319,8 +319,8 @@
                     #OrderId#,
                     #Status#,
                     #Remark#,
-                    GetDate(),
-                    GetDate()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

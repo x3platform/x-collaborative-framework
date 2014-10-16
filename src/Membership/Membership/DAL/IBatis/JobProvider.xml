@@ -55,8 +55,8 @@
                 #OrderId#,
                 #Status#,
                 #Remark#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -70,7 +70,7 @@
                 [OrderId] = #OrderId#,
                 [Status] = #Status#,
                 [Remark] = #Remark#,
-                [UpdateDate] = GetDate()
+                [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>
@@ -138,7 +138,7 @@
         </select>
 
         <update id="proc_Job_Rename" parameterClass="JobInfo">
-            UPDATE [tb_Job] SET [Name] = #Name#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_Job] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
         
         <delete id="proc_Job_StandardRole_DeleteByJobId" >
@@ -160,7 +160,7 @@
                     [OrderId] = #OrderId#,
                     [Status] = #Status#,
                     [Remark] = #Remark#,
-                    [UpdateDate] = GetDate()
+                    [UpdateDate] = CURRENT_TIMESTAMP
 
                 WHERE [Id] = #Id#
             END
@@ -187,8 +187,8 @@
                     #OrderId#,
                     #Status#,
                     #Remark#,
-                    GetDate(),
-                    GetDate()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

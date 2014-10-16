@@ -54,7 +54,7 @@
                     #FinishTime#,
                     #TimeSpan#,
                     #IP#,
-                    GetDate()
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

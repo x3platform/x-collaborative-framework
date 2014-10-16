@@ -120,8 +120,8 @@
                 #Address#,
                 #Url#,
                 #FullPath#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -146,7 +146,7 @@
                 Address = #Address#,
                 Url = #Url#,
                 FullPath = #FullPath#,
-                UpdateDate = GetDate()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -234,7 +234,7 @@
                 Rtx = #Rtx#, 
                 PostCode = #PostCode#, 
                 Address = #Address#, 
-                UpdateDate = GetDate() 
+                UpdateDate = CURRENT_TIMESTAMP 
             
             WHERE AccountId = #AccountId#
         </update>
@@ -246,29 +246,29 @@
                 DepartmentId = #DepartmentId#, 
                 Department2Id = #Department2Id#, 
                 Department3Id = #Department3Id#, 
-                UpdateDate = GetDate() 
+                UpdateDate = CURRENT_TIMESTAMP 
             
             WHERE AccountId = #AccountId#
         </update>
         
         <update id="proc_Member_SetDefaultOrganization" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET OrganizationId = #OrganizationId#, UpdateDate = GetDate() WHERE AccountId = #AccountId#
+            UPDATE [tb_Member] SET OrganizationId = #OrganizationId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultRole" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET RoleId = #RoleId#, UpdateDate = GetDate() WHERE AccountId = #AccountId#
+            UPDATE [tb_Member] SET RoleId = #RoleId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultJob" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET JobId = #JobId#, UpdateDate = GetDate() WHERE AccountId = #AccountId#
+            UPDATE [tb_Member] SET JobId = #JobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultAssignedJob" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET AssignedJobId = #AssignedJobId#, UpdateDate = GetDate() WHERE AccountId = #AccountId#
+            UPDATE [tb_Member] SET AssignedJobId = #AssignedJobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultJobGrade" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET JobGradeId = #JobGradeId#, JobGradeDisplayName = (SELECT Name FROM tb_JobGrade WHERE Id = #JobGradeId#), UpdateDate = GetDate() WHERE AccountId = #AccountId#
+            UPDATE [tb_Member] SET JobGradeId = #JobGradeId#, JobGradeDisplayName = (SELECT Name FROM tb_JobGrade WHERE Id = #JobGradeId#), UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <insert id="proc_Member_SyncFromPackPage" parameterClass="MemberInfo" >
@@ -289,7 +289,7 @@
                     GraduationDate = #GraduationDate#,
                     EntryDate = #EntryDate#,
                     PromotionDate = #PromotionDate#,
-                    UpdateDate = GetDate()
+                    UpdateDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
             END
@@ -330,8 +330,8 @@
                     #GraduationDate#,
                     #EntryDate#,
                     #PromotionDate#,
-                    GetDate(),
-                    GetDate()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

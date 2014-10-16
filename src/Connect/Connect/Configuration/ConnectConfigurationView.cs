@@ -82,7 +82,7 @@ namespace X3Platform.Connect.Configuration
                         "ApiHostName",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_ApiHostName = StringHelper.NullOrEmptyTo(this.m_ApiHostName, KernelConfigurationView.Instance.HostName);
 
                     this.m_ApiHostName = this.m_ApiHostName.ToLower();
@@ -109,7 +109,7 @@ namespace X3Platform.Connect.Configuration
                         "SessionTimeLimit",
                         this.Configuration.Keys));
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     if (this.m_SessionTimeLimit == 0)
                     {
                         this.m_SessionTimeLimit = 86400;
@@ -137,7 +137,7 @@ namespace X3Platform.Connect.Configuration
                         "TrackingCall",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_TrackingCall = StringHelper.NullOrEmptyTo(this.m_TrackingCall, "NO");
 
                     this.m_TrackingCall = this.m_TrackingCall.ToUpper();

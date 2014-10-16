@@ -137,7 +137,7 @@
         </select>
 
         <update id="proc_TimingTask_SetSent" >
-            UPDATE [tb_TimingTask_Receiver] SET IsSend = 1, SendTime = GETDATE() WHERE $WhereClause$
+            UPDATE [tb_TimingTask_Receiver] SET IsSend = 1, SendTime = CURRENT_TIMESTAMP WHERE $WhereClause$
         </update>
 
         <update id="proc_TimingTask_SetUnsent" >

@@ -67,7 +67,7 @@ AS
 BEGIN
   DECLARE @todayNo int
 
-  SET @todayNo = datepart(dw,getdate())   
+  SET @todayNo = datepart(dw,CURRENT_TIMESTAMP)   
 
 
  
@@ -80,19 +80,19 @@ BEGIN
     insert into #taskId(Id)
     select Id from Base_HrAlert_Task,Base_HrAlert_TaskReceiver
     where Base_HrAlert_Task.Id = Base_HrAlert_TaskReceiver.taskId
-    and Dateadd(dd,-3,alertTime) = dbo.ToShortDate(Getdate())
+    and Dateadd(dd,-3,alertTime) = dbo.ToShortDate(CURRENT_TIMESTAMP)
     and isSend = '0'
 
     insert into #taskId(Id)
     select Id from Base_HrAlert_Task,Base_HrAlert_TaskReceiver
     where Base_HrAlert_Task.Id = Base_HrAlert_TaskReceiver.taskId
-    and Dateadd(dd,-2,alertTime) = dbo.ToShortDate(Getdate())
+    and Dateadd(dd,-2,alertTime) = dbo.ToShortDate(CURRENT_TIMESTAMP)
     and isSend = '0'
 
     insert into #taskId(Id)
     select Id from Base_HrAlert_Task,Base_HrAlert_TaskReceiver
     where Base_HrAlert_Task.Id = Base_HrAlert_TaskReceiver.taskId
-    and Dateadd(dd,-1,alertTime) = dbo.ToShortDate(Getdate())
+    and Dateadd(dd,-1,alertTime) = dbo.ToShortDate(CURRENT_TIMESTAMP)
     and isSend = '0'
   END
   ELSE
@@ -100,7 +100,7 @@ BEGIN
     insert into #taskId(Id)
     select Id from Base_HrAlert_Task,Base_HrAlert_TaskReceiver
     where Base_HrAlert_Task.Id = Base_HrAlert_TaskReceiver.taskId
-    and Dateadd(dd,-1,alertTime) = dbo.ToShortDate(Getdate())
+    and Dateadd(dd,-1,alertTime) = dbo.ToShortDate(CURRENT_TIMESTAMP)
     and isSend = '0'
   END
 

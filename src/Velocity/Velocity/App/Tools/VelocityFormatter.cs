@@ -27,7 +27,7 @@ namespace X3Platform.Velocity.App.Tools
     /// <para>Here's an example of some uses:
     /// <code><pre>
     /// $formatter.formatShortDate($object.Date)
-    /// $formatter.formatLongDate($db.getRecord(232).getDate())
+    /// $formatter.formatLongDate($db.getRecord(232).CURRENT_TIMESTAMP)
     /// $formatter.formatArray($array)
     /// $formatter.limitLen(30, $object.Description)
     /// </pre></code>
