@@ -1,10 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-
 namespace X3Platform.Util
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Runtime.InteropServices;
+    #endregion
+
+    /// <summary>命令行辅助类(只支持 Windows 环境)</summary>
     public sealed class CommandLineHelper
     {
         private static IntPtr consoleHandle;

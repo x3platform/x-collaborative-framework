@@ -1,19 +1,6 @@
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// Filename     :StringHelper.cs
-//
-// Description  :�ַ���������
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Util
 {
+    #region Using Libraries
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -23,11 +10,12 @@ namespace X3Platform.Util
     using System.Text.RegularExpressions;
     using System.Web;
     using System.Threading;
+    #endregion
 
-    /// <summary>�ַ���������</summary>
+    /// <summary>字符串处理辅助类</summary>
     public sealed class StringHelper
     {
-        #region 属性:UnicodeEncode(string text)
+        #region 函数:UnicodeEncode(string text)
         /// <summary></summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -46,7 +34,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:UnicodeDecode(string text)
+        #region 函数:UnicodeDecode(string text)
         /// <summary></summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -78,20 +66,20 @@ namespace X3Platform.Util
         #endregion
 
         //-------------------------------------------------------
-        // �ַ������ô���
+        // 字符串常用处理
         //-------------------------------------------------------
 
-        #region 属性:ToBytes(string text)
-        /// <summary>���ı���Ϣת���ֽ���Ϣ</summary>
-        /// <param name="text">�ı���Ϣ</param>
-        /// <returns>�ֽ�����</returns>
+        #region 函数:ToBytes(string text)
+        /// <summary>将文本信息转成字节信息</summary>
+        /// <param name="text">文本信息</param>
+        /// <returns>字节数组</returns>
         public static byte[] ToBytes(string text)
         {
             return Encoding.Default.GetBytes(text);
         }
         #endregion
 
-        #region 属性:ToStream(string text)
+        #region 函数:ToStream(string text)
         /// <summary></summary>
         /// <param name="text"></param>
         /// <returns>string</returns>
@@ -102,24 +90,23 @@ namespace X3Platform.Util
         #endregion
 
         //-------------------------------------------------------
-        // �ַ�����ʽ������
+        // 字符串格式化处理
         //-------------------------------------------------------
 
-        #region 属性:ToLeftString(string text, int length)
-        /// <summary>��ȡ�ı�����������</summary>
-        /// <param name="text">�ı���Ϣ</param>
-        /// <param name="length">�ַ�����</param>
-        /// <returns>�ı���Ϣ</returns>
+        #region 函数:ToLeftString(string text, int length)
+        /// <summary></summary>
+        /// <param name="text"></param>
+        /// <param name="length">length</param>
+        /// <returns>string</returns>
         public static string ToLeftString(string text, int length)
         {
             return ToLeftString(text, length, true);
         }
 
-        /// <summary>��ȡ�ı�����������</summary>
-        /// <param name="text">�ı���Ϣ</param>
-        /// <param name="length">�ַ�����</param>
-        /// <param name="hasEllipsis">�Ƿ�����ʡ�Ժ�</param>
-        /// <returns>�ı���Ϣ</returns>
+        /// <summary></summary>
+        /// <param name="text"></param>
+        /// <param name="length">length</param>
+        /// <returns>string</returns>
         public static string ToLeftString(string text, int length, bool hasEllipsis)
         {
             if (string.IsNullOrEmpty(text) || text.Length - 1 < length) { return text; }
@@ -128,12 +115,14 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToRightString(string text, int length, bool hasEllipsis)
-        /// <summary>��ȡ�ı��Ҳ�������</summary>
-        /// <param name="text">�ı���Ϣ</param>
-        /// <param name="length">�ַ�����</param>
-        /// <param name="hasEllipsis">�Ƿ�����ʡ�Ժ�</param>
-        /// <returns>�ı���Ϣ</returns>
+        #region 函数:ToRightString(string text, int length, bool hasEllipsis)
+        /// <summary>
+        /// 取右边的几个
+        /// </summary>
+        /// <param name="inString"></param>
+        /// <param name="length"></param>
+        /// <param name="hasEllipsis"></param>
+        /// <returns></returns>
         public static string ToRightString(string text, int length, bool hasEllipsis)
         {
             if (string.IsNullOrEmpty(text) || text.Length < length) { return text; }
@@ -142,14 +131,14 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSubString(string text, string tagStart, bool tagStartBool, string tagEnd, bool tagEndBool)
-        /// <summary>��ȡ�����ַ�</summary>
-        /// <param name="text">���������ַ���</param>
-        /// <param name="tagStart">��ʼ��ǩ</param>
-        /// <param name="tagStartBool">�Ƿ�������ʼ��ǩ</param>
-        /// <param name="tagEnd">������ǩ</param>
-        /// <param name="tagEndBool">�Ƿ�����������ǩ</param>
-        /// <returns>���������ַ�</returns>
+        #region 函数:ToSubString(string text, string tagStart, bool tagStartBool, string tagEnd, bool tagEndBool)
+        /// <summary>截取部分字符</summary>
+        /// <param name="text">待处理的字符串</param>
+        /// <param name="tagStart">开始标签</param>
+        /// <param name="tagStartBool">是否包含开始标签</param>
+        /// <param name="tagEnd">结束标签</param>
+        /// <param name="tagEndBool">是否结束结束标签</param>
+        /// <returns>处理后的字符</returns>
         public static string ToSubString(string text, string tagStart, bool tagStartBool, string tagEnd, bool tagEndBool)
         {
             try
@@ -187,20 +176,20 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToCutString(string text, int length)
-        /// <summary>�ַ����ȿ��� ���� Ӣ��ʶ��,һ��������Ϊ2���ַ����ȴ���</summary>
-        /// <param name="text">Ҫ�����и����ַ���</param>
-        /// <param name="length">���صĳ��ȣ��Զ�ʶ����Ӣ�ģ�</param>
+        #region 函数:ToCutString(string text, int length)
+        /// <summary>字符长度控制 中文 英文识别,一个汉字作为2个字符长度处理</summary>
+        /// <param name="text">要进行切割的字符串</param>
+        /// <param name="length">返回的长度（自动识别中英文）</param>
         /// <returns></returns>
         public static string ToCutString(string text, int length)
         {
             return ToCutString(text, length, false);
         }
 
-        /// <summary>�ַ����ȿ��� ���� Ӣ��ʶ��,һ��������Ϊ2���ַ����ȴ���</summary>
-        /// <param name="text">Ҫ�����и����ַ���</param>
-        /// <param name="length">���صĳ��ȣ��Զ�ʶ����Ӣ�ģ�</param>
-        /// <param name="hasEllipsis">�Ƿ�����ʡ�Ժ�</param>
+        /// <summary>字符长度控制 中文 英文识别,一个汉字作为2个字符长度处理</summary>
+        /// <param name="text">要进行切割的字符串</param>
+        /// <param name="length">返回的长度（自动识别中英文）</param>
+        /// <param name="hasEllipsis">是否输出省略号</param>
         /// <returns></returns>
         public static string ToCutString(string text, int length, bool hasEllipsis)
         {
@@ -217,8 +206,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToDate(string date)
-        /// <summary>��ʽ������</summary>
+        #region 函数:ToDate(string date)
+        /// <summary>格式化日期</summary>
         /// <param name="date"></param>
         /// <returns></returns>
         public static string ToDate(string date)
@@ -229,13 +218,13 @@ namespace X3Platform.Util
             }
             catch
             {
-                // �����ڸ�ʽ�޷�ʶ��,ת��ʧ��,����ԭʼ����.
+                //当日期格式无法识别,转换失败,返回原始数据.
                 return date;
             }
         }
 
         /// <summary>
-        /// ͳһ���ڸ�ʽ
+        /// 统一日期格式
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -246,9 +235,9 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToTime(string date)
+        #region 函数:ToTime(string date)
         /// <summary>
-        /// ��ʽ��ʱ��
+        /// 格式化时间
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -258,25 +247,25 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSmartTime(string date)
-        /// <summary>�������ڸ�ʽ</summary>
+        #region 函数:ToSmartTime(string date)
+        /// <summary>智能日期格式</summary>
         /// <param name="date"></param>
         /// <returns></returns>
         public static string ToSmartTime(DateTime date)
         {
             //
-            // 1.������ǰ��ʱ����ʾ "yyyy��"
+            // 1.今年以前的时间显示 "yyyy年"
             //
-            // 2.������ʱ����ʾΪ "MM��dd��"
+            // 2.今年的时间显示为 "MM月dd日"
             //
-            // 3.������ʱ����ʾΪ "HH:mm:ss"
+            // 3.当天的时间显示为 "HH:mm:ss"
             //
-            // 3.����ʱ�� ��ʾΪ "yyyy-MM-dd HH:mm:ss"
+            // 3.其他时间 显示为 "yyyy-MM-dd HH:mm:ss"
             //
 
             if (date.Year < DateTime.Now.Year)
             {
-                return date.ToString("yyyy��");
+                return date.ToString("yyyy年");
             }
             else
             {
@@ -286,7 +275,7 @@ namespace X3Platform.Util
                 }
                 else if (DateTime.Now.Year == date.Year)
                 {
-                    return date.ToString("MM��dd��");
+                    return date.ToString("MM月dd日");
                 }
                 else
                 {
@@ -296,32 +285,32 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToGuid(Guid g)
-        /// <summary>����һ��Guid��ʽ�ַ���</summary>
+        #region 函数:ToGuid(Guid g)
+        /// <summary>生成一个Guid格式字符串</summary>
         /// <returns></returns>
         public static string ToGuid()
         {
             return ToGuid(Guid.NewGuid());
         }
 
-        /// <summary>����һ��Guid��ʽ�ַ���</summary>
+        /// <summary>生成一个Guid格式字符串</summary>
         /// <param name="g"></param>
         /// <returns></returns>
         public static string ToGuid(Guid g)
         {
             //
-            // ˵����      ����ֵ�ĸ�ʽ
+            // 说明符      返回值的格式
             //
-            //N             32 λ��
+            //N             32 位：
             //              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
             //
-            //D             �����ַ��ָ��� 32 λ���֣�
+            //D             由连字符分隔的 32 位数字：
             //              xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
             //
-            //B             ���ڴ������С������ַ��ָ��� 32 λ���֣�
+            //B             括在大括号中、由连字符分隔的 32 位数字：
             //              {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
             //
-            //P             ����Բ�����С������ַ��ָ��� 32 λ���֣�
+            //P             括在圆括号中、由连字符分隔的 32 位数字：
             //              (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
             //
 
@@ -329,15 +318,15 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:To16DigitGuid(Guid g)
-        /// <summary>��һ��GuidΪ��������һ��16λ��ʽ���ַ���</summary>
+        #region 函数:To16DigitGuid(Guid g)
+        /// <summary>以一个Guid为因子生成一个16位格式的字符串</summary>
         /// <returns></returns>
         public static string To16DigitGuid()
         {
             return To16DigitGuid(Guid.NewGuid());
         }
 
-        /// <summary>��һ��GuidΪ��������һ��16λ��ʽ���ַ���</summary>
+        /// <summary>以一个Guid为因子生成一个16位格式的字符串</summary>
         /// <param name="g"></param>
         /// <returns></returns>
         public static string To16DigitGuid(Guid g)
@@ -350,7 +339,7 @@ namespace X3Platform.Util
                 i *= ((int)b + 1);
             }
 
-            // {0:x} ��ʶ16���Ƹ�ʽ������
+            // {0:x} 标识16进制格式的数字
             return string.Format("{0:x}", i - DateTime.Now.Ticks);
         }
         #endregion
@@ -367,8 +356,8 @@ namespace X3Platform.Util
             return BitConverter.ToInt64(buffer, 0).ToString();
         }
 
-        #region 属性:ToMD5(string text)
-        /// <summary>ȡ��MD5 Hashֵ</summary>
+        #region 函数:ToMD5(string text)
+        /// <summary>取得MD5 Hash值</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToMD5(string text)
@@ -378,7 +367,7 @@ namespace X3Platform.Util
             return StringHelper.ToMD5(buffer);
         }
 
-        /// <summary>ȡ��MD5 Hashֵ</summary>
+        /// <summary>取得MD5 Hash值</summary>
         public static string ToMD5(byte[] buffer)
         {
             StringBuilder outString = new StringBuilder();
@@ -394,28 +383,28 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToChineseTag(string text)
-        /// <summary>��Ӣ�ı�������ת��Ϊ���ı������� , Punctuation</summary>
-        /// <param name="text">�账�����ַ���</param>
-        /// <returns>�ַ���</returns>
+        #region 函数:ToChineseTag(string text)
+        /// <summary>将英文标点符号转换为中文标点符号 , Punctuation</summary>
+        /// <param name="text">需处理的字符串</param>
+        /// <returns>字符串</returns>
         public static string ToChineseTag(string text)
         {
             /*
-             * �����ַ���Ӧ�ı���
+             * 半角字符对应的编号
              *
-             * 32           �ո�
-             * 33-47        ����
+             * 32           空格
+             * 33-47        标点
              * 48-57        0~9
-             * 58-64        ����
+             * 58-64        标点
              * 65-90        A~Z
-             * 91-96        ����
+             * 91-96        标点
              * 97-122       a~z
-             * 123-126      ����
+             * 123-126      标点
              *
              *
-             * �����ַ� + 65248 = ȫ���ַ�
+             * 半角字符 + 65248 = 全角字符
              *
-             * ȫ�ǿո�����
+             * 全角空格例外
              */
 
             StringBuilder outString = new StringBuilder();
@@ -438,9 +427,9 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToFirstUpper(string text)
-        /// <summary>���������ַ�����ʽ�����õ�����ĸΪ��д���ַ���. e.g. user -> User.</summary>
-        /// <param name="text">��Ҫ�������ַ���</param>
+        #region 函数:ToFirstUpper(string text)
+        /// <summary>对输入的字符串格式化，得到首字母为大写的字符床. e.g. user -> User.</summary>
+        /// <param name="text">需要处理的字符串</param>
         /// <returns></returns>
         public static string ToFirstUpper(string text)
         {
@@ -451,9 +440,9 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToFirstLower(string text)
-        /// <summary>���������ַ���ʽ�����õ�����ĸΪСд���ַ���. ���� User -> user.</summary>
-        /// <param name="text">��Ҫ�������ַ���</param>
+        #region 函数:ToFirstLower(string text)
+        /// <summary>对输入的字符格式化，得到首字母为小写的字符串. 例如 User -> user.</summary>
+        /// <param name="text">需要处理的字符串</param>
         /// <returns></returns>
         public static string ToFirstLower(string text)
         {
@@ -464,9 +453,9 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToProcedurePrefix(string text)
-        /// <summary>���������ַ���ʽ�����õ�����ĸΪСд���ַ���. ���� tb_User -> proc_User.</summary>
-        /// <param name="text">���ݱ�����</param>
+        #region 函数:ToProcedurePrefix(string text)
+        /// <summary>对输入的字符格式化，得到首字母为小写的字符串. 例如 tb_User -> proc_User.</summary>
+        /// <param name="text">数据表名称</param>
         /// <returns></returns>
         public static string ToProcedurePrefix(string text)
         {
@@ -482,10 +471,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToProcedurePrefix(string text, string tablePrefix)
-        /// <summary>���������ַ���ʽ�����õ�����ĸΪСд���ַ���. ���� tb_User -> proc_User.</summary>
-        /// <param name="text">���ݱ�����</param>
-        /// <param name="tablePrefix">���ݱ���ǰ׺</param>
+        #region 函数:ToProcedurePrefix(string text, string tablePrefix)
+        /// <summary>对输入的字符格式化，得到首字母为小写的字符串. 例如 tb_User -> proc_User.</summary>
+        /// <param name="text">数据表名称</param>
+        /// <param name="tablePrefix">数据表的前缀</param>
         /// <returns></returns>
         public static string ToProcedurePrefix(string text, string tablePrefix)
         {
@@ -500,8 +489,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeXml(string text)
-        /// <summary>����Xml�ڵ��еķǷ��ַ�</summary>
+        #region 函数:ToSafeXml(string text)
+        /// <summary>处理Xml节点中的非法字符</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeXml(string text)
@@ -510,8 +499,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeJson(string text)
-        /// <summary>Json��ʽ�ַ����е������ַ�.</summary>
+        #region 函数:ToSafeJson(string text)
+        /// <summary>Json格式字符串中的特殊字符.</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeJson(string text)
@@ -540,8 +529,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeSQL(string text)
-        /// <summary>����SQL��ʽ�еķǷ��ַ�</summary>
+        #region 函数:ToSafeSQL(string text)
+        /// <summary>处理SQL格式中的非法字符</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeSQL(string text)
@@ -551,8 +540,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeSQL(string text, bool removeQuotes)
-        /// <summary>����SQL��ʽ�еķǷ��ַ�</summary>
+        #region 函数:ToSafeSQL(string text, bool removeQuotes)
+        /// <summary>处理SQL格式中的非法字符</summary>
         /// <param name="text"></param>
         /// <param name="removeQuotes"></param>
         /// <returns></returns>
@@ -564,23 +553,23 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeSQL(string text, string[] removeTags)
-        /// <summary>����SQL��ʽ�еķǷ��ַ�</summary>
+        #region 函数:ToSafeSQL(string text, string[] removeTags)
+        /// <summary>处理SQL格式中的非法字符</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeSQL(string text, string[] removeTags)
         {
             //
-            // 1.�滻һ��������Ϊ����������.
+            // 1.替换一个单引号为两个单引号.
             //
-            // 2.�滻���򾮺�Ϊһ��������.
+            // 2.替换两个井号为一个单引号.
             //
 
             if (string.IsNullOrEmpty(text)) { return string.Empty; }
 
             text = text.Replace(";", string.Empty).Replace("'", "''").Replace("--", "''--''");
 
-            // �ַ������߱�������
+            // 字符串两边必须留白
             Regex regex = new Regex(@"##(.*?)##");
 
             MatchCollection matches = regex.Matches(text);
@@ -591,14 +580,14 @@ namespace X3Platform.Util
             {
                 matchValue = matches[i].Value.Substring(2, matches[i].Value.Length - 4).Trim();
 
-                // �����н�ֹ�� OR ���� -- ��ʼ�ͽ���
+                // 内容中禁止以 OR 或者 -- 开始和结束
                 if (!Regex.IsMatch(matchValue.ToUpper(), "^(OR|--)\\s+|\\s+(OR|--])$"))
                 {
                     text = text.Replace(matches[i].Value, string.Format("'{0}'", matchValue));
                 }
             }
 
-            // �Ƴ��Զ�����ǩ
+            // 移除自定义标签
             foreach (string removeTag in removeTags)
             {
                 if (matchValue.IndexOf(removeTag) != 0)
@@ -611,8 +600,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeLike(string text)
-        /// <summary>����SQL Like �����е�ͨ���ַ�</summary>
+        #region 函数:ToSafeLike(string text)
+        /// <summary>处理SQL Like 条件中的通配字符</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeLike(string text)
@@ -621,8 +610,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeHtml(string text)
-        /// <summary>����ȫ��Html�ַ�</summary>
+        #region 函数:ToSafeHtml(string text)
+        /// <summary>处理安全的Html字符</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeHtml(string text)
@@ -633,8 +622,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeXSS<T>(T targetObject)
-        /// <summary>����ȫ�Ŀ�վ�ű������ַ�</summary>
+        #region 函数:ToSafeXSS<T>(T targetObject)
+        /// <summary>处理安全的跨站脚本攻击字符</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
         /// <returns></returns>
@@ -647,7 +636,7 @@ namespace X3Platform.Util
             Type type = targetObject.GetType();
 
             //
-            // ���������� ����Ϊset_MethodName ���� get_MethodName
+            // 对象的属性 反射为set_MethodName 或者 get_MethodName
             //
 
             MethodInfo[] methods = type.GetMethods();
@@ -686,28 +675,28 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeXSS(string text)
-        /// <summary>����ȫ�Ŀ�վ�ű������ַ�</summary>
+        #region 函数:ToSafeXSS(string text)
+        /// <summary>处理安全的跨站脚本攻击字符</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeXSS(string text)
         {
-            // ԭ�Ĳο� http://www.dbuggr.com/leothenerd/php-function-remove-xss/
+            // 原文参考 http://www.dbuggr.com/leothenerd/php-function-remove-xss/
 
             // remove all non-printable characters. CR(0a) and LF(0b) and TAB(9) are allowed  
-            // �Ƴ����зǴ�ӡ�ַ���ֻ�����س��� CR(0a) ���з� LF(0b) �� TAB(9)
+            // 移除所有非打印字符，只允许回车符 CR(0a) 换行符 LF(0b) 和 TAB(9)
 
             // this prevents some character re-spacing such as <java\0script>
-            // �����Է�ֹһЩ�ַ����������ַ������� <java\0script>
+            // 这可以防止一些字符间的特殊字符，例如 <java\0script>
             // note that you have to handle splits with \n, \r, and \t later since they *are* allowed in some inputs  
             // 
 
             text = Regex.Replace(text, "([\x00-\x08|\x0b-\x0c|\x0e-\x19])", string.Empty);
 
             // straight replacements, the user should never need these since they're normal characters  
-            // ����������
+            // 连续更换，
             // this prevents like <IMG SRC=@avascript:alert('XSS')>  
-            // �����Է�ֹ������Щ���������� <IMG SRC="@avascript:alert('XSS')" >
+            // 这可以防止下面这些情况，例如 <IMG SRC="@avascript:alert('XSS')" >
 
             string search = "abcdefghijklmnopqrstuvwxyz"
                 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -725,7 +714,7 @@ namespace X3Platform.Util
                 text = Regex.Replace(text, "(&#[xX]0{0,8}" + ((int)search[i]).ToString("X") + ";?)", search[i].ToString(), RegexOptions.IgnoreCase);
 
                 // @ @ 0{0,7} matches '0' zero to seven times  
-                // ord() ���������ַ�����һ���ַ���ASCII ֵ
+                // ord() 函数返回字符串第一个字符的ASCII 值
                 // $val = preg_replace('/(&#0{0,8}'.ord($search[$i]).';?)/', $search[$i], $val); // with a = 97 ; 
 
                 text = Regex.Replace(text, "(&#0{0,8}" + (int)search[i] + ";?)", search[i].ToString());
@@ -741,7 +730,7 @@ namespace X3Platform.Util
                "xml", 
                "blink", 
                "link", 
-               // ���ڸ��ı��༭�����ֵĺܶ���ʽ����ͨ�� style ��ǩչ�ֵģ�����ȡ������ style ��ǩ��
+               // 由于富文本编辑器呈现的很多样式都是通过 style 标签展现的，所以取消过滤 style 标签。
                // "style", 
                "script", 
                "embed", 
@@ -876,8 +865,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToSafeUrl(string text)
-        /// <summary>����Url��ַ</summary>
+        #region 函数:ToSafeUrl(string text)
+        /// <summary>过滤Url地址</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string ToSafeUrl(string text)
@@ -899,26 +888,26 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToRandom(int length)
-        /// <summary>ȡ��һ���������ַ���</summary>
-        /// <param Name="length">�ַ����ĳ���</param>
-        /// <returns>��Ϊlength���������ַ���</returns>
+        #region 函数:ToRandom(int length)
+        /// <summary>取得一个随机的字符串</summary>
+        /// <param Name="length">字符串的长度</param>
+        /// <returns>长为length的随机的字符串</returns>
         public static string ToRandom(int length)
         {
             return ToRandom("abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", length);
         }
         #endregion
 
-        #region 属性:ToRandom(string chars, int length)
-        /// <summary>ȡ��һ���������ַ���</summary>
-        /// <param Name="chars">ָ���ַ�</param>
-        /// <param Name="length">�ַ����ĳ���</param>
-        /// <returns>��Ϊlength���������ַ���</returns>
+        #region 函数:ToRandom(string chars, int length)
+        /// <summary>取得一个随机的字符串</summary>
+        /// <param Name="chars">指定字符</param>
+        /// <param Name="length">字符串的长度</param>
+        /// <returns>长为length的随机的字符串</returns>
         public static string ToRandom(string chars, int length)
         {
             if (length <= 0) { return string.Empty; }
 
-            // �ȴ���ʱ�����ƽ�, ������ʱ�伫�̵�������������ͬ��������
+            // 等待定时器的推进, 避免在时间极短的情况下生成相同的随机数
             Thread.Sleep(1);
 
             char[] buffer = new char[length];
@@ -936,11 +925,11 @@ namespace X3Platform.Util
         #endregion
 
         //-------------------------------------------------------
-        // ���ַ�������
+        // 空字符串处理
         //-------------------------------------------------------
 
-        #region 属性:NullTo(string text)
-        /// <summary>Ĭ�ϵĿ�ֵת��, �� null ת��Ϊ "" .</summary>
+        #region 函数:NullTo(string text)
+        /// <summary>默认的空值转换, 把 null 转换为 "" .</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string NullTo(string text)
@@ -949,8 +938,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:NullTo(string text, string replaceText)
-        /// <summary>��ֵת������ null ת��Ϊ replaceText. e.g. NullTo(null,"ok") ���� "ok", NullTo("1","ok")����"1"</summary>
+        #region 函数:NullTo(string text, string replaceText)
+        /// <summary>空值转换，把 null 转换为 replaceText. e.g. NullTo(null,"ok") 返回 "ok", NullTo("1","ok")返回"1"</summary>
         /// <param name="text"></param>
         /// <param name="replaceText"></param>
         /// <returns></returns>
@@ -960,8 +949,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:NullOrEmptyTo(string text, string replaceText)
-        /// <summary>���ַ���ת������ null �� "" ת��Ϊ replaceText. e.g. NullOrEmptyTo(null,"ok")����"ok", NullOrEmptyTo("","ok")����"ok".</summary>
+        #region 函数:NullOrEmptyTo(string text, string replaceText)
+        /// <summary>空字符串转换，把 null 或 "" 转换为 replaceText. e.g. NullOrEmptyTo(null,"ok")返回"ok", NullOrEmptyTo("","ok")返回"ok".</summary>
         /// <param name="text"></param>
         /// <param name="replaceText"></param>
         /// <returns></returns>
@@ -972,34 +961,34 @@ namespace X3Platform.Util
         #endregion
 
         //-------------------------------------------------------
-        // ��������
+        // 清理标记
         //-------------------------------------------------------
 
-        #region 属性:TrimEnd(string text, string trimText)
-        /// <summary>�����ı������ı���</summary>
-        /// <param name="text">�账�����ַ�</param>
-        /// <param name="trimText">��ǩ</param>
-        /// <returns>�ַ���</returns>
+        #region 函数:TrimEnd(string text, string trimText)
+        /// <summary>清除文本最后的标记</summary>
+        /// <param name="text">需处理的字符</param>
+        /// <param name="trimText">标签</param>
+        /// <returns>字符串</returns>
         public static StringBuilder TrimEnd(StringBuilder text, string trimText)
         {
             return (text.ToString().Substring(text.Length - trimText.Length, trimText.Length) == trimText) ? text.Remove(text.Length - trimText.Length, trimText.Length) : text;
         }
         #endregion
 
-        #region 属性:TrimEnd(string text, string trimText)
-        /// <summary>�����ı������ı���</summary>
-        /// <param name="text">�账�����ַ�</param>
-        /// <param name="trimText">��ǩ</param>
-        /// <returns>�ַ���</returns>
+        #region 函数:TrimEnd(string text, string trimText)
+        /// <summary>清除文本最后的标记</summary>
+        /// <param name="text">需处理的字符</param>
+        /// <param name="trimText">标签</param>
+        /// <returns>字符串</returns>
         public static string TrimEnd(string text, string trimText)
         {
             return (text.Substring(text.Length - trimText.Length, trimText.Length) == trimText) ? text.Substring(0, text.Length - trimText.Length) : text;
         }
         #endregion
 
-        #region 属性:RemoveEnterTag(string text)
-        /// <summary>�Ƴ����з�</summary>
-        /// <param name="text">��Ҫ�������ַ���</param>
+        #region 函数:RemoveEnterTag(string text)
+        /// <summary>移除换行符</summary>
+        /// <param name="text">需要处理的字符串</param>
         public static string RemoveEnterTag(string text)
         {
             text = text.Replace("\r", string.Empty);
@@ -1009,7 +998,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:RemoveHtmlTag(string text)
+        #region 函数:RemoveHtmlTag(string text)
         /// <summary>clear html tag of the text.</summary>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -1076,8 +1065,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:FixSQL(string text, string type)
-        /// <summary>��SQL���������ַ�</summary>
+        #region 函数:FixSQL(string text, string type)
+        /// <summary>将SQL语句特殊字符</summary>
         /// <param name="text"></param>
         /// <param name="type"></param>
         /// <returns></returns>

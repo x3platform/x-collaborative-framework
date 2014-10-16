@@ -1,32 +1,20 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :PagingHelper.cs
-//
-// Description  :��ҳ������
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-
-using X3Platform.Ajax;
-using X3Platform.Data;
-
 namespace X3Platform.Util
 {
-    /// <summary>��ҳ������</summary>
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Xml;
+
+    using X3Platform.Ajax;
+    using X3Platform.Data;
+    #endregion
+   
+    /// <summary>分页数据辅助类</summary>
     public class PagingHelper
     {
-        #region ��̬属性:Create(string xml)
-        /// <summary>����Xml�ַ�����������</summary>
+        #region 静态函数:Create(string xml)
+        /// <summary>根据Xml字符串创建对象</summary>
         public static PagingHelper Create(string xml)
         {
             xml = string.Format("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<root>{0}</root>", xml);
@@ -39,8 +27,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ��̬属性:Create(string xml)
-        /// <summary>����Xml�ַ�����������</summary>
+        #region 静态函数:Create(string xml)
+        /// <summary>根据Xml字符串创建对象</summary>
         public static PagingHelper Create(string xml, string queryXml)
         {
             PagingHelper paging = Create(xml);
@@ -58,14 +46,14 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ���캯��:PagingHelper()
-        /// <summary>���캯��: Ĭ�� Page Size = 10 </summary>
+        #region 构造函数:PagesHelper()
+        /// <summary>构造函数: 默认 Page Size = 10 </summary>
         public PagingHelper() : this(10) { }
         #endregion
 
-        #region ���캯��:PagingHelper(int pageSize)
-        /// <summary>���캯��</summary>
-        /// <param name="pageSize">ÿҳ��ʾ����Ŀ</param>
+        #region 构造函数:PagesHelper(int pageSize)
+        /// <summary>构造函数</summary>
+        /// <param name="pageSize">每页显示的数目</param>
         public PagingHelper(int pageSize)
         {
             this.m_PageSize = pageSize;
@@ -80,8 +68,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:Parse()
-        /// <summary>����</summary>
+        #region 函数:Parse()
+        /// <summary>分析</summary>
         private void Parse()
         {
             // Get [rowIndex] [pageCount]
@@ -112,7 +100,7 @@ namespace X3Platform.Util
         #region 属性:PageSize
         private int m_PageSize;
 
-        /// <summary>ÿҳ��ʾ����</summary>
+        /// <summary>每页显示行数</summary>
         public int PageSize
         {
             get { return m_PageSize; }
@@ -131,7 +119,7 @@ namespace X3Platform.Util
         #region 属性:RowIndex
         private int m_RowIndex;
 
-        /// <summary>��������</summary>
+        /// <summary>行索引号</summary>
         public int RowIndex
         {
             get { return m_RowIndex; }
@@ -151,7 +139,9 @@ namespace X3Platform.Util
         #region 属性:RowCount
         private int m_RowCount;
 
-        /// <summary>����ͳ��</summary>
+        /// <summary>
+        /// 行数统计.
+        /// </summary>
         public int RowCount
         {
             get { return m_RowCount; }
@@ -167,7 +157,7 @@ namespace X3Platform.Util
         #region 属性:PageCount
         private int m_PageCount;
 
-        /// <summary>ҳ��ͳ��</summary>
+        /// <summary>页数统计</summary>
         public int PageCount
         {
             get { return m_PageCount; }
@@ -177,7 +167,7 @@ namespace X3Platform.Util
         #region 属性:CurrentPage
         private int m_CurrentPage;
 
-        /// <summary>��ǰҳ</summary>
+        /// <summary>当前页</summary>
         public int CurrentPage
         {
             get { return m_CurrentPage; }
@@ -196,7 +186,7 @@ namespace X3Platform.Util
         #region 属性:FirstPage
         public int m_FirstPage;
 
-        /// <summary>��ҳ</summary>
+        /// <summary>首页</summary>
         public int FirstPage
         {
             get { return m_FirstPage; }
@@ -204,7 +194,7 @@ namespace X3Platform.Util
         #endregion
 
         #region 属性:PreviousPage
-        /// <summary>��ҳ</summary>
+        /// <summary>上页</summary>
         private int m_PreviousPage;
 
         public int PreviousPage
@@ -216,7 +206,7 @@ namespace X3Platform.Util
         #region 属性:NextPage
         private int m_NextPage;
 
-        /// <summary>��ҳ</summary>
+        /// <summary>下页</summary>
         public int NextPage
         {
             get { return m_NextPage; }
@@ -226,7 +216,7 @@ namespace X3Platform.Util
         #region 属性:LastPage
         private int m_LastPage;
 
-        /// <summary>ĩҳ</summary>
+        /// <summary>末页</summary>
         public int LastPage
         {
             get { return m_LastPage; }
@@ -234,13 +224,13 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // ��ҳ����
+        // 分页数据查询条件
         // -------------------------------------------------------
 
         #region 属性:Query
         private DataQuery m_Query = new DataQuery();
 
-        /// <summary>���ݲ�ѯ����</summary>
+        /// <summary>数据查询对象</summary>
         public DataQuery Query
         {
             get { return this.m_Query; }
@@ -250,7 +240,7 @@ namespace X3Platform.Util
         #region 属性:WhereClause
         private string m_WhereClause;
 
-        /// <summary>SQL ��ѯ����</summary>
+        /// <summary>SQL 查询条件</summary>
         [Obsolete("ֱ�ӹ��� SQL ��ѯ��������ע������, ����ʹ�� Query.Where ���Դ���.")]
         public string WhereClause
         {
@@ -262,7 +252,7 @@ namespace X3Platform.Util
         #region 属性:OrderBy
         private string m_OrderBy;
 
-        /// <summary>SQL ��������</summary>
+        /// <summary>SQL 排序规则</summary>
         [Obsolete("ֱ�ӹ��� SQL ��ѯ��������ע������, ����ʹ�� Query.Orders ���Դ���.")]
         public string OrderBy
         {
@@ -271,7 +261,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToString()
+        #region 函数:ToString()
         /// <summary></summary>
         /// <returns></returns>
         public override string ToString()

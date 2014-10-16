@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace X3Platform.Pooling
+﻿namespace X3Platform.Pooling
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>资源标签</summary>
     /// <typeparam name="T"></typeparam>
     internal class ResourceWatcher<T>

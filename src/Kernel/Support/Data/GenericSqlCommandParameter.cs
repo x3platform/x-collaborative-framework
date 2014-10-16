@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Data
 {
     #region Using Libraries
@@ -21,12 +5,12 @@ namespace X3Platform.Data
     using System.Data;
     #endregion
 
-    /// <summary>ͨ�õ�SQL��������</summary>
+    /// <summary>通用的SQL命令参数</summary>
     public struct GenericSqlCommandParameter
     {
         public string m_Name;
 
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         public string Name
         {
             get { return this.m_Name; }
@@ -35,7 +19,7 @@ namespace X3Platform.Data
 
         public object m_Value;
 
-        /// <summary>ֵ</summary>
+        /// <summary>值</summary>
         public object Value
         {
             get { return this.m_Value; }
@@ -44,17 +28,17 @@ namespace X3Platform.Data
 
         public ParameterDirection m_Direction;
 
-        /// <summary>����</summary>
+        /// <summary>类型</summary>
         public ParameterDirection Direction
         {
             get { return this.m_Direction; }
             set { this.m_Direction = value; }
         }
 
-        /// <summary>���캯��</summary>
-        /// <param name="name">����</param>
-        /// <param name="value">ֵ</param>
-        /// <param name="direction">����</param>
+        /// <summary>构造函数</summary>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param>
+        /// <param name="direction">类型</param>
         public GenericSqlCommandParameter(string name, object value, ParameterDirection direction)
         {
             this.m_Name = name;
@@ -62,9 +46,9 @@ namespace X3Platform.Data
             this.m_Direction = direction;
         }
 
-        /// <summary>���캯��</summary>
-        /// <param name="name">����</param>
-        /// <param name="value">ֵ</param>
+        /// <summary>构造函数</summary>
+        /// <param name="name">名称</param>
+        /// <param name="value">值</param>
         public GenericSqlCommandParameter(string name, object value)
             : this(name, value, ParameterDirection.Input)
         {

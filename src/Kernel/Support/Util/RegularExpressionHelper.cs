@@ -1,28 +1,16 @@
-// =============================================================================
-//
-// Copyright (c) 2010 RuanYu
-//
-// Filename     :RegularExpressionHelper.cs
-//
-// Summary      :regular expression helper
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2007-06-03
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace X3Platform.Util
 {
-    /// <summary>��������ʽ������</summary>
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    #endregion
+
+    /// <summary>正则表达式处理辅助类</summary>
     public class RegularExpressionHelper
     {
-        /// <summary>ץȡ���ӵ�ַ</summary>
+        /// <summary>抓取链接地址</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string DumpHrefs(string text)
@@ -41,8 +29,8 @@ namespace X3Platform.Util
             return outString.ToString();
         }
 
-        #region 属性:MDYToDMY(string text)
-        /// <summary>dd-mm-yy ��������ʽ���� mm/dd/yy ��������ʽ</summary>
+        #region 函数:MDYToDMY(string text)
+        /// <summary>dd-mm-yy 的日期形式代替 mm/dd/yy 的日期形式</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string MDYToDMY(string text)
@@ -51,8 +39,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsUnsafeSQL(string text)
-        /// <summary>�����Ƿ��ǲ���ȫ��SQL����</summary>
+        #region 函数:IsUnsafeSQL(string text)
+        /// <summary>检测是否是不安全的SQL语句</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static bool IsUnsafeSQL(string text)
@@ -76,9 +64,9 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsEmail(string text)
-        /// <summary>�����ַ��Ƿ�ΪEmail��ַ</summary>
-        /// <param name="text">Email��ַ��Ϣ.</param>
+        #region 函数:IsEmail(string text)
+        /// <summary>检测字符是否为Email地址</summary>
+        /// <param name="text">Email地址信息.</param>
         /// <returns>true | false</returns>
         public static bool IsEmail(string text)
         {
@@ -89,9 +77,9 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsDecimal(string text)
-        /// <summary>�����ַ��Ƿ�Ϊʮ������.</summary>
-        /// <param name="text">���������ַ���</param>
+        #region 函数:IsDecimal(string text)
+        /// <summary>检测字符是否为十进制数.</summary>
+        /// <param name="text">需检测的字符串</param>
         /// <returns></returns>
         public static bool IsDecimal(string text)
         {
@@ -101,10 +89,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsNumeric(string text)
-        /// <summary>�����ַ��Ƿ�Ϊ����</summary>
-        /// <param name="text">���������ַ���</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsNumeric(string text)
+        /// <summary>检测字符是否为数字</summary>
+        /// <param name="text">需检测的字符串</param>
+        /// <returns>布尔值</returns>
         public static bool IsNumeric(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -112,7 +100,7 @@ namespace X3Platform.Util
 
             for (int i = 0; i < text.Length; i++)
             {
-                // ����ÿ���ַ�
+                // 检测每个字符
                 if (!Char.IsNumber(text, i))
                     return false;
             }
@@ -121,8 +109,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsTelephone(string text)
-        /// <summary>�����Ƿ�Ϊ�绰����</summary>
+        #region 函数:IsTelephone(string text)
+        /// <summary>检测是否为电话号码</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static bool IsTelephone(string text)
@@ -131,8 +119,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsDate(string text)
-        /// <summary>����������</summary>
+        #region 函数:IsDate(string text)
+        /// <summary>检测年月日</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static bool IsDate(string text)
@@ -142,8 +130,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsSafeFilePostfix(string text, string postfix)
-        /// <summary>���ⰲȫ���ļ�����׺</summary>
+        #region 函数:IsSafeFilePostfix(string text, string postfix)
+        /// <summary>检测安全的文件名后缀</summary>
         public static bool IsSafeFilePostfix(string text, string postfix)
         {
             string filePostfix = string.IsNullOrEmpty(postfix) ? "gif|jpg|png" : postfix;
@@ -152,8 +140,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsByte(string text)
-        /// <summary>�����ַ��Ƿ���4��12֮��</summary>
+        #region 函数:IsByte(string text)
+        /// <summary>检测字符是否在4至12之间</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static bool IsByte(string text)
@@ -162,8 +150,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsIP(string text)
-        /// <summary>����IP</summary>
+        #region 函数:IsIP(string text)
+        /// <summary>检测IP</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static bool IsIP(string text)
@@ -172,8 +160,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsGuid(string text)
-        /// <summary>����Guid</summary>
+        #region 函数:IsGuid(string text)
+        /// <summary>检测Guid</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static bool IsGuid(string text)

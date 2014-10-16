@@ -1198,6 +1198,7 @@
     <Compile Include="Yaml\Serialization\YamlFormatter.cs" />
     <Compile Include="Yaml\Serialization\YamlIgnoreAttribute.cs" />
     <Compile Include="Yaml\Serialization\YamlMember.cs" />
+    <None Include="Ajax\config\X3Platform.Ajax.config" />
     <None Include="Collections\README.md" />
     <None Include="CommandLine\Infrastructure\SR.strings" />
     <None Include="CommandLine\Infrastructure\SR.tt">
@@ -1246,6 +1247,7 @@
     <Compile Include="Util\XmlHelper.cs" />
     <Compile Include="Web\Util\HttpUserAgnetHelper.cs" />
     <Compile Include="Web\Util\VirtualPathHelper.cs" />
+    <None Include="Web\UrlRewriter\config\X3Platform.Web.UrlRewriter.config" />
     <None Include="Yaml\README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -1253,10 +1255,8 @@
     <Content Include="config\X3Platform.Logging.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="config\X3Platform.Ajax.config" />
     <Content Include="config\X3Platform.config" />
     <None Include="config\X3Platform.IBatis.Providers.config" />
-    <None Include="config\X3Platform.Web.UrlRewriter.config" />
     <None Include="DynamicProxy\Castle.DynamicProxy.build">
       <SubType>Designer</SubType>
     </None>
@@ -1314,7 +1314,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Ajax\config\" />
     <Folder Include="ObjectBuilder\" />
   </ItemGroup>
   <ItemGroup>

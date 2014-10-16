@@ -1,26 +1,14 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxRequest.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Web;
-
-namespace X3Platform.Ajax.Net
+﻿namespace X3Platform.Ajax.Net
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    #endregion
+
     /// <summary>Ajax请求</summary>
     public class AjaxRequest
     {
