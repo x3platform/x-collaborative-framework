@@ -20,14 +20,14 @@ using System.Xml.Serialization;
 
 namespace X3Platform.Ajax
 {
-    /// <summary>Ajax Sql ����ʽ</summary>
+    /// <summary>Ajax Sql 表达式</summary>
     [Serializable()]
     public class AjaxSqlExpression : AjaxSqlParameter
     {
         #region 属性:Parent
         private AjaxSqlExpression m_Parent = null;
 
-        /// <summary>��������ʽ</summary>
+        /// <summary>父级表达式</summary>
         public AjaxSqlExpression Parent
         {
             get { return m_Parent; }
@@ -38,7 +38,7 @@ namespace X3Platform.Ajax
         #region 属性:SubExpressionList
         private IList<AjaxSqlExpression> list = new List<AjaxSqlExpression>();
 
-        /// <summary>�ӱ���ʽ�б�</summary>
+        /// <summary>子表达式列表</summary>
         public IList<AjaxSqlExpression> SubExpressionList
         {
             get { return list; }
@@ -49,7 +49,7 @@ namespace X3Platform.Ajax
         #region 属性:Prefix
         private string m_Prefix = null;
 
-        /// <summary>ֵ������</summary>
+        /// <summary>值的类型</summary>
         [XmlAttribute("prefix")]
         public string Prefix
         {
@@ -58,14 +58,14 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ���캯��:AjaxSqlExpression()
+        #region 构造函数:AjaxSqlExpression()
         /// <summary></summary>
         public AjaxSqlExpression()
         {
         }
         #endregion
 
-        #region ���캯��:AjaxSqlExpression(string key, string value, string type, string prefix)
+        #region 构造函数:AjaxSqlExpression(string key, string value, string type, string prefix)
         /// <summary></summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -80,7 +80,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:LoadXml(XmlElement element)
+        #region 函数:LoadXml(XmlElement element)
         /// <summary></summary>
         /// <param name="element"></param>
         /// <returns></returns>
@@ -110,7 +110,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Add(AjaxSqlExpression item)
+        #region 函数:Add(AjaxSqlExpression item)
         /// <summary></summary>
         /// <param name="item"></param>
         public void Add(AjaxSqlExpression item)
@@ -119,7 +119,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Remove(AjaxSqlExpression item)
+        #region 函数:Remove(AjaxSqlExpression item)
         /// <summary></summary>
         /// <param name="item"></param>
         public void Remove(AjaxSqlExpression item)
@@ -128,8 +128,8 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:ToString()
-        /// <summary>תΪ�ַ���</summary>
+        #region 函数:ToString()
+        /// <summary>转为字符串</summary>
         /// <returns></returns>
         public override string ToString()
         {

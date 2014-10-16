@@ -1,4 +1,3 @@
-
 namespace X3Platform.Pooling
 {
     using System;

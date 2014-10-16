@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2009-05-10
-//
-// =============================================================================
-
-using System;
+﻿using System;
 
 namespace X3Platform.CacheBuffer
 {

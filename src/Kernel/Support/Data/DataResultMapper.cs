@@ -1,24 +1,10 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IDocumentInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Data
+﻿namespace X3Platform.Data
 {
+    #region Using Libraries
     using System.Collections.Generic;
     using System.Xml;
     using System.Text;
+    #endregion
 
     /// <summary>数据结果映射</summary>
     public class DataResultMapper

@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxStorageConvertor.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Ajax
 {
     using System;
@@ -23,26 +9,23 @@ namespace X3Platform.Ajax
     using X3Platform.Util;
     using X3Platform.Ajax.Configuration;
 
-    // using X3Platform.Ajax.Configuration;
-
     /// <summary></summary>
     public class AjaxStorageConvertor
     {
-
         //-------------------------------------------------------
-        // C# ���� => JOSN ����
+        // C# 对象 => JOSN 对象
         //-------------------------------------------------------
 
-        #region 属性:Parse<T>(IList<T> list)
-        /// <summary>��������ΪJOSN�ַ���</summary>
+        #region 函数:Parse<T>(IList<T> list)
+        /// <summary>对象解析为JOSN字符串</summary>
         public static string Parse<T>(IList<T> list)
         {
             return Parse<T>(list, null);
         }
         #endregion
 
-        #region 属性:Parse<T>(IList<T> list, List<string> banKeys)
-        /// <summary>��������ΪJOSN�ַ���</summary>
+        #region 函数:Parse<T>(IList<T> list, List<string> banKeys)
+        /// <summary>对象解析为JOSN字符串</summary>
         public static string Parse<T>(IList<T> list, List<string> banKeys)
         {
             StringBuilder outString = new StringBuilder();
@@ -63,8 +46,8 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Parse<T>(T targetObject)
-        /// <summary>��������ΪJOSN�ַ���</summary>
+        #region 函数:Parse<T>(T targetObject)
+        /// <summary>对象解析为JOSN字符串</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
         /// <returns></returns>
@@ -74,11 +57,11 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Parse<T>(T targetObject, List<string> banKeys)
-        /// <summary>��������ΪJOSN�ַ���</summary>
+        #region 函数:Parse<T>(T targetObject, List<string> banKeys)
+        /// <summary>对象解析为JOSN字符串</summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
-        /// <param name="banKeys">��ֹת���ļ�</param>
+        /// <param name="banKeys">禁止转化的键</param>
         /// <returns></returns>
         public static string Parse<T>(T targetObject, List<string> banKeys)
         {
@@ -94,7 +77,7 @@ namespace X3Platform.Ajax
             Type type = targetObject.GetType();
 
             //
-            // ���������� ����Ϊset_MethodName����get_MethodName
+            // 对象的属性 反射为set_MethodName或者get_MethodName
             //
 
             MethodInfo[] methods = type.GetMethods();
@@ -186,11 +169,11 @@ namespace X3Platform.Ajax
         #endregion
 
         //-------------------------------------------------------
-        // Xml �ַ��� => C# ����
+        // Xml 字符串 => C# 对象
         //-------------------------------------------------------
 
-        #region 属性:Deserialize<T>(T targetObject, string xml)
-        /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
+        #region 函数:Deserialize<T>(T targetObject, string xml)
+        /// <summary>Xml信息反序列化为实体对象</summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
         public static T Deserialize<T>(T targetObject, string xml)
@@ -203,10 +186,10 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Deserialize<T>(T targetObject, XmlDocument doc)
-        /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
-        /// <param name="targetObject">��Ҫ�����л��Ķ���</param>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:Deserialize<T>(T targetObject, XmlDocument doc)
+        /// <summary>Xml信息反序列化为实体对象</summary>
+        /// <param name="targetObject">需要反序列化的对象</param>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns></returns>
         public static T Deserialize<T>(T targetObject, XmlDocument doc)
         {
@@ -214,8 +197,8 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Deserialize<T>(T targetObject, string xml, List<string> banKeys)
-        /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
+        #region 函数:Deserialize<T>(T targetObject, string xml, List<string> banKeys)
+        /// <summary>Xml信息反序列化为实体对象</summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
         public static T Deserialize<T>(T targetObject, string xml, List<string> banKeys)
@@ -228,8 +211,8 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
-        /// <summary>Xml��Ϣ�����л�Ϊʵ������</summary>
+        #region 函数:Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
+        /// <summary>Xml信息反序列化为实体对象</summary>
         /// <param name="targetObject"></param>
         /// <returns></returns>
         public static T Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
@@ -239,7 +222,7 @@ namespace X3Platform.Ajax
             Type type = targetObject.GetType();
 
             //
-            // ���������� ����Ϊset_MethodName����get_MethodName
+            // 对象的属性 反射为set_MethodName或者get_MethodName
             //
 
             MethodInfo[] methods = type.GetMethods();
@@ -252,7 +235,7 @@ namespace X3Platform.Ajax
 
             string value;
 
-            // ��ȡ���з���������
+            // 获取所有方法的名称
 
             foreach (MethodInfo method in methods)
             {
@@ -344,13 +327,13 @@ namespace X3Platform.Ajax
         #endregion
 
         //-------------------------------------------------------
-        // ץȡ Xml �ĵ��нڵ�������
+        // 抓取 Xml 文档中节点的内容
         //-------------------------------------------------------
 
-        #region 属性:Fetch(string nodeName, string xml)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="xml">Xml �ַ���</param>
+        #region 函数:Fetch(string nodeName, string xml)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="xml">Xml 字符串</param>
         /// <returns></returns>
         public static string Fetch(string nodeName, string xml)
         {
@@ -362,10 +345,10 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string nodeName, XmlDocument doc)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:Fetch(string nodeName, XmlDocument doc)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns></returns>
         public static string Fetch(string nodeName, XmlDocument doc)
         {
@@ -373,11 +356,11 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string nodeName, XmlDocument doc, string resultType)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <param name="resultType">�������� text | xml</param>
+        #region 函数:Fetch(string nodeName, XmlDocument doc, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <param name="resultType">返回类型 text | xml</param>
         /// <returns></returns>
         public static string Fetch(string nodeName, XmlDocument doc, string resultType)
         {
@@ -385,10 +368,10 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string nodeName, XmlElement element)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="element">Xml Ԫ��</param>
+        #region 函数:Fetch(string nodeName, XmlElement element)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
         /// <returns></returns>
         public static string Fetch(string nodeName, XmlElement element)
         {
@@ -396,11 +379,11 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string nodeName, XmlElement element, string resultType)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="element">Xml Ԫ��</param>
-        /// <param name="resultType">�������� text | xml</param>
+        #region 函数:Fetch(string nodeName, XmlElement element, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
+        /// <param name="resultType">返回类型 text | xml</param>
         /// <returns></returns>
         public static string Fetch(string nodeName, XmlElement element, string resultType)
         {
@@ -425,10 +408,10 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string parentNodeName, string nodeName, string xml)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="parentNodeName">���ڵ�����</param>
-        /// <param name="nodeName">�ڵ�����</param>
+        #region 函数:Fetch(string parentNodeName, string nodeName, string xml)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
         /// <param name="xml"></param>
         /// <returns></returns>
         public static string Fetch(string parentNodeName, string nodeName, string xml)
@@ -441,11 +424,11 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string parentNodeName, string nodeName, XmlDocument doc)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="parentNodeName">���ڵ�����</param>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlDocument doc)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns></returns>
         public static string Fetch(string parentNodeName, string nodeName, XmlDocument doc)
         {
@@ -453,12 +436,12 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="parentNodeName">���ڵ�����</param>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <param name="resultType">�������� text | xml</param>
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <param name="resultType">返回类型 text | xml</param>
         /// <returns></returns>
         public static string Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
         {
@@ -466,11 +449,11 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string parentNodeName, string nodeName, XmlElement element)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="parentNodeName">���ڵ�����</param>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="element">Xml Ԫ��</param>
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlElement element)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
         /// <returns></returns>
         public static string Fetch(string parentNodeName, string nodeName, XmlElement element)
         {
@@ -478,12 +461,12 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
-        /// <summary>ץȡ�ؼ��ֵ�ֵ</summary>
-        /// <param name="parentNodeName">���ڵ�����</param>
-        /// <param name="nodeName">�ڵ�����</param>
-        /// <param name="element">Xml Ԫ��</param>
-        /// <param name="resultType">�������� text | xml</param>
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
+        /// <param name="resultType">返回类型 text | xml</param>
         /// <returns></returns>
         public static string Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
         {

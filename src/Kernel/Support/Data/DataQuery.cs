@@ -1,28 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :DataQuery.cs
-//
-// Description  :���ݲ�ѯ������
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-using X3Platform.Ajax;
-using System.Xml;
-using X3Platform.Util;
-
 namespace X3Platform.Data
 {
-    /// <summary>���ݲ�ѯ��������������</summary>
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Xml;
+
+    using X3Platform.Ajax;
+    using X3Platform.Util;
+
+    /// <summary>数据查询参数对象</summary>
     public class DataQuery : ISerializedObject
     {
         #region 属性:Variables
@@ -30,7 +16,7 @@ namespace X3Platform.Data
            { "ElevatedPrivileges", "0" }
         };
 
-        /// <summary>���������ı�������</summary>
+        /// <summary>查询上下文环境变量集合</summary>
         public Dictionary<string, string> Variables
         {
             get { return this.m_Variables; }
@@ -40,7 +26,7 @@ namespace X3Platform.Data
         #region 属性:Table
         private string m_Table = string.Empty;
 
-        /// <summary>���ݱ�����</summary>
+        /// <summary>数据表名称</summary>
         public string Table
         {
             get { return this.m_Table; }
@@ -51,7 +37,7 @@ namespace X3Platform.Data
         #region 属性:Fields
         private IList<string> m_Fields = new List<string>();
 
-        /// <summary>SQL ��ѯ�ֶμ���</summary>
+        /// <summary>字段列表</summary>
         public IList<string> Fields
         {
             get { return this.m_Fields; }
@@ -61,7 +47,7 @@ namespace X3Platform.Data
         #region 属性:Where
         private Dictionary<string, object> m_Where = new Dictionary<string, object>();
 
-        /// <summary>SQL ��ѯ�����Ĳ�������</summary>
+        /// <summary>过滤规则</summary>
         public Dictionary<string, object> Where
         {
             get { return this.m_Where; }
@@ -71,7 +57,7 @@ namespace X3Platform.Data
         #region 属性:Orders
         private IList<string> m_Orders = new List<string>();
 
-        /// <summary>SQL ���������Ĳ�������</summary>
+        /// <summary>排序规则</summary>
         public IList<string> Orders
         {
             get { return this.m_Orders; }
@@ -81,7 +67,7 @@ namespace X3Platform.Data
         #region 属性:Limit
         private int m_Limit = 1000;
 
-        /// <summary>�������� Ĭ��ֵ(1000)</summary>
+        /// <summary>查询记录最大函数限制 (默认值:1000)</summary>
         public int Limit
         {
             get { return this.m_Limit; }
@@ -90,7 +76,7 @@ namespace X3Platform.Data
         #endregion
 
         #region 属性:GetWhereSql()
-        /// <summary>��ȡ SQL ��ѯ����������</summary>
+        /// <summary>获取过滤规则 SQL 表达式</summary>
         /// <returns></returns>
         public string GetWhereSql()
         {
@@ -99,8 +85,8 @@ namespace X3Platform.Data
         #endregion
 
         #region 属性:GetWhereSql(Dictionary<string, string> operators)
-        /// <summary>��ȡ SQL ��ѯ����������</summary>
-        /// <param name="defaults">Ĭ�������ֶ�</param>
+        /// <summary>获取过滤规则 SQL 表达式</summary>
+        /// <param name="operators">关键字操作符</param>
         /// <returns></returns>
         public string GetWhereSql(Dictionary<string, string> operators)
         {
@@ -150,7 +136,7 @@ namespace X3Platform.Data
                     case "System.String":
                         if (op == "LIKE")
                         {
-                            // Ϊ����Ч�� LIKE ���ݲ���Ϊ��
+                            // 字符串 LIKE 查询内容必须不为空
                             if (!string.IsNullOrEmpty(item.Value.ToString()))
                             {
                                 outString.AppendFormat("{0} LIKE '%{1}%'", item.Key, StringHelper.ToSafeSQL(item.Value.ToString()));
@@ -171,7 +157,7 @@ namespace X3Platform.Data
                 outString.Append(" AND ");
             }
 
-            // �Ƴ�����һ�� AND ������
+            // 移除最后的 AND 标记
             if (outString.Length >= 5 && outString.ToString().Substring(outString.Length - 5, 5) == " AND ")
             {
                 outString = outString.Remove(outString.Length - 5, 5);
@@ -182,7 +168,7 @@ namespace X3Platform.Data
         #endregion
 
         #region 属性:GetOrderBySql()
-        /// <summary>��ȡ SQL ����������</summary>
+        /// <summary>获取排序规则 SQL 表达式</summary>
         /// <returns></returns>
         public string GetOrderBySql()
         {
@@ -191,8 +177,8 @@ namespace X3Platform.Data
         #endregion
 
         #region 属性:GetOrderBySql(string defaults)
-        /// <summary>��ȡ SQL ����������</summary>
-        /// <param name="defaults">Ĭ�������ֶ�</param>
+        /// <summary>获取排序规则 SQL 表达式</summary>
+        /// <param name="defaults">默认规则</param>
         /// <returns></returns>
         public string GetOrderBySql(string defaults)
         {
@@ -212,11 +198,11 @@ namespace X3Platform.Data
         #endregion
 
         // -------------------------------------------------------
-        // ʵ�� ISerializedObject ���л�
+        // 实现 ISerializedObject 序列化
         // -------------------------------------------------------
 
-        #region 属性:Serializable()
-        /// <summary>���ݶ��󵼳�XmlԪ��</summary>
+        #region 函数:Serializable()
+        /// <summary>根据对象导出Xml元素</summary>
         /// <returns></returns>
         public string Serializable()
         {
@@ -224,21 +210,23 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:Serializable(bool displayComment, bool displayFriendlyName)
-        /// <summary>���ݶ��󵼳�XmlԪ��</summary>
-        /// <param name="displayComment">��ʾע��</param>
-        /// <param name="displayFriendlyName">��ʾ�Ѻ�����</param>
+        #region 函数:Serializable(bool displayComment, bool displayFriendlyName)
+        /// <summary>根据对象导出Xml元素</summary>
+        /// <param name="displayComment">显示注释</param>
+        /// <param name="displayFriendlyName">显示友好名称</param>
         /// <returns></returns>
-        public string Serializable(bool displayComment, bool displayFriendlyName)
+        public virtual string Serializable(bool displayComment, bool displayFriendlyName)
         {
             StringBuilder outString = new StringBuilder();
 
             string innerText = null;
 
             outString.Append("<query>");
+            
+            // Table
             outString.AppendFormat("<table><![CDATA[{0}]]></table>", this.Table);
 
-            // �����ֶ���Ϣ
+            // Fields
             innerText = string.Empty;
 
             foreach (string item in this.Fields)
@@ -250,7 +238,7 @@ namespace X3Platform.Data
 
             outString.AppendFormat("<fields><![CDATA[{0}]]></fields>", innerText);
 
-            // �����ֶ���Ϣ
+            // Where
             innerText = string.Empty;
 
             foreach (KeyValuePair<string, object> item in this.Where)
@@ -260,7 +248,7 @@ namespace X3Platform.Data
 
             outString.AppendFormat("<where><![CDATA[{0}]]></where>", innerText);
 
-            // ����������Ϣ
+            // Orders
             innerText = string.Empty;
 
             foreach (string item in this.Orders)
@@ -278,9 +266,9 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:Deserialize(XmlElement element)
-        /// <summary>����XmlԪ�ؼ��ض���</summary>
-        /// <param name="element">XmlԪ��</param>
+        #region 函数:Deserialize(XmlElement element)
+        /// <summary>根据Xml元素加载对象</summary>
+        /// <param name="element">Xml元素</param>
         public void Deserialize(System.Xml.XmlElement element)
         {
             XmlNode node = null;
