@@ -1,22 +1,13 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :DataQueryBuilder.cs
-//
-// Description  :���ݲ�ѯ����������
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
 
 namespace X3Platform.Data
 {
-    /// <summary>���ݲ�ѯ����������</summary>
+    #region Using Libraries
+    using System;
+
+    using X3Platform.Util;
+    #endregion
+
+    /// <summary>数据查询构建器</summary>
     public class DataQueryBuilder
     {
     }

@@ -3,11 +3,11 @@ namespace X3Platform.Ajax.Configuration
     #region Using Libraries
     using System;
     using System.Xml;
+    using System.IO;
 
     using Common.Logging;
 
     using X3Platform.Configuration;
-    using System.IO;
     using X3Platform.Yaml.RepresentationModel;
     #endregion
 

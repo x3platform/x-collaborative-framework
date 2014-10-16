@@ -1,18 +1,19 @@
-
-using System.IO;
-
-using X3Platform.Configuration;
-using X3Platform.Yaml.RepresentationModel;
-
 namespace X3Platform.Ajax.Configuration
 {
-    /// <summary>Ajax������ͼ</summary>
+    #region Using Libraries
+    using System.IO;
+
+    using X3Platform.Configuration;
+    using X3Platform.Yaml.RepresentationModel;
+    #endregion
+
+    /// <summary>Ajax 配置视图</summary>
     public class AjaxConfigurationView : XmlConfigurationView<AjaxConfiguration>
     {
-        /// <summary>�����ļ���Ĭ��·��</summary>
+        /// <summary>配置文件的默认路径</summary>
         private const string configFile = "config\\X3Platform.Ajax.config";
 
-        /// <summary>������Ϣ��ȫ��ǰ׺</summary>
+        /// <summary>配置信息的全局前缀</summary>
         private const string configGlobalPrefix = AjaxConfiguration.ApplicationName;
 
         #region 静态属性::Instance

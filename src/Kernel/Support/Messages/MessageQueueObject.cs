@@ -25,7 +25,7 @@ namespace X3Platform.Messages
     using System.Xml;
     #endregion
 
-    /// <summary>��Ϣ���ж���</summary>
+    /// <summary>消息队列对象</summary>
     public class MessageQueueObject : IMessageQueueObject, IDisposable
     {
         private MessageQueue queue = null;
@@ -62,7 +62,7 @@ namespace X3Platform.Messages
         #region 属性:MachineName
         private string m_MachineName = @".\private$";
 
-        /// <summary>��������</summary>
+        /// <summary>机器名称</summary>
         public string MachineName
         {
             get { return m_MachineName; }
@@ -86,7 +86,7 @@ namespace X3Platform.Messages
         #region 属性:QueueName
         private string m_QueueName = string.Empty;
 
-        /// <summary>��������</summary>
+        /// <summary>队列名称</summary>
         public string QueueName
         {
             get { return m_QueueName; }
@@ -108,7 +108,7 @@ namespace X3Platform.Messages
         #endregion
 
         #region 属性:QueuePath
-        /// <summary>����·��</summary>
+        /// <summary>队列路径</summary>
         public string QueuePath
         {
             get { return string.Format(@"{0}\{1}", this.MachineName, this.QueueName); }
@@ -118,14 +118,14 @@ namespace X3Platform.Messages
         #region 属性:Enabled
         private bool m_Enabled = false;
 
-        /// <summary>���п���</summary>
+        /// <summary>队列可用</summary>
         public bool Enabled
         {
             get { return m_Enabled; }
         }
         #endregion
 
-        /// <summary>��ʼ������</summary>
+        /// <summary>初始化队列</summary>
         private void InitializeQueue()
         {
             lock (lockObject)
@@ -145,7 +145,7 @@ namespace X3Platform.Messages
 
                 try
                 {
-                    // ������Ϣ����
+                    // 创建消息队列
                     if (!MessageQueue.Exists(this.QueuePath))
                     {
                         MessageQueue.Create(this.QueuePath);
@@ -177,12 +177,12 @@ namespace X3Platform.Messages
 
                     queue = null;
 
-                    throw new ApplicationException("���ܴ򿪶�����Ϣ ��ϸ��ַ:\"" + this.QueuePath + "\": " + ex.GetType().FullName + ": " + ex.Message);
+                    throw new ApplicationException("不能打开队列信息 详细地址:\"" + this.QueuePath + "\": " + ex.GetType().FullName + ": " + ex.Message);
                 }
             }
         }
 
-        /// <summary>��ȡ��Դ</summary>
+        /// <summary>获取资源</summary>
         public MessageQueue GetQueueInstance()
         {
             InitializeQueue();
@@ -190,7 +190,7 @@ namespace X3Platform.Messages
             return queue;
         }
 
-        /// <summary>�ر�</summary>
+        /// <summary>关闭</summary>
         public void Close()
         {
             if (queue != null)
@@ -207,7 +207,7 @@ namespace X3Platform.Messages
             }
         }
 
-        /// <summary>��������</summary>
+        /// <summary>发送数据</summary>
         /// <param name="data"></param>
         public virtual void Send(IMessageObject data)
         {
@@ -229,9 +229,9 @@ namespace X3Platform.Messages
 
                     message.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
 
-                    message.Priority = MessagePriority.Normal; // ��Ϣ���ȼ�
+                    message.Priority = MessagePriority.Normal; // 消息优先级
 
-                    message.Recoverable = true; // �ɻ��յ�
+                    message.Recoverable = true; // 可回收的
 
                     message.Body = data.Serializable();
 
@@ -246,11 +246,11 @@ namespace X3Platform.Messages
             }
         }
 
-        /// <summary>��������</summary>
+        /// <summary>接收数据</summary>
         /// <returns></returns>
         public virtual IMessageObject Receive()
         {
-            // ������ʽ
+            // 阻塞方式
             IMessageObject data = null;
 
             lock (lockObject)
@@ -264,7 +264,7 @@ namespace X3Platform.Messages
                 {
                     data = new MessageObject();
 
-                    Message message = queue.Receive(new TimeSpan(0, 0, 10)); // �ȴ�10��
+                    Message message = queue.Receive(new TimeSpan(0, 0, 10)); // 等待10秒
 
                     XmlDocument doc = new XmlDocument();
 
@@ -283,12 +283,12 @@ namespace X3Platform.Messages
             return null;
         }
 
-        /// <summary>��ʼ���������߳�</summary>
+        /// <summary>开始监听工作线程</summary>
         public void StartListen()
         {
             this.queue.ReceiveCompleted += new ReceiveCompletedEventHandler(MessageQueueReceiveCompleted);
 
-            // �첽��ʽ������
+            // 异步方式，并发
             for (int i = 0; i < maxWorkerThreadCount; i++)
             {
                 // Begin asynchronous operations.
@@ -296,7 +296,7 @@ namespace X3Platform.Messages
             }
         }
 
-        /// <summary>ֹͣ���������߳�</summary>
+        /// <summary>停止监听工作线程</summary>
         public void StopListen()
         {
             for (int i = 0; i < waitHandles.Length; i++)
@@ -318,7 +318,7 @@ namespace X3Platform.Messages
             }
             catch
             {
-                //���Դ���
+                //忽略错误
             }
         }
 
@@ -341,7 +341,7 @@ namespace X3Platform.Messages
             return;
         }
 
-        #region 属性:Dispose()
+        #region 函数:Dispose()
         public void Dispose()
         {
             lock (lockObject)

@@ -1,35 +1,23 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :FileHelper.cs
-//
-// Description  :file helper
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-using System.Text;
-
 namespace X3Platform.Util
 {
-    /// <summary>�ļ�������</summary>
+    #region Using Libraries
+    using System;
+    using System.IO;
+    using System.Text;
+    #endregion
+
+    /// <summary>文件处理辅助类</summary>
     public class FileHelper
     {
-        /// <summary>���ļ���ȡ Stream</summary>
+        /// <summary>从文件读取 Stream</summary>
         public static Stream ToStream(string path)
         {
             byte[] buffer = null;
 
-            // �����ļ�
+            // 打开文件
             using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                // ��ȡ�ļ��� byte[]
+                // 读取文件的 byte[]
                 buffer = new byte[stream.Length];
 
                 stream.Read(buffer, 0, buffer.Length);
@@ -40,10 +28,10 @@ namespace X3Platform.Util
             return new MemoryStream(buffer);
         }
 
-        #region 属性:Create(string path)
+        #region 函数:Create(string path)
         public static void Create(string path)
         {
-            // �ж�Ŀ��Ŀ¼�Ƿ������������������½�֮
+            // 判断目标目录是否存在如果不存在则新建之
             if (!File.Exists(path))
             {
                 FileStream stream = File.Create(path);
@@ -53,21 +41,21 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:Copy(string fromPath, string toPath)
+        #region 函数:Copy(string fromPath, string toPath)
         public static void Copy(string fromPath, string toPath)
         {
             //
-            // �����ļ�, ��Ŀ���ļ��Ѵ�������д.
+            // 复制文件, 若目标文件已存在则改写.
             //
 
             File.Copy(fromPath, toPath, true);
         }
         #endregion
 
-        #region 属性:Delete(string path)
+        #region 函数:Delete(string path)
         public static void Delete(string path)
         {
-            //ɾ���ļ���
+            //删除文件夹
 
             if (File.Exists(path))
             {
@@ -76,8 +64,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:Encoding GetEncoding(string path)
-        /// <summary>��ȡ�ļ��ַ�����</summary>
+        #region 函数:Encoding GetEncoding(string path)
+        /// <summary>获取文件字符编码</summary>
         /// <param name="path"></param>
         /// <returns></returns>
         public static Encoding GetEncoding(string path)
@@ -95,8 +83,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:Encoding GetEncoding(FileStream fileStream)
-        /// <summary>��ȡ�ļ����ַ�����</summary>
+        #region 函数:Encoding GetEncoding(FileStream fileStream)
+        /// <summary>获取文件流字符编码</summary>
         public static Encoding GetEncoding(FileStream fileStream)
         {
             /*
@@ -113,7 +101,7 @@ namespace X3Platform.Util
                 binaryReader.Close();
             }
 
-            // �������� Coding=��������.ASCII;
+            // 编码类型 Coding=编码类型.ASCII;
             if (buffer[0] >= 0xEF)
             {
                 if (buffer[0] == 0xEF && buffer[1] == 0xBB && buffer[2] == 0xBF)
@@ -140,8 +128,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:GetTempFileName()
-        /// <summary>��ȡ��ʱ�ļ�����</summary>
+        #region 函数:GetTempFileName()
+        /// <summary>获取临时文件名称</summary>
         public static string GetTempFileName()
         {
             return Path.GetRandomFileName();
