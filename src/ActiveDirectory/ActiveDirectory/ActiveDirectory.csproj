@@ -107,7 +107,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="config\X3Platform.ActiveDirectory.config" />
-    <EmbeddedResource Include="defaults\ActiveDirectory.yaml" />
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
