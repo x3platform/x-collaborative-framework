@@ -20,14 +20,14 @@ using X3Platform.Util;
 
 namespace X3Platform.Ajax
 {
-    /// <summary>Ajax Sql ��������</summary>
+    /// <summary>Ajax Sql 条件参数</summary>
     [Serializable()]
     public class AjaxSqlParameter
     {
         #region 属性:Key
         private string m_Key = null;
 
-        /// <summary>��</summary>
+        /// <summary>键</summary>
         [XmlAttribute("key")]
         public string Key
         {
@@ -39,7 +39,7 @@ namespace X3Platform.Ajax
         #region 属性:Operation
         private string m_Operation = null;
 
-        /// <summary>������</summary>
+        /// <summary>操作符</summary>
         [XmlAttribute("operation")]
         public string Operation
         {
@@ -51,7 +51,7 @@ namespace X3Platform.Ajax
         #region 属性:Value
         private string m_Value = null;
 
-        /// <summary>ֵ</summary>
+        /// <summary>值</summary>
         [XmlAttribute("value")]
         public string Value
         {
@@ -63,7 +63,7 @@ namespace X3Platform.Ajax
         #region 属性:Type
         private string m_Type = null;
 
-        /// <summary>ֵ������</summary>
+        /// <summary>值的类型</summary>
         [XmlAttribute("type")]
         public string Type
         {
@@ -72,14 +72,14 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ���캯��:AjaxSqlParameter()
+        #region 构造函数:AjaxSqlParameter()
         /// <summary></summary>
         public AjaxSqlParameter()
         {
         }
         #endregion
 
-        #region ���캯��:AjaxSqlParameter(string key, string value, string type)
+        #region 构造函数:AjaxSqlParameter(string key, string value, string type)
         /// <summary></summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -92,8 +92,8 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 属性:ToString()
-        /// <summary>תΪ�ַ���</summary>
+        #region 函数:ToString()
+        /// <summary>转为字符串</summary>
         /// <returns></returns>
         public override string ToString()
         {

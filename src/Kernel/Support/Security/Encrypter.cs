@@ -1,26 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :Encrypter.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Security
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using System.Security.Cryptography;
     using System.ComponentModel;
+    using System.Security.Cryptography;
+    using System.Text;
+    #endregion
 
-    /// <summary>������</summary>
+    /// <summary>加密器</summary>
     public sealed class Encrypter
     {
         private static DESCryptoServiceProvider desCryptoProvider;
@@ -30,7 +18,7 @@ namespace X3Platform.Security
             desCryptoProvider = new DESCryptoServiceProvider();
 
             //
-            // ����С��255������.
+            // 设置小于255的数字.
             //
             desCryptoProvider.Key = new byte[8] { 67, 18, 08, 14, 22, 234, 46, 43 };
 
@@ -42,21 +30,21 @@ namespace X3Platform.Security
         // http://en.wikipedia.org/wiki/Data_Encryption_Standard
         //-------------------------------------------------------
 
-        #region 属性:EncryptDES(string text)
-        ///<summary>����-DES��ʽ</summary>
-        ///<param name="text">�ı�</param>
+        #region 函数:EncryptDES(string text)
+        ///<summary>加密-DES方式</summary>
+        ///<param name="text">文本</param>
         public static string EncryptDES(string text)
         {
             return EncryptDES(text, desCryptoProvider.Key, desCryptoProvider.IV);
         }
         #endregion
 
-        #region 属性:EncryptDES(string text, byte[] rgbKey, byte[] rgbIV)
-        ///<summary>����-DES��ʽ</summary>
-        ///<param name="text">�ı�</param>
-        ///<param name="rgbKey">���ܵ�Key</param>
-        ///<param name="rgbIV">��ʼ������</param>
-        ///<returns>���ܺ����ı�</returns>
+        #region 函数:EncryptDES(string text, byte[] rgbKey, byte[] rgbIV)
+        ///<summary>加密-DES方式</summary>
+        ///<param name="text">文本</param>
+        ///<param name="rgbKey">加密的Key</param>
+        ///<param name="rgbIV">初始化向量</param>
+        ///<returns>加密后的文本</returns>
         public static string EncryptDES(string text, byte[] rgbKey, byte[] rgbIV)
         {
             byte[] result = null;
@@ -73,20 +61,20 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 属性:DecryptDES(string text)
-        ///<summary>����-DES��ʽ</summary>
-        ///<param name="text">�ı�</param>
+        #region 函数:DecryptDES(string text)
+        ///<summary>加密-DES方式</summary>
+        ///<param name="text">文本</param>
         public static string DecryptDES(string text)
         {
             return DecryptDES(text, desCryptoProvider.Key, desCryptoProvider.IV);
         }
         #endregion
 
-        #region 属性:DecryptDES(string text, byte[] rgbKey, byte[] rgbIV)
-        ///<summary>����-DES��ʽ</summary>
-        ///<param name="text">�ı�</param>
+        #region 函数:DecryptDES(string text, byte[] rgbKey, byte[] rgbIV)
+        ///<summary>解密-DES方式</summary>
+        ///<param name="text">文本</param>
         ///<param name="rgbKey">Key</param>
-        ///<param name="rgbIV">��ʼ������</param>
+        ///<param name="rgbIV">初始化向量</param>
         ///<returns></returns>
         public static string DecryptDES(string text, byte[] rgbKey, byte[] rgbIV)
         {
@@ -118,19 +106,19 @@ namespace X3Platform.Security
         //-------------------------------------------------------
 
         //
-        // Ĭ�ϵ���Կ ����
+        // 默认的密钥 长度
         //
-        // 16λ���ַ��� => 128λ (1900 01 01 00 00 00 00)
-        // 24λ���ַ��� => 192λ
-        // 32λ���ַ��� => 256λ (Ĭ��)
+        // 16位的字符串 => 128位 (1900 01 01 00 00 00 00)
+        // 24位的字符串 => 192位
+        // 32位的字符串 => 256位 (默认)
         //
 
-        /// <summary>Ĭ�ϵļ�����Կ</summary>
+        /// <summary>默认的加密密钥</summary>
         private const string ASECryptoKey = "12345678901234567890123456789abc";
 
-        #region 属性:EncryptAES(string text)
-        ///<summary>����-AES��ʽ</summary>
-        ///<param name="text">�ı�</param>
+        #region 函数:EncryptAES(string text)
+        ///<summary>加密-AES方式</summary>
+        ///<param name="text">文本</param>
         public static string EncryptAES(string text)
         {
             byte[] key = UTF8Encoding.UTF8.GetBytes(ASECryptoKey);
@@ -139,10 +127,10 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 属性:EncryptAES(string text, byte[] key)
-        /// <summary>����-AES��ʽ</summary>
-        /// <param name="text">�ı�</param>
-        /// <param name="key">��Կ</param>
+        #region 函数:EncryptAES(string text, byte[] key)
+        /// <summary>加密-AES方式</summary>
+        /// <param name="text">文本</param>
+        /// <param name="key">密钥</param>
         /// <returns></returns>
         public static string EncryptAES(string text, byte[] key)
         {
@@ -165,9 +153,9 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 属性:DecryptAES(string text)
-        ///<summary>����-AES��ʽ</summary>
-        /// <param name="text">�ı�</param>
+        #region 函数:DecryptAES(string text)
+        ///<summary>解密-AES方式</summary>
+        /// <param name="text">文本</param>
         public static string DecryptAES(string text)
         {
             byte[] key = UTF8Encoding.UTF8.GetBytes(ASECryptoKey);
@@ -176,10 +164,10 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 属性:DecryptAES(string text, byte[] key)
-        ///<summary>����-AES��ʽ</summary>
-        /// <param name="text">�ı�</param>
-        /// <param name="key">��Կ</param>
+        #region 函数:DecryptAES(string text, byte[] key)
+        ///<summary>解密-AES方式</summary>
+        /// <param name="text">文本</param>
+        /// <param name="key">密钥</param>
         public static string DecryptAES(string text, byte[] key)
         {
             byte[] result = null;

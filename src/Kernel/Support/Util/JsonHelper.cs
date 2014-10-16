@@ -1,19 +1,6 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :JsonHelper.cs
-//
-// Description  :Json Helper
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Util
 {
+    #region Using Libraries
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -22,25 +9,17 @@ namespace X3Platform.Util
     using System.Text;
     using System.Reflection;
     using System.Web.Script.Serialization;
+    #endregion
 
-    /*
-     * How to use object to Json?
-     *
-     * X3Platform.Util.JsonHelper.ToJson(param, typeof(NewsInfo))
-     *
-     * X3Platform.Util.JsonHelper.ToJson(list, typeof(NewsInfo))
-     *
-     */
-
-    /// <summary>����ͨʵ�����������л���Json��ʽ.</summary>
+    /// <summary>JSON 数据处理辅助类</summary>
     public sealed class JsonHelper
     {
         // -------------------------------------------------------
-        // ������ת��ΪJson��ʽ�ı�
+        // 将对象转换为Json格式文本
         // -------------------------------------------------------
 
-        #region 属性:ToJson<T>(List<T> list, Type type)
-        /// <summary>��һ��ʵ��������ת����Json��ʽ</summary>
+        #region 函数:ToJson<T>(List<T> list, Type type)
+        /// <summary>将一个实体类对象转换到Json格式</summary>
         /// <param name="list"></param>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -61,8 +40,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJson(object param, Type type)
-        /// <summary>��һ��ʵ��������ת����Json��ʽ</summary>
+        #region 函数:ToJson(object param, Type type)
+        /// <summary>将一个实体类对象转换到Json格式</summary>
         /// <param name="param"></param>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -80,8 +59,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataView dataView)
-        /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataView dataView)
+        /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataView"></param>
         /// <returns></returns>
         public static string ToJosn(DataView dataView)
@@ -90,8 +69,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataView dataView, bool removeAjaxStorageRoot)
-        /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataView dataView, bool removeAjaxStorageRoot)
+        /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataView"></param>
         /// <param name="selectedColumnName"></param>
         /// <param name="selectedValue"></param>
@@ -103,10 +82,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataTable dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
-        /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataTable dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
-        /// <param name="columnNameFirstCharLower">�������ַ�Сд</param>
+        /// <param name="columnNameFirstCharLower">列名首字符小写</param>
         /// <param name="removeAjaxStorageRoot"></param>
         /// <returns></returns>
         public static string ToJosn(DataView dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
@@ -123,8 +102,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
-        /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
+        /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataView"></param>
         /// <param name="selectedColumnName"></param>
         /// <param name="selectedValue"></param>
@@ -148,7 +127,7 @@ namespace X3Platform.Util
 
                     foreach (DataColumn dataColumn in dataView.Table.Columns)
                     {
-                        // ���ڸ�ʽ����
+                        // 日期格式数据
                         if (dataColumn.DataType == typeof(DateTime))
                         {
                             dataColumnValue = StringHelper.ToSafeJson(System.Convert.ToDateTime(dataRowView[dataColumn.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss"));
@@ -158,7 +137,7 @@ namespace X3Platform.Util
                             dataColumnValue = StringHelper.ToSafeJson(dataRowView[dataColumn.ColumnName].ToString());
                         }
 
-                        // �������ݲ���˫����
+                        // 数组数据不加双引号
                         if (dataColumnValue.Length > 2 && (dataColumnValue.Substring(0, 1) == "[" && dataColumnValue.Substring(0, 1) == "]"))
                         {
                             jsonText += "\"" + dataColumn.ColumnName + "\":" + dataColumnValue.Substring(1, dataColumnValue.Length - 2) + ",";
@@ -191,8 +170,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataTable dataTable)
-        /// <summary>��һ��DataTable����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataTable dataTable)
+        /// <summary>将一个DataTable对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
         /// <returns></returns>
         public static string ToJosn(DataTable dataTable)
@@ -201,8 +180,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
-        /// <summary>��һ��DataView����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
         /// <param name="removeAjaxStorageRoot"></param>
         /// <returns></returns>
@@ -212,10 +191,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
-        /// <summary>��һ��DataTable����ת����Json��ʽ�ı�</summary>
+        #region 函数:ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        /// <summary>将一个DataTable对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
-        /// <param name="columnNameFirstCharLower">�������ַ�Сд</param>
+        /// <param name="columnNameFirstCharLower">列名首字符小写</param>
         /// <param name="removeAjaxStorageRoot"></param>
         /// <returns></returns>
         public static string ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
@@ -232,11 +211,11 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
-        /// <summary>�� DataTable ��ʽ������ת����Json����ʽ������</summary>
-        /// <param name="dataTable">����Դ</param>
-        /// <param name="selectedColumnName">������ƥ��������</param>
-        /// <param name="selectedValue">������ѡ������ֵ</param>
+        #region 函数:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        /// <summary>将 DataTable 形式的数据转换成Json的形式的数据</summary>
+        /// <param name="dataTable">数据源</param>
+        /// <param name="selectedColumnName">下拉框匹配的列名</param>
+        /// <param name="selectedValue">下拉框选中项的值</param>
         /// <param name="removeAjaxStorageRoot"></param>
         /// <returns></returns>
         public static string ToJosn(DataTable dataTable, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
@@ -259,7 +238,7 @@ namespace X3Platform.Util
 
                     foreach (DataColumn dataColumn in dataTable.Columns)
                     {
-                        // ���ڸ�ʽ����
+                        // 日期格式数据
                         if (dataColumn.DataType == typeof(DateTime))
                         {
                             dataColumnValue = StringHelper.ToSafeJson(System.Convert.ToDateTime(dataRow[dataColumn.ColumnName]).ToString("yyyy-MM-dd HH:mm:ss"));
@@ -269,7 +248,7 @@ namespace X3Platform.Util
                             dataColumnValue = StringHelper.ToSafeJson(dataRow[dataColumn.ColumnName].ToString());
                         }
 
-                        // �������ݲ���˫����
+                        // 数组数据不加双引号
                         if (dataColumnValue.Length > 2 && (dataColumnValue.Substring(0, 1) == "[" && dataColumnValue.Substring(0, 1) == "]"))
                         {
                             jsonText += "\"" + dataColumn.ColumnName + "\":" + dataColumnValue.Substring(1, dataColumnValue.Length - 2) + ",";
@@ -302,8 +281,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ˽�к���:Convert(object param, Type type)
-        /// <summary>ת��</summary>
+        #region 私有函数:Convert(object param, Type type)
+        /// <summary>转换</summary>
         /// <param name="param"></param>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -315,7 +294,7 @@ namespace X3Platform.Util
 
             object result = null;
 
-            // ���������� ����Ϊset_MethodName����get_MethodName
+            // 对象的属性 反射为set_MethodName或者get_MethodName
 
             MethodInfo[] methods = type.GetMethods();
 
@@ -344,13 +323,13 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // 2.��Json�ַ���ת��ΪXml�ַ���.
+        // 2.将Json字符串转换为Xml字符串.
         // -------------------------------------------------------
 
-        #region 属性:ToXmlDocument(string json)
-        /// <summary>��Json��ʽתΪXML Document����</summary>
-        /// <param name="json">Json��ʽ ����.</param>
-        /// <returns>XML Document ����.</returns>
+        #region 函数:ToXmlDocument(string json)
+        /// <summary>将Json格式转为XML Document对象</summary>
+        /// <param name="json">Json格式 数据.</param>
+        /// <returns>XML Document 对象.</returns>
         public static XmlDocument ToXmlDocument(string json)
         {
             if (string.IsNullOrEmpty(json))
@@ -364,10 +343,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToXml(string json)
-        /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
-        /// <param name="json">Json�ַ���</param>
-        /// <returns>XML��ʽ ����.</returns>
+        #region 函数:ToXml(string json)
+        /// <summary>将一个Json字符串格式化为Xml信息.</summary>
+        /// <param name="json">Json字符串</param>
+        /// <returns>XML格式 数据.</returns>
         public static string ToXml(string json)
         {
             if (string.IsNullOrEmpty(json))
@@ -405,7 +384,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region ˽�к���:ConvertToXml(StringBuilder outString, string node)
+        #region 私有函数:ConvertToXml(StringBuilder outString, string node)
         private static void ConvertToXml(StringBuilder outString, string node)
         {
             if (node.IndexOf(":") == -1)
@@ -478,13 +457,13 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // 3.��Json�ַ���ת��ΪHashTable.
+        // 3.将Json字符串转换为HashTable.
         // -------------------------------------------------------
 
-        #region 属性:ToHashtable(string json)
-        /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
-        /// <param name="json">Json�ַ���</param>
-        /// <returns>XML��ʽ ����.</returns>
+        #region 函数:ToHashtable(string json)
+        /// <summary>将一个Json字符串格式化为Xml信息.</summary>
+        /// <param name="json">Json字符串</param>
+        /// <returns>XML格式 数据.</returns>
         public static Hashtable ToHashtable(string json)
         {
             if (string.IsNullOrEmpty(json))
@@ -515,10 +494,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToDictionary(string json)
-        /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
-        /// <param name="json">Json�ַ���</param>
-        /// <returns>XML��ʽ ����.</returns>
+        #region 函数:ToDictionary(string json)
+        /// <summary>将一个Json字符串格式化为Xml信息.</summary>
+        /// <param name="json">Json字符串</param>
+        /// <returns>XML格式 数据.</returns>
         public static Dictionary<string, object> ToDictionary(string json)
         {
             if (string.IsNullOrEmpty(json))

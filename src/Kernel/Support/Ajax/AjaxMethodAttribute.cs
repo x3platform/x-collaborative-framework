@@ -12,11 +12,11 @@
 //
 // =============================================================================
 
-using System;
-
 namespace X3Platform.Ajax
 {
-    /// <summary>Ajax方法特性</summary>
+    using System;
+
+    /// <summary>Ajax 方法特性</summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public sealed class AjaxMethodAttribute : Attribute
     {

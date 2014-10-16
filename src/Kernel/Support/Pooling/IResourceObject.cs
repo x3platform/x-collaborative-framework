@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace X3Platform.Pooling
+﻿namespace X3Platform.Pooling
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>这个接口用来产生 Resource Pool 管理的资源</summary>
     /// <typeparam name="T"></typeparam>
     public interface IResourceObject<T> where T : class, IDisposable

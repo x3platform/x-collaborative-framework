@@ -1,26 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :StreamHelper.cs
-//
-// Description  :stream helper
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-
 namespace X3Platform.Util
 {
-    /// <summary>��������</summary>
+    #region Using Libraries
+    using System;
+    using System.IO;
+    #endregion
+
+    /// <summary>流处理辅助类</summary>
     public sealed class StreamHelper
     {
-        #region 属性:ToFile(Stream stream, string path)
+        #region 函数:ToFile(Stream stream, string path)
         public static long ToFile(Stream stream, string path)
         {
             long length = stream.Length;
@@ -41,7 +29,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToBytes(Stream stream)
+        #region 函数:ToBytes(Stream stream)
         public static byte[] ToBytes(Stream stream)
         {
             long length = stream.Length;
@@ -62,7 +50,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToString(Stream stream)
+        #region 函数:ToString(Stream stream)
         /// <summary></summary>
         /// <param name="stream"></param>
         /// <returns></returns>
@@ -71,8 +59,8 @@ namespace X3Platform.Util
             string text = null;
 
             //
-            // ��������һ�������ƶ�����ĩβ�������ٴζ���Ҫ�ƶ�ָ�롣
-            // �����ͻ�����û�ж������ݵ������� 
+            // 在流读过一遍后被移动到了末尾，如果再次读需要移动指针。
+            // 否则就会出现没有读到数据的情况。 
             //
 
             // Set the position to the beginning of the stream.
@@ -87,7 +75,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToUTF8String(Stream stream)
+        #region 函数:ToUTF8String(Stream stream)
         /// <summary></summary>
         /// <param name="stream"></param>
         /// <returns></returns>
@@ -102,8 +90,8 @@ namespace X3Platform.Util
             //else
             //{
             //
-            // ��������һ�������ƶ�����ĩβ�������ٴζ���Ҫ�ƶ�ָ�롣
-            // �����ͻ�����û�ж������ݵ������� 
+            // 在流读过一遍后被移动到了末尾，如果再次读需要移动指针。
+            // 否则就会出现没有读到数据的情况。 
             //
             // Set the position to the beginning of the stream.
             stream.Seek(0, SeekOrigin.Begin);
@@ -114,7 +102,7 @@ namespace X3Platform.Util
             }
             //}
 
-            // ȥ��utf-8���׸��ַ�.
+            // 去除utf-8的首个字符.
             if (!string.IsNullOrEmpty(text) && text[0] == 65279)
                 text = text.Substring(1);
 

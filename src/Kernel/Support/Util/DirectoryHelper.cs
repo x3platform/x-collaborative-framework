@@ -1,33 +1,21 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :DirectoryHelper.cs
-//
-// Description  :Ŀ¼������
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-
 namespace X3Platform.Util
 {
-    /// <summary>Ŀ¼������</summary>
+    #region Using Libraries
+    using System;
+    using System.IO;
+    #endregion
+
+    /// <summary>目录处理辅助类</summary>
     public class DirectoryHelper
     {
-        #region 属性:Create(string path)
+        #region 函数:Create(string path)
         public static void Create(string path)
         {
-            // ����Ŀ��Ŀ¼�Ƿ���Ŀ¼�ָ��ַ�������������������֮
+            // 检查目标目录是否以目录分割字符结束如果不是则添加之
             if (path[path.Length - 1] != Path.DirectorySeparatorChar)
                 path += Path.DirectorySeparatorChar;
 
-            // �ж�Ŀ��Ŀ¼�Ƿ������������������½�֮
+            // 判断目标目录是否存在如果不存在则新建之
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -35,39 +23,39 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:Copy(string fromPath, string toPath)
+        #region 函数:Copy(string fromPath, string toPath)
         public static void Copy(string fromPath, string toPath)
         {
             //
-            // ʵ��һ����̬������ָ���ļ�����������������copy��Ŀ���ļ�������
-            // ����Ŀ���ļ���Ϊֻ�����Ծͻᱨ��
+            // 实现一个静态方法将指定文件夹下面的所有内容copy到目标文件夹下面
+            // 如果目标文件夹为只读属性就会报错。
             //
 
-            // ����Ŀ��Ŀ¼�Ƿ���Ŀ¼�ָ��ַ�������������������֮
+            // 检查目标目录是否以目录分割字符结束如果不是则添加之
             if (toPath[toPath.Length - 1] != Path.DirectorySeparatorChar)
                 toPath += Path.DirectorySeparatorChar;
 
-            // �ж�Ŀ��Ŀ¼�Ƿ������������������½�֮
+            // 判断目标目录是否存在如果不存在则新建之
             if (!Directory.Exists(toPath)) Directory.CreateDirectory(toPath);
 
-            // �õ�ԴĿ¼���ļ��б��������ǰ����ļ��Լ�Ŀ¼·����һ������
-            // ������ָ��copyĿ���ļ��������ļ���������Ŀ¼��ʹ�������ķ���
+            // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
+            // 如果你指向copy目标文件下面的文件而不包含目录请使用下面的方法
             // string[] fileList = System.IO.Directory.GetFiles(fromPath);
 
             string[] fileList = Directory.GetFileSystemEntries(fromPath);
 
-            // �������е��ļ���Ŀ¼
+            // 遍历所有的文件和目录
 
             foreach (string file in fileList)
             {
-                // �ȵ���Ŀ¼����������������Ŀ¼�͵ݹ�Copy��Ŀ¼�������ļ�
+                // 先当作目录处理如果存在这个目录就递归Copy该目录下面的文件
                 if (Directory.Exists(file))
                 {
                     Copy(file, toPath + Path.GetFileName(file));
                 }
                 else
                 {
-                    // ����ֱ��Copy�ļ�
+                    // 否则直接Copy文件
 
                     File.Copy(file, toPath + Path.GetFileName(file), true);
                 }
@@ -75,32 +63,32 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:Delete(string path)
+        #region 函数:Delete(string path)
         public static void Delete(string path)
         {
             /* 
-             * ʵ��һ����̬������ָ���ļ�����������������ɾ��.
+             * 实现一个静态方法将指定文件夹下面的所有内容删除.
              * 
-             * ���Ե�ʱ��ҪС�Ĳ�����ɾ��֮���޷��ָ���
+             * 测试的时候要小心操作，删除之后无法恢复。
              * 
              */
 
-            // ����Ŀ��Ŀ¼�Ƿ���Ŀ¼�ָ��ַ�������������������֮
+            // 检查目标目录是否以目录分割字符结束如果不是则添加之
 
             if (path[path.Length - 1] != Path.DirectorySeparatorChar)
                 path += Path.DirectorySeparatorChar;
 
-            // �õ�ԴĿ¼���ļ��б��������ǰ����ļ��Լ�Ŀ¼·����һ������
-            // ������ָ��DeleteĿ���ļ��������ļ���������Ŀ¼��ʹ�������ķ���
+            // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
+            // 如果你指向Delete目标文件下面的文件而不包含目录请使用下面的方法
             // string[] fileList = System.IO.Directory.GetFiles(toPath);
 
             string[] fileList = Directory.GetFileSystemEntries(path);
 
-            // �������е��ļ���Ŀ¼
+            // 遍历所有的文件和目录
 
             foreach (string file in fileList)
             {
-                // �ȵ���Ŀ¼����������������Ŀ¼�͵ݹ�Delete��Ŀ¼�������ļ�
+                // 先当作目录处理如果存在这个目录就递归Delete该目录下面的文件
 
                 if (Directory.Exists(file))
                 {
@@ -108,20 +96,20 @@ namespace X3Platform.Util
                 }
                 else
                 {
-                    // ����ֱ��Delete�ļ�
+                    // 否则直接Delete文件
 
                     File.Delete(path + Path.GetFileName(file));
                 }
             }
 
-            //ɾ���ļ���
+            //删除文件夹
 
             Directory.Delete(path, true);
         }
         #endregion
 
-        #region 属性:FormatLocalPath(string path)
-        /// <summary>��ʽ�����ؾ���·��</summary>
+        #region 函数:FormatLocalPath(string path)
+        /// <summary>格式化本地路径</summary>
         /// <param name="path"></param>
         /// <returns></returns>
         public static string FormatLocalPath(string path)
@@ -137,7 +125,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:FormatTimePath()
+        #region 函数:FormatTimePath()
         /// <summary></summary>
         /// <returns></returns>
         public static string FormatTimePath()
@@ -146,7 +134,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:FormatTimePath(DateTime datetime)
+        #region 函数:FormatTimePath(DateTime datetime)
         /// <summary></summary>
         /// <returns></returns>
         public static string FormatTimePath(DateTime datetime)
