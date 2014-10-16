@@ -105,8 +105,8 @@
                 #Remark#,
                 #FullPath#,
                 #DistinguishedName#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -130,7 +130,7 @@
                 Remark = #Remark#,
                 FullPath = #FullPath#,
                 DistinguishedName = #DistinguishedName#,
-                UpdateDate = Now()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -222,19 +222,19 @@
         </select>
 
         <update id="proc_Role_Rename" parameterClass="RoleInfo" >
-            UPDATE `tb_Role` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Role` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
         
         <update id="proc_Role_SetGlobalName" >
-            UPDATE `tb_Role` SET `GlobalName` = #GlobalName#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Role` SET `GlobalName` = #GlobalName#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <update id="proc_Role_SetParentId" >
-            UPDATE `tb_Role` SET `ParentId` = #ParentId#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Role` SET `ParentId` = #ParentId#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <update id="proc_Role_SetExchangeStatus" >
-            UPDATE `tb_Role` SET `EnableExchangeEmail` = #EnableExchangeEmail#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Role` SET `EnableExchangeEmail` = #EnableExchangeEmail#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <select id="proc_Role_GetAuthorities" resultClass="string" >
@@ -253,7 +253,7 @@
                     OrderId = #OrderId#,
                     Status = #Status#,
                     Remark = #Remark#,
-                    UpdateDate = Now()
+                    UpdateDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
 
@@ -283,8 +283,8 @@
                     #OrderId#,
                     #Status#,
                     #Remark#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>
@@ -359,11 +359,11 @@
         </update>
         
         <update id="proc_Role_SetDefaultRelation" >
-            UPDATE `tb_Member` SET `RoleId` = '$RoleId$', UpdateDate = Now() WHERE `AccountId` = '$AccountId$'
+            UPDATE `tb_Member` SET `RoleId` = '$RoleId$', UpdateDate = CURRENT_TIMESTAMP WHERE `AccountId` = '$AccountId$'
         </update>
         
         <update id="proc_Role_SetNullDefaultRelation" >
-            UPDATE `tb_Member` SET `RoleId` = '', UpdateDate = Now() WHERE `AccountId` = '$AccountId$'
+            UPDATE `tb_Member` SET `RoleId` = '', UpdateDate = CURRENT_TIMESTAMP WHERE `AccountId` = '$AccountId$'
         </update>
     </statements>
 </sqlMap>

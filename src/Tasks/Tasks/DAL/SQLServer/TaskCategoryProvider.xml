@@ -51,8 +51,8 @@
 			    #Description#,
 			    #OrderId#,
 			    #Status#,
-			    GetDate(),
-			    GetDate()
+			    CURRENT_TIMESTAMP,
+			    CURRENT_TIMESTAMP
 			)
 		</insert>
 
@@ -63,7 +63,7 @@
 			    [Description] = #Description#,
 			    [OrderId] = #OrderId#,
 			    [Status] = #Status#,
-			    [UpdateDate] = GetDate()
+			    [UpdateDate] = CURRENT_TIMESTAMP
 
 			WHERE [Id] = #Id#
 		</update>
@@ -77,7 +77,7 @@
 			        [Description] = #Description#,
 			        [OrderId] = #OrderId#,
 			        [Status] = #Status#,
-			        [UpdateDate] = GetDate(),
+			        [UpdateDate] = CURRENT_TIMESTAMP,
 
 			    WHERE [Id] = #Id#
             END
@@ -104,8 +104,8 @@
 			        #Description#,
 			        #OrderId#,
 			        #Status#,
-			        GetDate(),
-			        GetDate()
+			        CURRENT_TIMESTAMP,
+			        CURRENT_TIMESTAMP
 			    )
 			END
 		</insert>
@@ -115,7 +115,7 @@
 		</select>
 
 		<delete id="proc_Task_Category_Delete">
-			UPDATE [tb_Task_Category] SET Status = 2, UpdateDate = GetDate() WHERE Id = #Id#
+			UPDATE [tb_Task_Category] SET Status = 2, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</delete>
 
 		<select id="proc_Task_Category_FindOne" resultMap="proc_Task_Category_FindOne_Result" >
@@ -177,7 +177,7 @@
 		</select>
 
 		<update id="proc_Task_Category_SetStatus">
-			UPDATE [tb_Task_Category] SET Status = #Status#, UpdateDate = GetDate() WHERE Id = #Id#
+			UPDATE [tb_Task_Category] SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</update>
 
 		<select id="proc_Task_Category_GetComboboxByWhereClause" >

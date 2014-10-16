@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.DigitalNumber.Ajax
+﻿namespace X3Platform.DigitalNumber.Ajax
 {
     using System.Collections.Generic;
     using System.Xml;
@@ -23,6 +9,7 @@ namespace X3Platform.DigitalNumber.Ajax
     using X3Platform.DigitalNumber.Model;
     using X3Platform.DigitalNumber.IBLL;
 
+    /// <summary></summary>
     public class DigitalNumberWrapper : ContextWrapper
     {
         private IDigitalNumberService service = DigitalNumberContext.Instance.DigitalNumberService; // 数据提供器

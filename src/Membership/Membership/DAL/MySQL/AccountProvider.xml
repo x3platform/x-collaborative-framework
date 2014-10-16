@@ -99,9 +99,9 @@
                 #Remark#,
                 #DistinguishedName#,
                 '',
-                Now(),
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -122,7 +122,7 @@
                 `Status` = #Status#,
                 `Remark` = #Remark#,
                 `DistinguishedName` = #DistinguishedName#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -219,11 +219,11 @@
         </select>
 
         <update id="proc_Account_Rename" parameterClass="AccountInfo">
-            UPDATE `tb_Account` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Account` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <update id="proc_Account_SetGlobalName" >
-            Update `tb_Account` SET GlobalName = #GlobalName#, `UpdateDate` = Now() WHERE Id = #Id#
+            Update `tb_Account` SET GlobalName = #GlobalName#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <select id="proc_Account_GetPassword" >
@@ -235,27 +235,27 @@
         </update>
 
         <update id="proc_Account_SetLoginName" >
-            Update `tb_Account` SET LoginName = #LoginName#, `UpdateDate` = Now() WHERE Id = #Id#
+            Update `tb_Account` SET LoginName = #LoginName#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedTelephone" >
-            Update `tb_Account` SET CertifiedTelephone = #CertifiedTelephone#, `UpdateDate` = Now() WHERE Id = #Id#
+            Update `tb_Account` SET CertifiedTelephone = #CertifiedTelephone#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedEmail" >
-            Update `tb_Account` SET CertifiedEmail = #CertifiedEmail#, `UpdateDate` = Now() WHERE Id = #Id#
+            Update `tb_Account` SET CertifiedEmail = #CertifiedEmail#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedAvatar" >
-            Update `tb_Account` SET CertifiedAvatar = #CertifiedAvatar#, `UpdateDate` = Now() WHERE Id = #Id#
+            Update `tb_Account` SET CertifiedAvatar = #CertifiedAvatar#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetExchangeStatus" >
-            UPDATE `tb_Account` SET `EnableExchangeEmail` = #EnableExchangeEmail#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Account` SET `EnableExchangeEmail` = #EnableExchangeEmail#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
         
         <update id="proc_Account_SetStatus" >
-            Update `tb_Account` SET Status = #Status#, `UpdateDate` = Now() WHERE Id = #Id#
+            Update `tb_Account` SET Status = #Status#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetIPAndLoginDate" >
@@ -271,11 +271,11 @@
         </update>
 
         <update id="proc_Account_Refresh_Table_Account" >
-            UPDATE `tb_Account` SET `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_Account` SET `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <update id="proc_Account_Refresh_Table_Member" >
-            UPDATE `tb_Member` SET `UpdateDate` = Now() WHERE `AccountId` = #Id#
+            UPDATE `tb_Member` SET `UpdateDate` = CURRENT_TIMESTAMP WHERE `AccountId` = #Id#
         </update>
 
         <select id="proc_Account_GetAuthorizationScopesByAccount" >
@@ -292,7 +292,7 @@
                 DisplayName = #DisplayName#,
                 PinYin = #PinYin#,
                 Status = #Status#,
-                UpdateDate = Now()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
 
@@ -319,8 +319,8 @@
                 #DisplayName#,
                 #PinYin#,
                 #Status#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
             END
         </insert>

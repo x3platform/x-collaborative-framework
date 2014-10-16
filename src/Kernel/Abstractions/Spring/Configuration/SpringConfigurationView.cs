@@ -25,7 +25,7 @@ namespace X3Platform.Spring.Configuration
         /// <summary>�����ļ���Ĭ��·��</summary>
         private const string configFile = "config\\X3Platform.Spring.config";
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile SpringConfigurationView instance = null;
 
         private static object lockObject = new object();

@@ -22,68 +22,69 @@
     <statements>
 
         <insert id="proc_DigitalNumber_Insert" parameterClass="DigitalNumberInfo">
-            INSERT INTO [tb_DigitalNumber] (
-            [Name],
-            [Expression],
-            [Seed],
-            [UpdateDate],
-            [CreateDate]
+            INSERT INTO tb_DigitalNumber 
+            (
+                Name,
+                Expression,
+                Seed,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
-            #Name#,
-            #Expression#,
-            #Seed#,
-            GetDate(),
-            GetDate()
+                #Name#,
+                #Expression#,
+                #Seed#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
         <update id="proc_DigitalNumber_Update" parameterClass="DigitalNumberInfo">
-            UPDATE [tb_DigitalNumber] SET
+            UPDATE tb_DigitalNumber SET
 
-            [Expression] = #Expression#,
-            [Seed] = #Seed#,
-            [UpdateDate] = GetDate()
+                Expression = #Expression#,
+                Seed = #Seed#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Name] = #Name#
+            WHERE Name = #Name#
         </update>
         <insert id="proc_DigitalNumber_Save" parameterClass="DigitalNumberInfo">
-            IF EXISTS(SELECT 0 FROM [tb_DigitalNumber] WHERE [Name] = #Name#)
+            IF EXISTS(SELECT 0 FROM tb_DigitalNumber WHERE Name = #Name#)
             BEGIN
-            UPDATE [tb_DigitalNumber] SET
+                UPDATE tb_DigitalNumber SET
 
-            [Expression] = #Expression#,
-            [Seed] = #Seed#,
-            [UpdateDate] = GetDate()
+                    Expression = #Expression#,
+                    Seed = #Seed#,
+                    UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Name] = #Name#
+                WHERE Name = #Name#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_DigitalNumber](
-            [Name],
-            [Expression],
-            [Seed],
-            [UpdateDate],
-            [CreateDate]
-            )
-            VALUES
-            (
-            #Name#,
-            #Expression#,
-            #Seed#,
-            GetDate(),
-            GetDate()
-            )
+                INSERT INTO tb_DigitalNumber
+                (
+                    Name,
+                    Expression,
+                    Seed,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES
+                (
+                    #Name#,
+                    #Expression#,
+                    #Seed#,
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
+                )
             END
         </insert>
         <delete id="proc_DigitalNumber_Delete" >
-            DELETE FROM [tb_DigitalNumber] WHERE Name = $Name$
+            DELETE FROM tb_DigitalNumber WHERE Name = $Name$
         </delete>
         <select id="proc_DigitalNumber_FindOne" resultMap="proc_DigitalNumber_FindOne_Result" >
-            SELECT * FROM [tb_DigitalNumber] T
-            WHERE [Name] = #Name#
+            SELECT * FROM tb_DigitalNumber WHERE Name = #Name#
         </select>
 
         <select id="proc_DigitalNumber_FindAll" resultMap="proc_DigitalNumber_FindAll_Result" >
@@ -95,7 +96,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_DigitalNumber] T
+            * FROM tb_DigitalNumber T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -111,7 +112,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_DigitalNumber] T
+            FROM tb_DigitalNumber T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -127,7 +128,7 @@
 
         <select id="proc_DigitalNumber_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_DigitalNumber] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_DigitalNumber T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -139,13 +140,13 @@
         </select>
 
         <select id="proc_DigitalNumber_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_DigitalNumber] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_DigitalNumber T WHERE $WhereClause$
         </select>
         
         <select id="proc_DigitalNumber_GetMaxSeedByPrefix" >
-            IF EXISTS ( SELECT 0 FROM [$EntityTableName$] WHERE Code LIKE '$Prefix$%' )
+            IF EXISTS ( SELECT 0 FROM $EntityTableName$ WHERE Code LIKE '$Prefix$%' )
             BEGIN
-		        SELECT CONVERT(int, MAX(REPLACE(Code, '$Prefix$', ''))) FROM [$EntityTableName$] WHERE Code LIKE '$Prefix$%'	
+		        SELECT CONVERT(int, MAX(REPLACE(Code, '$Prefix$', ''))) FROM $EntityTableName$ WHERE Code LIKE '$Prefix$%'	
             END
             ELSE
             BEGIN
@@ -154,7 +155,7 @@
         </select>
 
         <select id="proc_DigitalNumber_GetPrefixCodeByCategoryId" >
-            SELECT PrefixCode FROM [$EntityCategoryTableName$] T WHERE Id = '$EntityCategoryId$'
+            SELECT PrefixCode FROM $EntityCategoryTableName$ T WHERE Id = '$EntityCategoryId$'
         </select>
 
     </statements>

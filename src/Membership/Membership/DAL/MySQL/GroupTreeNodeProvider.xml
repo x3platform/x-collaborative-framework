@@ -51,8 +51,8 @@
                 #OrderId#,
                 #Remark#,
                 #Status#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -65,7 +65,7 @@
                 `OrderId` = #OrderId#,
                 `Remark` = #Remark#,
                 `Status` = #Status#,
-                `UpdateDate` = GetDate()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>

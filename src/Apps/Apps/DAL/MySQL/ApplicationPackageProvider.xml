@@ -55,7 +55,7 @@
             #Path#,
             #BeginDate#,
             #EndDate#,
-            GETDATE()
+            CURRENT_TIMESTAMP
             )
         </insert>
 

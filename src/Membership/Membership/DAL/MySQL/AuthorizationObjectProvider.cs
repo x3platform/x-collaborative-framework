@@ -503,7 +503,7 @@ namespace X3Platform.Membership.DAL.MySQL
             outString.AppendFormat("SELECT ##Account## AS AuthorizationObjectType, ##{0}## AS AuthorizationObjectId\r\n", accountId);
 
             // �ʺ�ί��
-            outString.AppendFormat("UNION SELECT ##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}`tb_Account_Grant` WHERE GrantedTimeFrom < Now() AND GrantedTimeTo > Now() AND GrantorId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+            outString.AppendFormat("UNION SELECT ##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}`tb_Account_Grant` WHERE GrantedTimeFrom < CURRENT_TIMESTAMP AND GrantedTimeTo > CURRENT_TIMESTAMP AND GrantorId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
 
             // ��֯
             if ((contactType & ContactType.Organization) == ContactType.Organization)

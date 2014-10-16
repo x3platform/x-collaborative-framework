@@ -54,8 +54,8 @@
                 #StatusCode#,
 				#Lock#,
 				#Tags#,
-				GETDATE(),
-				GETDATE()
+				CURRENT_TIMESTAMP,
+				CURRENT_TIMESTAMP
 			)
 		</insert>
 
@@ -70,7 +70,7 @@
                 `StatusCode` = #StatusCode#,
 				`Lock` = #Lock#,
 				`Tags` = #Tags#,
-				`UpdateDate` = GETDATE()
+				`UpdateDate` = CURRENT_TIMESTAMP
 
 			WHERE `Id` = #Id#
 		</update>

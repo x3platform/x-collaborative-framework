@@ -30,7 +30,7 @@ namespace X3Platform.Security.Authority
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile AuthorityContext instance = null;
 
         private static object lockObject = new object();

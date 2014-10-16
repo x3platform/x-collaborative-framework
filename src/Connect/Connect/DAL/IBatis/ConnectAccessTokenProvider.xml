@@ -43,8 +43,8 @@
                 #AccountId#,
                 #ExpireDate#,
                 #RefreshToken#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -52,7 +52,7 @@
             UPDATE [tb_Connect_AccessToken] SET
 
                 [ExpireDate] = #ExpireDate#,
-                [UpdateDate] = GetDate()
+                [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
@@ -125,7 +125,7 @@
         </select>
         
         <update id="proc_Connect_AccessToken_Refresh" >
-            UPDATE [tb_Connect_AccessToken] SET [ExpireDate] = '$ExpireDate$', [RefreshToken] = '$NextRefreshToken$', [UpdateDate] = GetDate() WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$' AND ExpireDate > GetDate()
+            UPDATE [tb_Connect_AccessToken] SET [ExpireDate] = '$ExpireDate$', [RefreshToken] = '$NextRefreshToken$', [UpdateDate] = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$' AND ExpireDate > CURRENT_TIMESTAMP
         </update>
     </statements>
 </sqlMap>

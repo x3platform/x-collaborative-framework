@@ -1,43 +1,29 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-#region Using Libraries
-using System;
-using System.Xml;
-
-using Common.Logging;
-
-using X3Platform.Configuration;
-using System.IO;
-using X3Platform.Yaml.RepresentationModel;
-#endregion
-
 namespace X3Platform.Ajax.Configuration
 {
-    /// <summary>������Ϣ</summary>
+    #region Using Libraries
+    using System;
+    using System.Xml;
+
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    using System.IO;
+    using X3Platform.Yaml.RepresentationModel;
+    #endregion
+
+    /// <summary>Ajax 配置信息</summary>
     public class AjaxConfiguration : XmlConfiguraton
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>����Ӧ�õ�����</summary>
+        /// <summary>所属应用的名称</summary>
         public const string ApplicationName = "Ajax";
 
-        /// <summary>������������</summary>
+        /// <summary>配置区的名称</summary>
         public const string SectionName = "ajax";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;
@@ -46,7 +32,7 @@ namespace X3Platform.Ajax.Configuration
         #region 属性:SpecialWords
         private NameValueConfigurationCollection m_SpecialWords = new NameValueConfigurationCollection();
 
-        /// <summary>�����ʻ�</summary>
+        /// <summary>特殊关键字集合</summary>
         public NameValueConfigurationCollection SpecialWords
         {
             get { return this.m_SpecialWords; }
@@ -54,41 +40,45 @@ namespace X3Platform.Ajax.Configuration
         }
         #endregion
 
-        #region 属性:Configure(XmlElement element)
-        /// <summary>����XmlԪ�����ö�����Ϣ</summary>
-        /// <param name="element">���ýڵ���XmlԪ��</param>
+        #region 函数:Configure(XmlElement element)
+        /// <summary>根据Xml元素配置对象信息</summary>
+        /// <param name="element">配置节点的Xml元素</param>
         public override void Configure(XmlElement element)
         {
             base.Configure(element);
 
-            // ���ؼ���:SpecialWords
+            // 加载 SpecialWords 键值配置信息
             XmlConfiguratonOperator.SetKeyValues(this.SpecialWords, element.SelectNodes(@"specialWords/add"));
         }
         #endregion
 
+        #region 构造函数:AjaxConfiguration()
         public AjaxConfiguration()
         {
-            using (var stream = typeof(AjaxConfiguration).Assembly.GetManifestResourceStream("X3Platform.defaults.Ajax.yaml"))
+            using (var stream = typeof(AjaxConfiguration).Assembly.GetManifestResourceStream("X3Platform.Ajax.defaults.config.yaml"))
             {
                 using (var reader = new StreamReader(stream))
                 {
-                    // ��������
+                    // 加载内置配置信息
                     var yaml = new YamlStream();
 
                     yaml.Load(reader);
 
-                    // ���ø��ڵ�
+                    // 设置配置信息根节点
                     var root = (YamlMappingNode)yaml.Documents[0].RootNode;
 
-                    // ���ؼ���:Keys
+                    // 加载 Keys 键值配置信息
                     YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
 
-                    // ���ؼ���:SpecialWords
+                    // 加载 SpecialWords 键值配置信息
                     YamlConfiguratonOperator.SetKeyValues(this.SpecialWords, (YamlMappingNode)root.Children[new YamlScalarNode("specialWords")]);
+
+                    this.Initialized = true;
                 }
             }
 
             this.Initialized = true;
         }
+        #endregion
     }
 }

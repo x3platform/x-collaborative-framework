@@ -59,7 +59,7 @@
                 #Status#,
                 #IsRead#,
                 #FinishTime#,
-                Now()
+                CURRENT_TIMESTAMP
             FROM DUAL
             WHERE NOT EXISTS ( SELECT * FROM `tb_Task_WorkItem` WHERE `tb_Task_WorkItem`.`Id` = #Id# AND `tb_Task_WorkItem`.`ReceiverId` = #ReceiverId#)
         </insert>
@@ -117,7 +117,7 @@
                     #Content#,
                     #Tags#,
                     #SenderId#,
-                    GETDATE()
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>
@@ -189,7 +189,7 @@
         </update>
 
         <update id="proc_Task_SetFinished" parameterClass="TaskInfo" >
-            UPDATE `tb_Task_WorkItem` SET Status = 1, FinishTime = Now() WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
+            UPDATE `tb_Task_WorkItem` SET Status = 1, FinishTime = CURRENT_TIMESTAMP WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
         </update>
 
         <select id="proc_Task_GetIdsByTaskCodes" >

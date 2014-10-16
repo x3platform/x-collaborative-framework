@@ -104,8 +104,8 @@
                 #Remark#,
                 #FullPath#,
                 #DistinguishedName#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -129,7 +129,7 @@
                 Remark = #Remark#,
                 FullPath = #FullPath#,
                 DistinguishedName = #DistinguishedName#,
-                UpdateDate = GetDate()
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -199,19 +199,19 @@
         </select>
 
         <update id="proc_Organization_Rename" parameterClass="OrganizationInfo">
-            UPDATE [tb_Organization] SET [Name] = #Name#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_Organization] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
 
         <update id="proc_Organization_SetGlobalName" >
-            Update [tb_Organization] SET GlobalName = #GlobalName#, [UpdateDate] = GetDate() WHERE Id = #Id#
+            Update [tb_Organization] SET GlobalName = #GlobalName#, [UpdateDate] = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Organization_SetParentId" >
-            UPDATE [tb_Organization] SET [ParentId] = #ParentId#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_Organization] SET [ParentId] = #ParentId#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
 
         <update id="proc_Organization_SetExchangeStatus" >
-            UPDATE [tb_Organization] SET [EnableExchangeEmail] = #EnableExchangeEmail#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_Organization] SET [EnableExchangeEmail] = #EnableExchangeEmail#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
 
         <insert id="proc_Organization_SyncFromPackPage" parameterClass="OrganizationInfo" >
@@ -226,7 +226,7 @@
             OrderId = #OrderId#,
             Status = #Status#,
             Remark = #Remark#,
-            UpdateDate = GetDate()
+            UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
 
@@ -255,8 +255,8 @@
             #OrderId#,
             #Status#,
             #Remark#,
-            GetDate(),
-            GetDate())
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP)
 
             END
         </insert>
@@ -335,11 +335,11 @@
         </update>
 
         <update id="proc_Organization_SetDefaultRelation" >
-            UPDATE [tb_Member] SET [OrganizationId] = '$OrganizationId$', UpdateDate = GetDate() WHERE [AccountId] = '$AccountId$'
+            UPDATE [tb_Member] SET [OrganizationId] = '$OrganizationId$', UpdateDate = CURRENT_TIMESTAMP WHERE [AccountId] = '$AccountId$'
         </update>
 
         <update id="proc_Organization_SetNullDefaultRelation" >
-            UPDATE [tb_Member] SET [RoleId] = '', UpdateDate = GetDate() WHERE [AccountId] = '$AccountId$'
+            UPDATE [tb_Member] SET [RoleId] = '', UpdateDate = CURRENT_TIMESTAMP WHERE [AccountId] = '$AccountId$'
         </update>
 
     </statements>

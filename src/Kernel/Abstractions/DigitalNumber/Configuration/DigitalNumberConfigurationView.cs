@@ -1,25 +1,25 @@
-using System;
-using System.IO;
-
-using X3Platform.Configuration;
-
 namespace X3Platform.DigitalNumber.Configuration
 {
-    /// <summary>ÅäÖÃÊÓÍ¼</summary>
+    using System;
+    using System.IO;
+
+    using X3Platform.Configuration;
+
+    /// <summary>é…ç½®è§†å›¾</summary>
     public class DigitalNumberConfigurationView : XmlConfigurationView<DigitalNumberConfiguration>
     {
-        /// <summary>ÅäÖÃÎÄ¼şµÄÄ¬ÈÏÂ·¾¶</summary>
+        /// <summary>é…ç½®æ–‡ä»¶çš„é»˜è®¤è·¯å¾„</summary>
         private const string configFile = "config\\X3Platform.DigitalNumber.config";
 
-        /// <summary>ÅäÖÃĞÅÏ¢µÄÈ«¾ÖÇ°×º</summary>
+        /// <summary>é…ç½®ä¿¡æ¯çš„å…¨å±€å‰ç¼€</summary>
         private const string configGlobalPrefix = DigitalNumberConfiguration.ApplicationName;
 
-        #region ¾²Ì¬ÊôĞÔ:Instance
+        #region é™æ€å±æ€§:Instance
         private static volatile DigitalNumberConfigurationView instance = null;
 
         private static object lockObject = new object();
 
-        /// <summary>ÊµÀı</summary>
+        /// <summary>å®ä¾‹</summary>
         public static DigitalNumberConfigurationView Instance
         {
             get
@@ -40,29 +40,29 @@ namespace X3Platform.DigitalNumber.Configuration
         }
         #endregion
 
-        #region ¹¹Ôìº¯Êı:DigitalNumberConfigurationView()
-        /// <summary>¹¹Ôìº¯Êı</summary>
+        #region æ„é€ å‡½æ•°:DigitalNumberConfigurationView()
+        /// <summary>æ„é€ å‡½æ•°</summary>
         private DigitalNumberConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
-            // ½«ÅäÖÃĞÅÏ¢¼ÓÔØµ½È«¾ÖµÄÅäÖÃÖĞ
+            // å°†é…ç½®ä¿¡æ¯åŠ è½½åˆ°å…¨å±€çš„é…ç½®ä¸­
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
         #endregion
 
-        #region º¯Êı:Reload()
-        /// <summary>ÖØĞÂ¼ÓÔØÅäÖÃĞÅÏ¢</summary>
+        #region å‡½æ•°:Reload()
+        /// <summary>é‡æ–°åŠ è½½é…ç½®ä¿¡æ¯</summary>
         public override void Reload()
         {
             base.Reload();
 
-            // ½«ÅäÖÃĞÅÏ¢¼ÓÔØµ½È«¾ÖµÄÅäÖÃÖĞ
+            // å°†é…ç½®ä¿¡æ¯åŠ è½½åˆ°å…¨å±€çš„é…ç½®ä¸­
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ×Ô¶¨ÒåÊôĞÔ
+        // è‡ªå®šä¹‰å±æ€§
         // -------------------------------------------------------
     }
 }

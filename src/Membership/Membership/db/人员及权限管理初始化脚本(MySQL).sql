@@ -502,7 +502,7 @@ CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
 		tb_Account_Organization 
 			INNER JOIN tb_Organization ON tb_Account_Organization.OrganizationId = tb_Organization.Id 
 	WHERE
-		BeginDate < Now() AND EndDate > Now() 
+		BeginDate < CURRENT_TIMESTAMP AND EndDate > CURRENT_TIMESTAMP 
 
 	-- 角色 => 授权帐号 的关系
 	UNION 
@@ -515,7 +515,7 @@ CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
 		tb_Account_Role
 			INNER JOIN tb_Role ON tb_Account_Role.RoleId = tb_Role.Id 
 	WHERE
-		BeginDate < Now() AND EndDate > Now()
+		BeginDate < CURRENT_TIMESTAMP AND EndDate > CURRENT_TIMESTAMP
 
 	-- 群组 => 授权帐号 的关系
 	UNION
@@ -528,7 +528,7 @@ CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
 		tb_Account_Group 
 			INNER JOIN tb_Group ON tb_Group.Id = tb_Account_Group.GroupId
 	WHERE
-		BeginDate < Now() AND EndDate > Now() 
+		BeginDate < CURRENT_TIMESTAMP AND EndDate > CURRENT_TIMESTAMP 
 
 	-- 通用角色 => 授权帐号 的关系
 	UNION
@@ -542,7 +542,7 @@ CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
 			INNER JOIN tb_Role ON tb_Role.Id = tb_Account_Role.RoleId 
 			INNER JOIN tb_GeneralRole ON tb_GeneralRole.Id = tb_Role.GeneralRoleId
 	WHERE
-		BeginDate < Now() AND EndDate > Now() 
+		BeginDate < CURRENT_TIMESTAMP AND EndDate > CURRENT_TIMESTAMP 
 
 	-- 标准角色 => 授权帐号 的关系
 	UNION
@@ -556,7 +556,7 @@ CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
 			INNER JOIN tb_Role ON tb_Role.Id = tb_Account_Role.RoleId
 			INNER JOIN tb_StandardRole ON tb_StandardRole.Id = tb_Role.StandardRoleId
 	WHERE
-		BeginDate < Now() AND EndDate > Now() 
+		BeginDate < CURRENT_TIMESTAMP AND EndDate > CURRENT_TIMESTAMP 
 
 	-- 所有人(角色) => 授权帐号 的关系
 	UNION
@@ -586,7 +586,7 @@ CREATE VIEW `view_AuthorizationObject_Account` AS
 		INNER JOIN tb_Account AS Account ON Account.Id = T.AccountId 
 		LEFT JOIN tb_Account_Grant AS `Grant` ON (
 			`Grant`.GrantorId = Account.Id AND DataQueryGrantMode = 1
-			AND ( GrantedTimeFrom < Now() AND GrantedTimeTo > Now() ) )
+			AND ( GrantedTimeFrom < CURRENT_TIMESTAMP AND GrantedTimeTo > CURRENT_TIMESTAMP ) )
 ;
 
 -- drop function func_GetCorporationIdByOrganizationId
