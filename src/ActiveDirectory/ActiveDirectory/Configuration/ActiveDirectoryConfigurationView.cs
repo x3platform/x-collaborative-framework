@@ -1,41 +1,28 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :ActiveDirectoryConfigurationView.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-using System;
-using System.IO;
-
-using X3Platform.Configuration;
-
 namespace X3Platform.ActiveDirectory.Configuration
 {
+    #region Using Libraries
+    using System;
+    using System.IO;
+
+    using X3Platform.Configuration;
+    using X3Platform.Util;
+    #endregion
+
     /// <summary>配置视图</summary>
     public class ActiveDirectoryConfigurationView : XmlConfigurationView<ActiveDirectoryConfiguration>
     {
-        /// <summary>�����ļ���Ĭ��·��</summary>
+        /// <summary>配置文件的默认路径.</summary>
         private const string configFile = "config\\X3Platform.ActiveDirectory.config";
 
-        /// <summary>������Ϣ��ȫ��ǰ׺</summary>
+        /// <summary>配置信息的全局前缀</summary>
         private const string configGlobalPrefix = "ActiveDirectory";
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile ActiveDirectoryConfigurationView instance = null;
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static ActiveDirectoryConfigurationView Instance
         {
             get
@@ -56,13 +43,12 @@ namespace X3Platform.ActiveDirectory.Configuration
         }
         #endregion
 
-        #region ���캯��:ActiveDirectoryConfigurationView()
-        /// <summary>���캯��</summary>
+        #region 构造函数:ActiveDirectoryConfigurationView()
+        /// <summary>构造函数</summary>
         private ActiveDirectoryConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
-            // ��������Ϣ���ص�ȫ�ֵ�������
-            KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
+            // 基类初始化后会默认执行 Reload() 函数
         }
         #endregion
 
@@ -72,7 +58,7 @@ namespace X3Platform.ActiveDirectory.Configuration
         {
             base.Reload();
 
-            // ��������Ϣ���ص�ȫ�ֵ�������
+            // 将配置信息加载到全局的配置中
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
         #endregion
@@ -91,27 +77,11 @@ namespace X3Platform.ActiveDirectory.Configuration
             {
                 if (string.IsNullOrEmpty(m_IntegratedMode))
                 {
-                    // 属性名称
-                    string propertyName = "IntegratedMode";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_IntegratedMode = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "IntegratedMode", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_IntegratedMode = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_IntegratedMode = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // 如果配置文件里没有设置，设置一个默认值。
-                    if (string.IsNullOrEmpty(m_IntegratedMode))
-                    {
-                        m_IntegratedMode = "Off";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_IntegratedMode = StringHelper.NullOrEmptyTo(this.m_IntegratedMode, "Off");
                 }
 
                 return m_IntegratedMode.ToUpper();
@@ -129,28 +99,11 @@ namespace X3Platform.ActiveDirectory.Configuration
             {
                 if (string.IsNullOrEmpty(m_Domain))
                 {
-                    // 属性名称
-                    string propertyName = "Domain";
-                    // 属性全局名称
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_Domain = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "Domain", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_Domain = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_Domain = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // 如果配置文件里没有设置，设置一个默认值。
-                    if (string.IsNullOrEmpty(m_Domain))
-                    {
-                        m_Domain = "yourdomain.com";
-
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_Domain = StringHelper.NullOrEmptyTo(this.m_Domain, "yourdomain.com");
                 }
 
                 return m_Domain;
@@ -168,27 +121,11 @@ namespace X3Platform.ActiveDirectory.Configuration
             {
                 if (string.IsNullOrEmpty(m_SuffixEmailDomain))
                 {
-                    // 属性名称
-                    string propertyName = "SuffixEmailDomain";
-                    // 属性全局名称
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_SuffixEmailDomain = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "SuffixEmailDomain", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_SuffixEmailDomain = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_SuffixEmailDomain = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_SuffixEmailDomain))
-                    {
-                        m_SuffixEmailDomain = "@www.yourdomain.com";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_SuffixEmailDomain = StringHelper.NullOrEmptyTo(this.m_SuffixEmailDomain, "@yourdomain.com");
                 }
 
                 return m_SuffixEmailDomain;
@@ -199,30 +136,17 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:SuffixDistinguishedName
         private string m_SuffixDistinguishedName = string.Empty;
 
-        /// <summary>Active Directory ����Ψһ���Ƶĺ�׺</summary>
+        /// <summary>Active Directory 对象唯一名称的后缀</summary>
         public string SuffixDistinguishedName
         {
             get
             {
                 if (string.IsNullOrEmpty(m_SuffixDistinguishedName))
                 {
-                    // ��������
-                    string propertyName = "SuffixDistinguishedName";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_SuffixDistinguishedName = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "SuffixDistinguishedName", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_SuffixDistinguishedName = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_SuffixDistinguishedName = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里未设置则设置一个默认值
                     if (string.IsNullOrEmpty(m_SuffixDistinguishedName))
                     {
                         if (string.IsNullOrEmpty(KernelConfigurationView.Instance.Domain))
@@ -253,30 +177,14 @@ namespace X3Platform.ActiveDirectory.Configuration
             {
                 if (string.IsNullOrEmpty(m_LDAPPath))
                 {
-                    // ��������
-                    string propertyName = "LDAPPath";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_LDAPPath = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "LDAPPath", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_LDAPPath = KernelConfigurationView.Instance.ReplaceKeyValue(
-                            KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_LDAPPath = KernelConfigurationView.Instance.ReplaceKeyValue(
-                            this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_LDAPPath))
-                    {
-                        m_LDAPPath = "LDAP://127.0.0.1/DC=yourdomain,DC=com";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_LDAPPath = StringHelper.NullOrEmptyTo(this.m_LDAPPath, "LDAP://127.0.0.1/DC=yourdomain,DC=com");
                 }
 
-                return m_LDAPPath;
+                return this.m_LDAPPath;
             }
         }
         #endregion
@@ -284,34 +192,18 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:LoginName
         private string m_LoginName = string.Empty;
 
-        /// <summary>Active Directory ��¼��</summary>
+        /// <summary>Active Directory 登录名</summary>
         public string LoginName
         {
             get
             {
                 if (string.IsNullOrEmpty(m_LoginName))
                 {
-                    // ��������
-                    string propertyName = "LoginName";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_LoginName = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "LoginName", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_LoginName = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_LoginName = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_LoginName))
-                    {
-                        m_LoginName = "yourdomain\administrator";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_LoginName = StringHelper.NullOrEmptyTo(this.m_LoginName, "yourdomain\administrator");
                 }
 
                 return m_LoginName;
@@ -322,33 +214,20 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:Password
         private string m_Password = string.Empty;
 
-        /// <summary>Active Directory ����</summary>
+        /// <summary>Active Directory 密码</summary>
         public string Password
         {
             get
             {
                 if (string.IsNullOrEmpty(m_Password))
                 {
-                    // ��������
-                    string propertyName = "Password";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_Password = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "Password", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
+                    // 如果配置文件里未设置则设置一个默认值
+                    if (string.IsNullOrEmpty(this.m_Password))
                     {
-                        m_Password = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_Password = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_Password))
-                    {
-                        m_Password = "123456";
+                        this.m_Password = "000000";
                     }
                 }
 
@@ -360,34 +239,18 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:CorporationOrganizationFolderRoot
         private string m_CorporationOrganizationFolderRoot = string.Empty;
 
-        /// <summary>Active Directory ��˾��֯���ŵĸ�Ŀ¼ (������ɫ)</summary>
+        /// <summary>Active Directory 公司组织存放的根目录 (包括角色)</summary>
         public string CorporationOrganizationFolderRoot
         {
             get
             {
                 if (string.IsNullOrEmpty(m_CorporationOrganizationFolderRoot))
                 {
-                    // ��������
-                    string propertyName = "CorporationOrganizationFolderRoot";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_CorporationOrganizationFolderRoot = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CorporationOrganizationFolderRoot", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_CorporationOrganizationFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_CorporationOrganizationFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_CorporationOrganizationFolderRoot))
-                    {
-                        m_CorporationOrganizationFolderRoot = "��֯�ṹ";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_CorporationOrganizationFolderRoot = StringHelper.NullOrEmptyTo(this.m_CorporationOrganizationFolderRoot, "CorporationOrganizationals");
                 }
 
                 return m_CorporationOrganizationFolderRoot;
@@ -398,34 +261,18 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:CorporationUserFolderRoot
         private string m_CorporationUserFolderRoot = string.Empty;
 
-        /// <summary>Active Directory ��˾�û����ŵĸ�Ŀ¼</summary>
+        /// <summary>Active Directory 公司用户存放的根目录</summary>
         public string CorporationUserFolderRoot
         {
             get
             {
                 if (string.IsNullOrEmpty(m_CorporationUserFolderRoot))
                 {
-                    // ��������
-                    string propertyName = "CorporationUserFolderRoot";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_CorporationUserFolderRoot = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CorporationUserFolderRoot", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_CorporationUserFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_CorporationUserFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_CorporationUserFolderRoot))
-                    {
-                        m_CorporationUserFolderRoot = "��֯�û�";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_CorporationUserFolderRoot = StringHelper.NullOrEmptyTo(this.m_CorporationUserFolderRoot, "CorporationUsers");
                 }
 
                 return m_CorporationUserFolderRoot;
@@ -436,34 +283,18 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:CorporationGroupFolderRoot
         private string m_CorporationGroupFolderRoot = string.Empty;
 
-        /// <summary>Active Directory ��˾Ⱥ�����ŵĸ�Ŀ¼</summary>
+        /// <summary>Active Directory 公司群组存放的根目录</summary>
         public string CorporationGroupFolderRoot
         {
             get
             {
                 if (string.IsNullOrEmpty(m_CorporationGroupFolderRoot))
                 {
-                    // ��������
-                    string propertyName = "CorporationGroupFolderRoot";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_CorporationGroupFolderRoot = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CorporationGroupFolderRoot", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_CorporationGroupFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_CorporationGroupFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                           this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_CorporationGroupFolderRoot))
-                    {
-                        m_CorporationGroupFolderRoot = "����Ⱥ��";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_CorporationGroupFolderRoot = StringHelper.NullOrEmptyTo(this.m_CorporationGroupFolderRoot, "CorporationGroups");
                 }
 
                 return m_CorporationGroupFolderRoot;
@@ -474,34 +305,18 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:CorporationRoleFolderRoot
         private string m_CorporationRoleFolderRoot = string.Empty;
 
-        /// <summary>Active Directory ��˾��ɫ���ŵĸ�Ŀ¼ (����֯�ṹ�еĽ�ɫ����)</summary>
+        /// <summary>Active Directory 公司角色存放的根目录 (非组织结构中的角色数据)</summary>
         public string CorporationRoleFolderRoot
         {
             get
             {
                 if (string.IsNullOrEmpty(m_CorporationRoleFolderRoot))
                 {
-                    // ��������
-                    string propertyName = "CorporationRoleFolderRoot";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_CorporationRoleFolderRoot = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CorporationRoleFolderRoot", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_CorporationRoleFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_CorporationRoleFolderRoot = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_CorporationRoleFolderRoot))
-                    {
-                        m_CorporationRoleFolderRoot = "ͨ�ý�ɫ";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_CorporationRoleFolderRoot = StringHelper.NullOrEmptyTo(this.m_CorporationRoleFolderRoot, "CorporationRoles");
                 }
 
                 return m_CorporationRoleFolderRoot;
@@ -512,39 +327,23 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:NewlyCreatedAccountPassword
         private string m_NewlyCreatedAccountPassword = string.Empty;
 
-        /// <summary>Active Directory �½��ʺŵ�Ĭ������</summary>
+        /// <summary>Active Directory 新建帐号的默认密码</summary>
         public string NewlyCreatedAccountPassword
         {
             get
             {
                 if (string.IsNullOrEmpty(m_NewlyCreatedAccountPassword))
                 {
-                    // ��������
-                    string propertyName = "NewlyCreatedAccountPassword";
-                    // ����ȫ������
-                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+                    // 读取配置信息
+                    this.m_NewlyCreatedAccountPassword = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "NewlyCreatedAccountPassword", this.Configuration.Keys);
 
-                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
-                    {
-                        m_NewlyCreatedAccountPassword = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
-                    }
-                    else if (this.Configuration.Keys[propertyName] != null)
-                    {
-                        m_NewlyCreatedAccountPassword = KernelConfigurationView.Instance.ReplaceKeyValue(
-                                this.Configuration.Keys[propertyName].Value);
-                    }
-
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
-                    if (string.IsNullOrEmpty(m_NewlyCreatedAccountPassword))
-                    {
-                        m_NewlyCreatedAccountPassword = "123456";
-                    }
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_NewlyCreatedAccountPassword = StringHelper.NullOrEmptyTo(this.m_NewlyCreatedAccountPassword, "000000");
                 }
 
                 return m_NewlyCreatedAccountPassword;
             }
         }
-        #endregion  
+        #endregion
     }
 }
