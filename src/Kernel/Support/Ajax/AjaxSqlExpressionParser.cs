@@ -19,10 +19,10 @@ using System.Xml;
 
 namespace X3Platform.Ajax
 {
-    /// <summary>Ajax SQL ����ʽ������</summary>
+    /// <summary>Ajax SQL 表达式解析器</summary>
     public sealed class AjaxSqlExpressionParser
     {
-        #region ��̬属性:Parse(string xml)
+        #region 静态函数:Parse(string xml)
         /// <summary></summary>
         /// <param name="xml"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region ��̬属性:Parse(XmlElement element)
+        #region 静态函数:Parse(XmlElement element)
         /// <summary></summary>
         /// <param name="element"></param>
         /// <returns></returns>

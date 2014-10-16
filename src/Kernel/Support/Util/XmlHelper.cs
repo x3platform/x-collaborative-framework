@@ -1,39 +1,19 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Util
 {
+    #region Using Libraries
     using System;
     using System.Data;
     using System.IO;
     using System.Text;
     using System.Xml;
     using System.Xml.Serialization;
+    #endregion
 
-    /*
-     * How to use xml to Json?
-     * Convert XML to a Json string  System.Xml.XmlDocument doc
-     *
-     * string Json = JsonXML.XmlToJson(doc);
-     *
-     */
-
-    /// <summary>XML ������</summary>
+    /// <summary>XML 数据处理辅助类</summary>
     public class XmlHelper
     {
-        #region 属性:ToXml(object value)
-        /// <summary>��һ���������л�ΪXml��Ϣ.</summary>
+        #region 函数:ToXml(object value)
+        /// <summary>将一个对象序列化为Xml信息.</summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public static string ToXml(object value)
@@ -55,10 +35,10 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToXml(string json)
-        /// <summary>��һ��Json�ַ�����ʽ��ΪXml��Ϣ.</summary>
-        /// <param name="json">Json�ַ���</param>
-        /// <returns>XML��ʽ ����.</returns>
+        #region 函数:ToXml(string json)
+        /// <summary>将一个Json字符串格式化为Xml信息.</summary>
+        /// <param name="json">Json字符串</param>
+        /// <returns>XML格式 数据.</returns>
         public static string ToXml(string json)
         {
             /*
@@ -81,23 +61,23 @@ namespace X3Platform.Util
             json = json.Replace("\n", "");
             json = json.Replace("\t", "");
             json = json.Replace("\", \"", "\",\"");
-            json = json.Replace("\"\"", "\"{�հ�}\"");
-            json = json.Replace("\\\"", "{˫����}");
-            json = json.Replace("<", "{��������}");
-            json = json.Replace(">", "{�Ҽ�����}");
+            json = json.Replace("\"\"", "\"{空白}\"");
+            json = json.Replace("\\\"", "{双引号}");
+            json = json.Replace("<", "{左尖括号}");
+            json = json.Replace(">", "{右尖括号}");
 
             ConvertJsonToXml(outString, json);
 
-            outString = outString.Replace("{�հ�}", "");
-            outString = outString.Replace("{˫����}", "\"");
-            outString = outString.Replace("{��������}", "<");
-            outString = outString.Replace("{�Ҽ�����}", ">");
+            outString = outString.Replace("{空白}", "");
+            outString = outString.Replace("{双引号}", "\"");
+            outString = outString.Replace("{左尖括号}", "<");
+            outString = outString.Replace("{右尖括号}", ">");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:ConvertJsonToXml(StringBuilder outString, string node)
+        #region 私有函数:ConvertJsonToXml(StringBuilder outString, string node)
         private static void ConvertJsonToXml(StringBuilder outString, string node)
         {
             if (node.IndexOf(":") == -1)
@@ -175,12 +155,12 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToXmlDocument(string json)
+        #region 函数:ToXmlDocument(string json)
         /// <summary>
-        /// ��Json��ʽתΪXML Document����.
+        /// 将Json格式转为XML Document对象.
         /// </summary>
-        /// <param name="text">Json��ʽ ����.</param>
-        /// <returns>XML Document ����.</returns>
+        /// <param name="text">Json格式 数据.</param>
+        /// <returns>XML Document 对象.</returns>
         public static XmlDocument ToXmlDocument(string json)
         {
             XmlDocument doc = new XmlDocument();
@@ -191,8 +171,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToXmlTable(DataTable table)
-        /// <summary>��һ��DataTableת��ΪXml��Ϣ.</summary>
+        #region 函数:ToXmlTable(DataTable table)
+        /// <summary>将一个DataTable转化为Xml信息.</summary>
         /// <param name="table"></param>
         /// <returns></returns>
         public static string ToXmlTable(DataTable table)
@@ -214,8 +194,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:IsNullOrEmpty(string value)
-        /// <summary>�ж��Ƿ��ǿյ�Xml��Ϣ.</summary>
+        #region 函数:IsNullOrEmpty(string value)
+        /// <summary>判断是否是空的Xml信息.</summary>
         /// <param name="table"></param>
         /// <returns></returns>
         public static bool IsNullOrEmpty(string value)
@@ -224,8 +204,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:TryFetchNodeAttribute(XmlNode node, string attributeName)
-        /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
+        #region 函数:TryFetchNodeAttribute(XmlNode node, string attributeName)
+        /// <summary>尝试获取节点标签属性</summary>
         /// <param name="node"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>
@@ -235,8 +215,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:TryFetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
-        /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
+        #region 函数:TryFetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
+        /// <summary>尝试获取节点标签属性</summary>
         /// <param name="node"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>
@@ -251,8 +231,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:TryFetchNodeAttribute(XmlElement element, string attributeName)
-        /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
+        #region 函数:TryFetchNodeAttribute(XmlElement element, string attributeName)
+        /// <summary>尝试获取节点标签属性</summary>
         /// <param name="element"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>
@@ -262,8 +242,8 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:TryFetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
-        /// <summary>���Ի�ȡ�ڵ���ǩ����</summary>
+        #region 函数:TryFetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
+        /// <summary>尝试获取节点标签属性</summary>
         /// <param name="element"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>

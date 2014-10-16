@@ -12,13 +12,13 @@
 //
 // =============================================================================
 
-using System;
-using System.Reflection;
-using System.Xml;
-
 namespace X3Platform.Ajax
 {
-    /// <summary>Ajax方法解析器</summary>
+    using System;
+    using System.Reflection;
+    using System.Xml;
+
+    /// <summary>Ajax 方法解析器</summary>
     public sealed class AjaxMethodParser
     {
         #region 函数:Parse(object target, XmlDocument doc)

@@ -1,26 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :ByteHelper.cs
-//
-// Description  :�ֽڴ�������
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date			:2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-
 namespace X3Platform.Util
 {
-    /// <summary>�ֽڴ�������</summary>
+    #region Using Libraries
+    using System;
+    using System.IO;
+    #endregion
+
+    /// <summary>字节处理辅助类</summary>
     public sealed class ByteHelper
     {
-        #region 属性:ToFile(byte[] buffer, string path)
+        #region 函数:ToFile(byte[] buffer, string path)
         /// <summary></summary>
         /// <param name="buffer"></param>
         /// <param name="path"></param>
@@ -47,7 +35,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToStream(byte[] buffer)
+        #region 函数:ToStream(byte[] buffer)
         /// <summary></summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
@@ -59,7 +47,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 属性:ToString(byte[] buffer)
+        #region 函数:ToString(byte[] buffer)
         /// <summary></summary>
         /// <param name="buffer"></param>
         /// <returns></returns>

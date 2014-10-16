@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Data
 {
     #region Using Libraries
@@ -27,40 +11,40 @@ namespace X3Platform.Data
     using System.Reflection;
     #endregion
 
-    /// <summary>ͨ�õ�SQL����</summary>
+    /// <summary>通用的SQL命令</summary>
     public class GenericSqlCommand
     {
-        /// <summary>�����ṩ���򹤳�</summary>
+        /// <summary>数据提供程序工厂</summary>
         private DbProviderFactory providerFactory;
 
-        /// <summary>���ݿ������ַ���</summary>
+        /// <summary>数据库链接字符串</summary>
         private string connectionString;
 
-        /// <summary>���ݿ�������</summary>
+        /// <summary>数据库的链接</summary>
         private DbConnection connection;
 
-        /// <summary>���ݿ�������</summary>
+        /// <summary>数据库的命令</summary>
         public DbCommand command;
 
-        /// <summary>���ݿ�����������</summary>
+        /// <summary>数据库的命令参数</summary>
         private DbParameter parameter;
 
-        /// <summary>���ݿ�����</summary>
+        /// <summary>数据库事务</summary>
         private DbTransaction transaction;
 
-        /// <summary>�Ƿ��������ݿ�����</summary>
+        /// <summary>是否启用数据库事务</summary>
         private bool enableTransaction;
 
-        #region ���캯��:GenericSqlCommand(string datasourceName)
-        /// <summary>���캯��</summary>
-        /// <param name="datasourceName">����Դ����</param>
+        #region 构造函数:GenericSqlCommand(string datasourceName)
+        /// <summary>构造函数</summary>
+        /// <param name="datasourceName">数据源名称</param>
         public GenericSqlCommand(string datasourceName)
         {
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[datasourceName];
 
             if (settings == null)
             {
-                throw new NullReferenceException("����ϵͳ�����ļ��Ƿ������á�" + datasourceName + "�������ݿ����ӡ�");
+                throw new NullReferenceException("检查系统配置文件是否已配置【" + datasourceName + "】的数据库连接。");
             }
 
             this.connectionString = settings.ConnectionString;
@@ -69,10 +53,10 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ���캯��:GenericSqlCommand(string connectionString, string providerName)
-        /// <summary>���캯��</summary>
-        /// <param name="connectionString">���ݿ������ַ���</param>
-        /// <param name="providerName">�����ṩ������</param>
+        #region 构造函数:GenericSqlCommand(string connectionString, string providerName)
+        /// <summary>构造函数</summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="providerName">数据提供器名称</param>
         public GenericSqlCommand(string connectionString, string providerName)
         {
             this.connectionString = connectionString;
@@ -81,8 +65,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:GetProviderName(string providerName)
-        /// <summary>��ȡ�����������ṩ������</summary>
+        #region 私有函数:GetProviderName(string providerName)
+        /// <summary>获取规则的数据提供器名称</summary>
         /// <param name="providerName"></param>
         /// <returns></returns>
         private string GetProviderName(string providerName)
@@ -110,7 +94,7 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region �򹹺���:~GenericSqlCommand()
+        #region 析构函数:~GenericSqlCommand()
         /// <summary></summary>
         ~GenericSqlCommand()
         {
@@ -118,8 +102,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:CreateConnection()
-        /// <summary>��������</summary>
+        #region 私有函数:CreateConnection()
+        /// <summary>创建连接</summary>
         private DbConnection CreateConnection()
         {
             this.connection = this.providerFactory.CreateConnection();
@@ -130,8 +114,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:OpenConnection()
-        /// <summary>��������</summary>
+        #region 函数:OpenConnection()
+        /// <summary>打开连接</summary>
         public void OpenConnection()
         {
             if (this.connection == null)
@@ -148,8 +132,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:CloseConnection()
-        /// <summary>�ر�����</summary>
+        #region 函数:CloseConnection()
+        /// <summary>关闭连接</summary>
         public void CloseConnection()
         {
             if (this.connection == null) { return; }
@@ -180,8 +164,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:PrepareCommand(bool enableTransaction, CommandType commandType, string commandText)
-        /// <summary>����ִ��ǰ��׼������</summary>
+        #region 私有函数:PrepareCommand(bool enableTransaction, CommandType commandType, string commandText)
+        /// <summary>命令执行前的准备操作</summary>
         private void PrepareCommand(bool enableTransaction, CommandType commandType, string commandText)
         {
             if (this.connection == null)
@@ -205,8 +189,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:PrepareCommand(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>����ִ��ǰ��׼������</summary>
+        #region 私有函数:PrepareCommand(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>命令执行前的准备操作</summary>
         private void PrepareCommand(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText);
@@ -218,8 +202,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:PrepareCommand(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>����ִ��ǰ��׼������</summary>
+        #region 私有函数:PrepareCommand(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>命令执行前的准备操作</summary>
         private void PrepareCommand(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText);
@@ -231,8 +215,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:CreateCommandParameters(object[,] parameters)
-        /// <summary>������������</summary>
+        #region 私有函数:CreateCommandParameters(object[,] parameters)
+        /// <summary>创建命令参数</summary>
         private void CreateCommandParameters(object[,] parameters)
         {
             for (int i = 0; i < parameters.Length / 2; i++)
@@ -245,8 +229,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:CreateCommandParameters(GenericSqlCommandParameter[] parameters)
-        /// <summary>��������</summary>
+        #region 私有函数:CreateCommandParameters(GenericSqlCommandParameter[] parameters)
+        /// <summary>创建参数</summary>
         private void CreateCommandParameters(GenericSqlCommandParameter[] parameters)
         {
             for (int i = 0; i < parameters.Length; i++)
@@ -263,20 +247,20 @@ namespace X3Platform.Data
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.BeginTransaction(IsolationLevel.ReadCommitted);
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.transaction = this.connection.BeginTransaction(isolationLevel);
@@ -285,8 +269,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             if (this.transaction.Connection != null)
@@ -298,8 +282,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             if (this.enableTransaction)
@@ -313,19 +297,19 @@ namespace X3Platform.Data
 
         // -------------------------------------------------------
         // ExecuteNonQuery
-        // ִ�������������Ӱ����������
+        // 执行命令，并返回受影响的行数。
         // -------------------------------------------------------
 
-        #region 属性:ExecuteNonQuery(string commandText)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(string commandText)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(string commandText)
         {
             return this.ExecuteNonQuery(CommandType.Text, commandText);
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(CommandType commandType, string commandText)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText)
         {
             this.PrepareCommand(false, commandType, commandText);
@@ -334,16 +318,16 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters)
         {
             return this.ExecuteNonQuery(commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
             this.PrepareCommand(false, commandType, commandText, commandParameters);
@@ -352,16 +336,16 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             return this.ExecuteNonQuery(commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
             this.PrepareCommand(false, commandType, commandText, commandParameters);
@@ -370,8 +354,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText);
@@ -380,16 +364,16 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         {
             return this.ExecuteNonQuery(enableTransaction, commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText, commandParameters);
@@ -398,16 +382,16 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             return this.ExecuteNonQuery(enableTransaction, commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 函数:ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         public int ExecuteNonQuery(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText, commandParameters);
@@ -416,8 +400,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:ExecuteNonQuery(bool enableTransaction, bool disposeCommand)
-        /// <summary>ִ�������������Ӱ����������</summary>
+        #region 私有函数:ExecuteNonQuery(bool enableTransaction, bool disposeCommand)
+        /// <summary>执行命令，并返回受影响的行数。</summary>
         private int ExecuteNonQuery(bool enableTransaction, bool disposeCommand)
         {
             try
@@ -447,19 +431,19 @@ namespace X3Platform.Data
 
         // -------------------------------------------------------
         // ExecuteScalar 
-        // ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�
+        // 执行查询命令，并返回查询所返回的结果集的第一行的第一列。
         // -------------------------------------------------------
 
-        #region 属性:ExecuteScalar(string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(string commandText)
         {
             return this.ExecuteScalar(CommandType.Text, commandText);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(CommandType commandType, string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(CommandType commandType, string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(CommandType commandType, string commandText)
         {
             this.PrepareCommand(false, commandType, commandText);
@@ -468,48 +452,48 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters)
         {
             return this.ExecuteScalar(commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
             return this.ExecuteScalar(false, commandType, commandText, commandParameters, disposeCommand);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             return this.ExecuteScalar(commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
             return this.ExecuteScalar(false, commandType, commandText, commandParameters, disposeCommand);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters)
         {
             return this.ExecuteScalar(enableTransaction, commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, object[,] commandParameters, bool disposeCommand)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText, commandParameters);
@@ -518,16 +502,16 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             return this.ExecuteScalar(enableTransaction, commandType, commandText, commandParameters, true);
         }
         #endregion
 
-        #region 属性:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 函数:ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         public object ExecuteScalar(bool enableTransaction, CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters, bool disposeCommand)
         {
             this.PrepareCommand(enableTransaction, commandType, commandText, commandParameters);
@@ -536,8 +520,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:ExecuteScalar(bool enableTransaction, bool disposeCommand)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�</summary>
+        #region 私有函数:ExecuteScalar(bool enableTransaction, bool disposeCommand)
+        /// <summary>执行查询命令，并返回查询所返回的结果集的第一行的第一列。</summary>
         private object ExecuteScalar(bool enableTransaction, bool disposeCommand)
         {
             try
@@ -567,19 +551,19 @@ namespace X3Platform.Data
 
         // -------------------------------------------------------
         // ExecuteQueryForDataTable
-        // ִ�в�ѯ��������ز�ѯ�����ص� DataTable ��������
+        // 执行查询命令，并返回查询所返回的 DataTable 结果集。
         // -------------------------------------------------------
 
-        #region 属性:ExecuteQueryForDataTable(string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� ExecuteQueryForDataTable ��������</summary>
+        #region 函数:ExecuteQueryForDataTable(string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 ExecuteQueryForDataTable 结果集。</summary>
         public DataTable ExecuteQueryForDataTable(string commandText)
         {
             return this.ExecuteQueryForDataTable(CommandType.Text, commandText);
         }
         #endregion
 
-        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� ExecuteQueryForDataTable ��������</summary>
+        #region 函数:ExecuteQueryForDataSet(CommandType commandType, string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 ExecuteQueryForDataTable 结果集。</summary>
         public DataTable ExecuteQueryForDataTable(CommandType commandType, string commandText)
         {
             this.PrepareCommand(false, commandType, commandText);
@@ -588,8 +572,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForDataTable(CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForDataTable(CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public DataTable ExecuteQueryForDataTable(CommandType commandType, string commandText, object[,] commandParameters)
         {
             this.PrepareCommand(false, commandType, commandText, commandParameters);
@@ -598,8 +582,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForDataTable(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForDataTable(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public DataTable ExecuteQueryForDataTable(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             this.PrepareCommand(false, commandType, commandText, commandParameters);
@@ -608,8 +592,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:ExecuteQueryForDataTable()
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataReader ʵ����</summary>
+        #region 私有函数:ExecuteQueryForDataTable()
+        /// <summary>执行查询命令，并返回查询所返回的 DataReader 实例。</summary>
         private DataTable ExecuteQueryForDataTable()
         {
             try
@@ -624,7 +608,7 @@ namespace X3Platform.Data
                 {
                     table.BeginLoadData();
 
-                    // ������ͷ
+                    // 创建表头
                     for (int i = 0; i < reader.FieldCount; ++i)
                     {
                         table.Columns.Add(reader.GetName(i), reader.GetFieldType(i));
@@ -665,19 +649,19 @@ namespace X3Platform.Data
 
         // -------------------------------------------------------
         // ExecuteQueryForDataSet 
-        // ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������
+        // 执行查询命令，并返回查询所返回的 DataSet 结果集。
         // -------------------------------------------------------
 
-        #region 属性:ExecuteQueryForDataSet(string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForDataSet(string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public DataSet ExecuteQueryForDataSet(string commandText)
         {
             return this.ExecuteQueryForDataSet(CommandType.Text, commandText);
         }
         #endregion
 
-        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForDataSet(CommandType commandType, string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public DataSet ExecuteQueryForDataSet(CommandType commandType, string commandText)
         {
             this.PrepareCommand(false, commandType, commandText);
@@ -686,8 +670,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForDataSet(CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public DataSet ExecuteQueryForDataSet(CommandType commandType, string commandText, object[,] commandParameters)
         {
             this.PrepareCommand(false, commandType, commandText, commandParameters);
@@ -696,8 +680,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForDataSet(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForDataSet(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public DataSet ExecuteQueryForDataSet(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
         {
             this.PrepareCommand(false, commandType, commandText, commandParameters);
@@ -706,8 +690,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:ExecuteQueryForDataSet()
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 私有函数:ExecuteQueryForDataSet()
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         private DataSet ExecuteQueryForDataSet()
         {
             try
@@ -742,11 +726,11 @@ namespace X3Platform.Data
 
         // -------------------------------------------------------
         // ExecuteQueryForList<T>
-        // ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�
+        // 执行查询命令，并返回查询所返回的结果集的第一行的第一列。
         // -------------------------------------------------------
 
-        #region 属性:ExecuteQueryForList<T>(string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForList<T>(string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public IList<T> ExecuteQueryForList<T>(string commandText)
            where T : new()
         {
@@ -754,8 +738,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForList<T>(CommandType commandType, string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForList<T>(CommandType commandType, string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public IList<T> ExecuteQueryForList<T>(CommandType commandType, string commandText)
            where T : new()
         {
@@ -765,8 +749,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForList(CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForList(CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public IList<T> ExecuteQueryForList<T>(CommandType commandType, string commandText, object[,] commandParameters)
            where T : new()
         {
@@ -776,8 +760,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForList(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForList(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public IList<T> ExecuteQueryForList<T>(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
            where T : new()
         {
@@ -787,8 +771,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:ExecuteQueryForList()
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 私有函数:ExecuteQueryForList()
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         private IList<T> ExecuteQueryForList<T>()
             where T : new()
         {
@@ -829,11 +813,11 @@ namespace X3Platform.Data
 
         // -------------------------------------------------------
         // ExecuteQueryForObject<T>
-        // ִ�в�ѯ��������ز�ѯ�����صĽ������ĵ�һ�еĵ�һ�С�
+        // 执行查询命令，并返回查询所返回的结果集的第一行的第一列。
         // -------------------------------------------------------
 
-        #region 属性:ExecuteQueryForObject(string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForObject(string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public T ExecuteQueryForObject<T>(string commandText)
            where T : new()
         {
@@ -841,8 +825,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForObject(CommandType commandType, string commandText)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForObject(CommandType commandType, string commandText)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public T ExecuteQueryForObject<T>(CommandType commandType, string commandText)
            where T : new()
         {
@@ -852,8 +836,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForObject(CommandType commandType, string commandText, object[,] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForObject(CommandType commandType, string commandText, object[,] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public T ExecuteQueryForObject<T>(CommandType commandType, string commandText, object[,] commandParameters)
            where T : new()
         {
@@ -863,8 +847,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:ExecuteQueryForObject(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 函数:ExecuteQueryForObject(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         public T ExecuteQueryForObject<T>(CommandType commandType, string commandText, GenericSqlCommandParameter[] commandParameters)
            where T : new()
         {
@@ -874,8 +858,8 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region ˽�к���:ExecuteQueryForObject()
-        /// <summary>ִ�в�ѯ��������ز�ѯ�����ص� DataSet ��������</summary>
+        #region 私有函数:ExecuteQueryForObject()
+        /// <summary>执行查询命令，并返回查询所返回的 DataSet 结果集。</summary>
         private T ExecuteQueryForObject<T>()
             where T : new()
         {
@@ -931,7 +915,7 @@ namespace X3Platform.Data
                     {
                         int ordinal = GetDataReaderColumnOrdinal(reader, name);
 
-                        // ���������в����ں�������Ϊ����Ϣ
+                        // 过滤数据列不存在和列内容为空信息
                         if (ordinal == -1 || reader.GetValue(ordinal) == DBNull.Value) { continue; }
 
                         switch (reader.GetFieldType(ordinal).FullName)
@@ -973,18 +957,18 @@ namespace X3Platform.Data
             return targetObject;
         }
 
-        /// <summary>�������������ƻ�ȡ����������, IDataReader ���õ�GetOrdinal������ѯ�����ڵ���ʱ��ֱ�����쳣</summary>
+        /// <summary>根据数据列名称获取数据列序号, IDataReader 内置的GetOrdinal方法查询不存在的列时会直接抛异常</summary>
         /// <param name="reader"></param>
         /// <param name="name"></param>
         /// <returns></returns>
         private int GetDataReaderColumnOrdinal(DbDataReader reader, string name)
         {
-            // �������������ƻ�ȡ����������
+            // 根据数据列名称获取数据列序号
             int ordinal = -1;
 
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                // �жϺ��Դ�Сд
+                // 判断忽略大小写
                 if (reader.GetName(i).ToLower() == name.ToLower())
                 {
                     ordinal = i;
@@ -995,32 +979,32 @@ namespace X3Platform.Data
             return ordinal;
         }
 
-        /// <summary>����ռλ��������</summary>
-        /// <param name="commandText">SQL����</param>
-        /// <param name="placeholder">ռλ������</param>
-        /// <param name="fillText">�������ı�</param>
+        /// <summary>填充占位符的内容</summary>
+        /// <param name="commandText">SQL命令</param>
+        /// <param name="placeholder">占位符名称</param>
+        /// <param name="fillText">填充的文本</param>
         /// <returns></returns>
         public string FillPlaceholder(string commandText, string placeholder, string fillText)
         {
             return FillPlaceholder(commandText, placeholder, fillText, fillText);
         }
 
-        /// <summary>����ռλ��������</summary>
-        /// <param name="commandText">SQL����</param>
-        /// <param name="placeholder">ռλ������</param>
-        /// <param name="placeholderValue">ռλ��ʵ��������ֵ</param>
-        /// <param name="fillText">�������ı�</param>
+        /// <summary>填充占位符的内容</summary>
+        /// <param name="commandText">SQL命令</param>
+        /// <param name="placeholder">占位符名称</param>
+        /// <param name="placeholderValue">占位符实际填充的值</param>
+        /// <param name="fillText">填充的文本</param>
         /// <returns></returns>
         public string FillPlaceholder(string commandText, string placeholder, int placeholderValue, string fillText)
         {
             return FillPlaceholder(commandText, placeholder, (placeholderValue == 0 ? string.Empty : placeholderValue.ToString()), fillText);
         }
 
-        /// <summary>����ռλ��������</summary>
-        /// <param name="commandText">SQL����</param>
-        /// <param name="placeholder">ռλ������</param>
-        /// <param name="placeholderValue">ռλ��ʵ��������ֵ</param>
-        /// <param name="fillText">�������ı�</param>
+        /// <summary>填充占位符的内容</summary>
+        /// <param name="commandText">SQL命令</param>
+        /// <param name="placeholder">占位符名称</param>
+        /// <param name="placeholderValue">占位符实际填充的值</param>
+        /// <param name="fillText">填充的文本</param>
         /// <returns></returns>
         public string FillPlaceholder(string commandText, string placeholder, string placeholderValue, string fillText)
         {
