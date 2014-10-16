@@ -51,8 +51,8 @@
                 #OrderId#,
                 #Status#,
                 #Remark#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -65,7 +65,7 @@
                 `OrderId` = #OrderId#,
                 `Status` = #Status#,
                 `Remark` = #Remark#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -129,7 +129,7 @@
         </select>
 
         <update id="proc_JobFamily_Rename" parameterClass="JobFamilyInfo">
-            UPDATE `tb_JobFamily` SET `Name` = #Name#, `UpdateDate` = Now() WHERE `Id` = #Id#
+            UPDATE `tb_JobFamily` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <insert id="proc_JobFamily_SyncFromPackPage" parameterClass="JobFamilyInfo" >
@@ -142,7 +142,7 @@
                     `OrderId` = #OrderId#,
                     `Status` = #Status#,
                     `Remark` = #Remark#,
-                    `UpdateDate` = Now()
+                    `UpdateDate` = CURRENT_TIMESTAMP
 
                 WHERE `Id` = #Id#
             END
@@ -167,8 +167,8 @@
                     #OrderId#,
                     #Status#,
                     #Remark#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

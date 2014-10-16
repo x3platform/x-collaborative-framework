@@ -1,24 +1,14 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-
-namespace X3Platform.CategoryIndexes
+﻿namespace X3Platform.CategoryIndexes
 {
+    #region Using Libraries
+    using System;
+    #endregion
+
     /// <summary>文本和值对应的分类索引</summary>
     public class TextValueCategoryIndex : TextCategoryIndex
     {
+        /// <summary></summary>
+        /// <param name="text"></param>
         public TextValueCategoryIndex(string text)
             : this(text, text)
         {

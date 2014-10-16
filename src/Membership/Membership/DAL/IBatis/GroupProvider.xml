@@ -83,8 +83,8 @@
                 #Remark#,
                 #FullPath#,
                 #DistinguishedName#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -104,7 +104,7 @@
                 [Remark] = #Remark#,
                 [FullPath] = #FullPath#,
                 [DistinguishedName] = #DistinguishedName#,
-                [UpdateDate] = GetDate()
+                [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>
@@ -174,15 +174,15 @@
         </select>
 
         <update id="proc_Group_Rename" parameterClass="GroupInfo">
-            UPDATE [tb_Group] SET [Name] = #Name#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_Group] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
 
         <update id="proc_Group_SetGlobalName" >
-            Update [tb_Group] SET GlobalName = #GlobalName#, [UpdateDate] = GetDate() WHERE Id = #Id#
+            Update [tb_Group] SET GlobalName = #GlobalName#, [UpdateDate] = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Group_SetExchangeStatus" >
-            UPDATE [tb_Group] SET [EnableExchangeEmail] = #EnableExchangeEmail#, [UpdateDate] = GetDate() WHERE [Id] = #Id#
+            UPDATE [tb_Group] SET [EnableExchangeEmail] = #EnableExchangeEmail#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
         </update>
         
         <select id="proc_Group_FindAllRelation" resultMap="proc_Group_FindAllRelation_Result" >

@@ -56,7 +56,7 @@
                     #TimeSpan#,
                     #IP#,
                     #ReturnCode#,
-                    Now()
+                    CURRENT_TIMESTAMP
                 )
             END
 		</insert>

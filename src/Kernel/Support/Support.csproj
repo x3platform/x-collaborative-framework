@@ -1213,7 +1213,7 @@
     <Content Include="IBatis\DataAccess\ChangeLog.txt" />
     <Content Include="IBatis\DataMapper\ChangeLog.txt" />
     <Content Include="IBatis\DataMapper\ReadMe.txt" />
-    <EmbeddedResource Include="defaults\Ajax.yaml" />
+    <EmbeddedResource Include="Ajax\defaults\config.yaml" />
     <None Include="DynamicProxy\README.md" />
     <None Include="IBatis\README.md" />
     <None Include="Json\README.md" />
@@ -1314,6 +1314,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Ajax\config\" />
     <Folder Include="ObjectBuilder\" />
   </ItemGroup>
   <ItemGroup>

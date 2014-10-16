@@ -25,7 +25,7 @@ namespace X3Platform.Security.Authority
     /// <summary>Ȩ��������ͼ</summary>
     public class AuthorityConfigurationView
     {
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile AuthorityConfigurationView instance = null;
 
         private static object lockObject = new object();

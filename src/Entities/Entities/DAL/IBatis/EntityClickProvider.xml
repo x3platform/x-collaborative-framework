@@ -43,8 +43,8 @@
                 '$EntityClassName$',
                 '$AccountId$',
                 $Click$,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -52,7 +52,7 @@
             UPDATE $CustomTableName$ SET
 
                 [Click] = $Click$,
-                [UpdateDate] = GetDate()
+                [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE
                 [EntityId] = '$EntityId$' AND [EntityClassName] = '$EntityClassName$' AND [AccountId] = '$AccountId$'
@@ -103,7 +103,7 @@
             UPDATE $CustomTableName$ SET
 
                 [Click] = ([Click] + 1),
-                [UpdateDate] = GetDate()
+                [UpdateDate] = CURRENT_TIMESTAMP
 
             WHERE
                 [EntityId] = '$EntityId$' AND [EntityClassName] = '$EntityClassName$' AND [AccountId] = '$AccountId$'
@@ -128,8 +128,8 @@
                 '$EntityClassName$',
                 '$AccountId$',
                 1,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
 
             END

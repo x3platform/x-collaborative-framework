@@ -1,95 +1,112 @@
-         <param name="applicationId">应用系统的标识</param>
-            <param name="taskCode">任务编码</param>
-            <returns>布尔值</returns>
-        </member>
-        <member name="M:X3platform.Tasks.IDAL.ITaskProvider.SetFinished(System.String,System.String)">
-            <summary>设置任务完成</summary>
-            <param name="applicationId">应用系统的标识</param>
-            <param name="taskCode">任务编号</param>
-        </member>
-        <member name="M:X3platform.Tasks.IDAL.ITaskProvider.GetTaskTagsView(System.String)">
-            <summary>获取任务标签列表</summary>
-            <param name="key">匹配标签的关键字, 空值则全部匹配</param>
-        </member>
-        <member name="M:X3platform.Tasks.IDAL.ITaskProvider.GetIdsByTaskCodes(System.String,System.String)">
-            <summary>将任务编号转换为标识信息</summary>
-            <param name="applicationId">应用系统的标识</param>
-            <param name="taskCodes">任务编号,多个以[,]号分开</param>
-        </member>
-        <member name="T:X3platform.Spring.SpringObjectAttribute">
-            <summary>Srping对象属性标签</summary>
-        </member>
-        <member name="M:X3platform.Spring.SpringObjectAttribute.#ctor(System.String)">
-            <summary>构造函数</summary>
-            <param name="name">接口名称</param>
-        </member>
-        <member name="P:X3platform.Spring.SpringObjectAttribute.Name">
-            <summary>接口名称</summary>
-        </member>
-        <member name="T:X3platform.Services.IServiceContracts.IDebugServiceCallback">
-            <summary>调试服务回调接口</summary>
-        </member>
-        <member name="M:X3platform.Services.IServiceContracts.IDebugServiceCallback.Response(System.String)">
-            <summary>接收调试信息</summary>
-            <param name="text"></param>
-        </member>
-        <member name="T:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1">
-            <summary>
-            Implementation of <see cref="T:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1"/> suitable for direct calls
-            to the <see cref="T:System.Reflection.MethodBase"/> class.
-            </summary>
-            <typeparam name="TMemberInfo"></typeparam>
-        </member>
-        <member name="T:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1">
-            <summary>
-            Interface used by the <see cref="T:Microsoft.Practices.ObjectBuilder.ReflectionStrategy`1"/> base class to encapsulate the information
-            required from members that use the strategy. This interface is required because direct access to
-            the <see cref="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.MemberInfo"/> object may not give the desired results.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetCustomAttributes(System.Type,System.Boolean)">
-            <summary>
-            Gets the custom attributes of the member.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetParameters">
-            <summary>
-            Gets the parameters to be passed to the member.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.MemberInfo">
-            <summary>
-            Gets the original member info object.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.Name">
-            <summary>
-            Gets the name of the member.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.#ctor(`0)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1"/> class.
-            </summary>
-            <param name="memberInfo">The member used to satisfy the interface calls.</param>
-        </member>
-        <member name="M:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.GetCustomAttributes(System.Type,System.Boolean)">
-            <summary>
-            See <see cref="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetCustomAttributes(System.Type,System.Boolean)"/> for more information.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.GetParameters">
-            <summary>
-            See <see cref="M:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.GetParameters"/> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.MemberInfo">
-            <summary>
-            See <see cref="P:Microsoft.Practices.ObjectBuilder.IReflectionMemberInfo`1.MemberInfo"/> for more information.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Practices.ObjectBuilder.ReflectionMemberInfo`1.Name">
-            <summary>
-            See <see cref="P:Microsoft.Practices.ObjectBuilder.IReflecti
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7DB4777A-5DA6-4539-803D-9622D9BD2D6E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>X3Platform.ActiveDirectory.TestSuite</RootNamespace>
+    <AssemblyName>X3Platform.ActiveDirectory.TestSuite</AssemblyName>
+    <WarningLevel>4</WarningLevel>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.ActiveDirectory">
+      <HintPath>..\..\..\bin\X3Platform.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\ActiveDirectoryConfigurationViewTests.cs" />
+    <Compile Include="ActiveDirectoryManagementTests.cs" />
+    <Compile Include="Interop\GroupProviderTests.cs" />
+    <Compile Include="Interop\UserProviderTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+</Project>

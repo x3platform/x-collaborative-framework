@@ -18,6 +18,12 @@
     <if test="${nant.settings.currentframework=='mono-3.5'}">
         <property name="framework.version" value="MONO35" />
     </if>
+    <if test="${nant.settings.currentframework=='mono-4.0'}">
+        <property name="framework.version" value="MONO40" />
+    </if>
+    <if test="${nant.settings.currentframework=='net-2.0'}">
+        <property name="framework.version" value="NET20" />
+    </if>
     <if test="${nant.settings.currentframework=='net-3.5'}">
         <property name="framework.version" value="NET35" />
     </if>

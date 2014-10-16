@@ -74,8 +74,8 @@
                 #Remark#,
                 #FullPath#,
                 #DistinguishedName#,
-                GetDate(),
-                GetDate()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -94,7 +94,7 @@
                 `Remark` = #Remark#,
                 `FullPath` = #FullPath#,
                 `DistinguishedName` = #DistinguishedName#,
-                `UpdateDate` = GetDate()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id#
         </update>
@@ -164,11 +164,11 @@
         </select>
 
         <update id="proc_GeneralRole_Rename" >
-            UPDATE `tb_GeneralRole` SET `Name` = #Name#, `UpdateDate` = GetDate() WHERE `Id` = #Id#
+            UPDATE `tb_GeneralRole` SET `Name` = #Name#, `UpdateDate` = CURRENT_TIMESTAMP WHERE `Id` = #Id#
         </update>
 
         <update id="proc_GeneralRole_SetGlobalName" >
-            Update `tb_GeneralRole` SET GlobalName = #GlobalName#, `UpdateDate` = GetDate() WHERE Id = #Id#
+            Update `tb_GeneralRole` SET GlobalName = #GlobalName#, `UpdateDate` = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
     </statements>

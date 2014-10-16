@@ -93,8 +93,8 @@
                 #OrderId#,
                 #Status#,
                 #Remark#,
-                Now(),
-                Now()
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
@@ -116,7 +116,7 @@
                 `OrderId` = #OrderId#,
                 `Status` = #Status#,
                 `Remark` = #Remark#,
-                `UpdateDate` = Now()
+                `UpdateDate` = CURRENT_TIMESTAMP
 
             WHERE `Id` = #Id# AND `UpdateDate` = #UpdateDate#
         </update>
@@ -240,7 +240,7 @@
                     `OrderId` = #OrderId#,
                     `Status` = #Status#,
                     `Remark` = #Remark#,
-                    `UpdateDate` = Now()
+                    `UpdateDate` = CURRENT_TIMESTAMP
                 WHERE `Id` = #Id#
             END
             ELSE
@@ -270,8 +270,8 @@
                     #OrderId#,
                     #Status#,
                     #Remark#,
-                    Now(),
-                    Now()
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
                 )
             END
         </insert>

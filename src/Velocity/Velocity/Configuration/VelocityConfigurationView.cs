@@ -80,7 +80,7 @@ namespace X3Platform.Velocity.Configuration
                         "TemplatePath",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_TemplatePath = StringHelper.NullOrEmptyTo(this.m_TemplatePath,
                         KernelConfigurationView.Instance.ApplicationPathRoot + "apps\templates");
 
@@ -111,7 +111,7 @@ namespace X3Platform.Velocity.Configuration
                         "TemplateCacheMode",
                         this.Configuration.Keys);
 
-                    // 如果配置文件里没有设置，设置一个默认值。
+                    // 如果配置文件里未设置则设置一个默认值
                     this.m_TemplateCacheMode = StringHelper.NullOrEmptyTo(this.m_TemplateCacheMode, "Off");
 
                     this.m_TemplateCacheMode = this.m_TemplateCacheMode.ToUpper();

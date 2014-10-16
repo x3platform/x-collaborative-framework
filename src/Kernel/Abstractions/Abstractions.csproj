@@ -229,11 +229,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml" />
-    <Content Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.xml" />
-    <Content Include="DigitalNumber\db\编号管理初始化脚本%28MySQL%29.sql" />
-    <Content Include="DigitalNumber\db\编号管理初始化脚本%28SQLServer%29.sql" />
-    <Content Include="DigitalNumber\readme.txt" />
+    <Content Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml">
+      <DependentUpon>DigitalNumberProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.xml">
+      <DependentUpon>DigitalNumberProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DigitalNumber\db\DigiatalNumber_Init_Scripts_SQLServer.sql" />
+    <Content Include="DigitalNumber\db\DigiatalNumbe_Init_Scripts_MySQL.sql" />
     <Content Include="Security\Authority\DAL\IBatis\AuthorityProvider.xml">
       <DependentUpon>AuthorityProvider.cs</DependentUpon>
     </Content>
@@ -253,9 +256,11 @@
     <Content Include="Security\readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DigitalNumber\IDAL\IDigitalNumberProvider.cs.bak" />
+    <None Include="DigitalNumber\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DigitalNumber\config\" />
+    <Folder Include="DigitalNumber\defaults\" />
     <Folder Include="Partials\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -51,7 +51,7 @@
 				#IP#,
 				#BeginDate#,
 				#EndDate#,
-                Now()
+                CURRENT_TIMESTAMP
 			)
 		</insert>
 
@@ -61,7 +61,7 @@
 				`AccountObject` = #AccountObject#,
 				`AccountObjectType` = #AccountObjectType#,
 				`EndDate` = #EndDate#,
-				`UpdateDate` = Now()
+				`UpdateDate` = CURRENT_TIMESTAMP
 
 			WHERE `AccountIdentity` = #AccountIdentity#
 		</update>

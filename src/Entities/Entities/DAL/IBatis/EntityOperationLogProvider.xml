@@ -52,7 +52,7 @@
                 #ToAuthorizationObjectId#,
                 #ToAuthorizationObjectType#,
                 #Reason#,
-                GetDate()
+                CURRENT_TIMESTAMP
             )
         </insert>
         

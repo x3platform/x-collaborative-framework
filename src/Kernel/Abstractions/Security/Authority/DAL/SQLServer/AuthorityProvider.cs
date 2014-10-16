@@ -103,8 +103,8 @@ VALUES
 	@Lock,
 	@Tags,
 	@OrderId,
-	GETDATE(),
-	GETDATE()	
+	CURRENT_TIMESTAMP,
+	CURRENT_TIMESTAMP	
 )";
 
             GenericSqlCommandParameter[] commandParameters = new GenericSqlCommandParameter[6];
@@ -132,7 +132,7 @@ UPDATE [tb_Authority] SET
 	[Lock] = @Lock,
 	[Tags] = @Tags,
 	[OrderId] = @OrderId,
-	[UpdateDate] = GETDATE()
+	[UpdateDate] = CURRENT_TIMESTAMP
 		
 WHERE
 	[Id] = @Id";

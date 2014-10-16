@@ -1,7 +1,9 @@
 ﻿namespace X3Platform.CategoryIndexes
 {
+    #region Using Libraries
     using System.Collections.Generic;
     using System.Text;
+    #endregion
 
     /// <summary>异步加载的树</summary>
     public class DynamicTreeView

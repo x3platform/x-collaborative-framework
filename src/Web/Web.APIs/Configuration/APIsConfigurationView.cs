@@ -1,30 +1,16 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :APIsConfigurationView.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-using System.Threading;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Reflection;
-using Common.Logging;
-
-using X3Platform.Configuration;
-using X3Platform.Util;
-
 namespace X3Platform.Web.APIs.Configuration
 {
+    using System;
+    using System.IO;
+    using System.Threading;
+    using System.Xml;
+    using System.Xml.Serialization;
+    using System.Reflection;
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    using X3Platform.Util;
+
     /// <summary>��ַ��д������ͼ</summary>
     public sealed class APIsConfigurationView : XmlConfigurationView<APIsConfiguration>
     {
@@ -34,7 +20,7 @@ namespace X3Platform.Web.APIs.Configuration
         /// <summary>�����ļ���Ĭ��·��</summary>
         private const string configFile = "config\\X3Platform.Web.APIs.config";
 
-        #region ��̬属性:Instance
+        #region 静态属性::Instance
         private static volatile APIsConfigurationView instance = null;
 
         private static object lockObject = new object();
