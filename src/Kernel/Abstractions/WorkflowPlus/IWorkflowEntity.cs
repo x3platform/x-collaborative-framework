@@ -1,42 +1,23 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Collections;
-
 namespace X3Platform.WorkflowPlus
 {
-    /// <summary>������ʵ�����ӿ�</summary>
+    /// <summary>工作流实体类接口</summary>
     public interface IWorkflowEntity
     {
-        /// <summary>ʵ�����ı��Ż���ʶ</summary>
+        /// <summary>实体类的编号或标识</summary>
         string Id { get; }
 
-        /// <summary>ʵ������ȫ��</summary>
+        /// <summary>实体类的全称</summary>
         string ClassName { get; }
 
-        /// <summary>����ʵ����</summary>
-        /// <param name="context">�����Ļ����ӿ�</param>
+        /// <summary>查找实体类</summary>
+        /// <param name="context">上下文环境接口</param>
         /// <returns></returns>
         void Load(IWorkflowClientContext context);
 
-        /// <summary>����</summary>
+        /// <summary>保存</summary>
         void Save();
 
-        /// <summary>ɾ��</summary>
+        /// <summary>删除</summary>
         void Delete();
     }
 }
