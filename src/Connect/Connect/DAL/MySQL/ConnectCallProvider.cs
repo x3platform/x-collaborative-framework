@@ -1,43 +1,30 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Connect.DAL.MySQL
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
 
+    using X3Platform.Data;
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Util;
 
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.Model;
     using X3Platform.Connect.IDAL;
-
+    
     [DataObject]
     public class ConnectCallProvider : IConnectCallProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private ConnectConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Connect_Call";
 
         public ConnectCallProvider()
@@ -50,13 +37,13 @@ namespace X3Platform.Connect.DAL.MySQL
         }
 
         // -------------------------------------------------------
-        // ���� ���� �޸� ɾ��
+        // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ConnectCallInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="ConnectCallInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="ConnectCallInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(ConnectCallInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="ConnectCallInfo"/>详细信息</param>
+        /// <returns>实例<see cref="ConnectCallInfo"/>详细信息</returns>
         public ConnectCallInfo Save(ConnectCallInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Save", this.tableName)), param);
@@ -65,29 +52,29 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号隔开</param>
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids)) { return; }
+            if (string.IsNullOrEmpty(id)) { return; }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Ids", string.Format("'{0}'", ids.Replace(",", "','")));
+            args.Add("Ids", string.Format("'{0}'", id.Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="param">ConnectCallInfo Id��</param>
-        /// <returns>����һ�� ʵ��<see cref="ConnectCallInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="param">ConnectCallInfo Id号</param>
+        /// <returns>返回一个 实例<see cref="ConnectCallInfo"/>详细信息</returns>
         public ConnectCallInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -98,50 +85,46 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� ʵ��<see cref="ConnectCallInfo"/>��ϸ��Ϣ</returns>
-        public IList<ConnectCallInfo> FindAll(string whereClause, int length)
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 实例<see cref="ConnectCallInfo"/>详细信息</returns>
+        public IList<ConnectCallInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            whereClause = (string.IsNullOrEmpty(whereClause)) ? " 1=1 ORDER BY CreateDate " : whereClause;
-
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("Length", length);
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("Length", query.Limit);
 
             return this.ibatisMapper.QueryForList<ConnectCallInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        public IList<ConnectCallInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        public IList<ConnectCallInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<ConnectCallInfo> list = this.ibatisMapper.QueryForList<ConnectCallInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
+            IList<ConnectCallInfo> list = this.ibatisMapper.QueryForList<ConnectCallInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
 
@@ -149,13 +132,13 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">ʵ��<see cref="ConnectCallInfo"/>��ϸ��Ϣ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">实例<see cref="ConnectCallInfo"/>详细信息</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id)) { throw new Exception("ʵ����ʶ����Ϊ��."); }
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空."); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

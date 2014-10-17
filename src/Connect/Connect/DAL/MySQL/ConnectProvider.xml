@@ -59,24 +59,24 @@
 
     <statements>
         <insert id="proc_Connect_Insert" parameterClass="ConnectInfo" >
-            INSERT INTO `tb_Connect`
+            INSERT INTO tb_Connect
             (
-                `Id`,
-                `AccountId`,
-                `AccountName`,
-                `AppKey`,
-                `AppSecret`,
-                `AppType`,
-                `Code`,
-                `Name`,
-                `Description`,
-                `Domain`,
-                `RedirectUri`,
-                `Options`,
-                `CertifiedCode`,
-                `Status`,
-                `UpdateDate`,
-                `CreateDate`
+                Id,
+                AccountId,
+                AccountName,
+                AppKey,
+                AppSecret,
+                AppType,
+                Code,
+                Name,
+                Description,
+                Domain,
+                RedirectUri,
+                Options,
+                CertifiedCode,
+                Status,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -100,29 +100,29 @@
         </insert>
 
         <update id="proc_Connect_Update" parameterClass="ConnectInfo" >
-            UPDATE `tb_Connect` SET
+            UPDATE tb_Connect SET
 
-                `Name` = #Name#,
-                `Description` = #Description#,
-                `Domain` = #Domain#,
-                `RedirectUri` = #RedirectUri#,
-                `Options` = #Options#,
-                `Status` = #Status#,
-                `UpdateDate` = CURRENT_TIMESTAMP
+                Name = #Name#,
+                Description = #Description#,
+                Domain = #Domain#,
+                RedirectUri = #RedirectUri#,
+                Options = #Options#,
+                Status = #Status#,
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
 
         <delete id="proc_Connect_Delete">
-            DELETE FROM `tb_Connect` WHERE Id = #Id#
+            DELETE FROM tb_Connect WHERE Id = #Id#
         </delete>
 
         <select id="proc_Connect_FindOne" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
-            SELECT * FROM `tb_Connect` WHERE `Id` = #Id#
+            SELECT * FROM tb_Connect WHERE Id = #Id#
         </select>
 
         <select id="proc_Connect_FindOneByAppKey" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
-            SELECT * FROM `tb_Connect` WHERE `AppKey` = #AppKey# LIMIT 1
+            SELECT * FROM tb_Connect WHERE AppKey = #AppKey# LIMIT 1
         </select>
 
         <select id="proc_Connect_FindAll" resultMap="proc_Connect_FindAll_Result" parameterClass="ConnectInfo" >
@@ -134,7 +134,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM `tb_Connect` T
+            * FROM tb_Connect T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -145,12 +145,12 @@
             </dynamic>
         </select>
 
-        <select id="proc_Connect_GetPages" parameterClass="ConnectInfo" resultMap="proc_Connect_FindAll_Result" >
+        <select id="proc_Connect_GetPaging" parameterClass="ConnectInfo" resultMap="proc_Connect_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM `tb_Connect` T
+            FROM tb_Connect T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -164,12 +164,12 @@
 
         </select>
 
-        <select id="proc_Connect_GetQueryObjectPages" resultMap="proc_ConnectQueryInfo_FindAll_Result" >      
+        <select id="proc_Connect_GetQueryObjectPaging" resultMap="proc_ConnectQueryInfo_FindAll_Result" >      
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM `tb_Connect` T
+            FROM tb_Connect T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -183,7 +183,7 @@
         </select>
 
         <select id="proc_Connect_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM `tb_Connect` T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Connect T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -195,11 +195,11 @@
         </select>
         
         <select id="proc_Connect_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM `tb_Connect` WHERE $WhereClause$
+            SELECT COUNT(*) AS 'Count' FROM tb_Connect WHERE $WhereClause$
         </select>
 
         <update id="proc_Connect_ResetAppSecret" parameterClass="ConnectInfo" >
-            UPDATE `tb_Connect` SET `AppSecret` = #AppSecret#, `UpdateDate` = CURRENT_TIMESTAMP WHERE AppKey = #AppKey#
+            UPDATE tb_Connect SET AppSecret = #AppSecret#, UpdateDate = CURRENT_TIMESTAMP WHERE AppKey = #AppKey#
         </update>
     </statements>
 </sqlMap>

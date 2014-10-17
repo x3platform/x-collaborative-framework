@@ -1,31 +1,15 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.Model
 {
     #region Using Libraries
     using System;
     #endregion
 
-    /// <summary>Ӧ�����Ӳ�ѯ��Ϣ</summary>
+    /// <summary>应用连接查询信息</summary>
     [Serializable]
     public class ConnectQueryInfo
     {
-        #region ���캯��:ConnectQueryInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:ConnectQueryInfo()
+        /// <summary>默认构造函数</summary>
         public ConnectQueryInfo()
         {
         }
@@ -34,7 +18,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public string Id
         {
             get { return m_Id; }
@@ -45,7 +29,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AccountId
         private string m_AccountId = string.Empty;
 
-        /// <summary>�ύ�˱�ʶ</summary>
+        /// <summary>提交人标识</summary>
         public string AccountId
         {
             get { return m_AccountId; }
@@ -56,7 +40,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AccountName
         private string m_AccountName = string.Empty;
 
-        /// <summary>�ύ������</summary>
+        /// <summary>提交人姓名</summary>
         public string AccountName
         {
             get { return m_AccountName; }
@@ -67,7 +51,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AppKey
         private string m_AppKey;
 
-        /// <summary>Ӧ�ñ�ʶ</summary>
+        /// <summary>应用标识</summary>
         public string AppKey
         {
             get { return this.m_AppKey; }
@@ -78,7 +62,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AppType
         private string m_AppType = string.Empty;
 
-        /// <summary>Ӧ������</summary>
+        /// <summary>应用类型</summary>
         public string AppType
         {
             get { return this.m_AppType; }
@@ -89,7 +73,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Code
         private string m_Code = string.Empty;
 
-        /// <summary>����</summary>
+        /// <summary>编号</summary>
         public string Code
         {
             get { return this.m_Code; }
@@ -100,7 +84,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Name
         private string m_Name = string.Empty;
 
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         public string Name
         {
             get { return this.m_Name; }
@@ -111,7 +95,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Description
         private string m_Description = string.Empty;
 
-        /// <summary>����</summary>
+        /// <summary>描述</summary>
         public string Description
         {
             get { return this.m_Description; }
@@ -122,7 +106,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Domain
         private string m_Domain = string.Empty;
 
-        /// <summary>��</summary>
+        /// <summary>域</summary>
         public string Domain
         {
             get { return this.m_Domain; }
@@ -133,7 +117,7 @@ namespace X3Platform.Connect.Model
         #region 属性:RedirectUri
         private string m_RedirectUri = string.Empty;
 
-        /// <summary>��¼�ɹ����ض����ĵ�ַ</summary>
+        /// <summary>登录成功后重定向的地址</summary>
         public string RedirectUri
         {
             get { return this.m_RedirectUri; }
@@ -144,7 +128,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Status
         private int m_Status;
 
-        /// <summary>״̬</summary>
+        /// <summary>状态</summary>
         public int Status
         {
             get { return m_Status; }
@@ -155,7 +139,7 @@ namespace X3Platform.Connect.Model
         #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
-        /// <summary>�޸�����</summary>
+        /// <summary>修改日期</summary>
         public DateTime UpdateDate
         {
             get { return m_UpdateDate; }
@@ -166,7 +150,7 @@ namespace X3Platform.Connect.Model
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary>��������</summary>
+        /// <summary>创建日期</summary>
         public DateTime CreateDate
         {
             get { return m_CreateDate; }

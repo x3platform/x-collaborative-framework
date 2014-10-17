@@ -111,6 +111,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -184,15 +187,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="db\Init_Scripts_MySQL.sql" />
+    <Content Include="db\Init_Scripts_SQLServer.sql" />
     <None Include="build.publish.bat" />
     <Content Include="config\MySQL\X3Platform.Connect.IBatis.SqlMap.config" />
     <Content Include="config\MySQL\X3Platform.Connect.Spring.config" />
+    <None Include="config\IBatis\X3Platform.Connect.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.Connect.Spring.config" />
     <None Include="config\X3Platform.Connect.config" />
-    <Content Include="config\X3Platform.Connect.IBatis.SqlMap.config" />
-    <Content Include="config\X3Platform.Connect.Spring.config" />
     <None Include="default.build">
       <SubType>Designer</SubType>
     </None>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DAL\IBatis\ConnectAccessTokenProvider.xml">
@@ -211,7 +217,6 @@
       <DependentUpon>ConnectAuthorizationCodeProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="db\应用连接管理初始化脚本%28SQLServer%29.sql" />
     <Content Include="DAL\MySQL\ConnectAuthorizationCodeProvider.xml">
       <DependentUpon>ConnectAuthorizationCodeProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -224,12 +229,10 @@
       <DependentUpon>ConnectProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="db\应用连接管理初始化脚本%28MySQL%29.sql" />
     <Content Include="DAL\MySQL\ConnectAccessTokenProvider.xml">
       <DependentUpon>ConnectAccessTokenProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

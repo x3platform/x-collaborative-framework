@@ -1,41 +1,25 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ConnectWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-#region Using Libraries
-using System;
-using System.Text;
-using System.Xml;
-using System.Web;
-
-using X3Platform.Ajax;
-using X3Platform.Ajax.Json;
-using X3Platform.Ajax.Net;
-using X3Platform.Configuration;
-using X3Platform.DigitalNumber;
-using X3Platform.Membership;
-using X3Platform.Util;
-using X3Platform.Web;
-
-using X3Platform.Connect.Model;
-using X3Platform.Connect.Configuration;
-using System.IO;
-#endregion
-
-namespace X3Platform.Connect.Ajax
+﻿namespace X3Platform.Connect.Ajax
 {
+    #region Using Libraries
+    using System;
+    using System.Text;
+    using System.Xml;
+    using System.Web;
+
+    using X3Platform.Ajax;
+    using X3Platform.Ajax.Json;
+    using X3Platform.Ajax.Net;
+    using X3Platform.Configuration;
+    using X3Platform.DigitalNumber;
+    using X3Platform.Membership;
+    using X3Platform.Util;
+    using X3Platform.Web;
+
+    using X3Platform.Connect.Model;
+    using X3Platform.Connect.Configuration;
+    using System.IO;
+    #endregion
+
     /// <summary></summary>
     public class ConnectAuthWrapper
     {
@@ -621,7 +605,7 @@ namespace X3Platform.Connect.Ajax
 
             ConnectInfo connect = ConnectContext.Instance.ConnectService.FindOneByAppKey(clientId);
 
-            ConnectAccessTokenInfo accessTokenInfo = null;
+            // ConnectAccessTokenInfo accessTokenInfo = null;
 
             AjaxRequestData requestData = new AjaxRequestData();
 
