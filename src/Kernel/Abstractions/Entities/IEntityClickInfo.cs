@@ -1,42 +1,26 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities
 {
     using System;
 
-    /// <summary>ʵ����������Ϣ�ӿ�</summary>
+    /// <summary>实体类点击信息接口</summary>
     public interface IEntityClickInfo
     {
-        /// <summary>ʵ������ʶ</summary>
+        /// <summary>实体类标识</summary>
         string EntityId { get; }
 
-        /// <summary>ʵ��������</summary>
+        /// <summary>实体类名称</summary>
         string EntityClassName { get; }
 
-        /// <summary>�ʺű�ʶ</summary>
+        /// <summary>帐号标识</summary>
         string AccountId { get; }
 
-        /// <summary>�ʺ�����</summary>
+        /// <summary>帐号名称</summary>
         string AccountName { get; }
 
-        /// <summary>������</summary>
+        /// <summary>点击数</summary>
         int Click { get; }
 
-        /// <summary>��������ʱ��</summary>
+        /// <summary>最后更新时间</summary>
         DateTime UpdateDate { get; }
     }
 }

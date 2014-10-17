@@ -1,45 +1,29 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities
 {
     using System;
 
-    /// <summary>ʵ�����ĵ���Ϣ�ӿ�</summary>
+    /// <summary>实体对象文档信息接口</summary>
     public interface IEntityDocObjectInfo
     {
-        /// <summary>�ĵ�Ψһ��ʶ</summary>
+        /// <summary>文档唯一标识</summary>
         string Id { get; }
 
-        /// <summary>�ĵ�����</summary>
+        /// <summary>文档标题</summary>
         string DocTitle { get; }
 
-        /// <summary>�ĵ�ȫ�ֱ�ʶ(��ͬ�İ汾֮�䣬����һ�� DocToken��)</summary>
+        /// <summary>文档全局标识(不同的版本之间，共用一个 DocToken。)</summary>
         string DocToken { get; }
 
-        /// <summary>�ĵ��汾</summary>
+        /// <summary>文档版本</summary>
         string DocVersion { get; }
 
-        /// <summary>�ĵ�״̬</summary>
+        /// <summary>文档状态</summary>
         string DocStatus { get; }
 
-        /// <summary>��������</summary>
+        /// <summary>更新日期</summary>
         DateTime UpdateDate { get; }
 
-        /// <summary>��������</summary>
+        /// <summary>创建日期</summary>
         DateTime CreateDate { get; }
     }
 }
