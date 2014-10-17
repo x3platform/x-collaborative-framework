@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentStorageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="AttachmentFileInfo" type="X3Platform.AttachmentStorage.AttachmentFileInfo,X3Platform.AttachmentStorage" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Attachment_Storage_FindOne_Result" class="AttachmentFileInfo">
+            <result property="Id" column="Id" />
+            <result property="EntityId" column="EntityId" />
+            <result property="EntityClassName" column="EntityClassName" />
+            <result property="AttachmentName" column="AttachmentName" />
+            <result property="VirtualPath" column="VirtualPath" />
+            <result property="FolderRule" column="FolderRule" />
+            <result property="FileType" column="FileType" />
+            <result property="FileSize" column="FileSize" />
+            <result property="FileStatus" column="FileStatus" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Attachment_Storage_FindAll_Result" class="AttachmentFileInfo">
+            <result property="Id" column="Id" />
+            <result property="EntityId" column="EntityId" />
+            <result property="EntityClassName" column="EntityClassName" />
+            <result property="AttachmentName" column="AttachmentName" />
+            <result property="VirtualPath" column="VirtualPath" />
+            <result property="FolderRule" column="FolderRule" />
+            <result property="FileType" column="FileType" />
+            <result property="FileSize" column="FileSize" />
+            <result property="FileStatus" column="FileStatus" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Attachment_Storage_Save" parameterClass="AttachmentFileInfo" >
+            INSERT INTO [tb_Attachment_Storage]
+            (
+                Id,
+                EntityId,
+                EntityClassName,
+                AttachmentName,
+                VirtualPath,
+                FolderRule,
+                FileType,
+                FileSize,
+                FileStatus,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #EntityId#,
+                #EntityClassName#,
+                #AttachmentName#,
+                #VirtualPath#,
+                #FolderRule#,
+                #FileType#,
+                #FileSize#,
+                #FileStatus#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <delete id="proc_Attachment_Storage_Delete">
+            DELETE FROM [tb_Attachment_Storage] WHERE Id IN($Ids$)
+        </delete>
+
+        <select id="proc_Attachment_Storage_FindOne" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_Storage_FindOne_Result" >
+            SELECT * FROM [tb_Attachment_Storage] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Attachment_Storage_FindAll" resultMap="proc_Attachment_Storage_FindAll_Result" parameterClass="AttachmentFileInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Attachment_Storage] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Attachment_Storage_GetPages" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_Storage_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Attachment_Storage] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Attachment_Storage_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Attachment_Storage] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Attachment_Storage_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Attachment_Storage] T WHERE Id = #Id#
+        </select>
+
+        <update id="proc_Attachment_Storage_Rename" >
+            UPDATE [tb_Attachment_Storage] SET AttachmentName = #AttachmentName# WHERE Id = #Id#
+        </update>
+    </statements>
+</sqlMap>

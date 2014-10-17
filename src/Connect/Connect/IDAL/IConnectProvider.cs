@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) 2010 ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Connect.IDAL
 {
     using System;
@@ -31,132 +17,129 @@ namespace X3Platform.Connect.IDAL
     public interface IConnectProvider
     {
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:CreateGenericSqlCommand()
-        /// <summary>����ͨ��SQL��������</summary>
+        #region 函数:CreateGenericSqlCommand()
+        /// <summary>创建通用SQL命令对象</summary>
         GenericSqlCommand CreateGenericSqlCommand();
         #endregion
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         void BeginTransaction();
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         void BeginTransaction(IsolationLevel isolationLevel);
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         void CommitTransaction();
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         void RollBackTransaction();
         #endregion
 
         // -------------------------------------------------------
-        // ���� ���� �޸� ɾ��
+        // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ConnectInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ConnectInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>ConnectInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(ConnectInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="ConnectInfo"/>实例详细信息</param>
+        /// <returns><see cref="ConnectInfo"/>实例详细信息</returns>
         ConnectInfo Save(ConnectInfo param);
         #endregion
 
-        #region 属性:Insert(ConnectInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ConnectInfo ʵ������ϸ��Ϣ</param>
+        #region 函数:Insert(ConnectInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param"><see cref="ConnectInfo"/>实例的详细信息</param>
         void Insert(ConnectInfo param);
         #endregion
 
-        #region 属性:Update(ConnectInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ConnectInfo ʵ������ϸ��Ϣ</param>
+        #region 函数:Update(ConnectInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param"><see cref="ConnectInfo"/>实例的详细信息</param>
         void Update(ConnectInfo param);
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
         int Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">ConnectInfo Id��</param>
-        /// <returns>����һ�� ConnectInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">ConnectInfo Id号</param>
+        /// <returns>返回一个<see cref="ConnectInfo"/>实例的详细信息</returns>
         ConnectInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindOneByAppKey(string appKey)
-        /// <summary>��ѯĳ����¼</summary>
+        #region 函数:FindOneByAppKey(string appKey)
+        /// <summary>查询某条记录</summary>
         /// <param name="appKey">AppKey</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
+        /// <returns>返回一个实例<see cref="ConnectInfo"/>的详细信息</returns>
         ConnectInfo FindOneByAppKey(string appKey);
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� ConnectInfo ʵ������ϸ��Ϣ</returns>
-        IList<ConnectInfo> FindAll(string whereClause, int length);
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有<see cref="ConnectInfo"/>实例的详细信息</returns>
+        IList<ConnectInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        IList<ConnectInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="ConnectInfo" /></returns> 
+        IList<ConnectInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="CostInfo"/></returns>
-        IList<ConnectQueryInfo> GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        #region 函数:GetQueryObjectPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="ConnectQueryInfo" /></returns> 
+        IList<ConnectQueryInfo> GetQueryObjectPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="param">ConnectInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="param"><see cref="ConnectInfo"/>实例详细信息</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
 
-        #region 属性:IsExistAppKey(string appKey)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        #region 函数:IsExistAppKey(string appKey)
+        /// <summary>查询是否存在相关的记录</summary>
         /// <param name="appKey">AppKey</param>
-        /// <returns>����ֵ</returns>
+        /// <returns>布尔值</returns>
         bool IsExistAppKey(string appKey);
         #endregion
 
-        #region 属性:ResetAppSecret(string appKey)
-        /// <summary>����Ӧ������������Կ</summary>
+        #region 函数:ResetAppSecret(string appKey)
+        /// <summary>重置应用链接器的密钥</summary>
         /// <param name="appKey">App Key</param>
         /// <param name="appSecret">App Secret</param>
         /// <returns></returns>

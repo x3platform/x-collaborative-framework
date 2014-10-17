@@ -30,20 +30,20 @@
 	</resultMaps>
 	<statements>
 		<insert id="proc_Connect_Call_Save" parameterClass="ConnectCallInfo">
-			IF NOT EXISTS(SELECT 0 FROM `tb_Connect_Call` WHERE `Id` = #Id#)
+			IF NOT EXISTS(SELECT 0 FROM tb_Connect_Call WHERE Id = #Id#)
 			BEGIN
-			    INSERT INTO `tb_Connect_Call` 
+			    INSERT INTO tb_Connect_Call 
                 (
-			        `Id`,
-                    `AppKey`,
-                    `RequestUri`,
-                    `RequestData`,
-                    `StartTime`,
-                    `FinishTime`,
-                    `TimeSpan`,
-                    `IP`,
-                    `ReturnCode`,
-                    `Date`
+			        Id,
+                    AppKey,
+                    RequestUri,
+                    RequestData,
+                    StartTime,
+                    FinishTime,
+                    TimeSpan,
+                    IP,
+                    ReturnCode,
+                    Date
                 )
                 VALUES
                 (
@@ -66,11 +66,11 @@
         </update>
         
 		<delete id="proc_Connect_Call_Delete" >
-			DELETE FROM `tb_Connect_Call` WHERE $WhereClause$ 
+			DELETE FROM tb_Connect_Call WHERE $WhereClause$ 
 		</delete>
         
         <select id="proc_Connect_Call_FindOne" resultMap="proc_Connect_Call_FindOne_Result" >
-			SELECT * FROM tb_Connect_Call WHERE `Id` = #Id#
+			SELECT * FROM tb_Connect_Call WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Connect_Call_FindAll" resultMap="proc_Connect_Call_FindAll_Result" >
@@ -93,12 +93,12 @@
 			</dynamic>
 		</select>
 
-		<select id="proc_Connect_Call_GetPages" resultMap="proc_Connect_Call_FindAll_Result" >
+		<select id="proc_Connect_Call_GetPaging" resultMap="proc_Connect_Call_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-			FROM `tb_Connect_Call` T
+			FROM tb_Connect_Call T
 
 			<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -112,7 +112,7 @@
 		</select>
 
 		<select id="proc_Connect_Call_GetRowCount" >
-			SELECT COUNT(1) AS 'RowCount' FROM `tb_Connect_Call` T
+			SELECT COUNT(1) AS 'RowCount' FROM tb_Connect_Call T
 
 			<dynamic prepend="WHERE">
 				<isParameterPresent>

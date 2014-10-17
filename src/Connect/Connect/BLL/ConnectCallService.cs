@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.BLL
 {
     #region Using Libraries
@@ -26,6 +10,7 @@ namespace X3Platform.Connect.BLL
     using X3Platform.Connect.Model;
     using X3Platform.Connect.IBLL;
     using X3Platform.Connect.IDAL;
+    using X3Platform.Data;
     #endregion
 
     public sealed class ConnectCallService : IConnectCallService
@@ -38,12 +23,12 @@ namespace X3Platform.Connect.BLL
         {
             configuration = ConnectConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IConnectCallProvider>(typeof(IConnectCallProvider));
         }
 
@@ -53,95 +38,84 @@ namespace X3Platform.Connect.BLL
         }
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(AccountInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">AccountInfo ʵ����ϸ��Ϣ</param>
-        /// <param name="message">���ݿ����󷵻ص�������Ϣ</param>
-        /// <returns>AccountInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(AccountInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">AccountInfo 实例详细信息</param>
+        /// <param name="message">数据库操作返回的相关信息</param>
+        /// <returns>AccountInfo 实例详细信息</returns>
         public ConnectCallInfo Save(ConnectCallInfo param)
         {
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="keys">��ʶ,�����Զ��Ÿ���</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            this.provider.Delete(ids);
+            this.provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(int id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">AccountInfo Id��</param>
-        /// <returns>����һ�� AccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(int id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">AccountInfo Id号</param>
+        /// <returns>返回一个 AccountInfo 实例的详细信息</returns>
         public ConnectCallInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>�������� AccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有 AccountInfo 实例的详细信息</returns>
         public IList<ConnectCallInfo> FindAll()
         {
-            return FindAll(string.Empty);
+            return FindAll(new DataQuery() { Limit = 1000 });
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>�������� AccountInfo ʵ������ϸ��Ϣ</returns>
-        public IList<ConnectCallInfo> FindAll(string whereClause)
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 AccountInfo 实例的详细信息</returns>
+        public IList<ConnectCallInfo> FindAll(DataQuery query)
         {
-            return FindAll(whereClause, 0);
-        }
-        #endregion
-
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� AccountInfo ʵ������ϸ��Ϣ</returns>
-        public IList<ConnectCallInfo> FindAll(string whereClause, int length)
-        {
-            return this.provider.FindAll(whereClause, length);
+            return this.provider.FindAll(query);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        public IList<ConnectCallInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        public IList<ConnectCallInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��Ա��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">会员标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
@@ -149,13 +123,13 @@ namespace X3Platform.Connect.BLL
         #endregion
 
         // -------------------------------------------------------
-        // Ȩ��
+        // 权限
         // -------------------------------------------------------
 
-        #region 属性:GetAuthorizationObject(ConnectCallInfo param)
-        /// <summary>��֤������Ȩ��</summary>
-        /// <param name="param">����֤�Ķ���</param>
-        /// <returns>����</returns>
+        #region 函数:GetAuthorizationObject(ConnectCallInfo param)
+        /// <summary>验证对象的权限</summary>
+        /// <param name="param">需验证的对象</param>
+        /// <returns>对象</returns>
         private ConnectCallInfo GetAuthorizationObject(ConnectCallInfo param)
         {
             return param;

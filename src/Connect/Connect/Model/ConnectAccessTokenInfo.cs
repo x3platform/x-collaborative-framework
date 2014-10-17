@@ -1,26 +1,10 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.Model
 {
     #region Using Libraries
     using System;
     #endregion
 
-    /// <summary>Ӧ�����ӷ���������Ϣ</summary>
+    /// <summary>应用连接访问令牌信息</summary>
     public class ConnectAccessTokenInfo
     {
         public ConnectAccessTokenInfo() { }
@@ -28,7 +12,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public string Id
         {
             get { return this.m_Id; }
@@ -39,7 +23,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AppKey
         private string m_AppKey;
 
-        /// <summary>Ӧ�ñ�ʶ</summary>
+        /// <summary>应用标识</summary>
         public string AppKey
         {
             get { return this.m_AppKey; }
@@ -50,7 +34,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AccountId
         private string m_AccountId = string.Empty;
 
-        /// <summary>�ύ�˱�ʶ</summary>
+        /// <summary>提交人标识</summary>
         public string AccountId
         {
             get { return this.m_AccountId; }
@@ -61,7 +45,7 @@ namespace X3Platform.Connect.Model
         #region 属性:ExpireDate
         private DateTime m_ExpireDate;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>过期时间</summary>
         public DateTime ExpireDate
         {
             get { return this.m_ExpireDate; }
@@ -70,7 +54,7 @@ namespace X3Platform.Connect.Model
         #endregion
 
         #region 属性:ExpiresIn
-        /// <summary>����ʱ��(��λ:��)</summary>
+        /// <summary>过期时间(单位:秒)</summary>
         public double ExpiresIn
         {
             get { return new TimeSpan(DateTime.Now.Ticks).Subtract(new TimeSpan(this.ExpireDate.Ticks)).Duration().TotalSeconds; }
@@ -80,7 +64,7 @@ namespace X3Platform.Connect.Model
         #region 属性:RefreshToken
         private string m_RefreshToken;
 
-        /// <summary>ˢ������</summary>
+        /// <summary>刷新令牌</summary>
         public string RefreshToken
         {
             get { return this.m_RefreshToken; }
@@ -91,7 +75,7 @@ namespace X3Platform.Connect.Model
         #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
-        /// <summary>�޸�����</summary>
+        /// <summary>修改日期</summary>
         public DateTime UpdateDate
         {
             get { return this.m_UpdateDate; }
@@ -102,7 +86,7 @@ namespace X3Platform.Connect.Model
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary>��������</summary>
+        /// <summary>创建日期</summary>
         public DateTime CreateDate
         {
             get { return this.m_CreateDate; }
