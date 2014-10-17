@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentWarnProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="AttachmentWarnInfo" type="X3Platform.AttachmentStorage.AttachmentWarnInfo,X3Platform.AttachmentStorage" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Attachment_Warn_FindOne_Result" class="AttachmentWarnInfo">
+			<result property="Id" column="Id" />
+			<result property="WarnType" column="WarnType" />
+			<result property="Message" column="Message" />
+			<result property="AttachmentStorageId" column="AttachmentStorageId" />
+			<result property="VirtualPath" column="VirtualPath" />
+			<result property="AttachmentName" column="AttachmentName" />
+			<result property="FileType" column="FileType" />
+			<result property="FileSize" column="FileSize" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Attachment_Warn_FindAll_Result" class="AttachmentWarnInfo">
+			<result property="Id" column="Id" />
+			<result property="WarnType" column="WarnType" />
+			<result property="Message" column="Message" />
+			<result property="AttachmentStorageId" column="AttachmentStorageId" />
+			<result property="VirtualPath" column="VirtualPath" />
+			<result property="AttachmentName" column="AttachmentName" />
+			<result property="FileType" column="FileType" />
+			<result property="FileSize" column="FileSize" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<insert id="proc_Attachment_Warn_Insert" parameterClass="AttachmentWarnInfo">
+			INSERT INTO [tb_Attachment_Warn]
+			(
+				[Id],
+				[WarnType],
+				[Message],
+				[AttachmentStorageId],
+				[VirtualPath],
+				[AttachmentName],
+				[FileType],
+				[FileSize],
+				[CreateDate]
+			)
+			VALUES
+			(
+				#Id#,
+				#WarnType#,
+				#Message#,
+				#AttachmentStorageId#,
+				#VirtualPath#,
+				#AttachmentName#,
+				#FileType#,
+				#FileSize#,
+				CURRENT_TIMESTAMP
+			)
+		</insert>
+
+        <update id="proc_Attachment_Warn_Delete" >
+			UPDATE [tb_Attachment_Warn] SET [Status] = 0 WHERE $WhereClause$
+		</update>
+
+		<delete id="proc_Attachment_Warn_Delete(PhysicallyRemoved)" >
+			DELETE FROM [tb_Attachment_Warn] WHERE $WhereClause$
+		</delete>
+
+		<update id="proc_Attachment_Warn_Delete(VirtualRemoved)" >
+			UPDATE [tb_Attachment_Warn] SET [Status] = 0 WHERE $WhereClause$
+		</update>
+
+		<select id="proc_Attachment_Warn_FindOne" resultMap="proc_Attachment_Warn_FindOne_Result" >
+			SELECT * FROM [tb_Attachment_Warn] T WHERE [Id] = #Id#
+		</select>
+
+		<select id="proc_Attachment_Warn_FindAll" resultMap="proc_Attachment_Warn_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM [tb_Attachment_Warn] T
+
+			  <dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			  </dynamic>
+		</select>
+
+		<select id="proc_Attachment_Warn_GetPages" resultMap="proc_Attachment_Warn_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+				FROM [tb_Attachment_Warn] T
+
+				<dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+				</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+        <!-- SQL Server 2000 -->
+		<select id="proc_Attachment_Warn_GetPages(SQLServer2000)" resultMap="proc_Attachment_Warn_FindAll_Result" >
+			SELECT TOP $PageSize$ *
+
+			FROM [tb_Attachment_Warn] T
+
+			WHERE Id NOT IN (
+				SELECT TOP $StartIndex$ Id FROM [tb_Attachment_Warn] T
+				<dynamic prepend="WHERE">
+					<isParameterPresent>
+						<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+						</isNotEmpty>
+					</isParameterPresent>
+				</dynamic> ORDER BY $OrderBy$ )
+
+			<dynamic prepend="AND">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+			ORDER BY $OrderBy$
+		</select>
+
+        <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
+		<select id="proc_Attachment_Warn_GetPages(SQLServer2008)" resultMap="proc_Attachment_Warn_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+				FROM [tb_Attachment_Warn] T
+
+				<dynamic prepend="WHERE">
+				<isParameterPresent>
+				  <isNotEmpty prepend="AND" property="WhereClause" >
+					$WhereClause$
+				  </isNotEmpty>
+				</isParameterPresent>
+				</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Attachment_Warn_GetRowCount" >
+			SELECT COUNT(0) AS 'RowCount' FROM [tb_Attachment_Warn] T
+
+			<dynamic prepend="WHERE">
+			<isParameterPresent>
+			  <isNotEmpty prepend="AND" property="WhereClause" >
+				$WhereClause$
+			  </isNotEmpty>
+			</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Attachment_Warn_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM [tb_Attachment_Warn] T WHERE $WhereClause$
+		</select>
+	</statements>
+</sqlMap>

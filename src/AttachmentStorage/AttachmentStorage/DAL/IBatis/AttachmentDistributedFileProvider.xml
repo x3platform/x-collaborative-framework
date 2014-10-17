@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentStorageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="DistributedFileInfo" type="X3Platform.AttachmentStorage.DistributedFileInfo,X3Platform.AttachmentStorage" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Attachment_DistributedFile_FindOne_Result" class="DistributedFileInfo">
+            <result property="Id" column="Id" />
+            <result property="VirtualPath" column="VirtualPath" />
+            <result property="FileData" column="FileData" dbType="image" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Attachment_DistributedFile_FindAll_Result" class="DistributedFileInfo">
+            <result property="Id" column="Id" />
+            <result property="VirtualPath" column="VirtualPath" />
+            <result property="FileData" column="FileData" dbType="image" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Attachment_DistributedFile_Save" parameterClass="DistributedFileInfo" >
+            INSERT INTO [tb_Attachment_DistributedFile]
+            (
+                Id,
+                VirtualPath,
+                FileData,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #VirtualPath#,
+                #FileData:image#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <delete id="proc_Attachment_DistributedFile_Delete">
+            DELETE FROM [tb_Attachment_DistributedFile] WHERE Id IN ($Ids$)
+        </delete>
+
+        <select id="proc_Attachment_DistributedFile_FindOne" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindOne_Result" >
+            SELECT * FROM [tb_Attachment_DistributedFile] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Attachment_DistributedFile_FindAll" resultMap="proc_Attachment_DistributedFile_FindAll_Result" parameterClass="DistributedFileInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Attachment_DistributedFile] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Attachment_DistributedFile_GetPages" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Attachment_DistributedFile] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Attachment_DistributedFile_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Attachment_DistributedFile] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Attachment_DistributedFile_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Attachment_DistributedFile] T WHERE Id = #Id#
+        </select>
+    </statements>
+</sqlMap>

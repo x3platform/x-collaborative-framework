@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Connect.DAL.MySQL
 {
     using System;
@@ -31,16 +17,16 @@ namespace X3Platform.Connect.DAL.MySQL
     [DataObject]
     public class ConnectProvider : IConnectProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private ConnectConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Connect";
 
         public ConnectProvider()
@@ -53,44 +39,44 @@ namespace X3Platform.Connect.DAL.MySQL
         }
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:CreateGenericSqlCommand()
-        /// <summary>����ͨ��SQL��������</summary>
+        #region 函数:CreateGenericSqlCommand()
+        /// <summary>创建通用SQL命令对象</summary>
         public GenericSqlCommand CreateGenericSqlCommand()
         {
             return this.ibatisMapper.CreateGenericSqlCommand();
         }
         #endregion
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -98,13 +84,13 @@ namespace X3Platform.Connect.DAL.MySQL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ���� �޸� ɾ��
+        // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ConnectInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ConnectInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>ConnectInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(ConnectInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="ConnectInfo"/>实例详细信息</param>
+        /// <returns><see cref="ConnectInfo"/>实例详细信息</returns>
         public ConnectInfo Save(ConnectInfo param)
         {
             if (!this.IsExistAppKey(param.AppKey))
@@ -120,27 +106,27 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Insert(ConnectInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="ConnectInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(ConnectInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="ConnectInfo"/>详细信息</param>
         public void Insert(ConnectInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Update(ConnectInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="ConnectInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(ConnectInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="ConnectInfo"/>详细信息</param>
         public void Update(ConnectInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
         public int Delete(string id)
         {
             if (string.IsNullOrEmpty(id)) { return 1; }
@@ -151,13 +137,13 @@ namespace X3Platform.Connect.DAL.MySQL
 
                 Dictionary<string, object> args = new Dictionary<string, object>();
 
-                //  ɾ���������ĸ�����Ϣ
+                //  删除连接器的附属信息
                 args.Add("ConnectId", StringHelper.ToSafeSQL(id));
 
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_History_DeleteByConnectId", this.tableName)), args);
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Comment_DeleteByConnectId", this.tableName)), args);
 
-                //  ɾ����������ʵ����Ϣ
+                //  删除连接器的实体信息
                 args.Add("Id", StringHelper.ToSafeSQL(id));
 
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args);
@@ -175,13 +161,13 @@ namespace X3Platform.Connect.DAL.MySQL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="param">ConnectInfo Id��</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="param">ConnectInfo Id号</param>
+        /// <returns>返回一个实例<see cref="ConnectInfo"/>的详细信息</returns>
         public ConnectInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -192,10 +178,10 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:FindOneByAppKey(string appKey)
-        /// <summary>��ѯĳ����¼</summary>
+        #region 函数:FindOneByAppKey(string appKey)
+        /// <summary>查询某条记录</summary>
         /// <param name="appKey">AppKey</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
+        /// <returns>返回一个实例<see cref="ConnectInfo"/>的详细信息</returns>
         public ConnectInfo FindOneByAppKey(string appKey)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -206,50 +192,45 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
-        public IList<ConnectInfo> FindAll(string whereClause, int length)
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="ConnectInfo"/>的详细信息</returns>
+        public IList<ConnectInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            whereClause = (string.IsNullOrEmpty(whereClause)) ? " 1=1 ORDER BY CreateDate " : whereClause;
-
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("Length", length);
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("Length", query.Limit);
 
             return this.ibatisMapper.QueryForList<ConnectInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        public IList<ConnectInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        public IList<ConnectInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<ConnectInfo> list = this.ibatisMapper.QueryForList<ConnectInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
+            IList<ConnectInfo> list = this.ibatisMapper.QueryForList<ConnectInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
 
@@ -257,28 +238,25 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        public IList<ConnectQueryInfo> GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetQueryObjectPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        public IList<ConnectQueryInfo> GetQueryObjectPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<ConnectQueryInfo> list = this.ibatisMapper.QueryForList<ConnectQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPages", this.tableName)), args);
+            IList<ConnectQueryInfo> list = this.ibatisMapper.QueryForList<ConnectQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPaging", this.tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
 
@@ -286,13 +264,13 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">ConnectInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id"><see cref="ConnectInfo"/>实例详细信息</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id)) { throw new Exception("ʵ����ʶ����Ϊ��."); }
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空."); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -302,13 +280,13 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:IsExistAppKey(string appKey)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        #region 函数:IsExistAppKey(string appKey)
+        /// <summary>查询是否存在相关的记录</summary>
         /// <param name="appKey">AppKey</param>
-        /// <returns>����ֵ</returns>
+        /// <returns>布尔值</returns>
         public bool IsExistAppKey(string appKey)
         {
-            if (string.IsNullOrEmpty(appKey)) { throw new Exception("AppKey ����Ϊ��."); }
+            if (string.IsNullOrEmpty(appKey)) { throw new Exception("AppKey 不能为空."); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -318,8 +296,8 @@ namespace X3Platform.Connect.DAL.MySQL
         }
         #endregion
 
-        #region 属性:ResetAppSecret(string appKey)
-        /// <summary>����Ӧ������������Կ</summary>
+        #region 函数:ResetAppSecret(string appKey)
+        /// <summary>重置应用链接器的密钥</summary>
         /// <param name="appKey">App Key</param>
         /// <param name="appSecret">App Secret</param>
         /// <returns></returns>

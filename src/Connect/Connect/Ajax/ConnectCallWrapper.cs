@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ConnectCallWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Connect.Ajax
+﻿namespace X3Platform.Connect.Ajax
 {
     #region Using Libraries
     using System;
@@ -23,6 +7,7 @@ namespace X3Platform.Connect.Ajax
     using System.Xml;
 
     using X3Platform.Ajax;
+    using X3Platform.Data;
     using X3Platform.Util;
 
     using X3Platform.Connect.IBLL;
@@ -43,7 +28,6 @@ namespace X3Platform.Connect.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             ConnectCallInfo param = new ConnectCallInfo();
@@ -60,7 +44,6 @@ namespace X3Platform.Connect.Ajax
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string ids = AjaxStorageConvertor.Fetch("ids", doc);
@@ -79,7 +62,6 @@ namespace X3Platform.Connect.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -99,16 +81,17 @@ namespace X3Platform.Connect.Ajax
         #region 函数:FindAll(XmlDocument doc)
         /// <summary>获取列表内容</summary>
         /// <param name="doc">Xml 文档对象</param>
-        /// <returns>返回操作结果</returns> 
-        [AjaxMethod("findAll")]
+        /// <returns>返回操作结果</returns>
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            // string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            // int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            
+            DataQuery query = new DataQuery();
 
-            IList<ConnectCallInfo> list = this.service.FindAll(whereClause, length);
+            IList<ConnectCallInfo> list = this.service.FindAll(query);
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ConnectCallInfo>(list) + ",");
 
@@ -125,23 +108,22 @@ namespace X3Platform.Connect.Ajax
         #region 函数:GetPages(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
-        /// <returns>返回操作结果</returns> 
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        /// <returns>返回操作结果</returns>
+        public string Query(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
-            IList<ConnectCallInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<ConnectCallInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ConnectCallInfo>(list) + ",");
 
-            outString.Append("\"pages\":" + pages + ",");
+            outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

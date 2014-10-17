@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.Model
 {
     #region Using Libraries
@@ -22,7 +6,7 @@ namespace X3Platform.Connect.Model
     using X3Platform.Util;
     #endregion
 
-    /// <summary>Ӧ�����ӵ�����Ϣ</summary>
+    /// <summary>应用连接调用信息</summary>
     public class ConnectCallInfo : EntityClass
     {
         public ConnectCallInfo()
@@ -41,7 +25,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public string Id
         {
             get { return this.m_Id; }
@@ -52,7 +36,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AppKey
         private string m_AppKey;
 
-        /// <summary>Ӧ�ñ�ʶ</summary>
+        /// <summary>应用标识</summary>
         public string AppKey
         {
             get { return this.m_AppKey; }
@@ -63,7 +47,7 @@ namespace X3Platform.Connect.Model
         #region 属性:RequestUri
         private string m_RequestUri = string.Empty;
 
-        /// <summary>�����ĵ�ַ��Ϣ</summary>
+        /// <summary>请求的地址信息</summary>
         public string RequestUri
         {
             get { return this.m_RequestUri; }
@@ -74,7 +58,7 @@ namespace X3Platform.Connect.Model
         #region 属性:RequestData
         private string m_RequestData = string.Empty;
 
-        /// <summary>������������Ϣ</summary>
+        /// <summary>请求的数据信息</summary>
         public string RequestData
         {
             get { return this.m_RequestData; }
@@ -85,7 +69,7 @@ namespace X3Platform.Connect.Model
         #region 属性:StartTime
         private DateTime m_StartTime;
 
-        /// <summary>��ʼʱ��</summary>
+        /// <summary>开始时间</summary>
         public DateTime StartTime
         {
             get { return m_StartTime; }
@@ -96,7 +80,7 @@ namespace X3Platform.Connect.Model
         #region 属性:FinishTime
         private DateTime m_FinishTime;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>结束时间</summary>
         public DateTime FinishTime
         {
             get { return m_FinishTime; }
@@ -107,7 +91,7 @@ namespace X3Platform.Connect.Model
         #region 属性:TimeSpan
         private double m_TimeSpan;
 
-        /// <summary>ʱ������</summary>
+        /// <summary>时间跨度</summary>
         public double TimeSpan
         {
             get { return m_TimeSpan; }
@@ -125,6 +109,7 @@ namespace X3Platform.Connect.Model
             set { m_IP = value; }
         }
         #endregion
+        
         #region 属性:ReturnCode
         private int m_ReturnCode = 0;
 
@@ -135,6 +120,7 @@ namespace X3Platform.Connect.Model
             set { this.m_ReturnCode = value; }
         }
         #endregion
+        
         #region 属性:Date
         private DateTime m_Date;
 
@@ -147,11 +133,11 @@ namespace X3Platform.Connect.Model
         #endregion
 
         // -------------------------------------------------------
-        // ���� EntityClass ��ʶ
+        // 设置 EntityClass 标识
         // -------------------------------------------------------
 
         #region 属性:EntityId
-        /// <summary>ʵ��������ʶ</summary>
+        /// <summary>实体对象标识</summary>
         public override string EntityId
         {
             get { return this.Id; }
@@ -159,7 +145,7 @@ namespace X3Platform.Connect.Model
         #endregion
 
         // -------------------------------------------------------
-        // ����ʱ������ʱ��
+        // 计算时间运行时间
         // -------------------------------------------------------
 
         private TimeSpan timeSpan;

@@ -1,24 +1,10 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect
 {
     #region Using Libraries
     using System;
     using System.Reflection;
+
+    using Common.Logging;
 
     using X3Platform.Plugins;
     using X3Platform.Spring;
@@ -27,9 +13,11 @@ namespace X3Platform.Connect
     using X3Platform.Connect.IBLL;
     #endregion
 
-    /// <summary>Ӧ�����������������Ļ���</summary>
+    /// <summary>应用连接器管理上下文环境</summary>
     public sealed class ConnectContext : CustomPlugin
     {
+        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
+
         #region 属性:Name
         public override string Name
         {
@@ -42,6 +30,7 @@ namespace X3Platform.Connect
 
         private static object lockObject = new object();
 
+        /// <summary>实例</summary>
         public static ConnectContext Instance
         {
             get
@@ -65,7 +54,7 @@ namespace X3Platform.Connect
         #region 属性:Configuration
         private ConnectConfiguration configuration = null;
 
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         public ConnectConfiguration Configuration
         {
             get { return configuration; }
@@ -75,7 +64,7 @@ namespace X3Platform.Connect
         #region 属性:ConnectService
         private IConnectService m_ConnectService = null;
 
-        /// <summary>��������Ϣ</summary>
+        /// <summary>连接器信息</summary>
         public IConnectService ConnectService
         {
             get { return this.m_ConnectService; }
@@ -85,7 +74,7 @@ namespace X3Platform.Connect
         #region 属性:ConnectAuthorizationCodeService
         private IConnectAuthorizationCodeService m_ConnectAuthorizationCodeService = null;
 
-        /// <summary>��������Ȩ����Ϣ</summary>
+        /// <summary>连接器授权码信息</summary>
         public IConnectAuthorizationCodeService ConnectAuthorizationCodeService
         {
             get { return this.m_ConnectAuthorizationCodeService; }
@@ -95,7 +84,7 @@ namespace X3Platform.Connect
         #region 属性:ConnectAccessTokenService
         private IConnectAccessTokenService m_ConnectAccessTokenService = null;
 
-        /// <summary>����������������Ϣ</summary>
+        /// <summary>连接器访问令牌信息</summary>
         public IConnectAccessTokenService ConnectAccessTokenService
         {
             get { return this.m_ConnectAccessTokenService; }
@@ -105,63 +94,65 @@ namespace X3Platform.Connect
         #region 属性:ConnectCallService
         private IConnectCallService m_ConnectCallService = null;
 
-        /// <summary>���������ü�¼��Ϣ</summary>
+        /// <summary>连接器调用记录信息</summary>
         public IConnectCallService ConnectCallService
         {
             get { return this.m_ConnectCallService; }
         }
         #endregion
 
-        #region ���캯��:ConnectContext()
-        /// <summary><see cref="ConnectContext"/>�Ĺ��캯��</summary>
+        #region 构造函数:ConnectContext()
+        /// <summary><see cref="ConnectContext"/>的构造函数</summary>
         private ConnectContext()
         {
             Restart();
         }
         #endregion
 
-        /// <summary>��������������</summary>
+        /// <summary>重启次数计数器</summary>
         private int restartCount = 0;
 
-        #region 属性:Restart()
-        /// <summary>��������</summary>
-        /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
+        #region 函数:Restart()
+        /// <summary>重启插件</summary>
+        /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
         public override int Restart()
         {
             try
             {
                 this.Reload();
 
-                // ������������������
+                // 自增重启次数计数器
                 this.restartCount++;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                logger.Error(ex);
+
+                throw ex;
             }
-            
+
             return 0;
         }
         #endregion
 
-        #region 属性:Reload()
-        /// <summary>���¼���</summary>
+        #region 函数:Reload()
+        /// <summary>重新加载</summary>
         private void Reload()
         {
             if (this.restartCount > 0)
             {
-                // ���¼���������Ϣ
+                // 重新加载配置信息
                 ConnectConfigurationView.Instance.Reload();
             }
 
             this.configuration = ConnectConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 
-            // �������ݷ�������
+            // 创建数据服务对象
             this.m_ConnectService = objectBuilder.GetObject<IConnectService>(typeof(IConnectService));
             this.m_ConnectAccessTokenService = objectBuilder.GetObject<IConnectAccessTokenService>(typeof(IConnectAccessTokenService));
             this.m_ConnectAuthorizationCodeService = objectBuilder.GetObject<IConnectAuthorizationCodeService>(typeof(IConnectAuthorizationCodeService));

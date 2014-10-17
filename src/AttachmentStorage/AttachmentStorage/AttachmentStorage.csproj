@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7B42323-11A4-4F0C-8F5F-E9FB9DBE079C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>X3Platform.AttachmentStorage</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>X3Platform.AttachmentStorage</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <SignAssembly>false</SignAssembly>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
+    <OutputPath>bin\longfor\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
+    <OutputPath>bin\junfa\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X3Platform.Abstractions">
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Apps">
+      <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Ajax\AttachmentStorageWrapper.cs" />
+    <Compile Include="Ajax\FileUploadWrapper.cs" />
+    <Compile Include="Ajax\ImageUploadWrapper.cs" />
+    <Compile Include="Ajax\ImageThumbnailWrapper.cs" />
+    <Compile Include="Ajax\AttachmentWarnWrapper.cs" />
+    <Compile Include="BLL\AttachmentStorageService.cs" />
+    <Compile Include="AttachmentStorageContext.cs" />
+    <Compile Include="BLL\AttachmentDistributedFileService.cs" />
+    <Compile Include="BLL\AttachmentWarnService.cs" />
+    <Compile Include="DAL\IBatis\AttachmentStorageProvider.cs" />
+    <Compile Include="DAL\IBatis\AttachmentDistributedFileProvider.cs" />
+    <Compile Include="DAL\IBatis\AttachmentWarnProvider.cs" />
+    <Compile Include="DAL\MySQL\AttachmentDistributedFileProvider.cs" />
+    <Compile Include="DAL\MySQL\AttachmentStorageProvider.cs" />
+    <Compile Include="DAL\MySQL\AttachmentWarnProvider.cs" />
+    <Compile Include="DistributedFileStorage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IAttachmentFileInfo.cs" />
+    <Compile Include="IBLL\IAttachmentStorageService.cs" />
+    <Compile Include="AttachmentFileInfo.cs" />
+    <Compile Include="Configuration\AttachmentStorageConfigurationView.cs" />
+    <Compile Include="Configuration\AttachmentStorageConfiguration.cs" />
+    <Compile Include="IBLL\IAttachmentDistributedFileService.cs" />
+    <Compile Include="IBLL\IAttachmentWarnService.cs" />
+    <Compile Include="IDAL\IAttachmentStorageProvider.cs" />
+    <Compile Include="IDAL\IAttachmentDistributedFileProvider.cs" />
+    <Compile Include="IDAL\IAttachmentWarnProvider.cs" />
+    <Compile Include="Images\ThumbnailInfo.cs" />
+    <Compile Include="Images\ThumbnailManagement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Util\UploadPathHelper.cs" />
+    <Compile Include="IAttachmentParentObject.cs" />
+    <Compile Include="AttachmentParentObject.cs" />
+    <Compile Include="Util\UploadFileHelper.cs" />
+    <Compile Include="DistributedFileInfo.cs" />
+    <Compile Include="AttachmentWarnInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build.publish.bat" />
+    <None Include="config\MySQL\X3Platform.AttachmentStorage.IBatis.SqlMap.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="config\MySQL\X3Platform.AttachmentStorage.Spring.config" />
+    <None Include="config\X3Platform.AttachmentStorage.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="config\X3Platform.AttachmentStorage.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.AttachmentStorage.Spring.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\IBatis\AttachmentStorageProvider.xml">
+      <DependentUpon>AttachmentStorageProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\AttachmentDistributedFileProvider.xml">
+      <DependentUpon>AttachmentDistributedFileProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\IBatis\AttachmentWarnProvider.xml">
+      <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\AttachmentDistributedFileProvider.xml">
+      <DependentUpon>AttachmentDistributedFileProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\AttachmentStorageProvider.xml">
+      <DependentUpon>AttachmentStorageProvider.cs</DependentUpon>
+    </Content>
+    <Content Include="DAL\MySQL\AttachmentWarnProvider.xml">
+      <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
+    </Content>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

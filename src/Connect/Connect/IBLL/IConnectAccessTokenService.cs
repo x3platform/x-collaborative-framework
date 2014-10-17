@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.IBLL
 {
     #region Using Libraries
@@ -25,119 +9,112 @@ namespace X3Platform.Connect.IBLL
 
     using X3Platform.Connect.Model;
     using X3Platform.Membership;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.Connect.IBLL.IConnectAccessTokenService")]
     public interface IConnectAccessTokenService
     {
-        #region 属性:this[string index]
-        /// <summary>����</summary>
+        #region 索引:this[string index]
+        /// <summary>索引</summary>
         /// <param name="index"></param>
         /// <returns></returns>
         ConnectAccessTokenInfo this[string index] { get; }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">ConnectAccessTokenInfo Id��</param>
-        /// <returns>����һ�� ConnectAccessTokenInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">ConnectAccessTokenInfo Id号</param>
+        /// <returns>返回一个 <see cref="ConnectAccessTokenInfo"/>实例的详细信息</returns>
         ConnectAccessTokenInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindOneByAccountId(string appKey, string accountId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectAccessTokenInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOneByAccountId(string appKey, string accountId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回一个实例<see cref="ConnectAccessTokenInfo"/>的详细信息</returns>
         ConnectAccessTokenInfo FindOneByAccountId(string appKey, string accountId);
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>�������� ConnectAccessTokenInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有 <see cref="ConnectAccessTokenInfo"/>实例的详细信息</returns>
         IList<ConnectAccessTokenInfo> FindAll();
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>�������� ConnectAccessTokenInfo ʵ������ϸ��Ϣ</returns>
-        IList<ConnectAccessTokenInfo> FindAll(string whereClause);
-        #endregion
-
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� ConnectAccessTokenInfo ʵ������ϸ��Ϣ</returns>
-        IList<ConnectAccessTokenInfo> FindAll(string whereClause, int length);
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 <see cref="ConnectAccessTokenInfo"/>实例的详细信息</returns>
+        IList<ConnectAccessTokenInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ConnectAccessTokenInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ConnectAccessTokenInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>ConnectAccessTokenInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(ConnectAccessTokenInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="ConnectAccessTokenInfo"/>实例详细信息</param>
+        /// <returns><see cref="ConnectAccessTokenInfo"/>实例详细信息</returns>
         ConnectAccessTokenInfo Save(ConnectAccessTokenInfo param);
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
         int Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        IList<ConnectAccessTokenInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        IList<ConnectAccessTokenInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
 
-        #region 属性:IsExist(string appKey, string accountId)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string appKey, string accountId)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string appKey, string accountId);
         #endregion
 
-        #region 属性:Write(string appKey, string accountId)
-        /// <summary>д�����ʺŵķ���������Ϣ</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:Write(string appKey, string accountId)
+        /// <summary>写入的帐号的访问令牌信息</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="accountId">帐号标识</param>
         /// <returns></returns>
         int Write(string appKey, string accountId);
         #endregion
 
-        #region 属性:Refesh(string appKey, string refreshToken, DateTime expireDate)
-        /// <summary>ˢ���ʺŵķ�������</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="refreshToken">ˢ������</param>
-        /// <param name="expireDate">����ʱ��</param>
+        #region 函数:Refesh(string appKey, string refreshToken, DateTime expireDate)
+        /// <summary>刷新帐号的访问令牌</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="refreshToken">刷新令牌</param>
+        /// <param name="expireDate">过期时间</param>
         /// <returns></returns>
         int Refesh(string appKey, string refreshToken, DateTime expireDate);
         #endregion
