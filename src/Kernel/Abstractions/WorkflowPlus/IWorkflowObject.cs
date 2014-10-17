@@ -1,37 +1,18 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Collections;
-
 namespace X3Platform.WorkflowPlus
 {
-    /// <summary>����ʱ���������̶����ӿ�</summary>
+    /// <summary>运行时的所有流程对象接口</summary>
     public interface IWorkflowObject
     {
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         string Id { get; }
 
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         string Name { get; }
 
-        /// <summary>����</summary>		
+        /// <summary>类型</summary>		
         string Type { get; }
 
-        /// <summary>������ʵ��</summary>
+        /// <summary>工作流实例</summary>
         IWorkflowInstanceInfo WorkflowInstance { get; }
     }
 }
