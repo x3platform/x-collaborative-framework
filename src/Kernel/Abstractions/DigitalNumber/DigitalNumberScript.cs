@@ -1,9 +1,11 @@
 namespace X3Platform.DigitalNumber
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
 
     using X3Platform.Util;
+    #endregion
 
     /// <summary>流水号脚本</summary>
     public class DigitalNumberScript

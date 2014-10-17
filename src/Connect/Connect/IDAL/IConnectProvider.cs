@@ -1,16 +1,17 @@
 namespace X3Platform.Connect.IDAL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Data;
 
     using X3Platform.Data;
-    using X3Platform.Membership.Scope;
     using X3Platform.Spring;
     using X3Platform.Security.Authority;
 
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.Model;
+    #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.Connect.IDAL.IConnectProvider")]

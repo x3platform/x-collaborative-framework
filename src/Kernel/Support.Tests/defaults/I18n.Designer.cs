@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace X3Platform.Support.Tests.defaults {
+namespace X3Platform.Tests.defaults {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace X3Platform.Support.Tests.defaults {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("X3Platform.Support.Tests.defaults.I18n", typeof(I18n).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("X3Platform.Tests.defaults.I18n", typeof(I18n).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

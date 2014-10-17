@@ -1,12 +1,12 @@
 ﻿// =============================================================================
 //
-// Copyright (c) ruanyu@live.com
+// Copyright (c) x3platform.com
 //
 // Filename     :GlobalAssemblyInfo.cs
 //
 // Abstract     :GlobalAssemblyInfo 全局信息
 //
-// Author       :Elane
+// Author       :project@x3platform.com
 //
 // Date			:2010-01-01
 //

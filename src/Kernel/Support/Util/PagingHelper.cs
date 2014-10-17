@@ -241,7 +241,7 @@ namespace X3Platform.Util
         private string m_WhereClause;
 
         /// <summary>SQL 查询条件</summary>
-        [Obsolete("ֱ�ӹ��� SQL ��ѯ��������ע������, ����ʹ�� Query.Where ���Դ���.")]
+        [Obsolete("属性 WhereClause 将不被支持, 请使用 Query.Where 代替.")]
         public string WhereClause
         {
             get { return m_WhereClause; }
@@ -253,7 +253,7 @@ namespace X3Platform.Util
         private string m_OrderBy;
 
         /// <summary>SQL 排序规则</summary>
-        [Obsolete("ֱ�ӹ��� SQL ��ѯ��������ע������, ����ʹ�� Query.Orders ���Դ���.")]
+        [Obsolete("属性 OrderBy 将不被支持, 请使用 Query.Orders 代替.")]
         public string OrderBy
         {
             get { return m_OrderBy; }

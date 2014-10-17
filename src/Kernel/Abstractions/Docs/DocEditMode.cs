@@ -1,22 +1,8 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :DocEditMode.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Docs
+﻿namespace X3Platform.Docs
 {
+    #region Using Libraries
     using System;
+    #endregion
 
     /// <summary>文档编辑模式</summary>
     [Flags]

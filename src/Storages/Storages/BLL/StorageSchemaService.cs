@@ -1,37 +1,18 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :StorageSchemaService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-#region Using Libraries
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-using X3Platform.Spring;
-
-//using X3Platform.Apps;
-//using X3Platform.Apps.Model;
-
-using X3Platform.Storages.Configuration;
-using X3Platform.Storages.IBLL;
-using X3Platform.Storages.IDAL;
-using X3Platform.Storages.Model;
-#endregion
-
-namespace X3Platform.Storages.BLL
+﻿namespace X3Platform.Storages.BLL
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using X3Platform.Spring;
+
+    using X3Platform.Storages.Configuration;
+    using X3Platform.Storages.IBLL;
+    using X3Platform.Storages.IDAL;
+    using X3Platform.Storages.Model;
+    #endregion
+
     /// <summary></summary>
     public class StorageSchemaService : IStorageSchemaService
     {
@@ -81,12 +62,12 @@ namespace X3Platform.Storages.BLL
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        public void Delete(string ids)
+        /// <param name="id">实例的标识</param>
+        public void Delete(string id)
         {
-            this.provider.Delete(ids);
+            this.provider.Delete(id);
         }
         #endregion
 
@@ -121,9 +102,9 @@ namespace X3Platform.Storages.BLL
         public StorageSchemaInfo FindOneByApplicationName(string applicationName)
         {
             return this.provider.FindOneByApplicationName(applicationName);
-            
+
             // ApplicationInfo application = AppsContext.Instance.ApplicationService[applicationName];
-           
+
             // return this.FindOneByApplicationId(application.Id);
         }
         #endregion

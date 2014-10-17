@@ -1,5 +1,6 @@
 namespace X3Platform.DigitalNumber.BLL
 {
+    #region Using Libraries
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace X3Platform.DigitalNumber.BLL
     using X3Platform.DigitalNumber.IBLL;
     using X3Platform.DigitalNumber.IDAL;
     using X3Platform.DigitalNumber.Model;
+    #endregion
 
     public class DigitalNumberService : IDigitalNumberService
     {
@@ -29,8 +31,8 @@ namespace X3Platform.DigitalNumber.BLL
             provider = SpringContext.Instance.GetObject<IDigitalNumberProvider>(typeof(IDigitalNumberProvider));
         }
 
-        #region 属性:this[string name]
-        /// <summary>����</summary>
+        #region 索引:this[string name]
+        /// <summary>索引</summary>
         /// <param name="name"></param>
         /// <returns></returns>
         public DigitalNumberInfo this[string name]
@@ -40,66 +42,66 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(DigitalNumberInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">DigitalNumberInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>DigitalNumberInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(DigitalNumberInfo param)
+        ///<summary>保存记录</summary>
+        ///<param name="param">DigitalNumberInfo 实例详细信息</param>
+        ///<returns>DigitalNumberInfo 实例详细信息</returns>
         public DigitalNumberInfo Save(DigitalNumberInfo param)
         {
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="keys">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
-        public void Delete(string ids)
+        #region 属性:Delete(string id)
+        ///<summary>删除记录</summary>
+        ///<param name="keys">实例的标识,多条记录以逗号分开</param>
+        public void Delete(string id)
         {
-            provider.Delete(ids);
+            provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string name)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="name">DigitalNumberInfo Id��</param>
-        /// <returns>����һ�� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string name)
+        ///<summary>查询某条记录</summary>
+        ///<param name="name">DigitalNumberInfo Id号</param>
+        ///<returns>返回一个 DigitalNumberInfo 实例的详细信息</returns>
         public DigitalNumberInfo FindOne(string name)
         {
             return provider.FindOne(name);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>�������� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        ///<summary>查询所有相关记录</summary>
+        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>�������� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        ///<summary>查询所有相关记录</summary>
+        ///<param name="whereClause">SQL 查询条件</param>
+        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� DigitalNumberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        ///<summary>查询所有相关记录</summary>
+        ///<param name="whereClause">SQL 查询条件</param>
+        ///<param name="length">条数</param>
+        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
@@ -107,35 +109,35 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <returns>����һ���б�</returns>
-        public IList<DigitalNumberInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <returns>返回一个列表</returns>
+        public IList<DigitalNumberInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="name">����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        ///<summary>查询是否存在相关的记录.</summary>
+        ///<param name="name">名称</param>
+        ///<returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return provider.IsExistName(name);
         }
         #endregion
 
-        #region 属性:Generate(string name)
+        #region 函数:Generate(string name)
 
         private object lockObject = new object();
 
-        /// <summary>�������ֱ���</summary>
-        /// <param name="name">��������</param>
-        /// <returns>���ֱ���</returns>
+        ///<summary>生成数字编码</summary>
+        ///<param name="name">规则名称</param>
+        ///<returns>数字编码</returns>
         public string Generate(string name)
         {
             string result = null;
@@ -146,7 +148,7 @@ namespace X3Platform.DigitalNumber.BLL
 
                 if (param == null)
                 {
-                    throw new Exception(string.Format("δ�ҵ�����������Ϣ������ϵ����Ա�������ر��š�{0}��������Ϣ��", name));
+                    throw new Exception(string.Format("未找到相关配置信息，请联系管理员配置相关编号【{0}】参数信息。", name));
                 }
                 else
                 {
@@ -162,7 +164,7 @@ namespace X3Platform.DigitalNumber.BLL
                         || param.Name == "Key_Timestamp"
                         || param.Name == "Key_Session")
                     {
-                        // ���ò���Ҫ�����ı��ź͸���ʱ���ı���
+                        // 内置不需要自增的编号和更新时间的编号
                     }
                     else
                     {
@@ -175,52 +177,52 @@ namespace X3Platform.DigitalNumber.BLL
         }
         #endregion
 
-        #region 属性:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
-        /// <summary>����ǰ׺�������ֱ���</summary>
-        /// <param name="entityTableName">ʵ�����ݱ�</param>
-        /// <param name="prefixCode">ǰ׺����</param>
-        /// <param name="expression">��������ʽ</param>
-        /// <returns>���ֱ���</returns>
+        #region 函数:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
+        ///<summary>根据前缀生成数字编码</summary>
+        ///<param name="entityTableName">实体数据表</param>
+        ///<param name="prefixCode">前缀编号</param>
+        ///<param name="expression">规则表达式</param>
+        ///<returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         {
             return provider.GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
         }
         #endregion
 
-        #region 属性:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
-        /// <summary>����ǰ׺�������ֱ���</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="entityTableName">ʵ�����ݱ�</param>
-        /// <param name="prefixCode">ǰ׺����</param>
-        /// <param name="expression">��������ʽ</param>
-        /// <returns>���ֱ���</returns>
+        #region 函数:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
+        ///<summary>根据前缀生成数字编码</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        ///<param name="entityTableName">实体数据表</param>
+        ///<param name="prefixCode">前缀编号</param>
+        ///<param name="expression">规则表达式</param>
+        ///<returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
         {
             return provider.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, expression);
         }
         #endregion
 
-        #region 属性:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
-        /// <summary>����������ʶ�����ֱ���</summary>
-        /// <param name="entityTableName">ʵ�����ݱ�</param>
-        /// <param name="entityCategoryTableName">ʵ���������ݱ�</param>
-        /// <param name="entityCategoryId">ʵ��������ʶ</param>
-        /// <param name="expression">��������ʽ</param>
-        /// <returns>���ֱ���</returns>
+        #region 函数:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
+        ///<summary>根据类别标识成数字编码</summary>
+        ///<param name="entityTableName">实体数据表</param>
+        ///<param name="entityCategoryTableName">实体类别数据表</param>
+        ///<param name="entityCategoryId">实体类别标识</param>
+        ///<param name="expression">规则表达式</param>
+        ///<returns>数字编码</returns>
         public string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
             return provider.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, expression);
         }
         #endregion
 
-        #region 属性:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
-        /// <summary>����������ʶ�����ֱ���</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="entityTableName">ʵ�����ݱ�</param>
-        /// <param name="entityCategoryTableName">ʵ���������ݱ�</param>
-        /// <param name="entityCategoryId">ʵ��������ʶ</param>
-        /// <param name="expression">��������ʽ</param>
-        /// <returns>���ֱ���</returns>
+        #region 函数:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
+        ///<summary>根据类别标识成数字编码</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        ///<param name="entityTableName">实体数据表</param>
+        ///<param name="entityCategoryTableName">实体类别数据表</param>
+        ///<param name="entityCategoryId">实体类别标识</param>
+        ///<param name="expression">规则表达式</param>
+        ///<returns>数字编码</returns>
         public string GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
             return provider.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, expression);

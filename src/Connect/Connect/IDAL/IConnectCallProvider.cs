@@ -1,5 +1,6 @@
 namespace X3Platform.Connect.IDAL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace X3Platform.Connect.IDAL
 
     using X3Platform.Connect.Model;
     using X3Platform.Data;
+    #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.Connect.IDAL.IConnectCallProvider")]

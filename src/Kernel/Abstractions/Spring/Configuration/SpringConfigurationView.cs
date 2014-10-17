@@ -1,36 +1,24 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :SpringConfigurationView.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-
-using X3Platform.Configuration;
-
 namespace X3Platform.Spring.Configuration
 {
-    /// <summary>������ͼ</summary>
+    #region Using Libraries
+    using System;
+    using System.IO;
+
+    using X3Platform.Configuration;
+    #endregion
+
+    /// <summary>配置视图</summary>
     public class SpringConfigurationView : XmlConfigurationView<SpringConfiguration>
     {
-        /// <summary>�����ļ���Ĭ��·��</summary>
+        /// <summary>配置文件的默认路径.</summary>
         private const string configFile = "config\\X3Platform.Spring.config";
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile SpringConfigurationView instance = null;
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static SpringConfigurationView Instance
         {
             get
@@ -41,7 +29,7 @@ namespace X3Platform.Spring.Configuration
                     {
                         if (instance == null)
                         {
-                    instance = new SpringConfigurationView();
+                            instance = new SpringConfigurationView();
                         }
                     }
                 }
@@ -51,24 +39,26 @@ namespace X3Platform.Spring.Configuration
         }
         #endregion
 
-        #region ���캯��:SpringConfigurationView()
-        /// <summary>���캯��</summary>
+        #region 构造函数:SpringConfigurationView()
+        /// <summary>构造函数</summary>
         private SpringConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
+            // 基类初始化后会默认执行 Reload() 函数
         }
         #endregion
 
-        #region ���캯��:SpringConfigurationView(string configFilePath)
-        /// <summary>���캯��</summary>
-        private SpringConfigurationView(string configFilePath)
-            : base(configFilePath)
+        #region 构造函数:SpringConfigurationView(string path)
+        /// <summary>构造函数</summary>
+        private SpringConfigurationView(string path)
+            : base(path)
         {
+            // 基类初始化后会默认执行 Reload() 函数
         }
         #endregion
 
-        #region ��̬属性:LoadInstance(string fullConfigPath)
-        /// <summary>ͨ�������ļ�����ʵ��</summary>
+        #region 构造函数:LoadInstance(string fullConfigPath)
+        /// <summary>通过配置文件载入实例</summary>
         /// <param name="fullConfigPath"></param>
         public static void LoadInstance(string fullConfigPath)
         {

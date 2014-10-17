@@ -32,7 +32,7 @@ namespace X3Platform.Configuration
     /// <summary>������ͼ</summary>
     public class KernelConfigurationView
     {
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile KernelConfigurationView instance = null;
 
         private static object lockObject = new object();

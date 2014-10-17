@@ -1,36 +1,20 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :IAccountStorageStrategy.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Sessions
 {
     using X3Platform.Membership;
 
-    /// <summary>�ʺŴ洢���Խӿ�</summary>
+    /// <summary>帐号存储策略接口</summary>
     public interface IAccountStorageStrategy
     {
-        #region 属性:Deserialize(AccountCacheInfo accountCache)
-        /// <summary>�����л�������Ϣ��Ϣ</summary>
+        #region 方法:Deserialize(AccountCacheInfo accountCache)
+        /// <summary>反序列化缓存信息信息</summary>
         /// <returns></returns>
         IAccountInfo Deserialize(AccountCacheInfo accountCache);
         #endregion
 
-        #region 属性:Serialize(string accountIdentity, IAccountInfo account)
-        /// <summary>���л�������Ϣ��Ϣ</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
-        /// <param name="account">�ʺ���Ϣ</param>
+        #region 方法:Serialize(string accountIdentity, IAccountInfo account)
+        /// <summary>序列化缓存信息信息</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <param name="account">帐号信息</param>
         /// <returns></returns>
         AccountCacheInfo Serialize(string accountIdentity, IAccountInfo account);
         #endregion
