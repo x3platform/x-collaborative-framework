@@ -1,26 +1,10 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.Model
 {
     #region Using Libraries
     using System;
     #endregion
 
-    /// <summary>Ӧ������������Ϣ</summary>
+    /// <summary>应用连接流量信息</summary>
     public class ConnectTrafficInfo
     {
         public ConnectTrafficInfo() { }
@@ -28,7 +12,7 @@ namespace X3Platform.Connect.Model
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public string Id
         {
             get { return this.m_Id; }
@@ -39,7 +23,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AccountId
         private string m_AccountId = string.Empty;
 
-        /// <summary>�ύ�˱�ʶ</summary>
+        /// <summary>提交人标识</summary>
         public string AccountId
         {
             get { return m_AccountId; }
@@ -50,7 +34,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AppKey
         private string m_AppKey;
 
-        /// <summary>Ӧ�ñ�ʶ</summary>
+        /// <summary>应用标识</summary>
         public string AppKey
         {
             get { return this.m_AppKey; }
@@ -61,7 +45,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AuthorizationCode
         private string m_AuthorizationCode;
 
-        /// <summary>��Ȩ����</summary>
+        /// <summary>授权代码</summary>
         public string AuthorizationCode
         {
             get { return this.m_AuthorizationCode; }
@@ -72,7 +56,7 @@ namespace X3Platform.Connect.Model
         #region 属性:AuthorizationScope
         private string m_AuthorizationScope;
 
-        /// <summary>��Ȩ��Χ</summary>
+        /// <summary>授权范围</summary>
         public string AuthorizationScope
         {
             get { return this.m_AuthorizationScope; }
@@ -83,7 +67,7 @@ namespace X3Platform.Connect.Model
         #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
-        /// <summary>�޸�����</summary>
+        /// <summary>修改日期</summary>
         public DateTime UpdateDate
         {
             get { return m_UpdateDate; }
@@ -94,7 +78,7 @@ namespace X3Platform.Connect.Model
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary>��������</summary>
+        /// <summary>创建日期</summary>
         public DateTime CreateDate
         {
             get { return m_CreateDate; }

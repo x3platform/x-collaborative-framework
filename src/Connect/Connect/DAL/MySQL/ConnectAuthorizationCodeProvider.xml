@@ -24,14 +24,14 @@
 
     <statements>
         <insert id="proc_Connect_AuthorizationCode_Insert" parameterClass="ConnectAuthorizationCodeInfo" >
-            INSERT INTO `tb_Connect_AuthorizationCode`
+            INSERT INTO tb_Connect_AuthorizationCode
             (
-                `Id`,
-                `AppKey`,
-                `AccountId`,
-                `AuthorizationScope`,
-                `UpdateDate`,
-                `CreateDate`
+                Id,
+                AppKey,
+                AccountId,
+                AuthorizationScope,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -45,24 +45,24 @@
         </insert>
 
         <update id="proc_Connect_AuthorizationCode_Update" parameterClass="ConnectAuthorizationCodeInfo" >
-            UPDATE `tb_Connect_AuthorizationCode` SET
+            UPDATE tb_Connect_AuthorizationCode SET
 
-                `AuthorizationScope` = #AuthorizationScope#,
-                `UpdateDate` = CURRENT_TIMESTAMP
+                AuthorizationScope = #AuthorizationScope#,
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
 
         <delete id="proc_Connect_AuthorizationCode_Delete">
-            DELETE FROM `tb_Connect_AuthorizationCode` WHERE Id = #Id#
+            DELETE FROM tb_Connect_AuthorizationCode WHERE Id = #Id#
         </delete>
 
         <select id="proc_Connect_AuthorizationCode_FindOne" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
-            SELECT * FROM `tb_Connect_AuthorizationCode` WHERE `Id` = #Id#
+            SELECT * FROM tb_Connect_AuthorizationCode WHERE Id = #Id#
         </select>
 
         <select id="proc_Connect_AuthorizationCode_FindOneByAccountId" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
-            SELECT * FROM `tb_Connect_AuthorizationCode` WHERE `AppKey` = #AppKey# AND `AccountId` = #AccountId# LIMIT 1
+            SELECT * FROM tb_Connect_AuthorizationCode WHERE AppKey = #AppKey# AND AccountId = #AccountId# LIMIT 1
         </select>
 
         <select id="proc_Connect_AuthorizationCode_FindAll" resultMap="proc_Connect_AuthorizationCode_FindAll_Result" parameterClass="ConnectAuthorizationCodeInfo" >
@@ -74,7 +74,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM `tb_Connect_AuthorizationCode` T
+            * FROM tb_Connect_AuthorizationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -85,12 +85,12 @@
             </dynamic>
         </select>
 
-        <select id="proc_Connect_AuthorizationCode_GetPages" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindAll_Result" >
+        <select id="proc_Connect_AuthorizationCode_GetPaging" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM `tb_Connect_AuthorizationCode` T
+            FROM tb_Connect_AuthorizationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -105,7 +105,7 @@
         </select>
 
         <select id="proc_Connect_AuthorizationCode_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM `tb_Connect_AuthorizationCode` T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Connect_AuthorizationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -117,7 +117,7 @@
         </select>
         
         <select id="proc_Connect_AuthorizationCode_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM `tb_Connect_AuthorizationCode` WHERE $WhereClause$
+            SELECT COUNT(*) AS 'Count' FROM tb_Connect_AuthorizationCode WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ConnectService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.BLL
 {
     #region Using Libraries
@@ -32,6 +16,7 @@ namespace X3Platform.Connect.BLL
     using X3Platform.Connect.IDAL;
     using X3Platform.Connect.Model;
     using X3Platform.CacheBuffer;
+    using X3Platform.Collections;
     #endregion
 
     public sealed class ConnectService : IConnectService
@@ -40,24 +25,24 @@ namespace X3Platform.Connect.BLL
 
         private IConnectProvider provider = null;
 
-        /// <summary>�����洢</summary>
-        private Dictionary<string, ConnectInfo> Dictionary = new Dictionary<string, ConnectInfo>();
+        /// <summary>缓存存储</summary>
+        private IDictionary<string, ConnectInfo> cacheStorage = new SyncDictionary<string, ConnectInfo>();
 
         public ConnectService()
         {
             this.configuration = ConnectConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IConnectProvider>(typeof(IConnectProvider));
         }
 
-        #region 属性:this[string appKey]
-        /// <summary>����</summary>
+        #region 索引:this[string appKey]
+        /// <summary>索引</summary>
         /// <param name="appKey"></param>
         /// <returns></returns>
         public ConnectInfo this[string appKey]
@@ -67,21 +52,21 @@ namespace X3Platform.Connect.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ConnectInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ConnectInfo ʵ����ϸ��Ϣ</param>
-        /// <param name="message">���ݿ����󷵻ص�������Ϣ</param>
-        /// <returns>ConnectInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(ConnectInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="ConnectInfo"/>实例详细信息</param>
+        /// <param name="message">数据库操作返回的相关信息</param>
+        /// <returns><see cref="ConnectInfo"/>实例详细信息</returns>
         public ConnectInfo Save(ConnectInfo param)
         {
-            if (string.IsNullOrEmpty(param.Id)) { throw new Exception("ʵ����ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(param.Id)) { throw new Exception("实例标识不能为空。"); }
 
             bool isNewObject = !this.IsExist(param.Id);
 
-            string methodName = isNewObject ? "����" : "�༭";
+            string methodName = isNewObject ? "新增" : "编辑";
 
             if (isNewObject)
             {
@@ -91,150 +76,138 @@ namespace X3Platform.Connect.BLL
                 param.AccountName = account.Name;
             }
 
-            // ���� Cross Site Script
+            // 过滤 Cross Site Script
             param = StringHelper.ToSafeXSS<ConnectInfo>(param);
 
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="keys">��ʶ,�����Զ��Ÿ���</param>
-        public int Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public int Delete(string id)
         {
-            return this.provider.Delete(ids);
+            return this.provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��������ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">连接器标识</param>
+        /// <returns>返回一个实例<see cref="ConnectInfo"/>的详细信息</returns>
         public ConnectInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindOneByAppKey(string appKey)
-        /// <summary>��ѯĳ����¼</summary>
+        #region 函数:FindOneByAppKey(string appKey)
+        /// <summary>查询某条记录</summary>
         /// <param name="appKey">AppKey</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
+        /// <returns>返回一个实例<see cref="ConnectInfo"/>的详细信息</returns>
         public ConnectInfo FindOneByAppKey(string appKey)
         {
             ConnectInfo param = null;
 
-            // ��ʼ������
-            if (this.Dictionary.Count == 0)
+            // 初始化缓存
+            if (this.cacheStorage.Count == 0)
             {
                 IList<ConnectInfo> list = this.FindAll();
 
                 foreach (ConnectInfo item in list)
                 {
-                    this.Dictionary.Add(item.AppKey, item);
+                    this.cacheStorage.Add(item.AppKey, item);
                 }
             }
 
-            // ���һ�������
-            if (this.Dictionary.ContainsKey(appKey))
+            // 查找缓存数据
+            if (this.cacheStorage.ContainsKey(appKey))
             {
-                param = this.Dictionary[appKey];
+                param = this.cacheStorage[appKey];
             }
 
-            // ����������δ�ҵ��������ݣ����������ݿ�����
+            // 如果缓存中未找到相关数据，则查找数据库内容
             return param == null ? this.provider.FindOneByAppKey(appKey) : param;
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="ConnectInfo"/>的详细信息</returns>
         public IList<ConnectInfo> FindAll()
         {
-            return FindAll(string.Empty);
+            return this.FindAll(new DataQuery() { Limit = 1000 });
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
-        public IList<ConnectInfo> FindAll(string whereClause)
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="ConnectInfo"/>的详细信息</returns>
+        public IList<ConnectInfo> FindAll(DataQuery query)
         {
-            return FindAll(whereClause, 0);
-        }
-        #endregion
-
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="ConnectInfo"/>����ϸ��Ϣ</returns>
-        public IList<ConnectInfo> FindAll(string whereClause, int length)
-        {
-            return this.provider.FindAll(whereClause, length);
+            return this.provider.FindAll(query);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns>
-        public IList<ConnectInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表<see cref="ConnectInfo"/>实例</returns>
+        public IList<ConnectInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
-        #region 属性:GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns>
-        public IList<ConnectQueryInfo> GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表<see cref="ConnectInfo"/>实例</returns>
+        public IList<ConnectQueryInfo> GetQueryObjectPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.GetQueryObjectPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetQueryObjectPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistAppKey(string appKey)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        #region 函数:IsExistAppKey(string appKey)
+        /// <summary>查询是否存在相关的记录</summary>
         /// <param name="appKey">AppKey</param>
-        /// <returns>����ֵ</returns>
+        /// <returns>布尔值</returns>
         public bool IsExistAppKey(string appKey)
         {
             return (this.FindOneByAppKey(appKey) == null) ? false : true;
         }
         #endregion
 
-        #region 属性:ResetAppSecret(string appKey)
-        /// <summary>����Ӧ������������Կ</summary>
+        #region 函数:ResetAppSecret(string appKey)
+        /// <summary>重置应用链接器的密钥</summary>
         /// <param name="appKey">AppKey</param>
         /// <returns></returns>
         public int ResetAppSecret(string appKey)
@@ -245,19 +218,19 @@ namespace X3Platform.Connect.BLL
         }
         #endregion
 
-        #region 属性:ResetAppSecret(string appKey, string appSecret)
-        /// <summary>����Ӧ������������Կ</summary>
+        #region 函数:ResetAppSecret(string appKey, string appSecret)
+        /// <summary>重置应用链接器的密钥</summary>
         /// <param name="appKey">App Key</param>
         /// <param name="appSecret">App Secret</param>
         /// <returns></returns>
         public int ResetAppSecret(string appKey, string appSecret)
         {
-            // ���»�����Ϣ
+            // 更新缓存信息
             ConnectInfo param = this.FindOneByAppKey(appKey);
 
             param.AppSecret = appSecret;
 
-            // �������ݿ���Ϣ
+            // 更新数据库信息
             return this.provider.ResetAppSecret(appKey, appSecret);
         }
         #endregion

@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ConnectAuthorizationCodeService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Connect.BLL
 {
     #region Using Libraries
@@ -43,12 +27,12 @@ namespace X3Platform.Connect.BLL
         {
             this.configuration = ConnectConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IConnectAuthorizationCodeProvider>(typeof(IConnectAuthorizationCodeProvider));
         }
 
@@ -58,133 +42,122 @@ namespace X3Platform.Connect.BLL
         }
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ConnectAuthorizationCodeInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ConnectAuthorizationCodeInfo ʵ����ϸ��Ϣ</param>
-        /// <param name="message">���ݿ����󷵻ص�������Ϣ</param>
-        /// <returns>ConnectAuthorizationCodeInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(ConnectAuthorizationCodeInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">ConnectAuthorizationCodeInfo 实例详细信息</param>
+        /// <param name="message">数据库操作返回的相关信息</param>
+        /// <returns>ConnectAuthorizationCodeInfo 实例详细信息</returns>
         public ConnectAuthorizationCodeInfo Save(ConnectAuthorizationCodeInfo param)
         {
-            if (string.IsNullOrEmpty(param.Id)) { throw new NullReferenceException("ʵ����ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(param.Id)) { throw new NullReferenceException("实例标识不能为空。"); }
 
-            // ���� Cross Site Script
+            // 过滤 Cross Site Script
             param = StringHelper.ToSafeXSS<ConnectAuthorizationCodeInfo>(param);
 
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="keys">��ʶ,�����Զ��Ÿ���</param>
-        public int Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public int Delete(string id)
         {
-            return this.provider.Delete(ids);
+            return this.provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��������ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectAuthorizationCodeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">连接器标识</param>
+        /// <returns>返回一个实例<see cref="ConnectAuthorizationCodeInfo"/>的详细信息</returns>
         public ConnectAuthorizationCodeInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindOneByAccountId(string appKey, string accountId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="ConnectAuthorizationCodeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOneByAccountId(string appKey, string accountId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回一个实例<see cref="ConnectAuthorizationCodeInfo"/>的详细信息</returns>
         public ConnectAuthorizationCodeInfo FindOneByAccountId(string appKey, string accountId)
         {
             return this.provider.FindOneByAccountId(appKey, accountId);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="ConnectAuthorizationCodeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="ConnectAuthorizationCodeInfo"/>的详细信息</returns>
         public IList<ConnectAuthorizationCodeInfo> FindAll()
         {
-            return FindAll(string.Empty);
+            return this.FindAll(new DataQuery() { Limit = 1000 });
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="ConnectAuthorizationCodeInfo"/>����ϸ��Ϣ</returns>
-        public IList<ConnectAuthorizationCodeInfo> FindAll(string whereClause)
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="ConnectAuthorizationCodeInfo"/>的详细信息</returns>
+        public IList<ConnectAuthorizationCodeInfo> FindAll(DataQuery query)
         {
-            return FindAll(whereClause, 0);
-        }
-        #endregion
-
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="ConnectAuthorizationCodeInfo"/>����ϸ��Ϣ</returns>
-        public IList<ConnectAuthorizationCodeInfo> FindAll(string whereClause, int length)
-        {
-            return this.provider.FindAll(whereClause, length);
+            return this.provider.FindAll(query);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns>
-        public IList<ConnectAuthorizationCodeInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns>
+        public IList<ConnectAuthorizationCodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��Ա��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">会员标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExist(string appKey, string accountId)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string appKey, string accountId)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string appKey, string accountId)
         {
             return this.provider.IsExist(appKey, accountId);
         }
         #endregion
 
-        #region 属性:GetAuthorizationCode(string appKey, IAccountInfo account)
-        /// <summary>��ȡ�ʺŵ���Ȩ��</summary>
-        /// <param name="appKey">Ӧ�ñ�ʶ</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>��Ȩ��</returns>
+        #region 函数:GetAuthorizationCode(string appKey, IAccountInfo account)
+        /// <summary>获取帐号的授权码</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>授权码</returns>
         public string GetAuthorizationCode(string appKey, IAccountInfo account)
         {
             ConnectAuthorizationCodeInfo code = this.FindOneByAccountId(appKey, account.Id);
