@@ -8,7 +8,7 @@
     <ProjectGuid>{27D2AA7C-2B8D-4653-8E14-7B82CE59CBFC}</ProjectGuid>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>X3Platform.Support.Tests</RootNamespace>
+    <RootNamespace>X3Platform.Tests</RootNamespace>
     <AssemblyName>X3Platform.Support.Tests</AssemblyName>
     <WarningLevel>4</WarningLevel>
     <FileUpgradeFlags>

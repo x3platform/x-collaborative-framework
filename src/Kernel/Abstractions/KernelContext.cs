@@ -28,16 +28,14 @@ namespace X3Platform
     using X3Platform.Security.Authentication;
     #endregion
 
-    /// <summary>���Ļ���</summary>
+    /// <summary>核心环境</summary>
     public sealed class KernelContext : IContext
     {
         #region 属性:Name
-        /// <summary>
-        /// ����
-        /// </summary>
+        /// <summary>名称</summary>
         public string Name
         {
-            get { return "���Ļ���"; }
+            get { return "核心环境"; }
         }
         #endregion
 
@@ -46,9 +44,7 @@ namespace X3Platform
 
         private static object lockObject = new object();
 
-        /// <summary>
-        /// ��ǰ��Ϣ
-        /// </summary>
+        /// <summary>当前信息</summary>
         public static KernelContext Current
         {
             get
@@ -70,56 +66,17 @@ namespace X3Platform
         #endregion
 
         #region 属性:User
-        private IDictionary<string, IAccountInfo> cacheStorage = new SyncDictionary<string, IAccountInfo>();
-
-        /// <summary>�û���Ϣ</summary>
+        /// <summary>用户信息</summary>
         public IAccountInfo User
         {
-            get
-            {
-                string identity = AuthenticationManagement.GetIdentityValue();
-
-                if (string.IsNullOrEmpty(identity))
-                {
-                    return null;
-                }
-                else
-                {
-                    if (!cacheStorage.ContainsKey(identity))
-                    {
-                        IAccountInfo account = AuthenticationManagement.GetAuthUser();
-
-                        if (account == null)
-                        {
-                            cacheStorage.Remove(identity);
-                            return null;
-                        }
-                        else
-                        {
-                            cacheStorage.Add(identity, account);
-                        }
-                    }
-
-                    return cacheStorage[identity];
-                }
-            }
-
-            set
-            {
-                string identity = authenticationManagement.GetIdentityValue();
-
-                if (!string.IsNullOrEmpty(identity) && value != null)
-                {
-                    cacheStorage[identity] = value;
-                }
-            }
+            get { return this.AuthenticationManagement.GetAuthUser(); }
         }
         #endregion
 
         #region 属性:Configuration
         private KernelConfiguration configuration = null;
 
-        /// <summary>������Ϣ</summary>
+        /// <summary>配置信息</summary>
         public KernelConfiguration Configuration
         {
             get { return configuration; }
@@ -129,22 +86,22 @@ namespace X3Platform
         #region 属性:AuthenticationManagement
         private IAuthenticationManagement authenticationManagement = null;
 
-        /// <summary>��֤����</summary>
+        /// <summary>验证管理</summary>
         public IAuthenticationManagement AuthenticationManagement
         {
             get { return authenticationManagement; }
         }
         #endregion
 
-        #region ���캯��:KernelContext()
+        #region 构造函数:KernelContext()
         private KernelContext()
         {
             this.Reload();
         }
         #endregion
 
-        #region 属性:Reload()
-        /// <summary>���¼���</summary>
+        #region 函数:Reload()
+        /// <summary>重新加载</summary>
         public void Reload()
         {
             this.configuration = KernelConfigurationView.Instance.Configuration;
@@ -156,11 +113,11 @@ namespace X3Platform
         #endregion
 
         // -------------------------------------------------------
-        // ���ߺ���
+        // 工具函数
         // -------------------------------------------------------
 
-        #region 属性:CreateObject(string type)
-        /// <summary>��������</summary>
+        #region 函数:CreateObject(string type)
+        /// <summary>创建对象</summary>
         /// <param name="type"></param>
         /// <returns></returns>
         public static object CreateObject(string type)
@@ -169,8 +126,8 @@ namespace X3Platform
         }
         #endregion
 
-        #region 属性:CreateObject(string type, object[] args)
-        /// <summary>��������</summary>
+        #region 函数:CreateObject(string type, object[] args)
+        /// <summary>创建对象</summary>
         /// <param name="type"></param>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -186,10 +143,10 @@ namespace X3Platform
         }
         #endregion
 
-        #region 属性:ParseObjectType(Type type)
-        /// <summary>������������</summary>
+        #region 函数:ParseObjectType(Type type)
+        /// <summary>解析对象类型</summary>
         /// <param name="type"></param>
-        /// <returns>��ʽ:X3Platform.KernelContext,X3Platform</returns>
+        /// <returns>格式:X3Platform.KernelContext,X3Platform</returns>
         public static string ParseObjectType(Type type)
         {
             if (type == null)

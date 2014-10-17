@@ -14,7 +14,6 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
     using X3Platform.Data;
     #endregion
 
-
     /// <summary></summary>
     [DataObject]
     public class DigitalNumberProvider : IDigitalNumberProvider
@@ -37,7 +36,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
 
             ibatisMapping = configuration.Keys["IBatisMapping"].Value;
 
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }
 
         public DigitalNumberInfo this[string id]
@@ -51,8 +50,8 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
 
         #region 函数:Save(DigitalNumberInfo param)
         ///<summary>保存记录</summary>
-        ///<param name="param">DigitalNumberInfo 实例详细信息</param>
-        ///<returns>DigitalNumberInfo 实例详细信息</returns>
+        ///<param name="param"><see cref="DigitalNumberInfo"/> 实例详细信息</param>
+        ///<returns><see cref="DigitalNumberInfo"/> 实例详细信息</returns>
         public DigitalNumberInfo Save(DigitalNumberInfo param)
         {
             if (!IsExistName(param.Name))
@@ -70,37 +69,37 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
 
         #region 函数:Insert(DigitalNumberInfo param)
         ///<summary>添加记录</summary>
-        ///<param name="param">DigitalNumberInfo 实例的详细信息</param>
+        ///<param name="param"><see cref="DigitalNumberInfo"/> 实例的详细信息</param>
         public void Insert(DigitalNumberInfo param)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
         #region 函数:Update(DigitalNumberInfo param)
         ///<summary>修改记录</summary>
-        ///<param name="param">DigitalNumberInfo 实例的详细信息</param>
+        ///<param name="param"><see cref="DigitalNumberInfo"/> 实例的详细信息</param>
         public void Update(DigitalNumberInfo param)
         {
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         ///<summary>删除记录</summary>
         ///<param name="ids">标识,多个以逗号分开</param>
-        public void Delete(string ids)
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids))
+            if (string.IsNullOrEmpty(id))
                 return;
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Ids", string.Format("'{0}'", ids.Replace(",", "','")));
+            args.Add("Ids", string.Format("'{0}'", id.Replace(",", "','")));
 
-            ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }
         #endregion
 
@@ -111,16 +110,14 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #region 函数:FindOne(string name)
         ///<summary>查询某条记录</summary>
         ///<param name="name">DigitalNumberInfo Id号</param>
-        ///<returns>返回一个 DigitalNumberInfo 实例的详细信息</returns>
+        ///<returns>返回一个 <see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public DigitalNumberInfo FindOne(string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("Name", name);
 
-            DigitalNumberInfo param = ibatisMapper.QueryForObject<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
-
-            return param;
+            return this.ibatisMapper.QueryForObject<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
         }
         #endregion
 
@@ -128,7 +125,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         ///<summary>查询所有相关记录</summary>
         ///<param name="whereClause">SQL 查询条件</param>
         ///<param name="length">条数</param>
-        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
+        ///<returns>返回所有 <see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -136,7 +133,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<DigitalNumberInfo> list = ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<DigitalNumberInfo> list = this.ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -146,35 +143,31 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        public IList<DigitalNumberInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<DigitalNumberInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql());
+            args.Add("OrderBy", query.GetOrderBySql());
 
-            IList<DigitalNumberInfo> list = ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<DigitalNumberInfo> list = this.ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
 
         public bool IsExistName(string name)
         {
-            if (string.IsNullOrEmpty(name)) { throw new Exception("实例名称不能为空。"); }
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(name)) { throw new Exception("ʵ�����Ʋ���Ϊ�ա�"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
 
         #region 函数:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
@@ -196,7 +189,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
 
             // args.Add("EntityTableName", entityTableName);
 
-            int seed = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMaxSeedByPrefix", tableName)), args);
+            int seed = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMaxSeedByPrefix", tableName)), args);
 
             return DigitalNumberScript.RunScript(expression, prefixCode, DateTime.Now, ref seed);
         }
@@ -220,9 +213,9 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             args.Add("EntityTableName", entityTableName);
             args.Add("Prefix", prefix);
 
-            string commandText = ibatisMapper.QueryForCommandText(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMaxSeedByPrefix", tableName)), args);
+            string commandText = this.ibatisMapper.QueryForCommandText(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMaxSeedByPrefix", tableName)), args);
 
-            int seed = (int)command.ExecuteScalar(commandText);
+            int seed = Convert.ToInt32(command.ExecuteScalar(commandText));
 
             return DigitalNumberScript.RunScript(expression, prefixCode, DateTime.Now, ref seed);
         }
@@ -242,7 +235,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             args.Add("EntityCategoryTableName", entityCategoryTableName);
             args.Add("EntityCategoryId", entityCategoryId);
 
-            string prefixCode = (string)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPrefixCodeByCategoryId", tableName)), args);
+            string prefixCode = (string)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPrefixCodeByCategoryId", tableName)), args);
 
             return GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
         }
@@ -263,7 +256,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             args.Add("EntityCategoryTableName", entityCategoryTableName);
             args.Add("EntityCategoryId", entityCategoryId);
 
-            string commandText = ibatisMapper.QueryForCommandText(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPrefixCodeByCategoryId", tableName)), args);
+            string commandText = this.ibatisMapper.QueryForCommandText(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPrefixCodeByCategoryId", tableName)), args);
 
             string prefixCode = (string)command.ExecuteScalar(commandText);
 

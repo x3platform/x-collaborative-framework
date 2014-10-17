@@ -8,9 +8,13 @@ namespace X3Platform.Services.ServiceObservers
     using System.Threading;
 
     using X3Platform.Services.Configuration;
+    using Common.Logging;
 
     public sealed class TcpRequestServiceObserver : IServiceObserver
     {
+        /// <summary>日志记录器</summary>
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region 属性:Name
         private string m_Name;
 
@@ -64,7 +68,7 @@ namespace X3Platform.Services.ServiceObservers
         private DateTime nextRunTime = new DateTime(2000, 1, 1);
 
         // 单位(小时)
-        private int runTimeInterval = 1;
+        // private int runTimeInterval = 1;
 
         // 跟踪运行时间
         private bool trackRunTime = false;
@@ -99,9 +103,8 @@ namespace X3Platform.Services.ServiceObservers
             catch (Exception ex)
             {
                 // 发生异常是, 记录异常信息  并把运行标识为false.
-
-                // LoggingContext.Instance.Write(ex);
-
+                logger.Error(ex);
+                    
                 eventLog.WriteEntry(string.Format("Tcp请求监听服务发生异常信息\r\n{1}", ex.ToString()));
 
                 running = false;
@@ -151,7 +154,7 @@ namespace X3Platform.Services.ServiceObservers
                 }
                 catch (Exception ex)
                 {
-                    // LoggingContext.Instance.Write(ex);
+                    logger.Error(ex);
                 }
             }
         }

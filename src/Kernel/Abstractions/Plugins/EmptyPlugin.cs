@@ -22,7 +22,7 @@ namespace X3Platform.Plugins
     using System.Text;
     #endregion
 
-    /// <summary>�ղ���</summary>
+    /// <summary>空插件</summary>
     public class EmptyPlugin : CustomPlugin
     {
        

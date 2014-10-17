@@ -48,8 +48,8 @@ namespace X3Platform.Connect.IDAL
 
         #region 函数:Save(ConnectAuthorizationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">ConnectAuthorizationCodeInfo 实例详细信息</param>
-        /// <returns>ConnectAuthorizationCodeInfo 实例详细信息</returns>
+        /// <param name="param"><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</param>
+        /// <returns><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</returns>
         ConnectAuthorizationCodeInfo Save(ConnectAuthorizationCodeInfo param);
         #endregion
 
@@ -68,7 +68,6 @@ namespace X3Platform.Connect.IDAL
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
-        
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例</returns> 
         IList<ConnectAuthorizationCodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
@@ -76,7 +75,7 @@ namespace X3Platform.Connect.IDAL
 
         #region 函数:IsExist(string id)
         /// <summary>查询是否存在相关的记录</summary>
-        /// <param name="id">ConnectAuthorizationCodeInfo 实例详细信息</param>
+        /// <param name="id"><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</param>
         /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion

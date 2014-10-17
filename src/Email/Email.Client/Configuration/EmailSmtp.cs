@@ -1,9 +1,8 @@
-
-using System;
-using System.Xml.Serialization;
-
 namespace X3Platform.Email.Client.Configuration
 {
+    using System;
+    using System.Xml.Serialization;
+
     /// <summary>邮件 Smtp 服务器配置信息</summary>
     public class EmailSmtp
     {

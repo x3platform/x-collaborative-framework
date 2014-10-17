@@ -5,13 +5,11 @@
     using System.Runtime.Remoting.Contexts;
     using System.Runtime.Remoting.Messaging;
 
+    /// <summary></summary>
     public class SecurityClassProperty : IContextProperty, IContributeObjectSink
     {
         /// <summary></summary>
-        public SecurityClassProperty()
-        {
-
-        }
+        public SecurityClassProperty() { }
 
         //
         // IContextProperty 成员

@@ -1,13 +1,17 @@
 ﻿namespace X3Platform.DigitalNumber.Ajax
 {
+    #region Using Libraries
+    using System;
     using System.Collections.Generic;
     using System.Xml;
     using System.Text;
 
     using X3Platform.Ajax;
     using X3Platform.Util;
+    
     using X3Platform.DigitalNumber.Model;
     using X3Platform.DigitalNumber.IBLL;
+    #endregion
 
     /// <summary></summary>
     public class DigitalNumberWrapper : ContextWrapper
@@ -30,7 +34,7 @@
 
             param = (DigitalNumberInfo)AjaxStorageConvertor.Deserialize(param, doc);
 
-            service.Save(param);
+            this.service.Save(param);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}";
         }
@@ -44,7 +48,7 @@
         {
             string ids = AjaxStorageConvertor.Fetch("ids", doc);
 
-            service.Delete(ids);
+            this.service.Delete(ids);
 
             return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
@@ -55,8 +59,8 @@
         // -------------------------------------------------------
 
         #region 函数:FindOne(XmlDocument doc)
-        /// <summary>获取分页内容 / get pages.</summary>
-        /// <param name="pages">pages helper.</param>
+        /// <summary>获取分页内容 / get paging.</summary>
+        /// <param name="paging">paging helper.</param>
         /// <returns>返回一个相关的实例列表.</returns> 
         public string FindOne(XmlDocument doc)
         {
@@ -64,7 +68,7 @@
 
             string id = AjaxStorageConvertor.Fetch("id", doc);
 
-            DigitalNumberInfo param = service.FindOne(id);
+            DigitalNumberInfo param = this.service.FindOne(id);
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<DigitalNumberInfo>(param) + ",");
 
@@ -78,25 +82,25 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
 
             int rowCount = 0;
 
-            IList<DigitalNumberInfo> list = service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<DigitalNumberInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<DigitalNumberInfo>(list) + ",");
 
-            outString.Append("\"pages\":" + pages + ",");
+            outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

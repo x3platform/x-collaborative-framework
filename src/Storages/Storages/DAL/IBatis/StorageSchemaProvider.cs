@@ -34,20 +34,20 @@ namespace X3Platform.Storages.DAL.IBatis
     [DataObject]
     public class StorageSchemaProvider : IStorageSchemaProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private StoragesConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Storage_Schema";
 
-        #region ���캯��:StorageSchemaProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:StorageSchemaProvider()
+        /// <summary>构造函数</summary>
         public StorageSchemaProvider()
         {
             this.configuration = StoragesConfigurationView.Instance.Configuration;
@@ -59,36 +59,36 @@ namespace X3Platform.Storages.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -96,13 +96,13 @@ namespace X3Platform.Storages.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(StorageSchemaInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="StorageSchemaInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="StorageSchemaInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(StorageSchemaInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="StorageSchemaInfo"/>详细信息</param>
+        /// <returns>实例<see cref="StorageSchemaInfo"/>详细信息</returns>
         public StorageSchemaInfo Save(StorageSchemaInfo param)
         {
             if (!this.IsExist(param.Id))
@@ -118,50 +118,50 @@ namespace X3Platform.Storages.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(StorageSchemaInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="StorageSchemaInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(StorageSchemaInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="StorageSchemaInfo"/>详细信息</param>
         public void Insert(StorageSchemaInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Update(StorageSchemaInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="StorageSchemaInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(StorageSchemaInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="StorageSchemaInfo"/>详细信息</param>
         public void Update(StorageSchemaInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号隔开.</param>
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids))
+            if (string.IsNullOrEmpty(id))
             {
                 return;
             }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(ids).Replace(",", "','")));
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="StorageSchemaInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="StorageSchemaInfo"/>的详细信息</returns>
         public StorageSchemaInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -172,10 +172,10 @@ namespace X3Platform.Storages.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindOneByApplicationId(string applicationId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="applicationId">����Ӧ�ñ�ʶ</param>
-        /// <returns>����ʵ��<see cref="StorageSchemaInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOneByApplicationId(string applicationId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationId">所属应用标识</param>
+        /// <returns>返回实例<see cref="StorageSchemaInfo"/>的详细信息</returns>
         public StorageSchemaInfo FindOneByApplicationId(string applicationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -186,10 +186,10 @@ namespace X3Platform.Storages.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindOneByApplicationName(string applicationName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="applicationName">����Ӧ������</param>
-        /// <returns>����ʵ��<see cref="StorageSchemaInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOneByApplicationId(string applicationId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationName">所属应用名称</param>
+        /// <returns>返回实例<see cref="StorageSchemaInfo"/>的详细信息</returns>
         public StorageSchemaInfo FindOneByApplicationName(string applicationName)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -200,11 +200,11 @@ namespace X3Platform.Storages.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="StorageSchemaInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="StorageSchemaInfo"/>的详细信息</returns>
         public IList<StorageSchemaInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -217,17 +217,17 @@ namespace X3Platform.Storages.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="StorageSchemaInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="StorageSchemaInfo"/></returns>
         public IList<StorageSchemaInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -249,15 +249,15 @@ namespace X3Platform.Storages.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new Exception("ʵ����ʶ����Ϊ�ա�");
+                throw new Exception("实例标识不能为空。");
             }
 
             Dictionary<string, object> args = new Dictionary<string, object>();

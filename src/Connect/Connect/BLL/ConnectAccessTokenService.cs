@@ -7,7 +7,6 @@ namespace X3Platform.Connect.BLL
     using X3Platform.Data;
     using X3Platform.DigitalNumber;
     using X3Platform.Membership;
-    using X3Platform.Membership.Scope;
     using X3Platform.Spring;
     using X3Platform.Util;
 

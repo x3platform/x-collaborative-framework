@@ -1,38 +1,24 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-#region Using Libraries
-using System;
-using System.Xml;
-
-using Common.Logging;
-
-using X3Platform.Configuration;
-#endregion
-
 namespace X3Platform.Spring.Configuration
 {
-    /// <summary>Spring������Ϣ</summary>
+    #region Using Libraries
+    using System;
+    using System.Xml;
+
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    #endregion
+
+    /// <summary>Spring 配置信息</summary>
     public class SpringConfiguration : XmlConfiguraton
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>Name of the WorkflowPlus configuration section.</summary>
+        /// <summary>配置区的名称</summary>
         public const string SectionName = "spring";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;
@@ -40,22 +26,22 @@ namespace X3Platform.Spring.Configuration
 
         private NameValueConfigurationCollection m_Files = new NameValueConfigurationCollection();
 
-        /// <summary>�����ļ�</summary>
+        /// <summary>配置文件列表</summary>
         public NameValueConfigurationCollection Files
         {
             get { return this.m_Files; }
         }
 
-        #region 属性:Configure(XmlElement element)
-        /// <summary>����XmlԪ�����ö�����Ϣ</summary>
-        /// <param name="element">���ýڵ���XmlԪ��</param>
+        #region 函数:Configure(XmlElement element)
+        /// <summary>根据Xml元素配置对象信息</summary>
+        /// <param name="element">配置节点的Xml元素</param>
         public override void Configure(XmlElement element)
         {
             try
             {
                 base.Configure(element);
 
-                // ���ؼ���:Files
+                // 加载 Files 键值配置信息
                 XmlConfiguratonOperator.SetKeyValues(this.Files, element.SelectNodes(@"files/add"));
             }
             catch (Exception ex)
