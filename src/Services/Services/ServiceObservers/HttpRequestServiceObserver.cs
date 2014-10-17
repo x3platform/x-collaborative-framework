@@ -8,9 +8,13 @@
 
     using X3Platform.Services.Configuration;
     using X3Platform.Configuration;
+    using Common.Logging;
 
     public sealed class HttpRequestServiceObserver : IServiceObserver
     {
+        /// <summary>日志记录器</summary>
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region 属性:Name
         private string m_Name;
 
@@ -136,7 +140,7 @@
                     }
                     catch (Exception ex)
                     {
-                        // LoggingContext.Instance.Write(ex);
+                        logger.Error(ex);
                     }
 
                     running = false;

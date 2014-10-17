@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :IAuthorizationObject.cs
-//
-// Description  :权限对象接口
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform
+﻿namespace X3Platform
 {
     using System;
     using System.Collections.Generic;

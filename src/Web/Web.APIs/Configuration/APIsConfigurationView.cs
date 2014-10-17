@@ -20,7 +20,7 @@ namespace X3Platform.Web.APIs.Configuration
         /// <summary>�����ļ���Ĭ��·��</summary>
         private const string configFile = "config\\X3Platform.Web.APIs.config";
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile APIsConfigurationView instance = null;
 
         private static object lockObject = new object();

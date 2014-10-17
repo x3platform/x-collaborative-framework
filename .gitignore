@@ -4,6 +4,7 @@ bin
 dist
 doc
 node_modules
+releases
 /src/tests
 
 # 临时文件

@@ -1,34 +1,20 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AccountCacheInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Sessions
 {
     using System;
 
     using X3Platform.CacheBuffer;
 
-    /// <summary>�ʺŻ�����Ϣ</summary>
+    /// <summary>帐号缓存信息</summary>
     [Serializable]
     public class AccountCacheInfo : ICacheable
     {
-        /// <summary>���캯��</summary>
+        /// <summary>构造函数</summary>
         public AccountCacheInfo() { }
 
         #region 属性:AccountIdentity
         private string m_AccountIdentity;
 
-        /// <summary>�ʺŻỰΨһ��ʶ</summary>
+        /// <summary>帐号会话唯一标识</summary>
         public string AccountIdentity
         {
             get { return m_AccountIdentity; }
@@ -39,7 +25,7 @@ namespace X3Platform.Sessions
         #region 属性:AppKey
         private string m_AppKey;
 
-        /// <summary>Ӧ�ñ�ʶ</summary>
+        /// <summary>应用标识</summary>
         public string AppKey
         {
             get { return m_AppKey; }
@@ -50,7 +36,7 @@ namespace X3Platform.Sessions
         #region 属性:AccountCacheValue
         private string m_AccountCacheValue;
 
-        /// <summary>�ʺŻỰ�Ļ�����Ϣ</summary>
+        /// <summary>帐号会话的缓存信息</summary>
         public string AccountCacheValue
         {
             get { return m_AccountCacheValue; }
@@ -61,7 +47,7 @@ namespace X3Platform.Sessions
         #region 属性:AccountObject
         private string m_AccountObject;
 
-        /// <summary>�ʺŻỰ�Ļ�������</summary>
+        /// <summary>帐号会话的缓存对象</summary>
         public string AccountObject
         {
             get { return m_AccountObject; }
@@ -72,7 +58,7 @@ namespace X3Platform.Sessions
         #region 属性:AccountObjectType
         private string m_AccountObjectType;
 
-        /// <summary>AccountObject������</summary>
+        /// <summary>AccountObject的类型</summary>
         public string AccountObjectType
         {
             get { return m_AccountObjectType; }
@@ -83,7 +69,7 @@ namespace X3Platform.Sessions
         #region 属性:IP
         private string m_IP;
 
-        /// <summary>�ʺŻỰ��IP��ַ</summary>
+        /// <summary>帐号会话的IP地址</summary>
         public string IP
         {
             get { return m_IP; }
@@ -94,7 +80,7 @@ namespace X3Platform.Sessions
         #region 属性:BeginDate
         private DateTime m_BeginDate;
 
-        /// <summary>��ʼʱ��</summary>
+        /// <summary>开始时间</summary>
         public DateTime BeginDate
         {
             get { return m_BeginDate; }
@@ -105,7 +91,7 @@ namespace X3Platform.Sessions
         #region 属性:EndDate
         private DateTime m_EndDate;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>结束时间</summary>
         public DateTime EndDate
         {
             get { return m_EndDate; }
@@ -116,7 +102,7 @@ namespace X3Platform.Sessions
         #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>更新时间</summary>
         public DateTime UpdateDate
         {
             get { return m_UpdateDate; }
@@ -125,7 +111,7 @@ namespace X3Platform.Sessions
         #endregion
 
         // -------------------------------------------------------
-        // ��ʽʵ�� ICacheable
+        // 显式实现 ICacheable
         // -------------------------------------------------------
 
         #region 属性:Expires

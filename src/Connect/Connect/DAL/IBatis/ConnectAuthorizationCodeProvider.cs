@@ -89,8 +89,8 @@ namespace X3Platform.Connect.DAL.IBatis
 
         #region 函数:Save(ConnectAuthorizationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">ConnectAuthorizationCodeInfo 实例详细信息</param>
-        /// <returns>ConnectAuthorizationCodeInfo 实例详细信息</returns>
+        /// <param name="param"><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</param>
+        /// <returns><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</returns>
         public ConnectAuthorizationCodeInfo Save(ConnectAuthorizationCodeInfo param)
         {
             if (!IsExist(param.Id))
@@ -242,7 +242,7 @@ namespace X3Platform.Connect.DAL.IBatis
 
         #region 函数:IsExist(string id)
         /// <summary>查询是否存在相关的记录</summary>
-        /// <param name="id">ConnectAuthorizationCodeInfo 实例详细信息</param>
+        /// <param name="id"><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</param>
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {

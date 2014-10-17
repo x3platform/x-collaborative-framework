@@ -14,7 +14,7 @@ namespace X3Platform.AttachmentStorage.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = AttachmentStorageConfiguration.ApplicationName;
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile AttachmentStorageConfigurationView instance = null;
 
         private static object lockObject = new object();

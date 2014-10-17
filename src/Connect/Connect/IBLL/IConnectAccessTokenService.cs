@@ -4,12 +4,11 @@ namespace X3Platform.Connect.IBLL
     using System;
     using System.Collections.Generic;
 
-    using X3Platform.Membership.Scope;
+    using X3Platform.Data;
     using X3Platform.Spring;
 
     using X3Platform.Connect.Model;
     using X3Platform.Membership;
-    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>

@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Text;
 
@@ -19,24 +5,24 @@ using X3Platform.Util;
 
 namespace X3Platform
 {
-    /// <summary>���л�����δ֪�쳣</summary>
+    /// <summary>运行环境的未知异常</summary>
     [Serializable]
     public class ContextUnknownException : Exception
     {
-        /// <summary>������δ֪���쳣</summary>
+        /// <summary>上下文未知的异常</summary>
         private string key = "contextUnknownException";
 
-        /// <summary>���صĴ���</summary>
+        /// <summary>返回的代码</summary>
         private int returnCode = 1;
 
-        #region ���캯��:ContextUnknownException(string message)
+        #region 构造函数:ContextUnknownException(string message)
         public ContextUnknownException(string message)
             : base(message)
         {
         }
         #endregion
 
-        #region ���캯��:ContextUnknownException(string key, int returnCode, Exception innerException)
+        #region 构造函数:ContextUnknownException(string key, int returnCode, Exception innerException)
         public ContextUnknownException(string key, int returnCode, Exception innerException)
             : base(innerException.Message, innerException)
         {
@@ -45,8 +31,8 @@ namespace X3Platform
         }
         #endregion
 
-        #region 属性:ToString()
-        /// <summary>ת��Ϊ�ַ���</summary>
+        #region 函数:ToString()
+        /// <summary>转换为字符串</summary>
         /// <returns></returns>
         public override string ToString()
         {

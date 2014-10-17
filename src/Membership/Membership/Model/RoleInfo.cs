@@ -698,8 +698,8 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 函数:Deserialize(XmlElement element)
-        /// <summary></summary>
-        /// <param name="element"></param>
+        /// <summary>根据Xml元素加载对象</summary>
+        /// <param name="element">Xml元素</param>
         public void Deserialize(XmlElement element)
         {
             this.Id = element.SelectSingleNode("id").InnerText;

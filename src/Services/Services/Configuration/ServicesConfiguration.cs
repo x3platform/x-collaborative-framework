@@ -31,16 +31,7 @@ namespace X3Platform.Services.Configuration
         }
 
         private const string observersProperty = "observers";
-
-        private NameValueConfigurationCollection m_Keys = new NameValueConfigurationCollection();
-
-        /// <summary>关键词</summary>
-        public NameValueConfigurationCollection Keys
-        {
-            get { return this.m_Keys; }
-            set { this.m_Keys = value; }
-        }
-
+        
         private NamedConfigurationElementCollection<NameTypeConfigurationElement> m_Services = new NamedConfigurationElementCollection<NameTypeConfigurationElement>();
 
         /// <summary>服务信息</summary>

@@ -47,9 +47,9 @@ namespace X3Platform.Connect.BLL
 
         #region 函数:Save(ConnectAuthorizationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">ConnectAuthorizationCodeInfo 实例详细信息</param>
+        /// <param name="param"><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</param>
         /// <param name="message">数据库操作返回的相关信息</param>
-        /// <returns>ConnectAuthorizationCodeInfo 实例详细信息</returns>
+        /// <returns><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</returns>
         public ConnectAuthorizationCodeInfo Save(ConnectAuthorizationCodeInfo param)
         {
             if (string.IsNullOrEmpty(param.Id)) { throw new NullReferenceException("实例标识不能为空。"); }

@@ -1,28 +1,16 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :DigitalNumberInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace X3Platform.DigitalNumber.Model
 {
-    /// <summary>���ֱ�����Ϣ</summary>
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    #endregion
+
+    /// <summary>流水号信息</summary>
     public class DigitalNumberInfo
     {
-        #region ���캯��:DigitalNumberInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:DigitalNumberInfo()
+        /// <summary>默认构造函数</summary>
         public DigitalNumberInfo() { }
         #endregion
 

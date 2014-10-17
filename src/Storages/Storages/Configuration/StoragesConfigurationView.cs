@@ -23,21 +23,21 @@ namespace X3Platform.Storages.Configuration
     using X3Platform.Configuration;
     #endregion
 
-    /// <summary>Ӧ��������ͼ</summary>
+    /// <summary>应用存储配置视图</summary>
     public class StoragesConfigurationView : XmlConfigurationView<StoragesConfiguration>
     {
-        /// <summary>�����ļ���Ĭ��·��</summary>
+        /// <summary>配置文件的默认路径</summary>
         private const string configFile = "config\\X3Platform.Storages.config";
 
-        /// <summary>������Ϣ��ȫ��ǰ׺</summary>
+        /// <summary>配置信息的全局前缀</summary>
         private const string configGlobalPrefix = StoragesConfiguration.ApplicationName;
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile StoragesConfigurationView instance = null;
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static StoragesConfigurationView Instance
         {
             get
@@ -80,7 +80,7 @@ namespace X3Platform.Storages.Configuration
         #endregion
 
         // -------------------------------------------------------
-        // �Զ�������
+        // 自定义属性
         // -------------------------------------------------------
 
     }

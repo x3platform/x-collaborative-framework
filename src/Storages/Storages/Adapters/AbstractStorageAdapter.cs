@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Storages.StorageAdapters
 {
     #region Using Libraries
@@ -23,36 +7,36 @@ namespace X3Platform.Storages.StorageAdapters
     using System.Xml;
     #endregion
 
-    /// <summary>�����洢������</summary>
+    /// <summary>抽象存储适配器</summary>
     public abstract class AbstractStorageAdapter : IStorageAdapter
     {
-        /// <summary>ѡ��</summary>
+        /// <summary>选项</summary>
         protected Dictionary<string, string> options;
 
-        /// <summary>�洢�ڵ�</summary>
+        /// <summary>存储节点</summary>
         protected IStorageSchema storageSchema = null;
 
-        /// <summary>�洢�ڵ�</summary>
+        /// <summary>存储节点</summary>
         protected IStorageStrategy storageStrategy = null;
 
-        /// <summary>�洢�ڵ�</summary>
+        /// <summary>存储节点</summary>
         protected IList<IStorageNode> storageNodes = null;
 
-        /// <summary>���캯��</summary>
+        /// <summary>构造函数</summary>
         public AbstractStorageAdapter() { }
 
-        /// <summary>��ʼ��</summary>
+        /// <summary>初始化</summary>
         protected void Initialize()
         {
-            // �󶨴洢������Ϣ 
+            // 绑定存储策略信息 
             this.storageStrategy = (IStorageStrategy)KernelContext.CreateObject(this.storageSchema.StrategyClassName);
 
-            // �󶨴洢�ڵ���Ϣ
+            // 绑定存储节点信息
             this.storageNodes = StorageContext.Instance.StorageNodeService.FindAllBySchemaId(storageSchema.Id);
         }
 
-        /// <summary>���ݽڵ����ͻ�ȡ�洢�ڵ���Ϣ</summary>
-        /// <param name="type">�洢�ڵ����� Master | Search</param>
+        /// <summary>根据节点类型获取存储节点信息</summary>
+        /// <param name="type">存储节点类型 Master | Search</param>
         public virtual IStorageNode GetStorageNode(string type)
         {
             foreach (IStorageNode storageNode in this.storageNodes)
@@ -66,14 +50,14 @@ namespace X3Platform.Storages.StorageAdapters
             return null;
         }
 
-        /// <summary>���ݴ洢���Ի�ȡ�洢�ڵ���Ϣ</summary>
-        /// <param name="strategy">�洢�ڵ�����</param>
+        /// <summary>根据存储策略获取存储节点信息</summary>
+        /// <param name="strategy">存储节点策略</param>
         public virtual IStorageNode GetStorageNode()
         {
             return this.storageStrategy.GetStorageNode();
         }
 
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         public abstract object Execute(string commandText, string[] args);
     }

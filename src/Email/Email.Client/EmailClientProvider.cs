@@ -1,28 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) 2007 X3Platform
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :Max
-//
-// Date         :2007-07-08
-//
-// =============================================================================
-
-using System;
-using System.Net;
-using System.Net.Mail;
-
-using Common.Logging;
-
-using X3Platform.Configuration;
-using X3Platform.Email.Client.Configuration;
-
 namespace X3Platform.Email.Client
 {
+    using System;
+    using System.Net;
+    using System.Net.Mail;
+
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    using X3Platform.Email.Client.Configuration;
+
     public class EmailClientProvider : IEmailClientProvider
     {
         /// <summary>ÈÕÖ¾¼ÇÂ¼Æ÷</summary>

@@ -11,7 +11,7 @@ namespace X3Platform.DigitalNumber.Configuration
     using X3Platform.Configuration;
     #endregion
 
-    /// <summary>流水号 配置信息</summary>
+    /// <summary>流水号配置信息</summary>
     public class DigitalNumberConfiguration : XmlConfiguraton
     {
         /// <summary>日志记录器</summary>

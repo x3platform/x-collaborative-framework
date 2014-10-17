@@ -107,7 +107,7 @@
             </dynamic>
         </select>
 
-        <select id="proc_DigitalNumber_GetPages" resultMap="proc_DigitalNumber_FindAll_Result" >
+        <select id="proc_DigitalNumber_GetPaging" resultMap="proc_DigitalNumber_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

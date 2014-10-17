@@ -17,7 +17,7 @@ namespace X3Platform.ActiveDirectory.Configuration
         /// <summary>配置信息的全局前缀</summary>
         private const string configGlobalPrefix = "ActiveDirectory";
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile ActiveDirectoryConfigurationView instance = null;
 
         private static object lockObject = new object();
