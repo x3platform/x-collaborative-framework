@@ -1,22 +1,6 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities
 {
-    /// <summary>ʵ�������صĴ����ӿ�</summary>
+    /// <summary>实体架构信息接口</summary>
     public interface IEntitySchemaInfo
     {
     }
