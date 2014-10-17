@@ -40,7 +40,7 @@ namespace X3Platform.Web.UrlRewriter.Configuration
         /// <summary>�����ļ������޸ĵ�ʱ��</summary>
         private DateTime lastModifiedTime;
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile RewriterConfigurationView instance = null;
 
         private static object lockObject = new object();

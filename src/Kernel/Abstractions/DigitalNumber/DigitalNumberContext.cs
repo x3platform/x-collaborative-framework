@@ -1,35 +1,23 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.DigitalNumber
 {
+    #region Using Libraries
     using System;
 
+    using X3Platform.Data;
     using X3Platform.Plugins;
     using X3Platform.Spring;
 
     using X3Platform.DigitalNumber.Configuration;
     using X3Platform.DigitalNumber.IBLL;
-    using X3Platform.Data;
-
-    /// <summary>��ˮ�������Ļ���</summary>
+    #endregion
+    
+    /// <summary>流水号上下文环境</summary>
     public class DigitalNumberContext : CustomPlugin
     {
         #region 属性:Name
         public override string Name
         {
-            get { return "��Ŀ�б�"; }
+            get { return "流水号"; }
         }
         #endregion
 
@@ -38,6 +26,7 @@ namespace X3Platform.DigitalNumber
 
         private static object lockObject = new object();
 
+        /// <summary>实例</summary>
         public static DigitalNumberContext Instance
         {
             get
@@ -61,7 +50,7 @@ namespace X3Platform.DigitalNumber
         #region 属性:DigitalNumberService
         private IDigitalNumberService m_DigitalNumberService = null;
 
-        /// <summary>���±��ṩ��</summary>
+        /// <summary>流水号服务提供者</summary>
         public IDigitalNumberService DigitalNumberService
         {
             get { return m_DigitalNumberService; }
@@ -75,9 +64,9 @@ namespace X3Platform.DigitalNumber
             Restart();
         }
 
-        #region 属性:Restart()
-        /// <summary>��������</summary>
-        /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
+        #region 函数:Restart()
+        /// <summary>重启插件</summary>
+        /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
         public override int Restart()
         {
             try
@@ -100,7 +89,7 @@ namespace X3Platform.DigitalNumber
             this.m_DigitalNumberService = SpringContext.Instance.GetObject<IDigitalNumberService>(typeof(IDigitalNumberService));
         }
 
-        /// <summary>����ͨ�õ���ˮ����</summary>
+        /// <summary>生成通用的流水编号</summary>
         /// <param name="name"></param>
         /// <returns></returns>
         public static string Generate(string name)
@@ -108,73 +97,73 @@ namespace X3Platform.DigitalNumber
             return Instance.DigitalNumberService.Generate(name);
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateCodeByPrefixCode(string entityTableName, string prefixCode)
         {
             return Instance.DigitalNumberService.GenerateCodeByPrefixCode(entityTableName, prefixCode, "{prefix}{code}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateCodeByPrefixCode(string entityTableName, string prefixCode, int incrementCodeLength)
         {
             return Instance.DigitalNumberService.GenerateCodeByPrefixCode(entityTableName, prefixCode, "{prefix}{code:" + incrementCodeLength + "}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId)
         {
             return Instance.DigitalNumberService.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, "{prefix}{code}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, int incrementCodeLength)
         {
             return Instance.DigitalNumberService.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, "{prefix}{code:" + incrementCodeLength + "}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺����������ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成日期流水编号</summary>
         public static string GenerateDateCodeByPrefixCode(string entityTableName, string prefixCode)
         {
             return Instance.DigitalNumberService.GenerateCodeByPrefixCode(entityTableName, prefixCode, "{prefix}{date}{code}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺����������ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成日期流水编号</summary>
         public static string GenerateDateCodeByPrefixCode(string entityTableName, string prefixCode, int incrementCodeLength)
         {
             return Instance.DigitalNumberService.GenerateCodeByPrefixCode(entityTableName, prefixCode, "{prefix}{date}{code:" + incrementCodeLength + "}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺����������ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成日期流水编号</summary>
         public static string GenerateDateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode)
         {
             return Instance.DigitalNumberService.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, "{prefix}{date}{code}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺����������ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成日期流水编号</summary>
         public static string GenerateDateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, int incrementCodeLength)
         {
             return Instance.DigitalNumberService.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, "{prefix}{date}{code:" + incrementCodeLength + "}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateDateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId)
         {
             return Instance.DigitalNumberService.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, "{prefix}{date}{code}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateDateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, int incrementCodeLength)
         {
             return Instance.DigitalNumberService.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, "{prefix}{date}{code:" + incrementCodeLength + "}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateDateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId)
         {
             return Instance.DigitalNumberService.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, "{prefix}{date}{code}");
         }
 
-        /// <summary>�����Զ����ı���ǰ׺���ɵ���ˮ����</summary>
+        /// <summary>根据自定义的编号前缀生成的流水编号</summary>
         public static string GenerateDateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, int incrementCodeLength)
         {
             return Instance.DigitalNumberService.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, "{prefix}{date}{code:" + incrementCodeLength + "}");

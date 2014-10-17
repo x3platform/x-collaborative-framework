@@ -6,12 +6,12 @@ namespace X3Platform.Email.Client.Ajax
     using System.Net.Mail;
     using System.Xml;
 
+    using X3Platform.Ajax;
     using X3Platform.Configuration;
     using X3Platform.Messages;
 
     using X3Platform.Email.Client.Configuration;
-    using X3Platform.Ajax;
-
+    
     public sealed class EmailClientWrapper : ContextWrapper
     {
         #region º¯Êý:SetSmtpServer(XmlDocument doc)

@@ -31,7 +31,7 @@ namespace X3Platform.Membership.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = MembershipConfiguration.ApplicationName;
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile MembershipConfigurationView instance = null;
 
         private static object lockObject = new object();

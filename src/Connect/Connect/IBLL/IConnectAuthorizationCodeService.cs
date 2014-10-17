@@ -4,12 +4,11 @@ namespace X3Platform.Connect.IBLL
     using System;
     using System.Collections.Generic;
 
+    using X3Platform.Data;
     using X3Platform.Membership;
-    using X3Platform.Membership.Scope;
     using X3Platform.Spring;
 
     using X3Platform.Connect.Model;
-    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -62,8 +61,8 @@ namespace X3Platform.Connect.IBLL
 
         #region 函数:Save(ConnectAuthorizationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">ConnectAuthorizationCodeInfo 实例详细信息</param>
-        /// <returns>ConnectAuthorizationCodeInfo 实例详细信息</returns>
+        /// <param name="param"><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</param>
+        /// <returns><see cref="ConnectAuthorizationCodeInfo" />实例详细信息</returns>
         ConnectAuthorizationCodeInfo Save(ConnectAuthorizationCodeInfo param);
         #endregion
 

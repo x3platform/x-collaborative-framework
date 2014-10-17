@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 #region Using Libraries
 using System;
 using System.IO;
@@ -23,6 +7,7 @@ using Spring.Context.Support;
 
 using X3Platform.Configuration;
 using X3Platform.Plugins;
+
 using X3Platform.Spring.Configuration;
 #endregion
 
@@ -31,12 +16,12 @@ namespace X3Platform.Spring
     [CLSCompliantAttribute(false)]
     public sealed class SpringContext : CustomPlugin
     {
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile SpringContext instance = null;
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static SpringContext Instance
         {
             get
@@ -59,7 +44,7 @@ namespace X3Platform.Spring
 
         #region 属性:Name
         /// <summary>
-        /// ����
+        /// 名称
         /// </summary>
         public override string Name
         {
@@ -70,7 +55,7 @@ namespace X3Platform.Spring
         #region 属性:Application
         private IApplicationContext context = null;
 
-        /// <summary>Ӧ�������Ľӿ�</summary>
+        /// <summary>应用上下文接口</summary>
         public IApplicationContext Application
         {
             get { return context; }
@@ -81,7 +66,7 @@ namespace X3Platform.Spring
         private SpringConfiguration configuration = null;
 
         /// <summary>
-        /// ����
+        /// 配置
         /// </summary>
         public SpringConfiguration Configuration
         {
@@ -89,16 +74,16 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region ���캯��:SpringContext()
+        #region 构造函数:SpringContext()
         private SpringContext()
         {
             this.Restart();
         }
         #endregion
 
-        #region 属性:Restart()
-        /// <summary>��������</summary>
-        /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
+        #region 函数:Restart()
+        /// <summary>重启插件</summary>
+        /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
         public override int Restart()
         {
             try
@@ -118,11 +103,11 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region 属性:Reload()
-        /// <summary>���¼���</summary>
+        #region 函数:Reload()
+        /// <summary>重新加载</summary>
         private void Reload()
         {
-            // ���� KernelConfigurationView.Instance.ApplicationSpringConfigFilePath ���������ļ�·��
+            // 根据 KernelConfigurationView.Instance.ApplicationSpringConfigFilePath 加载配置文件路径
             if (SpringConfigurationView.Instance.ConfigFilePath != KernelConfigurationView.Instance.ApplicationSpringConfigFilePath)
             {
                 SpringConfigurationView.LoadInstance(KernelConfigurationView.Instance.ApplicationSpringConfigFilePath);
@@ -148,18 +133,18 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region 属性:GetObject<T>(Type type)
-        /// <summary>��ȡ����</summary>
-        /// <param name="type">����</param>
+        #region 函数:GetObject<T>(Type type)
+        /// <summary>获取对象</summary>
+        /// <param name="type">类型</param>
         public T GetObject<T>(Type type)
         {
             return this.GetObject<T>(type, new object[] { });
         }
         #endregion
 
-        #region 属性:GetObject<T>(Type type, object[] args)
-        /// <summary>��ȡ����</summary>
-        /// <param name="type">����</param>
+        #region 函数:GetObject<T>(Type type, object[] args)
+        /// <summary>获取对象</summary>
+        /// <param name="type">类型</param>
         public T GetObject<T>(Type type, object[] args)
         {
             string name = null;
@@ -179,18 +164,18 @@ namespace X3Platform.Spring
         }
         #endregion
 
-        #region 属性:GetObject<T>(string name)
-        /// <summary>��ȡ����</summary>
-        /// <param name="name">Sring�����ļ��еĶ�������</param>
+        #region 函数:GetObject<T>(string name)
+        /// <summary>获取对象</summary>
+        /// <param name="name">Sring配置文件中的对象名称</param>
         public T GetObject<T>(string name)
         {
             return this.GetObject<T>(name, new object[] { });
         }
         #endregion
 
-        #region 属性:GetObject<T>(string name)
-        /// <summary>��ȡ����</summary>
-        /// <param name="name">Sring�����ļ��еĶ�������</param>
+        #region 函数:GetObject<T>(string name, object[] args)
+        /// <summary>获取对象</summary>
+        /// <param name="name">Sring配置文件中的对象名称</param>
         public T GetObject<T>(string name, object[] args)
         {
             if (string.IsNullOrEmpty(name))

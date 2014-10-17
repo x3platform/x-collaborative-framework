@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Plugins
 {
     #region Using Libraries
@@ -23,75 +7,80 @@ namespace X3Platform.Plugins
     using System.Text;
     #endregion
 
-    /// <summary>�Զ��������ӿ�</summary>
+    /// <summary>自定义插件接口</summary>
     public interface ICustomPlugin
     {
         #region 属性:Id
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         string Id { get; set; }
         #endregion
 
         #region 属性:Name
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         string Name { get; }
         #endregion
 
         #region 属性:Version
-        /// <summary>�汾</summary>
+        /// <summary>版本</summary>
         string Version { get; }
         #endregion
 
         #region 属性:Author
-        /// <summary>����</summary>
+        /// <summary>作者</summary>
         string Author { get; }
         #endregion
 
         #region 属性:Copyright
-        /// <summary>��Ȩ</summary>
+        /// <summary>版权</summary>
         string Copyright { get; }
         #endregion
 
         #region 属性:Url
-        /// <summary>������ȡ��ַ</summary>
+        /// <summary>插件获取地址</summary>
         string Url { get; }
         #endregion
 
         #region 属性:ThumbnailUrl
-        /// <summary>����ͼ</summary>
+        /// <summary>缩略图</summary>
         string ThumbnailUrl { get; }
         #endregion
 
         #region 属性:Description
-        /// <summary>������Ϣ</summary>
+        /// <summary>描述信息</summary>
         string Description { get; }
         #endregion
 
         #region 属性:Status
-        /// <summary>״̬: 0 �ر� | 1 ����</summary>
+        /// <summary>状态: 0 关闭 | 1 开启</summary>
         int Status { get; set; }
         #endregion
 
-        #region 属性:Install()
-        /// <summary>��װ����</summary>
-        /// <returns>������Ϣ. =0����װ�ɹ�, >0����װʧ��.</returns>
+        #region 属性:SupportMenu
+        /// <summary>菜单支持: 0 不支持 | 1 支持</summary>
+        int SupportMenu { get; set; }
+        #endregion
+
+        #region 函数:Install()
+        /// <summary>安装插件</summary>
+        /// <returns>返回信息. =0代表安装成功, >0代表安装失败.</returns>
         int Install();
         #endregion
 
-        #region 属性:Uninstall()
-        /// <summary>ж�ز���</summary>
-        /// <returns>������Ϣ. =0����ж�سɹ�, >0����ж��ʧ��.</returns>
+        #region 函数:Uninstall()
+        /// <summary>卸载插件</summary>
+        /// <returns>返回信息. =0代表卸载成功, >0代表卸载失败.</returns>
         int Uninstall();
         #endregion
 
-        #region 属性:Restart()
-        /// <summary>��������</summary>
-        /// <returns>������Ϣ. =0����ж�سɹ�, >0����ж��ʧ��.</returns>
+        #region 函数:Restart()
+        /// <summary>重启插件</summary>
+        /// <returns>返回信息. =0代表卸载成功, >0代表卸载失败.</returns>
         int Restart();
         #endregion
 
-        #region 属性:Command(Hashtable agrs)
-        /// <summary>ִ������</summary>
-        /// <returns>������Ϣ. =0����ִ�гɹ�, >0����ִ��ʧ��.</returns>
+        #region 函数:Command(Hashtable agrs)
+        /// <summary>执行命令</summary>
+        /// <returns>返回信息. =0代表执行成功, >0代表执行失败.</returns>
         int Command(Hashtable agrs);
         #endregion
     }

@@ -28,7 +28,6 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -176,16 +175,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\X3Platform.Storages.Spring.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="config\X3Platform.Storages.IBatis.SqlMap.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="build.publish.bat" />
     <Content Include="config\MySQL\X3Platform.Storages.Spring.config">
       <SubType>Designer</SubType>
@@ -193,6 +182,8 @@
     <Content Include="config\MySQL\X3Platform.Storages.IBatis.SqlMap.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="config\IBatis\X3Platform.Storages.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.Storages.Spring.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

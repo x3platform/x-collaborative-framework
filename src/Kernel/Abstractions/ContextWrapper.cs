@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :ContextWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform
 {
     using System;
@@ -28,23 +14,23 @@ namespace X3Platform
     using X3Platform.Configuration;
     using X3Platform.Util;
 
-    /// <summary>���л���������������</summary>
+    /// <summary>运行环境处理器抽象类</summary>
     public abstract class ContextWrapper : IHttpHandler, IRequiresSessionState, IContextWrapper
     {
-        /// <summary>��������</summary>
+        /// <summary>返回类型</summary>
         private string resultType = "xml";
 
         #region 属性:IsReusable
-        /// <summary>�����õ�</summary>
+        /// <summary>可再用的</summary>
         public bool IsReusable
         {
             get { return true; }
         }
         #endregion
 
-        #region 属性:ProcessRequest(HttpContext context)
-        /// <summary>��������</summary>
-        /// <param name="context">�����Ļ���</param>
+        #region 函数:ProcessRequest(HttpContext context)
+        /// <summary>处理请求</summary>
+        /// <param name="context">上下文环境</param>
         public virtual void ProcessRequest(HttpContext context)
         {
             string outString = null;
@@ -98,17 +84,17 @@ namespace X3Platform
                 outString = exception.ToString();
             }
 
-            // ������Ϣ
+            // 输出信息
             this.Export(context, this.resultType, outString, args);
         }
         #endregion
 
-        #region 属性:Export(HttpContext context, string resultType, string responseText, Hashtable agrs)
-        /// <summary>����</summary>
-        /// <param name="context">�����Ļ���</param>
-        /// <param name="resultType">��������</param>
-        /// <param name="responseText">��Ӧ���ı���Ϣ</param>
-        /// <param name="agrs">��չ����</param>
+        #region 函数:Export(HttpContext context, string resultType, string responseText, Hashtable agrs)
+        /// <summary>输出</summary>
+        /// <param name="context">上下文环境</param>
+        /// <param name="resultType">输出结果</param>
+        /// <param name="responseText">响应的文本信息</param>
+        /// <param name="agrs">扩展参数</param>
         public virtual void Export(HttpContext context, string resultType, string responseText, Hashtable agrs)
         {
             if (string.IsNullOrEmpty(responseText)) { return; }
@@ -155,7 +141,7 @@ namespace X3Platform
         }
         #endregion
 
-        #region 属性:ParseXml(string json)
+        #region 函数:ParseXml(string json)
         private string ParseXml(string json)
         {
             string message = string.Empty;

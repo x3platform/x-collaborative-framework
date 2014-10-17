@@ -31,7 +31,7 @@ namespace X3Platform.Sessions
     /// <summary>�Ự�����Ļ���</summary>
     public sealed class SessionContext : CustomPlugin
     {
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile SessionContext instance = null;
 
         private static object lockObject = new object();

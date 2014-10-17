@@ -23,13 +23,13 @@ namespace X3Platform.Plugins
     using System.Text;
     #endregion
 
-    /// <summary>�Զ�������</summary>
+    /// <summary>自定义插件</summary>
     public abstract class CustomPlugin : ICustomPlugin
     {
         #region 属性:Id
         private string m_Id = string.Empty;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public virtual string Id
         {
             get { return m_Id; }
@@ -118,6 +118,16 @@ namespace X3Platform.Plugins
         }
         #endregion
 
+        #region 属性:SupportMenu
+        private int m_SupportMenu = 0;
+        /// <summary>菜单支持: 0 不支持 | 1 支持</summary>
+        public int SupportMenu
+        {
+            get { return m_SupportMenu; }
+            set { m_SupportMenu = value; }
+        }
+        #endregion
+
         #region 属性:Install()
         /// <summary>��װ����</summary>
         /// <returns>������Ϣ. =0����װ�ɹ�, >0����װʧ��.</returns>
@@ -153,5 +163,6 @@ namespace X3Platform.Plugins
             throw new Exception("Oops |-_-||, the method or operation is not implemented.");
         }
         #endregion
+
     }
 }

@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Storages.StorageAdapters
 {
     #region Using Libraries
@@ -23,20 +7,20 @@ namespace X3Platform.Storages.StorageAdapters
     using System.Xml;
     #endregion
 
-    /// <summary>���Ӵ洢������</summary>
+    /// <summary>主从存储适配器</summary>
     public sealed class MasterSlavesStorageAdapter : AbstractStorageAdapter
     {
-        /// <summary>���캯��</summary>
+        /// <summary>构造函数</summary>
         public MasterSlavesStorageAdapter(IStorageSchema storageSchema)
         {
-            // ��ȡ�洢�ܹ���Ϣ
+            // 获取存储架构信息
             this.storageSchema = storageSchema;
 
-            // ��ʼ���洢���Ժʹ洢�ڵ���Ϣ
+            // 初始化存储策略和存储节点信息
             this.Initialize();
         }
 
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         public override object Execute(string commandText, string[] args)
         {

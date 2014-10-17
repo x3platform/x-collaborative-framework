@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Net.Mail;
-using System.Net;
-using X3Platform.Logging;
-using X3Platform.Messages;
-
 namespace X3Platform.Email.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Net;
+    using System.Net.Mail;
+    
+    using X3Platform.Logging;
+    using X3Platform.Messages;
+
     public class SmtpClientTester
     {
         private static SmtpClient smtp = null;

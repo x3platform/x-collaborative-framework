@@ -1,11 +1,13 @@
 namespace X3Platform.DigitalNumber.Configuration
 {
+    #region Using Libraries
     using System;
     using System.IO;
 
     using X3Platform.Configuration;
+    #endregion
 
-    /// <summary>配置视图</summary>
+    /// <summary>流水号配置视图</summary>
     public class DigitalNumberConfigurationView : XmlConfigurationView<DigitalNumberConfiguration>
     {
         /// <summary>配置文件的默认路径</summary>

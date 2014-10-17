@@ -35,7 +35,7 @@ namespace X3Platform.Web.Configuration
         /// <summary>������Ϣ��ȫ��ǰ׺</summary>
         private const string configGlobalPrefix = "Web";
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile WebConfigurationView instance = null;
 
         private static object lockObject = new object();

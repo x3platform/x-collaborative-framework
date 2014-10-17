@@ -22,13 +22,13 @@ namespace X3Platform.Storages.Configuration
     using X3Platform.Configuration;
     #endregion
 
-    /// <summary>Ӧ��������Ϣ</summary>
+    /// <summary>应用存储配置信息</summary>
     public class StoragesConfiguration : X3Platform.Configuration.XmlConfiguraton
     {
-        /// <summary>����Ӧ�õ�����</summary>
+        /// <summary>所属应用的名称</summary>
         public const string ApplicationName = "Storages";
         
-        /// <summary>������������</summary>
+        /// <summary>配置区的名称</summary>
         public const string SectionName = "storagesConfiguration";
 
         /// <summary>��ȡ������������</summary>

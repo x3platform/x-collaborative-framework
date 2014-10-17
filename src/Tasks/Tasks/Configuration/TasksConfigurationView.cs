@@ -14,7 +14,7 @@ namespace X3Platform.Tasks.Configuration
         /// <summary>配置信息的全局前缀</summary>
         private const string configGlobalPrefix = TasksConfiguration.ApplicationName;
 
-        #region 静态属性::Instance
+        #region 静态属性:Instance
         private static volatile TasksConfigurationView instance = null;
 
         private static object lockObject = new object();

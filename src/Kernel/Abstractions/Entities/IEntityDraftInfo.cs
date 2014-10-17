@@ -1,22 +1,6 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities
 {
-    /// <summary>ʵ�����ݸ��ӿ�</summary>
+    /// <summary>实体对象草稿信息接口</summary>
     public interface IEntityDraftInfo : ISerializedObject
     {
         #region 属性:EnetiyId

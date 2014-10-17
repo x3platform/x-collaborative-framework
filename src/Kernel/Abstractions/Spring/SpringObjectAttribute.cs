@@ -1,6 +1,8 @@
 namespace X3Platform.Spring
 {
+    #region Using Libraries
     using System;
+    #endregion
 
     /// <summary>Srping对象属性标签</summary>
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = false)]
