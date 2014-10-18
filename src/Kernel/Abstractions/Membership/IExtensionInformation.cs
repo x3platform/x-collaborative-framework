@@ -1,23 +1,7 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IExtensionInformation.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Membership
+﻿namespace X3Platform.Membership
 {
-using System.Collections.Generic;
-using System.Xml;
+    using System.Collections.Generic;
+    using System.Xml;
 
     /// <summary>扩展属性</summary>
     public interface IExtensionInformation

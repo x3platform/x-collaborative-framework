@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IAccountInfo.cs
-//
-// Description  :�ʺ���Ϣ
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership
 {
     #region Using Libraries
@@ -24,111 +8,116 @@ namespace X3Platform.Membership
     using X3Platform.CacheBuffer;
     #endregion
 
-    /// <summary>�ʺ�</summary>
+    /// <summary>帐号</summary>
     public interface IAccountInfo : IAuthorizationObject, ICacheable, IIdentity
     {
         #region 属性:Id
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         new string Id { get; set; }
         #endregion
 
         #region 属性:Code
-        /// <summary>����</summary>
+        /// <summary>编号</summary>
         string Code { get; set; }
         #endregion
 
         #region 属性:Name
-        /// <summary>����</summary>
+        /// <summary>姓名</summary>
         new string Name { get; set; }
         #endregion
 
         #region 属性:GlobalName
-        /// <summary>ȫ������</summary>
+        /// <summary>全局名称</summary>
         string GlobalName { get; }
         #endregion
 
         #region 属性:DisplayName
-        /// <summary>��ʾ����</summary>
+        /// <summary>显示名称</summary>
         string DisplayName { get; set; }
         #endregion
 
         #region 属性:PinYin
-        /// <summary>ƴ��</summary>
+        /// <summary>拼音</summary>
         string PinYin { get; set; }
         #endregion
 
         #region 属性:LoginName
-        /// <summary>��¼��</summary>
+        /// <summary>登录名</summary>
         string LoginName { get; set; }
         #endregion
 
+        #region 属性:PasswordChangedDate
+        /// <summary>密码更新时间</summary>
+        DateTime PasswordChangedDate { get; set; }
+        #endregion
+
         #region 属性:IdentityCard
-        /// <summary>����֤</summary>
+        /// <summary>身份证</summary>
         string IdentityCard { get; set; }
         #endregion
 
         #region 属性:Type
-        /// <summary>�ʺ����� 0:��ͨ�ʺ� 1:�����ʺ� 2:Rtx�ʺ� 3:CRM�ʺ� 1000:��Ӧ���ʺ� 2000:�ͻ��ʺ�</summary>
+        /// <summary>帐号类型 0:普通帐号 1:邮箱帐号 2:Rtx帐号 3:CRM帐号 1000:供应商帐号 2000:客户帐号</summary>
         new int Type { get; set; }
         #endregion
 
         #region 属性:CertifiedTelephone
-        /// <summary>����֤�ĵ绰</summary>
+        /// <summary>已验证的电话</summary>
         string CertifiedTelephone { get; set; }
         #endregion
 
         #region 属性:CertifiedEmail
-        /// <summary>����֤������</summary>
+        /// <summary>已验证的邮箱</summary>
         string CertifiedEmail { get; set; }
         #endregion
 
         #region 属性:CertifiedAvatar
-        /// <summary>����֤��ͷ��</summary>
+        /// <summary>已验证的头像</summary>
         string CertifiedAvatar { get; set; }
         #endregion
 
         #region 属性:EnableExchangeEmail
-        /// <summary>������ҵ����</summary>
+        /// <summary>启用企业邮箱</summary>
         int EnableExchangeEmail { get; set; }
         #endregion
 
         #region 属性:Type
-        /// <summary>������ʶ</summary>
+        /// <summary>排序标识</summary>
         string OrderId { get; set; }
         #endregion
 
         #region 属性:IP
-        /// <summary>IP��ַ</summary>
+        /// <summary>IP地址</summary>
         string IP { get; set; }
         #endregion
 
         #region 属性:OrganizationRelations
-        /// <summary>��֯��Ϣ</summary>
+        /// <summary>组织信息</summary>
         IList<IAccountOrganizationRelationInfo> OrganizationRelations { get; }
         #endregion
 
         #region 属性:RoleRelations
-        /// <summary>��ɫ����</summary>
+        /// <summary>角色集合</summary>
         IList<IAccountRoleRelationInfo> RoleRelations { get; }
         #endregion
 
         #region 属性:GroupRelations
-        /// <summary>Ⱥ�鼯��</summary>
+        /// <summary>群组集合</summary>
         IList<IAccountGroupRelationInfo> GroupRelations { get; }
         #endregion
 
         #region 属性:LoginDate
-        /// <summary>��¼ʱ��</summary>
+        /// <summary>登录时间</summary>
         DateTime LoginDate { get; set; }
         #endregion
 
         #region 属性:DistinguishedName
-        /// <summary>Ψһ����</summary>
+        /// <summary>唯一名称</summary>
         string DistinguishedName { get; set; }
         #endregion
 
         #region 属性:CreateDate
-        /// <summary>����ʱ��</summary>
+        /// <summary>创建时间</summary>
         DateTime CreateDate { get; set; }
         #endregion
     }
