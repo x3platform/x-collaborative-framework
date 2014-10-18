@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IRoleInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership
 {
     using System;
@@ -21,90 +5,90 @@ namespace X3Platform.Membership
 
     using X3Platform.Security.Authority;
 
-    /// <summary>��ɫ</summary>
+    /// <summary>角色</summary>
     public interface IRoleInfo : IAuthorizationObject
     {
         #region 属性:Id
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         new string Id { get; set; }
         #endregion
 
         #region 属性:Code
-        /// <summary>����</summary>
+        /// <summary>编号</summary>
         string Code { get; set; }
         #endregion
 
         #region 属性:Name
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         new string Name { get; set; }
         #endregion
 
         #region 属性:GlobalName
-        /// <summary>ȫ������</summary>
+        /// <summary>全局名称</summary>
         string GlobalName { get; }
         #endregion
 
         #region 属性:PinYin
-        /// <summary>ƴ��</summary>
+        /// <summary>拼音</summary>
         string PinYin { get; set; }
         #endregion
 
         #region 属性:Parent
-        /// <summary>������Ϣ</summary>
+        /// <summary>父级信息</summary>
         IRoleInfo Parent { get; }
         #endregion
 
         #region 属性:OrganizationId
-        /// <summary>������֯��ʶ</summary>
+        /// <summary>所属组织标识</summary>
         string OrganizationId { get; set; }
         #endregion
 
         #region 属性:Organization
-        /// <summary>������֯��Ϣ</summary>
+        /// <summary>所属组织信息</summary>
         IOrganizationInfo Organization { get; }
         #endregion
 
         #region 属性:StandardRoleId
-        /// <summary>������׼��ɫ��ʶ</summary>
+        /// <summary>所属标准角色标识</summary>
         string StandardRoleId { get; set; }
         #endregion
 
         #region 属性:StandardRole
-        /// <summary>������׼��ɫ��Ϣ</summary>
+        /// <summary>所属标准角色信息</summary>
         IStandardRoleInfo StandardRole { get; }
         #endregion
 
         #region 属性:EnableExchangeEmail
-        /// <summary>������ҵ����</summary>
+        /// <summary>启用企业邮箱</summary>
         int EnableExchangeEmail { get; set; }
         #endregion
 
         #region 属性:FullPath
-        /// <summary>������֯�ܹ�ȫ·��</summary>
+        /// <summary>所属组织架构全路径</summary>
         string FullPath { get; set; }
         #endregion
 
         #region 属性:DistinguishedName
-        /// <summary>Ψһ����</summary>
+        /// <summary>唯一名称</summary>
         string DistinguishedName { get; set; }
         #endregion
 
         #region 属性:Members
-        /// <summary>��Ա�б�</summary>
+        /// <summary>成员列表</summary>
         IList<IAccountInfo> Members { get; }
         #endregion
 
         #region 属性:ExtensionInformation
-        /// <summary>��ɫ����չ��Ϣ</summary>
+        /// <summary>角色的扩展信息</summary>
         IExtensionInformation ExtensionInformation { get; }
         #endregion
 
         // -------------------------------------------------------
-        // ���ó�Ա��ϵ
+        // 重置成员关系
         // -------------------------------------------------------
 
-        #region 属性:ResetMemberRelations(string relationText)
-        /// <summary>���ó�Ա��ϵ</summary>
+        #region 函数:ResetMemberRelations(string relationText)
+        /// <summary>重置成员关系</summary>
         /// <param name="relationText"></param>
         void ResetMemberRelations(string relationText);
         #endregion
