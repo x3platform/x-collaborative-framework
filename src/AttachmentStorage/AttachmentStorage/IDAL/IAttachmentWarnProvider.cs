@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IAttachmentWarnProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.AttachmentStorage.IDAL
 {
     #region Using Libraries
@@ -31,102 +15,101 @@ namespace X3Platform.AttachmentStorage.IDAL
     public interface IAttachmentWarnProvider
     {
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>����ͨ��SQL��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>创建通用SQL命令对象</summary>
         GenericSqlCommand CreateGenericSqlCommand();
         #endregion
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         void BeginTransaction();
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         void BeginTransaction(IsolationLevel isolationLevel);
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         void CommitTransaction();
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         void RollBackTransaction();
         #endregion
 
         // -------------------------------------------------------
-        // ���� ���� �޸� ɾ��
+        // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(AttachmentWarnInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(AttachmentWarnInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
+        /// <returns>实例<see cref="AttachmentWarnInfo"/>详细信息</returns>
         AttachmentWarnInfo Save(AttachmentWarnInfo param);
         #endregion
 
-        #region 属性:Insert(AttachmentWarnInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(AttachmentWarnInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
         void Insert(AttachmentWarnInfo param);
         #endregion
 
-        #region 属性:Update(AttachmentWarnInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(AttachmentWarnInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
         void Update(AttachmentWarnInfo param);
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
-        void Delete(string ids);
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
         AttachmentWarnInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
-        IList<AttachmentWarnInfo> FindAll(string whereClause, int length);
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
+        IList<AttachmentWarnInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="AttachmentWarnInfo"/></returns>
-        IList<AttachmentWarnInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        IList<AttachmentWarnInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
     }

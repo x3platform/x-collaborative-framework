@@ -83,6 +83,8 @@ namespace X3Platform.AttachmentStorage.Util
             //虚拟路径需要创建时间和文件类型参数
             param.VirtualPath = UploadPathHelper.GetVirtualPathFormat(parent.AttachmentFolder, param);
 
+            param.FolderRule = AttachmentStorageConfigurationView.Instance.PhysicalUploadFolderRule;
+            
             return param;
         }
     }

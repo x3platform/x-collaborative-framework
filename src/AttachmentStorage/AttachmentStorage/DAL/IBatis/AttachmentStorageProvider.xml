@@ -88,7 +88,7 @@
             </dynamic>
         </select>
 
-        <select id="proc_Attachment_Storage_GetPages" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_Storage_FindAll_Result" >
+        <select id="proc_Attachment_Storage_GetPaging" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_Storage_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

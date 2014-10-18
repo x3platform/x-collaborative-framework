@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.IBLL
+﻿namespace X3Platform.Membership.IBLL
 {
     using System;
     using System.Collections.Generic;
@@ -243,14 +229,27 @@ namespace X3Platform.Membership.IBLL
         /// <summary>设置全局名称</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="globalName">全局名称</param>
-        /// <returns>修改成功, 返回 0, 修改失败, 返回 1.</returns>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetGlobalName(string accountId, string globalName);
         #endregion
 
         #region 函数:GetPassword(string loginName)
         /// <summary>获取密码</summary>
-        /// <param name="loginName">账号</param>
+        /// <param name="loginName">帐号</param>
         string GetPassword(string loginName);
+        #endregion
+
+        #region 函数:GetPasswordStrength(string loginName)
+        /// <summary>获取密码强度</summary>
+        /// <param name="loginName">帐号</param>
+        /// <returns>0 密码强度正常 | 1 密码强度低 | 2 密码长度不符合规范 | 3 密码为存数字 | 9 密码为默认密码</returns>
+        int GetPasswordStrength(string loginName);
+        #endregion
+
+        #region 函数:GetPasswordChangedDate(string loginName)
+        /// <summary>获取密码更新时间</summary>
+        /// <param name="loginName">帐号</param>
+        DateTime GetPasswordChangedDate(string loginName);
         #endregion
 
         #region 函数:SetPassword(string accountId, string password)
@@ -265,7 +264,7 @@ namespace X3Platform.Membership.IBLL
         /// <summary>设置登录名</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="loginName">登录名</param>
-        /// <returns>修改成功, 返回 0, 修改失败, 返回 1.</returns>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetLoginName(string accountId, string loginName);
         #endregion
 
@@ -273,7 +272,7 @@ namespace X3Platform.Membership.IBLL
         /// <summary>设置已验证的联系电话</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="telephone">联系电话</param>
-        /// <returns>修改成功, 返回 0, 修改失败, 返回 1.</returns>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetCertifiedTelephone(string accountId, string telephone);
         #endregion
 
@@ -281,7 +280,7 @@ namespace X3Platform.Membership.IBLL
         /// <summary>设置已验证的邮箱</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="email">邮箱</param>
-        /// <returns>修改成功, 返回 0, 修改失败, 返回 1.</returns>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetCertifiedEmail(string accountId, string email);
         #endregion
 
@@ -289,7 +288,7 @@ namespace X3Platform.Membership.IBLL
         /// <summary>设置已验证的头像</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="avatarVirtualPath">头像的虚拟路径</param>
-        /// <returns>修改成功, 返回 0, 修改失败, 返回 1.</returns>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetCertifiedAvatar(string accountId, string avatarVirtualPath);
         #endregion
 
@@ -314,7 +313,7 @@ namespace X3Platform.Membership.IBLL
         /// <param name="accountId">帐户标识</param>
         /// <param name="ip">登录名</param>
         /// <param name="loginDate">登录时间</param>
-        /// <returns>修改成功, 返回 0, 修改失败, 返回 1.</returns>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetIPAndLoginDate(string accountId, string ip, string loginDate);
         #endregion
 
@@ -322,11 +321,11 @@ namespace X3Platform.Membership.IBLL
         // 普通用户功能
         // -------------------------------------------------------
 
-        #region 函数:ApplyPasswordPolicy(string password)
+        #region 函数:ValidatePasswordPolicy(string password)
         /// <summary>校验密码是否符合密码策略</summary>
         /// <param name="password">密码</param>
         /// <returns>0 表示成功 1</returns>
-        int ApplyPasswordPolicy(string password);
+        int ValidatePasswordPolicy(string password);
         #endregion
 
         #region 函数:ConfirmPassword(string accountId, string passwordType, string password)

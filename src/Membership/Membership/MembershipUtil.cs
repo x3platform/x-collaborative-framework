@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :MembershipUitily.cs
-//
-// Description  :MembershipUitily
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership
 {
     using System;
@@ -23,11 +9,11 @@ namespace X3Platform.Membership
     using X3Platform.Membership.Model;
     using X3Platform.Membership.Scope;
 
-    /// <summary>��Ա��Ȩ�޹�������</summary>
+    /// <summary>人员及权限管理工具类</summary>
     public sealed class MembershipUitily
     {
-        /// <summary>��ȡ�û���Ϣ</summary>
-        /// <param name="scopeText">��Χ�ı�����</param>
+        /// <summary>获取用户信息</summary>
+        /// <param name="scopeText">范围文本数据</param>
         /// <returns></returns>
         public static IList<IAccountInfo> ParseAccounts(string scopeText)
         {
@@ -75,8 +61,8 @@ namespace X3Platform.Membership
             return objects;
         }
 
-        #region 属性:GetAccount(string id)
-        /// <summary>��ȡ�ʻ���Ϣ</summary>
+        #region 函数:GetAccount(string id)
+        /// <summary>获取帐户信息</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public static IAccountInfo GetAccount(string id)
@@ -87,8 +73,8 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetCorporation(string organizationId)
-        /// <summary>��ȡ��˾��Ϣ</summary>
+        #region 函数:GetCorporation(string organizationId)
+        /// <summary>获取公司信息</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public static IOrganizationInfo GetCorporation(string id)
@@ -99,7 +85,7 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetDepartment(string id)
+        #region 函数:GetDepartment(string id)
         /// <summary></summary>
         public static IOrganizationInfo GetDepartment(string id)
         {
@@ -109,7 +95,7 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetGroup(string id)
+        #region 函数:GetGroup(string id)
         /// <summary></summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -121,7 +107,7 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetAccounts(string ids)
+        #region 函数:GetAccounts(string ids)
         /// <summary></summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -135,7 +121,7 @@ namespace X3Platform.Membership
 
             foreach (IAccountInfo account in accounts)
             {
-                // ���˶���Ϊ�ջ��߽��õĶ�����
+                // 过滤对象为空或者禁用的对象。
                 if (account != null && account.Status == 1)
                 {
                     list.Add(account);
@@ -147,12 +133,12 @@ namespace X3Platform.Membership
         #endregion
 
         // -------------------------------------------------------
-        // ��֯�ܹ�
+        // 组织架构
         // -------------------------------------------------------
 
-        #region 属性:GetDepartments(string ids)
-        /// <summary>��ȡ��Ӧ��Ⱥ����Ϣ</summary>
-        /// <param name="ids">Ⱥ����ʶ�������Զ��Ÿ���</param>
+        #region 函数:GetDepartments(string ids)
+        /// <summary>获取对应的群组信息</summary>
+        /// <param name="ids">群组标识，多个以逗号隔开</param>
         /// <returns></returns>
         public static IList<IOrganizationInfo> GetDepartments(string ids)
         {
@@ -166,7 +152,7 @@ namespace X3Platform.Membership
             {
                 item = MembershipManagement.Instance.OrganizationService[key];
 
-                // ���˶���Ϊ�ջ��߽��õĶ�����
+                // 过滤对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
                 {
                     list.Add(item);
@@ -177,11 +163,11 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetDepartmentAccounts(string ids)
+        #region 函数:GetDepartmentAccounts(string ids)
         /// <summary>
-        /// ȡ�ò����µ������û�������id��ͬ���û�
+        /// 取得部门下的所有用户，屏蔽id相同的用户
         /// </summary>
-        /// <param name="ids">���ű�ʶ, ������","�ָ�.</param>
+        /// <param name="ids">部门标识, 多个用","分隔.</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetDepartmentAccounts(string ids)
         {
@@ -208,10 +194,10 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetDepartmentLeaderAccounts(string ids)
-        /// <summary>ȡ�ò����쵼������Id��ͬ���û�</summary>
-        /// <param name="ids">���ű�ʶ��������","�ָ�.</param>
-        /// <param name="level">�㼶</param>
+        #region 函数:GetDepartmentLeaderAccounts(string ids)
+        /// <summary>取得部门领导，屏蔽Id相同的用户</summary>
+        /// <param name="ids">部门标识，多个用","分隔.</param>
+        /// <param name="level">层级</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetDepartmentLeaderAccounts(string ids, int level)
         {
@@ -238,9 +224,9 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetDepartmentChiefLeaderAccounts(string ids)
-        /// <summary>ȡ�ò������쵼������id��ͬ���û���</summary>
-        /// <param name="ids">���ű�ʶ��������","�ָ���</param>
+        #region 函数:GetDepartmentChiefLeaderAccounts(string ids)
+        /// <summary>取得部门正领导，屏蔽id相同的用户。</summary>
+        /// <param name="ids">部门标识，多个用","分隔。</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetDepartmentChiefLeaderAccounts(string ids)
         {
@@ -248,11 +234,11 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetDepartmentChiefLeaderAccounts(string ids)
-        /// <summary>ȡ�ò������쵼������id��ͬ���û���</summary>
-        /// <param name="organizationIds">���ű�ʶ��������","�ָ���</param>
-        /// <param name="minPriority">��СȨ��</param>
-        /// <param name="maxPriority">����Ȩ��</param>
+        #region 函数:GetDepartmentChiefLeaderAccounts(string ids)
+        /// <summary>取得部门正领导，屏蔽id相同的用户。</summary>
+        /// <param name="organizationIds">部门标识，多个用","分隔。</param>
+        /// <param name="minPriority">最小权重</param>
+        /// <param name="maxPriority">最大权重</param>
         /// <returns></returns>
         public static IList<IRoleInfo> GetDepartmentLeadersBetweenPriority(string organizationIds, int minPriority, int maxPriority)
         {
@@ -271,9 +257,9 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetDepartmentAccounts(string organizationIds)
-        /// <summary>ȡ�ò����µ������û�������id��ͬ���û�</summary>
-        /// <param name="organizationIds">���ű�ʶ, ������","�ָ�.</param>
+        #region 函数:GetDepartmentAccounts(string organizationIds)
+        /// <summary>取得部门下的所有用户，屏蔽id相同的用户</summary>
+        /// <param name="organizationIds">部门标识, 多个用","分隔.</param>
         /// <param name="minPriority"></param>
         /// <param name="maxPriority"></param>
         /// <returns></returns>
@@ -303,12 +289,12 @@ namespace X3Platform.Membership
         #endregion
 
         // -------------------------------------------------------
-        // Ⱥ��
+        // 群组
         // -------------------------------------------------------
 
-        #region 属性:GetGroups(string ids)
-        /// <summary>��ȡ��Ӧ��Ⱥ����Ϣ</summary>
-        /// <param name="ids">Ⱥ����ʶ�������Զ��Ÿ���</param>
+        #region 函数:GetGroups(string ids)
+        /// <summary>获取对应的群组信息</summary>
+        /// <param name="ids">群组标识，多个以逗号隔开</param>
         /// <returns></returns>
         public static IList<IGroupInfo> GetGroups(string ids)
         {
@@ -322,7 +308,7 @@ namespace X3Platform.Membership
             {
                 item = MembershipManagement.Instance.GroupService[key];
 
-                // ���˶���Ϊ�ջ��߽��õĶ�����
+                // 过滤对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
                 {
                     list.Add(item);
@@ -333,9 +319,9 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetGroupAccounts(string ids)
-        /// <summary>��ȡ��Ӧ��Ⱥ�����û���Ϣ������id��ͬ���û�</summary>
-        /// <param name="ids">Ⱥ���ı�ʶ�������ö��ŷָ�</param>
+        #region 函数:GetGroupAccounts(string ids)
+        /// <summary>获取对应的群组的用户信息，屏蔽id相同的用户</summary>
+        /// <param name="ids">群组的标识，多个用逗号分隔</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetGroupAccounts(string ids)
         {
@@ -345,7 +331,7 @@ namespace X3Platform.Membership
 
             foreach (string key in keys)
             {
-                // ���ˣ�1.����Ϊ�� 2.����״̬Ϊ���� 3.�����ظ���
+                // 过滤：1.对象为空 2.对象状态为禁用 3.对象重复。
                 GetUnionAccounts(list,
                     MembershipManagement.Instance.AccountService.FindAllByGroupId(key).Where(item
                         => item != null && item.Status == 1).ToList());
@@ -356,12 +342,12 @@ namespace X3Platform.Membership
         #endregion
 
         // -------------------------------------------------------
-        // ��ɫ
+        // 角色
         // -------------------------------------------------------
 
-        #region 属性:GetRoles(string ids)
-        /// <summary>��ȡ��Ӧ�Ľ�ɫ��Ϣ</summary>
-        /// <param name="ids">��ɫ��ʶ�������Զ��Ÿ���</param>
+        #region 函数:GetRoles(string ids)
+        /// <summary>获取对应的角色信息</summary>
+        /// <param name="ids">角色标识，多个以逗号隔开</param>
         /// <returns></returns>
         public IList<IRoleInfo> GetRoles(string ids)
         {
@@ -375,7 +361,7 @@ namespace X3Platform.Membership
             {
                 item = MembershipManagement.Instance.RoleService[keys[i]];
 
-                // ���˶���Ϊ�ջ��߽��õĶ�����
+                // 过滤对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
                 {
                     list.Add(item);
@@ -386,9 +372,9 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetRoleAccounts(string ids)
-        /// <summary>��ȡ��Ӧ�Ľ�ɫ���û���Ϣ������id��ͬ���û�</summary>
-        /// <param name="ids">Ⱥ���ı�ʶ�������ö��ŷָ�</param>
+        #region 函数:GetRoleAccounts(string ids)
+        /// <summary>获取对应的角色的用户信息，屏蔽id相同的用户</summary>
+        /// <param name="ids">群组的标识，多个用逗号分隔</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetRoleAccounts(string ids)
         {
@@ -398,7 +384,7 @@ namespace X3Platform.Membership
 
             foreach (string key in keys)
             {
-                // ���ˣ�1.����Ϊ�� 2.����״̬Ϊ���� 3.�����ظ���
+                // 过滤：1.对象为空 2.对象状态为禁用 3.对象重复。
                 list = GetUnionAccounts(list,
                     MembershipManagement.Instance.AccountService.FindAllByRoleId(key).Where(item
                         => item != null && item.Status == 1).ToList());
@@ -409,12 +395,12 @@ namespace X3Platform.Membership
         #endregion
 
         // -------------------------------------------------------
-        // ��׼��֯
+        // 标准组织
         // -------------------------------------------------------
 
-        #region 属性:GetStandardOrganizations(string ids)
-        /// <summary>��ȡ��Ӧ�Ľ�ɫ��Ϣ</summary>
-        /// <param name="ids">��ɫ��ʶ�������Զ��Ÿ���</param>
+        #region 函数:GetStandardOrganizations(string ids)
+        /// <summary>获取对应的角色信息</summary>
+        /// <param name="ids">角色标识，多个以逗号隔开</param>
         /// <returns></returns>
         public IList<IStandardOrganizationInfo> GetStandardOrganizations(string ids)
         {
@@ -428,7 +414,7 @@ namespace X3Platform.Membership
             {
                 item = MembershipManagement.Instance.StandardOrganizationService[keys[i]];
 
-                // ���˶���Ϊ�ջ��߽��õĶ�����
+                // 过滤对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
                 {
                     list.Add(item);
@@ -439,9 +425,9 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetStandardRoleAccounts(string ids)
-        /// <summary>��ȡ��Ӧ�Ľ�ɫ���û���Ϣ������id��ͬ���û�</summary>
-        /// <param name="ids">Ⱥ���ı�ʶ�������ö��ŷָ�</param>
+        #region 函数:GetStandardRoleAccounts(string ids)
+        /// <summary>获取对应的角色的用户信息，屏蔽id相同的用户</summary>
+        /// <param name="ids">群组的标识，多个用逗号分隔</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetStandardOrganizationAccounts(string ids)
         {
@@ -467,12 +453,12 @@ namespace X3Platform.Membership
         #endregion
 
         // -------------------------------------------------------
-        // ��׼��ɫ
+        // 标准角色
         // -------------------------------------------------------
 
-        #region 属性:GetStandardRoles(string ids)
-        /// <summary>��ȡ��Ӧ�Ľ�ɫ��Ϣ</summary>
-        /// <param name="ids">��ɫ��ʶ�������Զ��Ÿ���</param>
+        #region 函数:GetStandardRoles(string ids)
+        /// <summary>获取对应的角色信息</summary>
+        /// <param name="ids">角色标识，多个以逗号隔开</param>
         /// <returns></returns>
         public IList<IStandardRoleInfo> GetStandardRoles(string ids)
         {
@@ -486,7 +472,7 @@ namespace X3Platform.Membership
             {
                 item = MembershipManagement.Instance.StandardRoleService[keys[i]];
 
-                // ���˵�����Ϊ�ջ��߽��õĶ�����
+                // 过滤掉对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
                 {
                     list.Add(item);
@@ -497,9 +483,9 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetStandardRoleAccounts(string ids)
-        /// <summary>��ȡ��Ӧ�Ľ�ɫ���û���Ϣ������id��ͬ���û�</summary>
-        /// <param name="ids">Ⱥ���ı�ʶ�������ö��ŷָ�</param>
+        #region 函数:GetStandardRoleAccounts(string ids)
+        /// <summary>获取对应的角色的用户信息，屏蔽id相同的用户</summary>
+        /// <param name="ids">群组的标识，多个用逗号分隔</param>
         /// <returns></returns>
         public static IList<IAccountInfo> GetStandardRoleAccounts(string ids)
         {
@@ -525,7 +511,7 @@ namespace X3Platform.Membership
         #endregion
 
         // ------------------------------------------------------------------------------------------
-        //���ߺ���
+        //工具函数
         // ------------------------------------------------------------------------------------------
 
         /// <summary></summary>
@@ -606,9 +592,9 @@ namespace X3Platform.Membership
             return outString.ToString();
         }
 
-        #region 属性:GetIntersectionAccounts(List<AccountInfo> AccountsA, params List<AccountInfo>[] AccountsB)
+        #region 函数:GetIntersectionAccounts(List<AccountInfo> AccountsA, params List<AccountInfo>[] AccountsB)
         /// <summary>
-        /// �õ��û������Ľ����������ɸ���������ͬ���û�
+        /// 得到用户数组的交集，即若干个数组中相同的用户
         /// </summary>
         /// <param name="list"></param>
         /// <param name="lists"></param>
@@ -616,8 +602,8 @@ namespace X3Platform.Membership
         public static IList<IAccountInfo> GetIntersectionAccounts(IList<IAccountInfo> list, params IList<IAccountInfo>[] lists)
         {
             //
-            // �Ե�һ���û���IList<Ϊ�ȶԶ���
-            // ÿ�αȶ���֮�����鸳ֵ���¸�ֵ����һ���û���list.
+            // 以第一个用户组IList<为比对对象
+            // 每次比对完之后把组赋值重新赋值给第一个用户组list.
             //
 
             IList<IAccountInfo> result = null;
@@ -643,7 +629,7 @@ namespace X3Platform.Membership
                     }
                 }
 
-                // ���򽻼�
+                // 单个交集
                 list = ToAccounts(result);
             }
 
@@ -651,8 +637,8 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetUnionAccounts(List<AccountInfo> AccountsA, params List<AccountInfo>[] AccountsB)
-        /// <summary>�õ��û������Ĳ����������ɸ����������в�ͬ���û�</summary>
+        #region 函数:GetUnionAccounts(List<AccountInfo> AccountsA, params List<AccountInfo>[] AccountsB)
+        /// <summary>得到用户数组的并集，即若干个数组中所有不同的用户</summary>
         /// <param name="list"></param>
         /// <param name="lists"></param>
         /// <returns></returns>
@@ -685,7 +671,7 @@ namespace X3Platform.Membership
         #endregion
 
         // ------------------------------------------------------------------------------------------
-        // ��ɫ���ĺ���
+        // 角色类的函数
         // ------------------------------------------------------------------------------------------
 
         /// <summary></summary>
@@ -703,9 +689,9 @@ namespace X3Platform.Membership
             return roleArray;
         }
 
-        #region 属性:GetRoleIds(IRoleInfo[] roles)
-        /// <summary>���ݽ�ɫ������Ϣ��ȡ���صĽ�ɫ��ʶ</summary>
-        /// <param name="roles">��ɫ������Ϣ</param>
+        #region 函数:GetRoleIds(IRoleInfo[] roles)
+        /// <summary>根据角色数组信息获取相关的角色标识</summary>
+        /// <param name="roles">角色数组信息</param>
         /// <summary></summary>
         public static string GetRoleIds(IRoleInfo[] roles)
         {
@@ -722,7 +708,7 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetRoleNames(IRoleInfo[] roles)
+        #region 函数:GetRoleNames(IRoleInfo[] roles)
         /// <summary></summary>
         public static string GetRoleNames(IRoleInfo[] roles)
         {
@@ -740,16 +726,16 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetIntersectionRoles(IRoleInfo[] rolesA, params IRoleInfo[][] rolesB)
-        /// <summary>�õ���ɫ�����Ľ����������ɸ���������ͬ�Ľ�ɫ</summary>
+        #region 函数:GetIntersectionRoles(IRoleInfo[] rolesA, params IRoleInfo[][] rolesB)
+        /// <summary>得到角色数组的交集，即若干个数组中相同的角色</summary>
         /// <param name="list"></param>
         /// <param name="lists"></param>
         /// <returns></returns>
         public static IList<IRoleInfo> GetIntersectionRoles(IList<IRoleInfo> list, params IList<IRoleInfo>[] lists)
         {
             //
-            // �Ե�һ���û���IListΪ�ȶԶ���
-            // ÿ�αȶ���֮�����鸳ֵ���¸�ֵ����һ���û���list.
+            // 以第一个用户组IList为比对对象
+            // 每次比对完之后把组赋值重新赋值给第一个用户组list.
             //
 
             IList<IRoleInfo> result = null;
@@ -782,8 +768,8 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GetUnionRoles(IList<IRoleInfo> list, params IList<IRoleInfo>[] lists)
-        /// <summary>�õ��û������Ĳ����������ɸ����������в�ͬ���û�</summary>
+        #region 函数:GetUnionRoles(IList<IRoleInfo> list, params IList<IRoleInfo>[] lists)
+        /// <summary>得到用户数组的并集，即若干个数组中所有不同的用户</summary>
         /// <param name="list"></param>
         /// <param name="lists"></param>
         /// <returns></returns>

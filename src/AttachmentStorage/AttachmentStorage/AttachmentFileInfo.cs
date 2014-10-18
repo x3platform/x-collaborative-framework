@@ -1,29 +1,15 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.IO;
-
-using X3Platform.Util;
-using X3Platform.Web;
-
-using X3Platform.AttachmentStorage.Configuration;
-using X3Platform.AttachmentStorage.Util;
-
 namespace X3Platform.AttachmentStorage
 {
-    /// <summary>�����ļ���Ϣ</summary>
+    using System;
+    using System.IO;
+
+    using X3Platform.Util;
+    using X3Platform.Web;
+
+    using X3Platform.AttachmentStorage.Configuration;
+    using X3Platform.AttachmentStorage.Util;
+
+    /// <summary>附件文件信息</summary>
     public class AttachmentFileInfo : IAttachmentFileInfo
     {
         public AttachmentFileInfo()
@@ -39,7 +25,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public string Id
         {
             get { return m_Id; }
@@ -50,7 +36,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:Parent
         private IAttachmentParentObject m_Parent;
 
-        /// <summary>��������</summary>
+        /// <summary>父级对象</summary>
         public IAttachmentParentObject Parent
         {
             get { return m_Parent; }
@@ -59,7 +45,7 @@ namespace X3Platform.AttachmentStorage
         #endregion
 
         #region 属性:EntityId
-        /// <summary>ʵ����ʶ</summary>
+        /// <summary>实体标识</summary>
         public string EntityId
         {
             get { return Parent.EntityId; }
@@ -68,7 +54,7 @@ namespace X3Platform.AttachmentStorage
         #endregion
 
         #region 属性:EntityClassName
-        /// <summary>ʵ��������</summary>
+        /// <summary>实体类名称</summary>
         public string EntityClassName
         {
             get { return Parent.EntityClassName; }
@@ -79,7 +65,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:AttachmentName
         private string m_AttachmentName;
 
-        /// <summary>��������</summary>
+        /// <summary>附件名称</summary>
         public string AttachmentName
         {
             get { return m_AttachmentName; }
@@ -90,7 +76,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:VirtualPath
         private string m_VirtualPath;
 
-        /// <summary>����·��</summary>
+        /// <summary>虚拟路径</summary>
         public string VirtualPath
         {
             get { return m_VirtualPath; }
@@ -99,7 +85,7 @@ namespace X3Platform.AttachmentStorage
         #endregion
 
         #region 属性:VirtualPathView
-        /// <summary>����·��</summary>
+        /// <summary>虚拟路径</summary>
         public string VirtualPathView
         {
             get { return VirtualPath.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder); }
@@ -109,7 +95,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:FolderRule
         private string m_FolderRule = string.Empty;
 
-        /// <summary>�ļ��й���</summary>
+        /// <summary>文件夹规则</summary>
         public string FolderRule
         {
             get { return m_FolderRule; }
@@ -120,7 +106,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:FileType
         private string m_FileType;
 
-        /// <summary>�ļ�����</summary>
+        /// <summary>文件类型</summary>
         public string FileType
         {
             get { return m_FileType; }
@@ -131,7 +117,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:FileSize
         private int m_FileSize;
 
-        /// <summary>�ļ���С</summary>
+        /// <summary>文件大小</summary>
         public int FileSize
         {
             get { return m_FileSize; }
@@ -144,7 +130,7 @@ namespace X3Platform.AttachmentStorage
 
         private bool m_FileDataLoaded = false;
 
-        /// <summary>����</summary>
+        /// <summary>数据</summary>
         public byte[] FileData
         {
             get
@@ -154,7 +140,7 @@ namespace X3Platform.AttachmentStorage
                     m_FileDataLoaded = true;
 
                     //
-                    // ��ȡ ����������
+                    // 读取 二进制数据
                     //
 
                     string path = VirtualPath.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.PhysicalUploadFolder);
@@ -179,7 +165,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:FileStatus
         private int m_FileStatus;
 
-        /// <summary>�ļ�״̬</summary>
+        /// <summary>文件状态:1 默认 2 回收(虚拟删除) 4 普通(确认上传数据)  8 归档 256 原始文件不存在 512 父级对象信息不存在</summary>
         public int FileStatus
         {
             get { return m_FileStatus; }
@@ -187,10 +173,20 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
+        #region 属性:OrderId
+        private string m_OrderId = string.Empty;
+
+        /// <summary>排序</summary>
+        public string OrderId
+        {
+            get { return m_OrderId; }
+            set { m_OrderId = value; }
+        }
+        #endregion
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary>��������</summary>
+        /// <summary>创建日期</summary>
         public DateTime CreateDate
         {
             get { return m_CreateDate; }
@@ -198,7 +194,7 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
-        /// <summary>��ԭ������Ϣ</summary>
+        /// <summary>还原附件信息</summary>
         public void Restore(string id)
         {
             IAttachmentFileInfo temp = AttachmentStorageContext.Instance.AttachmentStorageService.FindOne(id);
@@ -221,13 +217,13 @@ namespace X3Platform.AttachmentStorage
             this.CreateDate = temp.CreateDate;
         }
 
-        /// <summary>���渽����Ϣ</summary>
+        /// <summary>保存附件信息</summary>
         public void Save()
         {
             AttachmentStorageContext.Instance.AttachmentStorageService.Save(this);
 
             //
-            // ���� ����������
+            // 保存 二进制数据
             //
 
             string path = UploadPathHelper.CombinePhysicalPath(Parent.AttachmentFolder, string.Format("{0}{1}", Id, FileType));
@@ -237,7 +233,7 @@ namespace X3Platform.AttachmentStorage
             ByteHelper.ToFile(FileData, path);
 
             //
-            // ���� ��������Ϣ
+            // 保存 二进制信息
             //
 
             DistributedFileStorage.Upload(this);

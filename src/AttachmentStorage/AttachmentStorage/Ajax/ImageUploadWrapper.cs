@@ -1,19 +1,6 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.AttachmentStorage.Ajax
+﻿namespace X3Platform.AttachmentStorage.Ajax
 {
+    #region Using Libraries
     using System;
     using System.Drawing;
     using System.Web;
@@ -23,6 +10,7 @@ namespace X3Platform.AttachmentStorage.Ajax
 
     using X3Platform.AttachmentStorage.Images;
     using X3Platform.AttachmentStorage.Util;
+    #endregion
 
     /// <summary>图片上传</summary>
     public class ImageUploadWrapper : ContextWrapper

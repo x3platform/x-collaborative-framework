@@ -91,7 +91,7 @@
 			  </dynamic>
 		</select>
 
-		<select id="proc_Attachment_Warn_GetPages" resultMap="proc_Attachment_Warn_FindAll_Result" >
+		<select id="proc_Attachment_Warn_GetPaging" resultMap="proc_Attachment_Warn_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -110,7 +110,7 @@
 		</select>
 
         <!-- SQL Server 2000 -->
-		<select id="proc_Attachment_Warn_GetPages(SQLServer2000)" resultMap="proc_Attachment_Warn_FindAll_Result" >
+		<select id="proc_Attachment_Warn_GetPaging(SQLServer2000)" resultMap="proc_Attachment_Warn_FindAll_Result" >
 			SELECT TOP $PageSize$ *
 
 			FROM [tb_Attachment_Warn] T
@@ -136,7 +136,7 @@
 		</select>
 
         <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
-		<select id="proc_Attachment_Warn_GetPages(SQLServer2008)" resultMap="proc_Attachment_Warn_FindAll_Result" >
+		<select id="proc_Attachment_Warn_GetPaging(SQLServer2008)" resultMap="proc_Attachment_Warn_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

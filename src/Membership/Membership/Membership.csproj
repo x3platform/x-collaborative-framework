@@ -224,6 +224,7 @@
     <Compile Include="IDAL\IStandardOrganizationProvider.cs" />
     <Compile Include="IDAL\IStandardRoleProvider.cs" />
     <Compile Include="MembershipManagement.cs" />
+    <Compile Include="MembershipUtil.cs" />
     <Compile Include="Model\AccountAssignedJobRelationInfo.cs" />
     <Compile Include="Model\AccountGrantInfo.cs" />
     <Compile Include="Model\AccountGroupRelationInfo.cs" />
@@ -262,12 +263,11 @@
     <Compile Include="Authentication\MockAuthenticationManagement.cs" />
     <Compile Include="GenericAccountStorageStrategy.cs" />
     <Compile Include="MembershipStorage.cs" />
-    <Compile Include="Passwords\ASEPasswordEncryptionManagement.cs" />
+    <Compile Include="Passwords\AESPasswordEncryptionManagement.cs" />
     <Compile Include="Passwords\IPasswordEncryptionManagement.cs" />
     <Compile Include="Passwords\NonePasswordEncryptionManagement.cs" />
     <Compile Include="Passwords\SHA1PasswordEncryptionManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MembershipUitily.cs" />
     <Compile Include="MembershipProviders\FormsAuthenticationMembershipProvider.cs" />
     <Compile Include="Scope\MembershipAuthorizationScope.cs" />
     <Compile Include="Scope\MembershipAuthorizationScopeManagement.cs" />
@@ -280,13 +280,13 @@
     <Compile Include="Ajax\GeneralRoleWrapper.cs" />
     <Compile Include="Authentication\SSOAuthenticationManagement.cs" />
     <None Include="build.publish.bat" />
+    <None Include="config\IBatis\X3Platform.Membership.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.Membership.Spring.config" />
     <None Include="config\MySQL\X3Platform.Membership.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Membership.Spring.config" />
     <None Include="config\X3Platform.Membership.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="config\X3Platform.Membership.IBatis.SqlMap.config" />
-    <None Include="config\X3Platform.Membership.Spring.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DAL\IBatis\AccountGrantProvider.xml">

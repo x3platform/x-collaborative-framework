@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership
 {
     using System;
@@ -24,9 +10,9 @@ namespace X3Platform.Membership
     /// <summary></summary> 
     public sealed class MembershipStorage
     {
-        /// <summary>����ʱ��</summary>
+        /// <summary>过期时间</summary>
         private DateTime expiryDate = DateTime.MaxValue;
-        /// <summary>����</summary>
+        /// <summary>创建</summary>
         private DateTime createDate = DateTime.Now;
 
         private static MembershipStorage instance = null;
@@ -37,7 +23,7 @@ namespace X3Platform.Membership
             get
             {
                 //
-                // ˢ�¹�������
+                // 刷新过期数据
                 //
 
                 if (instance == null)
@@ -54,7 +40,7 @@ namespace X3Platform.Membership
             //  expiryDate.AddHours(6);
         }
 
-        /// <summary>���¼���</summary>
+        /// <summary>重新加载</summary>
         public void Reload()
         {
             instance = null;
@@ -63,7 +49,7 @@ namespace X3Platform.Membership
         #region 属性:Accounts
         private Dictionary<string, IAccountInfo> accountCache = null;
 
-        /// <summary>�ʺ�</summary>
+        /// <summary>帐号</summary>
         public Dictionary<string, IAccountInfo> Accounts
         {
             get
@@ -89,7 +75,7 @@ namespace X3Platform.Membership
 
         private Dictionary<string, IAccountInfo> authenticatedAccountCache = null;
 
-        /// <summary>��֤���ʺ�</summary>
+        /// <summary>认证的帐号</summary>
         public Dictionary<string, IAccountInfo> AuthenticatedAccounts
         {
             get
@@ -113,7 +99,7 @@ namespace X3Platform.Membership
         #region 属性:Members
         private Dictionary<string, IMemberInfo> memberCache = null;
 
-        /// <summary>�û�</summary>
+        /// <summary>用户</summary>
         public Dictionary<string, IMemberInfo> Members
         {
             get
@@ -138,7 +124,7 @@ namespace X3Platform.Membership
         #region 属性:Organizations
         private Dictionary<string, IOrganizationInfo> organizationCache = null;
 
-        /// <summary>��֯��λ</summary>
+        /// <summary>组织单位</summary>
         public Dictionary<string, IOrganizationInfo> Organizations
         {
             get
@@ -163,7 +149,7 @@ namespace X3Platform.Membership
         #region 属性:Zones
         private Dictionary<string, IOrganizationInfo> zoneCache = null;
 
-        /// <summary>����</summary>
+        /// <summary>区域</summary>
         public Dictionary<string, IOrganizationInfo> Zones
         {
             get
@@ -187,7 +173,7 @@ namespace X3Platform.Membership
         #region 属性:Corporations
         private Dictionary<string, IOrganizationInfo> corporationCache = null;
 
-        /// <summary>��˾</summary>
+        /// <summary>公司</summary>
         public Dictionary<string, IOrganizationInfo> Corporations
         {
             get
@@ -211,7 +197,7 @@ namespace X3Platform.Membership
         #region 属性:Departments
         private Dictionary<string, IOrganizationInfo> departmentCache = null;
 
-        /// <summary>����()</summary>
+        /// <summary>部门()</summary>
         public Dictionary<string, IOrganizationInfo> Departments
         {
             get
@@ -235,7 +221,7 @@ namespace X3Platform.Membership
         #region 属性:Groups
         private Dictionary<string, GroupInfo> groupCache = null;
 
-        /// <summary>Ⱥ��</summary>
+        /// <summary>群组</summary>
         public Dictionary<string, GroupInfo> Groups
         {
             get

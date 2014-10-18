@@ -145,8 +145,19 @@ namespace X3Platform.Membership.Model
         /// <summary>密码</summary>
         public string Password
         {
-            get { return m_Password; }
-            set { m_Password = value; }
+            get { return this.m_Password; }
+            set { this.m_Password = value; }
+        }
+        #endregion
+
+        #region 属性:PasswordChangedDate
+        private DateTime m_PasswordChangedDate;
+
+        /// <summary>密码更新时间</summary>
+        public DateTime PasswordChangedDate
+        {
+            get { return this.m_PasswordChangedDate; }
+            set { this.m_PasswordChangedDate = value; }
         }
         #endregion
 
@@ -216,7 +227,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:CertifiedAvatar
-        private string m_CertifiedAvatar;
+        private string m_CertifiedAvatar = string.Empty;
 
         /// <summary>已验证的头像</summary>
         public string CertifiedAvatar
@@ -267,7 +278,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:OrganizationText
-        private string m_OrganizationText;
+        private string m_OrganizationText = string.Empty;
 
         /// <summary>所属组织视图</summary>
         public string OrganizationText
@@ -288,7 +299,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:OrganizationView
-        private string m_OrganizationView;
+        private string m_OrganizationView = string.Empty;
 
         /// <summary>所属组织视图</summary>
         public string OrganizationView
@@ -329,7 +340,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:RoleText
-        private string m_RoleText;
+        private string m_RoleText = string.Empty;
 
         /// <summary>所属角色视图</summary>
         public string RoleText
@@ -350,7 +361,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:RoleView
-        private string m_RoleView;
+        private string m_RoleView = string.Empty;
 
         /// <summary>所属角色视图</summary>
         public string RoleView

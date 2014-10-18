@@ -1,31 +1,15 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-#region Using Libraries
-using System;
-using System.Web;
-using System.Xml;
-
-using Common.Logging;
-
-using X3Platform.AttachmentStorage.Util;
-#endregion
-
-namespace X3Platform.AttachmentStorage.Ajax
+﻿namespace X3Platform.AttachmentStorage.Ajax
 {
+    #region Using Libraries
+    using System;
+    using System.Web;
+    using System.Xml;
+
+    using Common.Logging;
+
+    using X3Platform.AttachmentStorage.Util;
+    #endregion
+
     /// <summary>文件上传</summary>
     public class FileUploadWrapper : ContextWrapper
     {

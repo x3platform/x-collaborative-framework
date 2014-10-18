@@ -194,7 +194,7 @@ WHERE
         ///<param name="whereClause">SQL ��ѯ����</param>
         ///<param name="length">����</param>
         ///<returns>�������� AuthorityInfo ʵ������ϸ��Ϣ</returns>
-        public IList<AuthorityInfo> FindAll(string whereClause, int length)
+        public IList<AuthorityInfo> FindAll(DataQuery query)
         {
             string commandText = @" SELECT {Top} * FROM tb_Authority {WhereClause} ";
 

@@ -16,8 +16,8 @@ namespace X3Platform.DigitalNumber.IBLL
     [SpringObject("X3Platform.DigitalNumber.IBLL.IDigitalNumberService")]
     public interface IDigitalNumberService
     {
-        #region 属性:this[string name]
-        /// <summary>����</summary>
+        #region 索引:this[string name]
+        /// <summary>索引</summary>
         /// <param name="name"></param>
         /// <returns></returns>
         DigitalNumberInfo this[string name] { get; }
@@ -69,7 +69,7 @@ namespace X3Platform.DigitalNumber.IBLL
         ///<param name="whereClause">SQL 查询条件</param>
         ///<param name="length">条数</param>
         ///<returns>返回所有 IAccount 实例的详细信息</returns>
-        IList<DigitalNumberInfo> FindAll(string whereClause, int length);
+        IList<DigitalNumberInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------

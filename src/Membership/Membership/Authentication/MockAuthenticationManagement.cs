@@ -10,6 +10,7 @@
     using X3Platform.Sessions;
     using X3Platform.Security.Authentication;
     using X3Platform.Spring;
+
     using X3Platform.Membership.Model;
     using X3Platform.Membership.Configuration;
     #endregion
@@ -22,29 +23,27 @@
         {
             string accountIdentity = this.GetIdentityValue();
 
-            if (string.IsNullOrEmpty(accountIdentity))
+            // Http方式的验证, accountIdentity 不允许为空.
+            if (string.IsNullOrEmpty(accountIdentity)) { return null; }
+
+            // 获取帐号信息
+            IAccountInfo account = this.GetSessionAccount(accountIdentity);
+
+            if (account == null) { return null; }
+
+            // 写入临时存储
+            if (!this.cacheStorage.ContainsKey(accountIdentity))
             {
-                return null;
-            }
-            else
-            {
-                if (!this.Dictionary.ContainsKey(accountIdentity))
+                lock (this.cacheSyncRoot)
                 {
-                    lock (this.cacheSyncRoot)
+                    if (!this.cacheStorage.ContainsKey(accountIdentity))
                     {
-                        if (!this.Dictionary.ContainsKey(accountIdentity))
-                        {
-                            IAccountInfo account = SessionContext.Instance.GetAuthAccount<AccountInfo>(this.strategy, accountIdentity);
-
-                            this.AddSession(accountIdentity, account);
-
-                            if (account == null) { return null; }
-                        }
+                        this.AddSession(accountIdentity, account);
                     }
                 }
-
-                return this.Dictionary[accountIdentity];
             }
+
+            return account;
         }
     }
 }

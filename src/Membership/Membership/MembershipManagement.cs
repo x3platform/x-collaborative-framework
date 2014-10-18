@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership
 {
     using System;
@@ -26,7 +12,7 @@ namespace X3Platform.Membership
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.Passwords;
 
-    /// <summary>��Ա��ϵ����</summary>
+    /// <summary>人员关系管理</summary>
     public sealed class MembershipManagement : CustomPlugin
     {
         /// <summary>日志记录器</summary>
@@ -36,7 +22,7 @@ namespace X3Platform.Membership
         /// <summary></summary>
         public override string Name
         {
-            get { return "��Ա��Ȩ�޹���"; }
+            get { return "人员及权限管理"; }
         }
         #endregion
 
@@ -45,7 +31,7 @@ namespace X3Platform.Membership
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static MembershipManagement Instance
         {
             get
@@ -69,7 +55,7 @@ namespace X3Platform.Membership
         #region 属性:Configuration
         private MembershipConfiguration configuration = null;
 
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         public MembershipConfiguration Configuration
         {
             get { return configuration; }
@@ -79,7 +65,7 @@ namespace X3Platform.Membership
         #region 属性:PasswordEncryptionManagement
         private IPasswordEncryptionManagement m_PasswordEncryptionManagement;
 
-        /// <summary>�������ܹ���</summary>
+        /// <summary>密码加密管理</summary>
         public IPasswordEncryptionManagement PasswordEncryptionManagement
         {
             get { return this.m_PasswordEncryptionManagement; }
@@ -89,7 +75,7 @@ namespace X3Platform.Membership
         #region 属性:AuthorizationObjectService
         private IAuthorizationObjectService m_AuthorizationObjectService;
 
-        /// <summary>��Ȩ����</summary>
+        /// <summary>授权对象</summary>
         public IAuthorizationObjectService AuthorizationObjectService
         {
             get { return this.m_AuthorizationObjectService; }
@@ -99,7 +85,7 @@ namespace X3Platform.Membership
         #region 属性:AccountService
         private IAccountService m_AccountService;
 
-        /// <summary>�ʺ�</summary>
+        /// <summary>帐号</summary>
         public IAccountService AccountService
         {
             get { return this.m_AccountService; }
@@ -109,7 +95,7 @@ namespace X3Platform.Membership
         #region 属性:AccountLogService
         private IAccountLogService m_AccountLogService;
 
-        /// <summary>�ʺ���־</summary>
+        /// <summary>帐号日志</summary>
         public IAccountLogService AccountLogService
         {
             get { return this.m_AccountLogService; }
@@ -119,7 +105,7 @@ namespace X3Platform.Membership
         #region 属性:AccountGrantService
         private IAccountGrantService m_AccountGrantService;
 
-        /// <summary>�ʺ�ί��</summary>
+        /// <summary>帐号委托</summary>
         public IAccountGrantService AccountGrantService
         {
             get { return this.m_AccountGrantService; }
@@ -129,7 +115,7 @@ namespace X3Platform.Membership
         #region 属性:MemberService
         private IMemberService m_MemberService = null;
 
-        /// <summary>��Ա</summary>
+        /// <summary>成员</summary>
         public IMemberService MemberService
         {
             get { return this.m_MemberService; }
@@ -139,7 +125,7 @@ namespace X3Platform.Membership
         #region 属性:OrganizationService
         private IOrganizationService m_OrganizationService = null;
 
-        /// <summary>��֯�ṹ</summary>
+        /// <summary>组织结构</summary>
         public IOrganizationService OrganizationService
         {
             get { return this.m_OrganizationService; }
@@ -149,7 +135,7 @@ namespace X3Platform.Membership
         #region 属性:RoleService
         private IRoleService m_RoleService = null;
 
-        /// <summary>��ɫ��Ϣ</summary>
+        /// <summary>角色信息</summary>
         public IRoleService RoleService
         {
             get { return this.m_RoleService; }
@@ -159,7 +145,7 @@ namespace X3Platform.Membership
         #region 属性:GeneralRoleService
         private IGeneralRoleService m_GeneralRoleService = null;
 
-        /// <summary>ͨ�ý�ɫ��Ϣ</summary>
+        /// <summary>通用角色信息</summary>
         public IGeneralRoleService GeneralRoleService
         {
             get { return this.m_GeneralRoleService; }
@@ -169,7 +155,7 @@ namespace X3Platform.Membership
         #region 属性:StandardOrganizationService
         private IStandardOrganizationService m_StandardOrganizationService = null;
 
-        /// <summary>��׼��֯��Ϣ</summary>
+        /// <summary>标准组织信息</summary>
         public IStandardOrganizationService StandardOrganizationService
         {
             get { return this.m_StandardOrganizationService; }
@@ -179,7 +165,7 @@ namespace X3Platform.Membership
         #region 属性:StandardGeneralRoleService
         private IStandardGeneralRoleService m_StandardGeneralRoleService = null;
 
-        /// <summary>��׼ͨ�ý�ɫ��Ϣ</summary>
+        /// <summary>标准通用角色信息</summary>
         public IStandardGeneralRoleService StandardGeneralRoleService
         {
             get { return this.m_StandardGeneralRoleService; }
@@ -189,7 +175,7 @@ namespace X3Platform.Membership
         #region 属性:StandardRoleService
         private IStandardRoleService m_StandardRoleService = null;
 
-        /// <summary>��׼��ɫ��Ϣ</summary>
+        /// <summary>标准角色信息</summary>
         public IStandardRoleService StandardRoleService
         {
             get { return this.m_StandardRoleService; }
@@ -199,7 +185,7 @@ namespace X3Platform.Membership
         #region 属性:ContactService
         private IContactService m_ContactService = null;
 
-        /// <summary>Ⱥ������������Ϣ</summary>
+        /// <summary>群组分类树形信息</summary>
         public IContactService ContactService
         {
             get { return this.m_ContactService; }
@@ -209,7 +195,7 @@ namespace X3Platform.Membership
         #region 属性:GroupService
         private IGroupService m_GroupService = null;
 
-        /// <summary>Ⱥ����Ϣ</summary>
+        /// <summary>群组信息</summary>
         public IGroupService GroupService
         {
             get { return this.m_GroupService; }
@@ -219,7 +205,7 @@ namespace X3Platform.Membership
         #region 属性:GroupTreeService
         private IGroupTreeService m_GroupTreeService = null;
 
-        /// <summary>Ⱥ������������Ϣ</summary>
+        /// <summary>群组分类树形信息</summary>
         public IGroupTreeService GroupTreeService
         {
             get { return this.m_GroupTreeService; }
@@ -229,7 +215,7 @@ namespace X3Platform.Membership
         #region 属性:GroupTreeNodeService
         private IGroupTreeNodeService m_GroupTreeNodeService = null;
 
-        /// <summary>Ⱥ���������νڵ���Ϣ</summary>
+        /// <summary>群组分类树形节点信息</summary>
         public IGroupTreeNodeService GroupTreeNodeService
         {
             get { return this.m_GroupTreeNodeService; }
@@ -239,7 +225,7 @@ namespace X3Platform.Membership
         #region 属性:AssignedJobService
         private IAssignedJobService m_AssignedJobService = null;
 
-        /// <summary>��λ��Ϣ</summary>
+        /// <summary>岗位信息</summary>
         public IAssignedJobService AssignedJobService
         {
             get { return this.m_AssignedJobService; }
@@ -249,7 +235,7 @@ namespace X3Platform.Membership
         #region 属性:JobFamilyService
         private IJobFamilyService m_JobFamilyService = null;
 
-        /// <summary>ְ����Ϣ</summary>
+        /// <summary>职级信息</summary>
         public IJobFamilyService JobFamilyService
         {
             get { return this.m_JobFamilyService; }
@@ -259,7 +245,7 @@ namespace X3Platform.Membership
         #region 属性:JobGradeService
         private IJobGradeService m_JobGradeService = null;
 
-        /// <summary>ְ����Ϣ</summary>
+        /// <summary>职级信息</summary>
         public IJobGradeService JobGradeService
         {
             get { return this.m_JobGradeService; }
@@ -269,7 +255,7 @@ namespace X3Platform.Membership
         #region 属性:JobService
         private IJobService m_JobService = null;
 
-        /// <summary>ְλ��Ϣ</summary>
+        /// <summary>职位信息</summary>
         public IJobService JobService
         {
             get { return this.m_JobService; }
@@ -279,34 +265,34 @@ namespace X3Platform.Membership
         #region 属性:SettingService
         private ISettingService m_SettingService = null;
 
-        /// <summary>������Ϣ</summary>
+        /// <summary>参数信息</summary>
         public ISettingService SettingService
         {
             get { return this.m_SettingService; }
         }
         #endregion
 
-        #region ���캯��:MembershipManagement()
-        /// <summary>���캯��</summary>
+        #region 构造函数:MembershipManagement()
+        /// <summary>构造函数</summary>
         private MembershipManagement()
         {
             this.Restart();
         }
         #endregion
 
-        /// <summary>��������������</summary>
+        /// <summary>重启次数计数器</summary>
         private int restartCount = 0;
 
-        #region 属性:Restart()
-        /// <summary>��������</summary>
-        /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
+        #region 函数:Restart()
+        /// <summary>重启插件</summary>
+        /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
         public override int Restart()
         {
             try
             {
                 this.Reload();
 
-                // ������������������
+                // 自增重启次数计数器
                 this.restartCount++;
             }
             catch (Exception ex)
@@ -319,19 +305,19 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:Reload()
-        /// <summary>���¼���</summary>
+        #region 函数:Reload()
+        /// <summary>重新加载</summary>
         private void Reload()
         {
             if (this.restartCount > 0)
             {
-                // ���¼���������Ϣ
+                // 重新加载配置信息
                 MembershipConfigurationView.Instance.Reload();
             }
 
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);

@@ -27,314 +27,320 @@ namespace X3Platform.Membership.IDAL
     public interface IAccountProvider
     {
         // -------------------------------------------------------
-        // ���� ɾ�� ����
+        // 插入 删除 更新
         // -------------------------------------------------------
 
-        #region 属性:Save(IAccount param)
-        /// <summary>������¼</summary>
-        /// <param name="param">IAccount ʵ����ϸ��Ϣ</param>
-        /// <returns>IAccount ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(IAccount param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">IAccount 实例详细信息</param>
+        /// <returns>IAccount 实例详细信息</returns>
         IAccountInfo Save(IAccountInfo param);
         #endregion
 
-        #region 属性:Insert(IAccount param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">IAccount ʵ������ϸ��Ϣ</param>
+        #region 函数:Insert(IAccount param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">IAccount 实例的详细信息</param>
         void Insert(IAccountInfo param);
         #endregion
 
-        #region 属性:Update(IAccount param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">IAccount ʵ������ϸ��Ϣ</param>
+        #region 函数:Update(IAccount param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">IAccount 实例的详细信息</param>
         void Update(IAccountInfo param);
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">�ʺű�ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">帐号标识</param>
         void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">IAccount id��</param>
-        /// <returns>����һ�� IAccount ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">IAccount id号</param>
+        /// <returns>返回一个 IAccount 实例的详细信息</returns>
         IAccountInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindOneByGlobalName(string globalName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="globalName">�ʺŵ�ȫ������</param>
-        /// <returns>����һ��<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByGlobalName(string globalName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="globalName">帐号的全局名称</param>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
         IAccountInfo FindOneByGlobalName(string globalName);
         #endregion
 
-        #region 属性:FindOneByLoginName(string loginName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <returns>����һ�� IAccount ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByLoginName(string loginName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="loginName">登录名</param>
+        /// <returns>返回一个 IAccount 实例的详细信息</returns>
         IAccountInfo FindOneByLoginName(string loginName);
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 属性:FindAllByOrganizationId(string organizationId)
-        /// <summary>��ѯĳ���û����ڵ�������֯��λ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <returns>����һ�� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByOrganizationId(string organizationId)
+        /// <summary>查询某个用户所在的所有组织单位</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
         IList<IAccountInfo> FindAllByOrganizationId(string organizationId);
         #endregion
 
-        #region 属性:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
-        /// <summary>��ѯĳ����֯�µ����������ʺ�</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="defaultOrganizationRelation">Ĭ����֯��ϵ</param>
-        /// <returns>����һ�� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+        /// <summary>查询某个组织下的所有相关帐号</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="defaultOrganizationRelation">默认组织关系</param>
+        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
         IList<IAccountInfo> FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation);
         #endregion
 
-        #region 属性:FindAllByRoleId(string roleId)
-        /// <summary>��ѯĳ����ɫ�µ����������ʺ�</summary>
-        /// <param name="roleId">��֯��ʶ</param>
-        /// <returns>����һ�� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByRoleId(string roleId)
+        /// <summary>查询某个角色下的所有相关帐号</summary>
+        /// <param name="roleId">组织标识</param>
+        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
         IList<IAccountInfo> FindAllByRoleId(string roleId);
         #endregion
 
-        #region 属性:FindAllByGroupId(string groupId)
-        /// <summary>��ѯĳ��Ⱥ���µ����������ʺ�</summary>
-        /// <param name="groupId">Ⱥ����ʶ</param>
-        /// <returns>����һ�� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByGroupId(string groupId)
+        /// <summary>查询某个群组下的所有相关帐号</summary>
+        /// <param name="groupId">群组标识</param>
+        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
         IList<IAccountInfo> FindAllByGroupId(string groupId);
         #endregion
 
-        #region 属性:FindAllWithoutMemberInfo(int length)
-        /// <summary>��������û�г�Ա��Ϣ���ʺ���Ϣ</summary>
-        /// <param name="length">����, 0��ʾȫ��</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllWithoutMemberInfo(int length)
+        /// <summary>返回所有没有成员信息的帐号信息</summary>
+        /// <param name="length">条数, 0表示全部</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindAllWithoutMemberInfo(int length);
         #endregion
 
-        #region 属性:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
-        /// <summary>�������������쵼���ʺ���Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        /// <summary>返回所有正向领导的帐号信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId, int level);
         #endregion
 
-        #region 属性:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
-        /// <summary>�������з����쵼���ʺ���Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        /// <summary>返回所有反向领导的帐号信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">��¼����</param>
-        /// <returns>����һ���б�</returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">记录行数</param>
+        /// <returns>返回一个列表</returns>
         IList<IAccountInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>�����Ƿ��������صļ�¼.</summary>
-        /// <param name="id">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>检测是否存在相关的记录.</summary>
+        /// <param name="id">帐号标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
 
-        #region 属性:IsExistLoginNameAndGlobalName(string loginName, string name);
-        /// <summary>�����Ƿ��������صļ�¼,��¼�����������߶������ظ�.</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <param name="name">����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistLoginNameAndGlobalName(string loginName, string name);
+        /// <summary>检测是否存在相关的记录,登录名和姓名两者都不能重复.</summary>
+        /// <param name="loginName">登录名</param>
+        /// <param name="name">姓名</param>
+        /// <returns>布尔值</returns>
         bool IsExistLoginNameAndGlobalName(string loginName, string name);
         #endregion
 
-        #region 属性:IsExistLoginName(string loginName)
-        /// <summary>�����Ƿ��������صļ�¼, �û�����, ��¼�������ظ�. [�����ʺ�]</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistLoginName(string loginName)
+        /// <summary>检测是否存在相关的记录, 用户中心, 登录名不能重复. [添加帐号]</summary>
+        /// <param name="loginName">登录名</param>
+        /// <returns>布尔值</returns>
         bool IsExistLoginName(string loginName);
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>�����Ƿ��������صļ�¼, ������ͬһ��OU����,�������������ظ�. �޸�����ʱ</summary>
-        /// <param name="name">����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>检测是否存在相关的记录, 由于在同一个OU下面,所以姓名不能重复. 修改姓名时</summary>
+        /// <param name="name">姓名</param>
+        /// <returns>布尔值</returns>
         bool IsExistName(string name);
         #endregion
 
-        #region 属性:IsExistGlobalName(string globalName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="globalName">��֯��λȫ������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGlobalName(string globalName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="globalName">组织单位全局名称</param>
+        /// <returns>布尔值</returns>
         bool IsExistGlobalName(string globalName);
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">�ʺű�ʶ</param>
-        /// <param name="name">�ʺ�����</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">帐号标识</param>
+        /// <param name="name">帐号名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         int Rename(string id, string name);
         #endregion
 
         // -------------------------------------------------------
-        // ����Ա����
+        // 管理员功能
         // -------------------------------------------------------
 
-        #region 属性:SetGlobalName(string accountId, string globalName)
-        /// <summary>����ȫ������</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="globalName">ȫ������</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetGlobalName(string accountId, string globalName)
+        /// <summary>设置全局名称</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="globalName">全局名称</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetGlobalName(string accountId, string globalName);
         #endregion
 
-        #region 属性:GetPassword(string loginName)
-        /// <summary>��ȡ����(����Ա)</summary>
-        /// <param name="loginName">�˺�</param>
-        /// <returns>����</returns>
+        #region 函数:GetPassword(string loginName)
+        /// <summary>获取密码(管理员)</summary>
+        /// <param name="loginName">帐号</param>
+        /// <returns>密码</returns>
         string GetPassword(string loginName);
         #endregion
 
-        #region 属性:SetPassword(string accountId, string password)
-        /// <summary>�����ʺ�����(����Ա)</summary>
-        /// <param name="accountId">����</param>
-        /// <param name="password">����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �����벻ƥ��, ���� 1.</returns>
+        #region 函数:GetPasswordChangedDate(string loginName)
+        /// <summary>获取密码更新时间</summary>
+        /// <param name="loginName">帐号</param>
+        DateTime GetPasswordChangedDate(string loginName);
+        #endregion
+
+        #region 函数:SetPassword(string accountId, string password)
+        /// <summary>设置帐号密码(管理员)</summary>
+        /// <param name="accountId">编号</param>
+        /// <param name="password">密码</param>
+        /// <returns>修改成功, 返回 0, 旧密码不匹配, 返回 1.</returns>
         int SetPassword(string accountId, string password);
         #endregion
 
-        #region 属性:SetLoginName(string accountId, string loginName)
-        /// <summary>���õ�¼��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="loginName">��¼��</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetLoginName(string accountId, string loginName)
+        /// <summary>设置登录名</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="loginName">登录名</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetLoginName(string accountId, string loginName);
         #endregion
 
-        #region 属性:SetCertifiedTelephone(string accountId, string telephone)
-        /// <summary>��������֤����ϵ�绰</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="telephone">��ϵ�绰</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetCertifiedTelephone(string accountId, string telephone)
+        /// <summary>设置已验证的联系电话</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="telephone">联系电话</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetCertifiedTelephone(string accountId, string telephone);
         #endregion
 
-        #region 属性:SetCertifiedEmail(string accountId, string email)
-        /// <summary>��������֤������</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="email">����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetCertifiedEmail(string accountId, string email)
+        /// <summary>设置已验证的邮箱</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="email">邮箱</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetCertifiedEmail(string accountId, string email);
         #endregion
 
-        #region 属性:SetCertifiedAvatar(string accountId, string avatarVirtualPath)
-        /// <summary>��������֤��ͷ��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="avatarVirtualPath">ͷ��������·��</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetCertifiedAvatar(string accountId, string avatarVirtualPath)
+        /// <summary>设置已验证的头像</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="avatarVirtualPath">头像的虚拟路径</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetCertifiedAvatar(string accountId, string avatarVirtualPath);
         #endregion
 
-        #region 属性:SetExchangeStatus(string accountId, int status)
-        /// <summary>��������״̬</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="status">״̬��ʶ, 1:����, 0:����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetExchangeStatus(string accountId, int status)
+        /// <summary>设置邮箱状态</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="status">状态标识, 1:启用, 0:禁用</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetExchangeStatus(string accountId, int status);
         #endregion
 
-        #region 属性:SetStatus(string accountId, int status)
-        /// <summary>����״̬</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="status">״̬��ʶ, 1:����, 0:����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetStatus(string accountId, int status)
+        /// <summary>设置状态</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="status">状态标识, 1:启用, 0:禁用</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetStatus(string accountId, int status);
         #endregion
 
-        #region 属性:SetIPAndLoginDate(string accountId, string ip, string loginDate)
-        /// <summary>���õ�¼��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="ip">��¼��</param>
-        /// <param name="loginDate">��¼ʱ��</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetIPAndLoginDate(string accountId, string ip, string loginDate)
+        /// <summary>设置登录名</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="ip">登录名</param>
+        /// <param name="loginDate">登录时间</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetIPAndLoginDate(string accountId, string ip, string loginDate);
         #endregion
 
         // -------------------------------------------------------
-        // ��Ա����
+        // 会员功能
         // -------------------------------------------------------
 
-        #region 属性:ConfirmPassword(string accountId, string passwordType, string password)
-        /// <summary>ȷ������</summary>
-        /// <param name="accountId">�ʺ�Ψһ��ʶ</param>
-        /// <param name="passwordType">����属性: default Ĭ��, query ��ѯ����, trader ��������</param>
-        /// <param name="password">����</param>
-        /// <returns>����ֵ: 0 �ɹ� | 1 ʧ��</returns>
+        #region 函数:ConfirmPassword(string accountId, string passwordType, string password)
+        /// <summary>确认密码</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="passwordType">密码类型: default 默认, query 查询密码, trader 交易密码</param>
+        /// <param name="password">密码</param>
+        /// <returns>返回值: 0 成功 | 1 失败</returns>
         int ConfirmPassword(string accountId, string passwordType, string password);
         #endregion
 
-        #region 属性:LoginCheck(string loginName, string password)
-        /// <summary>��½����</summary>
-        /// <param name="loginName">�ʺ�</param>
-        /// <param name="password">����</param>
-        /// <returns>IAccount ʵ��</returns>
+        #region 函数:LoginCheck(string loginName, string password)
+        /// <summary>登陆检测</summary>
+        /// <param name="loginName">帐号</param>
+        /// <param name="password">密码</param>
+        /// <returns>IAccount 实例</returns>
         IAccountInfo LoginCheck(string loginName, string password);
         #endregion
 
-        #region 属性:ChangeBasicInfo(IAccount param)
-        /// <summary>�޸Ļ�����Ϣ</summary>
-        /// <param name="param">IAccount ʵ������ϸ��Ϣ</param>
+        #region 函数:ChangeBasicInfo(IAccount param)
+        /// <summary>修改基本信息</summary>
+        /// <param name="param">IAccount 实例的详细信息</param>
         void ChangeBasicInfo(IAccountInfo param);
         #endregion
 
-        #region 属性:ChangePassword(string loginName, string password, string originalPassword)
-        /// <summary>�޸�����</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <param name="password">������</param>
-        /// <param name="originalPassword">ԭʼ����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �����벻ƥ��, ���� 1.</returns>
+        #region 函数:ChangePassword(string loginName, string password, string originalPassword)
+        /// <summary>修改密码</summary>
+        /// <param name="loginName">登录名</param>
+        /// <param name="password">新密码</param>
+        /// <param name="originalPassword">原始密码</param>
+        /// <returns>修改成功, 返回 0, 旧密码不匹配, 返回 1.</returns>
         int ChangePassword(string loginName, string password, string originalPassword);
         #endregion
 
-        #region 属性:RefreshUpdateDate(string accountId)
-        /// <summary>ˢ���ʺŵĸ���ʱ��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <returns>0 ���óɹ�, 1 ����ʧ��.</returns>
+        #region 函数:RefreshUpdateDate(string accountId)
+        /// <summary>刷新帐号的更新时间</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <returns>0 设置成功, 1 设置失败.</returns>
         int RefreshUpdateDate(string accountId);
         #endregion
 
-        #region 属性:GetAuthorizationScopeObjects(IAccount account)
-        /// <summary>��ȡ�ʺ����ص�Ȩ�޶���</summary>
-        /// <param name="account">IAccount ʵ������ϸ��Ϣ</param>
+        #region 函数:GetAuthorizationScopeObjects(IAccount account)
+        /// <summary>获取帐号相关的权限对象</summary>
+        /// <param name="account">IAccount 实例的详细信息</param>
         IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(IAccountInfo account);
         #endregion
 
-        #region 属性:SyncFromPackPage(IMemberInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">�ʺ���Ϣ</param>
+        #region 函数:SyncFromPackPage(IMemberInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">帐号信息</param>
         int SyncFromPackPage(IAccountInfo param);
         #endregion
     }

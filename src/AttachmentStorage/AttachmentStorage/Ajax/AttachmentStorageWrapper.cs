@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.AttachmentStorage.Ajax
+﻿namespace X3Platform.AttachmentStorage.Ajax
 {
     #region Using Libraries
     using System;
@@ -26,6 +10,7 @@ namespace X3Platform.AttachmentStorage.Ajax
     using X3Platform.Util;
 
     using X3Platform.AttachmentStorage.IBLL;
+    using X3Platform.Data;
     #endregion
 
     /// <summary>附件存储信息</summary>
@@ -50,7 +35,7 @@ namespace X3Platform.AttachmentStorage.Ajax
 
             param = (AttachmentFileInfo)AjaxStorageConvertor.Deserialize(param, doc);
 
-            service.Save(param);
+            this.service.Save(param);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
@@ -65,7 +50,7 @@ namespace X3Platform.AttachmentStorage.Ajax
         {
             string ids = AjaxStorageConvertor.Fetch("ids", doc);
 
-            service.Delete(ids);
+            this.service.Delete(ids);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
@@ -79,14 +64,13 @@ namespace X3Platform.AttachmentStorage.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
             string id = AjaxStorageConvertor.Fetch("id", doc);
 
-            IAttachmentFileInfo param = service.FindOne(id);
+            IAttachmentFileInfo param = this.service.FindOne(id);
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAttachmentFileInfo>(param) + ",");
 
@@ -100,8 +84,7 @@ namespace X3Platform.AttachmentStorage.Ajax
         /// <summary>获取列表内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("findAll")]
-        public string FindAll(XmlDocument doc)
+         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -124,7 +107,15 @@ namespace X3Platform.AttachmentStorage.Ajax
                 }
             }
 
-            IList<IAttachmentFileInfo> list = service.FindAll(whereClause, length);
+            // 这里需要修改
+            DataQuery query = new DataQuery();
+
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                query.Orders.Add(orderBy);
+            }
+            
+            IList<IAttachmentFileInfo> list = this.service.FindAll(query);
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAttachmentFileInfo>(list) + ",");
 
@@ -138,26 +129,25 @@ namespace X3Platform.AttachmentStorage.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
-            IList<IAttachmentFileInfo> list = service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<IAttachmentFileInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAttachmentFileInfo>(list) + ",");
 
-            outString.Append("\"pages\":" + pages + ",");
+            outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查找成功。\"}}");
 
