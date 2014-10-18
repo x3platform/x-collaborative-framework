@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :AttachmentWarnInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.AttachmentStorage
 {
     #region Using Libraries
@@ -22,11 +6,11 @@ namespace X3Platform.AttachmentStorage
     using System.Text;
     #endregion
 
-    /// <summary>����������Ϣ</summary>
+    /// <summary>附件警告信息</summary>
     public class AttachmentWarnInfo
     {
-        #region ���캯��:AttachmentWarnInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:AttachmentWarnInfo()
+        /// <summary>默认构造函数</summary>
         public AttachmentWarnInfo()
         {
         }

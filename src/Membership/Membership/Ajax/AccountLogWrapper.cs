@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :AccountLogWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership.Ajax
 {
     #region Using Libraries
@@ -32,13 +16,13 @@ namespace X3Platform.Membership.Ajax
     /// <summary></summary>
     public class AccountLogWrapper : ContextWrapper
     {
-        /// <summary>���ݷ���</summary>
+        /// <summary>数据服务</summary>
         private IAccountLogService service = MembershipManagement.Instance.AccountLogService;
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
@@ -46,18 +30,18 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Delete(id);
         
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -69,16 +53,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AccountLogInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ȡ�б���Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>获取列表信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
@@ -92,20 +76,20 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AccountLogInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
@@ -123,7 +107,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

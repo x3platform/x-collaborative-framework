@@ -1,41 +1,25 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :MembershipConfiguration.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-#region Using Libraries
-using System;
-using System.Configuration;
-using System.Xml;
-
-using Common.Logging;
-
-using X3Platform.Configuration;
-#endregion
-
 namespace X3Platform.Membership.Configuration
 {
-    /// <summary>������Ϣ</summary>
+    #region Using Libraries
+    using System;
+    using System.Configuration;
+    using System.Xml;
+
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    #endregion
+
+    /// <summary>人员及权限管理的配置信息</summary>
     public class MembershipConfiguration : XmlConfiguraton
     {
-        /// <summary>����Ӧ�õ�����</summary>
+        /// <summary>所属应用的名称</summary>
         public const string ApplicationName = "Membership";
 
-        /// <summary>������������</summary>
-        public const string SectionName = "membershipConfiguration";
+        /// <summary>配置区域的名称</summary>
+        public const string SectionName = "membership";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;

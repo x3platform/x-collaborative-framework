@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AttachmentParentObject.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.AttachmentStorage
 {
     using X3Platform.Util;
@@ -19,15 +5,15 @@ namespace X3Platform.AttachmentStorage
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.Util;
 
-    /// <summary>���⸽���ļ���Ϣ</summary>
+    /// <summary>虚拟附件文件信息</summary>
     public static class DistributedFileStorage
     {
-        /// <summary>���渽����Ϣ</summary>
+        /// <summary>保存附件信息</summary>
         public static void Upload(IAttachmentFileInfo file)
         {
             //
-            // ���� ���ݿ�
-            // ���ݿ� ֧�����ݿ⼯Ⱥ
+            // 保存 数据库
+            // 数据库 支持数据库集群
             // 
 
             if (AttachmentStorageConfigurationView.Instance.DistributedFileStorageMode == "ON")
@@ -42,7 +28,7 @@ namespace X3Platform.AttachmentStorage
             }
 
             //
-            // ���� ����������
+            // 保存 二进制数据
             //
 
             string path = UploadPathHelper.CombinePhysicalPath(file.Parent.AttachmentFolder, string.Format("{0}{1}", file.Id, file.FileType));
@@ -52,7 +38,7 @@ namespace X3Platform.AttachmentStorage
             ByteHelper.ToFile(file.FileData, path);
         }
 
-        /// <summary>��ȡ������Ϣ</summary>
+        /// <summary>获取附件信息</summary>
         public static byte[] Download(IAttachmentFileInfo file)
         {
             DistributedFileInfo param = AttachmentStorageContext.Instance.AttachmentDistributedFileService.FindOne(file.Id);
@@ -73,10 +59,10 @@ namespace X3Platform.AttachmentStorage
             }
         }
 
-        /// <summary>��ȡ������Ϣ</summary>
-        public static int Delete(string ids)
+        /// <summary>获取附件信息</summary>
+        public static int Delete(string id)
         {
-            AttachmentStorageContext.Instance.AttachmentDistributedFileService.Delete(ids);
+            AttachmentStorageContext.Instance.AttachmentDistributedFileService.Delete(id);
 
             return 0;
         }

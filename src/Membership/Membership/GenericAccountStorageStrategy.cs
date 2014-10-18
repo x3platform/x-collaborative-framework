@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership
+﻿namespace X3Platform.Membership
 {
     using System;
     using System.Reflection;
@@ -71,6 +57,9 @@ namespace X3Platform.Membership
         //}
         //#endregion
 
+        /// <summary></summary>
+        /// <param name="accountCache"></param>
+        /// <returns></returns>
         protected override IAccountInfo DeserializeObject(AccountCacheInfo accountCache)
         {
             AccountInfo account = new AccountInfo();

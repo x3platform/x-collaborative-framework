@@ -1,19 +1,6 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.AttachmentStorage.Ajax
+﻿namespace X3Platform.AttachmentStorage.Ajax
 {
+    #region Using Libraries
     using System;
     using System.Web;
     using System.IO;
@@ -24,6 +11,7 @@ namespace X3Platform.AttachmentStorage.Ajax
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.Images;
+    #endregion
 
     /// <summary>图片缩略图</summary>
     public sealed class ImageThumbnailWrapper : ContextWrapper

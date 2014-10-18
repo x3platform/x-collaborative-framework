@@ -64,7 +64,7 @@
             </dynamic>
         </select>
 
-        <select id="proc_Attachment_DistributedFile_GetPages" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindAll_Result" >
+        <select id="proc_Attachment_DistributedFile_GetPaging" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

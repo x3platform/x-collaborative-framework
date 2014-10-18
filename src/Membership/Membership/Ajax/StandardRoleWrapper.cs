@@ -33,17 +33,17 @@ namespace X3Platform.Membership.Ajax
     /// <summary></summary>
     public class StandardRoleWrapper : ContextWrapper
     {
-        /// <summary>���ݷ���</summary>
+        /// <summary>数据服务</summary>
         private IStandardRoleService service = MembershipManagement.Instance.StandardRoleService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
@@ -55,12 +55,12 @@ namespace X3Platform.Membership.Ajax
 
             if (string.IsNullOrEmpty(param.Name))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"���Ʋ���Ϊ�ա�\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"名称不能为空。\"}}";
             }
 
             if (string.IsNullOrEmpty(param.Id))
             {
-                // ����
+                // 新增
 
                 if (this.service.IsExistName(param.Name))
                 {
@@ -71,27 +71,27 @@ namespace X3Platform.Membership.Ajax
             }
             else
             {
-                // �޸�
+                // 修改
 
                 if (param.Name != originalName)
                 {
                     if (this.service.IsExistName(param.Name))
                     {
-                        return "{message:{\"returnCode\":1,\"value\":\"�������Ѵ��ڡ�\"}}";
+                        return "{message:{\"returnCode\":1,\"value\":\"此名称已存在。\"}}";
                     }
                 }
             }
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
@@ -99,18 +99,18 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -122,16 +122,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStandardRoleInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ȡ�б���Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>获取列表信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
@@ -145,20 +145,20 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStandardRoleInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
         
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
@@ -176,16 +176,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:IsExist(XmlDocument doc)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:IsExist(XmlDocument doc)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
@@ -197,10 +197,10 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 属性:CreateNewObject(XmlDocument doc)
-        /// <summary>�����µĶ���</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
@@ -222,16 +222,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStandardRoleInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:GetKeyStandardRoles(XmlDocument doc)
-        /// <summary>��ȡ�ؼ���׼��ɫ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetKeyStandardRoles(XmlDocument doc)
+        /// <summary>获取关键标准角色</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("getKeyStandardRoles")]
         public string GetKeyStandardRoles(XmlDocument doc)
         {
@@ -243,35 +243,35 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStandardRoleInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion  
    
         // -------------------------------------------------------
-        // ���β˵�
+        // 树形菜单
         // -------------------------------------------------------
 
-        //#region 属性:GetDynamicTreeView(XmlDocument doc)
+        //#region 函数:GetDynamicTreeView(XmlDocument doc)
         ///// <summary></summary>
         ///// <param name="doc"></param>
         ///// <returns></returns>
         //[AjaxMethod("getDynamicTreeView")]
         //public string GetDynamicTreeView(XmlDocument doc)
         //{
-        //    // �����ֶ�
+        //    // 必填字段
         //    string tree = AjaxStorageConvertor.Fetch("tree", doc);
         //    string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
 
-        //    // ��������
+        //    // 附加属性
         //    string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
         //    string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
         //    string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
 
         //    string url = AjaxStorageConvertor.Fetch("url", doc);
 
-        //    // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
+        //    // 树形控件默认根节点标识为0, 需要特殊处理.
         //    parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
 
         //    StringBuilder outString = new StringBuilder();
@@ -348,7 +348,7 @@ namespace X3Platform.Membership.Ajax
         //    if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
         //        outString = outString.Remove(outString.Length - 1, 1);
 
-        //    outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+        //    outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
         //    return outString.ToString();
         //}

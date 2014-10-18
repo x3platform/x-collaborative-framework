@@ -1,20 +1,6 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AttachmentParentObject.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.AttachmentStorage
 {
-    /// <summary>������������</summary>
+    /// <summary>附件父级对象</summary>
     public class AttachmentParentObject : IAttachmentParentObject
     {
         public AttachmentParentObject()
@@ -32,7 +18,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:EntityId
         private string m_EntityId;
 
-        /// <summary>ʵ����ʶ</summary>
+        /// <summary>实体标识</summary>
         public string EntityId
         {
             get { return m_EntityId; }
@@ -43,7 +29,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:EntityClassName
         private string m_EntityClassName;
 
-        /// <summary>ʵ��������</summary>
+        /// <summary>实体类名称</summary>
         public string EntityClassName
         {
             get { return m_EntityClassName; }
@@ -54,7 +40,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:AttachmentEntityClassName
         private string m_AttachmentEntityClassName;
 
-        /// <summary>����ʵ��������</summary>
+        /// <summary>附件实体类名称</summary>
         public string AttachmentEntityClassName
         {
             get { return m_AttachmentEntityClassName; }
@@ -75,7 +61,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:AttachmentFolder
         private string m_AttachmentFolder;
 
-        /// <summary>�������ļ�������</summary>
+        /// <summary>附件的文件夹名称</summary>
         public string AttachmentFolder
         {
             get { return m_AttachmentFolder; }
@@ -83,7 +69,7 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
-        /// <summary>����</summary>
+        /// <summary>查找</summary>
         /// <param name="id"></param>
         public void Find(string id)
         {

@@ -59,7 +59,7 @@ namespace X3Platform.DigitalNumber.IDAL
         ///<param name="whereClause">SQL 查询条件</param>
         ///<param name="length">条数</param>
         ///<returns>返回所有实例的详细信息</returns>
-        IList<DigitalNumberInfo> FindAll(string whereClause, int length);
+        IList<DigitalNumberInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------

@@ -33,17 +33,17 @@ namespace X3Platform.Membership.Ajax
     /// <summary></summary>
     public class JobGradeWrapper : ContextWrapper
     {
-        /// <summary>���ݷ���</summary>
+        /// <summary>数据服务</summary>
         private IJobGradeService service = MembershipManagement.Instance.JobGradeService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Save(XmlDocument doc)
         {
             IJobGradeInfo param = new JobGradeInfo();
@@ -52,32 +52,32 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
             string id = AjaxStorageConvertor.Fetch("id", doc);
 
             this.service.Delete(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -88,16 +88,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobGradeInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ȡ�б���Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>获取列表信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -110,20 +110,20 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobGradeInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string GetPages(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -140,16 +140,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:IsExist(XmlDocument doc)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:IsExist(XmlDocument doc)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string IsExist(XmlDocument doc)
         {
             string id = AjaxStorageConvertor.Fetch("id", doc);
@@ -160,10 +160,10 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 属性:CreateNewObject(XmlDocument doc)
-        /// <summary>�����µĶ���</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
@@ -181,16 +181,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobGradeInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion    
         
-        #region 属性:GetCombobox(XmlDocument doc)
-        /// <summary>��ѯ���������Թ��γ���������������Դ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetCombobox(XmlDocument doc)
+        /// <summary>查询类别数据以供形成类别下拉框数据源</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("getCombobox")]
         public string GetCombobox(XmlDocument doc)
         {
@@ -222,7 +222,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"combobox\":\"" + combobox + "\",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

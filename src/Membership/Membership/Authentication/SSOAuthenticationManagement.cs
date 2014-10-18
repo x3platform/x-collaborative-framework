@@ -10,6 +10,7 @@
     using X3Platform.Location.IPQuery;
     using X3Platform.Security.Authentication;
     using X3Platform.Sessions;
+    using X3Platform.Sessions.Configuration;
     
     using X3Platform.Membership.Model;
     using X3Platform.Membership.Configuration;
@@ -23,15 +24,12 @@
         {
             string accountIdentity = this.GetIdentityValue();
 
-            if (this.Dictionary.ContainsKey(accountIdentity) && !string.IsNullOrEmpty(accountIdentity))
-            {
-                return this.Dictionary[accountIdentity];
-            }
-
-            IAccountInfo account = SessionContext.Instance.GetAuthAccount<AccountInfo>(this.strategy, accountIdentity);
+            // 获取帐号信息
+            IAccountInfo account = this.GetSessionAccount(accountIdentity);
 
             if (account == null)
             {
+                // 如果当前帐号为空, 则连接到验证服务器验证用户的会话信息.
                 string loginName = GetAccountLoginName();
 
                 // 没有登录信息则返回空
@@ -43,7 +41,6 @@
                 {
                     accountIdentity = string.Format("{0}-{1}", account.Id, DigitalNumberContext.Generate("Key_Session"));
 
-                    SessionContext.Instance.Write(this.strategy, accountIdentity, account);
 
                     HttpAuthenticationCookieSetter.SetUserCookies(accountIdentity);
 
@@ -55,20 +52,22 @@
                 }
             }
 
-            if (!this.Dictionary.ContainsKey(accountIdentity))
+            if (account == null) { return null; }
+
+            // 写入临时存储
+            if (!this.cacheStorage.ContainsKey(accountIdentity))
             {
                 lock (this.cacheSyncRoot)
                 {
-                    if (!this.Dictionary.ContainsKey(accountIdentity))
+                    if (!this.cacheStorage.ContainsKey(accountIdentity))
                     {
-                        if (account == null) { return null; }
 
                         this.AddSession(accountIdentity, account);
                     }
                 }
             }
 
-            return this.Dictionary[accountIdentity];
+            return account;
         }
 
         private string GetAccountLoginName()
