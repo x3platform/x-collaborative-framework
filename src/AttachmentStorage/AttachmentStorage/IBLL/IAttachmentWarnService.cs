@@ -22,87 +22,81 @@ namespace X3Platform.AttachmentStorage.IBLL
     using System.Text;
 
     using X3Platform.Spring;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.AttachmentStorage.IBLL.IAttachmentWarnService")]
     public interface IAttachmentWarnService
     {
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         AttachmentWarnInfo this[string id] { get; }
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(AttachmentWarnInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(AttachmentWarnInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
+        /// <returns>实例<see cref="AttachmentWarnInfo"/>详细信息</returns>
         AttachmentWarnInfo Save(AttachmentWarnInfo param);
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
-        void Delete(string ids);
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
         AttachmentWarnInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
         IList<AttachmentWarnInfo> FindAll();
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
-        IList<AttachmentWarnInfo> FindAll(string whereClause);
-        #endregion
-
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
-        IList<AttachmentWarnInfo> FindAll(string whereClause, int length);
+        #region 属性:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
+        IList<AttachmentWarnInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="AttachmentWarnInfo"/></returns>
-        IList<AttachmentWarnInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="AttachmentWarnInfo"/></returns>
+        IList<AttachmentWarnInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
     }

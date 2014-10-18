@@ -1,10 +1,12 @@
-using System;
-using System.Collections.Generic;
-
-using X3Platform.Security.Authority;
-
 namespace X3Platform
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+
+    using X3Platform.Security.Authority;
+    #endregion
+
     /// <summary>权限范围接口</summary>
     public interface IAuthorizationScope
     {
@@ -13,7 +15,7 @@ namespace X3Platform
 
         /// <summary>权限信息</summary>
         AuthorityInfo Authority { get; set; }
-        
+
         /// <summary>实体信息</summary>
         EntityClass EntityClass { get; set; }
     }

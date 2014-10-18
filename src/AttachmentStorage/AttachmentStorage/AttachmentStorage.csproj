@@ -182,6 +182,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.bat" />
+    <None Include="config\IBatis\X3Platform.AttachmentStorage.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.AttachmentStorage.Spring.config" />
     <None Include="config\MySQL\X3Platform.AttachmentStorage.IBatis.SqlMap.config">
       <SubType>Designer</SubType>
     </None>
@@ -189,8 +191,6 @@
     <None Include="config\X3Platform.AttachmentStorage.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="config\X3Platform.AttachmentStorage.IBatis.SqlMap.config" />
-    <None Include="config\X3Platform.AttachmentStorage.Spring.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DAL\IBatis\AttachmentStorageProvider.xml">

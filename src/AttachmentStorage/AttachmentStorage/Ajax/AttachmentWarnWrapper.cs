@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :AttachmentWarnWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.AttachmentStorage.Ajax
+﻿namespace X3Platform.AttachmentStorage.Ajax
 {
     #region Using Libraries
     using System;
@@ -100,26 +84,26 @@ namespace X3Platform.AttachmentStorage.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
         [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
-            IList<AttachmentWarnInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<AttachmentWarnInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AttachmentWarnInfo>(list) + ",");
 
-            outString.Append("\"pages\":" + pages + ",");
+            outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

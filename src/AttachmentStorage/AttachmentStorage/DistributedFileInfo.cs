@@ -1,30 +1,16 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AttachmentParentObject.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.AttachmentStorage
 {
     using System;
 
     using X3Platform.AttachmentStorage.Configuration;
 
-    /// <summary>�ļ���Ϣ</summary>
+    /// <summary>文件信息</summary>
     public class DistributedFileInfo
     {
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>��ʶ</summary>
+        /// <summary>标识</summary>
         public string Id
         {
             get { return m_Id; }
@@ -35,7 +21,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:VirtualPath
         private string m_VirtualPath;
 
-        /// <summary>����·��</summary>
+        /// <summary>虚拟路径</summary>
         public string VirtualPath
         {
             get { return m_VirtualPath; }
@@ -44,7 +30,7 @@ namespace X3Platform.AttachmentStorage
         #endregion
 
         #region 属性:VirtualPathView
-        /// <summary>����·��</summary>
+        /// <summary>虚拟路径</summary>
         public string VirtualPathView
         {
             get { return VirtualPath.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder); }
@@ -54,7 +40,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:FileData
         private byte[] m_FileData = null;
 
-        /// <summary>����</summary>
+        /// <summary>数据</summary>
         public byte[] FileData
         {
             get { return m_FileData; }
@@ -65,7 +51,7 @@ namespace X3Platform.AttachmentStorage
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary>��������</summary>
+        /// <summary>创建日期</summary>
         public DateTime CreateDate
         {
             get { return m_CreateDate; }

@@ -34,22 +34,22 @@ namespace X3Platform.Membership.Ajax
     public sealed class ContactsWrapper : ContextWrapper
     {
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ѯ��������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>查询所有数据</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
-            // ��ϵ������
+            // 联系人类型
             ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), AjaxStorageConvertor.Fetch("contactType", doc));
-            // ��������ֹ�Ķ���
+            // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
-            // ��Ȩ�������ƹؼ���ƥ��
+            // 授权对象名称关键字匹配
             string key = AjaxStorageConvertor.Fetch("key", doc);
 
             string whereClause = null;
@@ -84,7 +84,7 @@ namespace X3Platform.Membership.Ajax
                 outString.Append(FormatGroup(MembershipManagement.Instance.GroupService.FindAll(whereClause), includeProhibited));
             }
 
-            // ��׼��֯
+            // 标准组织
             if ((contactType & ContactType.StandardOrganization) == ContactType.StandardOrganization)
             {
                 whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND Status = 1"));
@@ -94,7 +94,7 @@ namespace X3Platform.Membership.Ajax
 
             if ((contactType & ContactType.StandardRole) == ContactType.StandardRole)
             {
-                whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND ( Status = 1 AND T.Lock = 1 )"));
+                whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND ( Status = 1 AND Lock = 1 )"));
 
                 outString.Append(FormatStandardRole(MembershipManagement.Instance.StandardRoleService.FindAll(whereClause)));
             }
@@ -109,7 +109,7 @@ namespace X3Platform.Membership.Ajax
             if ((contactType & ContactType.Contact) == ContactType.Contact)
             {
                 //
-                // ��ϵ��[δ����]
+                // 联系人[未开发]
                 //
 
                 //whereClause = string.Format(" T.Name LIKE ##%{0}%## ", key);
@@ -129,16 +129,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("],");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:View(XmlDocument doc)
-        /// <summary>Ԥ����ɫ����֯��Ӧ��ʵ����Ա</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:View(XmlDocument doc)
+        /// <summary>预览角色或组织对应的实际人员</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("view")]
         public string View(XmlDocument doc)
         {
@@ -164,10 +164,10 @@ namespace X3Platform.Membership.Ajax
 
                 if (temp.Length != 3)
                 {
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"��ѯ������ʽ����ȷ��\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"查询参数格式不正确。\"}}";
                 }
 
-                // ���α��ܽ�ɫ��Ա��Ϣ
+                // 屏蔽保密角色成员信息
                 if (MembershipConfigurationView.Instance.Configuration.Keys["ProhibitedPreviewObjects"].Value.IndexOf(temp[2]) > -1)
                 {
                     return "{\"message\":{\"returnCode\":0,\"value\":\"\"}}";
@@ -234,23 +234,23 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 属性:FindAllByOrganizationId(XmlDocument doc)
-        /// <summary>��ѯ��������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAllByOrganizationId(XmlDocument doc)
+        /// <summary>查询所有数据</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAllByOrganizationId")]
         public string FindAllByOrganizationId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ��ϵ������
+            // 联系人类型
             ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), AjaxStorageConvertor.Fetch("contactType", doc));
-            // ��������ֹ�Ķ���
+            // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
 
             string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
 
-            // �Զ�ת�����ҵĹ�˾
+            // 自动转换到我的公司
             if (organizationId == "20000000-0000-0000-0000-000000000000")
             {
                 IAccountInfo account = KernelContext.Current.User;
@@ -258,7 +258,7 @@ namespace X3Platform.Membership.Ajax
                 organizationId = MembershipManagement.Instance.MemberService[account.Id].Corporation.Id;
             }
 
-            // 0 ȫ�� 1 2 4 8;
+            // 0 全部 1 2 4 8;
 
             outString.Append("{\"ajaxStorage\":[");
 
@@ -291,29 +291,29 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("],");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAllByStandardOrganizationId(XmlDocument doc)
-        /// <summary>��ѯ��������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAllByStandardOrganizationId(XmlDocument doc)
+        /// <summary>查询所有数据</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAllByStandardOrganizationId")]
         public string FindAllByStandardOrganizationId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ��ϵ������
+            // 联系人类型
             ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), AjaxStorageConvertor.Fetch("contactType", doc));
-            // ��������ֹ�Ķ���
+            // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
 
             string standardOrganizationId = AjaxStorageConvertor.Fetch("standardOrganizationId", doc);
 
-            // 0 ȫ�� 1 2 4 8;
+            // 0 全部 1 2 4 8;
 
             outString.Append("{\"ajaxStorage\":[");
 
@@ -336,28 +336,28 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("],");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAllByGroupNodeId(XmlDocument doc)
-        /// <summary>��ѯ��������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAllByGroupNodeId(XmlDocument doc)
+        /// <summary>查询所有数据</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAllByGroupNodeId")]
         public string FindAllByGroupNodeId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
             string groupType = AjaxStorageConvertor.Fetch("groupType", doc);
-            // ��������ֹ�Ķ���
+            // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
 
             string groupTreeNodeId = AjaxStorageConvertor.Fetch("groupTreeNodeId", doc);
 
-            // 0 ȫ�� 1 2 4 8;
+            // 0 全部 1 2 4 8;
 
             outString.Append("{\"ajaxStorage\":[");
 
@@ -401,37 +401,37 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("],");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region ˽�к���:FormatOrganization(IList<IOrganizationInfo> list, int includeProhibited)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatOrganization(IList<IOrganizationInfo> list, int includeProhibited)
+        /// <summary>格式化数据</summary>
         /// <param name="list"></param>
         /// <param name="includeProhibited"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatOrganization(IList<IOrganizationInfo> list, int includeProhibited)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (IOrganizationInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (includeProhibited == 0 && item.Status == 0)
                 {
                     continue;
                 }
 
-                // ����ȫ������Ϊ�յĶ���
+                // 过滤全局名称为空的对象
                 if (string.IsNullOrEmpty(item.GlobalName))
                     continue;
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[����]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
+                outString.Append("\"name\":\"[部门]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
                 outString.Append("\"type\":\"organization\" ");
                 outString.Append("},");
             }
@@ -440,24 +440,24 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatOrganization(IOrganizationInfo item)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatOrganization(IOrganizationInfo item)
+        /// <summary>格式化数据</summary>
         /// <param name="item"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatOrganization(IOrganizationInfo item)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ���˽��õĶ���
+            // 过滤禁用的对象
             if (item.Status == 0) { return string.Empty; }
 
-            // ����ȫ������Ϊ�յĶ���
+            // 过滤全局名称为空的对象
             if (string.IsNullOrEmpty(item.GlobalName))
                 return string.Empty;
 
             outString.Append("{");
             outString.Append("\"id\":\"" + item.Id + "\",");
-            outString.Append("\"name\":\"[����]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
+            outString.Append("\"name\":\"[部门]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
             outString.Append("\"type\":\"organization\" ");
             outString.Append("},");
 
@@ -465,27 +465,27 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatRole(IList<IAssignedJobInfo> list, int includeProhibited)
-        /// <summary>��ʽ������</summary>
-        /// <param name="list">�б�</param>
-        /// <param name="includeProhibited">�Ƿ����������ö���</param>
-        /// <returns>���ز�������</returns>
+        #region 私有函数:FormatRole(IList<IAssignedJobInfo> list, int includeProhibited)
+        /// <summary>格式化数据</summary>
+        /// <param name="list">列表</param>
+        /// <param name="includeProhibited">是否包含被禁用对象</param>
+        /// <returns>返回操作结果</returns>
         private string FormatAssignedJob(IList<IAssignedJobInfo> list, int includeProhibited)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ��λ
+            // 岗位
             foreach (IAssignedJobInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (includeProhibited == 0 && item.Status == 0) { continue; }
 
-                // ����ȫ������Ϊ�յĶ���
+                // 过滤全局名称为空的对象
                 if (string.IsNullOrEmpty(item.Name)) { continue; }
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[��λ]" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"name\":\"[岗位]" + StringHelper.ToSafeJson(item.Name) + "\",");
                 outString.Append("\"type\":\"assignedJob\" ");
                 outString.Append("},");
             }
@@ -494,25 +494,25 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatRole(IList<IRoleInfo> list, int includeProhibited)
-        /// <summary>��ʽ������</summary>
-        /// <param name="list">�б�</param>
-        /// <param name="includeProhibited">�Ƿ����������ö���</param>
-        /// <returns>���ز�������</returns>
+        #region 私有函数:FormatRole(IList<IRoleInfo> list, int includeProhibited)
+        /// <summary>格式化数据</summary>
+        /// <param name="list">列表</param>
+        /// <param name="includeProhibited">是否包含被禁用对象</param>
+        /// <returns>返回操作结果</returns>
         private string FormatRole(IList<IRoleInfo> list, int includeProhibited)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (IRoleInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (includeProhibited == 0 && item.Status == 0)
                 {
                     continue;
                 }
 
-                // ����ȫ������Ϊ�յĶ���
+                // 过滤全局名称为空的对象
                 if (string.IsNullOrEmpty(item.GlobalName))
                 {
                     continue;
@@ -520,7 +520,7 @@ namespace X3Platform.Membership.Ajax
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[��ɫ]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
+                outString.Append("\"name\":\"[角色]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
                 outString.Append("\"type\":\"role\" ");
                 outString.Append("},");
             }
@@ -529,25 +529,25 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatAccount(IList<IAccountInfo> list, int includeProhibited)
-        /// <summary>��ʽ������</summary>
-        /// <param name="list">�б�</param>
-        /// <param name="includeProhibited">�Ƿ����������ö���</param>
-        /// <returns>���ز�������</returns>
+        #region 私有函数:FormatAccount(IList<IAccountInfo> list, int includeProhibited)
+        /// <summary>格式化数据</summary>
+        /// <param name="list">列表</param>
+        /// <param name="includeProhibited">是否包含被禁用对象</param>
+        /// <returns>返回操作结果</returns>
         private string FormatAccount(IList<IAccountInfo> list, int includeProhibited)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ��Ա����
+            // 人员数据
             foreach (IAccountInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (includeProhibited == 0 && item.Status == 0)
                 {
                     continue;
                 }
 
-                // ����ȫ������Ϊ�յĶ���
+                // 过滤全局名称为空的对象
                 if (string.IsNullOrEmpty(item.GlobalName))
                 {
                     continue;
@@ -555,7 +555,7 @@ namespace X3Platform.Membership.Ajax
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[��Ա]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
+                outString.Append("\"name\":\"[人员]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
                 outString.Append("\"type\":\"account\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
@@ -565,25 +565,25 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatGroup(IList<GroupInfo> list, int includeProhibited)
-        /// <summary>��ʽ������</summary>
-        /// <param name="list">�б�</param>
-        /// <param name="includeProhibited">�Ƿ����������ö���</param>
-        /// <returns>���ز�������</returns>
+        #region 私有函数:FormatGroup(IList<GroupInfo> list, int includeProhibited)
+        /// <summary>格式化数据</summary>
+        /// <param name="list">列表</param>
+        /// <param name="includeProhibited">是否包含被禁用对象</param>
+        /// <returns>返回操作结果</returns>
         private string FormatGroup(IList<IGroupInfo> list, int includeProhibited)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (IGroupInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (includeProhibited == 0 && item.Status == 0)
                 {
                     continue;
                 }
 
-                // ����ȫ������Ϊ�յĶ���
+                // 过滤全局名称为空的对象
                 if (string.IsNullOrEmpty(item.GlobalName))
                 {
                     continue;
@@ -591,7 +591,7 @@ namespace X3Platform.Membership.Ajax
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[Ⱥ��]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
+                outString.Append("\"name\":\"[群组]" + StringHelper.ToSafeJson(item.GlobalName) + "\",");
                 outString.Append("\"type\":\"group\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
@@ -601,23 +601,23 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatGeneralRole(IList<GeneralRoleInfo> list)
-        /// <summary>��ʽ������</summary>
-        /// <param name="list">�б�</param>
-        /// <returns>���ز�������</returns>
+        #region 私有函数:FormatGeneralRole(IList<GeneralRoleInfo> list)
+        /// <summary>格式化数据</summary>
+        /// <param name="list">列表</param>
+        /// <returns>返回操作结果</returns>
         private string FormatGeneralRole(IList<GeneralRoleInfo> list)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (GeneralRoleInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (item.Status == 0) { continue; }
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[ͨ�ý�ɫ]" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"name\":\"[通用角色]" + StringHelper.ToSafeJson(item.Name) + "\",");
                 outString.Append("\"type\":\"generalRole\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
@@ -627,18 +627,18 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatStandardOrganization(IList<IStandardOrganizationInfo> list)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatStandardOrganization(IList<IStandardOrganizationInfo> list)
+        /// <summary>格式化数据</summary>
         /// <param name="list"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatStandardOrganization(IList<IStandardOrganizationInfo> list)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (IStandardOrganizationInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (item.Status == 0)
                 {
                     continue;
@@ -646,7 +646,7 @@ namespace X3Platform.Membership.Ajax
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[��׼����]" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"name\":\"[标准部门]" + StringHelper.ToSafeJson(item.Name) + "\",");
                 outString.Append("\"type\":\"standardOrganization\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
@@ -656,21 +656,21 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatStandardOrganization(IStandardOrganizationInfo item)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatStandardOrganization(IStandardOrganizationInfo item)
+        /// <summary>格式化数据</summary>
         /// <param name="item"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatStandardOrganization(IStandardOrganizationInfo item)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ���˽��õĶ���
+            // 过滤禁用的对象
             if (item.Status == 0)
                 return string.Empty;
 
             outString.Append("{");
             outString.Append("\"id\":\"" + item.Id + "\",");
-            outString.Append("\"name\":\"[��׼����]" + StringHelper.ToSafeJson(item.Name) + "\",");
+            outString.Append("\"name\":\"[标准部门]" + StringHelper.ToSafeJson(item.Name) + "\",");
             outString.Append("\"type\":\"standardOrganization\" ");
             outString.Append("},");
 
@@ -678,24 +678,24 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatStandardRole(IList<IStandardRoleInfo> list)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatStandardRole(IList<IStandardRoleInfo> list)
+        /// <summary>格式化数据</summary>
         /// <param name="list"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatStandardRole(IList<IStandardRoleInfo> list)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (IStandardRoleInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (item.Lock == 0 || item.Status == 0)
                     continue;
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[��׼��ɫ]" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"name\":\"[标准角色]" + StringHelper.ToSafeJson(item.Name) + "\",");
                 outString.Append("\"type\":\"standardRole\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
@@ -705,23 +705,23 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatStandardGeneralRole(IList<IStandardGeneralRoleInfo> list)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatStandardGeneralRole(IList<IStandardGeneralRoleInfo> list)
+        /// <summary>格式化数据</summary>
         /// <param name="list"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatStandardGeneralRole(IList<IStandardGeneralRoleInfo> list)
         {
             StringBuilder outString = new StringBuilder();
 
-            // ����
+            // 部门
             foreach (IStandardGeneralRoleInfo item in list)
             {
-                // ���˽��õĶ���
+                // 过滤禁用的对象
                 if (item.Status == 0) { continue; }
 
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"name\":\"[��׼ͨ�ý�ɫ]" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"name\":\"[标准通用角色]" + StringHelper.ToSafeJson(item.Name) + "\",");
                 outString.Append("\"type\":\"standardGeneralRole\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
@@ -731,10 +731,10 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region ˽�к���:FormatWorkflowRole(string groupTreeNodeId)
-        /// <summary>��ʽ������</summary>
+        #region 私有函数:FormatWorkflowRole(string groupTreeNodeId)
+        /// <summary>格式化数据</summary>
         /// <param name="groupTreeNodeId"></param>
-        /// <returns>���ز�������</returns>
+        /// <returns>返回操作结果</returns>
         private string FormatWorkflowRole(string groupTreeNodeId)
         {
             StringBuilder outString = new StringBuilder();
@@ -745,7 +745,7 @@ namespace X3Platform.Membership.Ajax
 
                     outString.Append("{");
                     outString.Append("\"id\":\"00000000-0000-0000-0000-000000000000\",");
-                    outString.Append("\"name\":\"[���̽�ɫ]���̷�����\",");
+                    outString.Append("\"name\":\"[流程角色]流程发起人\",");
                     outString.Append("\"type\":\"initiator\",");
                     outString.Append("\"status\":\"1\" ");
                     outString.Append("},");
@@ -753,11 +753,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0001-000000000090\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["PriorityLeader90DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]���Ų��Ÿ�����/������˾������(�ż������˽�ɫ)\",");
+                        outString.Append("\"name\":\"[流程角色]集团部门负责人/地区公司负责人(九级负责人角色)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["PriorityLeader90DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["PriorityLeader90DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"priorityLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -767,11 +767,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0001-000000000080\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["PriorityLeader80DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]�������ĸ�����/����ְ�ܲ��Ÿ�����(�˼������˽�ɫ)\",");
+                        outString.Append("\"name\":\"[流程角色]集团中心负责人/地区职能部门负责人(八级负责人角色)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["PriorityLeader80DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["PriorityLeader80DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"priorityLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -784,11 +784,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0002-000000000001\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader01DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]��˾������(����һ���쵼)\",");
+                        outString.Append("\"name\":\"[流程角色]公司负责人(正向一级领导)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader01DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader01DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"forwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -797,11 +797,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0002-000000000002\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader02DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]���Ÿ�����(���������쵼)\",");
+                        outString.Append("\"name\":\"[流程角色]部门负责人(正向二级领导)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader02DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader02DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"forwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -810,11 +810,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0002-000000000003\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader03DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]���ĸ�����(���������쵼)\",");
+                        outString.Append("\"name\":\"[流程角色]中心负责人(正向三级领导)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader03DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader03DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"forwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -823,11 +823,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0002-000000000004\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader04DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]С�鸺����(�����ļ��쵼)\",");
+                        outString.Append("\"name\":\"[流程角色]小组负责人(正向四级领导)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader04DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["ForwardLeader04DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"forwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -840,11 +840,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0003-000000000001\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader01DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]ֱ���쵼(����һ���쵼)\",");
+                        outString.Append("\"name\":\"[流程角色]直接领导(反向一级领导)\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader01DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader01DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"backwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -853,11 +853,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0003-000000000002\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader02DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]���������쵼\",");
+                        outString.Append("\"name\":\"[流程角色]反向二级领导\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader02DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader02DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"backwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -866,11 +866,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0003-000000000003\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader03DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]���������쵼\",");
+                        outString.Append("\"name\":\"[流程角色]反向三级领导\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader03DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader03DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"backwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -879,11 +879,11 @@ namespace X3Platform.Membership.Ajax
                     outString.Append("\"id\":\"60000000-0000-0000-0003-000000000004\",");
                     if (MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader04DisplayName"] == null)
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]�����ļ��쵼\",");
+                        outString.Append("\"name\":\"[流程角色]反向四级领导\",");
                     }
                     else
                     {
-                        outString.Append("\"name\":\"[���̽�ɫ]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader04DisplayName"].Value + "\",");
+                        outString.Append("\"name\":\"[流程角色]" + MembershipConfigurationView.Instance.Configuration.Keys["BackwardLeader04DisplayName"].Value + "\",");
                     }
                     outString.Append("\"type\":\"backwardLeader\",");
                     outString.Append("\"status\":\"1\" ");
@@ -899,10 +899,10 @@ namespace X3Platform.Membership.Ajax
         #endregion
 
         // -------------------------------------------------------
-        // ���β˵�
+        // 树形菜单
         // -------------------------------------------------------
 
-        #region 属性:GetTreeView(XmlDocument doc)
+        #region 函数:GetTreeView(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
@@ -920,13 +920,13 @@ namespace X3Platform.Membership.Ajax
                 outString = outString.Remove(outString.Length - 2, 2);
             }
 
-            outString.Append("],\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("],\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:GetTreeView(string organizationId)
+        #region 函数:GetTreeView(string organizationId)
         /// <summary></summary>
         public string GetTreeView(string organizationId)
         {
@@ -966,18 +966,18 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 属性:GetDynamicTreeView(XmlDocument doc)
+        #region 函数:GetDynamicTreeView(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
         [AjaxMethod("getDynamicTreeView")]
         public string GetDynamicTreeView(XmlDocument doc)
         {
-            // �����ֶ�
+            // 必填字段
             string tree = AjaxStorageConvertor.Fetch("tree", doc);
             string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
 
-            // ��������
+            // 附加属性
             string treeViewType = AjaxStorageConvertor.Fetch("treeViewType", doc);
             string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
             string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
@@ -985,7 +985,7 @@ namespace X3Platform.Membership.Ajax
 
             string url = AjaxStorageConvertor.Fetch("url", doc);
 
-            // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
+            // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
 
             StringBuilder outString = new StringBuilder();
@@ -1048,7 +1048,7 @@ namespace X3Platform.Membership.Ajax
                 outString = outString.Remove(outString.Length - 1, 1);
             }
 
-            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -1084,8 +1084,8 @@ namespace X3Platform.Membership.Ajax
             outString.Append("{");
             outString.Append("\"id\":\"60000000-0000-0000-0001-000000000000\",");
             outString.Append("\"parentId\":\"0\",");
-            outString.Append("\"name\":\"���̽�ɫ\",");
-            outString.Append("\"title\":\"���̽�ɫ\",");
+            outString.Append("\"name\":\"流程角色\",");
+            outString.Append("\"title\":\"流程角色\",");
             outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "60000000-0000-0000-0001-000000000000")) + "\",");
             outString.Append("\"target\":\"_self\"");
             outString.Append("},");
@@ -1093,8 +1093,8 @@ namespace X3Platform.Membership.Ajax
             outString.Append("{");
             outString.Append("\"id\":\"60000000-0000-0000-0002-000000000000\",");
             outString.Append("\"parentId\":\"0\",");
-            outString.Append("\"name\":\"�����쵼\",");
-            outString.Append("\"title\":\"�����쵼\",");
+            outString.Append("\"name\":\"正向领导\",");
+            outString.Append("\"title\":\"正向领导\",");
             outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "60000000-0000-0000-0002-000000000000")) + "\",");
             outString.Append("\"target\":\"_self\"");
             outString.Append("},");
@@ -1102,8 +1102,8 @@ namespace X3Platform.Membership.Ajax
             outString.Append("{");
             outString.Append("\"id\":\"60000000-0000-0000-0003-000000000000\",");
             outString.Append("\"parentId\":\"0\",");
-            outString.Append("\"name\":\"�����쵼\",");
-            outString.Append("\"title\":\"�����쵼\",");
+            outString.Append("\"name\":\"反向领导\",");
+            outString.Append("\"title\":\"反向领导\",");
             outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "60000000-0000-0000-0003-000000000000")) + "\",");
             outString.Append("\"target\":\"_self\"");
             outString.Append("}");
@@ -1122,7 +1122,7 @@ namespace X3Platform.Membership.Ajax
                 if (item.Status == 0) { continue; }
 
                 //if (AppsSecurity.IsAdministrator(KernelContext.Current.User, "Membership")) 
-                //&& item.Name == "��������")
+                //&& item.Name == "合作伙伴")
                 //    continue;
 
                 outString.Append("{");

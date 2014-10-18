@@ -25,17 +25,17 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Membership.IDAL;
     using X3Platform.Membership.Model;
 
-    /// <summary>�ʺŴ�������</summary>
+    /// <summary>帐号代理服务</summary>
     public class AccountGrantService : IAccountGrantService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IAccountGrantProvider provider = null;
 
-        #region ���캯��:AccountGrantService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AccountGrantService()
+        /// <summary>构造函数</summary>
         public AccountGrantService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -50,8 +50,8 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IAccountGrantInfo this[string id]
@@ -61,27 +61,27 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IAccountGrantInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IAccountGrantInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IAccountGrantInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IAccountGrantInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IAccountGrantInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IAccountGrantInfo"/>详细信息</returns>
         public IAccountGrantInfo Save(IAccountGrantInfo param)
         {
-            // ��ʽί�п�ʼʱ��Ϊ 00:00:00
+            // 格式委托开始时间为 00:00:00
             param.GrantedTimeFrom = Convert.ToDateTime(param.GrantedTimeFrom.ToString("yyyy-MM-dd 00:00:00"));
-            // ��ʽί�н���ʱ��Ϊ 23:59:59������ί�н�������û���յ�������Ϣ
+            // 格式委托结束时间为 23:59:59，避免委托结束当天没有收到待办信息
             param.GrantedTimeTo = Convert.ToDateTime(param.GrantedTimeTo.ToString("yyyy-MM-dd 23:59:59"));
 
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">ʵ���ı�ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">实例的标识</param>
         public void Delete(string id)
         {
             this.provider.Delete(id);
@@ -89,43 +89,43 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IAccountGrantInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IAccountGrantInfo"/>的详细信息</returns>
         public IAccountGrantInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="IAccountGrantInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="IAccountGrantInfo"/>的详细信息</returns>
         public IList<IAccountGrantInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="IAccountGrantInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="IAccountGrantInfo"/>的详细信息</returns>
         public IList<IAccountGrantInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IAccountGrantInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IAccountGrantInfo"/>的详细信息</returns>
         public IList<IAccountGrantInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
@@ -133,86 +133,86 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="IAccountGrantInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="IAccountGrantInfo"/></returns>
         public IList<IAccountGrantInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
-        /// <summary>��ѯ�Ƿ���������ί���˵ļ�¼.</summary>
-        /// <param name="grantorId">ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
+        /// <summary>查询是否存在相关委托人的记录.</summary>
+        /// <param name="grantorId">委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
         {
             return this.provider.IsExistGrantor(grantorId, grantedTimeFrom, grantedTimeTo);
         }
         #endregion
 
-        #region 属性:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
-        /// <summary>��ѯ�Ƿ���������ί���˵ļ�¼.</summary>
-        /// <param name="grantorId">ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <param name="ignoreIds">����ί�б�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
+        /// <summary>查询是否存在相关委托人的记录.</summary>
+        /// <param name="grantorId">委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <param name="ignoreIds">忽略委托标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
         {
             return this.provider.IsExistGrantor(grantorId, grantedTimeFrom, grantedTimeTo, ignoreIds);
         }
         #endregion
 
-        #region 属性:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
-        /// <summary>��ѯ�Ƿ��������ر�ί���˵ļ�¼.</summary>
-        /// <param name="granteeId">��ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
+        /// <summary>查询是否存在相关被委托人的记录.</summary>
+        /// <param name="granteeId">被委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
         {
             return this.provider.IsExistGrantee(granteeId, grantedTimeFrom, grantedTimeTo);
         }
         #endregion
 
-        #region 属性:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
-        /// <summary>��ѯ�Ƿ��������ر�ί���˵ļ�¼.</summary>
-        /// <param name="granteeId">��ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <param name="ignoreIds">����ί�б�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
+        /// <summary>查询是否存在相关被委托人的记录.</summary>
+        /// <param name="granteeId">被委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <param name="ignoreIds">忽略委托标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
         {
             return this.provider.IsExistGrantee(granteeId, grantedTimeFrom, grantedTimeTo, ignoreIds);
         }
         #endregion
 
-        #region 属性:Abort(string id)
-        /// <summary>��ֹ��ǰί��</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Abort(string id)
+        /// <summary>中止当前委托</summary>
+        /// <param name="id">标识</param>
         /// <returns></returns>
         public int Abort(string id)
         {
@@ -221,12 +221,12 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ͬ������
+        // 同步管理
         // -------------------------------------------------------
 
-        #region 属性:SyncFromPackPage(IAccountGrantInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">�ʺ���Ϣ</param>
+        #region 函数:SyncFromPackPage(IAccountGrantInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">帐号信息</param>
         public int SyncFromPackPage(IAccountGrantInfo param)
         {
             return this.provider.SyncFromPackPage(param);

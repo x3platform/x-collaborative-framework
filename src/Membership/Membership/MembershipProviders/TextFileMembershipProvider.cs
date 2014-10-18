@@ -2,11 +2,11 @@ namespace X3Platform.Membership
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Text;
     using System.Web;
     using System.Web.Security;
     using System.IO;
-    using System.Collections.Specialized;
 
     /// <summary></summary>
     public class TextFileMembershipProvider : MembershipProvider

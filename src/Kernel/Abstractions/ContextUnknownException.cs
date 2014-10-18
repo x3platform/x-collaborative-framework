@@ -1,10 +1,12 @@
-using System;
-using System.Text;
-
-using X3Platform.Util;
-
 namespace X3Platform
 {
+    #region Using Libraries
+    using System;
+    using System.Text;
+
+    using X3Platform.Util;
+    #endregion
+
     /// <summary>运行环境的未知异常</summary>
     [Serializable]
     public class ContextUnknownException : Exception

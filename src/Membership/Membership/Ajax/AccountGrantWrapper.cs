@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :AccountGrantWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership.Ajax
 {
     #region Using Libraries
@@ -25,7 +9,7 @@ namespace X3Platform.Membership.Ajax
     using X3Platform.Ajax;
     using X3Platform.DigitalNumber;
     using X3Platform.Util;
-    
+
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
     #endregion
@@ -33,16 +17,17 @@ namespace X3Platform.Membership.Ajax
     /// <summary></summary>
     public sealed class AccountGrantWrapper : ContextWrapper
     {
-        private IAccountGrantService service = MembershipManagement.Instance.AccountGrantService; // ���ݷ���
+        /// <summary>数据服务</summary>
+        private IAccountGrantService service = MembershipManagement.Instance.AccountGrantService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
@@ -52,29 +37,29 @@ namespace X3Platform.Membership.Ajax
 
             if (this.service.IsExistGrantor(param.GrantorId, param.GrantedTimeFrom, param.GrantedTimeTo, param.Id))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"ί������ί��ʱ�������Ѿ�����ί����Ϣ�����޸��������á�\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"委托人在委托时间段内已经存在委托信息，请修改相关设置。\"}}";
             }
 
             if (this.service.IsExistGrantee(param.GrantorId, param.GrantedTimeFrom, param.GrantedTimeTo, param.Id))
             {
-                return "{message:{\"returnCode\":2,\"value\":\"ί������ί��ʱ�������Ѿ��汻ί�й�ϵ��ϵͳ����������ί����Ȩ�����޸��������á�\"}}";
+                return "{message:{\"returnCode\":2,\"value\":\"委托人在委托时间段内已经存被委托关系，系统不允许二次委托授权，请修改相关设置。\"}}";
             }
 
             if (param.GrantedTimeFrom > param.GrantedTimeTo)
             {
-                return "{message:{\"returnCode\":3,\"value\":\"ί�еĿ�ʼʱ�����ڽ���ʱ�䣬���޸��������á�\"}}";
+                return "{message:{\"returnCode\":3,\"value\":\"委托的开始时间大于结束时间，请修改相关设置。\"}}";
             }
 
             this.service.Save(param);
 
-            return "{message:{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
@@ -82,17 +67,17 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Delete(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ��������</summary>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:FindAll()
+        /// <summary>查询所有数据</summary>
+        /// <returns>返回一个相关的实例列表.</returns> 
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
@@ -104,15 +89,15 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(list) + ",");
 
-            outString.Append("message:{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ������Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取对象信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -124,19 +109,19 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns></returns> 
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
@@ -155,16 +140,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:CreateNewObject(XmlDocument doc)
-        /// <summary>�����µĶ���</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
@@ -186,16 +171,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:Abort(XmlDocument doc)
-        /// <summary>��ֹ��ǰί��</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Abort(XmlDocument doc)
+        /// <summary>中止当前委托</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("abort")]
         public string Abort(XmlDocument doc)
         {
@@ -203,7 +188,7 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Abort(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"���óɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"设置成功。\"}}";
         }
         #endregion
     }

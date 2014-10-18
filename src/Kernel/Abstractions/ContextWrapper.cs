@@ -1,5 +1,6 @@
 namespace X3Platform
 {
+    #region Using Libraries
     using System;
     using System.Collections;
     using System.IO;
@@ -13,6 +14,7 @@ namespace X3Platform
     using X3Platform.Ajax;
     using X3Platform.Configuration;
     using X3Platform.Util;
+    #endregion
 
     /// <summary>运行环境处理器抽象类</summary>
     public abstract class ContextWrapper : IHttpHandler, IRequiresSessionState, IContextWrapper

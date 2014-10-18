@@ -30,41 +30,41 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Membership.Scope;
     using X3Platform.Membership.Model;
 
-    /// <summary>�ʺŷ���</summary>
+    /// <summary>帐号服务</summary>
     public class AccountService : IAccountService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IAccountProvider provider = null;
 
-        /// <summary>�����洢</summary>
+        /// <summary>缓存存储</summary>
         private IDictionary<string, IDictionary<string, IAccountInfo>> dictionary
             = new Dictionary<string, IDictionary<string, IAccountInfo>>() { 
                 { "id", new SyncDictionary<string, IAccountInfo>() },
                 { "loginName", new SyncDictionary<string, IAccountInfo>() }
             };
 
-        #region ���캯��:AccountService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AccountService()
+        /// <summary>构造函数</summary>
         public AccountService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IAccountProvider>(typeof(IAccountProvider));
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
-        /// <param name="id">�ʺű�ʶ</param>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
+        /// <param name="id">帐号标识</param>
         /// <returns></returns>
         public IAccountInfo this[string id]
         {
@@ -73,7 +73,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��������
+        // 缓存管理
         // -------------------------------------------------------
 
         /// <summary></summary>
@@ -165,16 +165,16 @@ namespace X3Platform.Membership.BLL
         }
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(AccountInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">IAccountInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>IAccountInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(AccountInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">IAccountInfo 实例详细信息</param>
+        /// <returns>IAccountInfo 实例详细信息</returns>
         public IAccountInfo Save(IAccountInfo param)
         {
-            if (string.IsNullOrEmpty(param.Id)) { throw new Exception("ʵ����ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(param.Id)) { throw new Exception("实例标识不能为空。"); }
 
             if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
             {
@@ -193,24 +193,24 @@ namespace X3Platform.Membership.BLL
             {
                 string accountId = param.Id;
 
-                // �����µĹ�ϵ
+                // 绑定新的关系
                 if (!string.IsNullOrEmpty(accountId))
                 {
                     // -------------------------------------------------------
-                    // ���ý�ɫ��ϵ
+                    // 设置角色关系
                     // -------------------------------------------------------
 
-                    // 1.�Ƴ���Ĭ�Ͻ�ɫ��ϵ
+                    // 1.移除非默认角色关系
                     MembershipManagement.Instance.RoleService.RemoveNondefaultRelation(accountId);
 
                     // -------------------------------------------------------
-                    // ���ݽ�ɫ������֯��ϵ
+                    // 根据角色设置组织关系
                     // -------------------------------------------------------
 
-                    // 1.�Ƴ���Ĭ�Ͻ�ɫ��ϵ
+                    // 1.移除非默认角色关系
                     MembershipManagement.Instance.OrganizationService.RemoveNondefaultRelation(accountId);
 
-                    // 2.�����µĹ�ϵ
+                    // 2.设置新的关系
                     foreach (IAccountRoleRelationInfo item in param.RoleRelations)
                     {
                         MembershipManagement.Instance.RoleService.AddRelation(accountId, item.RoleId);
@@ -221,13 +221,13 @@ namespace X3Platform.Membership.BLL
                     }
 
                     // -------------------------------------------------------
-                    // ����Ⱥ����ϵ
+                    // 设置群组关系
                     // -------------------------------------------------------
 
-                    // 1.�Ƴ�Ⱥ����ϵ
+                    // 1.移除群组关系
                     MembershipManagement.Instance.GroupService.RemoveAllRelation(accountId);
 
-                    // 2.�����µĹ�ϵ
+                    // 2.设置新的关系
                     foreach (IAccountGroupRelationInfo item in param.GroupRelations)
                     {
                         MembershipManagement.Instance.GroupService.AddRelation(accountId, item.GroupId);
@@ -235,47 +235,57 @@ namespace X3Platform.Membership.BLL
                 }
             }
 
+            // 保存数据后, 更新缓存信息
+            param = this.provider.FindOne(param.Id);
+
+            if (param != null)
+            {
+                this.RemoveCacheItem(param);
+
+                this.AddCacheItem(param);
+            }
+
             return param;
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">�ʺű�ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">帐号标识</param>
         public void Delete(string id)
         {
             IAccountInfo originalObject = this.FindOne(id);
 
-            // ɾ������
+            // 删除缓存
             if (originalObject != null)
             {
                 this.RemoveCacheItem(originalObject);
             }
 
-            // ɾ�����ݿ���¼
+            // 删除数据库记录
             this.provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">AccountInfo Id��</param>
-        /// <returns>����һ�� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">AccountInfo Id号</param>
+        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
         public IAccountInfo FindOne(string id)
         {
             IAccountInfo param = null;
 
-            // ���һ�������
+            // 查找缓存数据
             if (this.dictionary["id"].ContainsKey(id))
             {
                 param = this.dictionary["id"][id];
             }
 
-            // ����������δ�ҵ��������ݣ����������ݿ�����
+            // 如果缓存中未找到相关数据，则查找数据库内容
             if (param == null)
             {
                 param = this.provider.FindOne(id);
@@ -290,31 +300,31 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindOneByGlobalName(string globalName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="globalName">�ʺŵ�ȫ������</param>
-        /// <returns>����һ��<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByGlobalName(string globalName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="globalName">帐号的全局名称</param>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IAccountInfo FindOneByGlobalName(string globalName)
         {
             return this.provider.FindOneByGlobalName(globalName);
         }
         #endregion
 
-        #region 属性:FindOneByLoginName(string loginName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="loginName">��½��</param>
-        /// <returns>����һ�� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByLoginName(string loginName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="loginName">登陆名</param>
+        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
         public IAccountInfo FindOneByLoginName(string loginName)
         {
             IAccountInfo param = null;
 
-            // ���һ�������
+            // 查找缓存数据
             if (this.dictionary["loginName"].ContainsKey(loginName))
             {
                 param = this.dictionary["loginName"][loginName];
             }
 
-            // ����������δ�ҵ��������ݣ����������ݿ�����
+            // 如果缓存中未找到相关数据，则查找数据库内容
             if (param == null)
             {
                 param = this.provider.FindOneByLoginName(loginName);
@@ -329,61 +339,61 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>�������� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有 IAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAll()
         {
             return this.provider.FindAll(string.Empty, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>�������� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 IAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAll(string whereClause)
         {
             return this.provider.FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� IAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 IAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAllByOrganizationId(string organizationId)
-        /// <summary>��ѯĳ���û����ڵ�������֯��λ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <returns>����һ�� IIAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByOrganizationId(string organizationId)
+        /// <summary>查询某个用户所在的所有组织单位</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAllByOrganizationId(string organizationId)
         {
             return this.provider.FindAllByOrganizationId(organizationId);
         }
         #endregion
 
-        #region 属性:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
-        /// <summary>��ѯĳ����֯�µ����������ʺ�</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="defaultOrganizationRelation">Ĭ����֯��ϵ</param>
-        /// <returns>����һ�� IIAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+        /// <summary>查询某个组织下的所有相关帐号</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="defaultOrganizationRelation">默认组织关系</param>
+        /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
         {
             return this.provider.FindAllByOrganizationId(organizationId, defaultOrganizationRelation);
         }
         #endregion
 
-        #region 属性:FindAllByRoleId(string roleId)
-        /// <summary>��ѯĳ����ɫ�µ����������ʺ�</summary>
-        /// <param name="roleId">��ɫ��ʶ</param>
-        /// <returns>����һ�� IIAccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByRoleId(string roleId)
+        /// <summary>查询某个角色下的所有相关帐号</summary>
+        /// <param name="roleId">角色标识</param>
+        /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAllByRoleId(string roleId)
         {
             return this.provider.FindAllByRoleId(roleId);
@@ -400,52 +410,52 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllWithoutMemberInfo(int length)
-        /// <summary>��������û�г�Ա��Ϣ���ʺ���Ϣ</summary>
-        /// <param name="length">����, 0��ʾȫ��</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllWithoutMemberInfo(int length)
+        /// <summary>返回所有没有成员信息的帐号信息</summary>
+        /// <param name="length">条数, 0表示全部</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IList<IAccountInfo> FindAllWithoutMemberInfo(int length)
         {
             return this.provider.FindAllWithoutMemberInfo(length);
         }
         #endregion
 
-        #region 属性:FindForwardLeaderAccountsByOrganizationId(string organizationId)
-        /// <summary>�������������쵼���ʺ���Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId)
+        /// <summary>返回所有正向领导的帐号信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId)
         {
             return this.provider.FindForwardLeaderAccountsByOrganizationId(organizationId, 1);
         }
         #endregion
 
-        #region 属性:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
-        /// <summary>�������������쵼���ʺ���Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        /// <summary>返回所有正向领导的帐号信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
         {
             return this.provider.FindForwardLeaderAccountsByOrganizationId(organizationId, level);
         }
         #endregion
 
-        #region 属性:FindBackwardLeaderAccountsByOrganizationId(string organizationId)
-        /// <summary>�������з����쵼���ʺ���Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId)
+        /// <summary>返回所有反向领导的帐号信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId)
         {
             return this.provider.FindBackwardLeaderAccountsByOrganizationId(organizationId, 1);
         }
         #endregion
 
-        #region 属性:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
-        /// <summary>�������з����쵼���ʺ���Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IAccountInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        /// <summary>返回所有反向领导的帐号信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
         {
             return this.provider.FindBackwardLeaderAccountsByOrganizationId(organizationId, level);
@@ -453,38 +463,38 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">��¼����</param>
-        /// <returns>����һ���б�</returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">记录行数</param>
+        /// <returns>返回一个列表</returns>
         public IList<IAccountInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out  rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>�����Ƿ��������صļ�¼.</summary>
-        /// <param name="id">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>检测是否存在相关的记录.</summary>
+        /// <param name="id">帐号标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistLoginNameAndGlobalName(string loginName, string globalName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <param name="globalName">����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistLoginNameAndGlobalName(string loginName, string globalName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="loginName">登录名</param>
+        /// <param name="globalName">姓名</param>
+        /// <returns>布尔值</returns>
         public bool IsExistLoginNameAndGlobalName(string loginName, string globalName)
         {
             bool result = this.provider.IsExistLoginNameAndGlobalName(loginName, globalName);
@@ -503,10 +513,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExistLoginName(string loginName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistLoginName(string loginName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="loginName">登录名</param>
+        /// <returns>布尔值</returns>
         public bool IsExistLoginName(string loginName)
         {
             bool result = this.provider.IsExistLoginName(loginName);
@@ -520,10 +530,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="name">����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="name">姓名</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             bool result = this.provider.IsExistName(name);
@@ -537,10 +547,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExistGlobalName(string globalName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="globalName">��֯��λȫ������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGlobalName(string globalName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="globalName">组织单位全局名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGlobalName(string globalName)
         {
             bool result = this.provider.IsExistGlobalName(globalName);
@@ -554,27 +564,27 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExistFieldValue(string fieldName, string fieldValue)
-        /// <summary>�����Ƿ��������ص��ֶε�ֵ</summary>
-        /// <param name="fieldName">�ֶε�����</param>
-        /// <param name="fieldValue">�ֶε�ֵ</param>
+        #region 函数:IsExistFieldValue(string fieldName, string fieldValue)
+        /// <summary>检测是否存在相关的字段的值</summary>
+        /// <param name="fieldName">字段的名称</param>
+        /// <param name="fieldValue">字段的值</param>
         public virtual string IsExistFieldValue(string fieldName, string fieldValue)
         {
             return "False";
         }
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">�ʺű�ʶ</param>
-        /// <param name="name">�ʺ�����</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">帐号标识</param>
+        /// <param name="name">帐号名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         public int Rename(string id, string name)
         {
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(id))
             {
-                // �����ڶ���
+                // 不存在对象
                 return 1;
             }
 
@@ -582,9 +592,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CreateEmptyAccount(string accountId)
-        /// <summary>�����յ��ʺ���Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:CreateEmptyAccount(string accountId)
+        /// <summary>创建空的帐号信息</summary>
+        /// <param name="accountId">帐号标识</param>
         /// <returns></returns>
         public IAccountInfo CreateEmptyAccount(string accountId)
         {
@@ -602,13 +612,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CombineDistinguishedName(string name)
-        /// <summary>����Ψһ����</summary>
-        /// <param name="name">�ʺű�ʶ</param>
+        #region 函数:CombineDistinguishedName(string name)
+        /// <summary>组合唯一名称</summary>
+        /// <param name="name">帐号标识</param>
         /// <returns></returns>
         public string CombineDistinguishedName(string name)
         {
-            //CN=${����},OU=��֯�û�,DC=lhwork,DC=net
+            //CN=${姓名},OU=组织用户,DC=lhwork,DC=net
 
             return string.Format("CN={0},OU={1}{2}", name,
                 ActiveDirectoryConfigurationView.Instance.CorporationUserFolderRoot,
@@ -617,14 +627,14 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ����Ա����
+        // 管理员功能
         // -------------------------------------------------------
 
-        #region 属性:SetGlobalName(string accountId, string globalName)
-        /// <summary>����ȫ������</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="globalName">ȫ������</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetGlobalName(string accountId, string globalName)
+        /// <summary>设置全局名称</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="globalName">全局名称</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetGlobalName(string accountId, string globalName)
         {
             if (IsExistGlobalName(globalName))
@@ -632,22 +642,22 @@ namespace X3Platform.Membership.BLL
                 return 1;
             }
 
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(accountId))
             {
-                // ������${Id}�������ڡ�
+                // 对象【${Id}】不存在。
                 return 2;
             }
 
             if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
             {
-                // ͬ�� Active Directory �ʺ�ȫ������
+                // 同步 Active Directory 帐号全局名称
                 IAccountInfo account = FindOne(accountId);
 
                 if (account != null && !string.IsNullOrEmpty(account.LoginName))
                 {
-                    // �����ⲿϵͳֱ��ͬ������Ա��Ȩ�޹��������ݿ��У�
-                    // ���� Active Directory �ϲ���ֱ�Ӵ������ض�������Ҫ�ֹ�����ȫ�����Ʋ��������ض�����
+                    // 由于外部系统直接同步到人员及权限管理的数据库中，
+                    // 所以 Active Directory 上不会直接创建相关对象，需要手工设置全局名称并创建相关对象。
 
                     if (ActiveDirectoryManagement.Instance.User.IsExistLoginName(account.LoginName))
                     {
@@ -655,14 +665,14 @@ namespace X3Platform.Membership.BLL
                     }
                     else
                     {
-                        // ����δ���������ʺţ��򴴽������ʺš�
+                        // 如果未创建相关帐号，则创建相关帐号。
                         ActiveDirectoryManagement.Instance.User.Add(account.LoginName, globalName, string.Empty, string.Empty);
 
                         ActiveDirectoryManagement.Instance.User.SetStatus(account.LoginName, account.Status == 1 ? true : false);
 
-                        // ActiveDirectory �����û����������������ڵĲ�����
+                        // ActiveDirectory 添加用户到所有人组和所在的部门组
 
-                        ActiveDirectoryManagement.Instance.Group.AddRelation(account.LoginName, ActiveDirectorySchemaClassType.User, "������");
+                        ActiveDirectoryManagement.Instance.Group.AddRelation(account.LoginName, ActiveDirectorySchemaClassType.User, "所有人");
                     }
                 }
             }
@@ -671,25 +681,49 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:GetPassword(string loginName)
-        /// <summary>��ȡ����</summary>
-        /// <param name="loginName">�˺�</param>
+        #region 函数:GetPassword(string loginName)
+        /// <summary>获取密码</summary>
+        /// <param name="loginName">帐号</param>
         public string GetPassword(string loginName)
         {
-            return MembershipManagement.Instance.PasswordEncryptionManagement.Encrypt(this.provider.GetPassword(loginName));
+            return this.provider.GetPassword(loginName);
         }
         #endregion
 
-        #region 属性:SetPassword(int accountId, string password)
-        /// <summary>�����ʺ�����.(����Ա)</summary>
-        /// <param name="accountId">����</param>
-        /// <param name="password">����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �����벻ƥ��, ���� 1.</returns>
+        #region 函数:GetPasswordStrength(string loginName)
+        /// <summary>获取密码强度</summary>
+        /// <param name="loginName">帐号</param>
+        /// <returns>0 正常强度密码 | 1 低强度密码 | 2 小于最小密码长度的密码 | 3 纯数字组成的密码 | 9 默认密码</returns>
+        public int GetPasswordStrength(string loginName)
+        {
+            string password = this.GetPassword(loginName);
+            
+            // 如果系统采用的密码加密方式是不可逆的密码, 此方法无效.
+            password = MembershipManagement.Instance.PasswordEncryptionManagement.Decrypt(password);
+       
+            return this.ValidatePasswordPolicy(password);
+        }
+        #endregion
+
+        #region 函数:GetPasswordChangedDate(string loginName)
+        /// <summary>获取密码更新时间</summary>
+        /// <param name="loginName">帐号</param>
+        public DateTime GetPasswordChangedDate(string loginName)
+        {
+            return this.provider.GetPasswordChangedDate(loginName);
+        }
+        #endregion
+
+        #region 函数:SetPassword(int accountId, string password)
+        /// <summary>设置帐号密码.(管理员)</summary>
+        /// <param name="accountId">编号</param>
+        /// <param name="password">密码</param>
+        /// <returns>修改成功, 返回 0, 旧密码不匹配, 返回 1.</returns>
         public int SetPassword(string accountId, string password)
         {
             if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
             {
-                // ͬ�� Active Directory �ʺ�״̬
+                // 同步 Active Directory 帐号状态
                 IAccountInfo account = FindOne(accountId);
 
                 if (account != null && !string.IsNullOrEmpty(account.LoginName)
@@ -703,71 +737,71 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetLoginName(string accountId, string loginName)
-        /// <summary>���õ�¼��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="loginName">��¼��</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetLoginName(string accountId, string loginName)
+        /// <summary>设置登录名</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="loginName">登录名</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetLoginName(string accountId, string loginName)
         {
             return this.provider.SetLoginName(accountId, loginName);
         }
         #endregion
 
-        #region 属性:SetCertifiedTelephone(string accountId, string telephone)
-        /// <summary>��������֤����ϵ�绰</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="telephone">��ϵ�绰</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetCertifiedTelephone(string accountId, string telephone)
+        /// <summary>设置已验证的联系电话</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="telephone">联系电话</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetCertifiedTelephone(string accountId, string telephone)
         {
             return this.provider.SetCertifiedTelephone(accountId, telephone);
         }
         #endregion
 
-        #region 属性:SetCertifiedEmail(string accountId, string email)
-        /// <summary>��������֤������</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="email">����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetCertifiedEmail(string accountId, string email)
+        /// <summary>设置已验证的邮箱</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="email">邮箱</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetCertifiedEmail(string accountId, string email)
         {
             return this.provider.SetCertifiedEmail(accountId, email);
         }
         #endregion
 
-        #region 属性:SetCertifiedAvatar(string accountId, string avatarVirtualPath)
-        /// <summary>��������֤��ͷ��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="avatarVirtualPath">ͷ��������·��</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetCertifiedAvatar(string accountId, string avatarVirtualPath)
+        /// <summary>设置已验证的头像</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="avatarVirtualPath">头像的虚拟路径</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetCertifiedAvatar(string accountId, string avatarVirtualPath)
         {
             return this.provider.SetCertifiedAvatar(accountId, avatarVirtualPath);
         }
         #endregion
 
-        #region 属性:SetExchangeStatus(string accountId, int status)
-        /// <summary>������ҵ����״̬</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="status">״̬��ʶ, 1:����, 0:����</param>
-        /// <returns>0 ���óɹ�, 1 ����ʧ��.</returns>
+        #region 函数:SetExchangeStatus(string accountId, int status)
+        /// <summary>设置企业邮箱状态</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="status">状态标识, 1:启用, 0:禁用</param>
+        /// <returns>0 设置成功, 1 设置失败.</returns>
         public int SetExchangeStatus(string accountId, int status)
         {
             return this.provider.SetExchangeStatus(accountId, status);
         }
         #endregion
 
-        #region 属性:SetStatus(string accountId, int status)
-        /// <summary>�����ʺ�״̬</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="status">״̬��ʶ, 1:����, 0:����</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetStatus(string accountId, int status)
+        /// <summary>设置帐号状态</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="status">状态标识, 1:启用, 0:禁用</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetStatus(string accountId, int status)
         {
             if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
             {
-                // ͬ�� Active Directory �ʺ�״̬
+                // 同步 Active Directory 帐号状态
                 IAccountInfo account = FindOne(accountId);
 
                 if (account != null
@@ -781,12 +815,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetIPAndLoginDate(string accountId, string ip, string loginDate)
-        /// <summary>���õ�¼��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <param name="ip">��¼IP</param>
-        /// <param name="loginDate">��¼ʱ��</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+
+        #region 函数:SetIPAndLoginDate(string accountId, string ip, string loginDate)
+        /// <summary>设置登录名</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <param name="ip">登录IP</param>
+        /// <param name="loginDate">登录时间</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetIPAndLoginDate(string accountId, string ip, string loginDate)
         {
             return this.provider.SetIPAndLoginDate(accountId, ip, loginDate);
@@ -794,14 +829,14 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ͨ�û�����
+        // 普通用户功能
         // -------------------------------------------------------
 
-        #region 属性:ApplyPasswordPolicy(string password)
-        /// <summary>У�������Ƿ�������������</summary>
-        /// <param name="password">����</param>
-        /// <returns>0 ��ʾ�ɹ� 1</returns>
-        public int ApplyPasswordPolicy(string password)
+        #region 属性:ValidatePasswordPolicy(string password)
+        /// <summary>验证密码是否符合密码策略</summary>
+        /// <param name="password">密码</param>
+        /// <returns>0 表示成功 1</returns>
+        public int ValidatePasswordPolicy(string password)
         {
             byte[] buffer = System.Text.Encoding.Default.GetBytes(password);
 
@@ -831,7 +866,7 @@ namespace X3Platform.Membership.BLL
 
                 if (!flag)
                 {
-                    // 2 ��������һ����0��9������
+                    // 2 必须包含一个【0～9】数字。
                     return 2;
                 }
             }
@@ -854,7 +889,7 @@ namespace X3Platform.Membership.BLL
 
                 if (!flag)
                 {
-                    // 3 ��������һ����A��Z��a��z���ַ�);
+                    // 3 必须包含一个【A～Z或a～z】字符。
                     return 3;
                 }
             }
@@ -878,20 +913,20 @@ namespace X3Platform.Membership.BLL
 
                 if (!flag)
                 {
-                    // 4 ��������һ����# $ @ !�������ַ�;
+                    // 4 必须包含一个【# $ @ !】特殊字符。
                     return 4;
                 }
             }
 
             if (passwordPolicyMinimumLength > 0 && buffer.Length < passwordPolicyMinimumLength)
             {
-                // 5 ���볤�ȱ������ڡ�' + passwordPolicyMinimumLength + '��');
+                // 5 密码长度必须大于【' + passwordPolicyMinimumLength + '】'。
                 return 5;
             }
 
             if (passwordPolicyCharacterRepeatedTimes > 1 && buffer.Length > passwordPolicyCharacterRepeatedTimes)
             {
-                // �ж��ַ��������ֵĴ���
+                // 判断字符连续出现的次数
                 var repeatedTimes = 1;
 
                 for (var i = 0; i < buffer.Length - passwordPolicyCharacterRepeatedTimes; i++)
@@ -914,7 +949,7 @@ namespace X3Platform.Membership.BLL
 
                     if (repeatedTimes >= passwordPolicyCharacterRepeatedTimes)
                     {
-                        // '��' + newPassword.charAt(i) + '�����������ظ����γ��֣������ַ��ظ��������ܳ�����' + passwordPolicyCharacterRepeatedTimes + '���Ρ�;
+                        // 在密码中相邻字符重复次数不能超过【' + passwordPolicyCharacterRepeatedTimes + '】次。;
                         return 6;
                     }
                 }
@@ -924,44 +959,44 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:ConfirmPassword(string accountId, string passwordType, string password)
-        /// <summary>ȷ������</summary>
-        /// <param name="accountId">�ʺ�Ψһ��ʶ</param>
-        /// <param name="passwordType">����属性: default Ĭ��, query ��ѯ����, trader ��������</param>
-        /// <param name="password">����</param>
-        /// <returns>����ֵ: 0 �ɹ� | 1 ʧ��</returns>
+        #region 函数:ConfirmPassword(string accountId, string passwordType, string password)
+        /// <summary>确认密码</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="passwordType">密码类型: default 默认, query 查询密码, trader 交易密码</param>
+        /// <param name="password">密码</param>
+        /// <returns>返回值: 0 成功 | 1 失败</returns>
         public int ConfirmPassword(string accountId, string passwordType, string password)
         {
             return this.provider.ConfirmPassword(accountId, passwordType, password);
         }
         #endregion
 
-        #region 属性:LoginCheck(string loginName, string password)
-        /// <summary>��½����</summary>
-        /// <param name="loginName">�ʺ�</param>
-        /// <param name="password">����</param>
-        /// <returns>IAccountInfo ʵ��</returns>
+        #region 函数:LoginCheck(string loginName, string password)
+        /// <summary>登陆检测</summary>
+        /// <param name="loginName">帐号</param>
+        /// <param name="password">密码</param>
+        /// <returns>IAccountInfo 实例</returns>
         public IAccountInfo LoginCheck(string loginName, string password)
         {
             return this.provider.LoginCheck(loginName, password);
         }
         #endregion
 
-        #region 属性:ChangeBasicInfo(IAccount param)
-        /// <summary>�޸Ļ�����Ϣ</summary>
-        /// <param name="param">IAccount ʵ������ϸ��Ϣ</param>
+        #region 函数:ChangeBasicInfo(IAccount param)
+        /// <summary>修改基本信息</summary>
+        /// <param name="param">IAccount 实例的详细信息</param>
         public void ChangeBasicInfo(IAccountInfo param)
         {
             this.provider.ChangeBasicInfo(param);
         }
         #endregion
 
-        #region 属性:ChangePassword(string loginName, string newPassword, string originalPassword)
-        /// <summary>�޸�����</summary>
-        /// <param name="loginName">����</param>
-        /// <param name="password">������</param>
-        /// <param name="originalPassword">ԭʼ����</param>
-        /// <returns>�����벻ƥ�䣬����0.</returns>
+        #region 函数:ChangePassword(string loginName, string newPassword, string originalPassword)
+        /// <summary>修改密码</summary>
+        /// <param name="loginName">编号</param>
+        /// <param name="password">新密码</param>
+        /// <param name="originalPassword">原始密码</param>
+        /// <returns>旧密码不匹配，返回0.</returns>
         public int ChangePassword(string loginName, string password, string originalPassword)
         {
             int result = this.provider.ChangePassword(loginName,
@@ -970,7 +1005,7 @@ namespace X3Platform.Membership.BLL
 
             if (result == 0 && ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
             {
-                // ͬ�� Active Directory �ʺ�״̬
+                // 同步 Active Directory 帐号状态
                 IAccountInfo account = this.FindOneByLoginName(loginName);
 
                 if (account != null && !string.IsNullOrEmpty(account.LoginName)
@@ -984,61 +1019,61 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:RefreshUpdateDate(string accountId)
-        /// <summary>ˢ���ʺŵĸ���ʱ��</summary>
-        /// <param name="accountId">�ʻ���ʶ</param>
-        /// <returns>0 ���óɹ�, 1 ����ʧ��.</returns>
+        #region 函数:RefreshUpdateDate(string accountId)
+        /// <summary>刷新帐号的更新时间</summary>
+        /// <param name="accountId">帐户标识</param>
+        /// <returns>0 设置成功, 1 设置失败.</returns>
         public int RefreshUpdateDate(string accountId)
         {
             return this.provider.RefreshUpdateDate(accountId);
         }
         #endregion
 
-        #region 属性:GetAuthorizationScopeObjects(IAccount account)
-        /// <summary>��ȡ�ʺ����ص�Ȩ�޶���</summary>
-        /// <param name="account">IAccount ʵ������ϸ��Ϣ</param>
+        #region 函数:GetAuthorizationScopeObjects(IAccount account)
+        /// <summary>获取帐号相关的权限对象</summary>
+        /// <param name="account">IAccount 实例的详细信息</param>
         public IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(IAccountInfo account)
         {
             return this.provider.GetAuthorizationScopeObjects(account);
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IAccountInfo param)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">�ʺ���Ϣ</param>
+        #region 函数:SyncToActiveDirectory(IAccountInfo param)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">帐号信息</param>
         public int SyncToActiveDirectory(IAccountInfo param)
         {
             return SyncToActiveDirectory(param, param.GlobalName, param.Status);
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IAccountInfo param, string originalGlobalName, int originalStatus)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">�ʺ���Ϣ</param>
-        /// <param name="originalGlobalName">ԭʼȫ������</param>
-        /// <param name="originalStatus">ԭʼ״̬</param>
+        #region 函数:SyncToActiveDirectory(IAccountInfo param, string originalGlobalName, int originalStatus)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">帐号信息</param>
+        /// <param name="originalGlobalName">原始全局名称</param>
+        /// <param name="originalStatus">原始状态</param>
         public int SyncToActiveDirectory(IAccountInfo param, string originalGlobalName, int originalStatus)
         {
             if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.LoginName))
                 {
-                    // �û���${Name}(${LoginName})����¼��Ϊ�գ�������������Ϣ��
+                    // 用户【${Name}(${LoginName})】登录名为空，请配置相关信息。
                     return 1;
                 }
                 else if (string.IsNullOrEmpty(param.GlobalName))
                 {
-                    // �û���${Name}(${LoginName})��ȫ������Ϊ�գ�������������Ϣ��
+                    // 用户【${Name}(${LoginName})】全局名称为空，请配置相关信息。
                     return 2;
                 }
                 else
                 {
-                    // 1.ԭʼ��ȫ�����ƺ͵�¼������Ϊ�ա�
-                    // 2.Active Directory �������ض�����
+                    // 1.原始的全局名称和登录名都不为空。
+                    // 2.Active Directory 上有相关对象。
                     if (!(string.IsNullOrEmpty(originalGlobalName) || string.IsNullOrEmpty(param.LoginName))
                         && ActiveDirectoryManagement.Instance.User.IsExistLoginName(param.LoginName))
                     {
-                        // �����Ѵ��������ʺţ�ͬ��ȫ�����ƺ��ʺ�״̬��
+                        // 如果已存在相关帐号，同步全局名称和帐号状态。
 
                         if (param.GlobalName != originalGlobalName)
                         {
@@ -1051,26 +1086,26 @@ namespace X3Platform.Membership.BLL
                     {
                         if (ActiveDirectoryManagement.Instance.User.IsExist(param.LoginName, param.GlobalName))
                         {
-                            // "�û���${Name}(${LoginName})����ȫ�������ѱ������˴������������������á�
+                            // "用户【${Name}(${LoginName})】的全局名称已被其他人创建，请设置相关配置。
                             return 3;
                         }
                         else if (param.Status == 0)
                         {
-                            // "�û���${Name}(${LoginName})�����ʺ�Ϊ�����á�״̬��������Ҫ���� Active Directory �ʺţ��������������á�
+                            // "用户【${Name}(${LoginName})】的帐号为【禁用】状态，如果需要创建 Active Directory 帐号，请设置相关配置。
                             return 4;
                         }
                         else
                         {
-                            // ����δ���������ʺţ��򴴽������ʺš�
+                            // 如果未创建相关帐号，则创建相关帐号。
                             ActiveDirectoryManagement.Instance.User.Add(param.LoginName, param.GlobalName, string.Empty, string.Empty);
 
                             ActiveDirectoryManagement.Instance.User.SetStatus(param.LoginName, param.Status == 1 ? true : false);
 
-                            // ActiveDirectory �����û����������������ڵĲ�����
+                            // ActiveDirectory 添加用户到所有人组和所在的部门组
 
-                            ActiveDirectoryManagement.Instance.Group.AddRelation(param.LoginName, ActiveDirectorySchemaClassType.User, "������");
+                            ActiveDirectoryManagement.Instance.Group.AddRelation(param.LoginName, ActiveDirectorySchemaClassType.User, "所有人");
 
-                            // "�û���${Name}(${LoginName})�������ɹ���
+                            // "用户【${Name}(${LoginName})】创建成功。
                             return 0;
                         }
                     }
@@ -1082,12 +1117,12 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ͬ������
+        // 同步管理
         // -------------------------------------------------------
 
-        #region 属性:SyncFromPackPage(IMemberInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">�ʺ���Ϣ</param>
+        #region 函数:SyncFromPackPage(IMemberInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">帐号信息</param>
         public int SyncFromPackPage(IAccountInfo param)
         {
             return this.provider.SyncFromPackPage(param);
