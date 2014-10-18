@@ -45,7 +45,7 @@ namespace X3Platform.Connect.IBLL
         IList<ConnectInfo> FindAll();
         #endregion
 
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
         /// <returns>返回所有<see cref="ConnectInfo"/>实例的详细信息</returns>

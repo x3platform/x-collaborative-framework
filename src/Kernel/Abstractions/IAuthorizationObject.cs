@@ -1,7 +1,9 @@
 ﻿namespace X3Platform
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
+    #endregion
 
     /// <summary>权限对象接口</summary>
     public interface IAuthorizationObject : ISerializedObject

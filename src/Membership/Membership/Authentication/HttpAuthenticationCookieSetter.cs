@@ -1,11 +1,13 @@
 ﻿namespace X3Platform.Membership.Authentication
 {
+    #region Using Libraries
     using System;
     using System.Net;
     using System.Web;
 
     using X3Platform.Configuration;
     using X3Platform.Membership.Configuration;
+    #endregion
 
     /// <summary>验证的HttpCookie设置器</summary>
     public sealed class HttpAuthenticationCookieSetter

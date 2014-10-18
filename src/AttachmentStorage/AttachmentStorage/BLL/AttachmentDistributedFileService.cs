@@ -1,50 +1,37 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-
-using X3Platform.Spring;
-using X3Platform.AttachmentStorage.Configuration;
-using X3Platform.AttachmentStorage.IBLL;
-using X3Platform.AttachmentStorage.IDAL;
-
 namespace X3Platform.AttachmentStorage.BLL
 {
+    using System;
+    using System.Collections.Generic;
+
+    using X3Platform.Spring;
+    using X3Platform.AttachmentStorage.Configuration;
+    using X3Platform.AttachmentStorage.IBLL;
+    using X3Platform.AttachmentStorage.IDAL;
+    using X3Platform.Data;
+
     public sealed class AttachmentDistributedFileService : IAttachmentDistributedFileService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private AttachmentStorageConfiguration configuration = null;
 
         private IAttachmentDistributedFileProvider provider = null;
 
         public AttachmentDistributedFileService()
         {
-            // ��ȡ������Ϣ
+            // 读取配置信息
             this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
 
-            // �������󹹽���(Spring.NET)
+            // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AttachmentStorageConfiguration.ApplicationName, springObjectFile);
 
-            // �������ݷ�������
+            // 创建数据服务对象
             this.provider = objectBuilder.GetObject<IAttachmentDistributedFileProvider>(typeof(IAttachmentDistributedFileProvider));
         }
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public DistributedFileInfo this[string id]
@@ -54,98 +41,87 @@ namespace X3Platform.AttachmentStorage.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(AccountInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">AccountInfo ʵ����ϸ��Ϣ</param>
-        ///<param name="message">���ݿ����󷵻ص�������Ϣ</param>
-        ///<returns>AccountInfo ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(AccountInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="DistributedFileInfo"/>实例详细信息</param>
+        /// <param name="message">数据库操作返回的相关信息</param>
+        /// <returns><see cref="DistributedFileInfo"/>实例详细信息</returns>
         public DistributedFileInfo Save(DistributedFileInfo param)
         {
-            return provider.Save(param);
+            return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="keys">��ʶ,�����Զ��Ÿ���</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            provider.Delete(ids);
+            this.provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(int id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">AccountInfo Id��</param>
-        ///<returns>����һ�� AccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(int id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">AccountInfo Id号</param>
+        /// <returns>返回一个<see cref="DistributedFileInfo"/>实例的详细信息</returns>
         public DistributedFileInfo FindOne(string id)
         {
-            return provider.FindOne(id);
+            return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<returns>�������� AccountInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有<see cref="DistributedFileInfo"/>实例的详细信息</returns>
         public IList<DistributedFileInfo> FindAll()
         {
-            return FindAll(string.Empty);
+            return this.FindAll(new DataQuery() { Limit = 1000 });
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<returns>�������� AccountInfo ʵ������ϸ��Ϣ</returns>
-        public IList<DistributedFileInfo> FindAll(string whereClause)
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有<see cref="DistributedFileInfo"/>实例的详细信息</returns>
+        public IList<DistributedFileInfo> FindAll(DataQuery query)
         {
-            return FindAll(whereClause, 0);
-        }
-        #endregion
-
-        #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� AccountInfo ʵ������ϸ��Ϣ</returns>
-        public IList<DistributedFileInfo> FindAll(string whereClause, int length)
-        {
-            return provider.FindAll(whereClause, length);
+            return this.provider.FindAll(query);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��</returns> 
-        public IList<DistributedFileInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例</returns> 
+        public IList<DistributedFileInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="id">��Ա��ʶ</param>
-        ///<returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">会员标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            return provider.IsExist(id);
+            return this.provider.IsExist(id);
         }
         #endregion
     }

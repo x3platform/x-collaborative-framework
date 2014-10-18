@@ -30,7 +30,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("X3 Platform Suite")]
 [assembly: AssemblyCompany("X3 Platform")]
 
-[assembly: AssemblyCopyright("Copyright (C) X3Platform")]
+[assembly: AssemblyCopyright("Copyright (C) x3platform.com")]
 [assembly: AssemblyTrademark("X3Platform")]
 
 #if DEBUG

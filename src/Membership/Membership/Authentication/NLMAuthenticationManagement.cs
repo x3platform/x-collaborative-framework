@@ -17,7 +17,7 @@
     public class NLMAuthenticationManagement : GenericAuthenticationManagement
     {
         /// <summary></summary>
-        public string GetIdentityValue()
+        public override string GetIdentityValue()
         {
             string accountIdentityProperty = MembershipConfigurationView.Instance.AccountIdentityCookieToken;
 

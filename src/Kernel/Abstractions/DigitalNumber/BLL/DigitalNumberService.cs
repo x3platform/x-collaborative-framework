@@ -102,7 +102,7 @@ namespace X3Platform.DigitalNumber.BLL
         ///<param name="whereClause">SQL 查询条件</param>
         ///<param name="length">条数</param>
         ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
-        public IList<DigitalNumberInfo> FindAll(string whereClause, int length)
+        public IList<DigitalNumberInfo> FindAll(DataQuery query)
         {
             return provider.FindAll(whereClause, length);
         }

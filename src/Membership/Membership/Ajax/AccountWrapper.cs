@@ -25,26 +25,28 @@ namespace X3Platform.Membership.Ajax
 
     using X3Platform.Ajax;
     using X3Platform.DigitalNumber;
+    using X3Platform.Location.IPQuery;
     using X3Platform.Util;
 
+    using X3Platform.Membership.Configuration;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
-    using X3Platform.Location.IPQuery;
     #endregion
 
     /// <summary></summary>
     public sealed class AccountWrapper : ContextWrapper
     {
-        private IAccountService service = MembershipManagement.Instance.AccountService; // ���ݷ���
+        /// <summary>数据服务</summary>
+        private IAccountService service = MembershipManagement.Instance.AccountService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
@@ -64,34 +66,34 @@ namespace X3Platform.Membership.Ajax
 
             if (string.IsNullOrEmpty(param.LoginName))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"��¼������Ϊ�ա�\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"登录名不能为空。\"}}";
             }
 
             if (string.IsNullOrEmpty(param.Id))
             {
-                // ����
+                // 新增
 
                 if (this.service.IsExistGlobalName(param.GlobalName))
                 {
-                    return "{message:{\"returnCode\":1,\"value\":\"��ȫ�������Ѵ��ڡ�\"}}";
+                    return "{message:{\"returnCode\":1,\"value\":\"此全局名称已存在。\"}}";
                 }
 
                 if (this.service.IsExistLoginNameAndGlobalName(param.LoginName, param.Name))
                 {
-                    return "{message:{\"returnCode\":1,\"value\":\"���ʺŻ������Ѵ��ڡ�\"}}";
+                    return "{message:{\"returnCode\":1,\"value\":\"此帐号或姓名已存在。\"}}";
                 }
 
                 param.Id = Guid.NewGuid().ToString();
             }
             else
             {
-                // �޸�
+                // 修改
 
                 if (param.GlobalName != originalGlobalName)
                 {
                     if (this.service.IsExistGlobalName(param.GlobalName))
                     {
-                        return "{message:{\"returnCode\":1,\"value\":\"��ȫ�������Ѵ��ڡ�\"}}";
+                        return "{message:{\"returnCode\":1,\"value\":\"此全局名称已存在。\"}}";
                     }
                 }
 
@@ -99,7 +101,7 @@ namespace X3Platform.Membership.Ajax
                 {
                     if (this.service.IsExistName(param.Name))
                     {
-                        return "{message:{\"returnCode\":1,\"value\":\"�������Ѵ��ڡ�\"}}";
+                        return "{message:{\"returnCode\":1,\"value\":\"此姓名已存在。\"}}";
                     }
                 }
             }
@@ -108,14 +110,14 @@ namespace X3Platform.Membership.Ajax
             param.ResetRelations("role", roleText);
             param.ResetRelations("group", groupText);
 
-            // ��ȡԭʼ������Ϣ
+            // 读取原始对象信息
             IAccountInfo originalObject = this.service.FindOne(param.Id);
-            // �����Ƿ����ڵĶ������ж��Ƿ��½�����
+            // 根据是否存在的对象，判断是否新建对象
             bool isNewObject = originalObject == null ? true : false;
 
             this.service.Save(param);
 
-            // ����û��Ĭ��, �����������ڵ�һ����ɫΪĬ�Ͻ�ɫ��
+            // 如果没有默认, 则设置以排在第一个角色为默认角色。
             if (!MembershipManagement.Instance.RoleService.HasDefaultRelation(param.Id))
             {
                 if (param.RoleRelations.Count > 0)
@@ -124,58 +126,58 @@ namespace X3Platform.Membership.Ajax
                 }
             }
 
-            // ��¼�ʺŲ�����־
-            string optionName = isNewObject ? "�½�" : "�༭";
+            // 记录帐号操作日志
+            string optionName = isNewObject ? "新建" : "编辑";
 
             IAccountInfo optionAccount = KernelContext.Current.User;
 
-            string description = "��" + optionAccount.Name + "��" + optionName + "���ʺš�" + param.Name + "����";
+            string description = "【" + optionAccount.Name + "】" + optionName + "了帐号【" + param.Name + "】。";
 
-            if (optionName == "�༭")
+            if (optionName == "编辑")
             {
-                description = "��" + optionAccount.Name + "���༭���û���" + param.Name + "�����ʺ���Ϣ��";
+                description = "【" + optionAccount.Name + "】编辑了用户【" + param.Name + "】的帐号信息。";
             }
 
             MembershipManagement.Instance.AccountLogService.Log(param.Id, optionName, originalObject, description, optionAccount.Id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string id = AjaxStorageConvertor.Fetch("id", doc);
 
-            // ��ȡԭʼ������Ϣ
+            // 读取原始对象信息
             IAccountInfo originalObject = this.service.FindOne(id);
 
             this.service.Delete(id);
 
-            // ��¼�ʺŲ�����־
-            string optionName = "ɾ��";
+            // 记录帐号操作日志
+            string optionName = "删除";
 
             IAccountInfo optionAccount = KernelContext.Current.User;
 
-            string description = "��" + optionAccount.Name + "��ɾ�����ʺš�" + originalObject.Name + "����";
+            string description = "【" + optionAccount.Name + "】删除了帐号【" + originalObject.Name + "】。";
 
             MembershipManagement.Instance.AccountLogService.Log(originalObject.Id, optionName, originalObject, description, optionAccount.Id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ������Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取对象信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -187,15 +189,34 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ѯ��������</summary>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:FindOneByLoginName(XmlDocument doc)
+        /// <summary>获取对象信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        public string FindOneByLoginName(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+
+            IAccountInfo param = this.service.FindOneByLoginName(loginName);
+
+            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
+
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>查询所有数据</summary>
+        /// <returns>返回一个相关的实例列表.</returns> 
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
@@ -207,15 +228,15 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(list) + ",");
 
-            outString.Append("message:{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAllWithoutMemberInfo(XmlDocument doc)
-        /// <summary>��ѯ��������</summary>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:FindAllWithoutMemberInfo(XmlDocument doc)
+        /// <summary>查询所有数据</summary>
+        /// <returns>返回一个相关的实例列表.</returns> 
         [AjaxMethod("findAllWithoutMemberInfo")]
         public string FindAllWithoutMemberInfo(XmlDocument doc)
         {
@@ -227,19 +248,19 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(list) + ",");
 
-            outString.Append("message:{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns></returns> 
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
@@ -258,16 +279,16 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:CreateNewObject(XmlDocument doc)
-        /// <summary>�����µĶ���</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
@@ -285,13 +306,68 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:ChangeBasicInfo(XmlDocument doc)
+        #region 函数:GetPasswordStrength(XmlDocument doc)
+        /// <summary></summary>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public string GetPasswordStrength(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+
+            int result = MembershipManagement.Instance.AccountService.GetPasswordStrength(loginName);
+
+            outString.Append("{\"ajaxStorage\":");
+
+            if (result == 1)
+            {
+                outString.Append("{\"code\":1,\"message\":\"未知的错误信息。\"}");
+            }
+            else if (result == 2)
+            {
+                outString.Append("{\"code\":2,\"message\":\"密码中必须包含一个【0～9】数字。\"}");
+            }
+            else if (result == 3)
+            {
+                outString.Append("{\"code\":3,\"message\":\"密码中必须包含一个【A～Z或a～z】字符。\"}");
+            }
+            else if (result == 4)
+            {
+                outString.Append("{\"code\":4,\"message\":\"密码中必须包含一个【# $ @ !】特殊字符。\"}");
+            }
+            else if (result == 5)
+            {
+                outString.Append("{\"code\":5,\"message\":\"密码长度必须大于【" + MembershipConfigurationView.Instance.PasswordPolicyMinimumLength + "】'。\"}");
+            }
+            else if (result == 6)
+            {
+                outString.Append("{\"code\":6,\"message\":\"密码中相邻字符重复次数不能超过【" + MembershipConfigurationView.Instance.PasswordPolicyCharacterRepeatedTimes + "】次。\"}");
+            }
+            else if (result == 9)
+            {
+                outString.Append("{\"code\":9,\"message\":\"密码为默认密码，强烈建议修改为其他密码。\"}");
+            }
+            else
+            {
+                outString.Append("{\"code\":0,\"message\":\"此密码符合所有密码策略。\"}");
+            }
+
+            outString.Append(",");
+
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"密码强度检测成功。\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        #region 函数:ChangeBasicInfo(XmlDocument doc)
         /// <summary></summary>
         [AjaxMethod("changeBasicInfo")]
         public string ChangeBasicInfo(XmlDocument doc)
@@ -300,25 +376,25 @@ namespace X3Platform.Membership.Ajax
 
             param = (AccountInfo)AjaxStorageConvertor.Deserialize(param, doc);
 
-            // �����ʺ�
+            // 检测帐号
 
             if (param.Name != (string)param.Properties["OriginalName"])
             {
                 if (string.IsNullOrEmpty(param.LoginName) || this.service.IsExistName(param.Name))
                 {
-                    return "{message:{\"returnCode\":1,\"value\":\"�������Ѵ��ڡ�\"}}";
+                    return "{message:{\"returnCode\":1,\"value\":\"此姓名已存在。\"}}";
                 }
             }
 
-            // �������� 
+            // 插入数据 
 
             this.service.ChangeBasicInfo(param);
 
-            return "{message:{\"returnCode\":0,\"value\":\"�޸ĳɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"修改成功。\"}}";
         }
         #endregion
 
-        #region 属性:ChangePassword(string xml)
+        #region 函数:ChangePassword(string xml)
         /// <summary></summary>
         [AjaxMethod("changePassword")]
         public string ChangePassword(XmlDocument doc)
@@ -337,7 +413,7 @@ namespace X3Platform.Membership.Ajax
 
             if (account == null || optionAccount == null)
             {
-                return "{message:{\"returnCode\":1,\"value\":\"δ���⵽��ǰ�û��ĺϷ���Ϣ��\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"未检测到当前用户的合法信息。\"}}";
             }
 
             if (optionAccount.LoginName == loginName)
@@ -346,102 +422,31 @@ namespace X3Platform.Membership.Ajax
 
                 if (result == 0)
                 {
-                    // ��¼�ʺŲ�����־
-                    MembershipManagement.Instance.AccountLogService.Log(optionAccount.Id, "�޸�����", "�û���" + optionAccount.Name + "���޸������ɹ���");
+                    // 记录帐号操作日志
+                    MembershipManagement.Instance.AccountLogService.Log(optionAccount.Id, "修改密码", "用户【" + optionAccount.Name + "】修改密码成功。");
 
-                    return "{message:{\"returnCode\":0,\"value\":\"�޸ĳɹ���\"}}";
+                    return "{message:{\"returnCode\":0,\"value\":\"修改成功。\"}}";
                 }
                 else
                 {
-                    // ��¼�ʺŲ�����־
-                    MembershipManagement.Instance.AccountLogService.Log(optionAccount.Id, "�޸�����", "�û���" + optionAccount.Name + "���޸�����ʧ�ܣ���IP:" + IPQueryContext.GetClientIP() + "����");
+                    // 记录帐号操作日志
+                    MembershipManagement.Instance.AccountLogService.Log(optionAccount.Id, "修改密码", "用户【" + optionAccount.Name + "】修改密码失败，【IP:" + IPQueryContext.GetClientIP() + "】。");
 
-                    return "{message:{\"returnCode\":1,\"value\":\"�޸�ʧ��, �û�����������.\"}}";
+                    return "{message:{\"returnCode\":1,\"value\":\"修改失败, 用户或密码错误.\"}}";
                 }
             }
             else
             {
-                // ��¼�ʺŲ�����־
-                MembershipManagement.Instance.AccountLogService.Log(account.Id, "�޸�����", "��" + optionAccount.Name + "�������޸���һ���û���" + account.Name + "�������룬��IP:" + IPQueryContext.GetClientIP() + "����", optionAccount.Id);
+                // 记录帐号操作日志
+                MembershipManagement.Instance.AccountLogService.Log(account.Id, "修改密码", "【" + optionAccount.Name + "】尝试修改另一个用户【" + account.Name + "】的密码，【IP:" + IPQueryContext.GetClientIP() + "】。", optionAccount.Id);
 
-                return "{message:{\"returnCode\":1,\"value\":\"�޸�ʧ��, �û�����������.\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"修改失败, 用户或密码错误.\"}}";
             }
         }
         #endregion
 
-        #region 属性:SearchRoleLevel(string whereClause)
-        /// <summary>��ѯ��������</summary>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
-        public string SearchRoleLevel(string whereClause)
-        {
-            try
-            {
-                StringBuilder outString = new StringBuilder();
 
-                whereClause = " CateId='b70b1f6c-3c75-44b6-815e-bff04233cb26' AND Name LIKE '%" + whereClause + "%' ORDER BY No ";
-
-                IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAll(whereClause);
-
-                outString.Append("{\"ajaxStorage\":{\"list\":[");
-
-                foreach (IOrganizationInfo item in list)
-                {
-                    outString.Append("{");
-                    outString.Append("\"Id\":\"" + item.Id + "\",");
-                    outString.Append("\"Name\":\"" + item.Name + "\",");
-                    //outString.Append("\"parentId\":\"" + item.ParentId + "\",");
-                    //outString.Append("\"cateId\":\"" + item.CateId + "\",");
-                    outString.Append("\"status\":\"" + item.Status + "\" ");
-                    outString.Append("},");
-                }
-
-                if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
-                    outString = outString.Remove(outString.Length - 1, 1);
-
-                outString.Append("]}}");
-
-                return outString.ToString();
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-        }
-        #endregion
-
-        #region 属性:FindParentRoles(string accountId)
-        /// <summary>��ѯ��������</summary>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
-        public string FindParentRoles(string accountId)
-        {
-            // 1.����Ĭ�ϸ�λ
-            //
-            // 2.�����ϼ���λ
-            //
-
-            StringBuilder outString = new StringBuilder();
-
-            //string whereClause = string.Format(" T.Id='{0}' AND T.IsDefault=1 ", id);
-
-            IList<IRoleInfo> list = null;
-
-            IList<IRoleInfo> myRoles = MembershipManagement.Instance.RoleService.FindAllByAccountId(accountId);
-
-            if (myRoles.Count > 0)
-            {
-                //
-                // list = MembershipManagement.Instance.Role.FindParentRoles(myRoles[0].Id);
-            }
-
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(list) + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
-
-            return outString.ToString();
-        }
-        #endregion
-
-        #region 属性:SetGlobalName(XmlDocument doc)
+        #region 函数:SetGlobalName(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
@@ -458,19 +463,19 @@ namespace X3Platform.Membership.Ajax
 
             if (account == null || optionAccount == null)
             {
-                return "{message:{\"returnCode\":1,\"value\":\"δ���⵽��ǰ�û��ĺϷ���Ϣ��\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"未检测到当前用户的合法信息。\"}}";
             }
 
             int reuslt = this.service.SetGlobalName(id, globalName);
 
-            MembershipManagement.Instance.AccountLogService.Log(account.Id, "����ȫ������", "��" + optionAccount.Name + "�����û���" + account.Name + "����ȫ����������Ϊ��" + globalName + "������IP:" + IPQueryContext.GetClientIP() + "����", optionAccount.Id);
+            MembershipManagement.Instance.AccountLogService.Log(account.Id, "设置全局名称", "【" + optionAccount.Name + "】将用户【" + account.Name + "】的全局名称设置为【" + globalName + "】，【IP:" + IPQueryContext.GetClientIP() + "】。", optionAccount.Id);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"����ȫ�����Ƴɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"设置全局名称成功。\"}}";
         }
         #endregion
 
-        #region 属性:SetPassword(XmlDocument doc)
-        /// <summary>��������</summary>
+        #region 函数:SetPassword(XmlDocument doc)
+        /// <summary>设置密码</summary>
         [AjaxMethod("setPassword")]
         public string SetPassword(XmlDocument doc)
         {
@@ -484,19 +489,19 @@ namespace X3Platform.Membership.Ajax
 
             if (account == null || optionAccount == null)
             {
-                return "{message:{\"returnCode\":1,\"value\":\"δ���⵽��ǰ�û��ĺϷ���Ϣ��\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"未检测到当前用户的合法信息。\"}}";
             }
 
             this.service.SetPassword(id, password);
 
-            // ��¼�ʺŲ�����־
-            MembershipManagement.Instance.AccountLogService.Log(account.Id, "��������", "��" + optionAccount.Name + "�������������û���" + account.Name + "�������룬��IP:" + IPQueryContext.GetClientIP() + "����", optionAccount.Id);
+            // 记录帐号操作日志
+            MembershipManagement.Instance.AccountLogService.Log(account.Id, "设置密码", "【" + optionAccount.Name + "】重新设置了用户【" + account.Name + "】的密码，【IP:" + IPQueryContext.GetClientIP() + "】。", optionAccount.Id);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"���������ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"设置密码成功。\"}}";
         }
         #endregion
 
-        #region 属性:SetLoginName(XmlDocument doc)
+        #region 函数:SetLoginName(XmlDocument doc)
         /// <summary></summary>
         [AjaxMethod("setLoginName")]
         public string SetLoginName(XmlDocument doc)
@@ -511,30 +516,30 @@ namespace X3Platform.Membership.Ajax
 
             if (account == null || optionAccount == null)
             {
-                return "{message:{\"returnCode\":1,\"value\":\"δ���⵽��ǰ�û��ĺϷ���Ϣ��\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"未检测到当前用户的合法信息。\"}}";
             }
 
             if (string.IsNullOrEmpty(loginName))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"��¼������Ϊ�ա�\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"登录名不能为空。\"}}";
             }
             else if (!this.service.IsExistLoginName(loginName))
             {
                 this.service.SetLoginName(id, loginName);
 
-                // ��¼�ʺŲ�����־
-                MembershipManagement.Instance.AccountLogService.Log(account.Id, "���õ�¼��", "��" + optionAccount.Name + "�����û���" + account.Name + "���ĵ�¼������Ϊ��" + loginName + "������IP:" + IPQueryContext.GetClientIP() + "����", optionAccount.Id);
+                // 记录帐号操作日志
+                MembershipManagement.Instance.AccountLogService.Log(account.Id, "设置登录名", "【" + optionAccount.Name + "】将用户【" + account.Name + "】的登录名设置为【" + loginName + "】，【IP:" + IPQueryContext.GetClientIP() + "】。", optionAccount.Id);
 
-                return "{message:{\"returnCode\":0,\"value\":\"���õ�¼���ɹ���\"}}";
+                return "{message:{\"returnCode\":0,\"value\":\"设置登录名成功。\"}}";
             }
             else
             {
-                return "{message:{\"returnCode\":1,\"value\":\"�Ѵ��ڴ˵�¼����\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"已存在此登录名。\"}}";
             }
         }
         #endregion
 
-        #region 属性:SetStatus(XmlDocument doc)
+        #region 函数:SetStatus(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
@@ -551,20 +556,20 @@ namespace X3Platform.Membership.Ajax
 
             if (account == null || optionAccount == null)
             {
-                return "{message:{\"returnCode\":1,\"value\":\"δ���⵽��ǰ�û��ĺϷ���Ϣ��\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"未检测到当前用户的合法信息。\"}}";
             }
 
             int reuslt = this.service.SetStatus(id, status);
 
-            MembershipManagement.Instance.AccountLogService.Log(account.Id, "�����ʺ�״̬", "��" + optionAccount.Name + "�����û���" + account.Name + "����״̬����Ϊ��" + (status == 0 ? "����" : "����") + "������IP:" + IPQueryContext.GetClientIP() + "����", optionAccount.Id);
+            MembershipManagement.Instance.AccountLogService.Log(account.Id, "设置帐号状态", "【" + optionAccount.Name + "】将用户【" + account.Name + "】的状态设置为【" + (status == 0 ? "禁用" : "启用") + "】，【IP:" + IPQueryContext.GetClientIP() + "】。", optionAccount.Id);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"�����ʺ�״̬�ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"设置帐号状态成功。\"}}";
         }
         #endregion
 
-        #region 属性:GetAuthorizationObjects(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:GetAuthorizationObjects(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns></returns> 
         [AjaxMethod("getAuthorizationObjects")]
         public string GetAuthorizationObjects(XmlDocument doc)
@@ -599,7 +604,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

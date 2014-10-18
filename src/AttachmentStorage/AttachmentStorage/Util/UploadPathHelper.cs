@@ -27,31 +27,43 @@ namespace X3Platform.AttachmentStorage.Util
         public static string CombinePhysicalPath(string attachmentFolder, string fileName)
         {
             return PhysicalUploadFolder
-                + attachmentFolder.ToLower() + "/"
-                + DirectoryHelper.FormatTimePath(DateTime.Now) + "/"
+                + ParseRule(attachmentFolder, DateTime.Now).Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar)
                 + fileName;
         }
 
         public static string CombineVirtualPath(string attachmentFolder, string fileName)
         {
             return VirtualUploadFolder
-                + attachmentFolder.ToLower() + "/"
-                + DirectoryHelper.FormatTimePath(DateTime.Now) + "/"
+                + ParseRule(attachmentFolder, DateTime.Now).Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
                 + fileName;
         }
 
         public static string GetVirtualPathFormat(string attachmentFolder, IAttachmentFileInfo attachment)
         {
-            return "{uploads}" + attachmentFolder.ToLower() + "/"
-                + DirectoryHelper.FormatTimePath(attachment.CreateDate)
+            return "{uploads}"
+                + ParseRule(attachmentFolder, attachment.CreateDate).Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
                 + attachment.Id
                 + attachment.FileType;
         }
 
-        public static string GetAttachmentFolder(string virtualPath)
+        public static string GetAttachmentFolder(string virtualPath, string folderRule)
         {
-            string result = virtualPath.Replace("{uploads}", "");
-            return result.Substring(0, result.IndexOf("/"));
+            string[] keys = folderRule.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            string[] results = virtualPath.Replace("{uploads}", string.Empty).Split(new char[] { '\\', '/' });
+
+            if (keys.Length == results.Length - 1)
+            {
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    if (keys[i] == "folder")
+                    {
+                        return results[i];
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         public static void TryCreateDirectory(string path)
@@ -64,5 +76,18 @@ namespace X3Platform.AttachmentStorage.Util
             }
         }
 
+        private static string ParseRule(string folder, DateTime datetime)
+        {
+            // 路径规则示例
+            // folder\year\quarter\month\
+            // folder\year\quarter\folder
+
+            string text = AttachmentStorageConfigurationView.Instance.PhysicalUploadFolderRule;
+
+            return text.Replace("folder", folder.ToLower())
+                       .Replace("year", datetime.Year.ToString())
+                       .Replace("quarter", ((((datetime.Month - 1) / 3) + 1) + "Q"))
+                       .Replace("month", datetime.Month.ToString());
+        }
     }
 }

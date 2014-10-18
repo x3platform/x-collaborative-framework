@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :AttachmentWarnProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.AttachmentStorage.DAL.IBatis
 {
     #region Using Libraries
@@ -34,69 +18,69 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
     [DataObject]
     public class AttachmentWarnProvider : IAttachmentWarnProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private AttachmentStorageConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Attachment_Warn";
 
-        #region ���캯��:AttachmentWarnProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AttachmentWarnProvider()
+        /// <summary>构造函数</summary>
         public AttachmentWarnProvider()
         {
             this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:CreateGenericSqlCommand()
-        /// <summary>����ͨ��SQL��������</summary>
+        #region 函数:CreateGenericSqlCommand()
+        /// <summary>创建通用SQL命令对象</summary>
         public GenericSqlCommand CreateGenericSqlCommand()
         {
             return this.ibatisMapper.CreateGenericSqlCommand();
         }
         #endregion
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -104,13 +88,13 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(AttachmentWarnInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(AttachmentWarnInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
+        /// <returns>实例<see cref="AttachmentWarnInfo"/>详细信息</returns>
         public AttachmentWarnInfo Save(AttachmentWarnInfo param)
         {
             if (!this.IsExist(param.Id))
@@ -126,47 +110,47 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(AttachmentWarnInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(AttachmentWarnInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
         public void Insert(AttachmentWarnInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Update(AttachmentWarnInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AttachmentWarnInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(AttachmentWarnInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="AttachmentWarnInfo"/>详细信息</param>
         public void Update(AttachmentWarnInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids)) { return; }
+            if (string.IsNullOrEmpty(id)) { return; }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(ids).Replace(",", "','")));
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
         public AttachmentWarnInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -177,48 +161,47 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="AttachmentWarnInfo"/>����ϸ��Ϣ</returns>
-        public IList<AttachmentWarnInfo> FindAll(string whereClause, int length)
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
+        public IList<AttachmentWarnInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("Length", length);
+            args.Add("WhereClause", query.GetWhereSql());
+            args.Add("OrderBy", query.GetOrderBySql());
+            args.Add("Length", query.Limit);
 
             return this.ibatisMapper.QueryForList<AttachmentWarnInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="AttachmentWarnInfo"/></returns>
-        public IList<AttachmentWarnInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="AttachmentWarnInfo"/></returns>
+        public IList<AttachmentWarnInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql());
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<AttachmentWarnInfo> list = this.ibatisMapper.QueryForList<AttachmentWarnInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
+            IList<AttachmentWarnInfo> list = this.ibatisMapper.QueryForList<AttachmentWarnInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
 
@@ -226,13 +209,13 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id)) { throw new Exception("ʵ����ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

@@ -9,6 +9,7 @@
     using X3Platform.Collections;
     using X3Platform.Security.Authentication;
     using X3Platform.Sessions;
+    using X3Platform.Sessions.Configuration;
 
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.Model;
@@ -34,7 +35,7 @@
         }
 
         /// <summary></summary>
-        protected IDictionary<string, IAccountInfo> Dictionary = new SyncDictionary<string, IAccountInfo>();
+        protected IDictionary<string, IAccountInfo> cacheStorage = new SyncDictionary<string, IAccountInfo>();
 
         /// <summary>帐号存储策略</summary>
         protected IAccountStorageStrategy strategy = null;
@@ -90,8 +91,6 @@
 
             this.RemoveSession(accountIdentity);
 
-            SessionContext.Instance.AccountCacheService.Delete(accountIdentity);
-
             return 0;
         }
 
@@ -100,7 +99,7 @@
         /// <returns></returns>
         public IDictionary<string, IAccountInfo> GetSessions()
         {
-            return new ReadOnlyDictionary<string, IAccountInfo>(this.Dictionary);
+            return new ReadOnlyDictionary<string, IAccountInfo>(this.cacheStorage);
         }
         #endregion
 
@@ -110,19 +109,18 @@
         {
             if (account == null)
             {
-                this.Dictionary.Remove(sessionId);
+                this.cacheStorage.Remove(sessionId);
             }
-            else
+            else if (!this.cacheStorage.ContainsKey(sessionId))
             {
                 // 记录用户登录的时间
-                if (account.LoginDate.AddHours(2) < DateTime.Now)
-                {
-                    account.LoginDate = DateTime.Now;
-                }
+                account.LoginDate = DateTime.Now;
 
-                if (!this.Dictionary.ContainsKey(sessionId))
+                this.cacheStorage.Add(sessionId, account);
+
+                if (SessionsConfigurationView.Instance.SessionPersistentMode == "ON")
                 {
-                    this.Dictionary.Add(sessionId, account);
+                    SessionContext.Instance.Write(this.strategy, sessionId, account);
                 }
             }
         }
@@ -132,7 +130,34 @@
         /// <summary>移除会话</summary>
         public void RemoveSession(string sessionId)
         {
-            this.Dictionary.Remove(sessionId);
+            this.cacheStorage.Remove(sessionId);
+
+            if (SessionsConfigurationView.Instance.SessionPersistentMode == "ON")
+            {
+                SessionContext.Instance.AccountCacheService.Delete(sessionId);
+            }
+        }
+        #endregion
+
+        #region 方法:GetSessionAccount(string sessionId)
+        /// <summary>获取会话帐号信息</summary>
+        public IAccountInfo GetSessionAccount(string sessionId)
+        {
+            IAccountInfo account = null;
+
+            if (this.cacheStorage.ContainsKey(sessionId) && !string.IsNullOrEmpty(sessionId))
+            {
+                // 字典缓存信息
+                account = this.cacheStorage[sessionId];
+            }
+
+            if (account == null && SessionsConfigurationView.Instance.SessionPersistentMode == "ON")
+            {
+                // 持久化缓存信息
+                account = SessionContext.Instance.GetAuthAccount<AccountInfo>(this.strategy, sessionId);
+            }
+
+            return account;
         }
         #endregion
 
@@ -140,7 +165,7 @@
         /// <summary>重置所有会话</summary>
         public void ResetSessions()
         {
-            this.Dictionary.Clear();
+            this.cacheStorage.Clear();
         }
         #endregion
     }

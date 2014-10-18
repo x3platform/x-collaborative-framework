@@ -1,25 +1,11 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership
 {
-    /// <summary>��֯�ڵ�״̬</summary>
+    /// <summary>组织节点状态</summary>
     public enum OrganizationChartNodeStatus
     {
-        /// <summary>����</summary>
+        /// <summary>启用</summary>
         Enable,
-        /// <summary>����</summary>
+        /// <summary>禁用</summary>
         Disable,
     }
 }

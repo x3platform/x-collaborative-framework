@@ -6,7 +6,7 @@ namespace X3Platform.Connect.Configuration
     using X3Platform.Configuration;
     using X3Platform.Util;
 
-    /// <summary>配置视图</summary>
+    /// <summary>应用连接管理的配置视图</summary>
     public class ConnectConfigurationView : XmlConfigurationView<ConnectConfiguration>
     {
         /// <summary>配置文件的默认路径</summary>

@@ -1,8 +1,10 @@
 namespace X3Platform.Sessions
 {
+    #region Using Libraries
     using System;
 
     using X3Platform.CacheBuffer;
+    #endregion
 
     /// <summary>帐号缓存信息</summary>
     [Serializable]
