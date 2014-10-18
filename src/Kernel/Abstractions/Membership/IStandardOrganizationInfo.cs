@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IStandardOrganizationInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Membership
+﻿namespace X3Platform.Membership
 {
     /// <summary>标准组织信息</summary>
     public interface IStandardOrganizationInfo : IAuthorizationObject

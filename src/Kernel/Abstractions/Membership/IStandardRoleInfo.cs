@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IStandardRoleInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership
 {
     #region Using Libraries
@@ -23,28 +7,28 @@ namespace X3Platform.Membership
     using X3Platform.Security.Authority;
     #endregion
 
-    /// <summary>��׼��ɫ��Ϣ</summary>
+    /// <summary>标准角色信息</summary>
     public interface IStandardRoleInfo : IAuthorizationObject
     {
-        /// <summary>����</summary>
+        /// <summary>编号</summary>
         string Code { get; set; }
 
-        /// <summary>���� 0:�����ܲ� 1:�����ز���˾ 2:�����ز���Ŀ�Ŷ� 11:������ҵ��˾ 12:�����ز���Ŀ�Ŷ� 21:������ҵ��˾ 22:������ҵ��Ŀ�Ŷ� 65535:����</summary>
+        /// <summary>类型 0:集团总部 1:地区地产公司 2:地区地产项目团队 11:地区商业公司 12:地区地产项目团队 21:地区物业公司 22:地区物业项目团队 65535:其他</summary>
         int Type { get; set; }
 
-        /// <summary>���ȼ�</summary>
+        /// <summary>优先级</summary>
         int Priority { get; set; }
 
-        /// <summary>���ڵ���ʶ</summary>
+        /// <summary>父节点标识</summary>
         string ParentId { get; set; }
 
-        /// <summary>��׼��֯��ʶ</summary>
+        /// <summary>标准组织标识</summary>
         string StandardOrganizationId { get; set; }
 
-        /// <summary>�Ƿ��ǹؼ���ɫ</summary>
+        /// <summary>是否是关键角色</summary>
         bool IsKey { get; set; }
 
-        /// <summary>������ʶ</summary>
+        /// <summary>排序标识</summary>
         string OrderId { get; set; }
     }
 }
