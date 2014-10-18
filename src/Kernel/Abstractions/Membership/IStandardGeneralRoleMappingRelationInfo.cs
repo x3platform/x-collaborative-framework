@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IStandardGeneralRoleMappingRelationInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Membership
+﻿namespace X3Platform.Membership
 {
     /// <summary>标准通用角色与角色的关联信息</summary>
     public interface IStandardGeneralRoleMappingRelationInfo
