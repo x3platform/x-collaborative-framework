@@ -1,31 +1,15 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :AttachmentStorageConfiguration.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.AttachmentStorage.Configuration
 {
-    /// <summary>������Ϣ</summary>
+    /// <summary>附件存储管理配置信息</summary>
     public class AttachmentStorageConfiguration : X3Platform.Configuration.XmlConfiguraton
     {
-        /// <summary>����Ӧ�õ�����</summary>
+        /// <summary>所属应用的名称</summary>
         public const string ApplicationName = "AttachmentStorage";
-        
-        /// <summary>��������������</summary>
-        public const string SectionName = "attachmentStorageConfiguration";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>配置区的名称</summary>
+        public const string SectionName = "attachmentStorage";
+
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;

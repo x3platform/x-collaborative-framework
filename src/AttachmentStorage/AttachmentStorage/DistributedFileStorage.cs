@@ -1,9 +1,11 @@
 namespace X3Platform.AttachmentStorage
 {
+    #region Using Libraries
     using X3Platform.Util;
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.Util;
+    #endregion
 
     /// <summary>虚拟附件文件信息</summary>
     public static class DistributedFileStorage
