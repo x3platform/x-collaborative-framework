@@ -5,12 +5,12 @@ namespace X3Platform.AttachmentStorage.BLL
     using System.Collections.Generic;
     using System.Text;
 
+    using X3Platform.Data;
     using X3Platform.Spring;
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.IBLL;
     using X3Platform.AttachmentStorage.IDAL;
-    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>

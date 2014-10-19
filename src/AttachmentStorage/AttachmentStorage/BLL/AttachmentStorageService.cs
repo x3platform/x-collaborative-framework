@@ -1,15 +1,17 @@
 namespace X3Platform.AttachmentStorage.BLL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
 
+    using X3Platform.Data;
     using X3Platform.Spring;
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.IBLL;
     using X3Platform.AttachmentStorage.IDAL;
     using X3Platform.AttachmentStorage.Util;
-    using X3Platform.Data;
+    #endregion
 
     public sealed class AttachmentStorageService : IAttachmentStorageService
     {

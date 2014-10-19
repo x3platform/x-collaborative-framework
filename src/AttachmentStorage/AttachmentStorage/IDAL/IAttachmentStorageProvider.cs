@@ -16,10 +16,12 @@
 
 namespace X3Platform.AttachmentStorage.IDAL
 {
+    #region Using Libraries
     using System.Collections.Generic;
 
     using X3Platform.Spring;
     using X3Platform.Data;
+    #endregion
 
     /// <summary>附件存储</summary>
     [SpringObject("X3Platform.AttachmentStorage.IDAL.IAttachmentStorageProvider")]     

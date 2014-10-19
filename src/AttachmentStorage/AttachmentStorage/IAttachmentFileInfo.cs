@@ -1,8 +1,10 @@
-﻿using System;
-using X3Platform.Spring;
-
-namespace X3Platform.AttachmentStorage
+﻿namespace X3Platform.AttachmentStorage
 {
+    #region Using Libraries
+    using System;
+    using X3Platform.Spring;
+    #endregion
+
     /// <summary>附件信息接口</summary>
     [SpringObject("X3Platform.AttachmentStorage.IAttachmentFileInfo")]
     public interface IAttachmentFileInfo

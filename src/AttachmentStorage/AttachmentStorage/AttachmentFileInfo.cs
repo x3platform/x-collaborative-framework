@@ -1,5 +1,6 @@
 namespace X3Platform.AttachmentStorage
 {
+    #region Using Libraries
     using System;
     using System.IO;
 
@@ -8,6 +9,7 @@ namespace X3Platform.AttachmentStorage
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.Util;
+    #endregion
 
     /// <summary>附件文件信息</summary>
     public class AttachmentFileInfo : IAttachmentFileInfo
