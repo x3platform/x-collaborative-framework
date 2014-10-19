@@ -1,8 +1,11 @@
-using System;
-using X3Platform.CacheBuffer;
-
 namespace X3Platform.AttachmentStorage.Images
 {
+    #region Using Libraries
+    using System;
+
+    using X3Platform.CacheBuffer;
+    #endregion
+
     /// <summary>Àı¬‘Õº</summary>
     public class ThumbnailInfo : ICacheable
     {

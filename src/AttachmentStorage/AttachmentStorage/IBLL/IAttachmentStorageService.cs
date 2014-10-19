@@ -1,23 +1,12 @@
-// =============================================================================
-//
-// Copyright (c) 2007 X3Platform
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :X3Platform
-//
-// Date         :2007-07-08
-//
-// =============================================================================
-
 namespace X3Platform.AttachmentStorage.IBLL
 {
+    #region Using Libraries
+    using System;
     using System.Collections.Generic;
 
-    using X3Platform.Spring;
     using X3Platform.Data;
+    using X3Platform.Spring;
+    #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.AttachmentStorage.IBLL.IAttachmentStorageService")]

@@ -1,17 +1,19 @@
 namespace X3Platform.AttachmentStorage.Configuration
 {
+    #region Using Libraries
     using System;
     using System.IO;
 
     using X3Platform.Configuration;
-    
-    /// <summary>������ͼ</summary>
+    #endregion
+
+    /// <summary>附件存储管理配置视图</summary>
     public class AttachmentStorageConfigurationView : XmlConfigurationView<AttachmentStorageConfiguration>
     {
-        /// <summary>�����ļ���Ĭ��·��.</summary>
+        /// <summary>配置文件的默认路径</summary>
         private const string configFile = "config\\X3Platform.AttachmentStorage.config";
 
-        /// <summary>������Ϣ��ȫ��ǰ׺</summary>
+        /// <summary>配置信息的全局前缀</summary>
         private const string configGlobalPrefix = AttachmentStorageConfiguration.ApplicationName;
 
         #region 静态属性:Instance
@@ -19,7 +21,7 @@ namespace X3Platform.AttachmentStorage.Configuration
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static AttachmentStorageConfigurationView Instance
         {
             get
@@ -40,45 +42,45 @@ namespace X3Platform.AttachmentStorage.Configuration
         }
         #endregion
 
-        #region ���캯��:AttachmentStorageConfigurationView()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AttachmentStorageConfigurationView()
+        /// <summary>构造函数</summary>
         private AttachmentStorageConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
-            // ��������Ϣ���ص�ȫ�ֵ�������
+            // 将配置信息加载到全局的配置中
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
 
         }
         #endregion
 
         #region 属性:Reload()
-        /// <summary>���¼���������Ϣ</summary>
+        /// <summary>重新加载配置信息</summary>
         public override void Reload()
         {
             base.Reload();
 
-            // ��������Ϣ���ص�ȫ�ֵ�������
+            // 将配置信息加载到全局的配置中
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ�������
+        // 自定义属性
         // -------------------------------------------------------
 
         #region 属性:PhysicalUploadFolder
         private string m_PhysicalUploadFolder = string.Empty;
 
-        /// <summary>�ϴ��ļ�������·��</summary>
+        /// <summary>上传文件夹物理路径</summary>
         public string PhysicalUploadFolder
         {
             get
             {
                 if (string.IsNullOrEmpty(m_PhysicalUploadFolder))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "PhysicalUploadFolder";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -92,7 +94,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_PhysicalUploadFolder))
                     {
                         m_PhysicalUploadFolder = string.Format(@"{0}{1}\", KernelConfigurationView.Instance.ApplicationPathRoot, "uploads");
@@ -107,16 +109,16 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:PhysicalUploadFolderRule
         private string m_PhysicalUploadFolderRule = string.Empty;
 
-        /// <summary>�ϴ��ļ�������·������</summary>
+        /// <summary>上传文件夹物理路径规则</summary>
         public string PhysicalUploadFolderRule
         {
             get
             {
                 if (string.IsNullOrEmpty(m_PhysicalUploadFolderRule))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "PhysicalUploadFolderRule";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -130,7 +132,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_PhysicalUploadFolderRule))
                     {
                         m_PhysicalUploadFolderRule = @"folder\year\quarter\month\";
@@ -145,16 +147,16 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:VirtualUploadFolder
         private string m_VirtualUploadFolder = string.Empty;
 
-        /// <summary>�ϴ��ļ�������·��</summary>
+        /// <summary>上传文件夹虚拟路径</summary>
         public string VirtualUploadFolder
         {
             get
             {
                 if (string.IsNullOrEmpty(m_VirtualUploadFolder))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "VirtualUploadFolder";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -168,7 +170,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                            this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_VirtualUploadFolder))
                     {
                         m_VirtualUploadFolder = @"/uploads/";
@@ -183,16 +185,16 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:IdentityFormat
         private string m_IdentityFormat = string.Empty;
 
-        /// <summary>����ͼƬ���Ƶĸ�ʽ</summary>
+        /// <summary>生成图片名称的格式</summary>
         public string IdentityFormat
         {
             get
             {
                 if (string.IsNullOrEmpty(m_IdentityFormat))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "IdentityFormat";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -206,7 +208,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                             this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_IdentityFormat))
                     {
                         m_IdentityFormat = "guid";
@@ -221,16 +223,16 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:AnonymousUpload
         private string m_AnonymousUpload = string.Empty;
 
-        /// <summary>�����ϴ��ļ�</summary>
+        /// <summary>匿名上传文件</summary>
         public string AnonymousUpload
         {
             get
             {
                 if (string.IsNullOrEmpty(m_AnonymousUpload))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "AnonymousUpload";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -244,7 +246,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                             this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_AnonymousUpload))
                     {
                         m_AnonymousUpload = "OFF";
@@ -261,16 +263,16 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:DistributedFileStorageMode
         private string m_DistributedFileStorageMode = string.Empty;
 
-        /// <summary>�ֲ�ʽ�ļ��洢</summary>
+        /// <summary>分布式文件存储</summary>
         public string DistributedFileStorageMode
         {
             get
             {
                 if (string.IsNullOrEmpty(m_DistributedFileStorageMode))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "DistributedFileStorageMode";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -284,7 +286,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                             this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_DistributedFileStorageMode))
                     {
                         m_DistributedFileStorageMode = "OFF";
@@ -301,16 +303,16 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:DefaultThumbnails
         private string m_DefaultThumbnails = string.Empty;
 
-        /// <summary>Ĭ������ͼ</summary>
+        /// <summary>默认缩略图</summary>
         public string DefaultThumbnails
         {
             get
             {
                 if (string.IsNullOrEmpty(m_DefaultThumbnails))
                 {
-                    // ��������
+                    // 属性名称
                     string propertyName = "DefaultThumbnails";
-                    // ����ȫ������
+                    // 属性全局名称
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -324,7 +326,7 @@ namespace X3Platform.AttachmentStorage.Configuration
                             this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // ���������ļ���û�����ã�����һ��Ĭ��ֵ��
+                    // 如果配置文件里没有设置，设置一个默认值。
                     if (string.IsNullOrEmpty(m_DefaultThumbnails))
                     {
                         m_DefaultThumbnails = string.Empty;

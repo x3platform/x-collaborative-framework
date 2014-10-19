@@ -1,5 +1,6 @@
 namespace X3Platform.AttachmentStorage.Util
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -11,6 +12,7 @@ namespace X3Platform.AttachmentStorage.Util
     using X3Platform.Spring;
 
     using X3Platform.AttachmentStorage.Configuration;
+    #endregion
 
     /// <summary>上传文件工具函数</summary>
     public sealed class UploadFileHelper

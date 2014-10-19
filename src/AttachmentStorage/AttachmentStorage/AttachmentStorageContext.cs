@@ -1,5 +1,6 @@
 namespace X3Platform.AttachmentStorage
 {
+    #region Using Libraries
     using System;
     using System.IO;
 
@@ -10,6 +11,7 @@ namespace X3Platform.AttachmentStorage
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.IBLL;
     using X3Platform.AttachmentStorage.Util;
+    #endregion
 
     /// <summary>附件上下文环境</summary>
     public sealed class AttachmentStorageContext : CustomPlugin
