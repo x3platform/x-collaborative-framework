@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IAttachmentWarnService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.AttachmentStorage.IBLL
 {
     #region Using Libraries
@@ -21,8 +5,8 @@ namespace X3Platform.AttachmentStorage.IBLL
     using System.Collections.Generic;
     using System.Text;
 
-    using X3Platform.Spring;
     using X3Platform.Data;
+    using X3Platform.Spring;
     #endregion
 
     /// <summary></summary>

@@ -1,7 +1,9 @@
-﻿using System;
-
-namespace X3Platform.AttachmentStorage
+﻿namespace X3Platform.AttachmentStorage
 {
+    #region Using Libraries
+    using System;
+    #endregion
+
     /// <summary>附件父级对象</summary>
     public interface IAttachmentParentObject
     {
@@ -13,7 +15,7 @@ namespace X3Platform.AttachmentStorage
 
         /// <summary>附件的实体类名称</summary>
         string AttachmentEntityClassName { get; set; }
-        
+
         /// <summary>附件的文件夹名称</summary>
         string AttachmentFolder { get; set; }
 

@@ -7,10 +7,10 @@
     using System.Text;
 
     using X3Platform.Ajax;
+    using X3Platform.Data;
     using X3Platform.Util;
 
     using X3Platform.AttachmentStorage.IBLL;
-    using X3Platform.Data;
     #endregion
 
     /// <summary>附件存储信息</summary>

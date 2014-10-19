@@ -1,9 +1,11 @@
 namespace X3Platform.AttachmentStorage.IDAL
 {
+    #region Using Libraries
     using System.Collections.Generic;
 
-    using X3Platform.Spring;
     using X3Platform.Data;
+    using X3Platform.Spring;
+    #endregion
 
     /// <summary>¸½¼þ´æ´¢</summary>
     [SpringObject("X3Platform.AttachmentStorage.IDAL.IAttachmentDistributedFileProvider")]

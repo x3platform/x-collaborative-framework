@@ -1,9 +1,11 @@
+#region Using Libraries
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Drawing;
 using X3Platform.AttachmentStorage.Configuration;
 using X3Platform.Util;
+#endregion
 
 namespace X3Platform.AttachmentStorage.Util
 {

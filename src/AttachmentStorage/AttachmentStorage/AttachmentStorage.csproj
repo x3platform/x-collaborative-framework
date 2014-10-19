@@ -211,6 +211,7 @@
     <Content Include="DAL\MySQL\AttachmentWarnProvider.xml">
       <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
     </Content>
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

@@ -1,16 +1,18 @@
 namespace X3Platform.AttachmentStorage.DAL.IBatis
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
 
+    using X3Platform.Data;
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Util;
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.IDAL;
-    using X3Platform.Data;
+    #endregion
 
     [DataObject]
     public class AttachmentStorageProvider : IAttachmentStorageProvider
