@@ -36,13 +36,13 @@ namespace X3Platform.Entities.DAL.IBatis
     [DataObject]
     public class EntityMetaDataProvider : IEntityMetaDataProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private EntitiesConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>���ݱ���</summary>

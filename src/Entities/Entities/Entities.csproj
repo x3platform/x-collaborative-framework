@@ -139,7 +139,7 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BLL\EntityImplementationService.cs" />
+    <Compile Include="BLL\EntityFeedbackService.cs" />
     <Compile Include="BLL\EntityOperationLogService.cs" />
     <Compile Include="BLL\EntitySnapshotService.cs" />
     <Compile Include="BLL\EntityMetaDataService.cs" />
@@ -158,16 +158,16 @@
     <Compile Include="Configuration\EntitiesConfigurationView.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DAL\IBatis\EntityImplementationProvider.cs" />
+    <Compile Include="DAL\IBatis\EntityFeedbackProvider.cs" />
     <Compile Include="DAL\IBatis\EntityDocObjectProvider.cs" />
-    <Compile Include="IBLL\IEntityImplementationService.cs" />
+    <Compile Include="IBLL\IEntityFeedbackService.cs" />
     <Compile Include="IBLL\IEntityOperationLogService.cs" />
     <Compile Include="IBLL\IEntitySnapshotService.cs" />
     <Compile Include="IBLL\IEntitySchemaService.cs" />
     <Compile Include="IBLL\IEntityMetaDataService.cs" />
     <Compile Include="IBLL\IEntityDraftService.cs" />
     <Compile Include="IBLL\IEntityDocObjectService.cs" />
-    <Compile Include="IDAL\IEntityImplementationProvider.cs" />
+    <Compile Include="IDAL\IEntityFeedbackProvider.cs" />
     <Compile Include="IDAL\IEntityOperationLogProvider.cs" />
     <Compile Include="IDAL\IEntitySnapshotProvider.cs" />
     <Compile Include="IDAL\IEntitySchemaProvider.cs" />
@@ -198,7 +198,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IDAL\IEntityDocObjectProvider.cs" />
-    <Compile Include="Model\EntityImplementationInfo.cs" />
+    <Compile Include="Model\EntityFeedbackInfo.cs" />
     <Compile Include="Model\EntityOperationLogInfo.cs" />
     <Compile Include="Model\EntitySnapshotInfo.cs" />
     <Compile Include="Model\EntityDraftInfo.cs" />
@@ -229,20 +229,23 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\EntityImplementationProvider.xml">
-      <DependentUpon>EntityImplementationProvider.cs</DependentUpon>
+    <Content Include="DAL\IBatis\EntityFeedbackProvider.xml">
+      <DependentUpon>EntityFeedbackProvider.cs</DependentUpon>
     </Content>
     <Content Include="DAL\IBatis\EntityOperationLogProvider.xml">
       <DependentUpon>EntityOperationLogProvider.cs</DependentUpon>
     </Content>
     <Content Include="DAL\IBatis\EntitySnapshotProvider.xml">
       <DependentUpon>EntitySnapshotProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\IBatis\EntitySchemaProvider.xml">
       <DependentUpon>EntitySchemaProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\IBatis\EntityMetaDataProvider.xml">
       <DependentUpon>EntityMetaDataProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\IBatis\EntityDraftProvider.xml">
       <DependentUpon>EntityDraftProvider.cs</DependentUpon>
@@ -252,6 +255,7 @@
     </Content>
     <Content Include="DAL\IBatis\EntityClickProvider.xml">
       <DependentUpon>EntityClickProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\IBatis\EntityDocObjectProvider.xml">
       <DependentUpon>EntityDocObjectProvider.cs</DependentUpon>

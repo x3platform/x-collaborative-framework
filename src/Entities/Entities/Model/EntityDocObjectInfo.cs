@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityClickInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.Model
 {
     #region Using Libraries
@@ -22,11 +6,11 @@ namespace X3Platform.Entities.Model
     using X3Platform.Entities;
     #endregion
 
-    /// <summary>ʵ�����ĵ�������Ϣ</summary>
+    /// <summary>实体类文档对象信息</summary>
     public class EntityDocObjectInfo : IEntityDocObjectInfo
     {
-        #region ���캯��:EntityDocObjectInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:EntityDocObjectInfo()
+        /// <summary>默认构造函数</summary>
         public EntityDocObjectInfo()
         {
         }

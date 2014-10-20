@@ -1,29 +1,18 @@
-﻿// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityOperationLogService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Entities.BLL
+﻿namespace X3Platform.Entities.BLL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Text;
 
+    using X3Platform.DigitalNumber;
     using X3Platform.Spring;
 
     using X3Platform.Entities.Configuration;
     using X3Platform.Entities.IBLL;
     using X3Platform.Entities.IDAL;
     using X3Platform.Entities.Model;
+    #endregion
 
     /// <summary></summary>
     public class EntityOperationLogService : IEntityOperationLogService
@@ -66,6 +55,47 @@ namespace X3Platform.Entities.BLL
         public EntityOperationLogInfo Save(string customTableName, EntityOperationLogInfo param)
         {
             return this.provider.Save(customTableName, param);
+        }
+        #endregion
+
+        #region 函数:Copy(string customTableName, string oldEntityId, string newEntityId, string entityClassName)
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="oldEntityId">旧的实体类标识</param>
+        /// <param name="newEntityId">新的实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        public void Copy(string customTableName, string oldEntityId, string newEntityId, string entityClassName)
+        {
+            IList<EntityOperationLogInfo> list = EntitiesManagement.Instance.EntityOperationLogService.FindAllByEntityId(customTableName, oldEntityId, entityClassName);
+
+            foreach (EntityOperationLogInfo item in list)
+            {
+                item.Id = DigitalNumberContext.Generate("Key_Guid");
+
+                item.EntityId = newEntityId;
+
+                EntitiesManagement.Instance.EntityOperationLogService.Save(customTableName, item);
+            }
+        }
+        #endregion
+
+        #region 函数:Copy(string customTableName, string oldEntityId, string newEntityId, string entityClassName, int operationType)
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="oldEntityId">旧的实体类标识</param>
+        /// <param name="newEntityId">新的实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="operationType">操作类型</param>
+        public void Copy(string customTableName, string oldEntityId, string newEntityId, string entityClassName, int operationType)
+        {
+            IList<EntityOperationLogInfo> list = EntitiesManagement.Instance.EntityOperationLogService.FindAllByEntityId(customTableName, oldEntityId, entityClassName, operationType);
+
+            foreach (EntityOperationLogInfo item in list)
+            {
+                item.Id = DigitalNumberContext.Generate("Key_Guid");
+
+                item.EntityId = newEntityId;
+
+                EntitiesManagement.Instance.EntityOperationLogService.Save(customTableName, item);
+            }
         }
         #endregion
 
