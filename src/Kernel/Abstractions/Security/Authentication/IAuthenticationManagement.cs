@@ -1,5 +1,6 @@
 ﻿namespace X3Platform.Security.Authentication
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Security;
@@ -8,10 +9,9 @@
     using X3Platform.Membership;
     using X3Platform.Spring;
     using X3Platform.Sessions;
+    #endregion
 
-    /// <summary>
-    /// 验证请求
-    /// </summary>
+    /// <summary>验证请求</summary>
     [SpringObject("X3Platform.Security.Authentication.IAuthenticationManagement")]
     public interface IAuthenticationManagement
     {

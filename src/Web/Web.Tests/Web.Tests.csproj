@@ -82,9 +82,6 @@
     <Reference Include="X3Platform.Web.APIs">
       <HintPath>..\..\..\bin\X3Platform.Web.APIs.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Web.UserAgents">
-      <HintPath>..\..\..\bin\X3Platform.Web.UserAgents.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\Configuration\APIsConfigurationTestSuite.cs" />

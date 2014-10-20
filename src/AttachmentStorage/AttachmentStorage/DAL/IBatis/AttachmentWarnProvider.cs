@@ -172,7 +172,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
 
             args.Add("WhereClause", query.GetWhereSql());
             args.Add("OrderBy", query.GetOrderBySql());
-            args.Add("Length", query.Limit);
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<AttachmentWarnInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }

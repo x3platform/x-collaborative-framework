@@ -46,9 +46,9 @@ namespace X3Platform.DigitalNumber.BLL
         // -------------------------------------------------------
 
         #region 函数:Save(DigitalNumberInfo param)
-        ///<summary>保存记录</summary>
-        ///<param name="param">DigitalNumberInfo 实例详细信息</param>
-        ///<returns>DigitalNumberInfo 实例详细信息</returns>
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="DigitalNumberInfo"/> 实例详细信息</param>
+        /// <returns><see cref="DigitalNumberInfo"/> 实例详细信息</returns>
         public DigitalNumberInfo Save(DigitalNumberInfo param)
         {
             return provider.Save(param);
@@ -56,8 +56,8 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 属性:Delete(string id)
-        ///<summary>删除记录</summary>
-        ///<param name="keys">实例的标识,多条记录以逗号分开</param>
+        /// <summary>删除记录</summary>
+        /// <param name="keys">实例的标识,多条记录以逗号分开</param>
         public void Delete(string id)
         {
             provider.Delete(id);
@@ -69,9 +69,9 @@ namespace X3Platform.DigitalNumber.BLL
         // -------------------------------------------------------
 
         #region 函数:FindOne(string name)
-        ///<summary>查询某条记录</summary>
-        ///<param name="name">DigitalNumberInfo Id号</param>
-        ///<returns>返回一个 DigitalNumberInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="name">DigitalNumberInfo Id号</param>
+        /// <returns>返回一个<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public DigitalNumberInfo FindOne(string name)
         {
             return provider.FindOne(name);
@@ -79,32 +79,22 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 函数:FindAll()
-        ///<summary>查询所有相关记录</summary>
-        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll()
         {
-            return FindAll(string.Empty);
-        }
-        #endregion
-
-        #region 函数:FindAll(string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
-        public IList<DigitalNumberInfo> FindAll(string whereClause)
-        {
-            return FindAll(whereClause, 0);
+            return FindAll(new DataQuery() { Length = 1000 });
         }
         #endregion
 
         #region 函数:FindAll(string whereClause,int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 DigitalNumberInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(DataQuery query)
         {
-            return provider.FindAll(whereClause, length);
+            return provider.FindAll(query);
         }
         #endregion
 
@@ -122,9 +112,9 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 函数:IsExistName(string name)
-        ///<summary>查询是否存在相关的记录.</summary>
-        ///<param name="name">名称</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return provider.IsExistName(name);
@@ -135,9 +125,9 @@ namespace X3Platform.DigitalNumber.BLL
 
         private object lockObject = new object();
 
-        ///<summary>生成数字编码</summary>
-        ///<param name="name">规则名称</param>
-        ///<returns>数字编码</returns>
+        /// <summary>生成数字编码</summary>
+        /// <param name="name">规则名称</param>
+        /// <returns>数字编码</returns>
         public string Generate(string name)
         {
             string result = null;
@@ -178,11 +168,11 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 函数:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
-        ///<summary>根据前缀生成数字编码</summary>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="prefixCode">前缀编号</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <summary>根据前缀生成数字编码</summary>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="prefixCode">前缀编号</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         {
             return provider.GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
@@ -190,12 +180,12 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 函数:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
-        ///<summary>根据前缀生成数字编码</summary>
+        /// <summary>根据前缀生成数字编码</summary>
         /// <param name="command">通用SQL命令对象</param>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="prefixCode">前缀编号</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="prefixCode">前缀编号</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
         {
             return provider.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, expression);
@@ -203,12 +193,12 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 函数:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
-        ///<summary>根据类别标识成数字编码</summary>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="entityCategoryTableName">实体类别数据表</param>
-        ///<param name="entityCategoryId">实体类别标识</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <summary>根据类别标识成数字编码</summary>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="entityCategoryTableName">实体类别数据表</param>
+        /// <param name="entityCategoryId">实体类别标识</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
             return provider.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, expression);
@@ -216,13 +206,13 @@ namespace X3Platform.DigitalNumber.BLL
         #endregion
 
         #region 函数:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
-        ///<summary>根据类别标识成数字编码</summary>
+        /// <summary>根据类别标识成数字编码</summary>
         /// <param name="command">通用SQL命令对象</param>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="entityCategoryTableName">实体类别数据表</param>
-        ///<param name="entityCategoryId">实体类别标识</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="entityCategoryTableName">实体类别数据表</param>
+        /// <param name="entityCategoryId">实体类别标识</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
             return provider.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, expression);

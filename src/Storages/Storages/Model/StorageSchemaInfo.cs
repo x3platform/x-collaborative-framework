@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :ApplicationFeatureDateLimitInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Storages.Model
+﻿namespace X3Platform.Storages.Model
 {
     #region Using Libraries
     using System;
@@ -131,11 +115,13 @@ namespace X3Platform.Storages.Model
         }
         #endregion
 
+        /// <summary></summary>
         public IStorageAdapter GetAdapterClass()
         {
             return (IStorageAdapter)KernelContext.CreateObject(this.AdapterClassName);
         }
 
+        /// <summary></summary>
         public IStorageStrategy GetStrategyClass()
         {
             return (IStorageStrategy)KernelContext.CreateObject(this.StrategyClassName, new object[] { this });

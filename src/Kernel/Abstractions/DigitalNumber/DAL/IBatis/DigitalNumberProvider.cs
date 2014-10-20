@@ -49,9 +49,9 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         // -------------------------------------------------------
 
         #region 函数:Save(DigitalNumberInfo param)
-        ///<summary>保存记录</summary>
-        ///<param name="param"><see cref="DigitalNumberInfo"/> 实例详细信息</param>
-        ///<returns><see cref="DigitalNumberInfo"/> 实例详细信息</returns>
+        /// <summary>保存记录</summary>
+        /// <param name="param"><see cref="DigitalNumberInfo"/> 实例详细信息</param>
+        /// <returns><see cref="DigitalNumberInfo"/> 实例详细信息</returns>
         public DigitalNumberInfo Save(DigitalNumberInfo param)
         {
             if (!IsExistName(param.Name))
@@ -68,8 +68,8 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:Insert(DigitalNumberInfo param)
-        ///<summary>添加记录</summary>
-        ///<param name="param"><see cref="DigitalNumberInfo"/> 实例的详细信息</param>
+        /// <summary>添加记录</summary>
+        /// <param name="param"><see cref="DigitalNumberInfo"/> 实例的详细信息</param>
         public void Insert(DigitalNumberInfo param)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -79,8 +79,8 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:Update(DigitalNumberInfo param)
-        ///<summary>修改记录</summary>
-        ///<param name="param"><see cref="DigitalNumberInfo"/> 实例的详细信息</param>
+        /// <summary>修改记录</summary>
+        /// <param name="param"><see cref="DigitalNumberInfo"/> 实例的详细信息</param>
         public void Update(DigitalNumberInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
@@ -88,8 +88,8 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:Delete(string id)
-        ///<summary>删除记录</summary>
-        ///<param name="ids">标识,多个以逗号分开</param>
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号分开</param>
         public void Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -108,9 +108,9 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         // -------------------------------------------------------
 
         #region 函数:FindOne(string name)
-        ///<summary>查询某条记录</summary>
-        ///<param name="name">DigitalNumberInfo Id号</param>
-        ///<returns>返回一个 <see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="name">DigitalNumberInfo Id号</param>
+        /// <returns>返回一个<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public DigitalNumberInfo FindOne(string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -122,16 +122,16 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:FindAll(string whereClause,int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 <see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("Length", length);
+            args.Add("WhereClause", query.GetWhereSql());
+            args.Add("Length", query.Length);
 
             IList<DigitalNumberInfo> list = this.ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
@@ -171,11 +171,11 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         }
 
         #region 函数:GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
-        ///<summary>根据前缀生成数字编码</summary>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="prefixCode">前缀编号</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <summary>根据前缀生成数字编码</summary>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="prefixCode">前缀编号</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         {
             // 获取前缀
@@ -196,12 +196,12 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
-        ///<summary>根据前缀生成数字编码</summary>
+        /// <summary>根据前缀生成数字编码</summary>
         /// <param name="command">通用SQL命令对象</param>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="prefixCode">前缀编号</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="prefixCode">前缀编号</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
         {
             // 获取前缀
@@ -222,12 +222,12 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
-        ///<summary>根据类别标识成数字编码</summary>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="entityCategoryTableName">实体类别数据表</param>
-        ///<param name="entityCategoryId">实体类别标识</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <summary>根据类别标识成数字编码</summary>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="entityCategoryTableName">实体类别数据表</param>
+        /// <param name="entityCategoryId">实体类别标识</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -242,13 +242,13 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         #endregion
 
         #region 函数:GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
-        ///<summary>根据类别标识成数字编码</summary>
+        /// <summary>根据类别标识成数字编码</summary>
         /// <param name="command">通用SQL命令对象</param>
-        ///<param name="entityTableName">实体数据表</param>
-        ///<param name="entityCategoryTableName">实体类别数据表</param>
-        ///<param name="entityCategoryId">实体类别标识</param>
-        ///<param name="expression">规则表达式</param>
-        ///<returns>数字编码</returns>
+        /// <param name="entityTableName">实体数据表</param>
+        /// <param name="entityCategoryTableName">实体类别数据表</param>
+        /// <param name="entityCategoryId">实体类别标识</param>
+        /// <param name="expression">规则表达式</param>
+        /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

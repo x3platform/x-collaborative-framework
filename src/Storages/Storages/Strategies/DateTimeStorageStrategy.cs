@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :StorageNodeInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Storages.Strategies
+﻿namespace X3Platform.Storages.Strategies
 {
     #region Using Libraries
     using System;
@@ -25,11 +9,14 @@ namespace X3Platform.Storages.Strategies
     /// <summary>根据时间规则存储的存储策略</summary>
     public sealed class DateTimeStorageStrategy : AbstractStorageStrategy
     {
+        /// <summary></summary>
+        /// <param name="storageSchema"></param>
         public DateTimeStorageStrategy(IStorageSchema storageSchema)
         {
             this.storageSchema = storageSchema;
         }
 
+        /// <summary></summary>
         public override IStorageNode GetStorageNode(string storageNodeType, string index)
         {
             this.LazyLoadStorageNodes();
@@ -37,6 +24,7 @@ namespace X3Platform.Storages.Strategies
             throw new NotImplementedException();
         }
 
+        /// <summary></summary>
         public override IStorageNode GetStorageNode(string storageNodeType, string[] indexs)
         {
             this.LazyLoadStorageNodes();

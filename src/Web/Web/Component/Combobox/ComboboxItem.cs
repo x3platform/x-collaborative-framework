@@ -1,5 +1,3 @@
-
-
 namespace X3Platform.Web.Component.Combobox
 {
     using System;

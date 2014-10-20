@@ -1,5 +1,6 @@
 namespace X3Platform.Entities
 {
+    #region Using Libraries
     using System;
 
     using X3Platform.Plugins;
@@ -7,6 +8,7 @@ namespace X3Platform.Entities
 
     using X3Platform.Entities.Configuration;
     using X3Platform.Entities.IBLL;
+    #endregion
 
     /// <summary>实体类管理上下文环境</summary>
     public sealed class EntitiesManagement : CustomPlugin

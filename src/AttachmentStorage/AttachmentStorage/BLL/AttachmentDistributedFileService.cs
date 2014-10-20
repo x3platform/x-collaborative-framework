@@ -86,7 +86,7 @@ namespace X3Platform.AttachmentStorage.BLL
         /// <returns>返回所有<see cref="DistributedFileInfo"/>实例的详细信息</returns>
         public IList<DistributedFileInfo> FindAll()
         {
-            return this.FindAll(new DataQuery() { Limit = 1000 });
+            return this.FindAll(new DataQuery() { Length = 1000 });
         }
         #endregion
 

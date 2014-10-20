@@ -22,9 +22,7 @@ namespace X3Platform.Security
     {
         private IMessageSink _NextSink;  //保存下一个接收器
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary></summary>
         /// <param name="nextSink"></param>
         public SecurityClassMessageSink(IMessageSink nextSink)
         {
