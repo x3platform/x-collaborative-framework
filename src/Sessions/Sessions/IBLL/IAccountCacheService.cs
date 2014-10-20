@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :IAccountCacheService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Sessions.IBLL
 {
     using System;
@@ -24,133 +10,133 @@ namespace X3Platform.Sessions.IBLL
     [SpringObject("X3Platform.Sessions.IBLL.IAccountCacheService")]
     public interface IAccountCacheService
     {
-        #region 属性:this[string accountIdentity]
-        /// <summary>����������</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        #region 索引:this[string accountIdentity]
+        /// <summary>缓存的索引</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <returns></returns>
         AccountCacheInfo this[string accountIdentity] { get; }
         #endregion
 
         #region 属性:GetAuthAccount(IAccountStorageStrategy strategy, string accountIdentity)
-        /// <summary>��ȡ��ǰ�ʺŻ�����Ϣ</summary>
-        /// <param name="strategy">�ʺŴ洢����</param>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        /// <summary>获取当前帐号缓存信息</summary>
+        /// <param name="strategy">帐号存储策略</param>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         IAccountInfo GetAuthAccount(IAccountStorageStrategy strategy, string accountIdentity);
         #endregion
 
-        #region 属性:Authorize(string accountIdentity)
-        /// <summary>������Ȩ��Ϣ</summary>
+        #region 函数:Authorize(string accountIdentity)
+        /// <summary>查找授权信息</summary>
         /// <param name="appKey">App Key</param>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <returns></returns>
         bool Authorize(string accountIdentity);
         #endregion
 
-        #region 属性:Authorize(string accountIdentity, string appKey)
-        /// <summary>������Ȩ��Ϣ</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        #region 函数:Authorize(string accountIdentity, string appKey)
+        /// <summary>查找授权信息</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <param name="appKey">App Key</param>
         /// <returns></returns>
         bool Authorize(string accountIdentity, string appKey);
         #endregion
 
-        #region 属性:Read(string accountIdentity)
-        /// <summary>���һ�����¼</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:Read(string accountIdentity)
+        /// <summary>查找缓存记录</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         AccountCacheInfo Read(string accountIdentity);
         #endregion
 
-        #region 属性:Read(string accountIdentity)
-        /// <summary>���һ�����¼</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        #region 函数:Read(string accountIdentity)
+        /// <summary>查找缓存记录</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <param name="appKey">App Key</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         // AccountCacheInfo Read(string accountIdentity, string appKey);
         #endregion
 
-        #region 属性:ReadWithAccountCacheValue(string accountCacheValue)
-        /// <summary>���һ�����¼</summary>
-        /// <param name="accountCacheValue">������ֵ</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:ReadWithAccountCacheValue(string accountCacheValue)
+        /// <summary>查找缓存记录</summary>
+        /// <param name="accountCacheValue">缓存的值</param>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         AccountCacheInfo ReadWithAccountCacheValue(string accountCacheValue);
         #endregion
 
-        //#region 属性:ReadWithAccountCacheValue(string accountCacheValue, string ip)
-        ///// <summary>���һ�����¼</summary>
-        ///// <param name="accountCacheValue">������ֵ</param>
-        ///// <param name="ip">������IP</param>
-        ///// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        //#region 函数:ReadWithAccountCacheValue(string accountCacheValue, string ip)
+        ///// <summary>查找缓存记录</summary>
+        ///// <param name="accountCacheValue">缓存的值</param>
+        ///// <param name="ip">访问者IP</param>
+        ///// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         //AccountCacheInfo ReadWithAccountCacheValue(string accountCacheValue, string ip);
         //#endregion
 
-        #region 属性:Write(IAccountStorageStrategy strategy)
-        /// <summary>д����Ϣ</summary>
-        /// <param name="strategy">����</param>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
-        /// <param name="account">�ʺ���Ϣ</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:Write(IAccountStorageStrategy strategy)
+        /// <summary>写入信息</summary>
+        /// <param name="strategy">策略</param>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <param name="account">帐号信息</param>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         void Write(IAccountStorageStrategy strategy, string accountIdentity, IAccountInfo account);
         #endregion
 
-        #region 属性:FindByAccountIdentity(string accountIdentity)
-        /// <summary>���ݲ���ĳ����¼</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindByAccountIdentity(string accountIdentity)
+        /// <summary>根据查找某条记录</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         AccountCacheInfo FindByAccountIdentity(string accountIdentity);
         #endregion
 
-        #region 属性:FindByAccountCacheValue(string accountCacheValue)
-        /// <summary>����ĳ����¼</summary>
-        /// <param name="value">������ֵ</param>
-        /// <returns>����һ�� ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindByAccountCacheValue(string accountCacheValue)
+        /// <summary>查找某条记录</summary>
+        /// <param name="value">缓存的值</param>
+        /// <returns>返回一个 实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         AccountCacheInfo FindByAccountCacheValue(string accountCacheValue);
         #endregion
 
-        #region 属性:Dump()
-        /// <summary>ת�����м�¼��Ϣ</summary>
-        /// <returns>����һ��<see cref="AccountCacheInfo"/>�б�</returns>
+        #region 函数:Dump()
+        /// <summary>转储所有记录信息</summary>
+        /// <returns>返回一个<see cref="AccountCacheInfo"/>列表</returns>
         IList<AccountCacheInfo> Dump();
         #endregion
 
-        #region 属性:Insert(AccountCacheInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</param>
+        #region 函数:Insert(AccountCacheInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="AccountCacheInfo"/>的详细信息</param>
         void Insert(AccountCacheInfo param);
         #endregion
 
-        #region 属性:Update(AccountCacheInfo param)
-        /// <summary>���¼�¼</summary>
-        /// <param name="param">ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</param>
+        #region 函数:Update(AccountCacheInfo param)
+        /// <summary>更新记录</summary>
+        /// <param name="param">实例<see cref="AccountCacheInfo"/>的详细信息</param>
         void Update(AccountCacheInfo param);
         #endregion
 
-        #region 属性:Delete(string accountIdentity)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        #region 函数:Delete(string accountIdentity)
+        /// <summary>删除记录</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         int Delete(string accountIdentity);
         #endregion
 
-        #region 属性:IsExist(string accountIdentity)
-        /// <summary>������¼�Ƿ�����</summary>
-        /// <param name="accountIdentity">�ʺŻỰΨһ��ʶ</param>
+        #region 函数:IsExist(string accountIdentity)
+        /// <summary>检测记录是否存在</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         bool IsExist(string accountIdentity);
         #endregion
 
-        #region 属性:IsExistAccountCacheValue(string accountCacheValue)
-        /// <summary>������¼�Ƿ�����</summary>
-        /// <param name="accountCacheValue">�ʺŻ���ֵ</param>
+        #region 函数:IsExistAccountCacheValue(string accountCacheValue)
+        /// <summary>检测记录是否存在</summary>
+        /// <param name="accountCacheValue">帐号缓存值</param>
         bool IsExistAccountCacheValue(string accountCacheValue);
         #endregion
 
-        #region 属性:Clear(DateTime expiryTime)
-        /// <summary>��������ʱ��֮ǰ�Ļ�����¼</summary>
-        /// <param name="expiryTime">����ʱ��</param>
+        #region 函数:Clear(DateTime expiryTime)
+        /// <summary>清理过期时间之前的缓存记录</summary>
+        /// <param name="expiryTime">过期时间</param>
         int Clear(DateTime expiryTime);
         #endregion
 
-        #region 属性:Clear()
-        /// <summary>���ջ�����¼</summary>
+        #region 函数:Clear()
+        /// <summary>清空缓存记录</summary>
         int Clear();
         #endregion
     }

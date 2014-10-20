@@ -226,6 +226,7 @@
     <None Include="config\X3Platform.Entities.Spring.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DAL\IBatis\EntityImplementationProvider.xml">
@@ -255,7 +256,6 @@
     <Content Include="DAL\IBatis\EntityDocObjectProvider.xml">
       <DependentUpon>EntityDocObjectProvider.cs</DependentUpon>
     </Content>
-    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="db\" />

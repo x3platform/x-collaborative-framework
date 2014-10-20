@@ -99,14 +99,14 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        // -------------------------------------------------------
-        // ���� ɾ�� �޸�
-        // -------------------------------------------------------
+        //-------------------------------------------------------
+        // 保存 添加 修改 删除 
+        //-------------------------------------------------------
 
-        #region 属性:Save(AuthorityInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(AuthorityInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">AuthorityInfo 实例详细信息</param>
+        /// <returns>AuthorityInfo 实例详细信息</returns>
         public AuthorityInfo Save(AuthorityInfo param)
         {
             if (!IsExist(param.Id))
@@ -131,18 +131,18 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Update(AuthorityInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(AuthorityInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">AuthorityInfo 实例的详细信息</param>
         public void Update(AuthorityInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="param">AuthorityInfo 实例的标识信息,多个以逗号隔开</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -156,14 +156,14 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        // -------------------------------------------------------
-        // ��ѯ
-        // -------------------------------------------------------
+        //-------------------------------------------------------
+        // 查询
+        //-------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">AuthorityInfo Id号</param>
+        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
         public AuthorityInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -174,10 +174,10 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindOneByName(string name)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="name">Ȩ������</param>
-        /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByName(string name)
+        /// <summary>查询某条记录</summary>
+        /// <param name="name">权限名称</param>
+        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
         public AuthorityInfo FindOneByName(string name)
         {
             try
@@ -216,15 +216,15 @@ namespace X3Platform.Security.Authority.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql());
-            args.Add("Length", query.Limit);
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
-        // -------------------------------------------------------
-        // �Զ��幦��
-        // -------------------------------------------------------
+        //-------------------------------------------------------
+        // 自定义功能
+        //-------------------------------------------------------
 
         #region 属性:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>��ҳ����</summary>
@@ -254,10 +254,10 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))

@@ -95,7 +95,6 @@
     <Compile Include="SmtpClientTester.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

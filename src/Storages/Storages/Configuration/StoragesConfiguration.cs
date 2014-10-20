@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :StoragesConfiguration.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Storages.Configuration
 {
     #region Using Libraries
@@ -29,9 +13,9 @@ namespace X3Platform.Storages.Configuration
         public const string ApplicationName = "Storages";
         
         /// <summary>配置区的名称</summary>
-        public const string SectionName = "storagesConfiguration";
+        public const string SectionName = "storages";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;

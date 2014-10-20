@@ -241,7 +241,7 @@ namespace X3Platform.Security.Authority.DAL.MySQL
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql());
-            args.Add("Length", query.Limit);
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }

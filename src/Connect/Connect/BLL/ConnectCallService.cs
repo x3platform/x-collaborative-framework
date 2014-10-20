@@ -80,7 +80,7 @@ namespace X3Platform.Connect.BLL
         /// <returns>返回所有 AccountInfo 实例的详细信息</returns>
         public IList<ConnectCallInfo> FindAll()
         {
-            return FindAll(new DataQuery() { Limit = 1000 });
+            return FindAll(new DataQuery() { Length = 1000 });
         }
         #endregion
 

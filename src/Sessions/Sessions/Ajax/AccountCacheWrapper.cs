@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AccountCacheWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Sessions.Interop
 {
     #region Using Libraries
@@ -29,49 +13,49 @@ namespace X3Platform.Sessions.Interop
     using X3Platform.Sessions.IBLL;
     #endregion
 
-    /// <summary>�ʺŻ���</summary>
+    /// <summary>帐号缓存</summary>
     public class AccountCacheWrapper : ContextWrapper
     {
         IAccountCacheService service = SessionContext.Instance.AccountCacheService;
 
-        #region 属性:Heartbeat(XmlDocument doc)
-        /// <summary>��������</summary>
+        #region 函数:Heartbeat(XmlDocument doc)
+        /// <summary>保持心跳</summary>
         /// <returns></returns>
         public string Heartbeat(XmlDocument doc)
         {
             if (KernelContext.Current.User == null)
             {
-                // δ��¼�û���Ϣ����
-                // return "{\"ajaxStorage\":{\"sessionId\":\"\"},\"message\":{\"returnCode\":1,\"value\":\"����¼ϵͳ��\"}}";
+                // 未登录用户信息跟踪
+                // return "{\"ajaxStorage\":{\"sessionId\":\"\"},\"message\":{\"returnCode\":1,\"value\":\"请登录系统。\"}}";
             }
             else
             {
-                // �ѵ�¼�û���Ϣ����
-                // return "{\"ajaxStorage\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+                // 已登录用户信息跟踪
+                // return "{\"ajaxStorage\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}";
             }
 
             return "1";
         }
         #endregion
 
-        #region 属性:GetSessionId(XmlDocument doc)
-        /// <summary>��ȡ�Ự��ʶ</summary>
+        #region 函数:GetSessionId(XmlDocument doc)
+        /// <summary>获取会话标识</summary>
         /// <returns></returns>
         public string GetSessionId(XmlDocument doc)
         {
             if (KernelContext.Current.User == null)
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"����¼ϵͳ��\"}}";
+                return "{\"message\":{\"returnCode\":1,\"value\":\"请登录系统。\"}}";
             }
             else
             {
-                return "{\"ajaxStorage\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+                return "{\"ajaxStorage\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}";
             }
         }
         #endregion
 
-        #region 属性:Find(XmlDocument doc)
-        /// <summary>��������</summary>
+        #region 函数:Find(XmlDocument doc)
+        /// <summary>查找数据</summary>
         /// <returns></returns>
         public string Find(XmlDocument doc)
         {
@@ -94,14 +78,14 @@ namespace X3Platform.Sessions.Interop
                 outString.Append("}");
             }
 
-            outString.Append(",\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}");
+            outString.Append(",\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:Dump(XmlDocument doc)
-        /// <summary>ת������</summary>
+        #region 函数:Dump(XmlDocument doc)
+        /// <summary>转储数据</summary>
         /// <returns></returns>
         public string Dump(XmlDocument doc)
         {
@@ -122,7 +106,7 @@ namespace X3Platform.Sessions.Interop
 
             outString = StringHelper.TrimEnd(outString, ",");
 
-            outString.Append("],\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}");
+            outString.Append("],\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}");
 
             return outString.ToString();
         }

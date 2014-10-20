@@ -240,6 +240,7 @@
     <Content Include="DigitalNumber\db\Init_Scripts_SQLServer.sql" />
     <Content Include="Security\Authority\DAL\IBatis\AuthorityProvider.xml">
       <DependentUpon>AuthorityProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Security\Authority\DAL\MySQL\AuthorityProvider.xml">
       <DependentUpon>AuthorityProvider.cs</DependentUpon>
@@ -254,7 +255,6 @@
     <Content Include="Security\Authority\db\proc_Authority_Update.sql" />
     <Content Include="Security\Authority\db\权限管理初始化脚本%28MySQL%29.sql" />
     <Content Include="Security\Authority\db\权限管理初始化脚本%28SQLServer%29.sql" />
-    <Content Include="Security\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.config" />
@@ -262,6 +262,7 @@
     <EmbeddedResource Include="DigitalNumber\defaults\config.yaml" />
     <None Include="DigitalNumber\README.md" />
     <Compile Include="Entities\IEntityFollowInfo.cs" />
+    <None Include="Security\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Partials\" />

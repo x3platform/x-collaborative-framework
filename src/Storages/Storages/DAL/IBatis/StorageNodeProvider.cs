@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :StorageNodeProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Storages.DAL.IBatis
+﻿namespace X3Platform.Storages.DAL.IBatis
 {
     #region Using Libraries
     using System;
@@ -28,6 +12,7 @@ namespace X3Platform.Storages.DAL.IBatis
     using X3Platform.Storages.Configuration;
     using X3Platform.Storages.IDAL;
     using X3Platform.Storages.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -138,7 +123,7 @@ namespace X3Platform.Storages.DAL.IBatis
 
         #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号隔开.</param>
+        /// <param name="id">标识</param>
         public void Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -174,15 +159,15 @@ namespace X3Platform.Storages.DAL.IBatis
 
         #region 函数:FindAll(string whereClause,int length)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <param name="length">条数</param>
+        /// <param name="query">数据查询参数</param>
         /// <returns>返回所有实例<see cref="IStorageNode"/>的详细信息</returns>
-        public IList<IStorageNode> FindAll(string whereClause, int length)
+        public IList<IStorageNode> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("Length", length);
+            args.Add("WhereClause", query.GetWhereSql());
+            args.Add("OrderBy", query.GetOrderBySql());
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<IStorageNode>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }
@@ -194,9 +179,13 @@ namespace X3Platform.Storages.DAL.IBatis
         /// <returns>返回所有实例<see cref="IStorageNode"/>的详细信息</returns>
         public IList<IStorageNode> FindAllBySchemaId(string schemaId)
         {
-            string whereClause = string.Format(" StorageSchemaId IN ( SELECT Id FROM tb_Storage_Schema WHERE Id = ##{0}##) ", schemaId);
+            Dictionary<string, object> args = new Dictionary<string, object>();
 
-            return this.FindAll(whereClause, 0);
+            args.Add("WhereClause", string.Format(" StorageSchemaId IN ( SELECT Id FROM tb_Storage_Schema WHERE Id = '{0}') ", StringHelper.ToSafeSQL(schemaId, true)));
+            args.Add("OrderBy", "OrderId, Name");
+            args.Add("Length", 0);
+
+            return this.ibatisMapper.QueryForList<IStorageNode>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }
         #endregion
 
@@ -204,28 +193,25 @@ namespace X3Platform.Storages.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="IStorageNode"/></returns>
-        public IList<IStorageNode> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<IStorageNode> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<IStorageNode> list = this.ibatisMapper.QueryForList<IStorageNode>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
+            IList<IStorageNode> list = this.ibatisMapper.QueryForList<IStorageNode>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
 

@@ -1,8 +1,7 @@
-
-
-using System.Text;
 namespace X3Platform.Web.Component
 {
+    using System.Text;
+
     /// <summary>Html´úÂëÉú³ÉÆ÷</summary>
     public static class HtmlHelper
     {

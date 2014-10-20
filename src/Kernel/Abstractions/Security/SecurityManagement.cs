@@ -23,11 +23,11 @@ namespace X3Platform.Security
     using X3Platform.Security.Authority;
     using X3Platform.Security.Authority.Configuration;
 
-    /// <summary>��ȫ����</summary>
+    /// <summary>安全管理</summary>
     public sealed class SecurityManagement
     {
-        //#region 属性:CheckAuthority(IList<AuthorityInfo> authorities)
-        ///// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
+        //#region 函数:CheckAuthority(IList<AuthorityInfo> authorities)
+        ///// <summary>检测用户是否拥有权限</summary>
         ///// <param name="account"></param>
         ///// <param name="authorities"></param>
         ///// <returns></returns>
@@ -42,8 +42,8 @@ namespace X3Platform.Security
         //}
         //#endregion
 
-        //#region 属性:CheckAuthority( string[] authorityNames)
-        ///// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
+        //#region 函数:CheckAuthority( string[] authorityNames)
+        ///// <summary>检测用户是否拥有权限</summary>
         ///// <param name="account"></param>
         ///// <param name="authorityKeys"></param>
         ///// <returns></returns>
@@ -54,8 +54,8 @@ namespace X3Platform.Security
         //}
         //#endregion
 
-        #region 属性:Check(IAccountInfo account, IRoleInfo[] roles)
-        /// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
+        #region 函数:Check(IAccountInfo account, IRoleInfo[] roles)
+        /// <summary>检测用户是否拥有权限</summary>
         /// <param name="account"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
@@ -66,8 +66,8 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 属性:Check(IAccountInfo account, IAuthorizationScope[] authorizationScopes)
-        /// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
+        #region 函数:Check(IAccountInfo account, IAuthorizationScope[] authorizationScopes)
+        /// <summary>检测用户是否拥有权限</summary>
         /// <param name="account"></param>
         /// <param name="roles"></param>
         /// <returns></returns>
@@ -79,7 +79,7 @@ namespace X3Platform.Security
             {
                 IAuthorizationObject authorizationObject = authorizationScope.AuthorizationObject;
 
-                // �ն���: δ�ҵ�����ֵ..
+                // 空对象: 未找到相关值..
                 if (authorizationObject == null)
                     continue;
 
@@ -111,7 +111,7 @@ namespace X3Platform.Security
                             }
                         }
                         break;
-                    // [δʵ��]
+                    // [未实现]
                     //case "generalrole":
 
                     //    foreach (IAuthorizationObject organization.role in account.Roles)
@@ -136,8 +136,8 @@ namespace X3Platform.Security
         }
         #endregion
 
-        //#region 属性:Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
-        ///// <summary>�����û��Ƿ�ӵ��Ȩ��</summary>
+        //#region 函数:Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
+        ///// <summary>检测用户是否拥有权限</summary>
         ///// <param name="account"></param>
         ///// <param name="roles"></param>
         ///// <param name="authorityKeys"></param>
@@ -145,13 +145,13 @@ namespace X3Platform.Security
         //public static bool Check(IAccountInfo account, IRoleInfo[] roles, string[] authorityKeys)
         //{
         //    //
-        //    // 1.��ȡ�ʺŵ�Ȩ��
+        //    // 1.获取帐号的权限
         //    //
-        //    // 2.��ȡ����Ҫ�Ľ�ɫ��Χ
+        //    // 2.获取的需要的角色范围
         //    //
-        //    // 3.��Ҫ��Ȩ�޷�Χ
+        //    // 3.需要的权限范围
         //    //
-        //    // 4.��Ҫ��Ȩ�����ȼ�������Ҫ�Ľ�ɫ�����ȼ�.
+        //    // 4.需要的权限优先级大于需要的角色的优先级.
         //    //
 
         //    //IList<AuthorityInfo> accountAuthorities = GetAuthorities(account);
