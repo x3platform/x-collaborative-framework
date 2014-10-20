@@ -35,20 +35,20 @@ namespace X3Platform.Entities.DAL.IBatis
     [DataObject]
     public class EntityClickProvider : IEntityClickProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private EntitiesConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Entity_Click";
 
-        #region ���캯��:EntityClickProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:EntityClickProvider()
+        /// <summary>构造函数</summary>
         public EntityClickProvider()
         {
             this.configuration = EntitiesConfigurationView.Instance.Configuration;
@@ -60,36 +60,36 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -97,24 +97,24 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(IEntityClickInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IEntityClickInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IEntityClickInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IEntityClickInfo"/>详细信息</returns>
         public IEntityClickInfo Save(IEntityClickInfo param)
         {
             return this.Save(this.tableName, param);
         }
         #endregion
 
-        #region 属性:Save(string customTableName, IEntityClickInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="param">ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(string customTableName, IEntityClickInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="param">实例<see cref="IEntityClickInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IEntityClickInfo"/>详细信息</returns>
         public IEntityClickInfo Save(string customTableName, IEntityClickInfo param)
         {
             if (!this.IsExist(customTableName, param.EntityId, param.EntityClassName, param.AccountId))
@@ -130,18 +130,18 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(IEntityClickInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(IEntityClickInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="IEntityClickInfo"/>详细信息</param>
         public void Insert(IEntityClickInfo param)
         {
             this.Insert(this.tableName, param);
         }
         #endregion
 
-        #region 属性:Insert(string customTableName, IEntityClickInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(string customTableName, IEntityClickInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="IEntityClickInfo"/>详细信息</param>
         public void Insert(string customTableName, IEntityClickInfo param)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -157,18 +157,18 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Update(IEntityClickInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(IEntityClickInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="IEntityClickInfo"/>详细信息</param>
         public void Update(IEntityClickInfo param)
         {
             this.Update(this.tableName, param);
         }
         #endregion
 
-        #region 属性:Update(string customTableName, IEntityClickInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IEntityClickInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(string customTableName, IEntityClickInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="IEntityClickInfo"/>详细信息</param>
         public void Update(string customTableName, IEntityClickInfo param)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -185,25 +185,25 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="EntityDraftInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="EntityDraftInfo"/>的详细信息</returns>
         public IList<IEntityClickInfo> FindAll(string whereClause, int length)
         {
             return this.FindAll(this.tableName, whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAll(string customTableName, string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="EntityDraftInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string customTableName, string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="EntityDraftInfo"/>的详细信息</returns>
         public IList<IEntityClickInfo> FindAll(string customTableName, string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -216,23 +216,23 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAllByEntityId(string entityId, string entityClassName)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <returns>��������ʵ��<see cref="IEntityClickInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByEntityId(string entityId, string entityClassName)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>返回所有实例<see cref="IEntityClickInfo"/>的详细信息</returns>
         public IList<IEntityClickInfo> FindAllByEntityId(string entityId, string entityClassName)
         {
             return this.FindAllByEntityId(this.tableName, entityId, entityClassName);
         }
         #endregion
 
-        #region 属性:FindAllByEntityId(string customTableName, string entityId, string entityClassName)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <returns>��������ʵ��<see cref="IEntityClickInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByEntityId(string customTableName, string entityId, string entityClassName)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>返回所有实例<see cref="IEntityClickInfo"/>的详细信息</returns>
         public IList<IEntityClickInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName)
         {
             string whereClause = string.Format(" EntityId = ##{0}## AND EntityClassName = ##{1}## ", StringHelper.ToSafeSQL(entityId), StringHelper.ToSafeSQL(entityClassName));
@@ -241,12 +241,12 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAllByEntityId(string customTableName, string entityId, string entityClassName, DataResultMapper mapper)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <returns>��������ʵ��<see cref="IEntityClickInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByEntityId(string customTableName, string entityId, string entityClassName, DataResultMapper mapper)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>返回所有实例<see cref="IEntityClickInfo"/>的详细信息</returns>
         public IList<IEntityClickInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName, DataResultMapper mapper)
         {
             string whereClause = string.Format(" {0} = ##{1}## AND {2} = ##{3}## ORDER BY {4} DESC ", mapper["EntityId"].DataColumnName, entityId, mapper["EntityClassName"].DataColumnName, entityClassName, mapper["UpdateDate"].DataColumnName);
@@ -263,33 +263,33 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:IsExist(string entityId, string entityClassName, string accountId)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string entityId, string entityClassName, string accountId)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string entityId, string entityClassName, string accountId)
         {
             return this.IsExist(this.tableName, entityId, entityClassName, accountId);
         }
         #endregion
 
-        #region 属性:IsExist(string tableName, string entityId, string entityClassName, string accountId)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string tableName, string entityId, string entityClassName, string accountId)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string customTableName, string entityId, string entityClassName, string accountId)
         {
             if (string.IsNullOrEmpty(entityId))
             {
-                throw new Exception("ʵ����ʶ����Ϊ��.");
+                throw new Exception("实例标识不能为空.");
             }
 
             bool isExist = true;
@@ -305,11 +305,11 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Increment(string entityId, string entityClassName, string accountId)
-        /// <summary>����ʵ�����ݵĵ�����</summary>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:Increment(string entityId, string entityClassName, string accountId)
+        /// <summary>自增实体数据的点击数</summary>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="accountId">帐号标识</param>
         /// <returns></returns>
         public int Increment(string entityId, string entityClassName, string accountId)
         {
@@ -317,33 +317,33 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Increment(string tableName, string entityId, string entityClassName, string accountId)
-        /// <summary>����ʵ�����ݵĵ�����</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:Increment(string tableName, string entityId, string entityClassName, string accountId)
+        /// <summary>自增实体数据的点击数</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>布尔值</returns>
         public int Increment(string customTableName, string entityId, string entityClassName, string accountId)
         {
             if (string.IsNullOrEmpty(customTableName))
             {
-                throw new Exception("���ݱ����˲���Ϊ��.");
+                throw new Exception("数据表明此不能为空.");
             }
 
             if (string.IsNullOrEmpty(entityId))
             {
-                throw new Exception("ʵ����ʶ����Ϊ��.");
+                throw new Exception("实例标识不能为空.");
             }
 
             if (string.IsNullOrEmpty(entityClassName))
             {
-                throw new Exception("ʵ���������Ʋ���Ϊ��.");
+                throw new Exception("实例类的名称不能为空.");
             }
 
             if (string.IsNullOrEmpty(accountId))
             {
-                throw new Exception("�ʺű�ʶ����Ϊ��.");
+                throw new Exception("帐号标识不能为空.");
             }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -359,38 +359,38 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:CalculateClickCount(string entityId, string entityClassName)
-        /// <summary>����ʵ�����ݵĵ�����</summary>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <returns>������</returns>
+        #region 函数:CalculateClickCount(string entityId, string entityClassName)
+        /// <summary>计算实体数据的点击数</summary>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>点击数</returns>
         public int CalculateClickCount(string entityId, string entityClassName)
         {
             return this.CalculateClickCount(this.tableName, entityId, entityClassName);
         }
         #endregion
 
-        #region 属性:CalculateClickCount(string tableName, string entityId, string entityClassName)
-        /// <summary>����ʵ�����ݵĵ�����</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="entityId">ʵ������ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <returns>������</returns>
+        #region 函数:CalculateClickCount(string tableName, string entityId, string entityClassName)
+        /// <summary>计算实体数据的点击数</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="entityId">实体类标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>点击数</returns>
         public int CalculateClickCount(string customTableName, string entityId, string entityClassName)
         {
             if (string.IsNullOrEmpty(customTableName))
             {
-                throw new Exception("���ݱ����˲���Ϊ��.");
+                throw new Exception("数据表明此不能为空.");
             }
 
             if (string.IsNullOrEmpty(entityId))
             {
-                throw new Exception("ʵ����ʶ����Ϊ��.");
+                throw new Exception("实例标识不能为空.");
             }
 
             if (string.IsNullOrEmpty(entityClassName))
             {
-                throw new Exception("ʵ���������Ʋ���Ϊ��.");
+                throw new Exception("实例类的名称不能为空.");
             }
 
             Dictionary<string, object> args = new Dictionary<string, object>();

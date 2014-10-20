@@ -48,7 +48,10 @@
     <!-- 开发框架 输出目录  -->
     <property name="framework.build.output" value="dist/${nant.settings.currentframework}/" />
     <!-- 开发框架 是否允许调试 true | false -->
-    <property name="framework.debug" value="true" />
+    <property name="framework.debug" value="false" />
+    <if test="${property::exists('debug')}">
+        <property name="framework.debug" value="${property::get-value('debug')}" />
+    </if>
     <!-- 控制台输出彩色文本脚本 -->
     <script language="C#">
         <code>

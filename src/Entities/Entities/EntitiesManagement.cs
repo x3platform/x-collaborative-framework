@@ -82,12 +82,12 @@ namespace X3Platform.Entities
         }
         #endregion
 
-        #region  Ù–‘:EntityImplementationService
-        private IEntityImplementationService m_EntityImplementationService = null;
+        #region  Ù–‘:EntityFeedbackService
+        private IEntityFeedbackService m_EntityFeedbackService = null;
 
-        public IEntityImplementationService EntityImplementationService
+        public IEntityFeedbackService EntityFeedbackService
         {
-            get { return m_EntityImplementationService; }
+            get { return m_EntityFeedbackService; }
         }
         #endregion
 
@@ -171,7 +171,7 @@ namespace X3Platform.Entities
             this.m_EntityClickService = SpringContext.Instance.GetObject<IEntityClickService>(typeof(IEntityClickService));
             this.m_EntityDocObjectService = SpringContext.Instance.GetObject<IEntityDocObjectService>(typeof(IEntityDocObjectService));
             this.m_EntityDraftService = SpringContext.Instance.GetObject<IEntityDraftService>(typeof(IEntityDraftService));
-            this.m_EntityImplementationService = SpringContext.Instance.GetObject<IEntityImplementationService>(typeof(IEntityImplementationService));
+            this.m_EntityFeedbackService = SpringContext.Instance.GetObject<IEntityFeedbackService>(typeof(IEntityFeedbackService));
             this.m_EntityLifeHistoryService = SpringContext.Instance.GetObject<IEntityLifeHistoryService>(typeof(IEntityLifeHistoryService));
             this.m_EntityMetaDataService = SpringContext.Instance.GetObject<IEntityMetaDataService>(typeof(IEntityMetaDataService));
             this.m_EntityOperationLogService = SpringContext.Instance.GetObject<IEntityOperationLogService>(typeof(IEntityOperationLogService));

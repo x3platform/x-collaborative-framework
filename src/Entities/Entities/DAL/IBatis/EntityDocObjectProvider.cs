@@ -2,7 +2,7 @@
 //
 // Copyright (c) 2010 Elane, ruany@chinasic.com
 //
-// FileName     :IEntityImplementationProvider.cs
+// FileName     :IEntityFeedbackProvider.cs
 //
 // Description  :
 //

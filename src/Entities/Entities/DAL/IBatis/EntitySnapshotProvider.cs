@@ -34,20 +34,20 @@ namespace X3Platform.Entities.DAL.IBatis
     [DataObject]
     public class EntitySnapshotProvider : IEntitySnapshotProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private EntitiesConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Entity_Snapshot";
 
-        #region ���캯��:EntitySnapshotProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:EntitySnapshotProvider()
+        /// <summary>构造函数</summary>
         public EntitySnapshotProvider()
         {
             this.configuration = EntitiesConfigurationView.Instance.Configuration;
@@ -59,36 +59,36 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -96,13 +96,13 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(EntitySnapshotInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="EntitySnapshotInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="EntitySnapshotInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(EntitySnapshotInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="EntitySnapshotInfo"/>详细信息</param>
+        /// <returns>实例<see cref="EntitySnapshotInfo"/>详细信息</returns>
         public EntitySnapshotInfo Save(EntitySnapshotInfo param)
         {
             if (!IsExist(param.Id))
@@ -118,27 +118,27 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(EntitySnapshotInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="EntitySnapshotInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(EntitySnapshotInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="EntitySnapshotInfo"/>详细信息</param>
         public void Insert(EntitySnapshotInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
-        #region 属性:Update(EntitySnapshotInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="EntitySnapshotInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(EntitySnapshotInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="EntitySnapshotInfo"/>详细信息</param>
         public void Update(EntitySnapshotInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号隔开.</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -153,13 +153,13 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="EntitySnapshotInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="EntitySnapshotInfo"/>的详细信息</returns>
         public EntitySnapshotInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -172,11 +172,11 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="EntitySnapshotInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="EntitySnapshotInfo"/>的详细信息</returns>
         public IList<EntitySnapshotInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -191,17 +191,17 @@ namespace X3Platform.Entities.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="EntitySnapshotInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="EntitySnapshotInfo"/></returns>
         public IList<EntitySnapshotInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -223,14 +223,14 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
-                throw new Exception("ʵ����ʶ����Ϊ��.");
+                throw new Exception("实例标识不能为空.");
 
             bool isExist = true;
 
