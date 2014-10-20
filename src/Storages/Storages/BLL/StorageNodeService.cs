@@ -11,6 +11,7 @@
     using X3Platform.Storages.IBLL;
     using X3Platform.Storages.IDAL;
     using X3Platform.Storages.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -90,28 +91,17 @@
         /// <returns>返回所有实例<see cref="IStorageNode"/>的详细信息</returns>
         public IList<IStorageNode> FindAll()
         {
-            return FindAll(string.Empty);
+            return FindAll(new DataQuery() { Length = 1000 });
         }
         #endregion
 
-        #region 函数:FindAll(string whereClause)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <returns>返回所有实例<see cref="IStorageNode"/>的详细信息</returns>
-        public IList<IStorageNode> FindAll(string whereClause)
+        public IList<IStorageNode> FindAll(DataQuery query)
         {
-            return FindAll(whereClause, 0);
-        }
-        #endregion
-
-        #region 函数:FindAll(string whereClause, int length)
-        /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="IStorageNode"/>的详细信息</returns>
-        public IList<IStorageNode> FindAll(string whereClause, int length)
-        {
-            return this.provider.FindAll(whereClause, length);
+            return this.provider.FindAll(query);
         }
         #endregion
 
@@ -129,17 +119,16 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="IStorageNode"/></returns>
-        public IList<IStorageNode> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<IStorageNode> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 

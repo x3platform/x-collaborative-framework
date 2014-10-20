@@ -113,7 +113,7 @@
 			  </dynamic>
 		</select>
 
-		<select id="proc_Storage_Schema_GetPages" resultMap="proc_Storage_Schema_FindAll_Result" >
+		<select id="proc_Storage_Schema_GetPaging" resultMap="proc_Storage_Schema_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -132,7 +132,7 @@
 		</select>
 
         <!-- SQL Server 2000 -->
-		<select id="proc_Storage_Schema_GetPages(SQLServer2000)" resultMap="proc_Storage_Schema_FindAll_Result" >
+		<select id="proc_Storage_Schema_GetPaging(SQLServer2000)" resultMap="proc_Storage_Schema_FindAll_Result" >
 			SELECT TOP $PageSize$ *
 
 			FROM [tb_Storage_Schema] T
@@ -158,7 +158,7 @@
 		</select>
 
         <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
-		<select id="proc_Storage_Schema_GetPages(SQLServer2008)" resultMap="proc_Storage_Schema_FindAll_Result" >
+		<select id="proc_Storage_Schema_GetPaging(SQLServer2008)" resultMap="proc_Storage_Schema_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

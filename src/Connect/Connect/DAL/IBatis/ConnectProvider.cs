@@ -201,8 +201,8 @@ namespace X3Platform.Connect.DAL.IBatis
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("Length", query.Limit);
+            args.Add("WhereClause", query.GetWhereSql());
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<ConnectInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }

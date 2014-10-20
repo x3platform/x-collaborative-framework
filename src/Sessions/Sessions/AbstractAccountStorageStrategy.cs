@@ -1,21 +1,6 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Sessions
+﻿namespace X3Platform.Sessions
 {
+    #region Using Libraries
     using System;
     using System.Reflection;
     using System.Text;
@@ -23,6 +8,7 @@ namespace X3Platform.Sessions
     using System.Xml;
 
     using X3Platform.Membership;
+    #endregion
 
     /// <summary></summary>
     public abstract class AbstractAccountStorageStrategy : IAccountStorageStrategy

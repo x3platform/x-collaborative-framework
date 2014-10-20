@@ -6,6 +6,7 @@
     <resultMaps>
         <resultMap id="proc_AccountCache_FindOne_Result" class="AccountCacheInfo">
             <result property="AccountIdentity" column="AccountIdentity" />
+            <result property="AppKey" column="AppKey" />
             <result property="AccountCacheValue" column="AccountCacheValue" />
             <result property="AccountObject" column="AccountObject" />
             <result property="AccountObjectType" column="AccountObjectType" />
@@ -16,6 +17,7 @@
         </resultMap>
         <resultMap id="proc_AccountCache_FindAll_Result" class="AccountCacheInfo">
             <result property="AccountIdentity" column="AccountIdentity" />
+            <result property="AppKey" column="AppKey" />
             <result property="AccountCacheValue" column="AccountCacheValue" />
             <result property="AccountObject" column="AccountObject" />
             <result property="AccountObjectType" column="AccountObjectType" />
@@ -30,6 +32,7 @@
             INSERT INTO tb_AccountCache
             (
                 AccountIdentity,
+                AppKey,
                 AccountCacheValue,
                 AccountObject,
                 AccountObjectType,
@@ -41,6 +44,7 @@
             VALUES
             (
                 #AccountIdentity#,
+                #AppKey#,
                 #AccountCacheValue#,
                 #AccountObject#,
                 #AccountObjectType#,
@@ -54,7 +58,6 @@
         <update id="proc_AccountCache_Update" parameterClass="AccountCacheInfo">
             UPDATE tb_AccountCache SET
 
-                AccountCacheValue = #AccountCacheValue#,
                 AccountObject = #AccountObject#,
                 AccountObjectType = #AccountObjectType#,
                 EndDate = #EndDate#,

@@ -1,1 +1,6 @@
-流水号生成器
+###娴佹按鍙风敓鎴愬櫒###
+
+// 鐢熸垚GUID鏍煎紡瀛楃  
+```csharp
+DigitalNumberContext.Generate("Key_Guid");    
+```

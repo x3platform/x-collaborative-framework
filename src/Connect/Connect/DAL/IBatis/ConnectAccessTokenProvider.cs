@@ -195,7 +195,7 @@ namespace X3Platform.Connect.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
         /// <param name="length">条数</param>
@@ -205,7 +205,8 @@ namespace X3Platform.Connect.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql());
-            args.Add("Length", query.Limit);
+            args.Add("OrderBy", query.GetOrderBySql());
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<ConnectAccessTokenInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }

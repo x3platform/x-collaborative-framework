@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) 2011, ruany@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -29,13 +15,13 @@ namespace X3Platform.Security.Authority.WebService
         private IAuthorityService service = AuthorityContext.Instance.AuthorityService;
 
         //-------------------------------------------------------
-        // ��ѯ
+        // 查询
         //-------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="Id">AuthorityInfo Id��</param>
-        /// <returns>����һ�� AuthorityInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="Id">AuthorityInfo Id号</param>
+        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
         [WebMethod]
         public AuthorityInfo FindOne(string id)
         {

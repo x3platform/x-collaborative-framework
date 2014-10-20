@@ -127,6 +127,7 @@
     </Content>
     <Content Include="DAL\MySQL\AccountCacheProvider.xml">
       <DependentUpon>AccountCacheProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="build.publish.bat" />
     <Content Include="config\X3Platform.Sessions.config">

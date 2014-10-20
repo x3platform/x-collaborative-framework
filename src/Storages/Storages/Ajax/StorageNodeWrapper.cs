@@ -12,6 +12,7 @@
 
     using X3Platform.Storages.IBLL;
     using X3Platform.Storages.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -28,7 +29,6 @@
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             StorageNodeInfo param = new StorageNodeInfo();
@@ -45,7 +45,6 @@
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string ids = AjaxStorageConvertor.Fetch("ids", doc);
@@ -64,7 +63,6 @@
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -85,16 +83,22 @@
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            DataQuery query = new DataQuery();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            // 设置请求的来源
+            query.Variables.Add("origin", AjaxStorageConvertor.Fetch("origin", doc));
 
-            IList<IStorageNode> list = this.service.FindAll(whereClause, length);
+            // string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+
+            query.Where.Add("name", AjaxStorageConvertor.Fetch("name", doc));
+
+            query.Length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+
+            IList<IStorageNode> list = this.service.FindAll(query);
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStorageNode>(list) + ",");
 
@@ -108,26 +112,25 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
-            IList<IStorageNode> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<IStorageNode> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStorageNode>(list) + ",");
 
-            outString.Append("\"pages\":" + pages + ",");
+            outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -139,7 +142,6 @@
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = AjaxStorageConvertor.Fetch("id", doc);
@@ -154,7 +156,6 @@
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();

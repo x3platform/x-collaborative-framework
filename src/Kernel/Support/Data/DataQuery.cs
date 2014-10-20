@@ -64,14 +64,14 @@ namespace X3Platform.Data
         }
         #endregion
 
-        #region 属性:Limit
-        private int m_Limit = 1000;
+        #region 属性:Length
+        private int m_Length = 200;
 
-        /// <summary>查询记录最大函数限制 (默认值:1000)</summary>
-        public int Limit
+        /// <summary>查询记录最大函数限制 (默认值:200)</summary>
+        public int Length
         {
-            get { return this.m_Limit; }
-            set { this.m_Limit = value; }
+            get { return this.m_Length; }
+            set { this.m_Length = value; }
         }
         #endregion
 
