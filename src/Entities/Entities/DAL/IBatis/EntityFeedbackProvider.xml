@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<sqlMap namespace="X3Platform.Entities.DAL.IBatis.EntityImplementationProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<sqlMap namespace="X3Platform.Entities.DAL.IBatis.EntityFeedbackProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <alias>
-        <typeAlias alias="EntityImplementationInfo" type="X3Platform.Entities.Model.EntityImplementationInfo, X3Platform.Entities" />
+        <typeAlias alias="EntityFeedbackInfo" type="X3Platform.Entities.Model.EntityFeedbackInfo, X3Platform.Entities" />
     </alias>
     <resultMaps>
-        <resultMap id="proc_Entity_Implementation_FindOne_Result" class="EntityImplementationInfo">
+        <resultMap id="proc_Entity_Feedback_FindOne_Result" class="EntityFeedbackInfo">
             <result property="Id" column="Id" />
             <result property="EntityId" column="EntityId" />
             <result property="EntityClassName" column="EntityClassName" />
@@ -15,7 +15,7 @@
             <result property="UpdateDate" column="UpdateDate" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
-        <resultMap id="proc_Entity_Implementation_FindAll_Result" class="EntityImplementationInfo">
+        <resultMap id="proc_Entity_Feedback_FindAll_Result" class="EntityFeedbackInfo">
             <result property="Id" column="Id" />
             <result property="EntityId" column="EntityId" />
             <result property="EntityClassName" column="EntityClassName" />
@@ -29,7 +29,7 @@
     </resultMaps>
     <statements>
 
-        <insert id="proc_Entity_Implementation_Insert" parameterClass="EntityImplementationInfo">
+        <insert id="proc_Entity_Feedback_Insert" parameterClass="EntityFeedbackInfo">
             INSERT INTO $CustomTableName$ (
             [Id],
             [EntityId],
@@ -55,7 +55,7 @@
             )
         </insert>
 
-        <update id="proc_Entity_Implementation_Update" parameterClass="EntityImplementationInfo">
+        <update id="proc_Entity_Feedback_Update" parameterClass="EntityFeedbackInfo">
             UPDATE $CustomTableName$ SET
 
             [Id] = #Id#,
@@ -70,16 +70,16 @@
             WHERE [Id] = #Id#
         </update>
 
-        <delete id="proc_Entity_Implementation_Delete" >
+        <delete id="proc_Entity_Feedback_Delete" >
             DELETE FROM $CustomTableName$ WHERE $WhereClause$
         </delete>
 
-        <select id="proc_Entity_Implementation_FindOne" resultMap="proc_Entity_Implementation_FindOne_Result" >
+        <select id="proc_Entity_Feedback_FindOne" resultMap="proc_Entity_Feedback_FindOne_Result" >
             SELECT * FROM $CustomTableName$ T
             WHERE [Id] = #Id#
         </select>
 
-        <select id="proc_Entity_Implementation_FindAll" resultMap="proc_Entity_Implementation_FindAll_Result" >
+        <select id="proc_Entity_Feedback_FindAll" resultMap="proc_Entity_Feedback_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -99,7 +99,7 @@
             </dynamic>
         </select>
 
-        <select id="proc_Entity_Implementation_GetPages" resultMap="proc_Entity_Implementation_FindAll_Result" >
+        <select id="proc_Entity_Feedback_GetPages" resultMap="proc_Entity_Feedback_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -118,7 +118,7 @@
 
         </select>
 
-        <select id="proc_Entity_Implementation_GetRowCount" >
+        <select id="proc_Entity_Feedback_GetRowCount" >
 
             SELECT COUNT(*) AS 'RowCount' FROM $CustomTableName$ T
 
@@ -131,7 +131,7 @@
             </dynamic>
         </select>
 
-        <select id="proc_Entity_Implementation_IsExist" >
+        <select id="proc_Entity_Feedback_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ T WHERE $WhereClause$
         </select>
 

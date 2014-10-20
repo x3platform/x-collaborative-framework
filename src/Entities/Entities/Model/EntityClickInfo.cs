@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityClickInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.Model
 {
     #region Using Libraries
@@ -24,11 +8,11 @@ namespace X3Platform.Entities.Model
     using X3Platform.Entities;
     #endregion
 
-    /// <summary>ʵ������������Ϣ</summary>
+    /// <summary>实体类点击数信息</summary>
     public class EntityClickInfo : IEntityClickInfo
     {
-        #region ���캯��:EntityClickInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:EntityClickInfo()
+        /// <summary>默认构造函数</summary>
         public EntityClickInfo()
         {
         }
@@ -70,7 +54,7 @@ namespace X3Platform.Entities.Model
         #region 属性:Account
         private IAccountInfo m_Account = null;
 
-        /// <summary>������</summary>
+        /// <summary>报告人</summary>
         public IAccountInfo Account
         {
             get
@@ -88,7 +72,7 @@ namespace X3Platform.Entities.Model
         #region 属性:AccountId
         private string m_AccountId;
 
-        /// <summary>�ʺű�ʶ</summary>
+        /// <summary>帐号标识</summary>
         public string AccountId
         {
             get { return m_AccountId; }
@@ -97,7 +81,7 @@ namespace X3Platform.Entities.Model
         #endregion
 
         #region 属性:AccountName
-        /// <summary>�ʺ�����</summary>
+        /// <summary>帐号名称</summary>
         public string AccountName
         {
             get { return (this.Account == null ? string.Empty : Account.Name); }
@@ -107,7 +91,7 @@ namespace X3Platform.Entities.Model
         #region 属性:Click
         private int m_Click;
 
-        /// <summary></summary>
+        /// <summary>点击率</summary>
         public int Click
         {
             get { return m_Click; }
@@ -118,7 +102,7 @@ namespace X3Platform.Entities.Model
         #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
-        /// <summary></summary>
+        /// <summary>更新时间</summary>
         public DateTime UpdateDate
         {
             get { return m_UpdateDate; }
@@ -129,7 +113,7 @@ namespace X3Platform.Entities.Model
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary></summary>
+        /// <summary>创建时间</summary>
         public DateTime CreateDate
         {
             get { return m_CreateDate; }

@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityLifeHistoryInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Entities.Model
 {
     using System;
@@ -22,8 +8,8 @@ namespace X3Platform.Entities.Model
     /// <summary></summary>
     public class EntityLifeHistoryInfo : IEntityLifeHistoryInfo
     {
-        #region ���캯��:EntityLifeHistoryInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:EntityLifeHistoryInfo()
+        /// <summary>默认构造函数</summary>
         public EntityLifeHistoryInfo() { }
         #endregion
 

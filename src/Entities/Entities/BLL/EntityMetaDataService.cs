@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityMetaDataService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.BLL
 {
     #region Using Libraries
@@ -33,14 +17,14 @@ namespace X3Platform.Entities.BLL
     /// <summary></summary>
     public class EntityMetaDataService : IEntityMetaDataService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private EntitiesConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IEntityMetaDataProvider provider = null;
 
-        #region ���캯��:EntityMetaDataService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:EntityMetaDataService()
+        /// <summary>构造函数</summary>
         public EntityMetaDataService()
         {
             configuration = EntitiesConfigurationView.Instance.Configuration;
@@ -49,8 +33,8 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public EntityMetaDataInfo this[string id]
@@ -60,22 +44,22 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(EntityMetaDataInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="EntityMetaDataInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="EntityMetaDataInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(EntityMetaDataInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="EntityMetaDataInfo"/>详细信息</param>
+        /// <returns>实例<see cref="EntityMetaDataInfo"/>详细信息</returns>
         public EntityMetaDataInfo Save(EntityMetaDataInfo param)
         {
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
         public void Delete(string ids)
         {
             provider.Delete(ids);
@@ -83,74 +67,74 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public EntityMetaDataInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public IList<EntityMetaDataInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public IList<EntityMetaDataInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public IList<EntityMetaDataInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAllByEntitySchemaId(string entitySchemaId)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByEntitySchemaId(string entitySchemaId)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public IList<EntityMetaDataInfo> FindAllByEntitySchemaId(string entitySchemaId)
         {
             return this.provider.FindAllByEntitySchemaId(entitySchemaId);
         }
         #endregion
 
-        #region 属性:FindAllByEntitySchemaName(string entitySchemaName)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="entitySchemaName">ʵ���ṹ����</param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByEntitySchemaName(string entitySchemaName)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="entitySchemaName">实体结构名称</param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public IList<EntityMetaDataInfo> FindAllByEntitySchemaName(string entitySchemaName)
         {
             return this.provider.FindAllByEntitySchemaName(entitySchemaName);
         }
         #endregion
 
-        #region 属性:FindAllByEntityClassName(string entityClassName)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByEntityClassName(string entityClassName)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public IList<EntityMetaDataInfo> FindAllByEntityClassName(string entityClassName)
         {
             return this.provider.FindAllByEntityClassName(entityClassName);
@@ -158,27 +142,27 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="EntityMetaDataInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="EntityMetaDataInfo"/></returns>
         public IList<EntityMetaDataInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
@@ -186,38 +170,38 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ҵ�����ݹ���
+        // 业务数据管理
         // -------------------------------------------------------
 
-        #region 属性:GenerateSQL(string entitySchemaId, string sqlType)
-        /// <summary>����ʵ��ҵ�����ݵ�����SQL����</summary>
-        /// <param name="entitySchemaId">ʵ���ṹ��ʶ</param>
-        /// <param name="sqlType">SQL���� create | read | update | delete </param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:GenerateSQL(string entitySchemaId, string sqlType)
+        /// <summary>生成实体业务数据的相关SQL语句</summary>
+        /// <param name="entitySchemaId">实体结构标识</param>
+        /// <param name="sqlType">SQL类型 create | read | update | delete </param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public string GenerateSQL(string entitySchemaId, string sqlType)
         {
             return this.GenerateSQL(entitySchemaId, sqlType, 0);
         }
         #endregion
 
-        #region 属性:GenerateSQL(string entitySchemaId, string sqlType, int effectScope)
-        /// <summary>����ʵ��ҵ�����ݵ�����SQL����</summary>
-        /// <param name="entitySchemaId">ʵ���ṹ��ʶ</param>
-        /// <param name="sqlType">SQL���� create | read | update | delete </param>
-        /// <param name="effectScope">���÷�Χ 0 ��ͨ�ֶ� | 1 �������ֶ�</param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:GenerateSQL(string entitySchemaId, string sqlType, int effectScope)
+        /// <summary>生成实体业务数据的相关SQL语句</summary>
+        /// <param name="entitySchemaId">实体结构标识</param>
+        /// <param name="sqlType">SQL类型 create | read | update | delete </param>
+        /// <param name="effectScope">作用范围 0 普通字段 | 1 大数据字段</param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public string GenerateSQL(string entitySchemaId, string sqlType, int effectScope)
         {
             return this.provider.GenerateSQL(entitySchemaId, sqlType, effectScope);
         }
         #endregion
 
-        #region 属性:ExecuteNonQuerySQL(string entitySchemaId, string sqlType, Dictionary<string, string> args)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="entitySchemaId">ʵ���ṹ��ʶ</param>
-        /// <param name="sqlType">SQL���� create | update | delete </param>
-        /// <param name="args">����</param>
-        /// <returns>0 �ɹ� 1 ʧ��</returns>
+        #region 函数:ExecuteNonQuerySQL(string entitySchemaId, string sqlType, Dictionary<string, string> args)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="entitySchemaId">实体结构标识</param>
+        /// <param name="sqlType">SQL类型 create | update | delete </param>
+        /// <param name="args">参数</param>
+        /// <returns>0 成功 1 失败</returns>
         public int ExecuteNonQuerySQL(string entitySchemaId, string sqlType)
         {
             string SQL = this.GenerateSQL(entitySchemaId, "read");
@@ -226,55 +210,55 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
-        #region 属性:GenerateSQL(string entitySchemaId, string sqlType)
-        /// <summary>����SQL����</summary>
-        /// <param name="entitySchemaId">ʵ���ṹ��ʶ</param>
-        /// <param name="sqlType">SQL���� create | read | update | delete </param>
-        /// <returns>��������ʵ��<see cref="EntityMetaDataInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:GenerateSQL(string entitySchemaId, string sqlType)
+        /// <summary>生成SQL语句</summary>
+        /// <param name="entitySchemaId">实体结构标识</param>
+        /// <param name="sqlType">SQL类型 create | read | update | delete </param>
+        /// <returns>返回所有实例<see cref="EntityMetaDataInfo"/>的详细信息</returns>
         public int ExecuteNonQuerySQL(string entitySchemaId, string sqlType, Dictionary<string, string> args)
         {
             return this.ExecuteNonQuerySQL(entitySchemaId, sqlType, new Dictionary<string, string>());
         }
         #endregion
 
-        #region 属性:ExecuteNonQuerySQL(string sql)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="sql">SQL����</param>
-        /// <returns>0 �ɹ� 1 ʧ��</returns>
+        #region 函数:ExecuteNonQuerySQL(string sql)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="sql">SQL语句</param>
+        /// <returns>0 成功 1 失败</returns>
         public int ExecuteNonQuerySQL(string sql)
         {
             return this.ExecuteNonQuerySQL(sql, new Dictionary<string, string>());
         }
         #endregion
 
-        #region 属性:ExecuteNonQuerySQL(string sql, Dictionary<string, string> args)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="sql">SQL����</param>
-        /// <param name="args">����</param>
-        /// <returns>0 �ɹ� 1 ʧ��</returns>
+        #region 函数:ExecuteNonQuerySQL(string sql, Dictionary<string, string> args)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="args">参数</param>
+        /// <returns>0 成功 1 失败</returns>
         public int ExecuteNonQuerySQL(string sql, Dictionary<string, string> args)
         {
             return this.provider.ExecuteNonQuerySQL(sql, args);
         }
         #endregion
 
-        #region 属性:ExecuteReaderSQL(string entitySchemaId, int effectScope)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="entitySchemaId">ʵ���ṹ��ʶ</param>
-        /// <param name="effectScope">���÷�Χ 1 ��ͨ�ֶ� | 2 �������ֶ�</param>
-        /// <returns>����ҵ��������Ϣ</returns>
+        #region 函数:ExecuteReaderSQL(string entitySchemaId, int effectScope)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="entitySchemaId">实体结构标识</param>
+        /// <param name="effectScope">作用范围 1 普通字段 | 2 大数据字段</param>
+        /// <returns>返回业务数据信息</returns>
         public DataTable ExecuteReaderSQL(string entitySchemaId, int effectScope)
         {
             return this.ExecuteReaderSQL(entitySchemaId, effectScope, new Dictionary<string, string>());
         }
         #endregion
 
-        #region 属性:ExecuteReaderSQL(string entitySchemaId, int effectScope, Dictionary<string, string> args)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="entitySchemaId">ʵ���ṹ��ʶ</param>
-        /// <param name="effectScope">���÷�Χ 0 ��ͨ�ֶ� | 1 �������ֶ�</param>
-        /// <param name="args">����</param>
-        /// <returns>����ҵ��������Ϣ</returns>
+        #region 函数:ExecuteReaderSQL(string entitySchemaId, int effectScope, Dictionary<string, string> args)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="entitySchemaId">实体结构标识</param>
+        /// <param name="effectScope">作用范围 0 普通字段 | 1 大数据字段</param>
+        /// <param name="args">参数</param>
+        /// <returns>返回业务数据信息</returns>
         public DataTable ExecuteReaderSQL(string entitySchemaId, int effectScope, Dictionary<string, string> args)
         {
             string SQL = this.GenerateSQL(entitySchemaId, "read", effectScope);
@@ -283,42 +267,42 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
-        #region 属性:ExecuteReaderSQL(string sql)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="sql">SQL����</param>
-        /// <returns>����ҵ��������Ϣ</returns>
+        #region 函数:ExecuteReaderSQL(string sql)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="sql">SQL语句</param>
+        /// <returns>返回业务数据信息</returns>
         public DataTable ExecuteReaderSQL(string sql)
         {
             return this.ExecuteReaderSQL(sql, new Dictionary<string, string>());
         }
         #endregion
 
-        #region 属性:ExecuteReaderSQL(string sql, Dictionary<string, string> args)
-        /// <summary>ִ��SQL����</summary>
-        /// <param name="sql">SQL����</param>
-        /// <param name="args">����</param>
-        /// <returns>����ҵ��������Ϣ</returns>
+        #region 函数:ExecuteReaderSQL(string sql, Dictionary<string, string> args)
+        /// <summary>执行SQL语句</summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="args">参数</param>
+        /// <returns>返回业务数据信息</returns>
         public DataTable ExecuteReaderSQL(string sql, Dictionary<string, string> args)
         {
             return this.provider.ExecuteReaderSQL(sql, args);
         }
         #endregion
 
-        #region 属性:AnalyzeConditionSQL(string sql)
-        /// <summary>�����ж�����SQL</summary>
-        /// <param name="sql">SQL����</param>
-        /// <returns>�ж������Ƿ�����</returns>
+        #region 函数:AnalyzeConditionSQL(string sql)
+        /// <summary>分析判断条件SQL</summary>
+        /// <param name="sql">SQL语句</param>
+        /// <returns>判断条件是否成立</returns>
         public bool AnalyzeConditionSQL(string sql)
         {
             return this.AnalyzeConditionSQL(sql, new Dictionary<string, string>());
         }
         #endregion
 
-        #region 属性:AnalyzeConditionSQL(string sql, Dictionary<string, string> args)
-        /// <summary>�����ж�����SQL</summary>
-        /// <param name="sql">SQL����</param>
-        /// <param name="args">����</param>
-        /// <returns>�ж������Ƿ�����</returns>
+        #region 函数:AnalyzeConditionSQL(string sql, Dictionary<string, string> args)
+        /// <summary>分析判断条件SQL</summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="args">参数</param>
+        /// <returns>判断条件是否成立</returns>
         public bool AnalyzeConditionSQL(string sql, Dictionary<string, string> args)
         {
             return this.provider.AnalyzeConditionSQL(sql, args);

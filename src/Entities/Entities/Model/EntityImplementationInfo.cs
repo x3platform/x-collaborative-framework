@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityImplementationInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Entities.Model
+﻿namespace X3Platform.Entities.Model
 {
     #region Using Libraries
     using System;
@@ -25,11 +9,11 @@ namespace X3Platform.Entities.Model
     #endregion
 
     /// <summary></summary>
-    public class EntityImplementationInfo
+    public class EntityFeedbackInfo
     {
-        #region 构造函数:EntityImplementationInfo()
+        #region 构造函数:EntityFeedbackInfo()
         /// <summary>默认构造函数</summary>
-        public EntityImplementationInfo() { }
+        public EntityFeedbackInfo() { }
         #endregion
 
         #region 属性:Id
