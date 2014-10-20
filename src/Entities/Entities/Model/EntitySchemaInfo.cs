@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntitySchemaInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.Model
 {
     #region Using Libraries
@@ -25,8 +9,8 @@ namespace X3Platform.Entities.Model
     /// <summary></summary>
     public class EntitySchemaInfo
     {
-        #region ���캯��:EntitySchemaInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:EntitySchemaInfo()
+        /// <summary>默认构造函数</summary>
         public EntitySchemaInfo() { }
         #endregion
 
@@ -88,7 +72,7 @@ namespace X3Platform.Entities.Model
         #region 属性:DataTableName
         private string m_DataTableName = string.Empty;
 
-        /// <summary>���ݱ�����</summary>
+        /// <summary>数据表名称</summary>
         public string DataTableName
         {
             get { return m_DataTableName; }
@@ -99,7 +83,7 @@ namespace X3Platform.Entities.Model
         #region 属性:DataTablePrimaryKey
         private string m_DataTablePrimaryKey = string.Empty;
 
-        /// <summary>���ݱ�����</summary>
+        /// <summary>数据表主键</summary>
         public string DataTablePrimaryKey
         {
             get { return m_DataTablePrimaryKey; }
@@ -121,7 +105,7 @@ namespace X3Platform.Entities.Model
         #region 属性:Lock
         private int m_Lock = 1;
 
-        /// <summary>��ֹ����ɾ��</summary>
+        /// <summary>防止意外删除</summary>
         public int Lock
         {
             get { return m_Lock; }

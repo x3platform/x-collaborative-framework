@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityDraftInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.Model
 {
     #region Using Libraries
@@ -27,8 +11,8 @@ namespace X3Platform.Entities.Model
     /// <summary></summary>
     public class EntityDraftInfo : IEntityDraftInfo
     {
-        #region ���캯��:EntityDraftInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:EntityDraftInfo()
+        /// <summary>默认构造函数</summary>
         public EntityDraftInfo()
         {
         }

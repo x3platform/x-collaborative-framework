@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityMetaDataInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.Model
 {
     #region Using Libraries
@@ -27,8 +11,8 @@ namespace X3Platform.Entities.Model
     /// <summary></summary>
     public class EntityMetaDataInfo
     {
-        #region ���캯��:EntityMetaDataInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:EntityMetaDataInfo()
+        /// <summary>默认构造函数</summary>
         public EntityMetaDataInfo() { }
         #endregion
 
@@ -46,7 +30,7 @@ namespace X3Platform.Entities.Model
         #region 属性:EntitySchema
         private EntitySchemaInfo m_EntitySchema;
 
-        /// <summary>����ʵ���ܹ�</summary>
+        /// <summary>所属实体架构</summary>
         public EntitySchemaInfo EntitySchema
         {
             get
@@ -73,7 +57,7 @@ namespace X3Platform.Entities.Model
         #endregion
 
         #region 属性:EntitySchemaName
-        /// <summary>����ʵ���ܹ�����</summary>
+        /// <summary>所属实体架构名称</summary>
         public string EntitySchemaName
         {
             get { return (this.EntitySchema == null) ? string.Empty : this.EntitySchema.Name; }
@@ -83,7 +67,7 @@ namespace X3Platform.Entities.Model
         #region 属性:FieldName
         private string m_FieldName = string.Empty;
 
-        /// <summary>�ֶ�����</summary>
+        /// <summary>字段名称</summary>
         public string FieldName
         {
             get { return m_FieldName; }
@@ -94,7 +78,7 @@ namespace X3Platform.Entities.Model
         #region 属性:FieldType
         private string m_FieldType = string.Empty;
 
-        /// <summary>�ֶ�����</summary>
+        /// <summary>字段类型</summary>
         public string FieldType
         {
             get { return m_FieldType; }
@@ -116,7 +100,7 @@ namespace X3Platform.Entities.Model
         #region 属性:DataColumnName
         private string m_DataColumnName = string.Empty;
 
-        /// <summary>�����ֶ�����</summary>
+        /// <summary>数据字段名称</summary>
         public string DataColumnName
         {
             get { return m_DataColumnName; }
@@ -127,7 +111,7 @@ namespace X3Platform.Entities.Model
         #region 属性:EffectScope
         private int m_EffectScope;
 
-        /// <summary>���÷�Χ 1 ��ͨ�ֶ� 2 �������ֶ�</summary>
+        /// <summary>作用范围 1 普通字段 2 大数据字段</summary>
         public int EffectScope
         {
             get { return m_EffectScope; }
@@ -138,7 +122,7 @@ namespace X3Platform.Entities.Model
         #region 属性:EffectScopeView
         private string m_EffectScopeView;
 
-        /// <summary>�ֶ����÷�Χ��ͼ 1:��ͨ�ʺ� 8:����Ա�ʺ�</summary>
+        /// <summary>字段作用范围视图 1:普通帐号 8:管理员帐号</summary>
         public string EffectScopeView
         {
             get
@@ -147,7 +131,7 @@ namespace X3Platform.Entities.Model
                 {
                     this.m_EffectScopeView = AppsContext.Instance.ApplicationSettingService.GetText(
                         AppsContext.Instance.ApplicationService[EntitiesConfiguration.ApplicationName].Id,
-                        "Ӧ�ù���_Эͬƽ̨_ʵ�����ݹ���_�ֶ����÷�Χ",
+                        "应用管理_协同平台_实体数据管理_字段作用范围",
                         this.EffectScope.ToString()
                         );
                 }
@@ -160,7 +144,7 @@ namespace X3Platform.Entities.Model
         #region 属性:Lock
         private int m_Lock = 1;
 
-        /// <summary>��ֹ����ɾ��</summary>
+        /// <summary>防止意外删除</summary>
         public int Lock
         {
             get { return m_Lock; }

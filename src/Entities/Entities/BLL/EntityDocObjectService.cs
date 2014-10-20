@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :EntityDocObjectService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.BLL
 {
     #region Using Libraries
@@ -34,14 +18,14 @@ namespace X3Platform.Entities.BLL
     /// <summary></summary>
     public class EntityDocObjectService : IEntityDocObjectService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private EntitiesConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IEntityDocObjectProvider provider = null;
 
-        #region ���캯��:EntityDocObjectService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:EntityDocObjectService()
+        /// <summary>构造函数</summary>
         public EntityDocObjectService()
         {
             configuration = EntitiesConfigurationView.Instance.Configuration;
@@ -51,14 +35,14 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IEntityDocObjectInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="param">ʵ��<see cref="IEntityDocObjectInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IEntityDocObjectInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IEntityDocObjectInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="param">实例<see cref="IEntityDocObjectInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IEntityDocObjectInfo"/>详细信息</returns>
         public IEntityDocObjectInfo Save(string customTableName, IEntityDocObjectInfo param)
         {
             return this.provider.Save(customTableName, param);
@@ -66,38 +50,38 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindAll(string customTableName, string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IEntityDocObjectInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string customTableName, string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IEntityDocObjectInfo"/>的详细信息</returns>
         public IList<IEntityDocObjectInfo> FindAll(string customTableName, string whereClause, int length)
         {
             return this.provider.FindAll(customTableName, whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAllByDocToken(string customTableName, string docToken)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="docToken">�ĵ�ȫ�ֱ�ʶ</param>
-        /// <returns>��������ʵ��<see cref="IEntityDocObjectInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByDocToken(string customTableName, string docToken)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="docToken">文档全局标识</param>
+        /// <returns>返回所有实例<see cref="IEntityDocObjectInfo"/>的详细信息</returns>
         public IList<IEntityDocObjectInfo> FindAllByDocToken(string customTableName, string docToken)
         {
             return this.provider.FindAllByDocToken(customTableName, docToken);
         }
         #endregion
 
-        #region 属性:FindAllByDocToken(string customTableName, string docToken, DataResultMapper mapper)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="docToken">�ĵ�ȫ�ֱ�ʶ</param>
-        /// <param name="mapper">���ݽ���ӳ����</param>
-        /// <returns>��������ʵ��<see cref="IEntityDocObjectInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByDocToken(string customTableName, string docToken, DataResultMapper mapper)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="docToken">文档全局标识</param>
+        /// <param name="mapper">数据结果映射器</param>
+        /// <returns>返回所有实例<see cref="IEntityDocObjectInfo"/>的详细信息</returns>
         public IList<IEntityDocObjectInfo> FindAllByDocToken(string customTableName, string docToken, DataResultMapper mapper)
         {
             return this.provider.FindAllByDocToken(customTableName, docToken, mapper);
@@ -105,14 +89,14 @@ namespace X3Platform.Entities.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:IsExist(string customTableName, string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="customTableName">�Զ������ݱ�����</param>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string customTableName, string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="customTableName">自定义数据表名称</param>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string customTableName, string id)
         {
             return this.provider.IsExist(customTableName, id);
