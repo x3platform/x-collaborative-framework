@@ -141,7 +141,7 @@ namespace X3Platform.Connect.BLL
         /// <returns>返回所有实例<see cref="ConnectInfo"/>的详细信息</returns>
         public IList<ConnectInfo> FindAll()
         {
-            return this.FindAll(new DataQuery() { Limit = 1000 });
+            return this.FindAll(new DataQuery() { Length = 1000 });
         }
         #endregion
 

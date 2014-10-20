@@ -91,7 +91,7 @@ namespace X3Platform.AttachmentStorage.BLL
         /// <returns>返回所有实例<see cref="AttachmentWarnInfo"/>的详细信息</returns>
         public IList<AttachmentWarnInfo> FindAll()
         {
-            return this.FindAll(new DataQuery() { Limit = 1000 });
+            return this.FindAll(new DataQuery() { Length = 1000 });
         }
         #endregion
 

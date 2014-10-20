@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :AccountCacheProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Sessions.DAL.MySQL
 {
     #region Using Libraries
@@ -29,56 +15,53 @@ namespace X3Platform.Sessions.DAL.MySQL
     using Common.Logging;
     #endregion
 
-    /// <summary>�ʺŻ��������ṩ��</summary>
+    /// <summary>帐号缓存数据提供者</summary>
     [DataObject]
     public class AccountCacheProvider : IAccountCacheProvider
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        /// <summary>配置</summary>
         private SessionsConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
+        /// <summary>IBatis映射对象</summary>
         private Dictionary<string, ISqlMapper> ibatisMappers = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_AccountCache";
 
-        /// <summary>���ݴ洢�ܹ���ʶ</summary>
-        private string storageSchemaId = "01-14-Sessions";
+        /// <summary>数据存储架构标识</summary>
+        private string storageSchemaId = "01-14-Session";
 
-        /// <summary>���ݴ洢����</summary>
+        /// <summary>数据存储策略</summary>
         private IStorageStrategy storageStrategy = null;
 
-        #region ���캯��:AccountCacheProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AccountCacheProvider()
+        /// <summary>构造函数</summary>
         public AccountCacheProvider()
         {
-            if (logger.IsDebugEnabled)
-            {
-                logger.Debug("X3Platform.Sessions.DAL.MySQL.AccountCacheProvider constructor() begin");
-            }
             this.configuration = SessionsConfigurationView.Instance.Configuration;
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
             this.ibatisMappers = StorageContext.Instance.CreateSqlMappers(this.storageSchemaId, this.ibatisMapping);
-   
-            this.storageStrategy = StorageContext.Instance.StorageSchemaService[this.storageSchemaId].GetStrategyClass();
 
-            if (logger.IsDebugEnabled)
-            {
-                logger.Debug("X3Platform.Sessions.DAL.MySQL.AccountCacheProvider constructor() end");
-            }
+            this.storageStrategy = StorageContext.Instance.StorageSchemaService[this.storageSchemaId].GetStrategyClass();
         }
         #endregion
 
-        #region 属性:FindByAccountIdentity(string accountIdentity)
-        /// <summary>���ݲ���ĳ����¼</summary>
-        /// <param name="accountIdentity">�ʺŻ���Ψһ��ʶ</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        // -------------------------------------------------------
+        // 查询
+        // -------------------------------------------------------
+
+        #region 函数:FindByAccountIdentity(string accountIdentity)
+        /// <summary>根据查找某条记录</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         public AccountCacheInfo FindByAccountIdentity(string accountIdentity)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
@@ -91,10 +74,10 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:FindByAccountCacheValue(string accountCacheValue)
-        /// <summary>����ĳ����¼</summary>
-        /// <param name="accountCacheValue">�ʺŻ�����ֵ</param>
-        /// <returns>����һ��ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindByAccountCacheValue(string accountCacheValue)
+        /// <summary>查找某条记录</summary>
+        /// <param name="accountCacheValue">帐号缓存的值</param>
+        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         public AccountCacheInfo FindByAccountCacheValue(string accountCacheValue)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
@@ -107,9 +90,9 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Dump()
-        /// <summary>ת�����м�¼��Ϣ</summary>
-        /// <returns>����һ��<see cref="AccountCacheInfo"/>�б�</returns>
+        #region 函数:Dump()
+        /// <summary>转储所有记录信息</summary>
+        /// <returns>返回一个<see cref="AccountCacheInfo"/>列表</returns>
         public IList<AccountCacheInfo> Dump()
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
@@ -120,9 +103,9 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Insert(AccountCacheInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</param>
+        #region 函数:Insert(AccountCacheInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="AccountCacheInfo"/>的详细信息</param>
         public void Insert(AccountCacheInfo param)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
@@ -131,9 +114,9 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Update(AccountCacheInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AccountCacheInfo"/>����ϸ��Ϣ</param>
+        #region 函数:Update(AccountCacheInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="AccountCacheInfo"/>的详细信息</param>
         public void Update(AccountCacheInfo param)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
@@ -142,12 +125,12 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Delete(string accountIdentity)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="accountIdentity">�ʺŻ���Ψһ��ʶ</param>
+        #region 函数:Delete(string accountIdentity)
+        /// <summary>删除记录</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         public int Delete(string accountIdentity)
         {
-            IStorageNode storageNode = storageStrategy.GetStorageNode("Delete", accountIdentity);
+            IStorageNode storageNode = storageStrategy.GetStorageNode("Node", accountIdentity);
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -159,12 +142,12 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:IsExist(string accountIdentity)
-        /// <summary>������¼�Ƿ�����</summary>
-        /// <param name="accountIdentity">�ʺŻ���Ψһ��ʶ</param>
+        #region 函数:IsExist(string accountIdentity)
+        /// <summary>检测记录是否存在</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
         public bool IsExist(string accountIdentity)
         {
-            if (string.IsNullOrEmpty(accountIdentity)) { throw new Exception("�ʺŻ���Ψһ��ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(accountIdentity)) { throw new Exception("帐号缓存唯一标识不能为空。"); }
 
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
 
@@ -176,12 +159,12 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:IsExistAccountCacheValue(string accountCacheValue)
-        /// <summary>������¼�Ƿ�����</summary>
-        /// <param name="accountCacheValue">�ʺŻ���ֵ</param>
+        #region 函数:IsExistAccountCacheValue(string accountCacheValue)
+        /// <summary>检测记录是否存在</summary>
+        /// <param name="accountCacheValue">帐号缓存值</param>
         public bool IsExistAccountCacheValue(string accountCacheValue)
         {
-            if (string.IsNullOrEmpty(accountCacheValue)) { throw new Exception("�ʺŻ���ֵ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(accountCacheValue)) { throw new Exception("帐号缓存值不能为空。"); }
 
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query");
 
@@ -193,12 +176,12 @@ namespace X3Platform.Sessions.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Clear(DateTime expiryTime)
-        /// <summary>��������ʱ��֮ǰ�Ļ�����¼</summary>
-        /// <param name="expiryTime">����ʱ��</param>
+        #region 函数:Clear(DateTime expiryTime)
+        /// <summary>清理过期时间之前的缓存记录</summary>
+        /// <param name="expiryTime">过期时间</param>
         public int Clear(DateTime expiryTime)
         {
-            IStorageNode storageNode = storageStrategy.GetStorageNode("Delete");
+            IStorageNode storageNode = storageStrategy.GetStorageNode("Node");
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

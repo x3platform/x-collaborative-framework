@@ -218,7 +218,7 @@ namespace X3Platform.Connect.DAL.MySQL
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("Length", query.Limit);
+            args.Add("Length", query.Length);
 
             return this.ibatisMapper.QueryForList<ConnectAuthorizationCodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }

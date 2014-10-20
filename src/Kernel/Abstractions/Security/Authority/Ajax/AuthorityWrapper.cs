@@ -1,42 +1,31 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-
-using X3Platform.Ajax;
-using X3Platform.Data;
-using X3Platform.Util;
-
-using X3Platform.Security.Authority.IBLL;
-
 namespace X3Platform.Security.Authority.Ajax
 {
-    /// <summary>Ȩ��</summary>
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Xml;
+
+    using X3Platform.Ajax;
+    using X3Platform.Data;
+    using X3Platform.Util;
+
+    using X3Platform.Security.Authority.IBLL;
+    #endregion
+
+    /// <summary>权限</summary>
     public class AuthorityWrapper : ContextWrapper
     {
         IAuthorityService service = AuthorityContext.Instance.AuthorityService;
 
         //-------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         //-------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
@@ -46,14 +35,14 @@ namespace X3Platform.Security.Authority.Ajax
 
             service.Save(param);
 
-            return "{message:{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除数据</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
@@ -61,18 +50,18 @@ namespace X3Platform.Security.Authority.Ajax
 
             service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         //-------------------------------------------------------
-        // ��ѯ
+        // 查询
         //-------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns> 
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns> 
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -90,10 +79,32 @@ namespace X3Platform.Security.Authority.Ajax
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns> 
+        #region 函数:FindOneByName(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns> 
+        [AjaxMethod("findOneByName")]
+        public string FindOneByName(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            string name = AjaxStorageConvertor.Fetch("name", doc);
+
+            AuthorityInfo param = service.FindOneByName(name);
+
+            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(param) + ",");
+
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns> 
+        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -104,20 +115,20 @@ namespace X3Platform.Security.Authority.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         //-------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         //-------------------------------------------------------
 
         #region 属性:Query(XmlDocument doc)
-        /// <summary>��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        /// <summary>分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Query(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -136,6 +147,29 @@ namespace X3Platform.Security.Authority.Ajax
             outString.Append("\"success\":1,");
             outString.Append("\"msg\":\"success\",");
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        [AjaxMethod("createNewObject")]
+        public string CreateNewObject(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            AuthorityInfo param = new AuthorityInfo();
+
+            param.Id = StringHelper.ToGuid();
+
+            param.CreateDate = param.UpdateDate = DateTime.Now;
+
+            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(param) + ",");
+
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

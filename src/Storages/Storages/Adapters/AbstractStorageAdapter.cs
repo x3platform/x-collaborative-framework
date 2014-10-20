@@ -50,8 +50,7 @@ namespace X3Platform.Storages.StorageAdapters
             return null;
         }
 
-        /// <summary>根据存储策略获取存储节点信息</summary>
-        /// <param name="strategy">存储节点策略</param>
+        /// <summary>根据存储策略获取默认存储节点信息</summary>
         public virtual IStorageNode GetStorageNode()
         {
             return this.storageStrategy.GetStorageNode();

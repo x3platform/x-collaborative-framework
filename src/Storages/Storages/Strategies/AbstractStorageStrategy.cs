@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :StorageNodeInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Storages.Strategies
+﻿namespace X3Platform.Storages.Strategies
 {
     #region Using Libraries
     using System;
@@ -31,6 +15,7 @@ namespace X3Platform.Storages.Strategies
         /// <summary>存储节点列表</summary>
         protected IList<IStorageNode> storageNodes = null;
 
+        /// <summary>延迟加载存储节点列表</summary>
         protected void LazyLoadStorageNodes()
         {
             if (storageNodes == null)
@@ -38,6 +23,7 @@ namespace X3Platform.Storages.Strategies
                 this.storageNodes = StorageContext.Instance.StorageNodeService.FindAllBySchemaId(this.storageSchema.Id);
             }
         }
+
         /// <summary>获取默认存储节点</summary>
         /// <returns></returns>
         public virtual IStorageNode GetStorageNode()
@@ -68,8 +54,10 @@ namespace X3Platform.Storages.Strategies
             return this.GetStorageNode();
         }
 
+        /// <summary>获取存储节点</summary>
         public abstract IStorageNode GetStorageNode(string storageNodeType, string index);
 
+        /// <summary>获取存储节点</summary>
         public abstract IStorageNode GetStorageNode(string storageNodeType, string[] indexs);
     }
 }

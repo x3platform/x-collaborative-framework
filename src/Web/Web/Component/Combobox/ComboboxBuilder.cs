@@ -1,9 +1,8 @@
-
-
-using System.Collections.Generic;
-using System;
 namespace X3Platform.Web.Component.Combobox
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>组合框构建器</summary>
     public class ComboboxBuilder
     {
