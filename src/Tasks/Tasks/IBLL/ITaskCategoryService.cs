@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.IBLL
 {
     #region Using Libraries
@@ -31,9 +15,9 @@ namespace X3Platform.Tasks.IBLL
     [SpringObject("X3Platform.Tasks.IBLL.ITaskCategoryService")]
     public interface ITaskCategoryService
     {
-        #region 属性:this[string id]
+        #region 索引:this[string id]
         /// <summary>
-        /// ����
+        /// 索引
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -41,110 +25,110 @@ namespace X3Platform.Tasks.IBLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(FavoriteInfo param)
+        #region 函数:Save(FavoriteInfo param)
         /// <summary>
-        /// ������¼
+        /// 保存记录
         /// </summary>
-        /// <param name="param">ʵ����ϸ��Ϣ</param>
+        /// <param name="param">实例详细信息</param>
         /// <returns></returns>
         TaskCategoryInfo Save(TaskCategoryInfo param);
         #endregion
 
-        #region 属性:CanDelete(string id)
-        /// <summary>�ж����������Ƿ��ܹ���ɾ��</summary>
-        /// <param name="id">����������ʶ</param>
+        #region 函数:CanDelete(string id)
+        /// <summary>判断新闻类别是否能够被删除</summary>
+        /// <param name="id">新闻类别标识</param>
         /// <returns></returns>
         bool CanDelete(string id);
         #endregion
 
-        #region 属性:Delete(string id)
+        #region 函数:Delete(string id)
         /// <summary>
-        /// ɾ����¼
+        /// 删除记录
         /// </summary>
-        /// <param name="id">����������ʶ</param>
+        /// <param name="id">新闻类别标识</param>
         void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
+        #region 函数:FindOne(string id)
         /// <summary>
-        /// ��ѯĳ����¼
+        /// 查询某条记录
         /// </summary>
-        /// <param name="id">��ʶ</param>
+        /// <param name="id">标识</param>
         /// <returns></returns>
         TaskCategoryInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindOneByCategoryIndex(string categoryIndex)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="categoryIndex">��������</param>
-        /// <returns>����ʵ��<see cref="TaskCategoryInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOneByCategoryIndex(string categoryIndex)
+        /// <summary>查询某条记录</summary>
+        /// <param name="categoryIndex">类别索引</param>
+        /// <returns>返回实例<see cref="TaskCategoryInfo"/>的详细信息</returns>
         TaskCategoryInfo FindOneByCategoryIndex(string categoryIndex);
         #endregion
 
-        #region 属性:FindAll()
+        #region 函数:FindAll()
         /// <summary>
-        /// ��ѯ�������ؼ�¼
+        /// 查询所有相关记录
         /// </summary>
         /// <returns></returns>
         IList<TaskCategoryInfo> FindAll();
         #endregion
 
-        #region 属性:FindAll(string whereClause)
+        #region 函数:FindAll(string whereClause)
         /// <summary>
-        /// ��ѯ�������ؼ�¼
+        /// 查询所有相关记录
         /// </summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="whereClause">SQL 查询条件</param>
         /// <returns></returns>
         IList<TaskCategoryInfo> FindAll(string whereClause);
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
+        #region 函数:FindAll(string whereClause, int length)
         /// <summary>
-        /// ��ѯ�������ؼ�¼
+        /// 查询所有相关记录
         /// </summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
         /// <returns></returns>
         IList<TaskCategoryInfo> FindAll(string whereClause, int length);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��.</param>
-        /// <param name="pageSize">ÿҳ��ʾ����������</param>
-        /// <param name="whereClause">WHERE ��ѯ����.</param>
-        /// <param name="orderBy">ORDER BY ��������.</param>
-        /// <param name="rowCount">��������������������</param>
-        /// <returns>����һ���б�ʵ��<see cref="TaskCategoryInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计.</param>
+        /// <param name="pageSize">每页显示的数据条数</param>
+        /// <param name="whereClause">WHERE 查询条件.</param>
+        /// <param name="orderBy">ORDER BY 排序条件.</param>
+        /// <param name="rowCount">如何条件的数据总行数</param>
+        /// <returns>返回一个列表实例<see cref="TaskCategoryInfo"/></returns>
         IList<TaskCategoryInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
+        #region 函数:IsExist(string id)
         /// <summary>
-        /// ��ѯ�Ƿ��������صļ�¼
+        /// 查询是否存在相关的记录
         /// </summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
 
-        #region 属性:SetStatus(string id, int status)
+        #region 函数:SetStatus(string id, int status)
         /// <summary>
-        /// ͣ��/��������
+        /// 停用/启用类别
         /// </summary>
-        /// <param name="id">����������ʶ</param>
-        /// <param name="status">1��ͣ�õ��������ã�0�����õ�����ͣ��</param>
+        /// <param name="id">新闻类别标识</param>
+        /// <param name="status">1将停用的类别启用，0将在用的类别停用</param>
         /// <returns></returns>
         bool SetStatus(string id, int status);
         #endregion

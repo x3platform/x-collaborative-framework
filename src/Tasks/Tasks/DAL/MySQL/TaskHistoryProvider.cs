@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.DAL.MySQL
 {
     #region Using Libraries
@@ -35,20 +19,20 @@ namespace X3Platform.Tasks.DAL.MySQL
     [DataObject]
     public class TaskHistoryProvider : ITaskHistoryProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private TasksConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Task_HistoryItem";
 
-        #region ���캯��:TaskHistoryProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:TaskHistoryProvider()
+        /// <summary>构造函数</summary>
         public TaskHistoryProvider()
         {
             this.configuration = TasksConfigurationView.Instance.Configuration;
@@ -60,49 +44,12 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
-        public void BeginTransaction()
-        {
-            this.ibatisMapper.BeginTransaction();
-        }
-        #endregion
-
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
-        public void BeginTransaction(IsolationLevel isolationLevel)
-        {
-            this.ibatisMapper.BeginTransaction(isolationLevel);
-        }
-        #endregion
-
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
-        public void CommitTransaction()
-        {
-            this.ibatisMapper.CommitTransaction();
-        }
-        #endregion
-
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
-        public void RollBackTransaction()
-        {
-            this.ibatisMapper.RollBackTransaction();
-        }
-        #endregion
-
-        // -------------------------------------------------------
-        // ���� ���� �޸� ɾ��
-        // -------------------------------------------------------
-
-        #region 属性:Save(TaskHistoryItemInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ����ϸ��Ϣ</param>
+        #region 函数:Save(TaskHistoryItemInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例详细信息</param>
         /// <returns></returns>
         public TaskHistoryItemInfo Save(TaskHistoryItemInfo param)
         {
@@ -119,28 +66,28 @@ namespace X3Platform.Tasks.DAL.MySQL
         }
         #endregion
 
-        #region 属性:Insert(TaskHistoryItemInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ������ϸ��Ϣ</param>
+        #region 函数:Insert(TaskHistoryItemInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例的详细信息</param>
         public void Insert(TaskHistoryItemInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Update(TaskHistoryItemInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ������ϸ��Ϣ</param>
+        #region 函数:Update(TaskHistoryItemInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例的详细信息</param>
         public void Update(TaskHistoryItemInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", this.tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string id, string receiverId)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">������ʶ</param>
-        /// <param name="receiverId">�����˱�ʶ</param>
+        #region 函数:Delete(string id, string receiverId)
+        /// <summary>删除记录</summary>
+        /// <param name="id">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
         public void Delete(string id, string receiverId)
         {
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(receiverId)) { return; }
@@ -154,14 +101,14 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id, string receiverId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">������ʶ</param>
-        /// <param name="receiverId">�����˱�ʶ</param>
-        /// <returns>����ʵ��<see cref="TaskHistoryItemInfo"/></returns>
+        #region 函数:FindOne(string id, string receiverId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回实例<see cref="TaskHistoryItemInfo"/></returns>
         public TaskHistoryItemInfo FindOne(string id, string receiverId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -174,18 +121,18 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="receiverId">�����˱�ʶ</param>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">��¼����</param>
-        /// <returns>����һ���б�</returns> 
+        #region 函数:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="receiverId">接收人标识</param>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">记录行数</param>
+        /// <returns>返回一个列表</returns> 
         public IList<TaskHistoryItemInfo> GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -216,14 +163,14 @@ namespace X3Platform.Tasks.DAL.MySQL
         }
         #endregion
 
-        #region 属性:IsExist(string id, string receiverId)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <param name="receiverId">�����˱�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id, string receiverId)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id, string receiverId)
         {
-            if (string.IsNullOrEmpty(id)) { throw new Exception("ʵ����ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

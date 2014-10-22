@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.IDAL
 {
     #region Using Libraries
@@ -31,81 +15,56 @@ namespace X3Platform.Tasks.IDAL
     public interface ITaskHistoryProvider
     {
         // -------------------------------------------------------
-        // ����֧��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
-        void BeginTransaction();
-        #endregion
-
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
-        void BeginTransaction(IsolationLevel isolationLevel);
-        #endregion
-
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
-        void CommitTransaction();
-        #endregion
-
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
-        void RollBackTransaction();
-        #endregion
-
-        // -------------------------------------------------------
-        // ���� ɾ��
-        // -------------------------------------------------------
-
-        #region 属性:Save(TaskHistoryItemInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ����ϸ��Ϣ</param>
-        /// <returns>����ʵ��<see cref="TaskHistoryItemInfo"/></returns>
+        #region 函数:Save(TaskHistoryItemInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例详细信息</param>
+        /// <returns>返回实例<see cref="TaskHistoryItemInfo"/></returns>
         TaskHistoryItemInfo Save(TaskHistoryItemInfo param);
         #endregion
 
-        #region 属性:Delete(string id, string receiverId)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">������ʶ</param>
-        /// <param name="receiverId">�����˱�ʶ</param>
+        #region 函数:Delete(string id, string receiverId)
+        /// <summary>删除记录</summary>
+        /// <param name="id">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
         void Delete(string id, string receiverId);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id, string receiverId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">������ʶ</param>
-        /// <param name="receiverId">�����˱�ʶ</param>
-        /// <returns>����ʵ��<see cref="TaskHistoryItemInfo"/></returns>
+        #region 函数:FindOne(string id, string receiverId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回实例<see cref="TaskHistoryItemInfo"/></returns>
         TaskHistoryItemInfo FindOne(string id, string receiverId);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="receiverId">�����˱�ʶ</param>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">��¼����</param>
-        /// <returns>����һ���б�</returns> 
+        #region 函数:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="receiverId">接收人标识</param>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">记录行数</param>
+        /// <returns>返回一个列表</returns> 
         IList<TaskHistoryItemInfo> GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id, string receiverId)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <param name="receiverId">�����˱�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id, string receiverId)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id, string receiverId);
         #endregion
     }

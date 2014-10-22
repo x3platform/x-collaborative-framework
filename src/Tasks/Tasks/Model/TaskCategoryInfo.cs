@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Model
 {
     #region Using Libraries
@@ -22,12 +6,12 @@ namespace X3Platform.Tasks.Model
     using X3Platform.Membership;
     #endregion
 
-    /// <summary>����������Ϣ</summary>
+    /// <summary>任务分类信息</summary>
     [Serializable]
     public class TaskCategoryInfo
     {
-        #region ���캯��:TaskCategoryInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:TaskCategoryInfo()
+        /// <summary>默认构造函数</summary>
         public TaskCategoryInfo()
         {
         }
@@ -37,7 +21,7 @@ namespace X3Platform.Tasks.Model
         private string m_Id = string.Empty;
 
         /// <summary>
-        /// ��ʶ
+        /// 标识
         /// </summary>
         public string Id
         {
@@ -50,7 +34,7 @@ namespace X3Platform.Tasks.Model
         private string m_AccountId = string.Empty;
 
         /// <summary>
-        /// ������Id
+        /// 创建人Id
         /// </summary>
         public string AccountId
         {
@@ -63,7 +47,7 @@ namespace X3Platform.Tasks.Model
         private string m_AccountName = string.Empty;
 
         /// <summary>
-        /// ����������
+        /// 创建人姓名
         /// </summary>
         public string AccountName
         {
@@ -88,7 +72,7 @@ namespace X3Platform.Tasks.Model
         #region 属性:CategoryIndex
         private string m_CategoryIndex = string.Empty;
 
-        /// <summary>��������</summary>
+        /// <summary>类别索引</summary>
         public string CategoryIndex
         {
             get { return m_CategoryIndex; }
@@ -100,7 +84,7 @@ namespace X3Platform.Tasks.Model
         private string m_Description = string.Empty;
 
         /// <summary>
-        /// ����˵��
+        /// 办理说明
         /// </summary>
         public string Description
         {
@@ -112,7 +96,7 @@ namespace X3Platform.Tasks.Model
         #region 属性:Tags
         private string m_Tags = string.Empty;
 
-        /// <summary>��ǩ</summary>
+        /// <summary>标签</summary>
         public string Tags
         {
             get { return m_Tags; }
@@ -123,7 +107,7 @@ namespace X3Platform.Tasks.Model
         #region 属性:OrderId
         private string m_OrderId = string.Empty;
 
-        /// <summary>��������</summary>
+        /// <summary>排序编号</summary>
         public string OrderId
         {
             get { return m_OrderId; }
@@ -135,7 +119,7 @@ namespace X3Platform.Tasks.Model
         private int m_Status = 1;
 
         /// <summary>
-        /// ״̬ 1:���� | 0:����
+        /// 状态 1:启用 | 0:禁用
         /// </summary>
         public int Status
         {
@@ -148,7 +132,7 @@ namespace X3Platform.Tasks.Model
         private DateTime m_UpdateDate;
 
         /// <summary>
-        /// �����޸�ʱ��
+        /// 最后修改时间
         /// </summary>
         public DateTime UpdateDate
         {
@@ -161,7 +145,7 @@ namespace X3Platform.Tasks.Model
         private DateTime m_CreateDate;
 
         /// <summary>
-        /// ����ʱ��
+        /// 创建时间
         /// </summary>
         public DateTime CreateDate
         {

@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.BLL
+﻿namespace X3Platform.Tasks.BLL
 {
     #region Using Libraries
     using System;
@@ -59,33 +43,45 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:FindOne(string taskId, string receiverId)
-        ///<summary>查询某条记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收人标识</param>
-        ///<returns>返回一个 TaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个 TaskReceiverInfo 实例的详细信息</returns>
         public TaskWorkItemInfo FindOne(string taskId, string receiverId)
         {
             return this.provider.FindOne(taskId, receiverId);
         }
         #endregion
 
+        #region 函数:FindOneByTaskCode(string applicationId, string taskCode, string receiverId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个 TaskReceiverInfo 实例的详细信息</returns>
+        public TaskWorkItemInfo FindOneByTaskCode(string applicationId, string taskCode, string receiverId)
+        {
+            return this.provider.FindOneByTaskCode(applicationId, taskCode, receiverId);
+        }
+        #endregion
+
         #region 函数:FindAllByReceiverId(string receiverId, string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="receiverId">接收者帐号标识</param>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<returns>返回所有 TaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="receiverId">接收者帐号标识</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 TaskReceiverInfo 实例的详细信息</returns>
         public IList<TaskWorkItemInfo> FindAllByReceiverId(string receiverId, string whereClause)
         {
             return this.FindAllByReceiverId(receiverId, whereClause, 50);
         }
         #endregion
 
-        #region 函数:FindAllByReceiverId(string receiverId, string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="receiverId">接收者帐号标识</param>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<param name="length">长度</param>
-        ///<returns>返回所有 TaskReceiverInfo 实例的详细信息</returns>
+        #region 函数:FindAllByReceiverId(string receiverId, string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="receiverId">接收者帐号标识</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">长度</param>
+        /// <returns>返回所有 TaskReceiverInfo 实例的详细信息</returns>
         public IList<TaskWorkItemInfo> FindAllByReceiverId(string receiverId, string whereClause, int length)
         {
             return this.provider.FindAllByReceiverId(receiverId, whereClause, length);
@@ -110,10 +106,10 @@ namespace X3Platform.Tasks.BLL
             //
             string bindReceiverSQL = string.Format(" T.ReceiverId = ##{0}## ", receiverId);
 
-            if (KernelContext.ParseObjectType(this.provider.GetType()) == "X3Platform.Plugins.Longfor.Tasks.DAL.IBatis.TaskReceiverProvider, X3Platform.Plugins.Longfor")
-            {
-                bindReceiverSQL = string.Format(" T.ReceiverId = ##{0}## ", KernelContext.Current.User.LoginName);
-            }
+            // if (KernelContext.ParseObjectType(this.provider.GetType()) == "X3Platform.Plugins.Longfor.Tasks.DAL.IBatis.TaskReceiverProvider, X3Platform.Plugins.Longfor")
+            // {
+            //    bindReceiverSQL = string.Format(" T.ReceiverId = ##{0}## ", KernelContext.Current.User.LoginName);
+            // }
 
             if (string.IsNullOrEmpty(whereClause))
             {
@@ -129,10 +125,10 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:IsExist(string taskId, string receiverId)
-        ///<summary>检测是否存在相关的记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收者标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收者标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string taskId, string receiverId)
         {
             return this.provider.IsExist(taskId, receiverId);
@@ -140,12 +136,12 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:Copy(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
-        ///<summary>复制待办信息</summary>
-        ///<param name="fromReceiverId">待办来源接收者标识</param>
-        ///<param name="toReceiverId">待办目标接收者标识</param>
-        ///<param name="beginDate">复制待办的开始时间</param>
-        ///<param name="endDate">复制待办结束时间</param>
-        ///<returns></returns>
+        /// <summary>复制待办信息</summary>
+        /// <param name="fromReceiverId">待办来源接收者标识</param>
+        /// <param name="toReceiverId">待办目标接收者标识</param>
+        /// <param name="beginDate">复制待办的开始时间</param>
+        /// <param name="endDate">复制待办结束时间</param>
+        /// <returns></returns>
         public int Copy(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
         {
             return this.provider.Copy(fromReceiverId, toReceiverId, beginDate, endDate);
@@ -153,12 +149,12 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:Cut(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
-        ///<summary>剪切待办信息</summary>
-        ///<param name="fromReceiverId">待办来源接收者标识</param>
-        ///<param name="toReceiverId">待办目标接收者标识</param>
-        ///<param name="beginDate">复制待办的开始时间</param>
-        ///<param name="endDate">复制待办结束时间</param>
-        ///<returns></returns>
+        /// <summary>剪切待办信息</summary>
+        /// <param name="fromReceiverId">待办来源接收者标识</param>
+        /// <param name="toReceiverId">待办目标接收者标识</param>
+        /// <param name="beginDate">复制待办的开始时间</param>
+        /// <param name="endDate">复制待办结束时间</param>
+        /// <returns></returns>
         public int Cut(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
         {
             return this.provider.Cut(fromReceiverId, toReceiverId, beginDate, endDate);
@@ -243,9 +239,9 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:GetUnfinishedQuantities(string receiverId)
-        ///<summary>获取未完成任务的数量</summary>
-        ///<param name="receiverId">接收人标识</param>
-        ///<returns>返回一个包含每个类型的统计数的 DataTable </returns>
+        /// <summary>获取未完成任务的数量</summary>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个包含每个类型的统计数的 DataTable </returns>
         public Dictionary<int, int> GetUnfinishedQuantities(string receiverId)
         {
             return this.provider.GetUnfinishedQuantities(receiverId);
@@ -253,10 +249,10 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:GetWidgetData(string receiverId, int length)
-        ///<summary>获取任务部件的数据</summary>
-        ///<param name="receiverId">接收人标识</param>
-        ///<param name="length">显示的最大条数</param>
-        ///<returns>返回所有 TaskWorkItemInfo 实例的列表信息</returns>
+        /// <summary>获取任务部件的数据</summary>
+        /// <param name="receiverId">接收人标识</param>
+        /// <param name="length">显示的最大条数</param>
+        /// <returns>返回所有 TaskWorkItemInfo 实例的列表信息</returns>
         public IList<TaskWorkItemInfo> GetWidgetData(string receiverId, int length)
         {
             IList<TaskWorkItemInfo> list = this.provider.FindAllByReceiverId(receiverId, " Type IN (1, 8, 266) AND Status = 0 ORDER BY CreateDate DESC ", length);

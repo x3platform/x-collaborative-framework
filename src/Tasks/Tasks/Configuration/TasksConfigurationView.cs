@@ -65,6 +65,31 @@ namespace X3Platform.Tasks.Configuration
         // 自定义属性
         // -------------------------------------------------------
 
+        #region 属性:PrefixTargetUrl
+        private string m_PrefixTargetUrl = string.Empty;
+
+        /// <summary>任务信息的地址前缀</summary>
+        public string PrefixTargetUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_PrefixTargetUrl))
+                {
+                    // 读取配置信息
+                    this.m_PrefixTargetUrl = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "PrefixTargetUrl",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_PrefixTargetUrl = StringHelper.NullOrEmptyTo(this.m_PrefixTargetUrl, KernelConfigurationView.Instance.HostName);
+                }
+
+                return this.m_PrefixTargetUrl;
+            }
+        }
+        #endregion
+
         #region 属性:MessageQueueMode
         private string m_MessageQueueMode = string.Empty;
 
@@ -142,27 +167,58 @@ namespace X3Platform.Tasks.Configuration
         }
         #endregion
 
-        #region 属性:PrefixTargetUrl
-        private string m_PrefixTargetUrl = string.Empty;
+        #region 属性:MessageQueueReceivingInterval
+        private int m_MessageQueueReceivingInterval = 0;
 
-        /// <summary>任务信息的地址前缀</summary>
-        public string PrefixTargetUrl
+        /// <summary>消息队列接收时间间隔(单位:秒)</summary>
+        public int MessageQueueReceivingInterval
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_PrefixTargetUrl))
+                if (this.m_MessageQueueReceivingInterval == 0)
                 {
                     // 读取配置信息
-                    this.m_PrefixTargetUrl = KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_MessageQueueReceivingInterval = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
-                        "PrefixTargetUrl",
-                        this.Configuration.Keys);
+                        "MessageQueueReceivingInterval",
+                        this.Configuration.Keys));
 
-                    // 如果配置文件里未设置则设置一个默认值
-                    this.m_PrefixTargetUrl = StringHelper.NullOrEmptyTo(this.m_PrefixTargetUrl, KernelConfigurationView.Instance.HostName);
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (this.m_MessageQueueReceivingInterval == 0)
+                    {
+                        this.m_MessageQueueReceivingInterval = 120;
+                    }
                 }
 
-                return this.m_PrefixTargetUrl;
+                return this.m_MessageQueueReceivingInterval;
+            }
+        }
+        #endregion
+
+        #region 属性:WaitingItemSendingInterval
+        private int m_WaitingItemSendingInterval = 0;
+
+        /// <summary>定时待办项发送时间间隔(单位:秒)</summary>
+        public int WaitingItemSendingInterval
+        {
+            get
+            {
+                if (this.m_WaitingItemSendingInterval == 0)
+                {
+                    // 读取配置信息
+                    this.m_WaitingItemSendingInterval = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "WaitingItemSendingInterval",
+                        this.Configuration.Keys));
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (this.m_WaitingItemSendingInterval == 0)
+                    {
+                        this.m_WaitingItemSendingInterval = 120;
+                    }
+                }
+
+                return this.m_WaitingItemSendingInterval;
             }
         }
         #endregion
@@ -170,7 +226,7 @@ namespace X3Platform.Tasks.Configuration
         #region 属性:ClientRefreshInterval
         private int m_ClientRefreshInterval = 0;
 
-        /// <summary>客户端刷新间隔</summary>
+        /// <summary>客户端刷新间隔(单位:秒)</summary>
         public int ClientRefreshInterval
         {
             get
@@ -186,7 +242,7 @@ namespace X3Platform.Tasks.Configuration
                     // 如果配置文件里未设置则设置一个默认值
                     if (this.m_ClientRefreshInterval == 0)
                     {
-                        this.m_ClientRefreshInterval = 10;
+                        this.m_ClientRefreshInterval = 120;
                     }
                 }
 

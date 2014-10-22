@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Ajax
 {
     #region Using Libraries
@@ -36,13 +20,13 @@ namespace X3Platform.Tasks.Ajax
         private ITimingTaskService service = TasksContext.Instance.TimingTaskService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Save(XmlDocument doc)
         {
             TimingTaskInfo param = new TimingTaskInfo();
@@ -51,32 +35,32 @@ namespace X3Platform.Tasks.Ajax
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
             string ids = AjaxStorageConvertor.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回一个相关的实例列表.</returns> 
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
@@ -86,38 +70,15 @@ namespace X3Platform.Tasks.Ajax
 
             int rowCount = -1;
 
-            IList<TimingTaskInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<TaskWaitingItemInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":[");
-
-            foreach (TimingTaskInfo item in list)
-            {
-                outString.Append("{");
-                outString.Append("\"id\":\"" + item.Id + "\",");
-                outString.Append("\"applicationId\":\"" + item.ApplicationId + "\",");
-                outString.Append("\"taskCode\":\"" + item.TaskCode + "\",");
-                outString.Append("\"type\":\"" + item.Type + "\",");
-                outString.Append("\"title\":\"" + StringHelper.ToSafeJson(StringHelper.RemoveEnterTag(item.Title)) + "\",");
-                outString.Append("\"content\":\"" + StringHelper.ToSafeJson(item.Content) + "\",");
-                outString.Append("\"tags\":\"" + item.Tags + "\",");
-                outString.Append("\"senderId\":\"" + StringHelper.ToSafeJson(item.SenderId) + "\",");
-                outString.Append("\"createDate\":\"" + item.CreateDate.ToString("yyyy,MM,dd,HH,mm,ss") + "\",");
-                outString.Append("\"createDateView\":\"" + item.CreateDate.ToString("yyyy-MM-dd") + "\"");
-                outString.Append("},");
-            }
-            
-            if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
-            {
-                outString.Remove(outString.Length - 1, 1);
-            }
-
-            outString.Append("],");
+            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskWaitingItemInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
