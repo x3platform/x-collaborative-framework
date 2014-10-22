@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskReadingWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Ajax
 {
     #region Using Libraries
@@ -37,7 +21,7 @@ namespace X3Platform.Tasks.Ajax
         /// <summary></summary>
         public override void ProcessRequest(HttpContext context)
         {
-            // ���Ե�ַ
+            // 测试地址
             // /services/Elane/X/Tasks/Ajax.TaskReadingWrapper.aspx?taskId=877193cc-668d-4332-a4f2-d66798b6f6a0&receiverId=administrator
 
             string action = (context.Request["action"] == null) ? string.Empty : context.Request["action"];
@@ -50,20 +34,19 @@ namespace X3Platform.Tasks.Ajax
 
                 XmlDocument doc = new XmlDocument();
 
-                doc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<root><taskId>" + taskId + "</taskId><receiverId>" + receiverId + "</receiverId></root>");
+                doc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<ajaxStorage><taskId>" + taskId + "</taskId><receiverId>" + receiverId + "</receiverId></ajaxStorage>");
 
                 string html = this.Read(doc);
 
                 context.Response.ContentType = "text/html";
                 context.Response.Write(html);
                 context.Response.End();
-
             }
         }
 
-        #region 属性:Redirect(XmlDocument doc)
-        /// <summary>��ȡ������Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param> 
+        #region 函数:Redirect(XmlDocument doc)
+        /// <summary>读取任务信息</summary>
+        /// <param name="doc">Xml 文档对象</param> 
         public string Redirect(XmlDocument doc)
         {
             string html = this.Read(doc);
@@ -76,9 +59,9 @@ namespace X3Platform.Tasks.Ajax
         }
         #endregion
 
-        #region ˽�к���:Read(XmlDocument doc)
-        /// <summary>��ȡ������Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param> 
+        #region 私有函数:Read(XmlDocument doc)
+        /// <summary>读取任务信息</summary>
+        /// <param name="doc">Xml 文档对象</param> 
         private string Read(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -93,19 +76,19 @@ namespace X3Platform.Tasks.Ajax
             {
                 service.SetRead(taskId, receiverId, true);
 
-                // ֪ͨ����������Ϣ, �鿴��������ʧ
+                // 通知类的任务信息, 查看完后就消失
                 if (param.Type == "4")
                 {
                     service.SetFinished(receiverId, taskId);
                 }
 
                 // -------------------------------------------------------
-                // ������ת��ҳ��
+                // 设置跳转的页面
                 // -------------------------------------------------------
 
                 string url = param.Content;
 
-                outString.AppendFormat("<span style=\"font-size:12px;padding:10px;\" ><a href=\"{0}\">������ת����������ҳ�棬���Ժ�...</a></span>", url);
+                outString.AppendFormat("<span style=\"font-size:12px;padding:10px;\" ><a href=\"{0}\">正在跳转到任务相关页面，请稍候...</a></span>", url);
                 outString.AppendFormat("<script type=\"text/javascript\" >location.href='{0}';</script>", url);
             }
 

@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.DAL.MySQL
+﻿namespace X3Platform.Tasks.DAL.MySQL
 {
     #region Using Libraries
     using System;
@@ -23,7 +7,7 @@ namespace X3Platform.Tasks.DAL.MySQL
 
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Util;
-    
+
     using X3Platform.Tasks.Configuration;
     using X3Platform.Tasks.IDAL;
     using X3Platform.Tasks.Model;
@@ -52,7 +36,7 @@ namespace X3Platform.Tasks.DAL.MySQL
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
 
         // -------------------------------------------------------
@@ -60,9 +44,9 @@ namespace X3Platform.Tasks.DAL.MySQL
         // -------------------------------------------------------
 
         #region 函数:Save(TimingTaskInfo param)
-        ///<summary>保存记录</summary>
-        ///<param name="param">TimingTaskInfo 实例详细信息</param>
-        ///<returns>TimingTaskInfo 实例详细信息</returns>
+        /// <summary>保存记录</summary>
+        /// <param name="param">TimingTaskInfo 实例详细信息</param>
+        /// <returns>TimingTaskInfo 实例详细信息</returns>
         public TimingTaskInfo Save(TimingTaskInfo param)
         {
             if (!IsExistTaskCode(param.ApplicationId, param.TaskCode))
@@ -79,8 +63,8 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:Insert(TimingTimingTaskInfo param)
-        ///<summary>添加记录</summary>
-        ///<param name="param">TimingTaskInfo 实例的详细信息</param>
+        /// <summary>添加记录</summary>
+        /// <param name="param">TimingTaskInfo 实例的详细信息</param>
         public void Insert(TimingTaskInfo param)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -110,8 +94,8 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:Update(TimingTaskInfo param)
-        ///<summary>修改记录</summary>
-        ///<param name="param">TimingTaskInfo 实例的详细信息</param>
+        /// <summary>修改记录</summary>
+        /// <param name="param">TimingTaskInfo 实例的详细信息</param>
         public void Update(TimingTaskInfo param)
         {
             //
@@ -158,8 +142,8 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:Delete(string ids)
-        ///<summary>删除记录</summary>
-        ///<param name="ids">任务的标识信息,多个以逗号隔开</param>
+        /// <summary>删除记录</summary>
+        /// <param name="ids">任务的标识信息,多个以逗号隔开</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -189,9 +173,9 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:DeleteByTaskCode(string applicationId, string taskCode)
-        ///<summary>删除记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
+        /// <summary>删除记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
         public void DeleteByTaskCode(string applicationId, string taskCode)
         {
             if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode)) { return; }
@@ -225,9 +209,9 @@ namespace X3Platform.Tasks.DAL.MySQL
         // -------------------------------------------------------
 
         #region 函数:FindOne(string id)
-        ///<summary>查询某条记录</summary>
-        ///<param name="id">TimingTaskInfo Id号</param>
-        ///<returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">TimingTaskInfo Id号</param>
+        /// <returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
         public TimingTaskInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -247,10 +231,10 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:FindOneByTaskCode(string applicationId, string taskCode)
-        ///<summary>查询某条记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
         public TimingTaskInfo FindOneByTaskCode(string applicationId, string taskCode)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -296,20 +280,31 @@ namespace X3Platform.Tasks.DAL.MySQL
         }
 
         #region 函数:FindAll(string whereClause,int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
-        public IList<TimingTaskInfo> FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
+        public IList<TaskWaitingItemInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<TimingTaskInfo> list = this.ibatisMapper.QueryForList<TimingTaskInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            return this.ibatisMapper.QueryForList<TaskWaitingItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
 
-            return list;
+        #region 函数:FindAllUnsentItems(int length)
+        /// <summary>查询所有待发送的记录</summary>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TaskWaitingItemInfo 实例的详细信息</returns>
+        public IList<TaskWaitingItemInfo> FindAllUnsentItems(int length)
+        {
+            // 查询所有未发送的待办且触发时间小于当前时间
+            string whereClause = " IsSend = 0 AND TriggerTime < GETDATE() ";
+
+            return this.FindAll(whereClause, length);
         }
         #endregion
 
@@ -325,7 +320,7 @@ namespace X3Platform.Tasks.DAL.MySQL
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns> 
-        public IList<TimingTaskInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskWaitingItemInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -334,7 +329,7 @@ namespace X3Platform.Tasks.DAL.MySQL
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("OrderBy", orderBy);
 
-            IList<TimingTaskInfo> list = this.ibatisMapper.QueryForList<TimingTaskInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<TaskWaitingItemInfo> list = this.ibatisMapper.QueryForList<TaskWaitingItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -343,9 +338,9 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:IsExist(string id)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="id">标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
@@ -359,10 +354,10 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:IsExistTaskCode(string applicationId, string taskCode)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>布尔值</returns>
         public bool IsExistTaskCode(string applicationId, string taskCode)
         {
             if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode))

@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.Model
+﻿namespace X3Platform.Tasks.Model
 {
     #region Using Libraries
     using System;
@@ -291,11 +275,11 @@ namespace X3Platform.Tasks.Model
             {
                 if (item.Status == 1)
                 {
-                    outString.AppendFormat("{0}#{1}#{2}", item.Status, item.ReceiverId, item.FinishTime);
+                    outString.AppendFormat("{0}#{1}#{2},", item.Status, item.ReceiverId, item.FinishTime);
                 }
                 else
                 {
-                    outString.AppendFormat("{0}#{1}", item.Status, item.ReceiverId);
+                    outString.AppendFormat("{0}#{1},", item.Status, item.ReceiverId);
                 }
             }
 
@@ -367,7 +351,7 @@ namespace X3Platform.Tasks.Model
             receiver.Status = status;
             receiver.IsRead = isRead;
             receiver.FinishTime = finishTime;
-
+           
             this.ReceiverGroup.Add(receiver);
         }
 

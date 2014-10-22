@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Ajax
 {
     #region Using Libraries
@@ -35,10 +19,10 @@ namespace X3Platform.Tasks.Ajax
     {
         ITaskReceiverService service = TasksContext.Instance.TaskReceiverService;
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回一个相关的实例列表.</returns> 
         public string GetPages(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -81,16 +65,16 @@ namespace X3Platform.Tasks.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ�.\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功.\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAllByReceiverId(XmlDocument doc)
-        /// <summary>��ȡ�б�</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:FindAllByReceiverId(XmlDocument doc)
+        /// <summary>获取列表</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回一个相关的实例列表.</returns> 
         public string FindAllByReceiverId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -101,7 +85,7 @@ namespace X3Platform.Tasks.Ajax
 
             int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
 
-            // ����������Ϊ��, ��Ĭ����ʾ��ǰ�û�
+            // 如果接收人为空, 则默认显示当前用户
             if (string.IsNullOrEmpty(receiverId))
             {
                 receiverId = KernelContext.Current.User.Id;
@@ -136,15 +120,59 @@ namespace X3Platform.Tasks.Ajax
                 outString.Remove(outString.Length - 1, 1);
             }
 
-            outString.Append("],taskCount:\"" + rowCount + "\", message:{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("],taskCount:\"" + rowCount + "\", message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:SetStatus(XmlDocument doc)
-        /// <summary>��������״̬</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:Copy(XmlDocument doc)
+        /// <summary>复制工作项信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        public string Copy(XmlDocument doc)
+        {
+            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+
+            string fromReceiverId = AjaxStorageConvertor.Fetch("fromReceiverId", doc);
+            string toReceiverId = AjaxStorageConvertor.Fetch("toReceiverId", doc);
+
+            DateTime beginDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("beginDate", doc));
+            DateTime endDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("endDate", doc));
+
+            // 格式结束时间为 23:59:59，避免当天没有收到待办信息
+            endDate = Convert.ToDateTime(endDate.ToString("yyyy-MM-dd 23:59:59"));
+
+            this.service.Copy(fromReceiverId, toReceiverId, beginDate, endDate);
+
+            return "{message:{\"returnCode\":0,\"value\":\"复制成功。\"}}";
+        }
+        #endregion
+
+        #region 函数:Cut(XmlDocument doc)
+        /// <summary>复制工作项信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        public string Cut(XmlDocument doc)
+        {
+            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+
+            string fromReceiverId = AjaxStorageConvertor.Fetch("fromReceiverId", doc);
+            string toReceiverId = AjaxStorageConvertor.Fetch("toReceiverId", doc);
+
+            DateTime beginDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("beginDate", doc));
+            DateTime endDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("endDate", doc));
+
+            // 格式结束时间为 23:59:59，避免当天没有收到待办信息
+            endDate = Convert.ToDateTime(endDate.ToString("yyyy-MM-dd 23:59:59"));
+
+            this.service.Cut(fromReceiverId, toReceiverId, beginDate, endDate);
+
+            return "{message:{\"returnCode\":0,\"value\":\"复制成功。\"}}";
+        }
+        #endregion
+
+        #region 函数:SetStatus(XmlDocument doc)
+        /// <summary>设置任务状态</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string SetStatus(XmlDocument doc)
         {
             string taskId = AjaxStorageConvertor.Fetch("taskId", doc);
@@ -153,13 +181,13 @@ namespace X3Platform.Tasks.Ajax
 
             this.service.SetStatus(taskId, KernelContext.Current.User.Id, status);
 
-            return "{message:{\"returnCode\":0,\"value\":\"���óɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"设置成功。\"}}";
         }
         #endregion
 
-        #region 属性:SetFinished(XmlDocument doc)
-        /// <summary>������������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:SetFinished(XmlDocument doc)
+        /// <summary>设置任务结束</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string SetFinished(XmlDocument doc)
         {
             string taskIds = AjaxStorageConvertor.Fetch("taskIds", doc);
@@ -177,21 +205,21 @@ namespace X3Platform.Tasks.Ajax
                 this.service.SetFinished(account.Id, taskIds);
             }
 
-            return "{message:{\"returnCode\":0,\"value\":\"���óɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"设置成功。\"}}";
         }
         #endregion
 
-        #region 属性:GetUnfinishedQuantities(XmlDocument doc)
-        /// <summary>��ȡ�б�</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:GetUnfinishedQuantities(XmlDocument doc)
+        /// <summary>获取列表</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回一个相关的实例列表.</returns> 
         public string GetUnfinishedQuantities(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
             string receiverId = AjaxStorageConvertor.Fetch("receiverId", doc);
 
-            // ����������Ϊ��, ��Ĭ����ʾ��ǰ�û�
+            // 如果接收人为空, 则默认显示当前用户
             if (string.IsNullOrEmpty(receiverId))
             {
                 receiverId = KernelContext.Current.User.Id;
@@ -211,7 +239,7 @@ namespace X3Platform.Tasks.Ajax
 
             outString = StringHelper.TrimEnd(outString, ",");
 
-            outString.Append("],message:{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("],receiverId:\"" + receiverId + "\",message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

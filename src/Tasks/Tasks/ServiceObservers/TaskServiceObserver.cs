@@ -10,6 +10,7 @@
     
     using X3Platform.Tasks.Model;
     using X3Platform.Tasks.MSMQ;
+    using X3Platform.Tasks.Configuration;
     #endregion
 
     /// <summary></summary>
@@ -46,8 +47,8 @@
         }
         #endregion
 
-        /// <summary>执行时间间隔(默认:24小时)</summary>
-        private int interval = 24;
+        /// <summary>执行时间间隔(单位:秒)</summary>
+        private int interval = TasksConfigurationView.Instance.MessageQueueReceivingInterval;
 
         /// <summary>任务队列</summary>
         private TaskQueue queue = new TaskQueue();
@@ -63,17 +64,9 @@
         {
             this.m_Name = name;
 
-            // 3.设置下一次运行的时间
-            string intervalValue = "10";
-
-            if (string.IsNullOrEmpty(intervalValue))
-            {
-                interval = Convert.ToInt32(intervalValue);
-            }
-
             EventLogHelper.Write(string.Format("{0} 监听服务初始化。", this.Name));
 
-            Start();
+            this.Start();
         }
 
         /// <summary>启动</summary>
@@ -92,8 +85,7 @@
         /// <summary>运行</summary>
         public void Run()
         {
-            if (running)
-                return;
+            if (running) { return; }
 
             try
             {
@@ -102,23 +94,36 @@
                 // 开始时间
                 TimeSpan beginTimeSpan = new TimeSpan(DateTime.Now.Ticks);
 
+                // 发送待办
+                ServiceTrace.Instance.WriteLine("正在检测是否有任务需要发送。");
+
                 // 接收待办信息
 
                 IMessageObject message = queue.Receive();
 
-                while (message != null) 
+                if (message != null)
                 {
-                    if (message is TaskInfo)
+                    // 发送待办
+                    ServiceTrace.Instance.WriteLine("正在发送任务信息。");
+
+                    int count = 0;
+
+                    while (message != null)
                     {
-                        TasksContext.Instance.TaskService.Save((TaskInfo)message);
+                        if (message is TaskInfo)
+                        {
+                            TasksContext.Instance.TaskService.Save((TaskInfo)message);
+
+                            count++;
+                        }
+
+                        message = queue.Receive();
                     }
 
-                    message = queue.Receive();
+                    // 成功发送待办
+                    ServiceTrace.Instance.WriteLine("已成功发送【" + count + "】条任务信息。");
                 }
 
-                // 发送待办
-                ServiceTrace.Instance.WriteLine("正在发送待办信息。");
-                
                 this.nextRunTime = DateTime.Now.AddSeconds(this.interval);
 
                 running = false;

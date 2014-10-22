@@ -43,7 +43,7 @@ namespace X3Platform.Tasks
         /// <summary>名称</summary>
         public override string Name
         {
-            get { return "任务"; }
+            get { return "任务管理上下文"; }
         }
         #endregion
 

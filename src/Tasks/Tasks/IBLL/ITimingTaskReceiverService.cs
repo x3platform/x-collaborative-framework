@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Tasks.IBLL
+﻿namespace X3Platform.Tasks.IBLL
 {
     using System;
     using System.Collections.Generic;
@@ -26,18 +12,18 @@ namespace X3Platform.Tasks.IBLL
     public interface ITimingTaskReceiverService
     {
         #region 函数:FindOne(string taskId, string receiverId)
-        ///<summary>查询某条记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收人标识</param>
-        ///<returns>返回一个 TimingTaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个 TimingTaskReceiverInfo 实例的详细信息</returns>
         TaskWaitingItemInfo FindOne(string taskId, string receiverId);
         #endregion
 
         #region 函数:FindAllByReceiverId(string receiverId, string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="receiverId">延迟的接收者帐号标识</param>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<returns>返回所有 TimingTaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="receiverId">延迟的接收者帐号标识</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 TimingTaskReceiverInfo 实例的详细信息</returns>
         IList<TaskWaitingItemInfo> FindAllByReceiverId(string receiverId, string whereClause);
         #endregion
 
@@ -54,10 +40,10 @@ namespace X3Platform.Tasks.IBLL
         #endregion
 
         #region 函数:IsExist(string timingTaskId, string receiverId)
-        ///<summary>检测是否存在相关的记录</summary>
-        ///<param name="timingTaskId">任务标识</param>
-        ///<param name="receiverId">接收者标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="timingTaskId">任务标识</param>
+        /// <param name="receiverId">接收者标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string timingTaskId, string receiverId);
         #endregion
 
