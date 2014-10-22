@@ -16,7 +16,7 @@
             <result property="TriggerTime" column="TriggerTime" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
-        <resultMap id="proc_TimingTask_FindAll_Result" class="TimingTaskInfo">
+        <resultMap id="proc_TimingTask_FindAll_Result" class="X3Platform.Tasks.Model.TaskWaitingItemInfo,X3Platform.Tasks">
             <result property="Id" column="Id" />
             <result property="ApplicationId" column="ApplicationId" />
             <result property="TaskCode" column="TaskCode" />
@@ -25,52 +25,55 @@
             <result property="Content" column="Content" />
             <result property="Tags" column="Tags" />
             <result property="SenderId" column="SenderId" />
-            <result property="TriggerTime" column="TriggerTime" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="IsSend" column="IsSend" />
+            <result property="SendTime" column="SendTime" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
     <statements>
         <insert id="proc_TimingTask_Insert" parameterClass="TimingTaskInfo">
-            INSERT INTO [tb_TimingTask] (
-            [Id],
-            [ApplicationId],
-            [TaskCode],
-            [Type],
-            [Title],
-            [Content],
-            [Tags],
-            [SenderId],
-            [TriggerTime],
-            [CreateDate]
+            INSERT INTO [tb_TimingTask] 
+            (
+                [Id],
+                [ApplicationId],
+                [TaskCode],
+                [Type],
+                [Title],
+                [Content],
+                [Tags],
+                [SenderId],
+                [TriggerTime],
+                [CreateDate]
             )
             VALUES
             (
-            #Id#,
-            #ApplicationId#,
-            #TaskCode#,
-            #Type#,
-            #Title#,
-            #Content#,
-            #Tags#,
-            #SenderId#,
-            #TriggerTime#,
-            #CreateDate#
+                #Id#,
+                #ApplicationId#,
+                #TaskCode#,
+                #Type#,
+                #Title#,
+                #Content#,
+                #Tags#,
+                #SenderId#,
+                #TriggerTime#,
+                #CreateDate#
             )
         </insert>
 
         <update id="proc_TimingTask_Update" parameterClass="TimingTaskInfo">
             UPDATE [tb_TimingTask] SET
 
-            [Id] = #Id#,
-            [ApplicationId] = #ApplicationId#,
-            [TaskCode] = #TaskCode#,
-            [Type] = #Type#,
-            [Title] = #Title#,
-            [Content] = #Content#,
-            [Tags] = #Tags#,
-            [SenderId] = #SenderId#,
-            [TriggerTime] = #TriggerTime#,
-            [CreateDate] = #CreateDate#
+                [Id] = #Id#,
+                [ApplicationId] = #ApplicationId#,
+                [TaskCode] = #TaskCode#,
+                [Type] = #Type#,
+                [Title] = #Title#,
+                [Content] = #Content#,
+                [Tags] = #Tags#,
+                [SenderId] = #SenderId#,
+                [TriggerTime] = #TriggerTime#,
+                [CreateDate] = #CreateDate#
 
             WHERE [Id] = #Id#
         </update>
@@ -144,7 +147,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_TimingTask] T
+            * FROM [view_Task_WaitingItem] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -160,7 +163,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_TimingTask] T
+            FROM [view_Task_WaitingItem] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -171,12 +174,10 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
 
         <select id="proc_TimingTask_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_TimingTask] T
+            SELECT COUNT(*) AS 'RowCount' FROM [view_Task_WaitingItem] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -190,6 +191,5 @@
         <select id="proc_TimingTask_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM [tb_TimingTask] T WHERE $WhereClause$
         </select>
-
     </statements>
 </sqlMap>

@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskQueue.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.MSMQ
 {
     #region Using Libraries
@@ -26,29 +10,29 @@ namespace X3Platform.Tasks.MSMQ
     using X3Platform.Tasks.Configuration;
     #endregion
 
-    /// <summary>��������</summary>
+    /// <summary>任务队列</summary>
     public class TaskQueue : MessageQueueObject
     {
-        /// <summary>��Ϣ����</summary>
+        /// <summary>消息队列</summary>
         private MessageQueue queue = null;
 
-        /// <summary>��</summary>
+        /// <summary>锁</summary>
         private object lockObject = new object();
-        
-        #region ���캯��:TaskQueue()
-        /// <summary>��������</summary>
+
+        #region 构造函数:TaskQueue()
+        /// <summary>任务队列</summary>
         public TaskQueue()
             : base(TasksConfigurationView.Instance.MessageQueueMachineName, TasksConfigurationView.Instance.MessageQueueName)
         {
         }
         #endregion
 
-        #region 属性:Receive()
-        /// <summary>��������</summary>
+        #region 函数:Receive()
+        /// <summary>接收数据</summary>
         /// <returns></returns>
         public override IMessageObject Receive()
         {
-            // ������ʽ
+            // 阻塞方式
             IMessageObject data = null;
 
             lock (lockObject)
@@ -62,8 +46,9 @@ namespace X3Platform.Tasks.MSMQ
                 {
                     data = new TaskInfo();
 
-                    Message message = queue.Receive(new TimeSpan(0, 0, 10)); // �ȴ�10��
-                    
+                    // 如果消息队列为空时, 将会导致无限期占用线程, 设置等待10秒钟Receive()函数无响应，则返回空值。
+                    Message message = queue.Receive(new TimeSpan(0, 0, 10));
+
                     XmlDocument doc = new XmlDocument();
 
                     doc.LoadXml(message.Body.ToString());
@@ -72,13 +57,22 @@ namespace X3Platform.Tasks.MSMQ
 
                     return data;
                 }
-                catch (Exception)
+                catch (MessageQueueException messageQueueException)
+                {
+                    if (messageQueueException.MessageQueueErrorCode == MessageQueueErrorCode.IOTimeout)
+                    {
+                        // 等待10秒钟Receive()函数无响应，则返回空值。
+                        return null;
+                    }
+
+                    throw;
+                }
+                catch
                 {
                     this.Close();
+                    throw;
                 }
             }
-
-            return null;
         }
         #endregion
     }

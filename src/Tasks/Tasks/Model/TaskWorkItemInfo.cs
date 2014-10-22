@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskHistoryInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.Model
+﻿namespace X3Platform.Tasks.Model
 {
     #region Using Libraries
     using System;
@@ -43,6 +27,17 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
+        #region 属性:TrackingToken
+        private string m_TrackingToken;
+
+        /// <summary>跟踪标记</summary>
+        public string TrackingToken
+        {
+            get { return this.m_TrackingToken; }
+            set { this.m_TrackingToken = value; }
+        }
+        #endregion
+        
         #region 属性:TaskCode
         private string m_TaskCode;
 

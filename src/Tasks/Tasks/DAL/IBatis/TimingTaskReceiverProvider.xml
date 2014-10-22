@@ -101,8 +101,7 @@
             SELECT Id FROM tb_TimingTask WHERE [ApplicationId] = #ApplicationId# AND TaskCode = #TaskCode# )
         </delete>
         <select id="proc_TimingTask_Receiver_FindOne" resultMap="proc_TimingTask_Receiver_FindOne_Result" >
-            SELECT * FROM [tb_TimingTask_Receiver] T
-            WHERE [TimingTaskId] = #TimingTaskId# AND [ReceiverId] = #ReceiverId#
+            SELECT * FROM [view_Task_WaitingItem] WHERE [Id] = #TimingTaskId# AND [ReceiverId] = #ReceiverId#
         </select>
 
         <select id="proc_TimingTask_Receiver_FindAll" resultMap="proc_TimingTask_Receiver_FindAll_Result" >
@@ -114,7 +113,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_TimingTask_Receiver] T
+            * FROM [view_Task_WaitingItem] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -130,7 +129,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_TimingTask_Receiver] T
+            FROM [view_Task_WaitingItem] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -141,11 +140,9 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
 
         <select id="proc_TimingTask_Receiver_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM [tb_TimingTask_Receiver] T
 
             <dynamic prepend="WHERE">

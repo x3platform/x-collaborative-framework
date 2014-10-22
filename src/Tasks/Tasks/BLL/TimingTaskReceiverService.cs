@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.BLL
+﻿namespace X3Platform.Tasks.BLL
 {
     #region Using Libraries
     using System;
@@ -52,15 +36,16 @@ namespace X3Platform.Tasks.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(TasksConfiguration.ApplicationName, springObjectFile);
 
-            provider = objectBuilder.GetObject<ITimingTaskReceiverProvider>(typeof(ITimingTaskReceiverProvider));
+            // 创建数据提供器
+            this.provider = objectBuilder.GetObject<ITimingTaskReceiverProvider>(typeof(ITimingTaskReceiverProvider));
         }
         #endregion
 
         #region 函数:FindOne(string taskId, string receiverId)
-        ///<summary>查询某条记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收人标识</param>
-        ///<returns>返回一个 TimingTaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个 TimingTaskReceiverInfo 实例的详细信息</returns>
         public TaskWaitingItemInfo FindOne(string taskId, string receiverId)
         {
             return provider.FindOne(taskId, receiverId);
@@ -68,10 +53,10 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:FindAllByReceiverId(string receiverId, string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="receiverId">延迟的接收者帐号标识</param>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<returns>返回所有 TimingTaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="receiverId">延迟的接收者帐号标识</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 TimingTaskReceiverInfo 实例的详细信息</returns>
         public IList<TaskWaitingItemInfo> FindAllByReceiverId(string receiverId, string whereClause)
         {
             return provider.FindAllByReceiverId(receiverId, whereClause);
@@ -94,10 +79,10 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:IsExist(string taskId, string receiverId)
-        ///<summary>检测是否存在相关的记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收者标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收者标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string taskId, string receiverId)
         {
             return provider.IsExist(taskId, receiverId);
