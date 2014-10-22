@@ -29,7 +29,6 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
-    
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -163,6 +162,7 @@
     <Compile Include="Model\TaskWaitingItemInfo.cs" />
     <Compile Include="MSMQ\TaskQueue.cs" />
     <Compile Include="ServiceObservers\TaskServiceObserver.cs" />
+    <Compile Include="ServiceObservers\TaskWaitingItemServiceObserver.cs" />
     <Compile Include="TasksContext.cs" />
     <Compile Include="IBLL\ITaskService.cs" />
     <Compile Include="IBLL\ITaskReceiverService.cs" />
@@ -183,12 +183,14 @@
     </Content>
     <Content Include="DAL\IBatis\TaskHistoryProvider.xml">
       <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\MySQL\TaskCategoryProvider.xml">
       <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
     </Content>
     <Content Include="DAL\MySQL\TaskHistoryProvider.xml">
       <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\SQLServer\TaskCategoryProvider.xml">
       <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
@@ -224,8 +226,10 @@
       <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="db\任务管理初始化脚本%28SQLServer%29.sql" />
-    <Content Include="db\任务管理初始化脚本%28MySQL%29.sql" />
+    <Content Include="db\Init_Sccript_MySQL.sql" />
+    <Content Include="db\Init_Sccript_SQLServer.sql" />
+    <None Include="config\IBatis\X3Platform.Tasks.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.Tasks.Spring.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -256,9 +260,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\X3Platform.Tasks.IBatis.SqlMap.config" />
     <Content Include="DAL\IBatis\TimingTaskProvider.xml">
       <DependentUpon>TimingTaskProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\IBatis\TimingTaskReceiverProvider.xml">
       <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
@@ -273,7 +277,6 @@
     <Content Include="config\SQLServer\X3Platform.Tasks.IBatis.SqlMap.config" />
     <None Include="config\SQLServer\X3Platform.Tasks.Spring.config" />
     <None Include="config\X3Platform.Tasks.config" />
-    <None Include="config\X3Platform.Tasks.Spring.config" />
     <Content Include="DAL\IBatis\TaskProvider.xml">
       <DependentUpon>TaskProvider.cs</DependentUpon>
     </Content>

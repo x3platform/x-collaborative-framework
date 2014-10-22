@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Ajax
 {
     #region Using Libraries
@@ -37,13 +21,13 @@ namespace X3Platform.Tasks.Ajax
         private ITaskService service = TasksContext.Instance.TaskService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Send(XmlDocument doc)
         {
             TaskInfo param = new TaskInfo();
@@ -56,7 +40,26 @@ namespace X3Platform.Tasks.Ajax
 
             if (account == null)
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"δ�ҵ���������Ϣ��id:" + param.SenderId + "����\"}}";
+                // 如果默认状态下没有填写发送者标识(SenderId), 则根据填写的发送者的登录名信息查找相关标识信息.
+                XmlNode senderNode = doc.SelectSingleNode("/ajaxStorage/sender/loginName");
+
+                if (senderNode == null)
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"未找到发送人信息【id:" + param.SenderId + "】。\"}}";
+                }
+                else
+                {
+                    account = MembershipManagement.Instance.AccountService.FindOneByLoginName(senderNode.InnerText);
+
+                    if (account == null)
+                    {
+                        return "{\"message\":{\"returnCode\":1,\"value\":\"未找到发送人信息【loginName:" + senderNode.InnerText + "】。\"}}";
+                    }
+                    else
+                    {
+                        param.SenderId = account.Id;
+                    }
+                }
             }
 
             foreach (XmlNode node in nodes)
@@ -67,7 +70,7 @@ namespace X3Platform.Tasks.Ajax
 
                     if (account == null)
                     {
-                        return "{\"message\":{\"returnCode\":1,\"value\":\"δ�ҵ���������Ϣ��id:" + node.SelectSingleNode("id").InnerText + "����\"}}";
+                        return "{\"message\":{\"returnCode\":1,\"value\":\"未找到接收人信息【id:" + node.SelectSingleNode("id").InnerText + "】。\"}}";
                     }
                 }
                 else if (node.SelectSingleNode("loginName") != null)
@@ -76,14 +79,14 @@ namespace X3Platform.Tasks.Ajax
 
                     if (account == null)
                     {
-                        return "{\"message\":{\"returnCode\":1,\"value\":\"δ�ҵ���������Ϣ����loginName:" + node.SelectSingleNode("loginName").InnerText + "����\"}}";
+                        return "{\"message\":{\"returnCode\":1,\"value\":\"未找到接收人信息，【loginName:" + node.SelectSingleNode("loginName").InnerText + "】。\"}}";
                     }
                 }
                 else
                 {
                     account = null;
 
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"δ�ҵ������˱�ʶ�Ĳ�����\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"未找到接收人标识的参数。\"}}";
                 }
 
                 if (node.SelectSingleNode("isFinished") == null)
@@ -100,7 +103,7 @@ namespace X3Platform.Tasks.Ajax
                     {
                         if (node.SelectSingleNode("finishTime") == null)
                         {
-                            return "{\"message\":{\"returnCode\":1,\"value\":\"" + account.Name + "�����ɵģ�����δ�ҵ�����ʱ�䡣\"}}";
+                            return "{\"message\":{\"returnCode\":1,\"value\":\"" + account.Name + "已完成的，但是未找到完成时间。\"}}";
                         }
 
                         finishTime = Convert.ToDateTime(node.SelectSingleNode("finishTime").InnerText);
@@ -112,30 +115,30 @@ namespace X3Platform.Tasks.Ajax
 
             if (param.ReceiverGroup.Count == 0)
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"������д��������Ϣ��\"}}";
+                return "{\"message\":{\"returnCode\":1,\"value\":\"必须填写接收人信息。\"}}";
             }
 
             if (string.IsNullOrEmpty(param.Title))
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"������д������Ϣ��\"}}";
+                return "{\"message\":{\"returnCode\":1,\"value\":\"必须填写标题信息。\"}}";
             }
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"���ͳɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"发送成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
             string ids = AjaxStorageConvertor.Fetch("ids", doc);
 
             string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
-            
+
             string taskCode = AjaxStorageConvertor.Fetch("taskCode", doc);
 
             if (!string.IsNullOrEmpty(applicationId) && !string.IsNullOrEmpty(taskCode))
@@ -147,18 +150,18 @@ namespace X3Platform.Tasks.Ajax
                 this.service.Delete(ids);
             }
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>����һ�����ص�ʵ���б�.</returns> 
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回一个相关的实例列表.</returns> 
         public string GetPages(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -167,13 +170,13 @@ namespace X3Platform.Tasks.Ajax
 
             int rowCount = -1;
 
-            IList<TaskInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<TaskWorkItemInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
 
             pages.RowCount = rowCount;
 
             outString.Append("{\"ajaxStorage\":[");
 
-            foreach (TaskInfo item in list)
+            foreach (TaskWorkItemInfo item in list)
             {
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
@@ -182,8 +185,10 @@ namespace X3Platform.Tasks.Ajax
                 outString.Append("\"type\":\"" + item.Type + "\",");
                 outString.Append("\"title\":\"" + StringHelper.ToSafeJson(item.Title) + "\",");
                 outString.Append("\"content\":\"" + StringHelper.ToSafeJson(item.Content) + "\",");
-                outString.Append("\"tags\":\"" + item.Tags + "\",");
+                outString.Append("\"tags\":\"" + StringHelper.ToSafeJson(item.Tags) + "\",");
                 outString.Append("\"senderId\":\"" + StringHelper.ToSafeJson(item.SenderId) + "\",");
+                outString.Append("\"receiverId\":\"" + StringHelper.ToSafeJson(item.ReceiverId) + "\",");
+                outString.Append("\"status\":\"" + item.Status + "\",");
                 outString.Append("\"createDate\":\"" + item.CreateDate.ToString("yyyy,MM,dd,HH,mm,ss") + "\",");
                 outString.Append("\"createDateView\":\"" + item.CreateDate.ToString("yyyy-MM-dd") + "\"");
                 outString.Append("},");
@@ -198,15 +203,15 @@ namespace X3Platform.Tasks.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:SetFinished(XmlDocument doc)
-        /// <summary>������������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:SetFinished(XmlDocument doc)
+        /// <summary>设置任务结束</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string SetFinished(XmlDocument doc)
         {
             string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
@@ -215,13 +220,13 @@ namespace X3Platform.Tasks.Ajax
 
             this.service.SetFinished(applicationId, taskCode);
 
-            return "{message:{\"returnCode\":0,\"value\":\"���óɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"设置成功。\"}}";
         }
         #endregion
 
-        #region 属性:SetUsersFinished(XmlDocument doc)
-        /// <summary>������������</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:SetUsersFinished(XmlDocument doc)
+        /// <summary>设置任务结束</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string SetUsersFinished(XmlDocument doc)
         {
             string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
@@ -236,12 +241,10 @@ namespace X3Platform.Tasks.Ajax
                 {
                     IAccountInfo account = MembershipManagement.Instance.AccountService.FindOneByLoginName(node.InnerText);
 
-                    if (account == null)
+                    if (account != null)
                     {
-                        return "{\"message\":{\"returnCode\":1,\"value\":\"δ�ҵ���������Ϣ����loginName:" + node.SelectSingleNode("loginName").InnerText + "����\"}}";
+                        TasksContext.Instance.TaskReceiverService.SetFinishedByTaskCode(applicationId, taskCode, account.Id);
                     }
-
-                    TasksContext.Instance.TaskReceiverService.SetFinishedByTaskCode(applicationId, taskCode, account.Id);
                 }
             }
             else
@@ -254,13 +257,13 @@ namespace X3Platform.Tasks.Ajax
                 }
             }
 
-            return "{message:{\"returnCode\":0,\"value\":\"���óɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"设置成功。\"}}";
         }
         #endregion
 
-        #region 属性:GetTaskTags(XmlDocument doc)
-        /// <summary>��ȡ��ǩ�б�</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:GetTaskTags(XmlDocument doc)
+        /// <summary>获取标签列表</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string GetTaskTags(XmlDocument doc)
         {
             IList<string> list = this.service.GetTaskTags();
@@ -282,39 +285,39 @@ namespace X3Platform.Tasks.Ajax
                 outString = outString.Remove(outString.Length - 1, 1);
             }
 
-            outString.Append("]},message:{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("]},message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �鵵��ɾ��ĳһʱ�εĴ�����¼
+        // 归档、删除某一时段的待办记录
         // -------------------------------------------------------
 
-        #region 属性:Archive(XmlDocument doc)
-        /// <summary>���鵵����֮ǰ�����ɵĴ����鵵����ʷ���ݱ�</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:Archive(XmlDocument doc)
+        /// <summary>将归档日期之前已完成的待办归档到历史数据表</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string Archive(XmlDocument doc)
         {
             DateTime archiveDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("archiveDate", doc));
 
             this.service.Archive(archiveDate);
 
-            return "{message:{\"returnCode\":0,\"value\":\"�鵵�ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"归档成功。\"}}";
         }
         #endregion
 
-        #region 属性:RemoveUnfinishedWorkItems(XmlDocument doc)
-        ///<summary>ɾ������ʱ��֮ǰδ���ɵĹ�������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
+        #region 函数:RemoveUnfinishedWorkItems(XmlDocument doc)
+        /// <summary>删除过期时间之前未完成的工作项记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
         public string RemoveUnfinishedWorkItems(XmlDocument doc)
         {
             DateTime expireDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("expireDate", doc));
 
             this.service.RemoveUnfinishedWorkItems(expireDate);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
     }

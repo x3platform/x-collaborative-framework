@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TasksConfiguration.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Configuration
 {
     #region Using Libraries
@@ -22,16 +6,16 @@ namespace X3Platform.Tasks.Configuration
     using X3Platform.Configuration;
     #endregion
 
-    /// <summary>����������Ϣ</summary>
+    /// <summary>任务配置信息</summary>
     public class TasksConfiguration : X3Platform.Configuration.XmlConfiguraton
     {
-        /// <summary>����Ӧ�õ�����</summary>
+        /// <summary>所属应用的名称</summary>
         public const string ApplicationName = "Tasks";
 
-        /// <summary>������������</summary>
-        public const string SectionName = "tasksConfiguration";
-        
-        /// <summary>��ȡ������������</summary>
+        /// <summary>配置区的名称</summary>
+        public const string SectionName = "tasks";
+
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;

@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Tasks.DAL.SQLServer
+﻿namespace X3Platform.Tasks.DAL.SQLServer
 {
     #region Using Libraries
     using System;
@@ -49,13 +35,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping);
-
-            //this.providerName = ConfigurationManager.ConnectionStrings[this.configuration.Keys["DataSourceName"].Value].ProviderName;
-
-            //this.connectionString = ConfigurationManager.ConnectionStrings[this.configuration.Keys["DataSourceName"].Value].ConnectionString;
-
-            //db = DatabaseFactory.CreateDatabase(configuration.Keys["DataSourceName"].Value);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
 
         // -------------------------------------------------------
@@ -63,9 +43,9 @@ namespace X3Platform.Tasks.DAL.SQLServer
         // -------------------------------------------------------
 
         #region 函数:Save(TaskInfo param)
-        ///<summary>保存记录</summary>
-        ///<param name="param">TaskInfo 实例详细信息</param>
-        ///<returns>TaskInfo 实例详细信息</returns>
+        /// <summary>保存记录</summary>
+        /// <param name="param">TaskInfo 实例详细信息</param>
+        /// <returns>TaskInfo 实例详细信息</returns>
         public TaskInfo Save(TaskInfo param)
         {
             if (!this.IsExistTaskCode(param.ApplicationId, param.TaskCode))
@@ -84,8 +64,8 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:Insert(TaskInfo param)
-        ///<summary>添加记录</summary>
-        ///<param name="param">TaskInfo 实例的详细信息</param>
+        /// <summary>添加记录</summary>
+        /// <param name="param">TaskInfo 实例的详细信息</param>
         public void Insert(TaskInfo param)
         {
             try
@@ -114,8 +94,8 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:Update(TaskInfo param)
-        ///<summary>修改记录</summary>
-        ///<param name="param">TaskInfo 实例的详细信息</param>
+        /// <summary>修改记录</summary>
+        /// <param name="param">TaskInfo 实例的详细信息</param>
         public void Update(TaskInfo param)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -158,8 +138,8 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:Delete(string ids)
-        ///<summary>删除记录</summary>
-        ///<param name="ids">任务的标识信息,多个以逗号隔开</param>
+        /// <summary>删除记录</summary>
+        /// <param name="ids">任务的标识信息,多个以逗号隔开</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids)) { return; }
@@ -192,9 +172,9 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:DeleteByTaskCode(string applicationId, string taskCode)
-        ///<summary>删除记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
+        /// <summary>删除记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
         public void DeleteByTaskCode(string applicationId, string taskCode)
         {
             if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode)) { return; }
@@ -223,14 +203,49 @@ namespace X3Platform.Tasks.DAL.SQLServer
         }
         #endregion
 
+        #region 函数:DeleteByTaskCode(string applicationId, string taskCode, string receiverIds)
+        /// <summary>删除记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <param name="receiverIds">任务接收人标识</param>
+        public void DeleteByTaskCode(string applicationId, string taskCode, string receiverIds)
+        {
+            if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode)) { return; }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" ApplicationId = '{0}' AND TaskCode = '{1}' AND ReceiverId IN ('{2}') ",
+                StringHelper.ToSafeSQL(applicationId, true),
+                StringHelper.ToSafeSQL(taskCode, true),
+                StringHelper.ToSafeSQL(receiverIds).Replace(",", "','")));
+
+            try
+            {
+                this.ibatisMapper.BeginTransaction();
+
+                this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Receiver_DeleteByTaskCode", this.tableName)), args);
+
+                this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_DeleteByTaskCode", this.tableName)), args);
+
+                this.ibatisMapper.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                this.ibatisMapper.RollBackTransaction();
+
+                throw ex;
+            }
+        }
+        #endregion
+
         // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
 
         #region 函数:FindOne(string id)
-        ///<summary>查询某条记录</summary>
-        ///<param name="id">TaskInfo Id号</param>
-        ///<returns>返回一个 TaskInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">TaskInfo Id号</param>
+        /// <returns>返回一个 TaskInfo 实例的详细信息</returns>
         public TaskInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -242,10 +257,10 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:FindOneByTaskCode(string applicationId, string taskCode)
-        ///<summary>查询某条记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>返回一个 TaskInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>返回一个 TaskInfo 实例的详细信息</returns>
         public TaskInfo FindOneByTaskCode(string applicationId, string taskCode)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -258,18 +273,18 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:FindAll(string whereClause,int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 TaskInfo 实例的详细信息</returns>
-        public IList<TaskInfo> FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TaskInfo 实例的详细信息</returns>
+        public IList<TaskWorkItemInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            return this.ibatisMapper.QueryForList<TaskInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
+            return this.ibatisMapper.QueryForList<TaskWorkItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", this.tableName)), args);
         }
         #endregion
 
@@ -285,7 +300,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns> 
-        public IList<TaskInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskWorkItemInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -298,7 +313,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
 
             args.Add("RowCount", 0);
 
-            IList<TaskInfo> list = this.ibatisMapper.QueryForList<TaskInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
+            IList<TaskWorkItemInfo> list = this.ibatisMapper.QueryForList<TaskWorkItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
 
@@ -307,9 +322,9 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:IsExist(string id)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="id">标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
@@ -323,10 +338,10 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:IsExistTaskCode(string applicationId, string taskCode)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>布尔值</returns>
         public bool IsExistTaskCode(string applicationId, string taskCode)
         {
             if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode)) { throw new Exception("应用标识和任务编号不能为空。"); }
@@ -417,7 +432,7 @@ namespace X3Platform.Tasks.DAL.SQLServer
 
         #region 函数:Archive()
         /// <summary>将归档日期之前已完成的待办归档到历史数据表</summary>
-        ///<param name="archiveDate">归档日期</param>
+        /// <param name="archiveDate">归档日期</param>
         public int Archive(DateTime archiveDate)
         {
             try
@@ -446,8 +461,8 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:RemoveUnfinishedWorkItems(DateTime expireDate)
-        ///<summary>删除过期时间之前未完成的工作项记录</summary>
-        ///<param name="expireDate">过期时间</param>
+        /// <summary>删除过期时间之前未完成的工作项记录</summary>
+        /// <param name="expireDate">过期时间</param>
         public void RemoveUnfinishedWorkItems(DateTime expireDate)
         {
             Dictionary<string, object> args1 = new Dictionary<string, object>();
@@ -465,8 +480,8 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:RemoveWorkItems(DateTime expireDate)
-        ///<summary>删除过期时间之前的工作项记录</summary>
-        ///<param name="expireDate">过期时间</param>
+        /// <summary>删除过期时间之前的工作项记录</summary>
+        /// <param name="expireDate">过期时间</param>
         public void RemoveWorkItems(DateTime expireDate)
         {
             // DELETE FROM tb_Task WHERE CreateDate < DATEADD(month, 3,(SELECT  MIN(CreateDate) FROM tb_Task))
@@ -485,8 +500,8 @@ namespace X3Platform.Tasks.DAL.SQLServer
         #endregion
 
         #region 函数:RemoveHistoryItems(DateTime expireDate)
-        ///<summary>删除过期时间之前的历史记录</summary>
-        ///<param name="expireDate">过期时间</param>
+        /// <summary>删除过期时间之前的历史记录</summary>
+        /// <param name="expireDate">过期时间</param>
         public void RemoveHistoryItems(DateTime expireDate)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :TaskHistoryInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Tasks.Model
 {
     #region Using Libraries
@@ -22,11 +6,11 @@ namespace X3Platform.Tasks.Model
     using System.Text;
     #endregion
 
-    /// <summary>��������������Ϣ</summary>
+    /// <summary>任务待发送项信息</summary>
     public class TaskWaitingItemInfo
     {
-        #region ���캯��:TaskWaitingItemInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:TaskWaitingItemInfo()
+        /// <summary>默认构造函数</summary>
         public TaskWaitingItemInfo()
         {
         }
@@ -43,6 +27,17 @@ namespace X3Platform.Tasks.Model
         }
         #endregion
 
+        #region 属性:TrackingToken
+        private string m_TrackingToken;
+
+        /// <summary>跟踪标记</summary>
+        public string TrackingToken
+        {
+            get { return this.m_TrackingToken; }
+            set { this.m_TrackingToken = value; }
+        }
+        #endregion
+        
         #region 属性:TaskCode
         private string m_TaskCode;
 
@@ -156,7 +151,7 @@ namespace X3Platform.Tasks.Model
         #region 属性:SendTime
         private DateTime m_SendTime;
 
-        /// <summary>ʵ�ʷ���ʱ��</summary>
+        /// <summary>实际发送时间</summary>
         public DateTime SendTime
         {
             get { return this.m_SendTime; }
@@ -167,7 +162,7 @@ namespace X3Platform.Tasks.Model
         #region 属性:TriggerTime
         private DateTime m_TriggerTime;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>触发时间</summary>
         public DateTime TriggerTime
         {
             get { return m_TriggerTime; }

@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.Model
+﻿namespace X3Platform.Tasks.Model
 {
     #region Using Libraries
     using System;
@@ -199,6 +183,7 @@ namespace X3Platform.Tasks.Model
                 item.IsSend = false;
                 item.SendTime = new DateTime(2000, 1, 1);
 
+                item.TriggerTime = this.TriggerTime;
                 item.CreateDate = this.CreateDate;
 
                 list.Add(item);

@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.DAL.MySQL
+﻿namespace X3Platform.Tasks.DAL.MySQL
 {
     #region Using Libraries
     using System;
@@ -68,10 +52,10 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:FindOne(string taskId, string receiverId)
-        ///<summary>查询某条记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收人标识</param>
-        ///<returns>返回一个 TaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个 TaskReceiverInfo 实例的详细信息</returns>
         public TaskWorkItemInfo FindOne(string taskId, string receiverId)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Node", receiverId);
@@ -85,11 +69,31 @@ namespace X3Platform.Tasks.DAL.MySQL
         }
         #endregion
 
+        #region 函数:FindOneByTaskCode(string applicationId, string taskCode, string receiverId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个 TaskReceiverInfo 实例的详细信息</returns>
+        public TaskWorkItemInfo FindOneByTaskCode(string applicationId, string taskCode, string receiverId)
+        {
+            IStorageNode storageNode = storageStrategy.GetStorageNode("Node", receiverId);
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("ApplicationId", applicationId);
+            args.Add("TaskCode", taskCode);
+            args.Add("ReceiverId", receiverId);
+
+            return this.ibatisMappers[storageNode.Name].QueryForObject<TaskWorkItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByTaskCode", this.tableName)), args);
+        }
+        #endregion
+
         #region 函数:FindAllByReceiverId(string receiverId, string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="receiverId">接收者帐号标识</param>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<returns>返回所有 TaskReceiverInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="receiverId">接收者帐号标识</param>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 TaskReceiverInfo 实例的详细信息</returns>
         public IList<TaskWorkItemInfo> FindAllByReceiverId(string receiverId, string whereClause)
         {
             return this.FindAllByReceiverId(receiverId, whereClause, 0);
@@ -97,11 +101,11 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:FindAllByReceiverId(string receiverId, string whereClause, string length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="receiverId">接收者帐号标识</param>
-        ///<param name="whereClause">SQL 查询条件</param>  
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="receiverId">接收者帐号标识</param>
+        /// <param name="whereClause">SQL 查询条件</param>  
         /// <param name="length">条数</param>
-        ///<returns>返回所有 TaskWorkItemInfo 实例的详细信息</returns>
+        /// <returns>返回所有 TaskWorkItemInfo 实例的详细信息</returns>
         public IList<TaskWorkItemInfo> FindAllByReceiverId(string receiverId, string whereClause, int length)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Node", receiverId);
@@ -160,10 +164,10 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:IsExist(string taskId, string receiverId)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="taskId">任务标识</param>
-        ///<param name="receiverId">接收者标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="taskId">任务标识</param>
+        /// <param name="receiverId">接收者标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string taskId, string receiverId)
         {
             if (string.IsNullOrEmpty(taskId) || string.IsNullOrEmpty(receiverId)) { throw new Exception("实例标识不能为空。"); }
@@ -179,17 +183,36 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:Copy(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
-        ///<summary>复制待办信息</summary>
-        ///<param name="fromReceiverId">待办来源接收者标识</param>
-        ///<param name="toReceiverId">待办目标接收者标识</param>
-        ///<param name="beginDate">复制待办的开始时间</param>
-        ///<param name="endDate">复制待办结束时间</param>
-        ///<returns></returns>
+        /// <summary>复制待办信息</summary>
+        /// <param name="fromReceiverId">待办来源接收者标识</param>
+        /// <param name="toReceiverId">待办目标接收者标识</param>
+        /// <param name="beginDate">复制待办的开始时间</param>
+        /// <param name="endDate">复制待办结束时间</param>
+        /// <returns></returns>
         public int Copy(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
+        {
+            return this.Copy(string.Empty, fromReceiverId, toReceiverId, beginDate, endDate);
+        }
+        #endregion
+
+        #region 函数:Copy(string applicationId, string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
+        /// <summary>复制待办信息</summary>
+        /// <param name="applicationId">所属应用标识</param>
+        /// <param name="fromReceiverId">待办来源接收者标识</param>
+        /// <param name="toReceiverId">待办目标接收者标识</param>
+        /// <param name="beginDate">复制待办的开始时间</param>
+        /// <param name="endDate">复制待办结束时间</param>
+        /// <returns></returns>
+        public int Copy(string applicationId, string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query", toReceiverId);
 
-            string whereClause = string.Format(" Status = 0 AND CreateDate BETWEEN ##{0}## AND ##{0}## ", beginDate, endDate);
+            string whereClause = string.Format(" ApplicationId = ##{0}## AND Status = 0 AND CreateDate BETWEEN ##{0}## AND ##{1}## ", applicationId, beginDate, endDate);
+
+            if (string.IsNullOrEmpty(applicationId))
+            {
+                whereClause = string.Format(" Status = 0 AND CreateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            }
 
             IList<TaskWorkItemInfo> list = this.FindAllByReceiverId(fromReceiverId, whereClause);
 
@@ -212,17 +235,36 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:Cut(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
-        ///<summary>剪切待办信息</summary>
-        ///<param name="fromReceiverId">待办来源接收者标识</param>
-        ///<param name="toReceiverId">待办目标接收者标识</param>
-        ///<param name="beginDate">复制待办的开始时间</param>
-        ///<param name="endDate">复制待办结束时间</param>
-        ///<returns></returns>
+        /// <summary>剪切待办信息</summary>
+        /// <param name="fromReceiverId">待办来源接收者标识</param>
+        /// <param name="toReceiverId">待办目标接收者标识</param>
+        /// <param name="beginDate">复制待办的开始时间</param>
+        /// <param name="endDate">复制待办结束时间</param>
+        /// <returns></returns>
         public int Cut(string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
+        {
+            return this.Cut(string.Empty, fromReceiverId, toReceiverId, beginDate, endDate);
+        }
+        #endregion
+
+        #region 函数:Cut(string applicationId, string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
+        /// <summary>剪切待办信息</summary>
+        /// <param name="applicationId">所属应用标识</param>
+        /// <param name="fromReceiverId">待办来源接收者标识</param>
+        /// <param name="toReceiverId">待办目标接收者标识</param>
+        /// <param name="beginDate">复制待办的开始时间</param>
+        /// <param name="endDate">复制待办结束时间</param>
+        /// <returns></returns>
+        public int Cut(string applicationId, string fromReceiverId, string toReceiverId, DateTime beginDate, DateTime endDate)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Query", toReceiverId);
 
-            string whereClause = string.Format(" Status = 0 AND CreateDate BETWEEN ##{0}## AND ##{0}## ", beginDate, endDate);
+            string whereClause = string.Format(" ApplicationId = ##{0}## AND Status = 0 AND CreateDate BETWEEN ##{0}## AND ##{1}## ", applicationId, beginDate, endDate);
+
+            if (string.IsNullOrEmpty(applicationId))
+            {
+                whereClause = string.Format(" Status = 0 AND CreateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            }
 
             IList<TaskWorkItemInfo> list = this.FindAllByReceiverId(fromReceiverId, whereClause);
 
@@ -368,9 +410,9 @@ namespace X3Platform.Tasks.DAL.MySQL
         #endregion
 
         #region 函数:GetUnfinishedQuantities(string receiverId)
-        ///<summary>获取未完成任务的数量</summary>
-        ///<param name="receiverId">接收人标识</param>
-        ///<returns>返回一个包含每个类型的统计数的 DataTable </returns>
+        /// <summary>获取未完成任务的数量</summary>
+        /// <param name="receiverId">接收人标识</param>
+        /// <returns>返回一个包含每个类型的统计数的 DataTable </returns>
         public Dictionary<int, int> GetUnfinishedQuantities(string receiverId)
         {
             IStorageNode storageNode = storageStrategy.GetStorageNode("Node", receiverId);

@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Tasks.ServiceContracts
+﻿namespace X3Platform.Tasks.ServiceContracts
 {
     #region Using Libraries
     using System;
@@ -48,9 +34,9 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:Send(string securityToken, string xml)
-        ///<summary>发送任务</summary>
-        ///<param name="securityToken">TaskInfo 实例的详细信息</param>
-        ///<param name="xml">数据</param>
+        /// <summary>发送任务</summary>
+        /// <param name="securityToken">TaskInfo 实例的详细信息</param>
+        /// <param name="xml">数据</param>
         public string Send(string securityToken, string xml)
         {
             return Process(securityToken, xml, "发送");
@@ -58,9 +44,9 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:Update(string securityToken, string xml)
-        ///<summary>更新一条数据记录</summary>
-        ///<param name="securityToken">安全标识</param>
-        ///<param name="xml">任务编码</param>
+        /// <summary>更新一条数据记录</summary>
+        /// <param name="securityToken">安全标识</param>
+        /// <param name="xml">任务编码</param>
         public string Update(string securityToken, string xml)
         {
             return Process(securityToken, xml, "更新");
@@ -68,9 +54,9 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:Delete(string securityToken, string taskCode)
-        ///<summary>删除记录</summary>
-        ///<param name="securityToken">安全标识</param>
-        ///<param name="taskCode">任务编码</param>
+        /// <summary>删除记录</summary>
+        /// <param name="securityToken">安全标识</param>
+        /// <param name="taskCode">任务编码</param>
         public string Delete(string securityToken, string taskCode)
         {
             try
@@ -193,10 +179,10 @@ namespace X3Platform.Tasks.ServiceContracts
         // -------------------------------------------------------
 
         #region 函数:FindOne(string securityToken, string taskCode)
-        ///<summary>查询某条记录</summary>
-        ///<param name="securityToken">安全标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>返回一个 TaskInfo 实例的Xml元素信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="securityToken">安全标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>返回一个 TaskInfo 实例的Xml元素信息</returns>
         [WebMethod]
         public string FindOne(string securityToken, string taskCode)
         {
@@ -226,11 +212,11 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:FindAllByLoginName(string securityToken, string loginName, int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="securityToken">安全标记</param>
-        ///<param name="loginName">发送者账号</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 TaskInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="securityToken">安全标记</param>
+        /// <param name="loginName">发送者账号</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TaskInfo 实例的详细信息</returns>
         [WebMethod]
         public string FindAllByLoginName(string securityToken, string loginName, int length)
         {
@@ -246,15 +232,15 @@ namespace X3Platform.Tasks.ServiceContracts
                     applicationId,
                     account.Id);
 
-                IList<TaskInfo> list = TasksContext.Instance.TaskService.FindAll(whereClause, length);
+                IList<TaskWorkItemInfo> list = TasksContext.Instance.TaskService.FindAll(whereClause, length);
 
                 outString.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 
                 outString.Append("<root>");
 
-                foreach (TaskInfo item in list)
+                foreach (TaskWorkItemInfo item in list)
                 {
-                    outString.Append(item.Serializable());
+                    // outString.Append(item.Serializable());
                 }
 
                 outString.Append("</root>");
@@ -273,12 +259,12 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:FindAllByDate(string securityToken, string beginDate, string endDate, int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="securityToken">安全标记</param>
-        ///<param name="beginDate">开始时间</param>
-        ///<param name="endDate">结束时间</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 TaskInfo 实例的详细信息</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="securityToken">安全标记</param>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TaskInfo 实例的详细信息</returns>
         [WebMethod]
         public string FindAllByDate(string securityToken, string beginDate, string endDate, int length)
         {
@@ -293,15 +279,15 @@ namespace X3Platform.Tasks.ServiceContracts
                     beginDate,
                     endDate);
 
-                IList<TaskInfo> list = TasksContext.Instance.TaskService.FindAll(whereClause, length);
+                IList<TaskWorkItemInfo> list = TasksContext.Instance.TaskService.FindAll(whereClause, length);
 
                 outString.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 
                 outString.Append("<root>");
 
-                foreach (TaskInfo item in list)
+                foreach (TaskWorkItemInfo item in list)
                 {
-                    outString.Append(item.Serializable());
+                    // outString.Append(item.Serializable());
                 }
 
                 outString.Append("</root>");
@@ -325,9 +311,9 @@ namespace X3Platform.Tasks.ServiceContracts
         // -------------------------------------------------------
 
         #region 函数:SetTaskFinished(string securityToken, string taskCode)
-        ///<summary>设置整个任务完成</summary>
-        ///<param name="securityToken">安全标识</param>
-        ///<param name="taskCode">任务编码</param>
+        /// <summary>设置整个任务完成</summary>
+        /// <param name="securityToken">安全标识</param>
+        /// <param name="taskCode">任务编码</param>
         public string SetTaskFinished(string securityToken, string taskCode)
         {
             try
@@ -346,10 +332,10 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:SetUsersFinished(string securityToken, string taskCode, string userIds)
-        ///<summary>设置用户任务完成</summary>
-        ///<param name="securityToken">安全标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<param name="userIds">用户编号,以逗号分开</param>
+        /// <summary>设置用户任务完成</summary>
+        /// <param name="securityToken">安全标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <param name="userIds">用户编号,以逗号分开</param>
         public string SetUsersFinished(string securityToken, string taskCode, string userIds)
         {
             try
@@ -368,10 +354,10 @@ namespace X3Platform.Tasks.ServiceContracts
         #endregion
 
         #region 函数:IsExistTaskCode(string securityToken, string taskCode)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="securityToken">安全标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="securityToken">安全标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>布尔值</returns>
         public string IsExistTaskCode(string securityToken, string taskCode)
         {
             try

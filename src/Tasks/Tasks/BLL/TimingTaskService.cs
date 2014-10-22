@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Tasks.BLL
+﻿namespace X3Platform.Tasks.BLL
 {
     #region Using Libraries
     using System;
@@ -50,13 +34,14 @@ namespace X3Platform.Tasks.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(TasksConfiguration.ApplicationName, springObjectFile);
 
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<ITimingTaskProvider>(typeof(ITimingTaskProvider));
         }
         #endregion
 
         #region 索引:this[string id]
         /// <summary>索引</summary>
-        ///<param name="id">任务标识</param>
+        /// <param name="id">任务标识</param>
         /// <returns></returns>
         public TimingTaskInfo this[string id]
         {
@@ -66,8 +51,8 @@ namespace X3Platform.Tasks.BLL
 
         #region 索引:this[string applicationId, string taskCode]
         /// <summary>索引</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
         /// <returns></returns>
         public TimingTaskInfo this[string applicationId, string taskCode]
         {
@@ -80,9 +65,9 @@ namespace X3Platform.Tasks.BLL
         // -------------------------------------------------------
 
         #region 函数:Save(TimingTaskInfo param)
-        ///<summary>保存记录</summary>
-        ///<param name="param"> 实例<see cref="TimingTaskInfo"/>详细信息</param>
-        ///<returns>TimingTaskInfo 实例详细信息</returns>
+        /// <summary>保存记录</summary>
+        /// <param name="param"> 实例<see cref="TimingTaskInfo"/>详细信息</param>
+        /// <returns>TimingTaskInfo 实例详细信息</returns>
         public TimingTaskInfo Save(TimingTaskInfo param)
         {
             if (string.IsNullOrEmpty(param.ApplicationId))
@@ -116,9 +101,9 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:DeleteByTaskCode(string applicationId, string taskCode)
-        ///<summary>删除记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
+        /// <summary>删除记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
         public void DeleteByTaskCode(string applicationId, string taskCode)
         {
             this.provider.DeleteByTaskCode(applicationId, taskCode);
@@ -130,9 +115,9 @@ namespace X3Platform.Tasks.BLL
         // -------------------------------------------------------
 
         #region 函数:FindOne(string id)
-        ///<summary>查询某条记录</summary>
-        ///<param name="id">任务标识</param>
-        ///<returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">任务标识</param>
+        /// <returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
         public TimingTaskInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
@@ -140,10 +125,10 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:FindOneByTaskCode(string applicationId, string taskCode)
-        ///<summary>查询某条记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
+        /// <summary>查询某条记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>返回一个 TimingTaskInfo 实例的详细信息</returns>
         public TimingTaskInfo FindOneByTaskCode(string applicationId, string taskCode)
         {
             TimingTaskInfo param = this.provider.FindOneByTaskCode(applicationId, taskCode);
@@ -158,32 +143,42 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:FindAll()
-        ///<summary>查询所有相关记录</summary>
-        ///<returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
-        public IList<TimingTaskInfo> FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
+        public IList<TaskWaitingItemInfo> FindAll()
         {
-            return FindAll(string.Empty, 0);
+            return this.FindAll(string.Empty, 0);
         }
         #endregion
 
         #region 函数:FindAll(string whereClause)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
-        public IList<TimingTaskInfo> FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
+        public IList<TaskWaitingItemInfo> FindAll(string whereClause)
         {
-            return FindAll(whereClause, 0);
+            return this.FindAll(whereClause, 0);
         }
         #endregion
 
         #region 函数:FindAll(string whereClause,int length)
-        ///<summary>查询所有相关记录</summary>
-        ///<param name="whereClause">SQL 查询条件</param>
-        ///<param name="length">条数</param>
-        ///<returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
-        public IList<TimingTaskInfo> FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TimingTaskInfo 实例的详细信息</returns>
+        public IList<TaskWaitingItemInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
+        }
+        #endregion
+
+        #region 函数:FindAllUnsentItems(int length)
+        /// <summary>查询所有待发送的记录</summary>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 TaskWaitingItemInfo 实例的详细信息</returns>
+        public IList<TaskWaitingItemInfo> FindAllUnsentItems(int length)
+        {
+            return this.provider.FindAllUnsentItems(length);
         }
         #endregion
 
@@ -199,16 +194,16 @@ namespace X3Platform.Tasks.BLL
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="TimingTaskInfo"/></returns>
-        public IList<TimingTaskInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskWaitingItemInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 
         #region 函数:IsExist(string id)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="id">标识</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
@@ -216,10 +211,10 @@ namespace X3Platform.Tasks.BLL
         #endregion
 
         #region 函数:IsExistTaskCode(string applicationId, string taskCode)
-        ///<summary>查询是否存在相关的记录</summary>
-        ///<param name="applicationId">应用系统的标识</param>
-        ///<param name="taskCode">任务编码</param>
-        ///<returns>布尔值</returns>
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="applicationId">应用系统的标识</param>
+        /// <param name="taskCode">任务编码</param>
+        /// <returns>布尔值</returns>
         public bool IsExistTaskCode(string applicationId, string taskCode)
         {
             return this.provider.IsExistTaskCode(applicationId, taskCode);
@@ -258,7 +253,61 @@ namespace X3Platform.Tasks.BLL
             // 触发发送定时任务信息库到任务信息库的时间.
             task.TriggerTime = triggerTime;
 
-            Save(task);
+            this.Save(task);
+        }
+        #endregion
+
+        #region 函数:SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds, DateTime triggerTime)
+        /// <summary>发送一对多的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者</param>
+        /// <param name="receiverIds">接收者</param>
+        public void SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds, DateTime triggerTime)
+        {
+            TimingTaskInfo task = new TimingTaskInfo();
+
+            task.Id = StringHelper.ToGuid();
+
+            task.ApplicationId = applicationId;
+            task.TaskCode = taskCode;
+            task.Title = title;
+            task.Content = content;
+            task.Type = type;
+            task.Tags = tags;
+            task.SenderId = senderId;
+
+            string[] keys = receiverIds.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string key in keys)
+            {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    task.AddReceiver(key);
+                }
+            }
+
+            task.CreateDate = DateTime.Now;
+
+            // 触发发送定时任务信息库到任务信息库的时间.
+            task.TriggerTime = triggerTime;
+
+            this.Save(task);
+        }
+        #endregion
+
+        #region 函数:MoveToWorkItem(TaskWaitingItemInfo item)
+        /// <summary>将待发送项移到任务工作项</summary>
+        /// <param name="item">任务待发送项信息</param>
+        public void MoveToWorkItem(TaskWaitingItemInfo item)
+        {
+            TasksContext.Instance.TaskService.Send(item.ApplicationId, item.TaskCode, item.Type, item.Title, item.Content, item.Tags, item.SenderId, item.ReceiverId);
+
+            this.SetSent(item.ApplicationId, item.TaskCode);
         }
         #endregion
 
