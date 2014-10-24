@@ -177,14 +177,12 @@
     <Compile Include="ServiceContracts\TaskWebService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\TaskCategoryProvider.xml">
-      <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\TaskHistoryProvider.xml">
-      <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
+    <EmbeddedResource Include="DAL\IBatis\TimingTaskProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TimingTaskReceiverProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskReceiverProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskCategoryProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskHistoryProvider.xml" />
     <Content Include="DAL\MySQL\TaskCategoryProvider.xml">
       <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
     </Content>
@@ -230,6 +228,9 @@
     <Content Include="db\Init_Sccript_SQLServer.sql" />
     <None Include="config\IBatis\X3Platform.Tasks.IBatis.SqlMap.config" />
     <None Include="config\IBatis\X3Platform.Tasks.Spring.config" />
+    <EmbeddedResource Include="defaults\config.yaml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -260,26 +261,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\TimingTaskProvider.xml">
-      <DependentUpon>TimingTaskProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\TimingTaskReceiverProvider.xml">
-      <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\TaskReceiverProvider.xml">
-      <DependentUpon>TaskReceiverProvider.cs</DependentUpon>
-    </Content>
     <None Include="build.publish.bat" />
     <Content Include="config\MySQL\X3Platform.Tasks.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Tasks.Spring.config" />
     <Content Include="config\SQLServer\X3Platform.Tasks.IBatis.SqlMap.config" />
     <None Include="config\SQLServer\X3Platform.Tasks.Spring.config" />
     <None Include="config\X3Platform.Tasks.config" />
-    <Content Include="DAL\IBatis\TaskProvider.xml">
-      <DependentUpon>TaskProvider.cs</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

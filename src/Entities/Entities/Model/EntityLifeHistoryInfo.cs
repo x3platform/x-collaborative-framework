@@ -1,9 +1,11 @@
 namespace X3Platform.Entities.Model
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Text;
     using X3Platform.Entities;
+    #endregion
 
     /// <summary></summary>
     public class EntityLifeHistoryInfo : IEntityLifeHistoryInfo

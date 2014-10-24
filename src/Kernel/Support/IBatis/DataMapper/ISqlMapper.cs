@@ -307,10 +307,10 @@ namespace X3Platform.IBatis.DataMapper
         /// <returns></returns>
         ISqlMapSession OpenConnection(string connectionString);
 
-        //
+        // -------------------------------------------------------
         // 新增的方法 QueryForSql, QueryForDataReader, QueryForDataTable, QueryForDataSet
-        // 这些方法提供自定义的输出结果.
-        //
+        // 这些方法提供自定义的输出结果
+        // -------------------------------------------------------
 
         /// <summary>返回参数化后的查询语句</summary>
         /// <param name="statementName">The name of the sql statement to execute.</param>

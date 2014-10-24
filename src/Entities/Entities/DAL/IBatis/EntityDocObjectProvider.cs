@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IEntityFeedbackProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Entities.DAL.IBatis
+﻿namespace X3Platform.Entities.DAL.IBatis
 {
     using System;
     using System.Collections.Generic;

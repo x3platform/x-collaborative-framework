@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :KernelConfigurationView.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Configuration
 {
     using System;
@@ -29,7 +15,7 @@ namespace X3Platform.Configuration
     using X3Platform.Util;
     using X3Platform.Web;
 
-    /// <summary>������ͼ</summary>
+    /// <summary>配置视图</summary>
     public class KernelConfigurationView
     {
         #region 静态属性:Instance
@@ -38,7 +24,7 @@ namespace X3Platform.Configuration
         private static object lockObject = new object();
 
         /// <summary>
-        /// ʵ��
+        /// 实例
         /// </summary>
         public static KernelConfigurationView Instance
         {
@@ -63,15 +49,15 @@ namespace X3Platform.Configuration
         #region 属性:Configuration
         private KernelConfiguration configurationSource;
 
-        /// <summary>����������Ϣ</summary>
+        /// <summary>核心配置信息</summary>
         public KernelConfiguration Configuration
         {
             get { return this.configurationSource; }
         }
         #endregion
 
-        #region ���캯��:KernelConfigurationView()
-        /// <summary>���캯��</summary>
+        #region 构造函数:KernelConfigurationView()
+        /// <summary>构造函数</summary>
         public KernelConfigurationView()
         {
             this.LoadOptions();
@@ -90,19 +76,19 @@ namespace X3Platform.Configuration
             return this.m_KernelAssemblyName;
         }
 
-        #region ���캯��:LoadOptions()
-        /// <summary>����ѡ��</summary>
+        #region 构造函数:LoadOptions()
+        /// <summary>加载选项</summary>
         public void LoadOptions()
         {
-            // ���������ļ���Ϣ
+            // 加载配置文件信息
             this.configurationSource = (KernelConfiguration)ConfigurationManager.GetSection(KernelConfiguration.SectionName);
 
             if (this.configurationSource == null)
             {
                 this.configurationSource = new KernelConfiguration();
 
-                // ����Ĭ�������ļ�
-                string configurationFilePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "config\\X3Platform.config";
+                // 加载默认配置文件
+                string configurationFilePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "config\\" + this.GetKernelAssemblyName() + ".config";
 
                 if (File.Exists(configurationFilePath))
                 {
@@ -123,7 +109,7 @@ namespace X3Platform.Configuration
             {
                 try
                 {
-                    // �������ݿ��Զ���ѡ����Ϣ
+                    // 加载数据库自定义选项信息
                     GenericSqlCommand command = new GenericSqlCommand(this.DataSourceName);
 
                     DataTable table = command.ExecuteQueryForDataTable("SELECT Name, Value FROM tb_Application_Option WHERE Status = 1;");
@@ -141,8 +127,8 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:Save()
-        /// <summary>����������Ϣ</summary>
+        #region 函数:Save()
+        /// <summary>保存配置信息</summary>
         public void Save()
         {
             string path = null;
@@ -160,8 +146,8 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:Serialize(string path, string sectionName, object value)
-        /// <summary>���л�������Ϣ</summary>
+        #region 函数:Serialize(string path, string sectionName, object value)
+        /// <summary>序列化配置信息</summary>
         public void Serialize(string path, string sectionName, object value)
         {
             XmlDocument doc = new XmlDocument();
@@ -178,14 +164,14 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:ReplaceKeyValue(string text)
-        /// <summary>�滻����ռλ��Ϊʵ�ʵ�ֵ</summary>
+        #region 函数:ReplaceKeyValue(string text)
+        /// <summary>替换参数占位符为实际的值</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public string ReplaceKeyValue(string text)
         {
             // -------------------------------------------------------
-            // ռλ����ʽ, ${ApplicationPathRoot} | ${HostName}
+            // 占位符格式, ${ApplicationPathRoot} | ${HostName}
             // -------------------------------------------------------
 
             if (text.IndexOf("${") > -1)
@@ -200,7 +186,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:AddKeyValues(string configGlobalPrefix, NameValueConfigurationCollection list, bool forceUpdate)
+        #region 函数:AddKeyValues(string configGlobalPrefix, NameValueConfigurationCollection list, bool forceUpdate)
         /// <summary></summary>
         /// <param name="configGlobalPrefix"></param>
         /// <param name="list"></param>
@@ -215,7 +201,7 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:AddKeyValue(string name, string value)
+        #region 函数:AddKeyValue(string name, string value)
         /// <summary></summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -225,11 +211,11 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:AddKeyValue(string name, string value, bool forceUpdate)
+        #region 函数:AddKeyValue(string name, string value, bool forceUpdate)
         /// <summary></summary>
         /// <param name="name"></param>
         /// <param name="value"></param>
-        /// <param name="forceUpdate">ǿ�Ƹ���</param>
+        /// <param name="forceUpdate">强制更新</param>
         /// <returns></returns>
         public void AddKeyValue(string name, string value, bool forceUpdate)
         {
@@ -244,17 +230,17 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:GetKeyValue(string configGlobalPrefix, string propertyName, NameValueConfigurationCollection defaultOptions)
-        /// <summary>��ȡ������Ϣ��ֵ</summary>
-        /// <param name="configGlobalPrefix">������Ϣ��ȫ��ǰ׺</param>
-        /// <param name="propertyName">������������</param>
-        /// <param name="defaultOptions">Ĭ������ѡ��</param>
+        #region 函数:GetKeyValue(string configGlobalPrefix, string propertyName, NameValueConfigurationCollection defaultOptions)
+        /// <summary>获取配置信息的值</summary>
+        /// <param name="configGlobalPrefix">配置信息的全局前缀</param>
+        /// <param name="propertyName">配置属性名称</param>
+        /// <param name="defaultOptions">默认配置选项</param>
         /// <returns></returns>
         public string GetKeyValue(string configGlobalPrefix, string propertyName, NameValueConfigurationCollection defaultOptions)
         {
             string returnValue = null;
 
-            // ����ȫ������
+            // 属性全局名称
             string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
             if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -271,13 +257,13 @@ namespace X3Platform.Configuration
         #endregion
 
         // -------------------------------------------------------
-        // �Զ�������
+        // 自定义属性
         // -------------------------------------------------------
 
         #region 属性:SystemName
         private string m_SystemName = string.Empty;
 
-        /// <summary>ϵͳ����</summary>
+        /// <summary>系统名称</summary>
         public string SystemName
         {
             get
@@ -304,7 +290,7 @@ namespace X3Platform.Configuration
         #region 属性:SystemStatus
         private string m_SystemStatus = string.Empty;
 
-        /// <summary>ϵͳ״̬����ѡ��ֵ�� Development(����ģʽ) | Test(����ģʽ) | Production(����ģʽ)</summary>
+        /// <summary>系统状态 Development(开发) | Test(测试版) | Production(生产版)</summary>
         public string SystemStatus
         {
             get
@@ -331,7 +317,7 @@ namespace X3Platform.Configuration
         #region 属性:HostName
         private string m_HostName = string.Empty;
 
-        /// <summary>Ӧ�÷���������</summary>
+        /// <summary>应用服务器名称</summary>
         public string HostName
         {
             get
@@ -358,7 +344,7 @@ namespace X3Platform.Configuration
         #region 属性:FileHostName
         private string m_FileHostName = string.Empty;
 
-        /// <summary>�ļ�����������</summary>
+        /// <summary>文件服务器名称</summary>
         public string FileHostName
         {
             get
@@ -367,7 +353,7 @@ namespace X3Platform.Configuration
                 {
                     if (this.Configuration.Keys["FileHostName"] == null)
                     {
-                        // �����ļ�������Ĭ�ϵ�ַ����������ַ��ͬ��
+                        // 设置文件服务的默认地址与服务器地址相同。
                         this.m_FileHostName = this.HostName;
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("FileHostName", this.m_FileHostName));
@@ -386,7 +372,7 @@ namespace X3Platform.Configuration
         #region 属性:StaticFileHostName
         private string m_StaticFileHostName = string.Empty;
 
-        /// <summary>��̬�ļ�����������</summary>
+        /// <summary>静态文件服务器名称</summary>
         public string StaticFileHostName
         {
             get
@@ -395,7 +381,7 @@ namespace X3Platform.Configuration
                 {
                     if (this.Configuration.Keys["StaticFileHostName"] == null)
                     {
-                        // ���þ�̬�ļ�������Ĭ�ϵ�ַ����������ַ��ͬ��
+                        // 设置静态文件服务的默认地址与服务器地址相同。
                         this.m_StaticFileHostName = this.HostName;
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("StaticFileHostName", this.m_StaticFileHostName));
@@ -414,7 +400,7 @@ namespace X3Platform.Configuration
         #region 属性:SafeRefererHosts
         private string m_SafeRefererHosts = string.Empty;
 
-        /// <summary>��ȫ�ĵ����÷�����</summary>
+        /// <summary>安全的的引用服务器</summary>
         public string SafeRefererHosts
         {
             get
@@ -441,7 +427,7 @@ namespace X3Platform.Configuration
         #region 属性:Domain
         private string m_Domain = string.Empty;
 
-        /// <summary>����Ϣ</summary>
+        /// <summary>域信息</summary>
         public string Domain
         {
             get
@@ -477,7 +463,7 @@ namespace X3Platform.Configuration
         #region 属性:NetworkCredentialDomain
         private string m_NetworkCredentialDomain = string.Empty;
 
-        /// <summary>������֤����������Ϣ</summary>
+        /// <summary>网络认证所属的域信息</summary>
         public string NetworkCredentialDomain
         {
             get
@@ -504,7 +490,7 @@ namespace X3Platform.Configuration
         #region 属性:Version
         private string m_Version = string.Empty;
 
-        /// <summary>�汾</summary>
+        /// <summary>版本</summary>
         public string Version
         {
             get
@@ -531,7 +517,7 @@ namespace X3Platform.Configuration
         #region 属性:Author
         private string m_Author = string.Empty;
 
-        /// <summary>����</summary>
+        /// <summary>作者</summary>
         public string Author
         {
             get
@@ -558,7 +544,7 @@ namespace X3Platform.Configuration
         #region 属性:WebmasterEmail
         private string m_WebmasterEmail = string.Empty;
 
-        /// <summary>����Ա�ʼ���ַ</summary>
+        /// <summary>管理员邮件地址</summary>
         public string WebmasterEmail
         {
             get
@@ -585,7 +571,7 @@ namespace X3Platform.Configuration
         #region 属性:AuthenticationManagementType
         private string m_AuthenticationManagementType = string.Empty;
 
-        /// <summary>��֤��������</summary>
+        /// <summary>验证管理类型</summary>
         public string AuthenticationManagementType
         {
             get
@@ -612,7 +598,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationPathRoot
         private string m_ApplicationPathRoot = string.Empty;
 
-        /// <summary>����·������ַ</summary>
+        /// <summary>物理路径根地址</summary>
         public string ApplicationPathRoot
         {
             get
@@ -641,7 +627,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationTempPathRoot
         private string m_ApplicationTempPathRoot = string.Empty;
 
-        /// <summary>����·����ʱ�ļ��и���ַ</summary>
+        /// <summary>物理路径临时文件夹根地址</summary>
         public string ApplicationTempPathRoot
         {
             get
@@ -650,7 +636,7 @@ namespace X3Platform.Configuration
                 {
                     if (this.Configuration.Keys["ApplicationTempPathRoot"] == null)
                     {
-                        // ����Ӧ����ʱĿ¼��Ĭ��·��ΪӦ��Ŀ¼�µ�temp�ļ��С�
+                        // 设置应用临时目录的默认路径为应用目录下的temp文件夹。
                         this.m_ApplicationTempPathRoot = Path.Combine(this.ApplicationPathRoot, "temp");
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("ApplicationTempPathRoot", this.m_ApplicationTempPathRoot));
@@ -669,7 +655,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationSpringConfigFilePath
         private string m_ApplicationSpringConfigFilePath = string.Empty;
 
-        /// <summary>Ӧ�ó���Spring�����ļ�·��</summary>
+        /// <summary>应用程序Spring配置文件路径</summary>
         public string ApplicationSpringConfigFilePath
         {
             get
@@ -696,7 +682,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationHomePage
         private string m_ApplicationHomePage = string.Empty;
 
-        /// <summary>Ӧ�ó�����ҳ</summary>
+        /// <summary>应用程序主页</summary>
         public string ApplicationHomePage
         {
             get
@@ -723,7 +709,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationIconPath
         private string m_ApplicationIconPath = string.Empty;
 
-        /// <summary>Ӧ�ó���ͼ��</summary>
+        /// <summary>应用程序图标</summary>
         public string ApplicationIconPath
         {
             get
@@ -750,7 +736,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationClientId
         private string m_ApplicationClientId = string.Empty;
 
-        /// <summary>Ӧ�ÿͻ��˵��õ� AppKey</summary>
+        /// <summary>应用客户端调用的 AppKey</summary>
         public string ApplicationClientId
         {
             get
@@ -777,7 +763,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationClientSecret
         private string m_ApplicationClientSecret = string.Empty;
 
-        /// <summary>Ӧ�ÿͻ��˵��õ� AppSecret</summary>
+        /// <summary>应用客户端调用的 AppSecret</summary>
         public string ApplicationClientSecret
         {
             get
@@ -804,7 +790,7 @@ namespace X3Platform.Configuration
         #region 属性:ApplicationClientSignature
         private string m_ApplicationClientSignature = string.Empty;
 
-        /// <summary>Ӧ�ÿͻ��˵��õ� AppKey</summary>
+        /// <summary>应用客户端调用的 AppKey</summary>
         public string ApplicationClientSignature
         {
             get
@@ -826,7 +812,7 @@ namespace X3Platform.Configuration
         #region 属性:DataSourceName
         private string m_DataSourceName = string.Empty;
 
-        /// <summary>Ӧ�ó������������ݿ�����</summary>
+        /// <summary>应用程序的配置数据库连接</summary>
         public string DataSourceName
         {
             get
@@ -853,7 +839,7 @@ namespace X3Platform.Configuration
         #region 属性:DataSourceType
         private string m_DataSourceType = string.Empty;
 
-        /// <summary>Ӧ�ó������������ݿ�����</summary>
+        /// <summary>应用程序的配置数据库类型</summary>
         public string DataSourceType
         {
             get
@@ -880,7 +866,7 @@ namespace X3Platform.Configuration
         #region 属性:UploadFileWizard
         private string m_UploadFileWizard = string.Empty;
 
-        /// <summary>�ϴ��ļ�����</summary>
+        /// <summary>上传文件向导</summary>
         public string UploadFileWizard
         {
             get
@@ -907,7 +893,7 @@ namespace X3Platform.Configuration
         #region 属性:MSTestPathRoot
         private string m_MSTestPathRoot = string.Empty;
 
-        /// <summary>����Ŀ¼��ַ</summary>
+        /// <summary>测试目录地址</summary>
         public string MSTestPathRoot
         {
             get

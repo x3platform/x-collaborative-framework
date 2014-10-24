@@ -230,14 +230,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml">
-      <DependentUpon>DigitalNumberProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.xml">
-      <DependentUpon>DigitalNumberProvider.cs</DependentUpon>
-    </Content>
+    <EmbeddedResource Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml" />
+    <EmbeddedResource Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="DigitalNumber\db\Init_Scripts_MySQL.sql" />
     <Content Include="DigitalNumber\db\Init_Scripts_SQLServer.sql" />
+    <EmbeddedResource Include="DigitalNumber\defaults\Objects.xml" />
     <Content Include="Security\Authority\DAL\IBatis\AuthorityProvider.xml">
       <DependentUpon>AuthorityProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -260,6 +259,7 @@
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.config" />
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.IBatis.SqlMap.config" />
     <EmbeddedResource Include="DigitalNumber\defaults\config.yaml" />
+    <EmbeddedResource Include="DigitalNumber\defaults\IBatis.SqlMap.xml" />
     <None Include="DigitalNumber\README.md" />
     <Compile Include="Entities\IEntityFollowInfo.cs" />
     <None Include="Security\README.md" />

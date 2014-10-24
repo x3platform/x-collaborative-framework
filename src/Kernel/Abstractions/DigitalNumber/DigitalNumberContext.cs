@@ -10,7 +10,7 @@ namespace X3Platform.DigitalNumber
     using X3Platform.DigitalNumber.Configuration;
     using X3Platform.DigitalNumber.IBLL;
     #endregion
-    
+
     /// <summary>流水号上下文环境</summary>
     public class DigitalNumberContext : CustomPlugin
     {
@@ -84,9 +84,15 @@ namespace X3Platform.DigitalNumber
 
         private void Reload()
         {
-            configuration = DigitalNumberConfigurationView.Instance.Configuration;
+            this.configuration = DigitalNumberConfigurationView.Instance.Configuration;
 
-            this.m_DigitalNumberService = SpringContext.Instance.GetObject<IDigitalNumberService>(typeof(IDigitalNumberService));
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(DigitalNumberConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据服务对象
+            this.m_DigitalNumberService = objectBuilder.GetObject<IDigitalNumberService>(typeof(IDigitalNumberService));
         }
 
         /// <summary>生成通用的流水编号</summary>
