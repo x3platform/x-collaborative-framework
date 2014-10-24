@@ -26,19 +26,19 @@ using X3Platform.Configuration;
 
 namespace X3Platform.Entities.Configuration
 {
-    /// <summary>������Ϣ</summary>
+    /// <summary>实体数据管理的配置信息</summary>
     public class EntitiesConfiguration : XmlConfiguraton
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>����Ӧ�õ�����</summary>
+        /// <summary>所属应用的名称</summary>
         public const string ApplicationName = "Entities";
-        
-        /// <summary>��������������</summary>
+
+        /// <summary>配置区域的名称</summary>
         public const string SectionName = "entities";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;

@@ -1,10 +1,12 @@
 namespace X3Platform.Connect.Configuration
 {
+    #region Using Libraries
     using System;
     using System.IO;
 
     using X3Platform.Configuration;
     using X3Platform.Util;
+    #endregion
 
     /// <summary>应用连接管理的配置视图</summary>
     public class ConnectConfigurationView : XmlConfigurationView<ConnectConfiguration>

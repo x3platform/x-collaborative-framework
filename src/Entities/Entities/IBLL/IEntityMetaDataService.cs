@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :IEntityMetaDataService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Entities.IBLL
 {
     #region Using Libraries
@@ -21,8 +5,9 @@ namespace X3Platform.Entities.IBLL
     using System.Collections.Generic;
     using System.Data;
 
-    using X3Platform.Entities.Model;
     using X3Platform.Spring;
+    
+    using X3Platform.Entities.Model;
     #endregion
 
     /// <summary></summary>

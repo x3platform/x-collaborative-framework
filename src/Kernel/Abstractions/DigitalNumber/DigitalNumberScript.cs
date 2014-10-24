@@ -65,7 +65,7 @@ namespace X3Platform.DigitalNumber
         /// <returns></returns>
         public static string RunScript(string expression, DateTime updateDate, ref int seed)
         {
-            return RunScript(expression, string.Empty, DateTime.Now, ref seed);
+            return RunScript(expression, string.Empty, updateDate, ref seed);
         }
 
         /// <summary></summary>

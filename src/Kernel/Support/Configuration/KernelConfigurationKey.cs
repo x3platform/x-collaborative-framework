@@ -17,11 +17,11 @@ using System.Xml.Serialization;
 
 namespace X3Platform.Configuration
 {
-    /// <summary>�ؼ�������</summary>
+    /// <summary>关键字配置</summary>
     [Serializable()]
     public class KernelConfigurationKey
     {
-        // ˽�г�Ա����.
+        // 私有成员变量.
         private string m_Name = null, m_Value = null;
 
         public KernelConfigurationKey()
@@ -34,7 +34,7 @@ namespace X3Platform.Configuration
             m_Value = value;
         }
 
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         [XmlAttribute("name")]
         public string Name
         {
@@ -42,7 +42,7 @@ namespace X3Platform.Configuration
             set { m_Name = value; }
         }
 
-        /// <summary>ֵ</summary>
+        /// <summary>值</summary>
         [XmlAttribute("value")]
         public string Value
         {
@@ -52,7 +52,7 @@ namespace X3Platform.Configuration
 
         private bool m_SupportClient = false;
 
-        /// <summary>֧�ֿͻ�������</summary>
+        /// <summary>支持客户端输出</summary>
         [XmlAttribute("supportClient")]
         public bool SupportClient
         {

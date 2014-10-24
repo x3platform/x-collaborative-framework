@@ -1216,6 +1216,7 @@
     <Content Include="IBatis\DataMapper\ReadMe.txt" />
     <EmbeddedResource Include="Ajax\defaults\config.yaml" />
     <None Include="DynamicProxy\README.md" />
+    <EmbeddedResource Include="IBatis\defaults\X3Platform.IBatis.Providers.config" />
     <None Include="IBatis\README.md" />
     <None Include="Json\README.md" />
     <Content Include="Logging\db\database.setup.sql" />
@@ -1256,7 +1257,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\X3Platform.config" />
-    <None Include="config\X3Platform.IBatis.Providers.config" />
     <None Include="DynamicProxy\Castle.DynamicProxy.build">
       <SubType>Designer</SubType>
     </None>

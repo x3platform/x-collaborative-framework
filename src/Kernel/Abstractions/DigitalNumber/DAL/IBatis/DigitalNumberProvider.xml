@@ -20,7 +20,6 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_DigitalNumber_Insert" parameterClass="DigitalNumberInfo">
             INSERT INTO tb_DigitalNumber 
             (
@@ -81,13 +80,37 @@
             END
         </insert>
         <delete id="proc_DigitalNumber_Delete" >
-            DELETE FROM tb_DigitalNumber WHERE Name = $Name$
+            DELETE FROM tb_DigitalNumber WHERE Name = #Name#
         </delete>
         <select id="proc_DigitalNumber_FindOne" resultMap="proc_DigitalNumber_FindOne_Result" >
             SELECT * FROM tb_DigitalNumber WHERE Name = #Name#
         </select>
+        <select id="proc_DigitalNumber_FindAll#MySql" resultMap="proc_DigitalNumber_FindAll_Result" >
+            SELECT * FROM tb_DigitalNumber T
 
-        <select id="proc_DigitalNumber_FindAll" resultMap="proc_DigitalNumber_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="OrderBy" >
+                        $OrderBy$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_DigitalNumber_FindAll#SqlServer" resultMap="proc_DigitalNumber_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -105,8 +128,15 @@
                     </isNotEmpty>
                 </isParameterPresent>
             </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="OrderBy" >
+                        $OrderBy$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
         </select>
-
         <select id="proc_DigitalNumber_GetPaging" resultMap="proc_DigitalNumber_FindAll_Result" >
             SELECT *
 
@@ -123,12 +153,9 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_DigitalNumber_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM tb_DigitalNumber T
+            SELECT COUNT(*) AS "RowCount" FROM tb_DigitalNumber T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -138,25 +165,32 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_DigitalNumber_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_DigitalNumber T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_DigitalNumber WHERE $WhereClause$
         </select>
-        
-        <select id="proc_DigitalNumber_GetMaxSeedByPrefix" >
+        <select id="proc_DigitalNumber_GetMaxSeedByPrefix#MySql" >
+            SELECT 
+                IF( COUNT(0)>0,
+                    (SELECT CAST(MAX(REPLACE(Code, '$Prefix$', '')) AS SIGNED) FROM $EntityTableName$ WHERE Code LIKE '$Prefix$%'),
+                    0
+                ) AS MaxCode 
+             FROM $EntityTableName$
+            WHERE Code LIKE '$Prefix$%' ;
+        </select>
+        <select id="proc_DigitalNumber_GetMaxSeedByPrefix#SqlServer" >
             IF EXISTS ( SELECT 0 FROM $EntityTableName$ WHERE Code LIKE '$Prefix$%' )
             BEGIN
-		        SELECT CONVERT(int, MAX(REPLACE(Code, '$Prefix$', ''))) FROM $EntityTableName$ WHERE Code LIKE '$Prefix$%'	
+		        SELECT CONVERT(int, MAX(REPLACE(Code, '$Prefix$', ''))) 
+                  FROM $EntityTableName$ 
+                 WHERE Code LIKE '$Prefix$%'	
             END
             ELSE
             BEGIN
 	            SELECT 0	                
             END
         </select>
-
         <select id="proc_DigitalNumber_GetPrefixCodeByCategoryId" >
             SELECT PrefixCode FROM $EntityCategoryTableName$ T WHERE Id = '$EntityCategoryId$'
         </select>
-
     </statements>
 </sqlMap>

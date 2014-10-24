@@ -559,11 +559,11 @@ namespace X3Platform.Util
         /// <returns></returns>
         public static string ToSafeSQL(string text, string[] removeTags)
         {
-            //
+            //-------------------------------------------------------
             // 1.替换一个单引号为两个单引号.
             //
             // 2.替换两个井号为一个单引号.
-            //
+            //-------------------------------------------------------
 
             if (string.IsNullOrEmpty(text)) { return string.Empty; }
 
@@ -597,6 +597,27 @@ namespace X3Platform.Util
             }
 
             return text;
+        }
+        #endregion
+
+        #region 函数:ToSafeSQL(string text)
+        /// <summary>处理多个以逗号隔开标识中的非法字符</summary>
+        /// <param name="text">文本信息</param>
+        /// <returns></returns>
+        public static string ToSafeIds(string text)
+        {
+            if (string.IsNullOrEmpty(text)) { return string.Empty; }
+
+            string[] ids = text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (ids.Length == 0) { return string.Empty; }
+            
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = Regex.Replace(ids[i], ";|'|--", string.Empty);
+            }
+
+            return string.Join(",", ids);
         }
         #endregion
 
