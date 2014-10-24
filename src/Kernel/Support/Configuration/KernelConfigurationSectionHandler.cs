@@ -20,10 +20,10 @@ namespace X3Platform.Configuration
 {
     public class KernelConfigurationSectionHandler : IConfigurationSectionHandler
     {
-        /// <summary>����һ�� <see cref="KernelConfiguration"/> ����ʵ��.</summary>
+        /// <summary>创建一个 <see cref="KernelConfiguration"/> 类的实例.</summary>
         /// <remarks>Uses XML Serialization to deserialize the XML in the web.config file into an
         /// <see cref="KernelConfiguration"/> instance.</remarks>
-        /// <returns>һ�� <see cref="KernelConfiguration"/> ����ʵ��.</returns>
+        /// <returns>一个 <see cref="KernelConfiguration"/> 类的实例.</returns>
         public object Create(object parent, object configContext, XmlNode section)
         {
             // Create an instance of XmlSerializer based on the RewriterConfiguration type...

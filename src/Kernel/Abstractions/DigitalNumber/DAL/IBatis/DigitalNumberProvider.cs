@@ -5,13 +5,13 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
     using System.Collections.Generic;
     using System.ComponentModel;
 
+    using X3Platform.Data;
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Util;
 
     using X3Platform.DigitalNumber.Configuration;
     using X3Platform.DigitalNumber.IDAL;
     using X3Platform.DigitalNumber.Model;
-    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -92,8 +92,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         /// <param name="ids">标识,多个以逗号分开</param>
         public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                return;
+            if (string.IsNullOrEmpty(id)) { return; }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -131,11 +130,10 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql());
+            args.Add("OrderBy", query.GetOrderBySql());
             args.Add("Length", query.Length);
-
-            IList<DigitalNumberInfo> list = this.ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
-
-            return list;
+            
+            return this.ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -161,7 +159,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
 
         public bool IsExistName(string name)
         {
-            if (string.IsNullOrEmpty(name)) { throw new Exception("ʵ�����Ʋ���Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(name)) { throw new Exception("名称必须填写。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

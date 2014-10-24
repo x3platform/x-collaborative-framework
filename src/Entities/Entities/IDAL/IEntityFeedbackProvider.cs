@@ -1,13 +1,15 @@
 ﻿namespace X3Platform.Entities.IDAL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Text;
 
     using X3Platform.Spring;
 
     using X3Platform.Entities.Model;
-    using System.Data;
+    #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.Entities.IDAL.IEntityFeedbackProvider")]

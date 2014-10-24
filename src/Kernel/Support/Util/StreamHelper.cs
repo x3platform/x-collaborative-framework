@@ -104,7 +104,9 @@ namespace X3Platform.Util
 
             // 去除utf-8的首个字符.
             if (!string.IsNullOrEmpty(text) && text[0] == 65279)
+            {
                 text = text.Substring(1);
+            }
 
             return text.Trim();
         }

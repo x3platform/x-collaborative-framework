@@ -259,9 +259,9 @@
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" ApplicationId = '{0}' AND TaskCode = '{1}' ", StringHelper.ToSafeSQL(applicationId), StringHelper.ToSafeSQL(taskCode)));
+            args.Add("WhereClause", string.Format(" ApplicationId = '{0}' AND TaskCode = '{1}' ", StringHelper.ToSafeSQL(applicationId, true), StringHelper.ToSafeSQL(taskCode, true)));
 
-            return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
         }
         #endregion
 

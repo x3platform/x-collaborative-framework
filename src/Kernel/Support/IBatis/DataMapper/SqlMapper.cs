@@ -1560,13 +1560,22 @@ namespace X3Platform.IBatis.DataMapper
         /// <returns> The MappedStatement</returns>
         public IMappedStatement GetMappedStatement(string id)
         {
+            // 优先选择针对特定数据库定制优化的语句
+            string nativeStatementId = id + "#" + this.DataSource.DbProvider.Name;
+
+            if (_mappedStatements.Contains(nativeStatementId))
+            {
+                return (IMappedStatement)_mappedStatements[nativeStatementId];
+            }
+
             if (_mappedStatements.Contains(id) == false)
             {
                 throw new DataMapperException("This SQL map does not contain a MappedStatement named " + id);
             }
+
             return (IMappedStatement)_mappedStatements[id];
         }
-
+        
         /// <summary>
         /// Adds a (named) MappedStatement.
         /// </summary>

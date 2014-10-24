@@ -52,21 +52,22 @@ namespace X3Platform.Spring
         #region ¹¹Ôìº¯Êý:SpringObjectBuilder(string file)
         /// <summary></summary>
         /// <param name="file"></param>
-        public SpringObjectBuilder(string file)
+        public SpringObjectBuilder(string location)
         {
-            string[] fileValues = new string[] { file };
-
-            for (int i = 0; i < fileValues.Length; i++)
+            if (location.IndexOf("assembly:") == 0)
             {
-                fileValues[i] = Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, KernelConfigurationView.Instance.ReplaceKeyValue(fileValues[i]));
+            }
+            else
+            {
+                location = Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, KernelConfigurationView.Instance.ReplaceKeyValue(location));
 
                 if (Environment.OSVersion.Platform == PlatformID.Unix)
                 {
-                    fileValues[i] = fileValues[i].Replace("\\", "/");
+                    location = location.Replace("\\", "/");
                 }
             }
 
-            this.context = new XmlApplicationContext(fileValues);
+            this.context = new XmlApplicationContext(new string[] { location });
         }
         #endregion
 
@@ -85,7 +86,7 @@ namespace X3Platform.Spring
         public T GetObject<T>(Type type, object[] args)
         {
             string name = null;
-            
+
             Attribute[] attributes = Attribute.GetCustomAttributes(type);
 
             foreach (Attribute attribute in attributes)
