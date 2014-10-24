@@ -20,7 +20,7 @@ namespace X3Platform.Configuration
     using System.IO;
     using System.Text;
 
-    /// <summary>.ini �����ļ�</summary>
+    /// <summary>.ini 配置文件</summary>
     public class PropertiesFile
     {
         private SortedList sections = new SortedList();
@@ -90,7 +90,7 @@ namespace X3Platform.Configuration
                         else
                         {
                             //
-                            // ��ȡ key=value
+                            // 获取 key=value
                             //
 
                             //old section
@@ -238,7 +238,7 @@ namespace X3Platform.Configuration
         }
 
         //
-        // ����
+        // 清除
         //
         public void EraseSection(string sectionName)
         {

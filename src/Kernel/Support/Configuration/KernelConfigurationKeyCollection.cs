@@ -17,26 +17,26 @@ using System.Collections;
 
 namespace X3Platform.Configuration
 {
-    /// <summary>�ؼ������ü���</summary>
+    /// <summary>关键字配置集合</summary>
     [Serializable()]
     public class KernelConfigurationKeyCollection : CollectionBase
     {
-        /// <summary>���ӹؼ���</summary>
+        /// <summary>添加关键字</summary>
         /// <param name="value">A kernel configuration key instance.</param>
         public virtual void Add(KernelConfigurationKey value)
         {
             this.InnerList.Add(value);
         }
 
-        /// <summary>�Ƴ��ؼ���</summary>
+        /// <summary>移除关键字</summary>
         /// <param name="value">A kernel configuration key instance.</param>
         public virtual void Remove(KernelConfigurationKey value)
         {
             this.InnerList.Remove(value);
         }
 
-        /// <summary>�����ؼ���</summary>
-        /// <param name="name">��</param>
+        /// <summary>检测关键字</summary>
+        /// <param name="name">键</param>
         public virtual bool ContainsKey(string name)
         {
             for (int i = 0; i < this.InnerList.Count; i++)
@@ -50,14 +50,14 @@ namespace X3Platform.Configuration
             return false;
         }
 
-        /// <summary>���к�����</summary>
+        /// <summary>序列号索引</summary>
         public KernelConfigurationKey this[int index]
         {
             get { return (KernelConfigurationKey)this.InnerList[index]; }
             set { this.InnerList[index] = value; }
         }
 
-        /// <summary>��������</summary>
+        /// <summary>名称索引</summary>
         public KernelConfigurationKey this[string name]
         {
             get

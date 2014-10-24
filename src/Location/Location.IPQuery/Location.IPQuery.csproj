@@ -82,12 +82,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Location.IPQuery.config" />
     <None Include="db\database.setup.sql" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

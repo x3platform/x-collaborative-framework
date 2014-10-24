@@ -1,6 +1,7 @@
 namespace X3Platform.Connect.Configuration
 {
     #region Using Libraries
+    using System;
     using System.Configuration;
 
     using X3Platform.Configuration;

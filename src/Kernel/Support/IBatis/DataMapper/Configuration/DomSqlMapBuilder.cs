@@ -1671,19 +1671,19 @@ namespace X3Platform.IBatis.DataMapper.Configuration
             XmlNode nodeProperties = _configScope.NodeContext.SelectSingleNode(ApplyDataMapperNamespacePrefix(XML_PROPERTIES), _configScope.XmlNamespaceManager);
             _configScope.ErrorContext.Activity = "loading global properties";
 
-            //
+            // -------------------------------------------------------
             // 添加默认全局自定义属性
-            //
+            // -------------------------------------------------------
 
             KernelConfiguration kernelConfiguration = KernelConfigurationView.Instance.Configuration;
 
             _configScope.Properties.Add("ApplicationPathRoot", kernelConfiguration.Keys["ApplicationPathRoot"].Value);
 
-            _configScope.Properties.Add("DatabaseSettings.LoginName", kernelConfiguration.Keys["DatabaseSettings.LoginName"].Value);
-            _configScope.Properties.Add("DatabaseSettings.Password", kernelConfiguration.Keys["DatabaseSettings.Password"].Value);
-            _configScope.Properties.Add("DatabaseSettings.DataSource", KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.DataSource"].Value));
-            _configScope.Properties.Add("DatabaseSettings.Database", KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.Database"].Value));
-            _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.IBatisSqlMapFilePathRoot"].Value));
+            _configScope.Properties.Add("DatabaseSettings.LoginName", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.LoginName") ? kernelConfiguration.Keys["DatabaseSettings.LoginName"].Value : string.Empty);
+            _configScope.Properties.Add("DatabaseSettings.Password", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.Password") ? kernelConfiguration.Keys["DatabaseSettings.Password"].Value : string.Empty);
+            _configScope.Properties.Add("DatabaseSettings.DataSource", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.DataSource") ? KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.DataSource"].Value) : string.Empty);
+            _configScope.Properties.Add("DatabaseSettings.Database", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.Database") ? KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.Database"].Value) : string.Empty);
+            _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.IBatisSqlMapFilePathRoot") ? KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.IBatisSqlMapFilePathRoot"].Value) : string.Empty);
 
             if (nodeProperties != null)
             {

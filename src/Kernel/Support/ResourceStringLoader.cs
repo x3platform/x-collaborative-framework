@@ -1,33 +1,17 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :ResourceStringLoader.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-#region Using Libraries
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Resources;
-#endregion
-
 namespace X3Platform
 {
-    /// <summary>ï¿½Ö·ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½</summary>
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Reflection;
+    using System.Resources;
+    #endregion
+
+    /// <summary>Helper class to load resources strings.</summary>
     public static class ResourceStringLoader
     {
-        /// <summary>ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ö·ï¿½ï¿½ï¿½</summary>
+        /// <summary>¼ÓÔØ×ÊÔ´×Ö·û´®</summary>
         /// <param name="baseName">The base name of the resource.</param>
         /// <param name="resourceName">The resource name.</param>
         /// <returns>The string from the resource.</returns>
@@ -36,7 +20,7 @@ namespace X3Platform
             return LoadString(baseName, resourceName, Assembly.GetCallingAssembly());
         }
 
-        /// <summary>ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ö·ï¿½ï¿½ï¿½</summary>
+        /// <summary>¼ÓÔØ×ÊÔ´×Ö·û´®</summary>
         /// <param name="baseName">The base name of the resource.</param>
         /// <param name="resourceName">The resource name.</param>
         /// <param name="asm">The assembly to load the resource from.</param>
@@ -55,13 +39,13 @@ namespace X3Platform
             return value;
         }
 
-        private static string LoadAssemblyString(Assembly asm, string baseName, string resourceName)
+        private static string LoadAssemblyString(Assembly assembly, string baseName, string resourceName)
         {
             try
             {
-                ResourceManager rm = new ResourceManager(baseName, asm);
+                ResourceManager resourceManager = new ResourceManager(baseName, assembly);
 
-                return rm.GetString(resourceName);
+                return resourceManager.GetString(resourceName);
             }
             catch (MissingManifestResourceException)
             {

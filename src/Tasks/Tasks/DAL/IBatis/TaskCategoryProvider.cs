@@ -39,7 +39,7 @@ namespace X3Platform.Tasks.DAL.IBatis
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
         #endregion
 

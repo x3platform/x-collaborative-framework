@@ -32,18 +32,18 @@
 
 	<statements>
 		<insert id="proc_Task_Category_Insert" parameterClass="TaskCategoryInfo">
-			INSERT INTO [tb_Task_Category] 
+			INSERT INTO tb_Task_Category 
             (
-			    [Id],
-			    [AccountId],
-			    [AccountName],
-			    [CategoryIndex],
-			    [Description],
-                [Tags],
-			    [OrderId],
-			    [Status],
-			    [UpdateDate],
-			    [CreateDate]
+			    Id,
+			    AccountId,
+			    AccountName,
+			    CategoryIndex,
+			    Description,
+                Tags,
+			    OrderId,
+			    Status,
+			    UpdateDate,
+			    CreateDate
 			)
 			VALUES
 			(
@@ -61,44 +61,44 @@
 		</insert>
 
 		<update id="proc_Task_Category_Update" parameterClass="TaskCategoryInfo">
-			UPDATE [tb_Task_Category] SET
+			UPDATE tb_Task_Category SET
 
-                [CategoryIndex] = #CategoryIndex#,
-			    [Description] = #Description#,
-			    [Tags] = #Tags#,
-                [OrderId] = #OrderId#,
-			    [Status] = #Status#,
-			    [UpdateDate] = CURRENT_TIMESTAMP
+                CategoryIndex = #CategoryIndex#,
+			    Description = #Description#,
+			    Tags = #Tags#,
+                OrderId = #OrderId#,
+			    Status = #Status#,
+			    UpdateDate = CURRENT_TIMESTAMP
 
-			WHERE [Id] = #Id#
+			WHERE Id = #Id#
 		</update>
 
 		<insert id="proc_Task_Category_Save" parameterClass="TaskCategoryInfo">
-			IF EXISTS(SELECT 0 FROM [tb_Task_Category] WHERE [Id] = #Id#)
+			IF EXISTS(SELECT 0 FROM tb_Task_Category WHERE Id = #Id#)
 			BEGIN
-			    UPDATE [tb_Task_Category] SET
+			    UPDATE tb_Task_Category SET
 
-                    [CategoryIndex] = #CategoryIndex#,
-			        [Description] = #Description#,
-			        [OrderId] = #OrderId#,
-			        [Status] = #Status#,
-			        [UpdateDate] = CURRENT_TIMESTAMP,
+                    CategoryIndex = #CategoryIndex#,
+			        Description = #Description#,
+			        OrderId = #OrderId#,
+			        Status = #Status#,
+			        UpdateDate = CURRENT_TIMESTAMP,
 
-			    WHERE [Id] = #Id#
+			    WHERE Id = #Id#
             END
 			ELSE
 			BEGIN
-			    INSERT INTO [tb_Task_Category] 
+			    INSERT INTO tb_Task_Category 
                 (
-			        [Id],
-			        [AccountId],
-			        [AccountName],
-			        [CategoryIndex],
-			        [Description],
-			        [OrderId],
-			        [Status],
-			        [UpdateDate],
-			        [CreateDate]
+			        Id,
+			        AccountId,
+			        AccountName,
+			        CategoryIndex,
+			        Description,
+			        OrderId,
+			        Status,
+			        UpdateDate,
+			        CreateDate
 			    )
 			    VALUES
 			    (
@@ -120,11 +120,11 @@
 		</select>
 
 		<delete id="proc_Task_Category_Delete">
-			UPDATE [tb_Task_Category] SET Status = 2, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+			UPDATE tb_Task_Category SET Status = 2, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</delete>
 
 		<select id="proc_Task_Category_FindOne" resultMap="proc_Task_Category_FindOne_Result" >
-			SELECT * FROM [tb_Task_Category] WHERE [Id] = #Id#
+			SELECT * FROM tb_Task_Category WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Task_Category_FindAll" resultMap="proc_Task_Category_FindAll_Result" >
@@ -136,7 +136,7 @@
 				</isNotEqual>
 			</dynamic>
 
-			* FROM [tb_Task_Category]
+			* FROM tb_Task_Category
 
 			<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -152,7 +152,7 @@
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-			FROM [tb_Task_Category] T
+			FROM tb_Task_Category T
 
 			<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -166,7 +166,7 @@
 		</select>
 
 		<select id="proc_Task_Category_GetRowCount" >
-			SELECT COUNT(1) AS 'RowCount' FROM [tb_Task_Category] T
+			SELECT COUNT(1) AS 'RowCount' FROM tb_Task_Category T
 
 			<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -178,11 +178,11 @@
 		</select>
 
 		<select id="proc_Task_Category_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM [tb_Task_Category] T WHERE $WhereClause$
+			SELECT COUNT(0) AS 'Count' FROM tb_Task_Category T WHERE $WhereClause$
 		</select>
 
 		<update id="proc_Task_Category_SetStatus">
-			UPDATE [tb_Task_Category] SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+			UPDATE tb_Task_Category SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</update>
 
 		<select id="proc_Task_Category_GetComboboxByWhereClause" >

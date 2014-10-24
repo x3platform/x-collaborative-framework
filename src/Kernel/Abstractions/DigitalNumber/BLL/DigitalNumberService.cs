@@ -26,9 +26,15 @@ namespace X3Platform.DigitalNumber.BLL
 
         public DigitalNumberService()
         {
-            configuration = DigitalNumberConfigurationView.Instance.Configuration;
+            this.configuration = DigitalNumberConfigurationView.Instance.Configuration;
 
-            provider = SpringContext.Instance.GetObject<IDigitalNumberProvider>(typeof(IDigitalNumberProvider));
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(DigitalNumberConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据服务对象
+            this.provider = objectBuilder.GetObject<IDigitalNumberProvider>(typeof(IDigitalNumberProvider));
         }
 
         #region 索引:this[string name]
