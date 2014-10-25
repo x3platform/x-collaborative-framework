@@ -49,7 +49,7 @@ namespace X3Platform.Apps.Ajax
         {
             ApplicationSettingInfo param = new ApplicationSettingInfo();
 
-            param = (ApplicationSettingInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (ApplicationSettingInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -64,7 +64,7 @@ namespace X3Platform.Apps.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -85,11 +85,11 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             ApplicationSettingInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationSettingInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -106,13 +106,13 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<ApplicationSettingInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationSettingInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -133,7 +133,7 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -141,7 +141,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationSettingInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -158,7 +158,7 @@ namespace X3Platform.Apps.Ajax
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -175,9 +175,9 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string applicationSettingGroupId = AjaxStorageConvertor.Fetch("applicationSettingGroupId", doc);
+            string applicationSettingGroupId = XmlHelper.Fetch("applicationSettingGroupId", doc);
 
             ApplicationSettingInfo param = new ApplicationSettingInfo();
 
@@ -189,7 +189,7 @@ namespace X3Platform.Apps.Ajax
 
             param.Status = 1;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationSettingInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -206,13 +206,13 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string combobox = AjaxStorageConvertor.Fetch("combobox", doc);
+            string combobox = XmlHelper.Fetch("combobox", doc);
 
-            string selectedValue = AjaxStorageConvertor.Fetch("selectedValue", doc);
+            string selectedValue = XmlHelper.Fetch("selectedValue", doc);
 
-            string emptyItemText = AjaxStorageConvertor.Fetch("emptyItemText", doc);
+            string emptyItemText = XmlHelper.Fetch("emptyItemText", doc);
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
             // �ݴ���
             if (string.IsNullOrEmpty(selectedValue))

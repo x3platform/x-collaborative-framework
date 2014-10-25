@@ -6,6 +6,7 @@ namespace X3Platform.Security
     using System.ComponentModel;
     using System.Security.Cryptography;
     using System.Text;
+    using System.Collections;
     #endregion
 
     /// <summary>加密器</summary>
@@ -25,6 +26,58 @@ namespace X3Platform.Security
             desCryptoProvider.IV = new byte[8] { 44, 23, 33, 44, 66, 77, 88, 99 };
         }
 
+        #region 函数:SortAndConcat(params string[] values)
+        ///<summary>将字符串数组排序后拼接成一个文本信息</summary>
+        ///<param name="values">任意多个文本信息</param>
+        ///<returns>拼接后的文本</returns>
+        public static string SortAndConcat(params string[] values)
+        {
+            ArrayList list = new ArrayList(values);
+
+            list.Sort();
+
+            return string.Concat(list.ToArray());
+        }
+        #endregion
+
+        //-------------------------------------------------------
+        // MD5 - Message-Digest Algorithm 5
+        // http://zh.wikipedia.org/zh-cn/MD5
+        //-------------------------------------------------------
+
+        #region 函数:EncryptMD5(string text)
+        ///<summary>加密-MD5方式</summary>
+        ///<param name="text">文本</param>
+        ///<returns>加密后的文本</returns>
+        public static string EncryptMD5(string text)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+
+            byte[] result = md5.ComputeHash(Encoding.Default.GetBytes(text));
+
+            return Encoding.Default.GetString(result);
+        }
+        #endregion
+
+        //-------------------------------------------------------
+        // MD5 - Message-Digest Algorithm 5
+        // http://zh.wikipedia.org/zh-cn/SHA1
+        //-------------------------------------------------------
+
+        #region 函数:EncryptSHA1(string text)
+        ///<summary>加密-SHA1方式</summary>
+        ///<param name="text">文本</param>
+        ///<returns>加密后的文本</returns>
+        public static string EncryptSHA1(string text)
+        {
+            SHA1 sha1 = new SHA1CryptoServiceProvider();
+
+            byte[] result = sha1.ComputeHash(Encoding.Default.GetBytes(text));
+
+            return Encoding.Default.GetString(result);
+        }
+        #endregion
+
         //-------------------------------------------------------
         // DES - Data Encryption Standard
         // http://en.wikipedia.org/wiki/Data_Encryption_Standard
@@ -33,6 +86,7 @@ namespace X3Platform.Security
         #region 函数:EncryptDES(string text)
         ///<summary>加密-DES方式</summary>
         ///<param name="text">文本</param>
+        ///<returns>加密后的文本</returns>
         public static string EncryptDES(string text)
         {
             return EncryptDES(text, desCryptoProvider.Key, desCryptoProvider.IV);
@@ -119,6 +173,7 @@ namespace X3Platform.Security
         #region 函数:EncryptAES(string text)
         ///<summary>加密-AES方式</summary>
         ///<param name="text">文本</param>
+        ///<returns>加密后的文本</returns>
         public static string EncryptAES(string text)
         {
             byte[] key = UTF8Encoding.UTF8.GetBytes(ASECryptoKey);

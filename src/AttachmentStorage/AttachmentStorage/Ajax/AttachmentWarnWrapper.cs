@@ -32,7 +32,7 @@
         {
             AttachmentWarnInfo param = new AttachmentWarnInfo();
 
-            param = (AttachmentWarnInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (AttachmentWarnInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -47,7 +47,7 @@
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -68,11 +68,11 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             AttachmentWarnInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AttachmentWarnInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AttachmentWarnInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -93,7 +93,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -101,7 +101,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AttachmentWarnInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AttachmentWarnInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 

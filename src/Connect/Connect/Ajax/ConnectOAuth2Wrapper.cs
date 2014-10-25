@@ -54,15 +54,15 @@
 
             StringBuilder outString = new StringBuilder();
 
-            string clientId = AjaxStorageConvertor.Fetch("clientId", doc);
-            string redirectUri = AjaxStorageConvertor.Fetch("redirect_uri", doc);
-            string responseType = AjaxStorageConvertor.Fetch("response_type", doc);
-            string scope = AjaxStorageConvertor.Fetch("scope", doc);
+            string clientId = XmlHelper.Fetch("clientId", doc);
+            string redirectUri = XmlHelper.Fetch("redirect_uri", doc);
+            string responseType = XmlHelper.Fetch("response_type", doc);
+            string scope = XmlHelper.Fetch("scope", doc);
 
-            string display = AjaxStorageConvertor.Fetch("display", doc);
+            string display = XmlHelper.Fetch("display", doc);
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
             if (string.IsNullOrEmpty(loginName) || string.IsNullOrEmpty(password))
             {
@@ -179,7 +179,7 @@
         {
             // http://x10.x3platform.com/api/connect.oauth2.token.aspx?code=28f35bf4743030ae
 
-            string code = AjaxStorageConvertor.Fetch("code", doc);
+            string code = XmlHelper.Fetch("code", doc);
 
             ConnectAuthorizationCodeInfo authorizationCodeInfo = ConnectContext.Instance.ConnectAuthorizationCodeService[code];
 
@@ -286,12 +286,12 @@
             // https://x10.x3platform.com/api/connect.auth.callback.aspx?clientId=a70633f6-b37a-4e91-97a0-597d708fdcef&code=75266c29f9e3497480e5ddc6cfa38b8c;
             // https://x10.x3platform.com/api/connect.auth.callback.aspx?clientId=a70633f6-b37a-4e91-97a0-597d708fdcef&code=75266c29f9e3497480e5ddc6cfa38b8c;
 
-            string clientId = AjaxStorageConvertor.Fetch("clientId", doc);
+            string clientId = XmlHelper.Fetch("clientId", doc);
 
-            string code = AjaxStorageConvertor.Fetch("code", doc);
-            string grantType = AjaxStorageConvertor.Fetch("grant_type", doc);
+            string code = XmlHelper.Fetch("code", doc);
+            string grantType = XmlHelper.Fetch("grant_type", doc);
 
-            string token = AjaxStorageConvertor.Fetch("token", doc);
+            string token = XmlHelper.Fetch("token", doc);
 
             ConnectInfo connect = ConnectContext.Instance.ConnectService.FindOneByAppKey(clientId);
 

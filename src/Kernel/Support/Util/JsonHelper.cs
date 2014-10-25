@@ -323,7 +323,7 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // 2.将Json字符串转换为Xml字符串.
+        // 2.将Json字符串转换为Xml字符串
         // -------------------------------------------------------
 
         #region 函数:ToXmlDocument(string json)
@@ -332,8 +332,7 @@ namespace X3Platform.Util
         /// <returns>XML Document 对象.</returns>
         public static XmlDocument ToXmlDocument(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                return new XmlDocument();
+            if (string.IsNullOrEmpty(json)) { return new XmlDocument(); }
 
             XmlDocument doc = new XmlDocument();
 
@@ -457,7 +456,7 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // 3.将Json字符串转换为HashTable.
+        // 3.将Json字符串转换为HashTable
         // -------------------------------------------------------
 
         #region 函数:ToHashtable(string json)
@@ -466,8 +465,7 @@ namespace X3Platform.Util
         /// <returns>XML格式 数据.</returns>
         public static Hashtable ToHashtable(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                return new Hashtable();
+            if (string.IsNullOrEmpty(json)) { return new Hashtable(); }
 
             /*
              * Test case :
@@ -500,13 +498,12 @@ namespace X3Platform.Util
         /// <returns>XML格式 数据.</returns>
         public static Dictionary<string, object> ToDictionary(string json)
         {
-            if (string.IsNullOrEmpty(json))
-                return new Dictionary<string, object>();
+            if (string.IsNullOrEmpty(json)) { return new Dictionary<string, object>(); }
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             Dictionary<string, object> dictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-
+            
             if (dictionary["ajaxStorage"] != null)
             {
                 return (Dictionary<string, object>)dictionary["ajaxStorage"];

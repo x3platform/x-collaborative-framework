@@ -1,22 +1,10 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxMethodParser.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Ajax
+﻿namespace X3Platform.Ajax
 {
     using System;
     using System.Reflection;
     using System.Xml;
+
+    using X3Platform.Util;
 
     /// <summary>Ajax 方法解析器</summary>
     public sealed class AjaxMethodParser
@@ -28,7 +16,7 @@ namespace X3Platform.Ajax
         /// <returns></returns>
         public static string Parse(object target, XmlDocument doc)
         {
-            string action = AjaxStorageConvertor.Fetch("action", doc);
+            string action = XmlHelper.Fetch("action", doc);
 
             return Parse(target, action, doc);
         }

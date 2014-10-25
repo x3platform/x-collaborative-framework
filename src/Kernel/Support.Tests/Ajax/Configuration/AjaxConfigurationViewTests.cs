@@ -19,7 +19,7 @@ namespace X3Platform.Tests.Ajax.Configuration
             // 判断数据正确性
             Assert.True(configuration.SpecialWords["QQ"].Value == "qq");
     
-            Assert.True(configuration.SpecialWords["QQ"].Value == "qq");
+            Assert.True(configuration.SpecialWords["RMB"].Value == "rmb");
         }
     }
 }

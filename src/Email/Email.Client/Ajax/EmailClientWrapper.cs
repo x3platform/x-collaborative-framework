@@ -11,6 +11,7 @@ namespace X3Platform.Email.Client.Ajax
     using X3Platform.Messages;
 
     using X3Platform.Email.Client.Configuration;
+    using X3Platform.Util;
     
     public sealed class EmailClientWrapper : ContextWrapper
     {
@@ -109,11 +110,11 @@ namespace X3Platform.Email.Client.Ajax
         /// <returns>返回操作结果</returns>
         public string SendMail(XmlDocument doc)
         {
-            string from = AjaxStorageConvertor.Fetch("from", doc), to = AjaxStorageConvertor.Fetch("to", doc);
+            string from = XmlHelper.Fetch("from", doc), to = XmlHelper.Fetch("to", doc);
 
-            string subject = AjaxStorageConvertor.Fetch("subject", doc), body = AjaxStorageConvertor.Fetch("body", doc);
+            string subject = XmlHelper.Fetch("subject", doc), body = XmlHelper.Fetch("body", doc);
 
-            bool isBodyHtml = Convert.ToBoolean(AjaxStorageConvertor.Fetch("isBodyHtml", doc));
+            bool isBodyHtml = Convert.ToBoolean(XmlHelper.Fetch("isBodyHtml", doc));
 
             MailMessage message = new MailMessage(from, to, subject, body);
 
@@ -131,14 +132,14 @@ namespace X3Platform.Email.Client.Ajax
         /// <returns>返回操作结果</returns>
         public string TestSmtpServer(XmlDocument doc)
         {
-            string host = AjaxStorageConvertor.Fetch("host", doc);
-            string port = AjaxStorageConvertor.Fetch("port", doc);
-            string enableSsl = AjaxStorageConvertor.Fetch("enableSsl", doc);
-            string username = AjaxStorageConvertor.Fetch("username", doc);
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string host = XmlHelper.Fetch("host", doc);
+            string port = XmlHelper.Fetch("port", doc);
+            string enableSsl = XmlHelper.Fetch("enableSsl", doc);
+            string username = XmlHelper.Fetch("username", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
-            string fromEmailAddress = AjaxStorageConvertor.Fetch("fromEmailAddress", doc);
-            string toEmailAddress = AjaxStorageConvertor.Fetch("toEmailAddress", doc);
+            string fromEmailAddress = XmlHelper.Fetch("fromEmailAddress", doc);
+            string toEmailAddress = XmlHelper.Fetch("toEmailAddress", doc);
 
             MessageObject message = SmtpClientTester.Test(host, port, enableSsl, username, password, fromEmailAddress, toEmailAddress);
 

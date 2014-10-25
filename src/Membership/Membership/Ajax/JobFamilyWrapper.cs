@@ -48,7 +48,7 @@ namespace X3Platform.Membership.Ajax
         {
             IJobFamilyInfo param = new JobFamilyInfo();
 
-            param = (IJobFamilyInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (IJobFamilyInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -62,7 +62,7 @@ namespace X3Platform.Membership.Ajax
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Delete(id);
 
@@ -82,11 +82,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IJobFamilyInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobFamilyInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -102,13 +102,13 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IJobFamilyInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobFamilyInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -128,7 +128,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -136,7 +136,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobFamilyInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -152,7 +152,7 @@ namespace X3Platform.Membership.Ajax
         /// <returns>返回操作结果</returns>
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -169,7 +169,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            string organizationId = XmlHelper.Fetch("organizationId", doc);
 
             JobFamilyInfo param = new JobFamilyInfo();
 
@@ -179,7 +179,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IJobFamilyInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -196,11 +196,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string combobox = AjaxStorageConvertor.Fetch("combobox", doc);
+            string combobox = XmlHelper.Fetch("combobox", doc);
 
-            string selectedValue = AjaxStorageConvertor.Fetch("selectedValue", doc);
+            string selectedValue = XmlHelper.Fetch("selectedValue", doc);
 
-            string emptyItemText = AjaxStorageConvertor.Fetch("emptyItemText", doc);
+            string emptyItemText = XmlHelper.Fetch("emptyItemText", doc);
 
             string whereClause = " Status = 1 ORDER BY OrderId ";
 

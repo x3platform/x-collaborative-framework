@@ -47,10 +47,10 @@ namespace X3Platform.Membership.Ajax
         {
             IOrganizationInfo param = new OrganizationInfo();
 
-            param = (IOrganizationInfo)AjaxStorageConvertor.Deserialize<IOrganizationInfo>(param, doc);
+            param = (IOrganizationInfo)AjaxUtil.Deserialize<IOrganizationInfo>(param, doc);
             
-            string originalName = AjaxStorageConvertor.Fetch("originalName", doc);
-            string originalGlobalName = AjaxStorageConvertor.Fetch("originalGlobalName", doc);
+            string originalName = XmlHelper.Fetch("originalName", doc);
+            string originalGlobalName = XmlHelper.Fetch("originalGlobalName", doc);
             
             if (string.IsNullOrEmpty(param.Name))
             {
@@ -112,7 +112,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Delete(id);
 
@@ -133,11 +133,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IOrganizationInfo param = MembershipManagement.Instance.OrganizationService.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -154,11 +154,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
             IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAll(whereClause);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -175,11 +175,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string accountId = AjaxStorageConvertor.Fetch("accountId", doc);
+            string accountId = XmlHelper.Fetch("accountId", doc);
 
             IList<IOrganizationInfo> list = this.service.FindAllByAccountId(accountId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -196,11 +196,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(parentId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -217,11 +217,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string projectId = AjaxStorageConvertor.Fetch("projectId", doc);
+            string projectId = XmlHelper.Fetch("projectId", doc);
 
             IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByProjectId(projectId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -242,7 +242,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -250,7 +250,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -269,7 +269,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             OrganizationInfo param = new OrganizationInfo();
 
@@ -284,7 +284,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IOrganizationInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IOrganizationInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -299,8 +299,8 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("setGlobalName")]
         public string SetGlobalName(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
-            string globalName = AjaxStorageConvertor.Fetch("globalName", doc);
+            string id = XmlHelper.Fetch("id", doc);
+            string globalName = XmlHelper.Fetch("globalName", doc);
 
             int reuslt = MembershipManagement.Instance.OrganizationService.SetGlobalName(id, globalName);
 
@@ -321,16 +321,16 @@ namespace X3Platform.Membership.Ajax
         public string GetCorporationTreeView(XmlDocument doc)
         {
             // 必填字段
-            string tree = AjaxStorageConvertor.Fetch("tree", doc);
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             // 附加属性
-            string treeViewType = AjaxStorageConvertor.Fetch("treeViewType", doc);
-            string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
-            string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
-            string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
+            string treeViewType = XmlHelper.Fetch("treeViewType", doc);
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
-            string url = AjaxStorageConvertor.Fetch("url", doc);
+            string url = XmlHelper.Fetch("url", doc);
 
             // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;

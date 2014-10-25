@@ -50,9 +50,9 @@ namespace X3Platform.Apps.Ajax
         {
             ApplicationFeatureInfo param = new ApplicationFeatureInfo();
 
-            string originalName = AjaxStorageConvertor.Fetch("originalName", doc);
+            string originalName = XmlHelper.Fetch("originalName", doc);
 
-            param = (ApplicationFeatureInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (ApplicationFeatureInfo)AjaxUtil.Deserialize(param, doc);
 
             if (originalName != param.Name)
             {
@@ -75,7 +75,7 @@ namespace X3Platform.Apps.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -96,11 +96,11 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             ApplicationFeatureInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationFeatureInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -117,13 +117,13 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<ApplicationFeatureInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationFeatureInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -140,11 +140,11 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
             IList<ApplicationFeatureInfo> list = this.service.FindAllByApplicationId(applicationId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationFeatureInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -165,7 +165,7 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -173,7 +173,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationFeatureInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -190,7 +190,7 @@ namespace X3Platform.Apps.Ajax
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -207,7 +207,7 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
             ApplicationFeatureInfo param = new ApplicationFeatureInfo();
 
@@ -219,7 +219,7 @@ namespace X3Platform.Apps.Ajax
 
             param.Status = 1;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationFeatureInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -235,15 +235,15 @@ namespace X3Platform.Apps.Ajax
         public string GetDynamicTreeView(XmlDocument doc)
         {
             // �����ֶ�
-            string tree = AjaxStorageConvertor.Fetch("tree", doc);
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             // ��������
-            string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
-            string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
-            string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
-            string url = AjaxStorageConvertor.Fetch("url", doc);
+            string url = XmlHelper.Fetch("url", doc);
 
             // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
@@ -298,10 +298,10 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string authorizationObjectType = AjaxStorageConvertor.Fetch("authorizationObjectType", doc);
-            string authorizationObjectId = AjaxStorageConvertor.Fetch("authorizationObjectId", doc);
+            string authorizationObjectType = XmlHelper.Fetch("authorizationObjectType", doc);
+            string authorizationObjectId = XmlHelper.Fetch("authorizationObjectId", doc);
 
             DataTable table = this.service.GetApplicationFeatureScope(applicationId, authorizationObjectType, authorizationObjectId);
 
@@ -341,12 +341,12 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string authorizationObjectType = AjaxStorageConvertor.Fetch("authorizationObjectType", doc);
-            string authorizationObjectId = AjaxStorageConvertor.Fetch("authorizationObjectId", doc);
+            string authorizationObjectType = XmlHelper.Fetch("authorizationObjectType", doc);
+            string authorizationObjectId = XmlHelper.Fetch("authorizationObjectId", doc);
 
-            string applicationFeatureIds = AjaxStorageConvertor.Fetch("applicationFeatureIds", doc);
+            string applicationFeatureIds = XmlHelper.Fetch("applicationFeatureIds", doc);
 
             this.service.SetApplicationFeatureScope(applicationId, authorizationObjectType, authorizationObjectId, applicationFeatureIds);
 
