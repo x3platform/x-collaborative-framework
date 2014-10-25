@@ -1,26 +1,12 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxSqlExpressionParser.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace X3Platform.Ajax
+namespace X3Platform.Data
 {
-    /// <summary>Ajax SQL 表达式解析器</summary>
-    public sealed class AjaxSqlExpressionParser
+    /// <summary>数据查询表达式解析器</summary>
+    public sealed class DataQueryExpressionParser
     {
         #region 静态函数:Parse(string xml)
         /// <summary></summary>
@@ -48,7 +34,7 @@ namespace X3Platform.Ajax
             // </expression >
             //
 
-            AjaxSqlExpression expression = new AjaxSqlExpression();
+            DataQueryExpression expression = new DataQueryExpression();
 
             expression.LoadXml(element);
 
