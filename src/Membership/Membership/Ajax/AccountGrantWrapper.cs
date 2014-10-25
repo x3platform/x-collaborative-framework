@@ -33,7 +33,7 @@ namespace X3Platform.Membership.Ajax
         {
             IAccountGrantInfo param = new AccountGrantInfo();
 
-            param = (IAccountGrantInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (IAccountGrantInfo)AjaxUtil.Deserialize(param, doc);
 
             if (this.service.IsExistGrantor(param.GrantorId, param.GrantedTimeFrom, param.GrantedTimeTo, param.Id))
             {
@@ -63,7 +63,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Delete(id);
 
@@ -83,11 +83,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
             IList<IAccountGrantInfo> list = this.service.FindAll(whereClause);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -103,11 +103,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IAccountGrantInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -128,7 +128,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -136,7 +136,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -155,7 +155,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             IAccountGrantInfo param = new AccountGrantInfo();
 
@@ -169,7 +169,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountGrantInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -184,7 +184,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("abort")]
         public string Abort(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Abort(id);
 

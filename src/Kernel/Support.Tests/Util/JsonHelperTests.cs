@@ -1,17 +1,3 @@
-//=============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// Filename     :PagingHelper.cs
-//
-// Summary      :
-//
-// Author       :X3Platform
-//
-// Date			:2010-01-01
-//
-//=============================================================================
-
 
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using X3Platform.Ajax.Json;
 using X3Platform.Util;
 
-namespace X3Platform.Tests.Utility
+namespace X3Platform.Tests.Util
 {
     /// <summary></summary>
     [TestClass]

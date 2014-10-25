@@ -243,11 +243,11 @@ namespace X3Platform.Apps.BLL
                 XmlElement element = (XmlElement)doc.SelectSingleNode("/package");
 
                 // 数据包类型
-                param.Type = XmlHelper.TryFetchNodeAttribute(element, "packageType");
+                param.Type = XmlHelper.FetchNodeAttribute(element, "packageType");
                 // 数据包的开始时间
-                param.BeginDate = Convert.ToDateTime(XmlHelper.TryFetchNodeAttribute(element, "beginDate"));
+                param.BeginDate = Convert.ToDateTime(XmlHelper.FetchNodeAttribute(element, "beginDate"));
                 // 数据包的结束时间
-                param.EndDate = Convert.ToDateTime(XmlHelper.TryFetchNodeAttribute(element, "endDate"));
+                param.EndDate = Convert.ToDateTime(XmlHelper.FetchNodeAttribute(element, "endDate"));
             }
             catch
             {

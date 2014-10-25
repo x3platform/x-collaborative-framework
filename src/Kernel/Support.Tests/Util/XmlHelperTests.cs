@@ -12,16 +12,14 @@
 //
 //=============================================================================
 
-
-using System.Xml;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using X3Platform.Ajax;
-using X3Platform.Util;
-
-namespace X3Platform.Tests.Utility
+namespace X3Platform.Tests.Util
 {
+    using System.Xml;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using X3Platform.Util;
+
     /// <summary>∑÷“≥π‹¿Ì∆˜</summary>
     [TestClass]
     public class XmlHelperTestSuite

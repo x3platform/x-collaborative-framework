@@ -46,11 +46,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
             // 联系人类型
-            ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), AjaxStorageConvertor.Fetch("contactType", doc));
+            ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), XmlHelper.Fetch("contactType", doc));
             // 包含被禁止的对象
-            int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
+            int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
             // 授权对象名称关键字匹配
-            string key = AjaxStorageConvertor.Fetch("key", doc);
+            string key = XmlHelper.Fetch("key", doc);
 
             string whereClause = null;
 
@@ -146,7 +146,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IAccountInfo> list = null;
 
-            string key = AjaxStorageConvertor.Fetch("key", doc);
+            string key = XmlHelper.Fetch("key", doc);
 
             string[] keyArray = key.Split(',');
 
@@ -244,11 +244,11 @@ namespace X3Platform.Membership.Ajax
             StringBuilder outString = new StringBuilder();
 
             // 联系人类型
-            ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), AjaxStorageConvertor.Fetch("contactType", doc));
+            ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), XmlHelper.Fetch("contactType", doc));
             // 包含被禁止的对象
-            int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
+            int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
 
-            string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            string organizationId = XmlHelper.Fetch("organizationId", doc);
 
             // 自动转换到我的公司
             if (organizationId == "20000000-0000-0000-0000-000000000000")
@@ -307,11 +307,11 @@ namespace X3Platform.Membership.Ajax
             StringBuilder outString = new StringBuilder();
 
             // 联系人类型
-            ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), AjaxStorageConvertor.Fetch("contactType", doc));
+            ContactType contactType = (ContactType)Enum.Parse(typeof(ContactType), XmlHelper.Fetch("contactType", doc));
             // 包含被禁止的对象
-            int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
+            int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
 
-            string standardOrganizationId = AjaxStorageConvertor.Fetch("standardOrganizationId", doc);
+            string standardOrganizationId = XmlHelper.Fetch("standardOrganizationId", doc);
 
             // 0 全部 1 2 4 8;
 
@@ -351,11 +351,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string groupType = AjaxStorageConvertor.Fetch("groupType", doc);
+            string groupType = XmlHelper.Fetch("groupType", doc);
             // 包含被禁止的对象
-            int includeProhibited = Convert.ToInt32(AjaxStorageConvertor.Fetch("includeProhibited", doc));
+            int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
 
-            string groupTreeNodeId = AjaxStorageConvertor.Fetch("groupTreeNodeId", doc);
+            string groupTreeNodeId = XmlHelper.Fetch("groupTreeNodeId", doc);
 
             // 0 全部 1 2 4 8;
 
@@ -911,7 +911,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            string organizationId = XmlHelper.Fetch("organizationId", doc);
 
             outString.Append(this.GetTreeView(organizationId));
 
@@ -974,16 +974,16 @@ namespace X3Platform.Membership.Ajax
         public string GetDynamicTreeView(XmlDocument doc)
         {
             // 必填字段
-            string tree = AjaxStorageConvertor.Fetch("tree", doc);
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             // 附加属性
-            string treeViewType = AjaxStorageConvertor.Fetch("treeViewType", doc);
-            string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
-            string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
-            string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
+            string treeViewType = XmlHelper.Fetch("treeViewType", doc);
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
-            string url = AjaxStorageConvertor.Fetch("url", doc);
+            string url = XmlHelper.Fetch("url", doc);
 
             // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;

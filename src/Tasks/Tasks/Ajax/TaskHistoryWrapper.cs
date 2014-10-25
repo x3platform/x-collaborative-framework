@@ -26,7 +26,7 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -34,7 +34,7 @@ namespace X3Platform.Tasks.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskHistoryItemInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskHistoryItemInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -66,9 +66,9 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string taskId = AjaxStorageConvertor.Fetch("taskId", doc);
+            string taskId = XmlHelper.Fetch("taskId", doc);
 
-            string receiverId = AjaxStorageConvertor.Fetch("receiverId", doc);
+            string receiverId = XmlHelper.Fetch("receiverId", doc);
 
             TaskHistoryItemInfo param = service.FindOne(taskId, receiverId);
 

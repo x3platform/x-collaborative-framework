@@ -27,7 +27,7 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -79,11 +79,11 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string receiverId = AjaxStorageConvertor.Fetch("receiverId", doc);
+            string receiverId = XmlHelper.Fetch("receiverId", doc);
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             // 如果接收人为空, 则默认显示当前用户
             if (string.IsNullOrEmpty(receiverId))
@@ -131,13 +131,13 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string Copy(XmlDocument doc)
         {
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string fromReceiverId = AjaxStorageConvertor.Fetch("fromReceiverId", doc);
-            string toReceiverId = AjaxStorageConvertor.Fetch("toReceiverId", doc);
+            string fromReceiverId = XmlHelper.Fetch("fromReceiverId", doc);
+            string toReceiverId = XmlHelper.Fetch("toReceiverId", doc);
 
-            DateTime beginDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("beginDate", doc));
-            DateTime endDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("endDate", doc));
+            DateTime beginDate = Convert.ToDateTime(XmlHelper.Fetch("beginDate", doc));
+            DateTime endDate = Convert.ToDateTime(XmlHelper.Fetch("endDate", doc));
 
             // 格式结束时间为 23:59:59，避免当天没有收到待办信息
             endDate = Convert.ToDateTime(endDate.ToString("yyyy-MM-dd 23:59:59"));
@@ -153,13 +153,13 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string Cut(XmlDocument doc)
         {
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string fromReceiverId = AjaxStorageConvertor.Fetch("fromReceiverId", doc);
-            string toReceiverId = AjaxStorageConvertor.Fetch("toReceiverId", doc);
+            string fromReceiverId = XmlHelper.Fetch("fromReceiverId", doc);
+            string toReceiverId = XmlHelper.Fetch("toReceiverId", doc);
 
-            DateTime beginDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("beginDate", doc));
-            DateTime endDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("endDate", doc));
+            DateTime beginDate = Convert.ToDateTime(XmlHelper.Fetch("beginDate", doc));
+            DateTime endDate = Convert.ToDateTime(XmlHelper.Fetch("endDate", doc));
 
             // 格式结束时间为 23:59:59，避免当天没有收到待办信息
             endDate = Convert.ToDateTime(endDate.ToString("yyyy-MM-dd 23:59:59"));
@@ -175,9 +175,9 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string SetStatus(XmlDocument doc)
         {
-            string taskId = AjaxStorageConvertor.Fetch("taskId", doc);
+            string taskId = XmlHelper.Fetch("taskId", doc);
 
-            int status = Convert.ToInt32(AjaxStorageConvertor.Fetch("status", doc));
+            int status = Convert.ToInt32(XmlHelper.Fetch("status", doc));
 
             this.service.SetStatus(taskId, KernelContext.Current.User.Id, status);
 
@@ -190,7 +190,7 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string SetFinished(XmlDocument doc)
         {
-            string taskIds = AjaxStorageConvertor.Fetch("taskIds", doc);
+            string taskIds = XmlHelper.Fetch("taskIds", doc);
 
             IAccountInfo account = KernelContext.Current.User;
 
@@ -217,7 +217,7 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string receiverId = AjaxStorageConvertor.Fetch("receiverId", doc);
+            string receiverId = XmlHelper.Fetch("receiverId", doc);
 
             // 如果接收人为空, 则默认显示当前用户
             if (string.IsNullOrEmpty(receiverId))

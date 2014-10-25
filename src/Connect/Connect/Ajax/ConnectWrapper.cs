@@ -33,7 +33,7 @@
         {
             ConnectInfo param = new ConnectInfo();
 
-            param = (ConnectInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (ConnectInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -47,7 +47,7 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Delete(id);
 
@@ -67,11 +67,11 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             ConnectInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ConnectInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -91,7 +91,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -99,7 +99,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ConnectQueryInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectQueryInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
@@ -117,7 +117,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             IAccountInfo account = KernelContext.Current.User;
 
@@ -129,7 +129,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ConnectQueryInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectQueryInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
@@ -147,7 +147,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            string appKey = AjaxStorageConvertor.Fetch("appKey", doc);
+            string appKey = XmlHelper.Fetch("appKey", doc);
 
             ConnectInfo param = this.service.FindOneByAppKey(appKey);
 

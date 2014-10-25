@@ -170,7 +170,7 @@ namespace X3Platform.Web.APIs.Pages
                     }
                 }
 
-                string clientTargetObject = AjaxStorageConvertor.Fetch("clientTargetObject", doc);
+                string clientTargetObject = XmlHelper.Fetch("clientTargetObject", doc);
 
                 string resultType = (context.Request.Form["resultType"] == null) ? "json" : context.Request.Form["resultType"];
 

@@ -39,7 +39,7 @@ namespace X3Platform.Membership.Ajax
         {
             MemberInfo param = new MemberInfo();
 
-            param = (MemberInfo)AjaxStorageConvertor.Deserialize<MemberInfo>(param, doc);
+            param = (MemberInfo)AjaxUtil.Deserialize<MemberInfo>(param, doc);
 
             this.service.Save(param);
 
@@ -54,7 +54,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -75,15 +75,15 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IMemberInfo param = this.service.FindOne(id);
 
             if (param == null) { return "{\"message\":{\"returnCode\":0,\"value\":\"未找到相关对象。\"}}"; }
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IMemberInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(param) + ",");
 
-            outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxStorageConvertor.Parse<IAccountInfo>(param.Account)));
+            outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxUtil.Parse<IAccountInfo>(param.Account)));
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -100,15 +100,15 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string accountId = AjaxStorageConvertor.Fetch("accountId", doc);
+            string accountId = XmlHelper.Fetch("accountId", doc);
 
             IMemberInfo param = this.service.FindOneByAccountId(accountId);
 
             if (param == null) { return "{\"message\":{\"returnCode\":0,\"value\":\"未找到相关对象。\"}}"; }
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IMemberInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(param) + ",");
 
-            outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxStorageConvertor.Parse<IAccountInfo>(param.Account)));
+            outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxUtil.Parse<IAccountInfo>(param.Account)));
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -124,11 +124,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultOrganization(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -144,11 +144,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultJob(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -164,11 +164,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultAssignedJob(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -184,11 +184,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultRole(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -208,7 +208,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -224,9 +224,9 @@ namespace X3Platform.Membership.Ajax
             {
                 index = outString.Length;
 
-                outString.Append(AjaxStorageConvertor.Parse<IMemberInfo>(item));
+                outString.Append(AjaxUtil.Parse<IMemberInfo>(item));
 
-                outString.Insert(index + 1, string.Format("\"account\":{0},", AjaxStorageConvertor.Parse<IAccountInfo>(item.Account)));
+                outString.Insert(index + 1, string.Format("\"account\":{0},", AjaxUtil.Parse<IAccountInfo>(item.Account)));
 
                 outString.Append(",");
             }
@@ -251,14 +251,14 @@ namespace X3Platform.Membership.Ajax
         {
             Dictionary<string, string> contactItems = new Dictionary<string, string>();
 
-            contactItems.Add("Mobile", AjaxStorageConvertor.Fetch("mobile", doc));
-            contactItems.Add("Telephone", AjaxStorageConvertor.Fetch("telephone", doc));
-            contactItems.Add("QQ", AjaxStorageConvertor.Fetch("qq", doc));
-            contactItems.Add("MSN", AjaxStorageConvertor.Fetch("msn", doc));
-            contactItems.Add("Email", AjaxStorageConvertor.Fetch("email", doc));
-            contactItems.Add("Rtx", AjaxStorageConvertor.Fetch("rtx", doc));
-            contactItems.Add("PostCode", AjaxStorageConvertor.Fetch("postCode", doc));
-            contactItems.Add("Address", AjaxStorageConvertor.Fetch("address", doc));
+            contactItems.Add("Mobile", XmlHelper.Fetch("mobile", doc));
+            contactItems.Add("Telephone", XmlHelper.Fetch("telephone", doc));
+            contactItems.Add("QQ", XmlHelper.Fetch("qq", doc));
+            contactItems.Add("MSN", XmlHelper.Fetch("msn", doc));
+            contactItems.Add("Email", XmlHelper.Fetch("email", doc));
+            contactItems.Add("Rtx", XmlHelper.Fetch("rtx", doc));
+            contactItems.Add("PostCode", XmlHelper.Fetch("postCode", doc));
+            contactItems.Add("Address", XmlHelper.Fetch("address", doc));
 
             IAccountInfo account = KernelContext.Current.User;
 
@@ -277,9 +277,9 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("setDefaultRole")]
         public string SetDefaultRole(XmlDocument doc)
         {
-            string accountId = AjaxStorageConvertor.Fetch("accountId", doc);
+            string accountId = XmlHelper.Fetch("accountId", doc);
 
-            string roleId = AjaxStorageConvertor.Fetch("roleId", doc);
+            string roleId = XmlHelper.Fetch("roleId", doc);
 
             int resultCode = this.service.SetDefaultRole(accountId, roleId);
 
@@ -293,7 +293,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("read")]
         public string Read(XmlDocument doc)
         {
-            string key = AjaxStorageConvertor.Fetch("key", doc);
+            string key = XmlHelper.Fetch("key", doc);
 
             StringBuilder outString = new StringBuilder();
 
@@ -301,7 +301,7 @@ namespace X3Platform.Membership.Ajax
 
             IAccountInfo param = strategy.Deserialize(SessionContext.Instance.AccountCacheService.Read(key));
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -322,13 +322,13 @@ namespace X3Platform.Membership.Ajax
             IAccountInfo param = new AccountInfo();
 
             // RegisterType 注册类型: email | telephone | default
-            string registerType = AjaxStorageConvertor.Fetch("registerType", doc);
+            string registerType = XmlHelper.Fetch("registerType", doc);
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
-            string name = AjaxStorageConvertor.Fetch("name", doc);
-            string email = AjaxStorageConvertor.Fetch("email", doc);
-            string telephone = AjaxStorageConvertor.Fetch("telephone", doc);
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
+            string name = XmlHelper.Fetch("name", doc);
+            string email = XmlHelper.Fetch("email", doc);
+            string telephone = XmlHelper.Fetch("telephone", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
             if (registerType == "email")
             {
@@ -441,9 +441,9 @@ namespace X3Platform.Membership.Ajax
             // 用户信息
             IMemberInfo member = null;
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
 
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
             switch (KernelConfigurationView.Instance.AuthenticationManagementType)
             {
@@ -452,7 +452,7 @@ namespace X3Platform.Membership.Ajax
 
                     string serverValidateCode = (HttpContext.Current.Session["ServerValidateCode"] == null ? string.Empty : HttpContext.Current.Session["AdminCheckCode"].ToString());
 
-                    string clientValidateCode = AjaxStorageConvertor.Fetch("validatecode", doc);
+                    string clientValidateCode = XmlHelper.Fetch("validatecode", doc);
 
                     if (string.IsNullOrEmpty(clientValidateCode))
                     {

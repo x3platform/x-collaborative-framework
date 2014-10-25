@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Tasks.DAL.MySQL.TaskReceiverProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <alias>
-        <typeAlias alias="TaskWorkItemInfo" type="X3Platform.Tasks.Model.TaskWorkItemInfo, X3Platform.Tasks" />
-        <typeAlias alias="TaskReceiverInfo" type="X3Platform.Tasks.Model.TaskReceiverInfo, X3Platform.Tasks" />
+        <typeAlias alias="TaskWorkItemInfo" type="X3Platform.Tasks.Model.TaskWorkItemInfo,X3Platform.Tasks" />
+        <typeAlias alias="TaskReceiverInfo" type="X3Platform.Tasks.Model.TaskReceiverInfo,X3Platform.Tasks" />
     </alias>
     <resultMaps>
         <resultMap id="proc_Task_Receiver_FindOne_Result" class="TaskWorkItemInfo">
