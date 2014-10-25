@@ -1,0 +1,12 @@
+---
+keys: 
+  # 对象名称首字母小写
+  CamelStyle: true
+
+specialWords: 
+  IP: ip, 
+  MSN: msn, 
+  PinYin: pinyin, 
+  QQ: qq, 
+  RMB: rmb
+...
