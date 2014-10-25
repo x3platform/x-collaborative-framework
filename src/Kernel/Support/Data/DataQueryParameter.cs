@@ -1,28 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxSqlParameter.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 using X3Platform.Util;
 
-namespace X3Platform.Ajax
+namespace X3Platform.Data
 {
     /// <summary>Ajax Sql 条件参数</summary>
     [Serializable()]
-    public class AjaxSqlParameter
+    public class DataQueryParameter
     {
         #region 属性:Key
         private string m_Key = null;
@@ -72,19 +58,19 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 构造函数:AjaxSqlParameter()
+        #region 构造函数:DataQueryParameter()
         /// <summary></summary>
-        public AjaxSqlParameter()
+        public DataQueryParameter()
         {
         }
         #endregion
 
-        #region 构造函数:AjaxSqlParameter(string key, string value, string type)
+        #region 构造函数:DataQueryParameter(string key, string value, string type)
         /// <summary></summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="type"></param>
-        public AjaxSqlParameter(string key, string value, string type)
+        public DataQueryParameter(string key, string value, string type)
         {
             m_Key = key;
             m_Value = value;

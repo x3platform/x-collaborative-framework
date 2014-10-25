@@ -1,34 +1,20 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxSqlExpression.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace X3Platform.Ajax
+namespace X3Platform.Data
 {
-    /// <summary>Ajax Sql 表达式</summary>
+    /// <summary>数据查询表达式</summary>
     [Serializable()]
-    public class AjaxSqlExpression : AjaxSqlParameter
+    public class DataQueryExpression : DataQueryParameter
     {
         #region 属性:Parent
-        private AjaxSqlExpression m_Parent = null;
+        private DataQueryExpression m_Parent = null;
 
         /// <summary>父级表达式</summary>
-        public AjaxSqlExpression Parent
+        public DataQueryExpression Parent
         {
             get { return m_Parent; }
             set { m_Parent = value; }
@@ -36,10 +22,10 @@ namespace X3Platform.Ajax
         #endregion
 
         #region 属性:SubExpressionList
-        private IList<AjaxSqlExpression> list = new List<AjaxSqlExpression>();
+        private IList<DataQueryExpression> list = new List<DataQueryExpression>();
 
         /// <summary>子表达式列表</summary>
-        public IList<AjaxSqlExpression> SubExpressionList
+        public IList<DataQueryExpression> SubExpressionList
         {
             get { return list; }
             set { list = value; }
@@ -58,20 +44,20 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 构造函数:AjaxSqlExpression()
+        #region 构造函数:DataQueryExpression()
         /// <summary></summary>
-        public AjaxSqlExpression()
+        public DataQueryExpression()
         {
         }
         #endregion
 
-        #region 构造函数:AjaxSqlExpression(string key, string value, string type, string prefix)
+        #region 构造函数:DataQueryExpression(string key, string value, string type, string prefix)
         /// <summary></summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="type"></param>
         /// <param name="prefix"></param>
-        public AjaxSqlExpression(string key, string value, string type, string prefix)
+        public DataQueryExpression(string key, string value, string type, string prefix)
         {
             Key = key;
             Value = value;
@@ -95,11 +81,11 @@ namespace X3Platform.Ajax
 
             XmlNodeList nodes = element.ChildNodes;
 
-            AjaxSqlExpression subexpression = null;
+            DataQueryExpression subexpression = null;
 
             foreach (XmlNode node in nodes)
             {
-                subexpression = new AjaxSqlExpression();
+                subexpression = new DataQueryExpression();
 
                 subexpression.Parent = this;
 
@@ -110,19 +96,19 @@ namespace X3Platform.Ajax
         }
         #endregion
 
-        #region 函数:Add(AjaxSqlExpression item)
+        #region 函数:Add(DataQueryExpression item)
         /// <summary></summary>
         /// <param name="item"></param>
-        public void Add(AjaxSqlExpression item)
+        public void Add(DataQueryExpression item)
         {
             list.Add(item);
         }
         #endregion
 
-        #region 函数:Remove(AjaxSqlExpression item)
+        #region 函数:Remove(DataQueryExpression item)
         /// <summary></summary>
         /// <param name="item"></param>
-        public void Remove(AjaxSqlExpression item)
+        public void Remove(DataQueryExpression item)
         {
             list.Remove(item);
         }
@@ -161,7 +147,7 @@ namespace X3Platform.Ajax
                 }
             }
 
-            foreach (AjaxSqlExpression item in list)
+            foreach (DataQueryExpression item in list)
             {
                 outString.Append(item.ToString());
             }
