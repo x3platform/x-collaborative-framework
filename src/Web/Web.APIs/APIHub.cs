@@ -107,7 +107,7 @@ namespace X3Platform.Web.APIs
                     doc = AnalyzeQueryXml(doc, context.Request.QueryString);
                 }
 
-                string clientTargetObject = AjaxStorageConvertor.Fetch("clientTargetObject", doc);
+                string clientTargetObject = XmlHelper.Fetch("clientTargetObject", doc);
 
                 string resultType = (context.Request.Form["xhr-resultType"] == null) ? "json" : context.Request.Form["xhr-resultType"];
 

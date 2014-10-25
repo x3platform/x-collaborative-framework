@@ -29,6 +29,7 @@
     {
         /// <summary>测试初始化配置信息是否成功</summary>
         [TestMethod]
+        [DeploymentItem("MySql.Data.dll")]
         public void TestInit()
         {
             TasksConfiguration configuration = TasksConfigurationView.Instance.Configuration;

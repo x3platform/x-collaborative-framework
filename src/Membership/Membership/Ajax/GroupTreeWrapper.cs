@@ -49,7 +49,7 @@ namespace X3Platform.Membership.Ajax
         {
             GroupTreeInfo param = new GroupTreeInfo();
 
-            param = (GroupTreeInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (GroupTreeInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -64,7 +64,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -85,11 +85,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             GroupTreeInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<GroupTreeInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<GroupTreeInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -106,13 +106,13 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<GroupTreeInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<GroupTreeInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<GroupTreeInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -133,7 +133,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -141,7 +141,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<GroupTreeInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<GroupTreeInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -158,7 +158,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -183,7 +183,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<GroupTreeInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<GroupTreeInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -203,15 +203,15 @@ namespace X3Platform.Membership.Ajax
         public string GetDynamicTreeView(XmlDocument doc)
         {            
             // 必填字段
-            string tree = AjaxStorageConvertor.Fetch("tree", doc);
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             // 附加属性
-            string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
-            string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
-            string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
-            string url = AjaxStorageConvertor.Fetch("url", doc);
+            string url = XmlHelper.Fetch("url", doc);
             
             // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;

@@ -204,50 +204,218 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 函数:TryFetchNodeAttribute(XmlNode node, string attributeName)
-        /// <summary>尝试获取节点标签属性</summary>
-        /// <param name="node"></param>
-        /// <param name="attributeName"></param>
+        //-------------------------------------------------------
+        // 抓取 Xml 文档中节点的内容
+        //-------------------------------------------------------
+
+        #region 函数:Fetch(string nodeName, string xml)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="xml">Xml 字符串</param>
         /// <returns></returns>
-        public static string TryFetchNodeAttribute(XmlNode node, string attributeName)
+        public static string Fetch(string nodeName, string xml)
         {
-            return TryFetchNodeAttribute(node, attributeName, string.Empty);
+            XmlDocument doc = new XmlDocument();
+
+            doc.LoadXml(xml);
+
+            return Fetch(nodeName, doc);
         }
         #endregion
 
-        #region 函数:TryFetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
+        #region 函数:Fetch(string nodeName, XmlDocument doc)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns></returns>
+        public static string Fetch(string nodeName, XmlDocument doc)
+        {
+            return Fetch(nodeName, doc, "text");
+        }
+        #endregion
+
+        #region 函数:Fetch(string nodeName, XmlDocument doc, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <param name="resultType">返回类型 text | xml</param>
+        /// <returns></returns>
+        public static string Fetch(string nodeName, XmlDocument doc, string resultType)
+        {
+            return Fetch(nodeName, doc.DocumentElement, resultType);
+        }
+        #endregion
+
+        #region 函数:Fetch(string nodeName, XmlElement element)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
+        /// <returns></returns>
+        public static string Fetch(string nodeName, XmlElement element)
+        {
+            return Fetch(nodeName, element, "text");
+        }
+        #endregion
+
+        #region 函数:Fetch(string nodeName, XmlElement element, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
+        /// <param name="resultType">返回类型 text | xml</param>
+        /// <returns></returns>
+        public static string Fetch(string nodeName, XmlElement element, string resultType)
+        {
+            XmlNodeList nodes = element.ChildNodes;
+
+            foreach (XmlNode node in nodes)
+            {
+                if (node.Name == nodeName)
+                {
+                    if (resultType == "xml")
+                    {
+                        return node.InnerXml;
+                    }
+                    else
+                    {
+                        return node.InnerText;
+                    }
+                }
+            }
+
+            return null;
+        }
+        #endregion
+
+        #region 函数:Fetch(string parentNodeName, string nodeName, string xml)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static string Fetch(string parentNodeName, string nodeName, string xml)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            doc.LoadXml(xml);
+
+            return Fetch(parentNodeName, nodeName, doc);
+        }
+        #endregion
+
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlDocument doc)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns></returns>
+        public static string Fetch(string parentNodeName, string nodeName, XmlDocument doc)
+        {
+            return Fetch(parentNodeName, nodeName, doc.DocumentElement, "text");
+        }
+        #endregion
+
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <param name="resultType">返回类型 text | xml</param>
+        /// <returns></returns>
+        public static string Fetch(string parentNodeName, string nodeName, XmlDocument doc, string resultType)
+        {
+            return Fetch(parentNodeName, nodeName, doc.DocumentElement, resultType);
+        }
+        #endregion
+
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlElement element)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
+        /// <returns></returns>
+        public static string Fetch(string parentNodeName, string nodeName, XmlElement element)
+        {
+            return Fetch(parentNodeName, nodeName, element, "text");
+        }
+        #endregion
+
+        #region 函数:Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
+        /// <summary>抓取关键字的值</summary>
+        /// <param name="parentNodeName">父节点名称</param>
+        /// <param name="nodeName">节点名称</param>
+        /// <param name="element">Xml 元素</param>
+        /// <param name="resultType">返回类型 text | xml</param>
+        /// <returns></returns>
+        public static string Fetch(string parentNodeName, string nodeName, XmlElement element, string resultType)
+        {
+            XmlNodeList nodes = element.GetElementsByTagName(parentNodeName)[0].ChildNodes;
+
+            foreach (XmlNode node in nodes)
+            {
+                if (node.Name == nodeName)
+                {
+                    if (resultType == "xml")
+                    {
+                        return node.InnerXml;
+                    }
+                    else
+                    {
+                        return node.InnerText;
+                    }
+                }
+            }
+
+            return null;
+        }
+        #endregion
+
+        //-------------------------------------------------------
+        // 抓取 Xml 节点的属性信息
+        //-------------------------------------------------------
+
+        #region 函数:FetchNodeAttribute(XmlNode node, string attributeName)
         /// <summary>尝试获取节点标签属性</summary>
         /// <param name="node"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>
-        public static string TryFetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
+        public static string FetchNodeAttribute(XmlNode node, string attributeName)
         {
-            if (node == null)
-                return defaultValue;
+            return FetchNodeAttribute(node, attributeName, string.Empty);
+        }
+        #endregion
+
+        #region 函数:FetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
+        /// <summary>尝试获取节点标签属性</summary>
+        /// <param name="node"></param>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
+        public static string FetchNodeAttribute(XmlNode node, string attributeName, string defaultValue)
+        {
+            if (node == null) { return defaultValue; }
 
             XmlElement element = (XmlElement)node;
 
-            return TryFetchNodeAttribute(element, attributeName, string.Empty);
+            return FetchNodeAttribute(element, attributeName, defaultValue);
         }
         #endregion
 
-        #region 函数:TryFetchNodeAttribute(XmlElement element, string attributeName)
+        #region 函数:FetchNodeAttribute(XmlElement element, string attributeName)
         /// <summary>尝试获取节点标签属性</summary>
         /// <param name="element"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>
-        public static string TryFetchNodeAttribute(XmlElement element, string attributeName)
+        public static string FetchNodeAttribute(XmlElement element, string attributeName)
         {
-            return TryFetchNodeAttribute(element, attributeName, string.Empty);
+            return FetchNodeAttribute(element, attributeName, string.Empty);
         }
         #endregion
 
-        #region 函数:TryFetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
+        #region 函数:FetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
         /// <summary>尝试获取节点标签属性</summary>
         /// <param name="element"></param>
         /// <param name="attributeName"></param>
         /// <returns></returns>
-        public static string TryFetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
+        public static string FetchNodeAttribute(XmlElement element, string attributeName, string defaultValue)
         {
             string result = null;
 
@@ -256,14 +424,18 @@ namespace X3Platform.Util
                 result = element.GetAttribute(attributeName);
             }
 
-            if (result == "undefined")
-                result = null;
+            if (result == "undefined") { result = null; }
 
             return string.IsNullOrEmpty(result) ? defaultValue : result;
         }
         #endregion
 
-        public static XmlElement TryFetchChildNode(XmlElement element, string childNodeName)
+        //-------------------------------------------------------
+        // 抓取 Xml 子节点相关信息
+        //-------------------------------------------------------
+
+        #region 函数:FetchChildNode(XmlElement element, string childNodeName)
+        public static XmlElement FetchChildNode(XmlElement element, string childNodeName)
         {
             XmlNodeList nodes = element.ChildNodes;
 
@@ -277,12 +449,20 @@ namespace X3Platform.Util
 
             return null;
         }
+        #endregion
 
-        public static string TryFetchChildNodeAttribute(XmlElement element, string childNodeName, string attributeName)
+        #region 函数:FetchChildNodeAttribute(XmlElement element, string childNodeName, string attributeName)
+        /// <summary>抓取子节点属性</summary>
+        /// <param name="element">Xml 元素</param>
+        /// <param name="childNodeName">子节点名称</param>
+        /// <param name="attributeName">属性名称</param>
+        /// <returns></returns>
+        public static string FetchChildNodeAttribute(XmlElement element, string childNodeName, string attributeName)
         {
-            XmlElement node = TryFetchChildNode(element, childNodeName);
+            XmlElement node = FetchChildNode(element, childNodeName);
 
-            return node == null ? string.Empty : node.GetAttribute(attributeName);
+            return node == null ? string.Empty : FetchNodeAttribute(node, attributeName);
         }
+        #endregion
     }
 }

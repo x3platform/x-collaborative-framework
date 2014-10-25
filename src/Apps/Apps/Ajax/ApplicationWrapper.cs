@@ -46,15 +46,15 @@ namespace X3Platform.Apps.Ajax
         {
             ApplicationInfo param = new ApplicationInfo();
 
-            string administratorScopeText = AjaxStorageConvertor.Fetch("administratorScopeText", doc);
+            string administratorScopeText = XmlHelper.Fetch("administratorScopeText", doc);
 
-            string reviewerScopeText = AjaxStorageConvertor.Fetch("reviewerScopeText", doc);
+            string reviewerScopeText = XmlHelper.Fetch("reviewerScopeText", doc);
 
-            string memberScopeText = AjaxStorageConvertor.Fetch("memberScopeText", doc);
+            string memberScopeText = XmlHelper.Fetch("memberScopeText", doc);
 
-            string originalApplicationName = AjaxStorageConvertor.Fetch("originalApplicationName", doc);
+            string originalApplicationName = XmlHelper.Fetch("originalApplicationName", doc);
 
-            param = (ApplicationInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (ApplicationInfo)AjaxUtil.Deserialize(param, doc);
 
             param.AccountId = string.IsNullOrEmpty(param.AccountId) ? KernelContext.Current.User.Id : param.AccountId;
 
@@ -84,7 +84,7 @@ namespace X3Platform.Apps.Ajax
         /// <returns>���ز�������</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -105,11 +105,11 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             ApplicationInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -129,7 +129,7 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -137,7 +137,7 @@ namespace X3Platform.Apps.Ajax
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"ajaxStorage\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
@@ -156,15 +156,15 @@ namespace X3Platform.Apps.Ajax
         public string GetDynamicTreeView(XmlDocument doc)
         {
             // �����ֶ�
-            string tree = AjaxStorageConvertor.Fetch("tree", doc);
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             // ��������
-            string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
-            string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
-            string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
-            string url = AjaxStorageConvertor.Fetch("url", doc);
+            string url = XmlHelper.Fetch("url", doc);
 
             // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
@@ -208,15 +208,15 @@ namespace X3Platform.Apps.Ajax
         public string GetExtTreeView(XmlDocument doc)
         {
             // �����ֶ�
-            string tree = AjaxStorageConvertor.Fetch("tree", doc);
-            string parentId = AjaxStorageConvertor.Fetch("parentId", doc);
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
 
             // ��������
-            string treeViewId = AjaxStorageConvertor.Fetch("treeViewId", doc);
-            string treeViewName = AjaxStorageConvertor.Fetch("treeViewName", doc);
-            string treeViewRootTreeNodeId = AjaxStorageConvertor.Fetch("treeViewRootTreeNodeId", doc);
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
-            string url = AjaxStorageConvertor.Fetch("url", doc);
+            string url = XmlHelper.Fetch("url", doc);
 
             // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;

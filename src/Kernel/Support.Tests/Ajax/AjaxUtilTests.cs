@@ -6,11 +6,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using X3Platform.Ajax;
 using X3Platform.Ajax.Configuration;
 using System.Xml;
+using X3Platform.Util;
 
-namespace X3Platform.TestSuite.Ajax
+namespace X3Platform.Tests.Ajax
 {
     [TestClass]
-    public class AjaxStorageConvertorTestSuite
+    public class AjaxUtilTests
     {
         [TestMethod]
         public void TestParse()
@@ -25,7 +26,7 @@ namespace X3Platform.TestSuite.Ajax
 
             targetObject.IP = "127.0.0.1";
 
-            outString = AjaxStorageConvertor.Parse(targetObject);
+            outString = AjaxUtil.Parse(targetObject);
 
             Assert.IsNotNull(outString);
 
@@ -41,7 +42,7 @@ namespace X3Platform.TestSuite.Ajax
 
             list.Add(new AccountInfo("30", "ff3", "127.0.0.1"));
 
-            outString = AjaxStorageConvertor.Parse(list);
+            outString = AjaxUtil.Parse(list);
 
             Assert.IsNotNull(outString);
         }
@@ -59,7 +60,7 @@ namespace X3Platform.TestSuite.Ajax
                     + "<createDate><![CDATA[2008-01-01]]></createDate>"
                     + "</ajaxStorage>";
 
-            targetObject = (AccountInfo)AjaxStorageConvertor.Deserialize(targetObject, xml);
+            targetObject = (AccountInfo)AjaxUtil.Deserialize(targetObject, xml);
 
             Assert.AreEqual(targetObject.Id, "10");
             Assert.AreEqual(targetObject.Name, "Max");
@@ -84,15 +85,15 @@ namespace X3Platform.TestSuite.Ajax
 
             doc.LoadXml(xml);
 
-            result = AjaxStorageConvertor.Fetch("name", xml);
+            result = XmlHelper.Fetch("name", xml);
 
             Assert.AreEqual(result,"Max");
 
-            result = AjaxStorageConvertor.Fetch("ajaxStorage", "name", xml);
+            result = XmlHelper.Fetch("ajaxStorage", "name", xml);
 
             Assert.AreEqual(result, "Max");
 
-            result = AjaxStorageConvertor.Fetch("ajaxStorage", "updateDate", doc);
+            result = XmlHelper.Fetch("ajaxStorage", "updateDate", doc);
 
             Assert.IsNull(result);
         }

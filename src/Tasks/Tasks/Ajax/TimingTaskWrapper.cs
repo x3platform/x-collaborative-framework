@@ -31,7 +31,7 @@ namespace X3Platform.Tasks.Ajax
         {
             TimingTaskInfo param = new TimingTaskInfo();
 
-            param = (TimingTaskInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (TimingTaskInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -45,7 +45,7 @@ namespace X3Platform.Tasks.Ajax
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -66,7 +66,7 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -74,7 +74,7 @@ namespace X3Platform.Tasks.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskWaitingItemInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskWaitingItemInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 

@@ -32,7 +32,7 @@ namespace X3Platform.Tasks.Ajax
         {
             TaskInfo param = new TaskInfo();
 
-            param = (TaskInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (TaskInfo)AjaxUtil.Deserialize(param, doc);
 
             XmlNodeList nodes = doc.SelectNodes("/ajaxStorage/receivers/receiver");
 
@@ -135,11 +135,11 @@ namespace X3Platform.Tasks.Ajax
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string taskCode = AjaxStorageConvertor.Fetch("taskCode", doc);
+            string taskCode = XmlHelper.Fetch("taskCode", doc);
 
             if (!string.IsNullOrEmpty(applicationId) && !string.IsNullOrEmpty(taskCode))
             {
@@ -166,7 +166,7 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -214,9 +214,9 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string SetFinished(XmlDocument doc)
         {
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string taskCode = AjaxStorageConvertor.Fetch("taskCode", doc);
+            string taskCode = XmlHelper.Fetch("taskCode", doc);
 
             this.service.SetFinished(applicationId, taskCode);
 
@@ -229,9 +229,9 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string SetUsersFinished(XmlDocument doc)
         {
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
-            string taskCode = AjaxStorageConvertor.Fetch("taskCode", doc);
+            string taskCode = XmlHelper.Fetch("taskCode", doc);
 
             XmlNodeList nodes = doc.SelectNodes("/ajaxStorage/receivers/receiver/loginName");
 
@@ -300,7 +300,7 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string Archive(XmlDocument doc)
         {
-            DateTime archiveDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("archiveDate", doc));
+            DateTime archiveDate = Convert.ToDateTime(XmlHelper.Fetch("archiveDate", doc));
 
             this.service.Archive(archiveDate);
 
@@ -313,7 +313,7 @@ namespace X3Platform.Tasks.Ajax
         /// <param name="doc">Xml 文档对象</param>
         public string RemoveUnfinishedWorkItems(XmlDocument doc)
         {
-            DateTime expireDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("expireDate", doc));
+            DateTime expireDate = Convert.ToDateTime(XmlHelper.Fetch("expireDate", doc));
 
             this.service.RemoveUnfinishedWorkItems(expireDate);
 

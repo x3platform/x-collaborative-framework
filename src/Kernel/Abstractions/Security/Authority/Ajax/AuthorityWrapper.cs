@@ -31,7 +31,7 @@ namespace X3Platform.Security.Authority.Ajax
         {
             AuthorityInfo param = new AuthorityInfo();
 
-            param = AjaxStorageConvertor.Deserialize<AuthorityInfo>(param, doc);
+            param = AjaxUtil.Deserialize<AuthorityInfo>(param, doc);
 
             service.Save(param);
 
@@ -46,7 +46,7 @@ namespace X3Platform.Security.Authority.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             service.Delete(ids);
 
@@ -67,11 +67,11 @@ namespace X3Platform.Security.Authority.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             AuthorityInfo param = service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -88,11 +88,11 @@ namespace X3Platform.Security.Authority.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string name = AjaxStorageConvertor.Fetch("name", doc);
+            string name = XmlHelper.Fetch("name", doc);
 
             AuthorityInfo param = service.FindOneByName(name);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -109,11 +109,11 @@ namespace X3Platform.Security.Authority.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            // string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            // string whereClause = XmlHelper.Fetch("whereClause", doc);
 
             IList<AuthorityInfo> list = service.FindAll(new DataQuery());
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}");
 
@@ -133,7 +133,7 @@ namespace X3Platform.Security.Authority.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -141,7 +141,7 @@ namespace X3Platform.Security.Authority.Ajax
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
@@ -167,7 +167,7 @@ namespace X3Platform.Security.Authority.Ajax
 
             param.CreateDate = param.UpdateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AuthorityInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

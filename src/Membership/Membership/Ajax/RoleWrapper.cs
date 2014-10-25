@@ -48,20 +48,20 @@ namespace X3Platform.Membership.Ajax
         {
             RoleInfo param = new RoleInfo();
 
-            param = AjaxStorageConvertor.Deserialize<RoleInfo>(param, doc);
+            param = AjaxUtil.Deserialize<RoleInfo>(param, doc);
 
-            // param.ExtensionInformation["AuthorityValue"] = AjaxStorageConvertor.Fetch("authorityValue", doc);
+            // param.ExtensionInformation["AuthorityValue"] = XmlHelper.Fetch("authorityValue", doc);
 
-            param.ExtensionInformation["AccountValue"] = AjaxStorageConvertor.Fetch("accountValue", doc);
-            param.ExtensionInformation["OrganizationValue"] = AjaxStorageConvertor.Fetch("organizationValue", doc);
+            param.ExtensionInformation["AccountValue"] = XmlHelper.Fetch("accountValue", doc);
+            param.ExtensionInformation["OrganizationValue"] = XmlHelper.Fetch("organizationValue", doc);
 
-            string originalName = AjaxStorageConvertor.Fetch("originalName", doc);
+            string originalName = XmlHelper.Fetch("originalName", doc);
 
-            string originalGlobalName = AjaxStorageConvertor.Fetch("originalGlobalName", doc);
+            string originalGlobalName = XmlHelper.Fetch("originalGlobalName", doc);
 
-            // string authorityText = AjaxStorageConvertor.Fetch("authorityText", doc);
+            // string authorityText = XmlHelper.Fetch("authorityText", doc);
 
-            string memberText = AjaxStorageConvertor.Fetch("memberText", doc);
+            string memberText = XmlHelper.Fetch("memberText", doc);
 
             if (string.IsNullOrEmpty(param.Name))
             {
@@ -108,7 +108,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Delete(id);
 
@@ -129,11 +129,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IRoleInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IRoleInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -149,11 +149,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string accountId = AjaxStorageConvertor.Fetch("accountId", doc);
+            string accountId = XmlHelper.Fetch("accountId", doc);
 
             IList<IRoleInfo> list = this.service.FindAllByAccountId(accountId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IRoleInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -170,11 +170,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string projectId = AjaxStorageConvertor.Fetch("projectId", doc);
+            string projectId = XmlHelper.Fetch("projectId", doc);
 
             IList<IRoleInfo> list = this.service.FindAllByProjectId(projectId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IRoleInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -191,13 +191,13 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-            bool includeAllRole = Convert.ToBoolean(AjaxStorageConvertor.Fetch("includeAllRole", doc));
+            bool includeAllRole = Convert.ToBoolean(XmlHelper.Fetch("includeAllRole", doc));
 
             IList<IRoleInfo> list = this.service.FindAllWithoutMember(length, includeAllRole);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IRoleInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -218,7 +218,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -226,7 +226,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IRoleInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -245,7 +245,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            string organizationId = XmlHelper.Fetch("organizationId", doc);
 
             RoleInfo param = new RoleInfo();
 
@@ -257,7 +257,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IRoleInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IRoleInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -275,11 +275,11 @@ namespace X3Platform.Membership.Ajax
             StringBuilder outString = new StringBuilder();
 
             // 组织标识
-            string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            string organizationId = XmlHelper.Fetch("organizationId", doc);
             // 标准角色类型
-            string standardRoleType = AjaxStorageConvertor.Fetch("standardRoleType", doc);
+            string standardRoleType = XmlHelper.Fetch("standardRoleType", doc);
             // 标准角色标识
-            string standardRoleIds = AjaxStorageConvertor.Fetch("standardRoleIds", doc);
+            string standardRoleIds = XmlHelper.Fetch("standardRoleIds", doc);
 
             DataTable table = MembershipManagement.Instance.RoleService.GenerateStandardRoleMappingReport(organizationId, standardRoleType, standardRoleIds);
 
@@ -313,13 +313,13 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("quickCreateRole")]
         public string QuickCreateRole(XmlDocument doc)
         {
-            string standardRoleType = AjaxStorageConvertor.Fetch("standardRoleType", doc);
+            string standardRoleType = XmlHelper.Fetch("standardRoleType", doc);
 
-            string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            string organizationId = XmlHelper.Fetch("organizationId", doc);
 
-            string standardRoleId = AjaxStorageConvertor.Fetch("standardRoleId", doc);
+            string standardRoleId = XmlHelper.Fetch("standardRoleId", doc);
 
-            string roleName = AjaxStorageConvertor.Fetch("roleName", doc);
+            string roleName = XmlHelper.Fetch("roleName", doc);
 
             int resultCode = MembershipManagement.Instance.RoleService.QuickCreateRole(standardRoleType, organizationId, standardRoleId, roleName);
 
@@ -345,9 +345,9 @@ namespace X3Platform.Membership.Ajax
             StringBuilder outString = new StringBuilder();
 
             // 来源项目标识
-            string fromProjectId = AjaxStorageConvertor.Fetch("fromProjectId", doc);
+            string fromProjectId = XmlHelper.Fetch("fromProjectId", doc);
             // 目标项目标识
-            string toProjectId = AjaxStorageConvertor.Fetch("toProjectId", doc);
+            string toProjectId = XmlHelper.Fetch("toProjectId", doc);
 
             DataTable table = MembershipManagement.Instance.RoleService.SetProjectRoleMapping(fromProjectId, toProjectId);
 
@@ -385,9 +385,9 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("rename")]
         public string Rename(XmlDocument doc)
         {
-            string roleId = AjaxStorageConvertor.Fetch("roleId", doc);
+            string roleId = XmlHelper.Fetch("roleId", doc);
 
-            string roleName = AjaxStorageConvertor.Fetch("roleName", doc);
+            string roleName = XmlHelper.Fetch("roleName", doc);
 
             int resultCode = MembershipManagement.Instance.RoleService.Rename(roleId, roleName);
 
@@ -413,9 +413,9 @@ namespace X3Platform.Membership.Ajax
             StringBuilder outString = new StringBuilder();
 
             // 帐号标识
-            string accountIds = AjaxStorageConvertor.Fetch("accountIds", doc);
+            string accountIds = XmlHelper.Fetch("accountIds", doc);
             // 角色标识
-            string roleId = AjaxStorageConvertor.Fetch("roleId", doc);
+            string roleId = XmlHelper.Fetch("roleId", doc);
 
             // 清理角色相关的帐号
             MembershipManagement.Instance.RoleService.ClearupRelation(roleId);
@@ -438,7 +438,7 @@ namespace X3Platform.Membership.Ajax
 
             StringBuilder report = new StringBuilder();
 
-            string corporationId = AjaxStorageConvertor.Fetch("corporationId", doc);
+            string corporationId = XmlHelper.Fetch("corporationId", doc);
 
             IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(corporationId);
 
@@ -469,9 +469,9 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string corporationLeaderId = AjaxStorageConvertor.Fetch("corporationLeaderId", doc);
+            string corporationLeaderId = XmlHelper.Fetch("corporationLeaderId", doc);
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -487,7 +487,7 @@ namespace X3Platform.Membership.Ajax
             {
                 index = outString.Length;
 
-                outString.Append(AjaxStorageConvertor.Parse<IRoleInfo>(item));
+                outString.Append(AjaxUtil.Parse<IRoleInfo>(item));
                 outString.Append(",");
             }
 

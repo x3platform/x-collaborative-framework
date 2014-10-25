@@ -46,15 +46,15 @@
 
             StringBuilder outString = new StringBuilder();
 
-            string clientId = AjaxStorageConvertor.Fetch("clientId", doc);
-            string redirectUri = AjaxStorageConvertor.Fetch("redirectUri", doc);
-            string responseType = AjaxStorageConvertor.Fetch("responseType", doc);
-            string scope = AjaxStorageConvertor.Fetch("scope", doc);
+            string clientId = XmlHelper.Fetch("clientId", doc);
+            string redirectUri = XmlHelper.Fetch("redirectUri", doc);
+            string responseType = XmlHelper.Fetch("responseType", doc);
+            string scope = XmlHelper.Fetch("scope", doc);
 
-            string style = AjaxStorageConvertor.Fetch("style", doc);
+            string style = XmlHelper.Fetch("style", doc);
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
             if (string.IsNullOrEmpty(loginName) || string.IsNullOrEmpty(password))
             {
@@ -167,7 +167,7 @@
         {
             // http://local.passport.x3platform.com/api/connect.auth.token.aspx?code=28f35bf4743030ae
 
-            string code = AjaxStorageConvertor.Fetch("code", doc);
+            string code = XmlHelper.Fetch("code", doc);
 
             ConnectAuthorizationCodeInfo authorizationCodeInfo = ConnectContext.Instance.ConnectAuthorizationCodeService[code];
 
@@ -201,7 +201,7 @@
         /// <returns>返回操作结果</returns>
         public string Me(XmlDocument doc)
         {
-            string accessToken = AjaxStorageConvertor.Fetch("accessToken", doc);
+            string accessToken = XmlHelper.Fetch("accessToken", doc);
 
             StringBuilder outString = new StringBuilder();
 
@@ -226,11 +226,11 @@
         {
             // http://x10.x3platform.com/api/connect.oauth.people.aspx?id=${guid}
 
-            string accessToken = AjaxStorageConvertor.Fetch("accessToken", doc);
+            string accessToken = XmlHelper.Fetch("accessToken", doc);
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
 
             IMemberInfo member = MembershipManagement.Instance.MemberService[id];
 
@@ -282,7 +282,7 @@
 
             AjaxRequestData requestData = new AjaxRequestData();
 
-            string authType = AjaxStorageConvertor.Fetch("authType", doc);
+            string authType = XmlHelper.Fetch("authType", doc);
 
             switch (authType)
             {
@@ -592,16 +592,16 @@
         {
             // https://x10.x3platform.com/api/connect.auth.callback.aspx?clientId=a70633f6-b37a-4e91-97a0-597d708fdcef&code=75266c29f9e3497480e5ddc6cfa38b8c;
 
-            string clientId = AjaxStorageConvertor.Fetch("client_id", doc);
+            string clientId = XmlHelper.Fetch("client_id", doc);
 
-            string authType = AjaxStorageConvertor.Fetch("authType", doc);
+            string authType = XmlHelper.Fetch("authType", doc);
 
             authType = string.IsNullOrEmpty(authType) ? "classic" : authType;
 
-            string code = AjaxStorageConvertor.Fetch("code", doc);
-            string grantType = AjaxStorageConvertor.Fetch("grant_type", doc);
+            string code = XmlHelper.Fetch("code", doc);
+            string grantType = XmlHelper.Fetch("grant_type", doc);
 
-            string token = AjaxStorageConvertor.Fetch("token", doc);
+            string token = XmlHelper.Fetch("token", doc);
 
             ConnectInfo connect = ConnectContext.Instance.ConnectService.FindOneByAppKey(clientId);
 

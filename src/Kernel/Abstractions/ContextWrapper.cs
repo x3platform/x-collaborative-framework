@@ -53,11 +53,11 @@ namespace X3Platform
 
                     doc.LoadXml(xml);
 
-                    string action = AjaxStorageConvertor.Fetch("action", doc);
+                    string action = XmlHelper.Fetch("action", doc);
 
-                    string clientTargetObject = AjaxStorageConvertor.Fetch("clientTargetObject", doc);
+                    string clientTargetObject = XmlHelper.Fetch("clientTargetObject", doc);
 
-                    string xslt = AjaxStorageConvertor.Fetch("xslt", doc);
+                    string xslt = XmlHelper.Fetch("xslt", doc);
 
                     args.Add("action", action);
                     args.Add("xslt", xslt);

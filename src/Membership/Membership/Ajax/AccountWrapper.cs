@@ -52,17 +52,17 @@ namespace X3Platform.Membership.Ajax
         {
             AccountInfo param = new AccountInfo();
 
-            param = (AccountInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (AccountInfo)AjaxUtil.Deserialize(param, doc);
 
-            string originalName = AjaxStorageConvertor.Fetch("originalName", doc);
+            string originalName = XmlHelper.Fetch("originalName", doc);
 
-            string originalGlobalName = AjaxStorageConvertor.Fetch("originalGlobalName", doc);
+            string originalGlobalName = XmlHelper.Fetch("originalGlobalName", doc);
 
-            string organizationText = AjaxStorageConvertor.Fetch("organizationText", doc);
+            string organizationText = XmlHelper.Fetch("organizationText", doc);
 
-            string roleText = AjaxStorageConvertor.Fetch("roleText", doc);
+            string roleText = XmlHelper.Fetch("roleText", doc);
 
-            string groupText = AjaxStorageConvertor.Fetch("groupText", doc);
+            string groupText = XmlHelper.Fetch("groupText", doc);
 
             if (string.IsNullOrEmpty(param.LoginName))
             {
@@ -151,7 +151,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             // 读取原始对象信息
             IAccountInfo originalObject = this.service.FindOne(id);
@@ -183,11 +183,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IAccountInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -202,11 +202,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
 
             IAccountInfo param = this.service.FindOneByLoginName(loginName);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -222,11 +222,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
             IList<IAccountInfo> list = this.service.FindAll(whereClause);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -242,11 +242,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IAccountInfo> list = this.service.FindAllWithoutMemberInfo(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -267,7 +267,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -275,7 +275,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -294,7 +294,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            // string organizationId = AjaxStorageConvertor.Fetch("organizationId", doc);
+            // string organizationId = XmlHelper.Fetch("organizationId", doc);
 
             IAccountInfo param = new AccountInfo();
 
@@ -304,7 +304,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -320,7 +320,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
 
             int result = MembershipManagement.Instance.AccountService.GetPasswordStrength(loginName);
 
@@ -374,7 +374,7 @@ namespace X3Platform.Membership.Ajax
         {
             AccountInfo param = new AccountInfo();
 
-            param = (AccountInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (AccountInfo)AjaxUtil.Deserialize(param, doc);
 
             // 检测帐号
 
@@ -399,13 +399,13 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("changePassword")]
         public string ChangePassword(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
 
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
-            string originalPassword = AjaxStorageConvertor.Fetch("originalPassword", doc);
+            string originalPassword = XmlHelper.Fetch("originalPassword", doc);
 
             IAccountInfo account = MembershipManagement.Instance.AccountService.FindOneByLoginName(loginName);
 
@@ -453,9 +453,9 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("setGlobalName")]
         public string SetGlobalName(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            string globalName = AjaxStorageConvertor.Fetch("globalName", doc);
+            string globalName = XmlHelper.Fetch("globalName", doc);
 
             IAccountInfo account = MembershipManagement.Instance.AccountService.FindOne(id);
 
@@ -479,9 +479,9 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("setPassword")]
         public string SetPassword(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
             IAccountInfo account = MembershipManagement.Instance.AccountService.FindOne(id);
 
@@ -506,9 +506,9 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("setLoginName")]
         public string SetLoginName(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            string loginName = AjaxStorageConvertor.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("loginName", doc);
 
             IAccountInfo account = MembershipManagement.Instance.AccountService.FindOne(id);
 
@@ -546,9 +546,9 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("setStatus")]
         public string SetStatus(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            int status = Convert.ToInt32(AjaxStorageConvertor.Fetch("status", doc));
+            int status = Convert.ToInt32(XmlHelper.Fetch("status", doc));
 
             IAccountInfo account = MembershipManagement.Instance.AccountService.FindOne(id);
 
@@ -576,7 +576,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 

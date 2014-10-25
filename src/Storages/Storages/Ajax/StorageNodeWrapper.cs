@@ -33,7 +33,7 @@
         {
             StorageNodeInfo param = new StorageNodeInfo();
 
-            param = (StorageNodeInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (StorageNodeInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -47,7 +47,7 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -67,11 +67,11 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IStorageNode param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStorageNode>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -90,17 +90,17 @@
             DataQuery query = new DataQuery();
 
             // 设置请求的来源
-            query.Variables.Add("origin", AjaxStorageConvertor.Fetch("origin", doc));
+            query.Variables.Add("origin", XmlHelper.Fetch("origin", doc));
 
-            // string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            // string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            query.Where.Add("name", AjaxStorageConvertor.Fetch("name", doc));
+            query.Where.Add("name", XmlHelper.Fetch("name", doc));
 
-            query.Length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            query.Length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<IStorageNode> list = this.service.FindAll(query);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStorageNode>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -120,7 +120,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -128,7 +128,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStorageNode>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
@@ -144,7 +144,7 @@
         /// <returns>返回操作结果</returns>
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -168,7 +168,7 @@
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IStorageNode>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
 

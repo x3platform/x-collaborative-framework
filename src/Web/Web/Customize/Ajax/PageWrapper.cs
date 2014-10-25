@@ -46,7 +46,7 @@ namespace X3Platform.Web.Customize.Ajax
         {
             PageInfo param = new PageInfo();
 
-            param = (PageInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (PageInfo)AjaxUtil.Deserialize(param, doc);
 
             service.Save(param);
 
@@ -61,7 +61,7 @@ namespace X3Platform.Web.Customize.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             service.Delete(ids);
 
@@ -82,11 +82,11 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             PageInfo param = service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<PageInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<PageInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -107,7 +107,7 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -115,7 +115,7 @@ namespace X3Platform.Web.Customize.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<PageInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<PageInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 

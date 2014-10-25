@@ -86,11 +86,8 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Ajax\AjaxMethodAttribute.cs" />
-    <Compile Include="Ajax\AjaxSqlExpression.cs" />
-    <Compile Include="Ajax\AjaxSqlExpressionParser.cs" />
-    <Compile Include="Ajax\AjaxSqlParameter.cs" />
-    <Compile Include="Ajax\AjaxStorageConvertor.cs" />
     <Compile Include="Ajax\AjaxMethodParser.cs" />
+    <Compile Include="Ajax\AjaxUtil.cs" />
     <Compile Include="Ajax\Configuration\AjaxConfiguration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -193,6 +190,9 @@
     <Compile Include="Configuration\XmlConfiguratonView.cs" />
     <Compile Include="Configuration\XmlConfiguratonOperator.cs" />
     <Compile Include="Configuration\YamlConfiguratonOperator.cs" />
+    <Compile Include="Data\DataQueryExpression.cs" />
+    <Compile Include="Data\DataQueryExpressionParser.cs" />
+    <Compile Include="Data\DataQueryParameter.cs" />
     <Compile Include="Data\DataResult.cs" />
     <Compile Include="Data\DataResultMapper.cs" />
     <Compile Include="Data\GenericSqlCommand.cs" />

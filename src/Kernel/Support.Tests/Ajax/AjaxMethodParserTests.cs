@@ -1,19 +1,18 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Reflection;
-using X3Platform.Ajax;
-using System.Xml;
-
-namespace X3Platform.Tests.Ajax
+﻿namespace X3Platform.Tests.Ajax
 {
-    /// <summary>
-    /// UnitTest1 的摘要说明
-    /// </summary>
+    using System;
+    using System.Text;
+    using System.Collections.Generic;
+    using System.Xml;
+    using System.Reflection;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using X3Platform.Ajax;
+
+    /// <summary>Ajax方法解析</summary>
     [TestClass]
-    public class AjaxMethodParserTestSuite
+    public class AjaxMethodParserTests
     {
         #region 属性:TestContext
         private TestContext testContextInstance;

@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxMethodAttribute.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Ajax
+﻿namespace X3Platform.Ajax
 {
     using System;
 

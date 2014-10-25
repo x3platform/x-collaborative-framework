@@ -26,7 +26,7 @@ namespace X3Platform.Membership.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             this.service.Delete(id);
         
@@ -47,11 +47,11 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             AccountLogInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AccountLogInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AccountLogInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -68,13 +68,13 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<AccountLogInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AccountLogInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AccountLogInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -95,7 +95,7 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -103,7 +103,7 @@ namespace X3Platform.Membership.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<AccountLogInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AccountLogInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
