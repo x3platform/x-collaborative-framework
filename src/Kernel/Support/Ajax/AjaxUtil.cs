@@ -7,10 +7,11 @@ namespace X3Platform.Ajax
     using System.Xml;
 
     using X3Platform.Util;
+
     using X3Platform.Ajax.Configuration;
 
     /// <summary></summary>
-    public class AjaxStorageConvertor
+    public class AjaxUtil
     {
         //-------------------------------------------------------
         // C# 对象 => JOSN 对象
@@ -67,8 +68,7 @@ namespace X3Platform.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            if (targetObject == null)
-                return "{\"id\":\"0\", \"value\":\"the object is null.\"}";
+            if (targetObject == null) return "{}";
 
             // string propertyName = string.Empty;
 
