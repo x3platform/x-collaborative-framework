@@ -1,7 +1,7 @@
 ---
 keys: 
   # 对象名称首字母小写
-  CamelStyle: true
+  CamelStyle: On
 
 specialWords: 
   IP: ip, 

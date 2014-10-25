@@ -186,10 +186,10 @@ namespace X3Platform.Messages
         /// <param name="element">Xml 元素</param>
         public void Deserialize(XmlElement element)
         {
-            this.Value = AjaxStorageConvertor.Fetch("value", element);
-            this.ReturnCode = AjaxStorageConvertor.Fetch("returnCode", element);
-            this.Description = AjaxStorageConvertor.Fetch("description", element);
-            this.Url = AjaxStorageConvertor.Fetch("url", element);
+            this.Value = XmlHelper.Fetch("value", element);
+            this.ReturnCode = XmlHelper.Fetch("returnCode", element);
+            this.Description = XmlHelper.Fetch("description", element);
+            this.Url = XmlHelper.Fetch("url", element);
         }
         #endregion
 

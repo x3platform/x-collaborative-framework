@@ -47,7 +47,7 @@ namespace X3Platform.Web.Customize.Ajax
         {
             WidgetInstanceInfo param = new WidgetInstanceInfo();
 
-            param = (WidgetInstanceInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (WidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
 
             service.Save(param);
 
@@ -62,7 +62,7 @@ namespace X3Platform.Web.Customize.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             service.Delete(ids);
 
@@ -83,11 +83,11 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             WidgetInstanceInfo param = service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<WidgetInstanceInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<WidgetInstanceInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -108,7 +108,7 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -116,7 +116,7 @@ namespace X3Platform.Web.Customize.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<WidgetInstanceInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<WidgetInstanceInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -135,15 +135,15 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            string authorizationObjectType = AjaxStorageConvertor.Fetch("authorizationObjectType", doc);
+            string authorizationObjectType = XmlHelper.Fetch("authorizationObjectType", doc);
 
-            string authorizationObjectId = AjaxStorageConvertor.Fetch("authorizationObjectId", doc);
+            string authorizationObjectId = XmlHelper.Fetch("authorizationObjectId", doc);
 
-            string pageName = AjaxStorageConvertor.Fetch("pageName", doc);
+            string pageName = XmlHelper.Fetch("pageName", doc);
 
-            string widgetName = AjaxStorageConvertor.Fetch("widgetName", doc);
+            string widgetName = XmlHelper.Fetch("widgetName", doc);
 
             WidgetInstanceInfo param = service.FindOne(id);
 
@@ -151,7 +151,7 @@ namespace X3Platform.Web.Customize.Ajax
             {
                 param = new WidgetInstanceInfo();
 
-                param = (WidgetInstanceInfo)AjaxStorageConvertor.Deserialize(param, doc);
+                param = (WidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
 
                 this.service.SetPageAndWidget(param, authorizationObjectType, authorizationObjectId, pageName, widgetName);
 
@@ -165,7 +165,7 @@ namespace X3Platform.Web.Customize.Ajax
                 this.service.Save(param);
             }
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<WidgetInstanceInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<WidgetInstanceInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}");
 
@@ -182,9 +182,9 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string options = AjaxStorageConvertor.Fetch("options", doc);
+            string options = XmlHelper.Fetch("options", doc);
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             WidgetInstanceInfo param = this.service.FindOne(id);
 
@@ -210,7 +210,7 @@ namespace X3Platform.Web.Customize.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             WidgetInstanceInfo param = this.service.FindOne(id);
 

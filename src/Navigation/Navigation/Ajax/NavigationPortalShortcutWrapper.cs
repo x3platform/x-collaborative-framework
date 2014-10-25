@@ -49,7 +49,7 @@ namespace X3Platform.Navigation.Ajax
         {
             NavigationPortalShortcutInfo param = new NavigationPortalShortcutInfo();
 
-            param = (NavigationPortalShortcutInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (NavigationPortalShortcutInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -64,7 +64,7 @@ namespace X3Platform.Navigation.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -85,11 +85,11 @@ namespace X3Platform.Navigation.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             NavigationPortalShortcutInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<NavigationPortalShortcutInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<NavigationPortalShortcutInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -106,13 +106,13 @@ namespace X3Platform.Navigation.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<NavigationPortalShortcutInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<NavigationPortalShortcutInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<NavigationPortalShortcutInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -133,7 +133,7 @@ namespace X3Platform.Navigation.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -141,7 +141,7 @@ namespace X3Platform.Navigation.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<NavigationPortalShortcutInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<NavigationPortalShortcutInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -158,7 +158,7 @@ namespace X3Platform.Navigation.Ajax
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -183,7 +183,7 @@ namespace X3Platform.Navigation.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<NavigationPortalShortcutInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<NavigationPortalShortcutInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}");
 

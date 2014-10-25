@@ -15,7 +15,7 @@
             <result property="SenderId" column="SenderId" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
-        <resultMap id="proc_Task_FindAll_Result" class="TaskInfo">
+        <resultMap id="proc_Task_FindAll_Result" class="X3Platform.Tasks.Model.TaskWorkItemInfo,X3Platform.Tasks">
             <result property="Id" column="Id" />
             <result property="ApplicationId" column="ApplicationId" />
             <result property="TaskCode" column="TaskCode" />
@@ -24,6 +24,10 @@
             <result property="Content" column="Content" />
             <result property="Tags" column="Tags" />
             <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsRead" column="IsRead" />
+            <result property="FinishTime" column="FinishTime" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
@@ -99,7 +103,7 @@
         </insert>
 
         <update id="proc_Task_Update" parameterClass="TaskInfo">
-            UPDATE tb_Task SET
+            UPDATE tb_Task_WorkItem SET
 
                 ApplicationId = #ApplicationId#,
                 TaskCode = #TaskCode#,
@@ -172,7 +176,32 @@
             SELECT * FROM tb_Task_WorkItem WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
         </select>
 
-        <select id="proc_Task_FindAll" resultMap="proc_Task_FindAll_Result" >
+        <select id="proc_Task_FindAll#MySql" resultMap="proc_Task_FindAll_Result" >
+            SELECT * FROM tb_Task_WorkItem T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="OrderBy" >
+                        $OrderBy$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Task_FindAll#SqlServer" resultMap="proc_Task_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -223,7 +252,7 @@
         </select>
 
         <select id="proc_Task_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_Task_WorkItem T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_Task_WorkItem WHERE $WhereClause$
         </select>
 
         <update id="proc_Task_SetTitle" parameterClass="TaskInfo" >

@@ -21,9 +21,7 @@ namespace X3Platform.Util
 
             PagingHelper paging = new PagingHelper();
 
-            paging = (PagingHelper)AjaxStorageConvertor.Deserialize<PagingHelper>(paging, xml);
-
-            return paging;
+            return AjaxUtil.Deserialize<PagingHelper>(paging, xml);
         }
         #endregion
 

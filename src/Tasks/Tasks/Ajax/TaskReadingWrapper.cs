@@ -11,6 +11,7 @@ namespace X3Platform.Tasks.Ajax
 
     using X3Platform.Tasks.IBLL;
     using X3Platform.Tasks.Model;
+    using X3Platform.Util;
     #endregion
 
     /// <summary></summary>
@@ -66,9 +67,9 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string taskId = AjaxStorageConvertor.Fetch("taskId", doc);
+            string taskId = XmlHelper.Fetch("taskId", doc);
 
-            string receiverId = AjaxStorageConvertor.Fetch("receiverId", doc);
+            string receiverId = XmlHelper.Fetch("receiverId", doc);
 
             TaskWorkItemInfo param = service.FindOne(taskId, receiverId);
 

@@ -31,7 +31,7 @@ namespace X3Platform.Tasks.Ajax
         {
             TaskCategoryInfo param = new TaskCategoryInfo();
 
-            param = (TaskCategoryInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (TaskCategoryInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -46,7 +46,7 @@ namespace X3Platform.Tasks.Ajax
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             if (this.service.CanDelete(id))
             {
@@ -74,11 +74,11 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             TaskCategoryInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskCategoryInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -97,7 +97,7 @@ namespace X3Platform.Tasks.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskCategoryInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -118,7 +118,7 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(AjaxStorageConvertor.Fetch("pages", doc, "xml"));
+            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
 
             int rowCount = -1;
 
@@ -126,7 +126,7 @@ namespace X3Platform.Tasks.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskCategoryInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -143,7 +143,7 @@ namespace X3Platform.Tasks.Ajax
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             bool result = this.service.IsExist(id);
 
@@ -168,7 +168,7 @@ namespace X3Platform.Tasks.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<TaskCategoryInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -183,9 +183,9 @@ namespace X3Platform.Tasks.Ajax
         [AjaxMethod("setStatus")]
         public string SetStatus(XmlDocument doc)
         {
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            int status = Convert.ToInt32(AjaxStorageConvertor.Fetch("status", doc));
+            int status = Convert.ToInt32(XmlHelper.Fetch("status", doc));
 
             if (this.service.SetStatus(id, status))
             {

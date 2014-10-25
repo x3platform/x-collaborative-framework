@@ -1,17 +1,12 @@
-using System.Xml;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using X3Platform.Ajax;
-using X3Platform.Util;
-using System.Resources;
-using System.Reflection;
-using Common.Logging;
-using System;
-
 namespace X3Platform.Tests.Logging
 {
-    /// <summary>字符资源加载工具类</summary>
+    using System;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Common.Logging;
+
+    /// <summary>测试日志</summary>
     [TestClass]
     public class LoggingTests
     {
@@ -22,18 +17,17 @@ namespace X3Platform.Tests.Logging
 
             Assert.IsNotNull(logger);
             
-            // 写入信息
+            // 写入跟踪数据
             logger.Trace("INFO:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            
             // 写入信息
             logger.Info("INFO:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            //
+            // 写入警告
             logger.Warn("Warn:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            //
+            // 写入带错误信息的警告
             logger.Warn("Warn:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), new ArgumentNullException("A"));
-            //
+            // 写入错误
             logger.Error("Error:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            //
+            // 写入
             logger.Fatal("Fatal:" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
         }
     }

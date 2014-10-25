@@ -31,9 +31,9 @@
         {
             AttachmentFileInfo param = new AttachmentFileInfo();
 
-            string sendEmail = AjaxStorageConvertor.Fetch("sendEmail", doc);
+            string sendEmail = XmlHelper.Fetch("sendEmail", doc);
 
-            param = (AttachmentFileInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (AttachmentFileInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -48,7 +48,7 @@
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -68,11 +68,11 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             IAttachmentFileInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAttachmentFileInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAttachmentFileInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查找成功。\"}}");
 
@@ -89,11 +89,11 @@
             StringBuilder outString = new StringBuilder();
 
             // SQL过滤条件
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
             // 排序条件
-            string orderBy = AjaxStorageConvertor.Fetch("orderBy", doc);
+            string orderBy = XmlHelper.Fetch("orderBy", doc);
             // 文件列表最大长度
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             if (string.IsNullOrEmpty(whereClause))
             {
@@ -117,7 +117,7 @@
             
             IList<IAttachmentFileInfo> list = this.service.FindAll(query);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAttachmentFileInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -137,7 +137,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -145,7 +145,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<IAttachmentFileInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 

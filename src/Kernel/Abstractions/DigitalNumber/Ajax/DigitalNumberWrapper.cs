@@ -30,9 +30,9 @@
         {
             DigitalNumberInfo param = new DigitalNumberInfo();
 
-            string scopeText = AjaxStorageConvertor.Fetch("scopeText", doc);
+            string scopeText = XmlHelper.Fetch("scopeText", doc);
 
-            param = (DigitalNumberInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (DigitalNumberInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -46,7 +46,7 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -66,11 +66,11 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = AjaxStorageConvertor.Fetch("id", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
             DigitalNumberInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<DigitalNumberInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<DigitalNumberInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -90,7 +90,7 @@
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = 0;
 
@@ -98,7 +98,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<DigitalNumberInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<DigitalNumberInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 

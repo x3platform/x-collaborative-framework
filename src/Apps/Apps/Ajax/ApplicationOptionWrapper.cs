@@ -48,7 +48,7 @@ namespace X3Platform.Apps.Ajax
         {
             ApplicationOptionInfo param = new ApplicationOptionInfo();
 
-            param = (ApplicationOptionInfo)AjaxStorageConvertor.Deserialize(param, doc);
+            param = (ApplicationOptionInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -62,7 +62,7 @@ namespace X3Platform.Apps.Ajax
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = AjaxStorageConvertor.Fetch("ids", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
@@ -82,11 +82,11 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string name = AjaxStorageConvertor.Fetch("name", doc);
+            string name = XmlHelper.Fetch("name", doc);
 
             ApplicationOptionInfo param = this.service.FindOne(name);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationOptionInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -102,13 +102,13 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = AjaxStorageConvertor.Fetch("whereClause", doc);
+            string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            int length = Convert.ToInt32(AjaxStorageConvertor.Fetch("length", doc));
+            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
             IList<ApplicationOptionInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationOptionInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -128,7 +128,7 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(AjaxStorageConvertor.Fetch("paging", doc, "xml"), AjaxStorageConvertor.Fetch("query", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
@@ -136,7 +136,7 @@ namespace X3Platform.Apps.Ajax
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationOptionInfo>(list) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
@@ -154,7 +154,7 @@ namespace X3Platform.Apps.Ajax
         [AjaxMethod("isExistName")]
         public string IsExistName(XmlDocument doc)
         {
-            string name = AjaxStorageConvertor.Fetch("name", doc);
+            string name = XmlHelper.Fetch("name", doc);
 
             bool result = this.service.IsExistName(name);
 
@@ -171,7 +171,7 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string applicationId = AjaxStorageConvertor.Fetch("applicationId", doc);
+            string applicationId = XmlHelper.Fetch("applicationId", doc);
 
             ApplicationOptionInfo param = new ApplicationOptionInfo();
 
@@ -181,7 +181,7 @@ namespace X3Platform.Apps.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxStorageConvertor.Parse<ApplicationOptionInfo>(param) + ",");
+            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

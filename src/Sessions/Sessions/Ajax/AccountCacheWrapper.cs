@@ -61,7 +61,7 @@ namespace X3Platform.Sessions.Interop
         {
             StringBuilder outString = new StringBuilder();
 
-            string accountIdentity = AjaxStorageConvertor.Fetch("accountIdentity", doc);
+            string accountIdentity = XmlHelper.Fetch("accountIdentity", doc);
 
             AccountCacheInfo param = this.service.FindByAccountIdentity(accountIdentity);
 
