@@ -1,69 +1,40 @@
-using System;
-using System.Collections;
-using System.Text;
-using System.Management;
-
 namespace X3Platform.Apps.Security
 {
-    /// <summary>安全标记管理</summary>
+    using System;
+    using System.Collections;
+    using System.Text;
+    using System.Management;
+    using System.Security.Cryptography;
+
+    /// <summary>安全令牌客户端</summary>
     public class SecurityTokenClient
     {
-        /// <summary></summary>
-        /// <param name="applicationId"></param>
-        /// <param name="applicationSecretSignal"></param>
-        /// <returns></returns>
-        public static string CreateSecurityToken(string applicationId, string applicationSecretSignal)
+        /// <summary>创建安全令牌</summary>
+        /// <param name="appKey">应用许可号</param>
+        /// <param name="appSecret">应用密钥</param>
+        /// <param name="timestamp">时间戳</param>
+        /// <param name="nonce">随机数</param>
+        /// <returns>加密签名</returns>
+        public static string CreateSecurityToken(string appSecret, string timestamp, string nonce)
         {
-            // ApplicationInfo param = AppsContext.Instance.ApplicationService.FindOne(applicationId);
+            // 将字符串数组排序后拼接成一个文本信息
+            ArrayList list = new ArrayList() ;
 
-            //return "{\"ajaxStorage\":{\"applicationId\":\"" + param.Id + "\","
-            //    + "\"applicationSecretSignal\":\"" + param.EncryptedApplicationSecretSignal + "\"}}";
+            list.Add(appSecret);
+            list.Add(timestamp);
+            list.Add(nonce);
+            
+            list.Sort();
 
-            return string.Empty;
+            string text = string.Concat(list.ToArray());
+      
+            // SHA1 加密
+            SHA1 sha1 = new SHA1CryptoServiceProvider();
+
+            byte[] result = sha1.ComputeHash(Encoding.Default.GetBytes(text));
+
+            // 输出 Signature
+            return Encoding.Default.GetString(result);
         }
-
-        // 获取本机多个网卡号
-        public static string[] GetMacAddress()
-        {
-            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration ");
-            
-            ManagementObjectCollection moc = mc.GetInstances();
-            
-            //****先得到网卡数目                    
-            
-            int i = 0;
-            
-            foreach (ManagementObject mo in moc)
-            {
-                if ((bool)mo["IPEnabled "] == true)
-                {
-                    i++;
-                }
-                mo.Dispose();
-            }
-
-            // ***赋值给数组  
-            ManagementClass mc_2 = new ManagementClass("Win32_NetworkAdapterConfiguration ");
-            
-            ManagementObjectCollection moc_2 = mc_2.GetInstances();
-            
-            string[] array = new string[i];
-            
-            int j = 0;
-
-            foreach (ManagementObject mo in moc_2)
-            {
-                if ((bool)mo["IPEnabled "] == true)
-                {
-                    string delcolon = mo["MacAddress "].ToString();
-                    delcolon = delcolon.Replace(": ", " ");
-                    array[j] = delcolon;
-                    j++;
-                }
-                mo.Dispose();
-            }
-
-            return array;
-        }   
     }
 }

@@ -1,34 +1,23 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Apps.BLL
+﻿namespace X3Platform.Apps.BLL
 {
+    #region Using Libraries
     using System;
     using System.Collections;
     using System.Collections.Generic;
 
     using X3Platform.CacheBuffer;
     using X3Platform.Collections;
+    using X3Platform.Data;
+    using X3Platform.Spring;
+
     using X3Platform.Membership;
     using X3Platform.Membership.Scope;
-    using X3Platform.Spring;
 
     using X3Platform.Apps.Configuration;
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.IDAL;
     using X3Platform.Apps.Model;
-    using X3Platform.Data;
+    #endregion
     
     /// <summary>应用配置服务</summary>
     public class ApplicationService : IApplicationService

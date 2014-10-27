@@ -151,7 +151,7 @@ namespace X3Platform.Storages.DAL.MySQL
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Id", StringHelper.ToSafeSQL(id));
+            args.Add("Id", StringHelper.ToSafeSQL(id, true));
 
             return this.ibatisMapper.QueryForObject<StorageSchemaInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", this.tableName)), args);
         }

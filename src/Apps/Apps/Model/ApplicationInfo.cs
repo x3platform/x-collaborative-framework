@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2011 Elane, ruany@chinasic.com
-//
-// FileName     :ApplicationInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.Model
+﻿namespace X3Platform.Apps.Model
 {
     #region Using Libraries
     using System;
@@ -191,7 +175,7 @@ namespace X3Platform.Apps.Model
         #region 属性:ApplicationKey
         private string m_ApplicationKey = string.Empty;
 
-        /// <summary>密钥</summary>
+        /// <summary>应用许可号</summary>
         public string ApplicationKey
         {
             get
@@ -229,7 +213,7 @@ namespace X3Platform.Apps.Model
         #region 属性:ApplicationSecret
         private string m_ApplicationSecret = string.Empty;
 
-        /// <summary>暗号</summary>
+        /// <summary>应用密钥</summary>
         public string ApplicationSecret
         {
             get { return m_ApplicationSecret; }
@@ -240,7 +224,7 @@ namespace X3Platform.Apps.Model
         #region 属性:EncryptedApplicationSecret
         private string m_EncryptedApplicationSecretKey = string.Empty;
 
-        /// <summary>加密后的暗号</summary>
+        /// <summary>加密后的密钥</summary>
         public string EncryptedApplicationSecret
         {
             get
@@ -252,7 +236,7 @@ namespace X3Platform.Apps.Model
                     m_EncryptedApplicationSecretKey = Encrypter.EncryptAES(this.ApplicationSecret, key);
                 }
 
-                return m_EncryptedApplicationSecretKey;
+                return this.m_EncryptedApplicationSecretKey;
             }
         }
         #endregion

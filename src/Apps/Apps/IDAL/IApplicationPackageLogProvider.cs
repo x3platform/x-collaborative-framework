@@ -1,19 +1,6 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IApplicationPackageLogProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Apps.IDAL
+﻿namespace X3Platform.Apps.IDAL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -21,6 +8,7 @@ namespace X3Platform.Apps.IDAL
     using X3Platform.Spring;
 
     using X3Platform.Apps.Model;
+    #endregion
 
     /// <summary></summary>
     [SpringObject("X3Platform.Apps.IDAL.IApplicationPackageLogProvider")]

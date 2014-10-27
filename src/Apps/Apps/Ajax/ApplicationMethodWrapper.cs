@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2011 Elane, ruany@chinasic.com
-//
-// FileName     :ApplicationMethodWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Apps.Ajax
 {
     #region Using Libraries
@@ -34,17 +18,17 @@ namespace X3Platform.Apps.Ajax
     /// <summary></summary>
     public class ApplicationMethodWrapper : ContextWrapper
     {
-        /// <summary>���ݷ���</summary>
+        /// <summary>数据服务</summary>
         private IApplicationMethodService service = AppsContext.Instance.ApplicationMethodService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
@@ -60,7 +44,7 @@ namespace X3Platform.Apps.Ajax
             {
                 if (this.service.IsExistCode(param.Code))
                 {
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"�Ѵ�����ͬ�Ĵ��롣\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"已存在相同的代码。\"}}";
                 }
             }
 
@@ -68,20 +52,20 @@ namespace X3Platform.Apps.Ajax
             {
                 if (this.service.IsExistName(param.Name))
                 {
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"�Ѵ�����ͬ�����ơ�\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"已存在相同的名称。\"}}";
                 }
             }
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
@@ -94,13 +78,13 @@ namespace X3Platform.Apps.Ajax
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -112,16 +96,16 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ȡ�б���Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>获取列表信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
@@ -135,20 +119,20 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
@@ -166,16 +150,16 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:IsExist(XmlDocument doc)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:IsExist(XmlDocument doc)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
@@ -187,10 +171,10 @@ namespace X3Platform.Apps.Ajax
         }
         #endregion
 
-        #region 属性:CreateNewObject(XmlDocument doc)
-        /// <summary>�����µĶ���</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
@@ -214,35 +198,35 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // Ĭ�ϲ��Ժ���
+        // 默认测试函数
         // -------------------------------------------------------
 
-        #region 属性:Hi(XmlDocument doc)
+        #region 函数:Hi(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
         [AjaxMethod("hi")]
         public string Hi(XmlDocument doc)
         {
-            return "{\"message\":{\"returnCode\":0,\"value\":\"��ʱ�� " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "��Hi()�������óɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"【时间 " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】Hi()方法调用成功。\"}}";
         }
         #endregion
 
-        #region 属性:Throw(XmlDocument doc)
+        #region 函数:Throw(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
         [AjaxMethod("throw")]
         public string Throw(XmlDocument doc)
         {
-            throw new Exception("����һ�������׳��쳣�ķ�����");
+            throw new Exception("这是一个测试抛出异常的方法。");
         }
         #endregion
     }
