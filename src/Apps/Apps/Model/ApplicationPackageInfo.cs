@@ -1,22 +1,10 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationPackageInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Apps.Model
+﻿namespace X3Platform.Apps.Model
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Text;
+    #endregion
 
     /// <summary>应用数据包信息</summary>
     public class ApplicationPackageInfo

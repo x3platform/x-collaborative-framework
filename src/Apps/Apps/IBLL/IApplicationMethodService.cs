@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2011 Elane, ruany@chinasic.com
-//
-// FileName     :IApplicationMethodService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.IBLL
+﻿namespace X3Platform.Apps.IBLL
 {
     #region Using Libraries
     using System;

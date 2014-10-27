@@ -1,27 +1,15 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IApplicationPackageProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-using X3Platform.Spring;
-
-using X3Platform.Apps.Model;
-
-namespace X3Platform.Apps.IDAL
+﻿namespace X3Platform.Apps.IDAL
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using X3Platform.Spring;
+
+    using X3Platform.Apps.Model;
+    #endregion
+
     /// <summary></summary>
     [SpringObject("X3Platform.Apps.IDAL.IApplicationPackageProvider")]
     public interface IApplicationPackageProvider

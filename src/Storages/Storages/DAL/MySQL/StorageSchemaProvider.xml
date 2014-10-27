@@ -29,17 +29,17 @@
 	</resultMaps>
 	<statements>
 		<insert id="proc_Storage_Schema_Insert" parameterClass="StorageSchemaInfo">
-			INSERT INTO `tb_Storage_Schema`
+			INSERT INTO tb_Storage_Schema
 			(
-				`Id`,
-				`ApplicationId`,
-				`AdapterClassName`,
-				`StrategyClassName`,
-				`Options`,
-				`OrderId`,
-				`Remark`,
-				`UpdateDate`,
-				`CreateDate`
+				Id,
+				ApplicationId,
+				AdapterClassName,
+				StrategyClassName,
+				Options,
+				OrderId,
+				Remark,
+				UpdateDate,
+				CreateDate
 			)
 			VALUES
 			(
@@ -56,41 +56,41 @@
 		</insert>
 
 		<update id="proc_Storage_Schema_Update" parameterClass="StorageSchemaInfo">
-			UPDATE `tb_Storage_Schema` SET
+			UPDATE tb_Storage_Schema SET
 
-				`ApplicationId` = #ApplicationId#,
-				`AdapterClassName` = #AdapterClassName#,
-				`StrategyClassName` = #StrategyClassName#,
-				`Options` = #Options#,
-				`OrderId` = #OrderId#,
-				`Remark` = #Remark#,
-				`UpdateDate` = CURRENT_TIMESTAMP
+				ApplicationId = #ApplicationId#,
+				AdapterClassName = #AdapterClassName#,
+				StrategyClassName = #StrategyClassName#,
+				Options = #Options#,
+				OrderId = #OrderId#,
+				Remark = #Remark#,
+				UpdateDate = CURRENT_TIMESTAMP
 			
-			WHERE `Id` = #Id#
+			WHERE Id = #Id#
 		</update>
 
 		<update id="proc_Storage_Schema_Delete" >
-			UPDATE `tb_Storage_Schema` SET `Status` = 0 WHERE $WhereClause$
+			UPDATE tb_Storage_Schema SET Status = 0 WHERE $WhereClause$
 		</update>
 
 		<delete id="proc_Storage_Schema_Delete(PhysicallyRemoved)" >
-			DELETE FROM `tb_Storage_Schema` WHERE $WhereClause$
+			DELETE FROM tb_Storage_Schema WHERE $WhereClause$
 		</delete>
 
 		<update id="proc_Storage_Schema_Delete(VirtualRemoved)" >
-			UPDATE `tb_Storage_Schema` SET `Status` = 0 WHERE $WhereClause$
+			UPDATE tb_Storage_Schema SET Status = 0 WHERE $WhereClause$
 		</update>
 
 		<select id="proc_Storage_Schema_FindOne" resultMap="proc_Storage_Schema_FindOne_Result" >
-			SELECT * FROM `tb_Storage_Schema` T WHERE `Id` = #Id#
+			SELECT * FROM tb_Storage_Schema WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Storage_Schema_FindOneByApplicationId" resultMap="proc_Storage_Schema_FindOne_Result" >
-			SELECT * FROM `tb_Storage_Schema` T WHERE `ApplicationId` = #ApplicationId#
+			SELECT * FROM tb_Storage_Schema WHERE ApplicationId = #ApplicationId#
 		</select>
 
 		<select id="proc_Storage_Schema_FindOneByApplicationName" resultMap="proc_Storage_Schema_FindOne_Result" >
-			SELECT * FROM `tb_Storage_Schema` T WHERE `ApplicationId` = #ApplicationName#
+			SELECT * FROM tb_Storage_Schema WHERE ApplicationId = #ApplicationName#
 		</select>
 
 		<select id="proc_Storage_Schema_FindAll" resultMap="proc_Storage_Schema_FindAll_Result" >
@@ -102,7 +102,7 @@
 				</isNotEqual>
 			</dynamic>
 
-			* FROM `tb_Storage_Schema` T
+			* FROM tb_Storage_Schema T
 
 			  <dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -118,7 +118,7 @@
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-				FROM `tb_Storage_Schema` T
+				FROM tb_Storage_Schema T
 
 				<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -135,10 +135,10 @@
 		<select id="proc_Storage_Schema_GetPaging(SQLServer2000)" resultMap="proc_Storage_Schema_FindAll_Result" >
 			SELECT TOP $PageSize$ *
 
-			FROM `tb_Storage_Schema` T
+			FROM tb_Storage_Schema T
 
 			WHERE Id NOT IN (
-				SELECT TOP $StartIndex$ Id FROM `tb_Storage_Schema` T
+				SELECT TOP $StartIndex$ Id FROM tb_Storage_Schema T
 				<dynamic prepend="WHERE">
 					<isParameterPresent>
 						<isNotEmpty prepend="AND" property="WhereClause" >
@@ -163,7 +163,7 @@
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-				FROM `tb_Storage_Schema` T
+				FROM tb_Storage_Schema T
 
 				<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -177,7 +177,7 @@
 		</select>
 
 		<select id="proc_Storage_Schema_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM `tb_Storage_Schema` T
+			SELECT COUNT(0) AS 'RowCount' FROM tb_Storage_Schema T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -189,7 +189,7 @@
 		</select>
 
 		<select id="proc_Storage_Schema_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM `tb_Storage_Schema` T WHERE $WhereClause$
+			SELECT COUNT(0) AS 'Count' FROM tb_Storage_Schema T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

@@ -1,28 +1,14 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IApplicationSettingProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.IDAL
+﻿namespace X3Platform.Apps.IDAL
 {
     #region Using Libraries
     using System.Collections.Generic;
 
     using X3Platform.Apps.Model;
+    
+    using X3Platform.Spring;
+
     using X3Platform.Membership;
     using X3Platform.Membership.Scope;
-    using X3Platform.Spring;
     #endregion
 
     /// <summary></summary>

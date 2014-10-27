@@ -1,28 +1,18 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using X3Platform.Apps.IDAL;
-using X3Platform.Apps.Model;
-using X3Platform.Apps.Configuration;
-using X3Platform.CacheBuffer;
-using X3Platform.Spring;
-using X3Platform.Apps.IBLL;
-
-namespace X3Platform.Apps.BLL
+﻿namespace X3Platform.Apps.BLL
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+
+    using X3Platform.CacheBuffer;
+    using X3Platform.Spring;
+
+    using X3Platform.Apps.Configuration;
+    using X3Platform.Apps.IBLL;
+    using X3Platform.Apps.IDAL;
+    using X3Platform.Apps.Model;
+    #endregion
+
     /// <summary></summary>
     public class ApplicationEventService : IApplicationEventService
     {

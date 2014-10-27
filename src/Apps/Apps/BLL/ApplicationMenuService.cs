@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2011 Elane, ruany@chinasic.com
-//
-// FileName     :ApplicationMenuService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.BLL
+﻿namespace X3Platform.Apps.BLL
 {
     #region Using Libraries
     using System;
@@ -23,12 +7,13 @@ namespace X3Platform.Apps.BLL
 
     using X3Platform.Spring;
 
+    using X3Platform.Membership;
+    using X3Platform.Membership.Scope;
+
     using X3Platform.Apps.Configuration;
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.IDAL;
     using X3Platform.Apps.Model;
-    using X3Platform.Membership;
-    using X3Platform.Membership.Scope;
     #endregion
 
     /// <summary></summary>

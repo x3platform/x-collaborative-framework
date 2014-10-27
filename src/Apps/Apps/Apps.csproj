@@ -201,6 +201,7 @@
     </Content>
     <Content Include="DAL\IBatis\ApplicationPackageProvider.xml">
       <DependentUpon>ApplicationPackageProvider.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="DAL\IBatis\ApplicationFeatureProvider.xml">
       <DependentUpon>ApplicationFeatureProvider.cs</DependentUpon>
@@ -251,8 +252,10 @@
     <Content Include="DAL\MySQL\ApplicationSettingProvider.xml">
       <DependentUpon>ApplicationSettingProvider.cs</DependentUpon>
     </Content>
-    <Content Include="db\应用管理初始化脚本%28MySQL%29.sql" />
-    <Content Include="db\应用管理初始化脚本%28SQLServer%29.sql" />
+    <Content Include="db\Init_Script_MySQL.sql" />
+    <Content Include="db\Init_Script_SQLServer.sql" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -283,16 +286,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.bat" />
+    <None Include="config\IBatis\X3Platform.Apps.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.Apps.Spring.config" />
     <None Include="config\MySQL\X3Platform.Apps.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Apps.Spring.config" />
     <None Include="config\X3Platform.Apps.config" />
-    <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />
-    <None Include="config\X3Platform.Apps.Spring.config" />
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="config\IBatis\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

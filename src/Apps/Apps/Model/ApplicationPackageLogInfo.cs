@@ -1,22 +1,10 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationPackageLogInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Apps.Model
+﻿namespace X3Platform.Apps.Model
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Text;
+    #endregion
 
     /// <summary></summary>
     public class ApplicationPackageLogInfo

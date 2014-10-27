@@ -1,30 +1,21 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using X3Platform.Spring;
-using X3Platform.Apps.Model;
-using X3Platform.Membership;
-using System.Collections;
-using X3Platform.Membership.Scope;
-using X3Platform.IBatis.DataMapper;
-using System.Data;
-using X3Platform.Data;
-
-namespace X3Platform.Apps.IDAL
+﻿namespace X3Platform.Apps.IDAL
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Collections;
+    using System.Data;
+
+    using X3Platform.Data;
+    using X3Platform.IBatis.DataMapper;
+    using X3Platform.Spring;
+    
+    using X3Platform.Membership;
+    using X3Platform.Membership.Scope;
+    
+    using X3Platform.Apps.Model;
+    #endregion
+
     /// <summary></summary>
     [SpringObject("X3Platform.Apps.IDAL.IApplicationProvider")]
     public interface IApplicationProvider

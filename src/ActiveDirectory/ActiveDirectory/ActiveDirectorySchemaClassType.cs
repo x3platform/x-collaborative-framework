@@ -3,13 +3,13 @@ namespace X3Platform.ActiveDirectory
     /// <summary>Active Directory 对象类型</summary>
     public sealed class ActiveDirectorySchemaClassType
     {
-        /// <summary></summary>
+        /// <summary>组织</summary>
         public const string OrganizationalUnit = "organizationalUnit";
                                                   
-        /// <summary></summary>
+        /// <summary>群组</summary>
         public const string Group = "group";
 
-        /// <summary></summary>
+        /// <summary>用户</summary>
         public const string User = "user";
     }
 }
