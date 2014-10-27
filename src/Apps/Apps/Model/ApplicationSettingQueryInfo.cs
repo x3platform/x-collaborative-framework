@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationSettingInfo.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.Model
+﻿namespace X3Platform.Apps.Model
 {
     #region Using Libraries
     using System;
@@ -24,6 +8,7 @@ namespace X3Platform.Apps.Model
 
     using X3Platform.Membership;
     using X3Platform.Membership.Scope;
+
     using X3Platform.Security.Authority;
     #endregion
 

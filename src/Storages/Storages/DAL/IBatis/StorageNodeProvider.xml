@@ -33,19 +33,19 @@
 	</resultMaps>
 	<statements>
 		<insert id="proc_Storage_Node_Insert" parameterClass="StorageNodeInfo">
-			INSERT INTO [tb_Storage_Node]
+			INSERT INTO tb_Storage_Node
 			(
-				[Id],
-				[StorageSchemaId],
-				[Name],
-				[Type],
-				[ConnectionString],
-				[ConnectionState],
-				[OrderId],
-				[Status],
-				[Remark],
-				[UpdateDate],
-				[CreateDate]
+				Id,
+				StorageSchemaId,
+				Name,
+				Type,
+				ConnectionString,
+				ConnectionState,
+				OrderId,
+				Status,
+				Remark,
+				UpdateDate,
+				CreateDate
 			)
 			VALUES
 			(
@@ -64,35 +64,35 @@
 		</insert>
 
 		<update id="proc_Storage_Node_Update" parameterClass="StorageNodeInfo">
-			UPDATE [tb_Storage_Node] SET
+			UPDATE tb_Storage_Node SET
 
-				[StorageSchemaId] = #StorageSchemaId#,
-				[Name] = #Name#,
-				[Type] = #Type#,
-				[ConnectionString] = #ConnectionString#,
-				[ConnectionState] = #ConnectionState#,
-				[OrderId] = #OrderId#,
-				[Status] = #Status#,
-				[Remark] = #Remark#,
-				[UpdateDate] = CURRENT_TIMESTAMP
+				StorageSchemaId = #StorageSchemaId#,
+				Name = #Name#,
+				Type = #Type#,
+				ConnectionString = #ConnectionString#,
+				ConnectionState = #ConnectionState#,
+				OrderId = #OrderId#,
+				Status = #Status#,
+				Remark = #Remark#,
+				UpdateDate = CURRENT_TIMESTAMP
 
-			WHERE [Id] = #Id#
+			WHERE Id = #Id#
 		</update>
 
 		<update id="proc_Storage_Node_Delete" >
-			UPDATE [tb_Storage_Node] SET [Status] = 0 WHERE $WhereClause$
+			UPDATE tb_Storage_Node SET Status = 0 WHERE $WhereClause$
 		</update>
 
 		<delete id="proc_Storage_Node_Delete(PhysicallyRemoved)" >
-			DELETE FROM [tb_Storage_Node] WHERE $WhereClause$
+			DELETE FROM tb_Storage_Node WHERE $WhereClause$
 		</delete>
 
 		<update id="proc_Storage_Node_Delete(VirtualRemoved)" >
-			UPDATE [tb_Storage_Node] SET [Status] = 0 WHERE $WhereClause$
+			UPDATE tb_Storage_Node SET Status = 0 WHERE $WhereClause$
 		</update>
 
 		<select id="proc_Storage_Node_FindOne" resultMap="proc_Storage_Node_FindOne_Result" >
-			SELECT * FROM [tb_Storage_Node] T WHERE [Id] = #Id#
+			SELECT * FROM tb_Storage_Node T WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Storage_Node_FindAll" resultMap="proc_Storage_Node_FindAll_Result" >
@@ -104,7 +104,7 @@
 				</isNotEqual>
 			</dynamic>
 
-			* FROM [tb_Storage_Node] T
+			* FROM tb_Storage_Node T
 
 			  <dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -120,7 +120,7 @@
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-				FROM [tb_Storage_Node] T
+				FROM tb_Storage_Node T
 
 				<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -137,10 +137,10 @@
 		<select id="proc_Storage_Node_GetPaging(SQLServer2000)" resultMap="proc_Storage_Node_FindAll_Result" >
 			SELECT TOP $PageSize$ *
 
-			FROM [tb_Storage_Node] T
+			FROM tb_Storage_Node T
 
 			WHERE Id NOT IN (
-				SELECT TOP $StartIndex$ Id FROM [tb_Storage_Node] T
+				SELECT TOP $StartIndex$ Id FROM tb_Storage_Node T
 				<dynamic prepend="WHERE">
 					<isParameterPresent>
 						<isNotEmpty prepend="AND" property="WhereClause" >
@@ -165,7 +165,7 @@
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-				FROM [tb_Storage_Node] T
+				FROM tb_Storage_Node T
 
 				<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -179,7 +179,7 @@
 		</select>
 
 		<select id="proc_Storage_Node_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM [tb_Storage_Node] T
+			SELECT COUNT(0) AS 'RowCount' FROM tb_Storage_Node T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -191,7 +191,7 @@
 		</select>
 
 		<select id="proc_Storage_Node_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM [tb_Storage_Node] T WHERE $WhereClause$
+			SELECT COUNT(0) AS 'Count' FROM tb_Storage_Node T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

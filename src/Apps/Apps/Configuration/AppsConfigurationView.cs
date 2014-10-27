@@ -1,29 +1,29 @@
-#region Using Libraries
-using System;
-using System.Configuration;
-using System.IO;
-
-using X3Platform.Configuration;
-using X3Platform.Util;
-#endregion
-
 namespace X3Platform.Apps.Configuration
 {
-    /// <summary>Ó¦ÓÃÅäÖÃÊÓÍ¼</summary>
+    #region Using Libraries
+    using System;
+    using System.Configuration;
+    using System.IO;
+
+    using X3Platform.Configuration;
+    using X3Platform.Util;
+    #endregion
+
+    /// <summary>åº”ç”¨é…ç½®è§†å›¾</summary>
     public class AppsConfigurationView : XmlConfigurationView<AppsConfiguration>
     {
-        /// <summary>ÅäÖÃÎÄ¼şµÄÄ¬ÈÏÂ·¾¶</summary>
+        /// <summary>é…ç½®æ–‡ä»¶çš„é»˜è®¤è·¯å¾„</summary>
         private const string configFile = "config\\X3Platform.Apps.config";
 
-        /// <summary>ÅäÖÃĞÅÏ¢µÄÈ«¾ÖÇ°×º</summary>
+        /// <summary>é…ç½®ä¿¡æ¯çš„å…¨å±€å‰ç¼€</summary>
         private const string configGlobalPrefix = "Apps";
 
-        #region ¾²Ì¬ÊôĞÔ:Instance
+        #region é™æ€å±æ€§:Instance
         private static volatile AppsConfigurationView instance = null;
 
         private static object lockObject = new object();
 
-        /// <summary>ÊµÀı</summary>
+        /// <summary>å®ä¾‹</summary>
         public static AppsConfigurationView Instance
         {
             get
@@ -44,45 +44,45 @@ namespace X3Platform.Apps.Configuration
         }
         #endregion
 
-        #region ¹¹Ôìº¯Êı:AppsConfigurationView()
-        /// <summary>¹¹Ôìº¯Êı</summary>
+        #region æ„é€ å‡½æ•°:AppsConfigurationView()
+        /// <summary>æ„é€ å‡½æ•°</summary>
         private AppsConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
-            // ½«ÅäÖÃĞÅÏ¢¼ÓÔØµ½È«¾ÖµÄÅäÖÃÖĞ
+            // å°†é…ç½®ä¿¡æ¯åŠ è½½åˆ°å…¨å±€çš„é…ç½®ä¸­
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
         #endregion
 
-        #region º¯Êı:Reload()
-        /// <summary>ÖØĞÂ¼ÓÔØÅäÖÃĞÅÏ¢</summary>
+        #region å‡½æ•°:Reload()
+        /// <summary>é‡æ–°åŠ è½½é…ç½®ä¿¡æ¯</summary>
         public override void Reload()
         {
             base.Reload();
 
-            // ½«ÅäÖÃĞÅÏ¢¼ÓÔØµ½È«¾ÖµÄÅäÖÃÖĞ
+            // å°†é…ç½®ä¿¡æ¯åŠ è½½åˆ°å…¨å±€çš„é…ç½®ä¸­
             KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ×Ô¶¨ÒåÊôĞÔ
+        // è‡ªå®šä¹‰å±æ€§
         // -------------------------------------------------------
 
-        #region ÊôĞÔ:Administrators
+        #region å±æ€§:Administrators
         private string m_Administrators = string.Empty;
 
-        /// <summary>ÏµÍ³³¬¼¶¹ÜÀíÔ±ĞÅÏ¢</summary>
+        /// <summary>ç³»ç»Ÿè¶…çº§ç®¡ç†å‘˜ä¿¡æ¯</summary>
         public string Administrators
         {
             get
             {
                 if (string.IsNullOrEmpty(this.m_Administrators))
                 {
-                    // ÊôĞÔÃû³Æ
+                    // å±æ€§åç§°
                     string propertyName = "Administrators";
 
-                    // ÊôĞÔÈ«¾ÖÃû³Æ
+                    // å±æ€§å…¨å±€åç§°
                     string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
 
                     if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
@@ -96,7 +96,7 @@ namespace X3Platform.Apps.Configuration
                              this.Configuration.Keys[propertyName].Value);
                     }
 
-                    // Èç¹ûÅäÖÃÎÄ¼şÀïÎ´ÉèÖÃÔòÉèÖÃÒ»¸öÄ¬ÈÏÖµ
+                    // å¦‚æœé…ç½®æ–‡ä»¶é‡Œæœªè®¾ç½®åˆ™è®¾ç½®ä¸€ä¸ªé»˜è®¤å€¼
                     if (string.IsNullOrEmpty(this.m_Administrators))
                     {
                         this.m_Administrators = "#";
@@ -108,23 +108,23 @@ namespace X3Platform.Apps.Configuration
         }
         #endregion
 
-        #region ÊôĞÔ:HiddenStartMenu
+        #region å±æ€§:HiddenStartMenu
         private string m_HiddenStartMenu = string.Empty;
 
-        /// <summary>Òş²Ø¿ªÊ¼²Ëµ¥</summary>
+        /// <summary>éšè—å¼€å§‹èœå•</summary>
         public string HiddenStartMenu
         {
             get
             {
                 if (string.IsNullOrEmpty(this.m_HiddenStartMenu))
                 {
-                    // ¶ÁÈ¡ÅäÖÃĞÅÏ¢
+                    // è¯»å–é…ç½®ä¿¡æ¯
                     this.m_HiddenStartMenu = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
                         "HiddenStartMenu",
                         this.Configuration.Keys);
 
-                    // Èç¹ûÅäÖÃÎÄ¼şÀïÎ´ÉèÖÃÔòÉèÖÃÒ»¸öÄ¬ÈÏÖµ
+                    // å¦‚æœé…ç½®æ–‡ä»¶é‡Œæœªè®¾ç½®åˆ™è®¾ç½®ä¸€ä¸ªé»˜è®¤å€¼
                     this.m_HiddenStartMenu = StringHelper.NullOrEmptyTo(this.m_HiddenStartMenu, "Off");
 
                     this.m_HiddenStartMenu = this.m_HiddenStartMenu.ToUpper();
@@ -135,23 +135,23 @@ namespace X3Platform.Apps.Configuration
         }
         #endregion
 
-        #region ÊôĞÔ:HiddenTopMenu
+        #region å±æ€§:HiddenTopMenu
         private string m_HiddenTopMenu = string.Empty;
 
-        /// <summary>Òş²Ø¶¥²¿²Ëµ¥</summary>
+        /// <summary>éšè—é¡¶éƒ¨èœå•</summary>
         public string HiddenTopMenu
         {
             get
             {
                 if (string.IsNullOrEmpty(this.m_HiddenTopMenu))
                 {
-                    // ¶ÁÈ¡ÅäÖÃĞÅÏ¢
+                    // è¯»å–é…ç½®ä¿¡æ¯
                     this.m_HiddenTopMenu = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
                         "HiddenTopMenu",
                         this.Configuration.Keys);
 
-                    // Èç¹ûÅäÖÃÎÄ¼şÀïÎ´ÉèÖÃÔòÉèÖÃÒ»¸öÄ¬ÈÏÖµ
+                    // å¦‚æœé…ç½®æ–‡ä»¶é‡Œæœªè®¾ç½®åˆ™è®¾ç½®ä¸€ä¸ªé»˜è®¤å€¼
                     this.m_HiddenTopMenu = StringHelper.NullOrEmptyTo(this.m_HiddenTopMenu, "Off");
 
                     this.m_HiddenTopMenu = this.m_HiddenTopMenu.ToUpper();
@@ -162,23 +162,23 @@ namespace X3Platform.Apps.Configuration
         }
         #endregion
 
-        #region ÊôĞÔ:HiddenShortcutMenu
+        #region å±æ€§:HiddenShortcutMenu
         private string m_HiddenShortcutMenu = string.Empty;
 
-        /// <summary>Òş²Ø¿ì½İ·½Ê½²Ëµ¥</summary>
+        /// <summary>éšè—å¿«æ·æ–¹å¼èœå•</summary>
         public string HiddenShortcutMenu
         {
             get
             {
                 if (string.IsNullOrEmpty(this.m_HiddenShortcutMenu))
                 {
-                    // ¶ÁÈ¡ÅäÖÃĞÅÏ¢
+                    // è¯»å–é…ç½®ä¿¡æ¯
                     this.m_HiddenShortcutMenu = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
                         "HiddenShortcutMenu",
                         this.Configuration.Keys);
 
-                    // Èç¹ûÅäÖÃÎÄ¼şÀïÎ´ÉèÖÃÔòÉèÖÃÒ»¸öÄ¬ÈÏÖµ
+                    // å¦‚æœé…ç½®æ–‡ä»¶é‡Œæœªè®¾ç½®åˆ™è®¾ç½®ä¸€ä¸ªé»˜è®¤å€¼
                     this.m_HiddenShortcutMenu = StringHelper.NullOrEmptyTo(this.m_HiddenShortcutMenu, "Off");
 
                     this.m_HiddenShortcutMenu = this.m_HiddenShortcutMenu.ToUpper();

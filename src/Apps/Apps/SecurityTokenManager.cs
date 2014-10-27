@@ -1,14 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using X3Platform.Util;
-using X3Platform.Apps.Model;
-using X3Platform.Security;
-
 namespace X3Platform.Apps
 {
-    /// <summary>安全标记管理</summary>
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Collections;
+
+    using X3Platform.Security;
+    using X3Platform.Util;
+
+    using X3Platform.Apps.Model;
+    #endregion
+    
+    /// <summary>瀹夊叏鏍囪绠＄悊</summary>
     public static class SecurityTokenManager
     {
         /// <summary></summary>
