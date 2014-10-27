@@ -1,37 +1,25 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationPackageService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Xsl;
-using System.Text;
-
-using X3Platform.Spring;
-
-using X3Platform.Apps.Configuration;
-using X3Platform.Apps.IBLL;
-using X3Platform.Apps.IDAL;
-using X3Platform.Apps.Model;
-using X3Platform.DigitalNumber;
-using X3Platform.Util;
-using X3Platform.Configuration;
-using X3Platform.Membership.Configuration;
-
-namespace X3Platform.Apps.BLL
+﻿namespace X3Platform.Apps.BLL
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Xml;
+    using System.Xml.Xsl;
+
+    using X3Platform.Configuration;
+    using X3Platform.DigitalNumber;
+    using X3Platform.Spring;
+    using X3Platform.Util;
+
+    using X3Platform.Membership.Configuration;
+
+    using X3Platform.Apps.Configuration;
+    using X3Platform.Apps.IBLL;
+    using X3Platform.Apps.IDAL;
+    using X3Platform.Apps.Model;
+    #endregion
+
     /// <summary></summary>
     public class ApplicationPackageService : IApplicationPackageService
     {

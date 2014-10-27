@@ -1,30 +1,18 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationPackageLogService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-using X3Platform.Spring;
-
-using X3Platform.Apps.Configuration;
-using X3Platform.Apps.IBLL;
-using X3Platform.Apps.IDAL;
-using X3Platform.Apps.Model;
-
-namespace X3Platform.Apps.BLL
+﻿namespace X3Platform.Apps.BLL
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using X3Platform.Spring;
+
+    using X3Platform.Apps.Configuration;
+    using X3Platform.Apps.IBLL;
+    using X3Platform.Apps.IDAL;
+    using X3Platform.Apps.Model;
+    #endregion
+
     /// <summary></summary>
     public class ApplicationPackageLogService : IApplicationPackageLogService
     {

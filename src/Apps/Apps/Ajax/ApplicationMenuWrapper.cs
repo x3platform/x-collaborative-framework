@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2011 Elane, ruany@chinasic.com
-//
-// FileName     :ApplicationMenuWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Apps.Ajax
 {
     #region Using Libraries
@@ -34,17 +18,17 @@ namespace X3Platform.Apps.Ajax
     /// <summary></summary>
     public class ApplicationMenuWrapper : ContextWrapper
     {
-        /// <summary>���ݷ���</summary>
+        /// <summary>数据服务</summary>
         private IApplicationMenuService service = AppsContext.Instance.ApplicationMenuService;
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(XmlDocument doc)
-        /// <summary>������¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Save(XmlDocument doc)
+        /// <summary>保存记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
@@ -56,16 +40,16 @@ namespace X3Platform.Apps.Ajax
 
             this.service.Save(param);
 
-            this.service.BindAuthorizationScopeObjects(param.Id, "Ӧ��_ͨ��_�鿴Ȩ��", authorizationReadScopeObjectText);
+            this.service.BindAuthorizationScopeObjects(param.Id, "应用_通用_查看权限", authorizationReadScopeObjectText);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"�����ɹ���\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
-        #region 属性:Delete(XmlDocument doc)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:Delete(XmlDocument doc)
+        /// <summary>删除记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
@@ -73,18 +57,18 @@ namespace X3Platform.Apps.Ajax
 
             this.service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"ɾ���ɹ���\"}}";
+            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(XmlDocument doc)
-        /// <summary>��ȡ��ϸ��Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindOne(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
@@ -96,16 +80,16 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMenuInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:FindAll(XmlDocument doc)
-        /// <summary>��ȡ�б���Ϣ</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:FindAll(XmlDocument doc)
+        /// <summary>获取列表信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
@@ -119,20 +103,20 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(XmlDocument doc)
-        /// <summary>��ȡ��ҳ����</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:GetPages(XmlDocument doc)
+        /// <summary>获取分页内容</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
@@ -150,16 +134,16 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
         #endregion
 
-        #region 属性:IsExist(XmlDocument doc)
-        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
-        /// <param name="doc">Xml �ĵ�����</param>
-        /// <returns>���ز�������</returns>
+        #region 函数:IsExist(XmlDocument doc)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
         [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
@@ -171,18 +155,18 @@ namespace X3Platform.Apps.Ajax
         }
         #endregion
 
-        #region 属性:GetDynamicTreeView(XmlDocument doc)
+        #region 函数:GetDynamicTreeView(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
         [AjaxMethod("getDynamicTreeView")]
         public string GetDynamicTreeView(XmlDocument doc)
         {
-            // �����ֶ�
+            // 必填字段
             string tree = XmlHelper.Fetch("tree", doc);
             string parentId = XmlHelper.Fetch("parentId", doc);
 
-            // ��������
+            // 附加属性
             string treeViewId = XmlHelper.Fetch("treeViewId", doc);
             string treeViewName = XmlHelper.Fetch("treeViewName", doc);
             string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
@@ -190,7 +174,7 @@ namespace X3Platform.Apps.Ajax
 
             string url = XmlHelper.Fetch("url", doc);
 
-            // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
+            // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
 
             StringBuilder outString = new StringBuilder();
@@ -200,7 +184,7 @@ namespace X3Platform.Apps.Ajax
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");
 
-            // ��������
+            // 特殊类型
             if (parentId == "menu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000")
             {
                 if (AppsConfigurationView.Instance.HiddenStartMenu == "ON")
@@ -208,8 +192,8 @@ namespace X3Platform.Apps.Ajax
                     outString.Append("{");
                     outString.Append("\"id\":\"startMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000\",");
                     outString.Append("\"parentId\":\"0\",");
-                    outString.Append("\"name\":\"��ʼ�˵�\",");
-                    outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "startMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000").Replace("{treeNodeName}", "��ʼ�˵�")) + "\",");
+                    outString.Append("\"name\":\"开始菜单\",");
+                    outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "startMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000").Replace("{treeNodeName}", "开始菜单")) + "\",");
                     outString.Append("\"target\":\"_self\"");
                     outString.Append("},");
                 }
@@ -219,8 +203,8 @@ namespace X3Platform.Apps.Ajax
                     outString.Append("{");
                     outString.Append("\"id\":\"topMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000\",");
                     outString.Append("\"parentId\":\"0\",");
-                    outString.Append("\"name\":\"�����˵�\",");
-                    outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "topMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000").Replace("{treeNodeName}", "�����˵�")) + "\",");
+                    outString.Append("\"name\":\"顶部菜单\",");
+                    outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "topMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000").Replace("{treeNodeName}", "顶部菜单")) + "\",");
                     outString.Append("\"target\":\"_self\"");
                     outString.Append("},");
                 }
@@ -230,8 +214,8 @@ namespace X3Platform.Apps.Ajax
                     outString.Append("{");
                     outString.Append("\"id\":\"shortcutMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000\",");
                     outString.Append("\"parentId\":\"0\",");
-                    outString.Append("\"name\":\"���ݲ˵�\",");
-                    outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "shortcutMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000").Replace("{treeNodeName}", "���ݲ˵�")) + "\",");
+                    outString.Append("\"name\":\"快捷菜单\",");
+                    outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", "shortcutMenu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000").Replace("{treeNodeName}", "快捷菜单")) + "\",");
                     outString.Append("\"target\":\"_self\"");
                     outString.Append("},");
                 }
@@ -248,7 +232,7 @@ namespace X3Platform.Apps.Ajax
             // 
             if (keys[0] == "ApplicationMenu" && keys[4] == "00000000-0000-0000-0000-000000000000")
             {
-                // Ӧ��ϵͳ
+                // 应用系统
                 whereClause = string.Format(" ParentId = ##{0}## AND Status = 1 ORDER BY OrderId, Code ", keys[2]);
 
                 AppsContext.Instance.ApplicationService.FindAll(whereClause).ToList().ForEach(item =>
@@ -265,7 +249,7 @@ namespace X3Platform.Apps.Ajax
 
             if (parentId != "menu#applicationId#00000000-0000-0000-0000-000000000001#menuId#00000000-0000-0000-0000-000000000000")
             {
-                // �˵���
+                // 菜单项
                 if (keys[4] == "00000000-0000-0000-0000-000000000000")
                 {
                     whereClause = string.Format(" MenuType = ##{0}## AND ApplicationId = ##{1}## AND ParentId = ##{2}## AND Status = 1 ORDER BY OrderId ", keys[0], keys[2], keys[4]);
@@ -279,7 +263,7 @@ namespace X3Platform.Apps.Ajax
                 {
                     if (item.DisplayType == "MenuSplitLine")
                     {
-                        // �ָ��߲���ʾ��
+                        // 分割线不显示。
                     }
                     else
                     {
@@ -297,7 +281,7 @@ namespace X3Platform.Apps.Ajax
             if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
                 outString = outString.Remove(outString.Length - 1, 1);
 
-            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

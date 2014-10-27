@@ -1,19 +1,6 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationFeatureService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Apps.BLL
+﻿namespace X3Platform.Apps.BLL
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -21,14 +8,16 @@ namespace X3Platform.Apps.BLL
     using System.Linq;
     using System.Runtime.Remoting.Messaging;
 
-    using X3Platform.Membership.Scope;
     using X3Platform.Spring;
     using X3Platform.Util;
+
+    using X3Platform.Membership.Scope;
 
     using X3Platform.Apps.Configuration;
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.IDAL;
     using X3Platform.Apps.Model;
+    #endregion
 
     /// <summary></summary>
     public class ApplicationFeatureService : IApplicationFeatureService
