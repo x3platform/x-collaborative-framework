@@ -1,14 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using X3Platform.Web.Customize;
-
-namespace X3Platform.Web.Tests.Customize
+﻿namespace X3Platform.Web.Tests.Customize
 {
+    using System;
+    using System.Text;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using X3Platform.Web.Customize;
+
     /// <summary>测试日志功能</summary>
     [TestClass]
     public class CustomizeContextTestSuite

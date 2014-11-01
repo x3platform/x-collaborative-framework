@@ -104,7 +104,7 @@ namespace X3Platform.IBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 		/// <returns>
 		/// True if the enumerator was successfully advanced to the next element;
 		/// False if the enumerator has passed the end of the collection.
-		///</returns>
+		/// </returns>
 		public bool MoveNext()
 		{
 			_index++;

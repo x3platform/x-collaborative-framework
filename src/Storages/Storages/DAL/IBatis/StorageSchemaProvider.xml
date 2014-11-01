@@ -82,15 +82,15 @@
 		</update>
 
 		<select id="proc_Storage_Schema_FindOne" resultMap="proc_Storage_Schema_FindOne_Result" >
-			SELECT * FROM tb_Storage_Schema T WHERE Id = #Id#
+			SELECT * FROM tb_Storage_Schema WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Storage_Schema_FindOneByApplicationId" resultMap="proc_Storage_Schema_FindOne_Result" >
-			SELECT * FROM tb_Storage_Schema T WHERE ApplicationId = #ApplicationId#
+			SELECT * FROM tb_Storage_Schema WHERE ApplicationId = #ApplicationId#
 		</select>
 
 		<select id="proc_Storage_Schema_FindOneByApplicationName" resultMap="proc_Storage_Schema_FindOne_Result" >
-			SELECT * FROM `tb_Storage_Schema` T WHERE `ApplicationId` IN ( SELECT Id FROM `tb_Application` WHERE `ApplicationName` = #ApplicationName# )
+			SELECT * FROM tb_Storage_Schema WHERE ApplicationId IN ( SELECT Id FROM tb_Application WHERE ApplicationName = #ApplicationName# )
 		</select>
 
 		<select id="proc_Storage_Schema_FindAll" resultMap="proc_Storage_Schema_FindAll_Result" >

@@ -33,18 +33,18 @@
     </resultMaps>
     <statements>
         <insert id="proc_TimingTask_Insert" parameterClass="TimingTaskInfo">
-            INSERT INTO [tb_TimingTask] 
+            INSERT INTO tb_Task_WaitingItem 
             (
-                [Id],
-                [ApplicationId],
-                [TaskCode],
-                [Type],
-                [Title],
-                [Content],
-                [Tags],
-                [SenderId],
-                [TriggerTime],
-                [CreateDate]
+                Id,
+                ApplicationId,
+                TaskCode,
+                Type,
+                Title,
+                Content,
+                Tags,
+                SenderId,
+                TriggerTime,
+                CreateDate
             )
             VALUES
             (
@@ -62,53 +62,53 @@
         </insert>
 
         <update id="proc_TimingTask_Update" parameterClass="TimingTaskInfo">
-            UPDATE [tb_TimingTask] SET
+            UPDATE tb_Task_WaitingItem SET
 
-                [Id] = #Id#,
-                [ApplicationId] = #ApplicationId#,
-                [TaskCode] = #TaskCode#,
-                [Type] = #Type#,
-                [Title] = #Title#,
-                [Content] = #Content#,
-                [Tags] = #Tags#,
-                [SenderId] = #SenderId#,
-                [TriggerTime] = #TriggerTime#,
-                [CreateDate] = #CreateDate#
+                Id = #Id#,
+                ApplicationId = #ApplicationId#,
+                TaskCode = #TaskCode#,
+                Type = #Type#,
+                Title = #Title#,
+                Content = #Content#,
+                Tags = #Tags#,
+                SenderId = #SenderId#,
+                TriggerTime = #TriggerTime#,
+                CreateDate = #CreateDate#
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
         
         <insert id="proc_TimingTask_Save" parameterClass="TimingTaskInfo">
-            IF EXISTS(SELECT 0 FROM [tb_TimingTask] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Task_WaitingItem WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_TimingTask] SET
+            UPDATE tb_Task_WaitingItem SET
 
-            [Id] = #Id#,
-            [ApplicationId] = #ApplicationId#,
-            [TaskCode] = #TaskCode#,
-            [Type] = #Type#,
-            [Title] = #Title#,
-            [Content] = #Content#,
-            [Tags] = #Tags#,
-            [SenderId] = #SenderId#,
-            [TriggerTime] = #TriggerTime#,
-            [CreateDate] = #CreateDate#
+            Id = #Id#,
+            ApplicationId = #ApplicationId#,
+            TaskCode = #TaskCode#,
+            Type = #Type#,
+            Title = #Title#,
+            Content = #Content#,
+            Tags = #Tags#,
+            SenderId = #SenderId#,
+            TriggerTime = #TriggerTime#,
+            CreateDate = #CreateDate#
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_TimingTask](
-            [Id],
-            [ApplicationId],
-            [TaskCode],
-            [Type],
-            [Title],
-            [Content],
-            [Tags],
-            [SenderId],
-            [TriggerTime],
-            [CreateDate]
+            INSERT INTO tb_Task_WaitingItem(
+            Id,
+            ApplicationId,
+            TaskCode,
+            Type,
+            Title,
+            Content,
+            Tags,
+            SenderId,
+            TriggerTime,
+            CreateDate
             )
             VALUES
             (
@@ -127,15 +127,15 @@
         </insert>
         
         <delete id="proc_TimingTask_Delete" parameterClass="TimingTaskInfo">
-            DELETE FROM [tb_TimingTask] WHERE Id IN ($Ids$)
+            DELETE FROM tb_Task_WaitingItem WHERE Id IN ($Ids$)
         </delete>
         
         <select id="proc_TimingTask_FindOne" resultMap="proc_TimingTask_FindOne_Result" >
-            SELECT * FROM [tb_TimingTask] T WHERE [Id] = #Id#
+            SELECT * FROM tb_Task_WaitingItem T WHERE Id = #Id#
         </select>
 
         <select id="proc_TimingTask_FindOneByTaskCode" parameterClass="TimingTaskInfo" resultMap="proc_TimingTask_FindOne_Result" >
-            SELECT * FROM [tb_TimingTask] T WHERE [ApplicationId] = #ApplicationId# AND [TaskCode] = #TaskCode#
+            SELECT * FROM tb_Task_WaitingItem T WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
         </select>
 
         <select id="proc_TimingTask_FindAll" resultMap="proc_TimingTask_FindAll_Result" >
@@ -147,7 +147,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [view_Task_WaitingItem] T
+            * FROM view_Task_WaitingItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -163,7 +163,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [view_Task_WaitingItem] T
+            FROM view_Task_WaitingItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -177,7 +177,7 @@
         </select>
 
         <select id="proc_TimingTask_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [view_Task_WaitingItem] T
+            SELECT COUNT(*) AS 'RowCount' FROM view_Task_WaitingItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -189,7 +189,7 @@
         </select>
 
         <select id="proc_TimingTask_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_TimingTask] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Task_WaitingItem T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

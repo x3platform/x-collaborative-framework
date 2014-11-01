@@ -1,24 +1,14 @@
-using System;
-using System.Reflection;
-
-using X3Platform.Logging;
-using X3Platform.Plugins;
-using X3Platform.Spring;
-
-using X3Platform.Web.Customize;
-using X3Platform.Velocity;
-using X3Platform.Util;
-
 namespace X3Platform.Web.Customize.Widgets
 {
-    /// <summary>Bug管理引擎</summary>
-    public sealed class TodayWidget : IWidget
-    {
-        public void Load(string configuration)
-        {
-        }
+    #region Using Libraries
+    using X3Platform.Velocity;
+    using X3Platform.Util;
+    #endregion
 
-        public string ParseHtml()
+    /// <summary>今日信息窗口部件</summary>
+    public sealed class TodayWidget : AbstractWidget
+    {
+        public override string ParseHtml()
         {
             string widgetRuntimeId = StringHelper.ToGuid();
 

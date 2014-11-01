@@ -1,0 +1,23 @@
+---
+keys: 
+  # MD5 加密方式的默认密文格式
+  MD5CryptoCiphertextFormat: HexStringWhitoutHyphen
+  # SHA1 加密方式的默认密文格式
+  SHA1CryptoCiphertextFormat: HexStringWhitoutHyphen
+  # DES 加密方式的默认密钥 长度为八位内容
+  DESCryptoKey: 12345678
+  # DES 加密方式的默认初始化向量
+  DESCryptoIV: 12345678
+  # DES 加密方式的默认密文格式
+  DESCryptoCiphertextFormat: HexStringWhitoutHyphen
+  # AES 加密方式的默认密钥 长度为 16 24 32 位内容
+  AESCryptoKey: 12345678123456781234567812345678
+  # AES 加密方式的默认初始化向量
+  AESCryptoIV: 12345678
+  # AES 加密方式的默认运算模式
+  AESCryptoMode: CBC
+  # AES 加密方式的默认填充模式
+  AESCryptoPadding: PKCS7
+  # AES 加密方式的默认密文格式
+  AESCryptoCiphertextFormat: Base64String
+...

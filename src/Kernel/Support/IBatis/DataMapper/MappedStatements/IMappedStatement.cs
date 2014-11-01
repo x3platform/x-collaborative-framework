@@ -105,7 +105,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
 		/// <param name="keyProperty">The property of the result object to be used as the key. </param>
 		/// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
 		/// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-		///<exception cref="X3Platform.IBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+		/// <exception cref="X3Platform.IBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
 		IDictionary ExecuteQueryForMap( ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty );
 
 		#endregion
@@ -122,7 +122,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="keyProperty">The property of the result object to be used as the key. </param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="X3Platform.IBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="X3Platform.IBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty);
 
         /// <summary>

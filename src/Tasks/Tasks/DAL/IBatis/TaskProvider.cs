@@ -244,7 +244,7 @@
 
             args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -356,7 +356,7 @@
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.IsNullOrEmpty(key) ? string.Empty : string.Format(" Category LIKE '%{0}%' ", StringHelper.ToSafeSQL(key)));
+            args.Add("WhereClause", string.IsNullOrEmpty(key) ? string.Empty : string.Format(" Tags LIKE '%{0}%' ", StringHelper.ToSafeSQL(key)));
 
             return this.ibatisMapper.QueryForList<string>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetTaskTags", this.tableName)), args);
         }

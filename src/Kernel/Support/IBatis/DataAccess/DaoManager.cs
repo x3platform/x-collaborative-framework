@@ -90,7 +90,7 @@ namespace X3Platform.IBatis.DataAccess
 	///{
 	///	daoManager.RollBackTransaction();
 	///}<pre/>
-	///</example>
+	/// </example>
 	public class DaoManager : IDaoManager
 	{
 		#region Constants
@@ -104,9 +104,9 @@ namespace X3Platform.IBatis.DataAccess
 		/// <summary>
 		/// 
 		/// </summary>
-		///<remarks>
+		/// <remarks>
 		///(contextName, daoManager)
-		///</remarks>
+		/// </remarks>
 		protected static HybridDictionary DaoContextMap = new HybridDictionary();
 
 		private IDataSource _dataSource = null;
@@ -283,7 +283,7 @@ namespace X3Platform.IBatis.DataAccess
 		/// <param name="resource">
 		/// A relative ressource path from your Application root.
 		/// </param>
-		///<param name="configureDelegate">
+		/// <param name="configureDelegate">
 		/// Delegate called when the file has changed, to rebuild the dal.
 		/// </param>
 		[Obsolete("This method will be removed in a future version, use DomDaoManagerBuilder.Configure.", false)]

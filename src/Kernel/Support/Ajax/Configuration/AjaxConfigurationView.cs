@@ -5,6 +5,7 @@ namespace X3Platform.Ajax.Configuration
 
     using X3Platform.Configuration;
     using X3Platform.Yaml.RepresentationModel;
+    using X3Platform.Util;
     #endregion
 
     /// <summary>Ajax 配置视图</summary>
@@ -80,10 +81,7 @@ namespace X3Platform.Ajax.Configuration
                     this.m_CamelStyle = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CamelStyle", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    if (string.IsNullOrEmpty(this.m_CamelStyle))
-                    {
-                        this.m_CamelStyle = "Off";
-                    }
+                    this.m_CamelStyle = StringHelper.NullOrEmptyTo(this.m_CamelStyle, "Off");
 
                     this.m_CamelStyle = this.m_CamelStyle.ToUpper();
                 }

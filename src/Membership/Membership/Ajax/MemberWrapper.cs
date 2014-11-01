@@ -523,9 +523,14 @@ namespace X3Platform.Membership.Ajax
 
                 string accountIdentity = string.Format("{0}-{1}", account.Id, DigitalNumberContext.Generate("Key_Session"));
 
-                SessionContext.Instance.Write(KernelContext.Current.AuthenticationManagement.GetAccountStorageStrategy(), accountIdentity, member.Account);
+                KernelContext.Current.AuthenticationManagement.AddSession(accountIdentity, account);
 
                 HttpAuthenticationCookieSetter.SetUserCookies(accountIdentity);
+
+                // 设置本地登录帐号
+                HttpContext.Current.Response.Cookies.Add(new HttpCookie("session-local-account", "{\"id\":\"" + account.Id + "\",\"name\":\"" + HttpUtility.UrlEncode(account.Name) + "\",\"loginName\":\"" + account.LoginName + "\"}"));
+                // 设置本地服务器状态
+                HttpContext.Current.Response.Cookies.Add(new HttpCookie("session-local-status", "1"));
 
                 MembershipManagement.Instance.AccountLogService.Log(account.Id, "登录", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", ((IAuthorizationObject)member.Account).Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), member.Account.IP));
 

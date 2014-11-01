@@ -24,12 +24,12 @@ namespace X3Platform.Web.Customize
     public interface IWidget
     {
         #region 属性:Load(string configuration)
-        ///<summary>����������Ϣ</summary>
+        /// <summary>����������Ϣ</summary>
         void Load(string configuration);
         #endregion
 
         #region 属性:ParseHtml()
-        ///<summary>����Html����</summary>
+        /// <summary>����Html����</summary>
         string ParseHtml();
         #endregion
 	}

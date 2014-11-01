@@ -56,27 +56,27 @@ namespace X3Platform.Web.Customize.IDAL
         // -------------------------------------------------------
 
         #region 属性:Save(WidgetInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>WidgetInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>WidgetInfo ʵ����ϸ��Ϣ</returns>
         WidgetInfo Save(WidgetInfo param);
         #endregion
 
         #region 属性:Insert(WidgetInfo param)
-        ///<summary>���Ӽ�¼</summary>
-        ///<param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>���Ӽ�¼</summary>
+        /// <param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
         void Insert(WidgetInfo param);
         #endregion
 
         #region 属性:Update(WidgetInfo param)
-        ///<summary>�޸ļ�¼</summary>
-        ///<param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>�޸ļ�¼</summary>
+        /// <param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
         void Update(WidgetInfo param);
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         void Delete(string ids);
         #endregion
 
@@ -85,24 +85,24 @@ namespace X3Platform.Web.Customize.IDAL
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">WidgetInfo Id��</param>
-        ///<returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="id">WidgetInfo Id��</param>
+        /// <returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
         WidgetInfo FindOne(string id);
         #endregion
 
         #region 属性:FindOneByName(string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
         WidgetInfo FindOneByName(string name);
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
         IList<WidgetInfo> FindAll(string whereClause, int length);
         #endregion
 
@@ -122,23 +122,23 @@ namespace X3Platform.Web.Customize.IDAL
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         bool IsExist(string id);
         #endregion
 
         #region 属性:IsExistName(string name)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����ֵ</returns>
         bool IsExistName(string name);
         #endregion
 
         #region 属性:GetOptionHtml(string id)
         /// <summary>��ȡ���Ա༭��Html�ı�</summary>
-        ///<param name="id">��ʶ</param>
-        ///<returns>Html�ı�</returns>
+        /// <param name="id">��ʶ</param>
+        /// <returns>Html�ı�</returns>
         string GetOptionHtml(string id);
         #endregion
     }

@@ -40,9 +40,7 @@ namespace X3Platform.Apps
                 }
                 else
                 {
-                    byte[] key = UTF8Encoding.UTF8.GetBytes(param.ApplicationKey);
-
-                    if (param.ApplicationSecret == Encrypter.DecryptAES(applicationSecretSignal, key))
+                    if (param.ApplicationSecret == Encrypter.DecryptAES(applicationSecretSignal, param.ApplicationKey, param.ApplicationKey))
                     {
                         return applicationId;
                     }
