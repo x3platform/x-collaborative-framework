@@ -115,13 +115,13 @@
         }
         #endregion
 
-        /// <summary></summary>
+        /// <summary>获取存储适配对象</summary>
         public IStorageAdapter GetAdapterClass()
         {
             return (IStorageAdapter)KernelContext.CreateObject(this.AdapterClassName);
         }
 
-        /// <summary></summary>
+        /// <summary>获取存储策略对象</summary>
         public IStorageStrategy GetStrategyClass()
         {
             return (IStorageStrategy)KernelContext.CreateObject(this.StrategyClassName, new object[] { this });

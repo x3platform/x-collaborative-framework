@@ -391,7 +391,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate"></param>
         /// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         public virtual IDictionary ExecuteQueryForMapWithRowDelegate(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate rowDelegate)
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
@@ -938,7 +938,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="keyProperty">The property of the result object to be used as the key. </param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         public virtual IDictionary ExecuteQueryForMap(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty)
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
@@ -961,7 +961,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate">A delegate called once per row in the QueryForMapWithRowDelegate method</param>
         /// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         internal IDictionary RunQueryForMap(RequestScope request,
             ISqlMapSession session,
             object parameterObject,
@@ -1033,7 +1033,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="keyProperty">The property of the result object to be used as the key. </param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="X3Platform.IBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="X3Platform.IBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         public virtual IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty)
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
@@ -1054,7 +1054,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate">A delegate called once per row in the QueryForDictionary method</param>
         /// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         public virtual IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate<K, V> rowDelegate)
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
@@ -1081,7 +1081,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate">A delegate called once per row in the QueryForMapWithRowDelegate method</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         internal IDictionary<K, V> RunQueryForDictionary<K, V>(RequestScope request,
             ISqlMapSession session,
             object parameterObject,

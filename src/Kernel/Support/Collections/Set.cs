@@ -24,8 +24,8 @@ namespace X3Platform.Collections
     /// an element all are done in approximately constant time, regardless of the number of items in the Set.</p>
     /// <p><see cref="OrderedSet&lt;T&gt;"/> is similar, but uses comparison instead of hashing, and does maintains
     /// the items in sorted order.</p>
-    ///</remarks>
-    ///<seealso cref="OrderedSet&lt;T&gt;"/>
+    /// </remarks>
+    /// <seealso cref="OrderedSet&lt;T&gt;"/>
     [Serializable]
     public class Set<T> : CollectionBase<T>, ICollection<T>, ICloneable
     {
@@ -41,9 +41,9 @@ namespace X3Platform.Collections
         /// Creates a new Set. The Equals method and GetHashCode method on T
         /// will be used to compare items for equality.
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// Items that are null are permitted, and will be sorted before all other items.
-        ///</remarks>
+        /// </remarks>
         public Set(): 
             this(EqualityComparer<T>.Default)
         {
@@ -67,9 +67,9 @@ namespace X3Platform.Collections
         /// Creates a new Set. The Equals method and GetHashCode method on T
         /// will be used to compare items for equality.
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// Items that are null are permitted.
-        ///</remarks>
+        /// </remarks>
         /// <param name="collection">A collection with items to be placed into the Set.</param>
         public Set(IEnumerable<T> collection): 
             this(collection, EqualityComparer<T>.Default)

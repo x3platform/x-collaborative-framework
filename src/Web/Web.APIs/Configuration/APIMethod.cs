@@ -1,29 +1,15 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Xml.Serialization;
-
 namespace X3Platform.Web.APIs.Configuration
 {
-    /// <summary>API����</summary>
+    using System;
+    using System.Xml.Serialization;
+
+    /// <summary>API方法</summary>
     public class APIMethod
     {
         #region 属性:Name
         private string m_Name;
 
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         public string Name
         {
             get { return this.m_Name; }
@@ -34,7 +20,7 @@ namespace X3Platform.Web.APIs.Configuration
         #region 属性:Description
         private string m_Description;
 
-        /// <summary>������Ϣ</summary>
+        /// <summary>描述</summary>
         public string Description
         {
             get { return this.m_Description; }
@@ -45,7 +31,7 @@ namespace X3Platform.Web.APIs.Configuration
         #region 属性:ClassName
         private string m_ClassName;
 
-        /// <summary>������</summary>
+        /// <summary>类名称</summary>
         public string ClassName
         {
             get { return this.m_ClassName; }
@@ -56,7 +42,7 @@ namespace X3Platform.Web.APIs.Configuration
         #region 属性:MethodName
         private string m_MethodName;
 
-        /// <summary>��������</summary>
+        /// <summary>方法名称</summary>
         public string MethodName
         {
             get { return this.m_MethodName; }

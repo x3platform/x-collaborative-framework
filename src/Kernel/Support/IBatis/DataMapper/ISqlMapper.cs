@@ -351,7 +351,7 @@ namespace X3Platform.IBatis.DataMapper
         /// <param name="keyProperty">The property of the result object to be used as the key.</param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary (Hashtable) of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary QueryForDictionary(string statementName, object parameterObject, string keyProperty, string valueProperty);
 
         /// <summary>
@@ -423,7 +423,7 @@ namespace X3Platform.IBatis.DataMapper
         /// <param name="keyProperty">The property of the result object to be used as the key.</param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary (Hashtable) of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary QueryForMap(string statementName, object parameterObject, string keyProperty, string valueProperty);
        
         /// <summary>
@@ -439,7 +439,7 @@ namespace X3Platform.IBatis.DataMapper
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate"></param>
         /// <returns>A IDictionary (Hashtable) of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary QueryForMapWithRowDelegate(string statementName, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate rowDelegate);
 
         /// <summary>
@@ -525,7 +525,7 @@ namespace X3Platform.IBatis.DataMapper
         /// <param name="keyProperty">The property of the result object to be used as the key.</param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary<K, V> QueryForDictionary<K, V>(string statementName, object parameterObject, string keyProperty, string valueProperty);
 
         
@@ -552,7 +552,7 @@ namespace X3Platform.IBatis.DataMapper
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate">A delegate called once per row in the QueryForDictionary method></param>
         /// <returns>A IDictionary (Hashtable) of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary<K, V> QueryForDictionary<K, V>(string statementName, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate<K, V> rowDelegate);
                 
         /// <summary>

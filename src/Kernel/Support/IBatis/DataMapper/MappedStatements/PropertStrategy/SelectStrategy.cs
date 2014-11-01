@@ -83,7 +83,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements.PropertyStrategy
 	
 		#region IPropertyStrategy members
 
-		///<summary>
+		/// <summary>
 		/// Sets value of the specified <see cref="ResultProperty"/> on the target object
 		/// when a 'select' attribute exists
 		/// on the <see cref="ResultProperty"/> are empties.

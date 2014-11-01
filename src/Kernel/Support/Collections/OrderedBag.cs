@@ -28,8 +28,8 @@ namespace X3Platform.Collections
     /// of copies of the element being handled.</p>
     /// <p><see cref="Bag&lt;T&gt;"/> is similar, but uses hashing instead of comparison, and does not maintain
     /// the keys in sorted order.</p>
-    ///</remarks>
-    ///<seealso cref="Bag&lt;T&gt;"/>
+    /// </remarks>
+    /// <seealso cref="Bag&lt;T&gt;"/>
     [Serializable]
     public class OrderedBag<T> : CollectionBase<T>, ICloneable 
     {
@@ -46,9 +46,9 @@ namespace X3Platform.Collections
         /// or IComparable. 
         /// The CompareTo method of this interface will be used to compare items in this bag.
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// Items that are null are permitted, and will be sorted before all other items.
-        ///</remarks>
+        /// </remarks>
         /// <exception cref="InvalidOperationException">T does not implement IComparable&lt;TKey&gt;.</exception>
         public OrderedBag(): 
             this(Comparers.DefaultComparer<T>())
@@ -88,9 +88,9 @@ namespace X3Platform.Collections
         /// The CompareTo method of this interface will be used to compare items in this bag. The bag is
         /// initialized with all the items in the given collection.
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// Items that are null are permitted, and will be sorted before all other items.
-        ///</remarks>
+        /// </remarks>
         /// <param name="collection">A collection with items to be placed into the OrderedBag.</param>
         /// <exception cref="InvalidOperationException">T does not implement IComparable&lt;TKey&gt;.</exception>
         public OrderedBag(IEnumerable<T> collection): 
@@ -1243,17 +1243,17 @@ namespace X3Platform.Collections
         /// Returns a View collection that can be used for enumerating the items in the bag in 
         /// reversed order.
         /// </summary>
-        ///<remarks>
-        ///<p>Typically, this method is used in conjunction with a foreach statement. For example:
-        ///<code>
+        /// <remarks>
+        /// <p>Typically, this method is used in conjunction with a foreach statement. For example:
+        /// <code>
         /// foreach(T item in bag.Reversed()) {
         ///    // process item
         /// }
-        ///</code></p>
+        /// </code></p>
         /// <p>If an item is added to or deleted from the bag while the View is being enumerated, then 
         /// the enumeration will end with an InvalidOperationException.</p>
-        ///<p>Calling Reverse does not copy the data in the tree, and the operation takes constant time.</p>
-        ///</remarks>
+        /// <p>Calling Reverse does not copy the data in the tree, and the operation takes constant time.</p>
+        /// </remarks>
         /// <returns>An OrderedBag.View of items in reverse order.</returns>
         public View Reversed()   // A reversed view that can be enumerated
         {
@@ -1267,18 +1267,18 @@ namespace X3Platform.Collections
         /// Items equal to the end points of the range can be included or excluded depending on the
         /// <paramref name="fromInclusive"/> and <paramref name="toInclusive"/> parameters.
         /// </summary>
-        ///<remarks>
-        ///<p>If <paramref name="from"/> is greater than or equal to <paramref name="to"/>, the returned collection is empty. </p>
-        ///<p>Typically, this method is used in conjunction with a foreach statement. For example:
-        ///<code>
+        /// <remarks>
+        /// <p>If <paramref name="from"/> is greater than or equal to <paramref name="to"/>, the returned collection is empty. </p>
+        /// <p>Typically, this method is used in conjunction with a foreach statement. For example:
+        /// <code>
         /// foreach(T item in bag.Range(from, true, to, false)) {
         ///    // process item
         /// }
-        ///</code></p>
+        /// </code></p>
         /// <p>If an item is added to or deleted from the bag while the View is being enumerated, then 
         /// the enumeration will end with an InvalidOperationException.</p>
-        ///<p>Calling Range does not copy the data in the tree, and the operation takes constant time.</p>
-        ///</remarks>
+        /// <p>Calling Range does not copy the data in the tree, and the operation takes constant time.</p>
+        /// </remarks>
         /// <param name="from">The lower bound of the range.</param>
         /// <param name="fromInclusive">If true, the lower bound is inclusive--items equal to the lower bound will
         /// be included in the range. If false, the lower bound is exclusive--items equal to the lower bound will not
@@ -1299,17 +1299,17 @@ namespace X3Platform.Collections
         /// The items are enumerated in sorted order. Items equal to <paramref name="from"/> can be included
         /// or excluded depending on the <paramref name="fromInclusive"/> parameter.
         /// </summary>
-        ///<remarks>
-        ///<p>Typically, this method is used in conjunction with a foreach statement. For example:
-        ///<code>
+        /// <remarks>
+        /// <p>Typically, this method is used in conjunction with a foreach statement. For example:
+        /// <code>
         /// foreach(T item in bag.RangeFrom(from, true)) {
         ///    // process item
         /// }
-        ///</code></p>
+        /// </code></p>
         /// <p>If an item is added to or deleted from the bag while the View is being enumerated, then 
         /// the enumeration will end with an InvalidOperationException.</p>
-        ///<p>Calling RangeFrom does not copy the data in the tree, and the operation takes constant time.</p>
-        ///</remarks>
+        /// <p>Calling RangeFrom does not copy the data in the tree, and the operation takes constant time.</p>
+        /// </remarks>
         /// <param name="from">The lower bound of the range.</param>
         /// <param name="fromInclusive">If true, the lower bound is inclusive--items equal to the lower bound will
         /// be included in the range. If false, the lower bound is exclusive--items equal to the lower bound will not
@@ -1326,17 +1326,17 @@ namespace X3Platform.Collections
         /// The items are enumerated in sorted order. Items equal to <paramref name="to"/> can be included
         /// or excluded depending on the <paramref name="toInclusive"/> parameter.
         /// </summary>
-        ///<remarks>
-        ///<p>Typically, this method is used in conjunction with a foreach statement. For example:
-        ///<code>
+        /// <remarks>
+        /// <p>Typically, this method is used in conjunction with a foreach statement. For example:
+        /// <code>
         /// foreach(T item in bag.RangeTo(to, false)) {
         ///    // process item
         /// }
-        ///</code></p>
+        /// </code></p>
         /// <p>If an item is added to or deleted from the bag while the View is being enumerated, then 
         /// the enumeration will end with an InvalidOperationException.</p>
-        ///<p>Calling RangeTo does not copy the data in the tree, and the operation takes constant time.</p>
-        ///</remarks>
+        /// <p>Calling RangeTo does not copy the data in the tree, and the operation takes constant time.</p>
+        /// </remarks>
         /// <param name="to">The upper bound of the range. </param>
         /// <param name="toInclusive">If true, the upper bound is inclusive--items equal to the upper bound will
         /// be included in the range. If false, the upper bound is exclusive--items equal to the upper bound will not
@@ -1355,17 +1355,17 @@ namespace X3Platform.Collections
         /// The OrderedBag&lt;T&gt;.View class is used to look at a subset of the items
         /// inside an ordered bag. It is returned from the Range, RangeTo, RangeFrom, and Reversed methods. 
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// <p>Views are dynamic. If the underlying bag changes, the view changes in sync. If a change is made
         /// to the view, the underlying bag changes accordingly.</p>
-        ///<p>Typically, this class is used in conjunction with a foreach statement to enumerate the items 
+        /// <p>Typically, this class is used in conjunction with a foreach statement to enumerate the items 
         /// in a subset of the OrderedBag. For example:</p>
-        ///<code>
+        /// <code>
         /// foreach(T item in bag.Range(from, to)) {
         ///    // process item
         /// }
-        ///</code>
-        ///</remarks>
+        /// </code>
+        /// </remarks>
         [Serializable]
         public class View : CollectionBase<T>
         {

@@ -28,17 +28,24 @@
 
         private byte[] key = null;
 
+        private byte[] iv = null;
+
         private void LoadKey()
         {
             if (key == null)
             {
-                if (MembershipConfigurationView.Instance.PasswordEncryptionSecret.Length == 32)
+                if (MembershipConfigurationView.Instance.PasswordEncryptionKey.Length == 32)
                 {
-                    this.key = UTF8Encoding.UTF8.GetBytes(MembershipConfigurationView.Instance.PasswordEncryptionSecret);
+                    this.key = UTF8Encoding.UTF8.GetBytes(MembershipConfigurationView.Instance.PasswordEncryptionKey);
                 }
                 else
                 {
                     throw new Exception("ASE密码加密方式必须填写长度为32的密钥");
+                }
+
+                if (MembershipConfigurationView.Instance.PasswordEncryptionIV.Length > 0)
+                {
+                    this.iv = UTF8Encoding.UTF8.GetBytes(MembershipConfigurationView.Instance.PasswordEncryptionIV);
                 }
             }
         }
@@ -51,7 +58,7 @@
         {
             this.LoadKey();
 
-            return Encrypter.DecryptAES(encryptedPassword, key);
+            return Encrypter.DecryptAES(encryptedPassword, key, iv, CiphertextFormat.BitString);
         }
         #endregion
 
@@ -63,7 +70,7 @@
         {
             this.LoadKey();
 
-            return Encrypter.EncryptAES(unencryptedPassword, key);
+            return Encrypter.EncryptAES(unencryptedPassword, key, iv, CiphertextFormat.BitString);
         }
         #endregion
     }

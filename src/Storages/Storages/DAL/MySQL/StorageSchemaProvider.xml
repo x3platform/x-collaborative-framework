@@ -78,7 +78,7 @@
 		</delete>
 
 		<update id="proc_Storage_Schema_Delete(VirtualRemoved)" >
-			UPDATE tb_Storage_Schema SET Status = 0 WHERE $WhereClause$
+			UPDATE tb_Storage_Schema SET Status = -1 WHERE $WhereClause$
 		</update>
 
 		<select id="proc_Storage_Schema_FindOne" resultMap="proc_Storage_Schema_FindOne_Result" >

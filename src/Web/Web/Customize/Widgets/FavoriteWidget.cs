@@ -1,28 +1,14 @@
-using System;
-using System.Reflection;
-
-using X3Platform.Logging;
-using X3Platform.Plugins;
-using X3Platform.Spring;
-
-using X3Platform.Web.Customize;
-using System.Xml;
-using System.Net;
-using System.Text;
-using X3Platform.Util;
-using X3Platform.Velocity;
-
 namespace X3Platform.Web.Customize.Widgets
 {
-    /// <summary>收藏夹部件</summary>
-    public sealed class FavoriteWidget : IWidget
+    #region Using Libraries
+    using X3Platform.Util;
+    using X3Platform.Velocity;
+    #endregion
+
+    /// <summary>收藏夹窗口部件</summary>
+    public sealed class FavoriteWidget : AbstractWidget
     {
-        public void Load(string configuration)
-        {
-
-        }
-
-        public string ParseHtml()
+        public override string ParseHtml()
         {
             string widgetRuntimeId = StringHelper.ToGuid();
 

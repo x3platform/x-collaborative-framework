@@ -797,9 +797,7 @@ namespace X3Platform.Configuration
             {
                 if (string.IsNullOrEmpty(this.m_ApplicationClientSignature))
                 {
-                    byte[] key = UTF8Encoding.UTF8.GetBytes(this.ApplicationClientId);
-
-                    this.m_ApplicationClientSignature = Encrypter.EncryptAES(this.ApplicationClientSecret, key);
+                    this.m_ApplicationClientSignature = Encrypter.EncryptAES(this.ApplicationClientSecret, this.ApplicationClientId, this.ApplicationClientId);
 
                     this.m_ApplicationClientSignature = this.m_ApplicationClientSignature.Replace("+", "_");
                 }
@@ -862,59 +860,5 @@ namespace X3Platform.Configuration
             }
         }
         #endregion
-
-        #region 属性:UploadFileWizard
-        private string m_UploadFileWizard = string.Empty;
-
-        /// <summary>上传文件向导</summary>
-        public string UploadFileWizard
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.m_UploadFileWizard))
-                {
-                    if (this.Configuration.Keys["UploadFileWizard"] == null)
-                    {
-                        this.m_UploadFileWizard = "/uploads/core/default.aspx";
-
-                        this.Configuration.Keys.Add(new KernelConfigurationKey("UploadFileWizard", this.m_UploadFileWizard));
-                    }
-                    else
-                    {
-                        this.m_UploadFileWizard = this.Configuration.Keys["UploadFileWizard"].Value;
-                    }
-                }
-
-                return this.m_UploadFileWizard;
-            }
-        }
-        #endregion
-
-        #region 属性:MSTestPathRoot
-        private string m_MSTestPathRoot = string.Empty;
-
-        /// <summary>测试目录地址</summary>
-        public string MSTestPathRoot
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.m_MSTestPathRoot))
-                {
-                    if (this.Configuration.Keys["MSTestPathRoot"] == null)
-                    {
-                        this.m_MSTestPathRoot = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-
-                        this.Configuration.Keys.Add(new KernelConfigurationKey("MSTestPathRoot", this.m_MSTestPathRoot));
-                    }
-                    else
-                    {
-                        this.m_MSTestPathRoot = this.Configuration.Keys["MSTestPathRoot"].Value;
-                    }
-                }
-
-                return this.m_MSTestPathRoot;
-            }
-        }
-        #endregion
-    }
+}
 }

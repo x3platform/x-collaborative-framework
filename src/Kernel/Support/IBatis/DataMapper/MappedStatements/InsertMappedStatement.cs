@@ -139,7 +139,7 @@ namespace X3Platform.IBatis.DataMapper.MappedStatements
 		/// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
 		/// <param name="rowDelegate"></param>
 		/// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-		///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+		/// <exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
 		public override IDictionary ExecuteQueryForMapWithRowDelegate(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate rowDelegate )
 		{
 			throw new DataMapperException("Insert statements cannot be executed as a query for row delegate.");

@@ -63,9 +63,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         // -------------------------------------------------------
 
         #region 属性:Save(PageInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">PageInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>PageInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">PageInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>PageInfo ʵ����ϸ��Ϣ</returns>
         public PageInfo Save(PageInfo param)
         {
             if (!IsExistName(param.AuthorizationObjectType, param.AuthorizationObjectId, param.Name))
@@ -82,8 +82,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Insert(PageInfo param)
-        ///<summary>���Ӽ�¼</summary>
-        ///<param name="param">PageInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>���Ӽ�¼</summary>
+        /// <param name="param">PageInfo ʵ������ϸ��Ϣ</param>
         public void Insert(PageInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
@@ -91,8 +91,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Update(PageInfo param)
-        ///<summary>�޸ļ�¼</summary>
-        ///<param name="param">PageInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>�޸ļ�¼</summary>
+        /// <param name="param">PageInfo ʵ������ϸ��Ϣ</param>
         public void Update(PageInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
@@ -100,8 +100,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -122,9 +122,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="param">PageInfo Id��</param>
-        ///<returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="param">PageInfo Id��</param>
+        /// <returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
         public PageInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -136,11 +136,11 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:FindOneByName(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
         public PageInfo FindOneByName(string authorizationObjectType, string authorizationObjectId, string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -156,10 +156,10 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         public IList<PageInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -205,9 +205,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="id">PageInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="id">PageInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -224,11 +224,11 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:IsExistName(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����ֵ</returns>
         public bool IsExistName(string authorizationObjectType, string authorizationObjectId, string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -240,11 +240,11 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
         public string TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

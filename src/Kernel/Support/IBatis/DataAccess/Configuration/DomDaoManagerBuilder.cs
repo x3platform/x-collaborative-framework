@@ -257,7 +257,7 @@ namespace X3Platform.IBatis.DataAccess.Configuration
         /// A relative ressource path from your Application root 
         /// or an absolue file path file://c:\dir\a.config
         /// </param>
-        ///<param name="configureDelegate">
+        /// <param name="configureDelegate">
         /// Delegate called when the file has changed, to rebuild the dal.
         /// </param>
         public void ConfigureAndWatch(string resource, ConfigureHandler configureDelegate)
@@ -294,7 +294,7 @@ namespace X3Platform.IBatis.DataAccess.Configuration
         /// <param name="resource">
         /// A FileInfo to your config file.
         /// </param>
-        ///<param name="configureDelegate">
+        /// <param name="configureDelegate">
         /// Delegate called when the file has changed, to rebuild the dal.
         /// </param>
         /// <returns>An SqlMap</returns>

@@ -20,8 +20,8 @@ namespace X3Platform.Collections
     /// </summary>
     /// <typeparam name="TKey">The type of the keys.</typeparam>
     /// <typeparam name="TValue">The of values associated with the keys.</typeparam>
-    ///<seealso cref="Dictionary&lt;TKey,TValue&gt;"/>
-    ///<seealso cref="OrderedMultiDictionary&lt;TKey,TValue&gt;"/>
+    /// <seealso cref="Dictionary&lt;TKey,TValue&gt;"/>
+    /// <seealso cref="OrderedMultiDictionary&lt;TKey,TValue&gt;"/>
     [Serializable]
     public class MultiDictionary<TKey, TValue> : MultiDictionaryBase<TKey, TValue>, ICloneable
     {

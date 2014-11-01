@@ -1,14 +1,14 @@
-using System;
-using System.Xml;
-using System.IO;
-using System.Reflection;
-
-using Common.Logging;
-using System.Globalization;
-using System.Configuration;
-
 namespace X3Platform.Configuration
 {
+    using System;
+    using System.Configuration;
+    using System.Xml;
+    using System.IO;
+    using System.Globalization;
+    using System.Reflection;
+
+    using Common.Logging;
+
     /// <summary>Xml≈‰÷√–≈œ¢</summary>
     public abstract class XmlConfiguraton
     {
