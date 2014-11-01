@@ -61,9 +61,9 @@ namespace X3Platform.Web.Customize.BLL
         // -------------------------------------------------------
 
         #region 属性:Save(PageInfo param, IAccountInfo account, string effectScope)
-        ///<summary>������¼</summary>
-        ///<param name="param">PageInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>PageInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">PageInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>PageInfo ʵ����ϸ��Ϣ</returns>
         public PageInfo Save(PageInfo param, IAccountInfo account, string effectScope)
         {
             switch (effectScope)
@@ -95,9 +95,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:Save(PageInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">PageInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>PageInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">PageInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>PageInfo ʵ����ϸ��Ϣ</returns>
         public PageInfo Save(PageInfo param)
         {
             this.provider.Save(param);
@@ -131,8 +131,8 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         public void Delete(string ids)
         {
             this.provider.Delete(ids);
@@ -144,9 +144,9 @@ namespace X3Platform.Web.Customize.BLL
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">PageInfo Id��</param>
-        ///<returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="id">PageInfo Id��</param>
+        /// <returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
         public PageInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
@@ -154,11 +154,11 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindOneByName(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
         public PageInfo FindOneByName(string authorizationObjectType, string authorizationObjectId, string name)
         {
             return this.provider.FindOneByName(authorizationObjectType, authorizationObjectId, name);
@@ -166,8 +166,8 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindAll()
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         public IList<PageInfo> FindAll()
         {
             return this.provider.FindAll(string.Empty, 0);
@@ -175,9 +175,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindAll(string whereClause)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         public IList<PageInfo> FindAll(string whereClause)
         {
             return this.provider.FindAll(whereClause, 0);
@@ -185,10 +185,10 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         public IList<PageInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
@@ -200,13 +200,13 @@ namespace X3Platform.Web.Customize.BLL
         // -------------------------------------------------------
 
         #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        ///<summary>��ҳ����</summary>
-        ///<param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        ///<param name="pageSize">ҳ����С</param>
-        ///<param name="whereClause">WHERE ��ѯ����</param>
-        ///<param name="orderBy">ORDER BY ��������</param>
-        ///<param name="rowCount">��¼����</param>
-        ///<returns>����һ�� WorkflowCollectorInfo �б�ʵ��</returns>
+        /// <summary>��ҳ����</summary>
+        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
+        /// <param name="pageSize">ҳ����С</param>
+        /// <param name="whereClause">WHERE ��ѯ����</param>
+        /// <param name="orderBy">ORDER BY ��������</param>
+        /// <param name="rowCount">��¼����</param>
+        /// <returns>����һ�� WorkflowCollectorInfo �б�ʵ��</returns>
         public IList<PageInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out  rowCount);
@@ -214,9 +214,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>�����Ƿ��������صļ�¼</summary>
-        ///<param name="id">��¼����Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>�����Ƿ��������صļ�¼</summary>
+        /// <param name="id">��¼����Ϣ</param>
+        /// <returns>����ֵ</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
@@ -224,11 +224,11 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:IsExistName(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����ֵ</returns>
         public bool IsExistName(string authorizationObjectType, string authorizationObjectId, string name)
         {
             return this.provider.IsExistName(authorizationObjectType, authorizationObjectId, name);
@@ -236,11 +236,11 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
         public string TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
         {
             string xml = this.provider.TryParseHtml(authorizationObjectType, authorizationObjectId, name);

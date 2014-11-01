@@ -125,22 +125,17 @@
     <Compile Include="Strategies\HashCodeStorageStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\StorageNodeProvider.xml">
-      <DependentUpon>StorageNodeProvider.cs</DependentUpon>
-    </Content>
+    <EmbeddedResource Include="DAL\IBatis\StorageNodeProvider.xml" />
     <Compile Include="Strategies\SingletonStorageStrategy.cs" />
-    <Content Include="DAL\IBatis\StorageSchemaProvider.xml">
-      <DependentUpon>StorageSchemaProvider.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\IBatis\StorageSchemaProvider.xml" />
+    <EmbeddedResource Include="DAL\MySQL\StorageNodeProvider.xml" />
+    <EmbeddedResource Include="DAL\MySQL\StorageSchemaProvider.xml">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\StorageNodeProvider.xml">
-      <DependentUpon>StorageNodeProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\StorageSchemaProvider.xml">
-      <DependentUpon>StorageSchemaProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="db\存储管理初始化脚本%28MySQL%29.sql" />
-    <Content Include="db\存储管理初始化脚本%28SQLServer%29.sql" />
+    </EmbeddedResource>
+    <Content Include="db\Init_Sccript_MySQL.sql" />
+    <Content Include="db\Init_Sccript_SQLServer.sql" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -184,6 +179,7 @@
     </Content>
     <None Include="config\IBatis\X3Platform.Storages.IBatis.SqlMap.config" />
     <None Include="config\IBatis\X3Platform.Storages.Spring.config" />
+    <EmbeddedResource Include="defaults\config.yaml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

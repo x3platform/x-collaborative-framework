@@ -100,9 +100,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         // -------------------------------------------------------
 
         #region 属性:Save(WidgetInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>WidgetInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>WidgetInfo ʵ����ϸ��Ϣ</returns>
         public WidgetInfo Save(WidgetInfo param)
         {
             if (!IsExist(param.Id))
@@ -119,8 +119,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Insert(WidgetInfo param)
-        ///<summary>���Ӽ�¼</summary>
-        ///<param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>���Ӽ�¼</summary>
+        /// <param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
         public void Insert(WidgetInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
@@ -128,8 +128,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Update(WidgetInfo param)
-        ///<summary>�޸ļ�¼</summary>
-        ///<param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>�޸ļ�¼</summary>
+        /// <param name="param">WidgetInfo ʵ������ϸ��Ϣ</param>
         public void Update(WidgetInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
@@ -137,8 +137,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -157,9 +157,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="param">WidgetInfo Id��</param>
-        ///<returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="param">WidgetInfo Id��</param>
+        /// <returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public WidgetInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -171,9 +171,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:FindOneByName(string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public WidgetInfo FindOneByName(string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -185,10 +185,10 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public IList<WidgetInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -234,9 +234,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="id">WidgetInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="id">WidgetInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -257,9 +257,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:IsExistName(string name)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����ֵ</returns>
         public bool IsExistName(string name)
         {
             bool isExist = true;
@@ -276,8 +276,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
 
         #region 属性:GetOptionHtml(string id)
         /// <summary>��ȡ���Ա༭��Html�ı�</summary>
-        ///<param name="id">��ʶ</param>
-        ///<returns>Html�ı�</returns>
+        /// <param name="id">��ʶ</param>
+        /// <returns>Html�ı�</returns>
         public string GetOptionHtml(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

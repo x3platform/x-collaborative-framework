@@ -25,7 +25,7 @@ namespace X3Platform.Tests.Xml
         /// <summary>
         ///获取或设置测试上下文，该上下文提供
         ///有关当前测试运行及其功能的信息。
-        ///</summary>
+        /// </summary>
         public TestContext TestContext
         {
             get
@@ -74,8 +74,8 @@ namespace X3Platform.Tests.Xml
         [TestMethod]
         public void TestTransform()
         {
-            string testPathRoot = KernelConfigurationView.Instance.MSTestPathRoot;
-
+            // string testPathRoot = KernelConfigurationView.Instance.MSTestPathRoot;
+            string testPathRoot = "";
             XslCompiledTransform xslt = new XslCompiledTransform();
 
             // XsltSettings setting = new XsltSettings(true, true);

@@ -1,4 +1,4 @@
-namespace X3Platform.Storages.TestSuite
+namespace X3Platform.Storages.Tests
 {
     using System;
 
@@ -8,21 +8,13 @@ namespace X3Platform.Storages.TestSuite
     using System.Configuration;
 
     using X3Platform.Storages.Configuration;
-    using X3Platform.Storages;
 
     [TestClass]
-    public class StoragesContextTestSuite
+    public class StoragesContextTests
     {
-        string fullConfigPath = ConfigurationManager.AppSettings["fullConfigPath"];
-
-        [TestInitialize()]
-        public void Initialize()
-        {
-            // StoragesConfigurationView.LoadInstance(fullConfigPath);
-        }
-
         /// <summary></summary>
         [TestMethod]
+        // [DeploymentItem("MySql.Data.dll")]
         public void TestLoad()
         {
             Assert.IsNotNull(StorageContext.Instance.StorageNodeService);

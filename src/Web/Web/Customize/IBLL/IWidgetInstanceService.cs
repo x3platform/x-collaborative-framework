@@ -39,15 +39,15 @@ namespace X3Platform.Web.Customize.IBLL
         // -------------------------------------------------------
 
         #region 属性:Save(WidgetInstanceInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>WidgetInstanceInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>WidgetInstanceInfo ʵ����ϸ��Ϣ</returns>
         WidgetInstanceInfo Save(WidgetInstanceInfo param);
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="keys">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="keys">��ʶ,�����Զ��Ÿ���</param>
         void Delete(string ids);
         #endregion
 
@@ -56,30 +56,30 @@ namespace X3Platform.Web.Customize.IBLL
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">WidgetInstanceInfo Id��</param>
-        ///<returns>����һ�� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="id">WidgetInstanceInfo Id��</param>
+        /// <returns>����һ�� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
         WidgetInstanceInfo FindOne(string id);
         #endregion
 
         #region 属性:FindAll()
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
         IList<WidgetInstanceInfo> FindAll();
         #endregion
 
         #region 属性:FindAll(string whereClause)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
         IList<WidgetInstanceInfo> FindAll(string whereClause);
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
         IList<WidgetInstanceInfo> FindAll(string whereClause, int length);
         #endregion
 
@@ -99,35 +99,35 @@ namespace X3Platform.Web.Customize.IBLL
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="id">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="id">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         bool IsExist(string id);
         #endregion
 
         #region 属性:GetOptionHtml(string id)
         /// <summary>��ȡ���Ա༭��Html�ı�</summary>
-        ///<param name="id">��ʶ</param>
-        ///<returns>Html�ı�</returns>
+        /// <param name="id">��ʶ</param>
+        /// <returns>Html�ı�</returns>
         string GetOptionHtml(string id);
         #endregion
 
         #region 属性:SetPageAndWidget(WidgetInstanceInfo param, string authorizationObjectType, string authorizationObjectId, string pageName, string widgetName)
-        ///<summary>����ʵ�����ڵ�ҳ���Ͳ�������</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="pageName">ҳ������</param>
-        ///<param name="widgetName">��������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>����ʵ�����ڵ�ҳ���Ͳ�������</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="pageName">ҳ������</param>
+        /// <param name="widgetName">��������</param>
+        /// <returns>����ֵ</returns>
         WidgetInstanceInfo SetPageAndWidget(WidgetInstanceInfo param, string authorizationObjectType, string authorizationObjectId, string pageName, string widgetName);
         #endregion
 
         #region 属性:RemoveUnbound(string pageId, string bindingWidgetInstanceIds)
-        ///<summary>ɾ��δ�󶨵Ĳ���ʵ��</summary>
-        ///<param name="pageId">ҳ������</param>
-        ///<param name="bindingWidgetInstanceIds">�󶨵Ĳ�����ʶ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>ɾ��δ�󶨵Ĳ���ʵ��</summary>
+        /// <param name="pageId">ҳ������</param>
+        /// <param name="bindingWidgetInstanceIds">�󶨵Ĳ�����ʶ</param>
+        /// <returns>����ֵ</returns>
         int RemoveUnbound(string pageId, string bindingWidgetInstanceIds);
         #endregion
     }

@@ -1,36 +1,18 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Web.Customize.Widgets
 {
     #region Using Libraries
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Data;
     using System.Text;
+    using System.Web;
 
-    using X3Platform.Ajax.Json;
     using X3Platform.Data;
     using X3Platform.Util;
     using X3Platform.Velocity;
-    using System.Web;
     #endregion
 
-    /// <summary>ͨ�õĴ��ڲ���</summary>
+    /// <summary>通用的窗口部件</summary>
     public sealed class GeneralWidget : AbstractWidget
     {
         /// <summary></summary>
@@ -47,7 +29,7 @@ namespace X3Platform.Web.Customize.Widgets
                 context.Put("height", (this.Height == 0 ? "height:auto;" : "height:" + this.Height + "px;"));
                 context.Put("width", (this.Width == 0 ? "width:auto;" : "width:" + this.Width + "px;"));
 
-                // ������������
+                // 设置最大行数
                 int maxRowCount;
 
                 int.TryParse(this.options["maxRowCount"], out maxRowCount);
@@ -69,7 +51,7 @@ namespace X3Platform.Web.Customize.Widgets
 
                 if (string.IsNullOrEmpty(tableName))
                 {
-                    context.Put("widgetHtml", "��������������");
+                    context.Put("widgetHtml", "请配置相关数据");
                 }
                 else
                 {

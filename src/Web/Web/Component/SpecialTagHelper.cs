@@ -1,4 +1,4 @@
-namespace X3Platform.Web.Builder.Utility
+namespace X3Platform.Web.Component
 {
     using System.Text.RegularExpressions;
 

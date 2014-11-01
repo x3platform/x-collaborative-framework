@@ -58,9 +58,9 @@ namespace X3Platform.Web.Customize.BLL
         // -------------------------------------------------------
 
         #region 属性:Save(WidgetInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>WidgetInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">WidgetInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>WidgetInfo ʵ����ϸ��Ϣ</returns>
         public WidgetInfo Save(WidgetInfo param)
         {
             return this.provider.Save(param);
@@ -68,8 +68,8 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         public void Delete(string ids)
         {
             this.provider.Delete(ids);
@@ -81,9 +81,9 @@ namespace X3Platform.Web.Customize.BLL
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">WidgetInfo Id��</param>
-        ///<returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="id">WidgetInfo Id��</param>
+        /// <returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public WidgetInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
@@ -91,9 +91,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindOneByName(string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ�� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public WidgetInfo FindOneByName(string name)
         {
             return this.provider.FindOneByName(name);
@@ -101,8 +101,8 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindAll()
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public IList<WidgetInfo> FindAll()
         {
             return this.provider.FindAll(string.Empty, 0);
@@ -110,9 +110,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindAll(string whereClause)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public IList<WidgetInfo> FindAll(string whereClause)
         {
             return this.provider.FindAll(whereClause, 0);
@@ -120,10 +120,10 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� WidgetInfo ʵ������ϸ��Ϣ</returns>
         public IList<WidgetInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
@@ -135,13 +135,13 @@ namespace X3Platform.Web.Customize.BLL
         // -------------------------------------------------------
 
         #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        ///<summary>��ҳ����</summary>
-        ///<param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        ///<param name="pageSize">ҳ����С</param>
-        ///<param name="whereClause">WHERE ��ѯ����</param>
-        ///<param name="orderBy">ORDER BY ��������</param>
-        ///<param name="rowCount">��¼����</param>
-        ///<returns>����һ�� WorkflowCollectorInfo �б�ʵ��</returns>
+        /// <summary>��ҳ����</summary>
+        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
+        /// <param name="pageSize">ҳ����С</param>
+        /// <param name="whereClause">WHERE ��ѯ����</param>
+        /// <param name="orderBy">ORDER BY ��������</param>
+        /// <param name="rowCount">��¼����</param>
+        /// <returns>����һ�� WorkflowCollectorInfo �б�ʵ��</returns>
         public IList<WidgetInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out  rowCount);
@@ -149,9 +149,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>�����Ƿ��������صļ�¼</summary>
-        ///<param name="id">������ʶ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>�����Ƿ��������صļ�¼</summary>
+        /// <param name="id">������ʶ</param>
+        /// <returns>����ֵ</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
@@ -159,9 +159,9 @@ namespace X3Platform.Web.Customize.BLL
         #endregion
 
         #region 属性:IsExistName(string name)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����ֵ</returns>
         public bool IsExistName(string name)
         {
             return this.provider.IsExistName(name);
@@ -170,8 +170,8 @@ namespace X3Platform.Web.Customize.BLL
 
         #region 属性:GetOptionHtml(string id)
         /// <summary>��ȡ���Ա༭��Html�ı�</summary>
-        ///<param name="id">��ʶ</param>
-        ///<returns>Html�ı�</returns>
+        /// <param name="id">��ʶ</param>
+        /// <returns>Html�ı�</returns>
         public string GetOptionHtml(string id)
         {
             return this.provider.GetOptionHtml(id);

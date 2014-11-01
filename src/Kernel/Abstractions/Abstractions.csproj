@@ -259,7 +259,9 @@
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.config" />
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.IBatis.SqlMap.config" />
     <EmbeddedResource Include="DigitalNumber\defaults\config.yaml" />
-    <EmbeddedResource Include="DigitalNumber\defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="DigitalNumber\defaults\IBatis.SqlMap.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="DigitalNumber\README.md" />
     <Compile Include="Entities\IEntityFollowInfo.cs" />
     <None Include="Security\README.md" />

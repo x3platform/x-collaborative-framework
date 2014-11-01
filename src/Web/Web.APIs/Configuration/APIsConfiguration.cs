@@ -1,27 +1,13 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :RewriterConfiguration.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System.Xml;
-using System.Xml.Serialization;
-
-using X3Platform.Configuration;
-using System.Collections.Generic;
-using X3Platform.Collections;
-
 namespace X3Platform.Web.APIs.Configuration
 {
-    /// <summary>APIs ������Ϣ</summary>
+    using System.Collections.Generic;
+    using System.Xml;
+    using System.Xml.Serialization;
+    
+    using X3Platform.Collections;
+    using X3Platform.Configuration;
+    
+    /// <summary>APIs 配置</summary>
     public class APIsConfiguration : XmlConfiguraton
     {
         /// <summary>��������������</summary>
@@ -33,10 +19,10 @@ namespace X3Platform.Web.APIs.Configuration
             return SectionName;
         }
 
-        #region 属性:API ����
+        #region 属性:API 方法
         private IDictionary<string, APIMethod> m_APIMethods = null;
 
-        /// <summary>API ��������</summary>
+        /// <summary>API 方法</summary>
         public IDictionary<string, APIMethod> APIMethods
         {
             get { return this.m_APIMethods; }

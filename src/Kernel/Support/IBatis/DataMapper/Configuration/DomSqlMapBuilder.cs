@@ -488,7 +488,7 @@ namespace X3Platform.IBatis.DataMapper.Configuration
         /// A relative ressource path from your Application root 
         /// or an absolue file path file:\\c:\dir\a.config
         /// </param>
-        ///<param name="configureDelegate">
+        /// <param name="configureDelegate">
         /// Delegate called when the file has changed.
         /// </param>
         /// <returns>An ISqlMapper instance.</returns>
@@ -527,7 +527,7 @@ namespace X3Platform.IBatis.DataMapper.Configuration
         /// <param name="resource">
         /// A FileInfo to a SqlMap.config file.
         /// </param>
-        ///<param name="configureDelegate">
+        /// <param name="configureDelegate">
         /// Delegate called when the file has changed.
         /// </param>
         /// <returns>An ISqlMapper instance.</returns>

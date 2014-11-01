@@ -65,9 +65,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         // -------------------------------------------------------
 
         #region 属性:Save(WidgetInstanceInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>WidgetInstanceInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>WidgetInstanceInfo ʵ����ϸ��Ϣ</returns>
         public WidgetInstanceInfo Save(WidgetInstanceInfo param)
         {
             if (!IsExist(param.Id))
@@ -84,8 +84,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Insert(WidgetInstanceInfo param)
-        ///<summary>���Ӽ�¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>���Ӽ�¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
         public void Insert(WidgetInstanceInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
@@ -93,8 +93,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Update(WidgetInstanceInfo param)
-        ///<summary>�޸ļ�¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>�޸ļ�¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
         public void Update(WidgetInstanceInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
@@ -102,8 +102,8 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids)) { return; }
@@ -121,9 +121,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="param">WidgetInstanceInfo Id��</param>
-        ///<returns>����һ�� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="param">WidgetInstanceInfo Id��</param>
+        /// <returns>����һ�� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
         public WidgetInstanceInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -137,10 +137,10 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� WidgetInstanceInfo ʵ������ϸ��Ϣ</returns>
         public IList<WidgetInstanceInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -193,9 +193,9 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="id">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="id">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -212,10 +212,10 @@ namespace X3Platform.Web.Customize.DAL.IBatis
         #endregion
 
         #region 属性:RemoveUnbound(string pageId, string bindingWidgetInstanceIds)
-        ///<summary>ɾ��δ�󶨵Ĳ���ʵ��</summary>
-        ///<param name="pageId">ҳ������</param>
-        ///<param name="bindingWidgetInstanceIds">�󶨵Ĳ�����ʶ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>ɾ��δ�󶨵Ĳ���ʵ��</summary>
+        /// <param name="pageId">ҳ������</param>
+        /// <param name="bindingWidgetInstanceIds">�󶨵Ĳ�����ʶ</param>
+        /// <returns>����ֵ</returns>
         public int RemoveUnbound(string pageId, string bindingWidgetInstanceIds)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

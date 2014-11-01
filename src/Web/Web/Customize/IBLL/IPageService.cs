@@ -40,15 +40,15 @@ namespace X3Platform.Web.Customize.IBLL
         // -------------------------------------------------------
 
         #region 属性:Save(PageInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">PageInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>PageInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">PageInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>PageInfo ʵ����ϸ��Ϣ</returns>
         PageInfo Save(PageInfo param);
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="keys">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="keys">��ʶ,�����Զ��Ÿ���</param>
         void Delete(string ids);
         #endregion
 
@@ -57,39 +57,39 @@ namespace X3Platform.Web.Customize.IBLL
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">PageInfo Id��</param>
-        ///<returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="id">PageInfo Id��</param>
+        /// <returns>����һ�� PageInfo ʵ������ϸ��Ϣ</returns>
         PageInfo FindOne(string id);
         #endregion
 
         #region 属性:FindOneByName(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
         PageInfo FindOneByName(string authorizationObjectType, string authorizationObjectId, string name);
         #endregion
 
         #region 属性:FindAll()
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         IList<PageInfo> FindAll();
         #endregion
 
         #region 属性:FindAll(string whereClause)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         IList<PageInfo> FindAll(string whereClause);
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>�������� PageInfo ʵ������ϸ��Ϣ</returns>
         IList<PageInfo> FindAll(string whereClause, int length);
         #endregion
 
@@ -109,27 +109,27 @@ namespace X3Platform.Web.Customize.IBLL
         #endregion
         
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="id">PageInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="id">PageInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         bool IsExist(string id);
         #endregion
 
         #region 属性:IsExistName(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����ֵ</returns>
         bool IsExistName(string authorizationObjectType, string authorizationObjectId, string name);
         #endregion
         
         #region 属性:TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="authorizationObjectType">��Ȩ��������</param>
-        ///<param name="authorizationObjectId">��Ȩ������ʶ</param>
-        ///<param name="name">ҳ������</param>
-        ///<returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="authorizationObjectType">��Ȩ��������</param>
+        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
+        /// <param name="name">ҳ������</param>
+        /// <returns>����һ��ʵ��<see cref="PageInfo"/>����ϸ��Ϣ</returns>
         string TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name);
         #endregion
     }

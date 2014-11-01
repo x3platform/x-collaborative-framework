@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) 2010 ruanyu@live.com
-//
-// FileName     :CustomPage.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Web.Pages
+﻿namespace X3Platform.Web.Pages
 {
     using System;
     using System.Collections.Generic;
@@ -277,9 +263,6 @@ namespace X3Platform.Web.Pages
 
             velocityContext.Put("scripts", Scripts);
             velocityContext.Put("styles", Styles);
-
-            //velocityContext.Put("googleAnalyticsMode", GoogleAnalyticsMode);
-            //velocityContext.Put("googleMapKey", GoogleMapKey);
 
             return VelocityManager.Instance.Merge(velocityContext, RenderHeadTemplatePath);
         }

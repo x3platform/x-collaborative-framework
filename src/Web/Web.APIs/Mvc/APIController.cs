@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using System.Reflection;
-
-using X3Platform.Web.APIs.Configuration;
-using System.Xml;
-using System.Web;
-using X3Platform.Web.Util;
-using Common.Logging;
-using X3Platform.Util;
-using System.Threading;
-using X3Platform.Ajax;
-using System.Collections.Specialized;
-using X3Platform.Web.APIs.Pages;
-using X3Platform.Configuration;
-using X3Platform.Connect;
-using X3Platform.Connect.Model;
-using X3Platform.Apps;
-using X3Platform.Connect.Configuration;
-using X3Platform.Location.IPQuery;
-using X3Platform.Web.APIs.Methods;
-
-namespace X3Platform.Web.APIs.Mvc
+﻿namespace X3Platform.Web.APIs.Mvc
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Xml;
+    using System.Web;
+    using System.Web.Mvc;
+    
+    using Common.Logging;
+
+    using X3Platform.Apps;
+    using X3Platform.Configuration;
+    using X3Platform.Connect;
+    using X3Platform.Connect.Model;
+    
+    using X3Platform.Web.APIs.Configuration;
+    using X3Platform.Web.APIs.Methods;
+    
     /// <summary></summary>
     public sealed class APIController : Controller
     {

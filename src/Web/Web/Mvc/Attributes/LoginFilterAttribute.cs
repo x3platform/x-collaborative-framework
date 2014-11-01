@@ -13,11 +13,6 @@ namespace X3Platform.Web.Mvc.Attributes
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (logger.IsInfoEnabled)
-            {
-                logger.Info("LoginFilterAttribute.OnActionExecuting");
-            }
-
             if (KernelContext.Current.User == null)
             {
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
