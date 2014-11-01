@@ -22,7 +22,7 @@ namespace X3Platform.Collections
     /// <remarks>
     /// The Hash manages items of type T, and uses a IComparer&lt;ItemTYpe&gt; that
     /// hashes compares items to hash items into the table.  
-    ///</remarks>
+    /// </remarks>
     [Serializable]
     internal class Hash<T> : IEnumerable<T>, ISerializable, IDeserializationCallback
     {

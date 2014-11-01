@@ -24,8 +24,8 @@ namespace X3Platform.Collections
 	/// an element all are done in log(N) type, where N is the number of keys in the tree.</p>
 	/// <p><see cref="Dictionary&lt;TKey,TValue&gt;"/> is similar, but uses hashing instead of comparison, and does not maintain
 	/// the keys in sorted order.</p>
-	///</remarks>
-	///<seealso cref="Dictionary&lt;TKey,TValue&gt;"/>
+	/// </remarks>
+	/// <seealso cref="Dictionary&lt;TKey,TValue&gt;"/>
     [Serializable]
 	public class OrderedDictionary<TKey,TValue>: DictionaryBase<TKey,TValue>, ICloneable
 	{
@@ -266,17 +266,17 @@ namespace X3Platform.Collections
         /// Returns a View collection that can be used for enumerating the keys and values in the collection in 
         /// reversed order.
         /// </summary>
-        ///<remarks>
-        ///<p>Typically, this method is used in conjunction with a foreach statement. For example:
-        ///<code>
+        /// <remarks>
+        /// <p>Typically, this method is used in conjunction with a foreach statement. For example:
+        /// <code>
         /// foreach(KeyValuePair&lt;TKey, TValue&gt; pair in dictionary.Reversed()) {
         ///    // process pair
         /// }
-        ///</code></p>
+        /// </code></p>
         /// <p>If an entry is added to or deleted from the dictionary while the View is being enumerated, then 
         /// the enumeration will end with an InvalidOperationException.</p>
-        ///<p>Calling Reverse does not copy the data in the dictionary, and the operation takes constant time.</p>
-        ///</remarks>
+        /// <p>Calling Reverse does not copy the data in the dictionary, and the operation takes constant time.</p>
+        /// </remarks>
         /// <returns>An OrderedDictionary.View of key-value pairs in reverse order.</returns>
         public View Reversed()
         {
@@ -290,17 +290,17 @@ namespace X3Platform.Collections
         /// Keys equal to the end points of the range can be included or excluded depending on the
         /// <paramref name="fromInclusive"/> and <paramref name="toInclusive"/> parameters.
         /// </summary>
-        ///<remarks>
-        ///<p>If <paramref name="from"/> is greater than or equal to <paramref name="to"/>, the returned collection is empty. </p>
-        ///<p>The sorted order of the keys is determined by the comparison instance or delegate used
+        /// <remarks>
+        /// <p>If <paramref name="from"/> is greater than or equal to <paramref name="to"/>, the returned collection is empty. </p>
+        /// <p>The sorted order of the keys is determined by the comparison instance or delegate used
         /// to create the dictionary.</p>
-        ///<p>Typically, this property is used in conjunction with a foreach statement. For example:</p>
-        ///<code>
+        /// <p>Typically, this property is used in conjunction with a foreach statement. For example:</p>
+        /// <code>
         /// foreach(KeyValuePair&lt;TKey, TValue&gt; pair in dictionary.Range(from, true, to, false)) {
         ///    // process pair
         /// }
-        ///</code>
-        ///<p>Calling Range does not copy the data in the dictionary, and the operation takes constant time.</p></remarks>
+        /// </code>
+        /// <p>Calling Range does not copy the data in the dictionary, and the operation takes constant time.</p></remarks>
         /// <param name="from">The lower bound of the range.</param>
         /// <param name="fromInclusive">If true, the lower bound is inclusive--keys equal to the lower bound will
         /// be included in the range. If false, the lower bound is exclusive--keys equal to the lower bound will not
@@ -322,17 +322,17 @@ namespace X3Platform.Collections
         /// The keys are enumerated in sorted order. Keys equal to <paramref name="from"/> can be included
         /// or excluded depending on the <paramref name="fromInclusive"/> parameter.
         /// </summary>
-        ///<remarks>
-        ///<p>The sorted order of the keys is determined by the comparison instance or delegate used
+        /// <remarks>
+        /// <p>The sorted order of the keys is determined by the comparison instance or delegate used
         /// to create the dictionary.</p>
-        ///<p>Typically, this property is used in conjunction with a foreach statement. For example:</p>
-        ///<code>
+        /// <p>Typically, this property is used in conjunction with a foreach statement. For example:</p>
+        /// <code>
         /// foreach(KeyValuePair&lt;TKey, TValue&gt; pair in dictionary.RangeFrom(from, true)) {
         ///    // process pair
         /// }
-        ///</code>
-        ///<p>Calling RangeFrom does not copy of the data in the dictionary, and the operation takes constant time.</p>
-        ///</remarks>
+        /// </code>
+        /// <p>Calling RangeFrom does not copy of the data in the dictionary, and the operation takes constant time.</p>
+        /// </remarks>
         /// <param name="from">The lower bound of the range.</param>
         /// <param name="fromInclusive">If true, the lower bound is inclusive--keys equal to the lower bound will
         /// be included in the range. If false, the lower bound is exclusive--keys equal to the lower bound will not
@@ -349,17 +349,17 @@ namespace X3Platform.Collections
         /// The items are enumerated in sorted order. Items equal to <paramref name="to"/> can be included
         /// or excluded depending on the <paramref name="toInclusive"/> parameter.
         /// </summary>
-        ///<remarks>
-        ///<p>The sorted order of the keys is determined by the comparison instance or delegate used
+        /// <remarks>
+        /// <p>The sorted order of the keys is determined by the comparison instance or delegate used
         /// to create the dictionary.</p>
-        ///<p>Typically, this property is used in conjunction with a foreach statement. For example:</p>
-        ///<code>
+        /// <p>Typically, this property is used in conjunction with a foreach statement. For example:</p>
+        /// <code>
         /// foreach(KeyValuePair&lt;TKey, TValue&gt; pair in dictionary.RangeFrom(from, false)) {
         ///    // process pair
         /// }
-        ///</code>
-        ///<p>Calling RangeTo does not copy the data in the dictionary, and the operation takes constant time.</p>
-        ///</remarks>
+        /// </code>
+        /// <p>Calling RangeTo does not copy the data in the dictionary, and the operation takes constant time.</p>
+        /// </remarks>
         /// <param name="to">The upper bound of the range. </param>
         /// <param name="toInclusive">If true, the upper bound is inclusive--keys equal to the upper bound will
         /// be included in the range. If false, the upper bound is exclusive--keys equal to the upper bound will not
@@ -630,17 +630,17 @@ namespace X3Platform.Collections
         /// The OrderedDictionary&lt;TKey,TValue&gt;.View class is used to look at a subset of the keys and values
         /// inside an ordered dictionary. It is returned from the Range, RangeTo, RangeFrom, and Reversed methods. 
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// <p>Views are dynamic. If the underlying dictionary changes, the view changes in sync. If a change is made
         /// to the view, the underlying dictionary changes accordingly.</p>
-        ///<p>Typically, this class is used in conjunction with a foreach statement to enumerate the keys
+        /// <p>Typically, this class is used in conjunction with a foreach statement to enumerate the keys
         /// and values in a subset of the OrderedDictionary. For example:</p>
-        ///<code>
+        /// <code>
         /// foreach(KeyValuePair&lt;TKey, TValue&gt; pair in dictionary.Range(from, to)) {
         ///    // process pair
         /// }
-        ///</code>
-        ///</remarks>
+        /// </code>
+        /// </remarks>
         [Serializable]
         public class View : DictionaryBase<TKey, TValue>
         {

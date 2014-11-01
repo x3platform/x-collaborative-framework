@@ -83,9 +83,6 @@
     <Reference Include="X3Platform.Apps">
       <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Drawing.Captcha">
-      <HintPath>..\..\..\bin\X3Platform.Drawing.Captcha.dll</HintPath>
-    </Reference>
     <Reference Include="X3Platform.Location.IPQuery">
       <HintPath>E:\Workspace\X3Platform\lib\X3Platform\X3Platform.Location.IPQuery.dll</HintPath>
     </Reference>
@@ -120,14 +117,17 @@
     <Compile Include="Builder\Management\CustomizeManagement.cs" />
     <Compile Include="Builder\Management\MenuManagement.cs" />
     <Compile Include="Builder\Management\NavigationManagement.cs" />
-    <Compile Include="Builder\Utility\SpecialTagHelper.cs" />
     <Compile Include="Component\Combobox\ComboboxBuilder.cs" />
     <Compile Include="Component\Combobox\ComboboxItem.cs" />
     <Compile Include="Component\HtmlHelper.cs" />
     <Compile Include="Component\ScriptWidget.cs" />
+    <Compile Include="Component\SpecialTagHelper.cs" />
     <Compile Include="Component\StyleWidget.cs" />
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="Configuration\WebConfigurationView.cs" />
+    <Compile Include="Customize\Widgets\IPLocationWidget.cs" />
+    <Compile Include="Customize\Widgets\MobileLocationWidget.cs" />
+    <Compile Include="Customize\Widgets\StaticHtmlWidget.cs" />
     <Compile Include="Mvc\Attributes\HandleExceptionAttribute.cs" />
     <Compile Include="Mvc\Attributes\LoginFilterAttribute.cs" />
     <Compile Include="Mvc\Controllers\CustomController.cs" />
@@ -165,13 +165,10 @@
     <Compile Include="Customize\Model\WidgetInstanceInfo.cs" />
     <Compile Include="Customize\Widgets\FavoriteWidget.cs" />
     <Compile Include="Customize\Widgets\GeneralWidget.cs" />
-    <Compile Include="Customize\Widgets\IPSpyWidget.cs" />
-    <Compile Include="Customize\Widgets\MobileSpyWidget.cs" />
     <Compile Include="Customize\Widgets\TodayWidget.cs" />
     <Compile Include="Customize\Widgets\WeatherWidget.cs" />
     <Compile Include="Mvc\Controllers\PlatformController.cs" />
     <Compile Include="Mvc\Controllers\AccountController.cs" />
-    <Compile Include="Mvc\Controllers\SDKController.cs" />
     <Compile Include="Pages\CustomPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -215,17 +212,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\X3Platform.Web.config" />
-    <Content Include="Customize\DAL\IBatis\PageProvider.xml">
-      <DependentUpon>PageProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Customize\DAL\IBatis\WidgetInstanceProvider.xml">
-      <DependentUpon>WidgetInstanceProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="Customize\DAL\IBatis\WidgetProvider.xml">
-      <DependentUpon>WidgetProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
+    <EmbeddedResource Include="Customize\DAL\IBatis\PageProvider.xml" />
+    <EmbeddedResource Include="Customize\DAL\IBatis\WidgetInstanceProvider.xml" />
+    <EmbeddedResource Include="Customize\DAL\IBatis\WidgetProvider.xml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
     <Content Include="UserAgents\change-marks.js" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +226,7 @@
       <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="UserAgents\defaults\regexes.yaml" />
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="UserAgents\README.md" />
   </ItemGroup>
   <ItemGroup>

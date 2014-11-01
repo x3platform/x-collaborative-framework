@@ -203,6 +203,9 @@
     <Compile Include="CommandLine\Attributes\OptionAttribute.cs" />
     <Compile Include="CommandLine\Attributes\OptionListAttribute.cs" />
     <Compile Include="CommandLine\Attributes\ValueListAttribute.cs" />
+    <Compile Include="Security\CiphertextFormat.cs" />
+    <Compile Include="Security\Configuration\SecurityConfiguration.cs" />
+    <Compile Include="Security\Configuration\SecurityConfigurationView.cs" />
     <Compile Include="Util\CommandLineHelper.cs" />
     <Compile Include="CommandLine\Text\CopyrightInfo.cs" />
     <Compile Include="CommandLine\Text\HeadingInfo.cs" />
@@ -1248,6 +1251,8 @@
     <Compile Include="Util\XmlHelper.cs" />
     <Compile Include="Web\Util\HttpUserAgnetHelper.cs" />
     <Compile Include="Web\Util\VirtualPathHelper.cs" />
+    <EmbeddedResource Include="Security\defaults\config.yaml" />
+    <None Include="Security\config\X3Platform.Security.config" />
     <None Include="Web\UrlRewriter\config\X3Platform.Web.UrlRewriter.config" />
     <None Include="Yaml\README.md" />
   </ItemGroup>

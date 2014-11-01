@@ -35,7 +35,7 @@ namespace X3Platform.Collections
 	/// compares items to sort the tree. Multiple items can compare equal and be stored
 	/// in the tree. Insert, Delete, and Find operations are provided in their full generality;
 	/// all operations allow dealing with either the first or last of items that compare equal. 
-	///</remarks>
+	/// </remarks>
     [Serializable]
 	internal class RedBlackTree<T>: IEnumerable<T> {
 		private readonly IComparer<T> comparer;			// interface for comparing elements, only Compare is used.

@@ -16,6 +16,23 @@ namespace X3Platform.Configuration
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        public static T GetRootNodeByResourceStream<T>(Assembly assembly, string name) where T : YamlNode
+        {
+            using (var stream = assembly.GetManifestResourceStream(name))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    // 加载内置配置信息
+                    var yaml = new YamlStream();
+
+                    yaml.Load(reader);
+
+                    // 设置配置信息根节点
+                    return (T)yaml.Documents[0].RootNode;
+                }
+            }
+        }
+
         /// <summary></summary>
         /// <param name="list"></param>
         /// <param name="node"></param>

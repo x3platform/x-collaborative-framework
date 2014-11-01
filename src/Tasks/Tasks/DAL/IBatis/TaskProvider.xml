@@ -256,7 +256,7 @@
         </select>
 
         <update id="proc_Task_SetTitle" parameterClass="TaskInfo" >
-            UPDATE tb_Task SET Title = #Title# WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
+            UPDATE tb_Task_WorkItem SET Title = #Title# WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode#
         </update>
 
         <update id="proc_Task_SetFinished" parameterClass="TaskInfo" >
@@ -264,11 +264,11 @@
         </update>
 
         <select id="proc_Task_GetIdsByTaskCodes" >
-            SELECT Id FROM tb_Task WHERE $WhereClause$
+            SELECT Id FROM tb_Task_WorkItem WHERE $WhereClause$
         </select>
 
         <select id="proc_Task_GetTaskTags" >
-            SELECT DISTINCT Tags FROM tb_Task T
+            SELECT DISTINCT Tags FROM tb_Task_WorkItem
             <dynamic prepend="WHERE">
                 <isParameterPresent>
                     <isNotEmpty prepend="AND" property="WhereClause" >
@@ -280,12 +280,12 @@
     
         <insert id="proc_Task_Archive">
             INSERT INTO tb_Task_HistoryItem 
-                SELECT * FROM view_Task_WorkItem 
+                SELECT * FROM tb_Task_WorkItem 
 	            WHERE 
 		            NOT EXISTS ( SELECT 0 FROM tb_Task_HistoryItem 
 			            WHERE 
-				            view_Task_WorkItem.Id = tb_Task_HistoryItem.Id 
-				            AND view_Task_WorkItem.ReceiverId = tb_Task_HistoryItem.ReceiverId )
+				            tb_Task_WorkItem.Id = tb_Task_HistoryItem.Id 
+				            AND tb_Task_WorkItem.ReceiverId = tb_Task_HistoryItem.ReceiverId )
 		            AND Status = 1 AND $WhereClause$
         </insert>
         

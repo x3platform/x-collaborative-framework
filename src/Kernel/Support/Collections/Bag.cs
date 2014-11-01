@@ -29,8 +29,8 @@ namespace X3Platform.Collections
     /// bag will appear to contain two copies of "hello" (the representative item).</p>
     /// <p><see cref="OrderedBag&lt;T&gt;"/> is similar, but uses comparison instead of hashing, maintain
     /// the items in sorted order, and stores distinct copies of items that compare equal.</p>
-    ///</remarks>
-    ///<seealso cref="OrderedBag&lt;T&gt;"/>
+    /// </remarks>
+    /// <seealso cref="OrderedBag&lt;T&gt;"/>
     [Serializable]
     public class Bag<T> : CollectionBase<T>, ICloneable
     {
@@ -75,9 +75,9 @@ namespace X3Platform.Collections
         /// <summary>
         /// Creates a new Bag. 
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// Items that are null are permitted.
-        ///</remarks>
+        /// </remarks>
         public Bag(): 
             this(EqualityComparer<T>.Default)
         {
@@ -102,9 +102,9 @@ namespace X3Platform.Collections
         /// Creates a new Bag. The bag is
         /// initialized with all the items in the given collection.
         /// </summary>
-        ///<remarks>
+        /// <remarks>
         /// Items that are null are permitted.
-        ///</remarks>
+        /// </remarks>
         /// <param name="collection">A collection with items to be placed into the Bag.</param>
         public Bag(IEnumerable<T> collection): 
             this(collection, EqualityComparer<T>.Default)

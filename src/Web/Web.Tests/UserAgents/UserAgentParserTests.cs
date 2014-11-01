@@ -14,13 +14,13 @@ using X3Platform.Web.UserAgents;
 
 namespace X3Platform.Web.Tests.UserAgents
 {
-    /// <summary>字符资源加载工具类</summary>
+    /// <summary></summary>
     [TestClass]
-    public class ParserTestSuite
+    public class UserAgentParserTests
     {
-        /// <summary>测试文件</summary>
+        /// <summary>测试解析用户代理信息</summary>
         [TestMethod]
-        public void TestLoad()
+        public void TestParse()
         {
             var parser = X3Platform.Web.UserAgents.Parser.GetDefault();
 
@@ -58,7 +58,7 @@ namespace X3Platform.Web.Tests.UserAgents
             // Amazon Kindle Fire HDX 8.9"
             client = parser.Parse("Mozilla/5.0 (Linux; U; en-us; KFAPWI Build/JDQ39) AppleWebKit/535.19 (KHTML, like Gecko) Silk/3.13 Safari/535.19 Silk-Accelerated=true");
 
-            Assert.AreEqual(client.Device.Family, "Android");
+            Assert.AreEqual(client.Device.Family, "Kindle Fire HDX 8.9\" WiFi");
             Assert.AreEqual(client.OS.Family, "Android");
             Assert.AreEqual(client.UserAgent.Family, "Amazon Silk");
         }

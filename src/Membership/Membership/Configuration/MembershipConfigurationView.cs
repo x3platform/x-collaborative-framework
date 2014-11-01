@@ -195,27 +195,52 @@ namespace X3Platform.Membership.Configuration
         }
         #endregion
 
-        #region 属性:PasswordEncryptionSecret
-        private string m_PasswordEncryptionSecret = string.Empty;
+        #region 属性:PasswordEncryptionKey
+        private string m_PasswordEncryptionKey = string.Empty;
 
         /// <summary>密码可逆加密方式的密钥</summary>
-        public string PasswordEncryptionSecret
+        public string PasswordEncryptionKey
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_PasswordEncryptionSecret))
+                if (string.IsNullOrEmpty(this.m_PasswordEncryptionKey))
                 {
                     // 读取配置信息
-                    this.m_PasswordEncryptionSecret = KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_PasswordEncryptionKey = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
-                        "PasswordEncryptionSecret",
+                        "PasswordEncryptionIV",
                         this.Configuration.Keys);
 
                     // 如果配置文件里没有设置，设置一个默认值。
-                    this.m_PasswordEncryptionSecret = StringHelper.NullOrEmptyTo(this.m_PasswordEncryptionSecret, Guid.Empty.ToString("N"));
+                    this.m_PasswordEncryptionKey = StringHelper.NullOrEmptyTo(this.m_PasswordEncryptionKey, Guid.Empty.ToString("N"));
                 }
 
-                return this.m_PasswordEncryptionSecret;
+                return this.m_PasswordEncryptionKey;
+            }
+        }
+        #endregion
+
+        #region 属性:PasswordEncryptionIV
+        private string m_PasswordEncryptionIV = string.Empty;
+
+        /// <summary>密码可逆加密方式的初始化向量</summary>
+        public string PasswordEncryptionIV
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_PasswordEncryptionIV))
+                {
+                    // 读取配置信息
+                    this.m_PasswordEncryptionIV = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "PasswordEncryptionIV",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    this.m_PasswordEncryptionIV = StringHelper.NullOrEmptyTo(this.m_PasswordEncryptionIV, "00000000");
+                }
+
+                return this.m_PasswordEncryptionKey;
             }
         }
         #endregion

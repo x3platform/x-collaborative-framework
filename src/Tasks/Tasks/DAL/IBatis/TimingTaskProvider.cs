@@ -360,19 +360,14 @@
         /// <returns>布尔值</returns>
         public bool IsExistTaskCode(string applicationId, string taskCode)
         {
-            if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode))
-                throw new Exception("应用标识和任务编号不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(applicationId) || string.IsNullOrEmpty(taskCode)) { throw new Exception("应用标识和任务编号不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" ApplicationId='{0}' and TaskCode='{1}'", StringHelper.ToSafeSQL(applicationId), StringHelper.ToSafeSQL(taskCode)));
+            args.Add("WhereClause", string.Format(" ApplicationId='{0}' AND TaskCode='{1}' ", StringHelper.ToSafeSQL(applicationId), StringHelper.ToSafeSQL(taskCode)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
-        }
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
+         }
         #endregion
 
         #region 函数:SetSent(string applicationId, string taskCode)

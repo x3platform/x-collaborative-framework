@@ -231,9 +231,7 @@
             {
                 if (string.IsNullOrEmpty(m_EncryptedApplicationSecretKey))
                 {
-                    byte[] key = UTF8Encoding.UTF8.GetBytes(this.ApplicationKey);
-
-                    m_EncryptedApplicationSecretKey = Encrypter.EncryptAES(this.ApplicationSecret, key);
+                    m_EncryptedApplicationSecretKey = Encrypter.EncryptAES(this.ApplicationSecret, this.ApplicationKey, this.ApplicationKey);
                 }
 
                 return this.m_EncryptedApplicationSecretKey;

@@ -79,9 +79,7 @@
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary></summary>
         /// <param name="indexs"></param>
         /// <returns></returns>
         private int GetHashCode(string[] indexs)

@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) 2010 ruanyu@live.com
-//
-// FileName     :InstallPage.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Web.Pages
+﻿namespace X3Platform.Web.Pages
 {
     using System.Web.UI;
 

@@ -30,17 +30,17 @@ namespace X3Platform.Web.Customize.IDAL
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="id">WidgetInstanceInfo Id��</param>
-        ///<returns>����һ��ʵ��<see cref="WidgetInstanceInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>��ѯĳ����¼</summary>
+        /// <param name="id">WidgetInstanceInfo Id��</param>
+        /// <returns>����һ��ʵ��<see cref="WidgetInstanceInfo"/>����ϸ��Ϣ</returns>
         WidgetInstanceInfo FindOne(string id);
         #endregion
 
         #region 属性:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>��������ʵ��<see cref="WidgetInstanceInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>��ѯ�������ؼ�¼</summary>
+        /// <param name="whereClause">SQL ��ѯ����</param>
+        /// <param name="length">����</param>
+        /// <returns>��������ʵ��<see cref="WidgetInstanceInfo"/>����ϸ��Ϣ</returns>
         IList<WidgetInstanceInfo> FindAll(string whereClause, int length);
         #endregion
 
@@ -49,27 +49,27 @@ namespace X3Platform.Web.Customize.IDAL
         // -------------------------------------------------------
 
         #region 属性:Save(WidgetInstanceInfo param)
-        ///<summary>������¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>WidgetInstanceInfo ʵ����ϸ��Ϣ</returns>
+        /// <summary>������¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>WidgetInstanceInfo ʵ����ϸ��Ϣ</returns>
         WidgetInstanceInfo Save(WidgetInstanceInfo param);
         #endregion
 
         #region 属性:Insert(WidgetInstanceInfo param)
-        ///<summary>���Ӽ�¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>���Ӽ�¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
         void Insert(WidgetInstanceInfo param);
         #endregion
 
         #region 属性:Update(WidgetInstanceInfo param)
-        ///<summary>�޸ļ�¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
+        /// <summary>�޸ļ�¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ������ϸ��Ϣ</param>
         void Update(WidgetInstanceInfo param);
         #endregion
 
         #region 属性:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���</param>
+        /// <summary>ɾ����¼</summary>
+        /// <param name="ids">��ʶ,�����Զ��Ÿ���</param>
         void Delete(string ids);
         #endregion
 
@@ -89,17 +89,17 @@ namespace X3Platform.Web.Customize.IDAL
         #endregion
 
         #region 属性:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼</summary>
-        ///<param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>��ѯ�Ƿ��������صļ�¼</summary>
+        /// <param name="param">WidgetInstanceInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>����ֵ</returns>
         bool IsExist(string id);
         #endregion
 
         #region 属性:RemoveUnbound(string pageId, string bindingWidgetInstanceIds)
-        ///<summary>ɾ��δ�󶨵Ĳ���ʵ��</summary>
-        ///<param name="pageId">ҳ������</param>
-        ///<param name="bindingWidgetInstanceIds">�󶨵Ĳ�����ʶ</param>
-        ///<returns>����ֵ</returns>
+        /// <summary>ɾ��δ�󶨵Ĳ���ʵ��</summary>
+        /// <param name="pageId">ҳ������</param>
+        /// <param name="bindingWidgetInstanceIds">�󶨵Ĳ�����ʶ</param>
+        /// <returns>����ֵ</returns>
         int RemoveUnbound(string pageId, string bindingWidgetInstanceIds);
         #endregion
     }
