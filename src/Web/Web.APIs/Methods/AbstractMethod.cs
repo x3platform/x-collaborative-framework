@@ -7,26 +7,26 @@ namespace X3Platform.Web.APIs.Methods
     using System.Xml;
     #endregion
 
-    /// <summary>���󷽷�</summary>
+    /// <summary>抽象方法</summary>
     public abstract class AbstractMethod : IMethod
     {
-        /// <summary>ѡ��</summary>
+        /// <summary>选项</summary>
         protected Dictionary<string, string> options;
 
-        /// <summary>���캯��</summary>
+        /// <summary>构造函数</summary>
         public AbstractMethod()
         { 
         }
 
-        /// <summary>���캯��</summary>
-        /// <param name="options">ѡ��</param>
-        /// <param name="doc">Xml�ĵ�</param>
+        /// <summary>构造函数</summary>
+        /// <param name="options">选项</param>
+        /// <param name="doc">Xml文档</param>
         public AbstractMethod(Dictionary<string, string> options)
         {
             this.options = options;
         }
 
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         public abstract object Execute();
     }

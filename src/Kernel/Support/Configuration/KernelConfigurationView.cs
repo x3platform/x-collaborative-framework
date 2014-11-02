@@ -787,26 +787,6 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 属性:ApplicationClientSignature
-        private string m_ApplicationClientSignature = string.Empty;
-
-        /// <summary>应用客户端调用的 AppKey</summary>
-        public string ApplicationClientSignature
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.m_ApplicationClientSignature))
-                {
-                    this.m_ApplicationClientSignature = Encrypter.EncryptAES(this.ApplicationClientSecret, this.ApplicationClientId, this.ApplicationClientId);
-
-                    this.m_ApplicationClientSignature = this.m_ApplicationClientSignature.Replace("+", "_");
-                }
-
-                return this.m_ApplicationClientSignature;
-            }
-        }
-        #endregion
-
         #region 属性:DataSourceName
         private string m_DataSourceName = string.Empty;
 
