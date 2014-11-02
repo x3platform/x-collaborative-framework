@@ -1044,6 +1044,7 @@
     <Compile Include="ISerializedJavaScriptObject.cs" />
     <Compile Include="ISerializedObject.cs" />
     <Compile Include="Data\DataQuery.cs" />
+    <Compile Include="Util\DateHelper.cs" />
     <Compile Include="Web\Util\UrlHelper.cs" />
     <Compile Include="Yaml\Core\AnchorNotFoundException.cs" />
     <Compile Include="Yaml\Core\CharacterAnalyzer.cs" />

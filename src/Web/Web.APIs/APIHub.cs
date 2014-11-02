@@ -1,24 +1,16 @@
 namespace X3Platform.Web.APIs
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.Web;
-    using System.Web.UI;
     using System.Xml;
     using System.Threading;
 
-    using X3Platform.Ajax;
-    using X3Platform.Apps;
-    using X3Platform.Configuration;
-    using X3Platform.Connect;
-    using X3Platform.Connect.Configuration;
-    using X3Platform.Connect.Model;
-    using X3Platform.Location.IPQuery;
-    using X3Platform.Util;
     using Common.Logging;
-    using System.Reflection;
-    using System.Collections.Generic;
-    using X3Platform.Web.APIs.Configuration;
-    using System.Collections.Specialized;
+
+    using X3Platform.Util;
+
 
     /// <summary></summary>
     /// <param name="methodName"></param>
@@ -30,10 +22,10 @@ namespace X3Platform.Web.APIs
     /// <summary></summary>
     sealed class APIHub
     {
-        /// <summary>��������</summary>
+        /// <summary>处理请求</summary>
         public static string ProcessRequest(HttpContextBase context, string methodName, ILog logger, APIInvokeDelegate methodInvoke)
         {
-            // ��Ӧ���ı���Ϣ
+            // 请求响应的内容
             string responseText = string.Empty;
 
             string xml = (context.Request.Form["xhr-xml"] == null) ? string.Empty : context.Request.Form["xhr-xml"];
@@ -51,7 +43,7 @@ namespace X3Platform.Web.APIs
                     doc.LoadXml(xml);
                 }
 
-                // �� QueryString �У��� xhr-name �������в���תΪͳһ��Xml�ĵ�������
+                // 将 QueryString 中，除 xhr-name 外的所有参数转为统一的Xml文档的数据
                 if (context.Request.QueryString.Count > 0)
                 {
                     for (int i = 0; i < context.Request.QueryString.Count; i++)
@@ -73,7 +65,7 @@ namespace X3Platform.Web.APIs
                     doc = AnalyzeQueryXml(doc, context.Request.QueryString);
                 }
 
-                // �����У��� name �� xml �������в���תΪͳһ��Xml�ĵ�������                 
+                // 将表单中，除 xhr-name 和 xhr-xml 外的所有参数转为统一的Xml文档的数据         
                 if (context.Request.HttpMethod == "POST" && context.Request.Form.Count > 0)
                 {
                     for (int i = 0; i < context.Request.Form.Count; i++)
@@ -97,16 +89,11 @@ namespace X3Platform.Web.APIs
 
                 string resultType = (context.Request.Form["xhr-resultType"] == null) ? "json" : context.Request.Form["xhr-resultType"];
 
-                // �����������������ͣ�Ĭ��Ϊ json ��ʽ��
+                // 设置输出的内容类型，默认为 json 格式。
                 HttpContentTypeHelper.SetValue(resultType);
 
                 try
                 {
-                    if (logger.IsDebugEnabled)
-                    {
-                        logger.Debug("responseText = Transact(" + methodName + ", doc)");
-                    }
-
                     var responseObject = methodInvoke(methodName, doc, logger); ;
 
                     responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
@@ -141,13 +128,13 @@ namespace X3Platform.Web.APIs
             return responseText;
         }
 
-        /// <summary>������ѯ�������ص�����</summary>
+        /// <summary>解析分页参数</summary>
         /// <param name="doc"></param>
         /// <param name="nameValues"></param>
         /// <returns></returns>
         public static XmlDocument AnalyzePagingXml(XmlDocument doc, NameValueCollection nameValues)
         {
-            // ��ҳ����
+            // 必填项检测
             if (nameValues["page"] != null && nameValues["start"] != null && nameValues["limit"] != null)
             {
                 XmlElement element = doc.CreateElement("paging");
@@ -163,7 +150,7 @@ namespace X3Platform.Web.APIs
             return doc;
         }
 
-        /// <summary>������ѯ�������ص�����</summary>
+        /// <summary>解析查询参数</summary>
         /// <param name="doc"></param>
         /// <param name="nameValues"></param>
         /// <returns></returns>

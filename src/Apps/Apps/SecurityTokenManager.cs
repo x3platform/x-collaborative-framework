@@ -10,8 +10,9 @@ namespace X3Platform.Apps
     using X3Platform.Util;
 
     using X3Platform.Apps.Model;
+    using X3Platform.DigitalNumber;
     #endregion
-    
+
     /// <summary>安全标记管理</summary>
     public static class SecurityTokenManager
     {
@@ -57,8 +58,20 @@ namespace X3Platform.Apps
         {
             ApplicationInfo param = AppsContext.Instance.ApplicationService.FindOne(applicationId);
 
-            return "{\"ajaxStorage\":{\"applicationId\":\"" + param.Id + "\","
-                + "\"applicationSecretSignal\":\"" + param.EncryptedApplicationSecret + "\"}}";
+            // 时间戳
+            var timestamp = DateHelper.GetTimestamp();
+            // 随机数
+            var nonce = DigitalNumberContext.Generate("Key_Nonce");
+            // 签名
+            var clientSignature = Encrypter.EncryptSHA1(Encrypter.SortAndConcat(
+                param.ApplicationSecret,
+                timestamp.ToString(),
+                nonce.ToString()));
+
+            return "{\"clientId\":\"" + param.Id + "\","
+                + "\"clientSignature\":\"" + clientSignature + "\","
+                + "\"timestamp\":\"" + timestamp + "\","
+                + "\"nonce\":\"" + nonce + "\"}";
         }
     }
 }

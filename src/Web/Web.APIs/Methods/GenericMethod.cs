@@ -10,25 +10,25 @@ namespace X3Platform.Web.APIs.Methods
     /// <summary></summary>
     public class GenericMethod : IMethod
     {
-        /// <summary>ѡ��</summary>
+        /// <summary>选项</summary>
         protected Dictionary<string, string> options;
-        /// <summary>Xml�ĵ�</summary>
+        /// <summary>Xml文档</summary>
         protected XmlDocument doc;
-        /// <summary>Ŀ������</summary>
+        /// <summary>目标对象</summary>
         protected object target;
-        /// <summary>������</summary>
+        /// <summary>类名称</summary>
         protected string className;
-        /// <summary>��������</summary>
+        /// <summary>方法名称</summary>
         protected string methodName;
 
-        /// <summary>���캯��</summary>
+        /// <summary>构造函数</summary>
         public GenericMethod()
         { 
         }
 
-        /// <summary>���캯��</summary>
-        /// <param name="options">ѡ��</param>
-        /// <param name="doc">Xml�ĵ�</param>
+        /// <summary>构造函数</summary>
+        /// <param name="options">选项</param>
+        /// <param name="doc">Xml文档</param>
         public GenericMethod(Dictionary<string, string> options, XmlDocument doc)
         {
             this.options = options;
@@ -40,7 +40,7 @@ namespace X3Platform.Web.APIs.Methods
             this.methodName = this.options["methodName"];
         }
 
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         public virtual object Execute()
         {

@@ -58,7 +58,7 @@
         {
             this.LoadKey();
 
-            return Encrypter.DecryptAES(encryptedPassword, key, iv, CiphertextFormat.BitString);
+            return Encrypter.DecryptAES(encryptedPassword, key, iv, CiphertextFormat.HexString);
         }
         #endregion
 
@@ -70,7 +70,7 @@
         {
             this.LoadKey();
 
-            return Encrypter.EncryptAES(unencryptedPassword, key, iv, CiphertextFormat.BitString);
+            return Encrypter.EncryptAES(unencryptedPassword, key, iv, CiphertextFormat.HexString);
         }
         #endregion
     }

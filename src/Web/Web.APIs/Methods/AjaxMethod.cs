@@ -10,9 +10,9 @@ namespace X3Platform.Web.APIs.Methods
     /// <summary></summary>
     public class AjaxMethod : GenericMethod
     {
-        /// <summary>���캯��</summary>
-        /// <param name="options">ѡ��</param>
-        /// <param name="doc">Xml�ĵ�</param>
+        /// <summary>构造函数</summary>
+        /// <param name="options">选项</param>
+        /// <param name="doc">Xml文档</param>
         public AjaxMethod(Dictionary<string, string> options, XmlDocument doc)
             : base(options, doc)
         {
@@ -21,7 +21,7 @@ namespace X3Platform.Web.APIs.Methods
             this.methodName = this.options["methodName"];
         }
 
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         public override object Execute()
         {

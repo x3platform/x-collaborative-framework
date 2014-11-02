@@ -133,24 +133,24 @@ namespace X3Platform.Security.Configuration
         }
         #endregion
 
-        #region 属性:DESCryptoVI
-        private string m_DESCryptoVI = string.Empty;
+        #region 属性:DESCryptoIV
+        private string m_DESCryptoIV = string.Empty;
 
         /// <summary>DES 加密方式的默认初始化向量</summary>
-        public string DESCryptoVI
+        public string DESCryptoIV
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_DESCryptoVI))
+                if (string.IsNullOrEmpty(this.m_DESCryptoIV))
                 {
                     // 读取配置信息
-                    this.m_DESCryptoVI = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "DESCryptoVI", this.Configuration.Keys);
+                    this.m_DESCryptoIV = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "DESCryptoIV", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_DESCryptoVI = StringHelper.NullOrEmptyTo(this.m_DESCryptoKey, "00000000");
+                    this.m_DESCryptoIV = StringHelper.NullOrEmptyTo(this.m_DESCryptoIV, "00000000");
                 }
 
-                return this.m_DESCryptoVI;
+                return this.m_DESCryptoIV;
             }
         }
         #endregion
@@ -199,24 +199,24 @@ namespace X3Platform.Security.Configuration
         }
         #endregion
 
-        #region 属性:AESCryptoVI
-        private string m_AESCryptoVI = string.Empty;
+        #region 属性:AESCryptoIV
+        private string m_AESCryptoIV = string.Empty;
 
         /// <summary>AES 加密方式的默认初始化向量</summary>
-        public string AESCryptoVI
+        public string AESCryptoIV
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_AESCryptoVI))
+                if (string.IsNullOrEmpty(this.m_AESCryptoIV))
                 {
                     // 读取配置信息
-                    this.m_AESCryptoVI = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "AESCryptoVI", this.Configuration.Keys);
+                    this.m_AESCryptoIV = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "AESCryptoIV", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_AESCryptoVI = StringHelper.NullOrEmptyTo(this.m_AESCryptoKey, "00000000");
+                    this.m_AESCryptoIV = StringHelper.NullOrEmptyTo(this.m_AESCryptoIV, "0000000000000000");
                 }
 
-                return this.m_AESCryptoVI;
+                return this.m_AESCryptoIV;
             }
         }
         #endregion
@@ -257,7 +257,7 @@ namespace X3Platform.Security.Configuration
                     this.m_AESCryptoPadding = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "AESCryptoPadding", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_AESCryptoPadding = StringHelper.NullOrEmptyTo(this.m_AESCryptoPadding, "00000000");
+                    this.m_AESCryptoPadding = StringHelper.NullOrEmptyTo(this.m_AESCryptoPadding, "PKCS7");
                 }
 
                 return this.m_AESCryptoPadding;
