@@ -5,6 +5,9 @@ namespace X3Platform.Web.APIs.Pages
     using System.Web.UI;
     using System.Xml;
     using System.Threading;
+    using System.Reflection;
+
+    using Common.Logging;
 
     using X3Platform.Ajax;
     using X3Platform.Apps;
@@ -14,8 +17,7 @@ namespace X3Platform.Web.APIs.Pages
     using X3Platform.Connect.Model;
     using X3Platform.Location.IPQuery;
     using X3Platform.Util;
-    using Common.Logging;
-    using System.Reflection;
+    using X3Platform.Security;
 
     /// <summary></summary>
     public sealed class APIPage : Page
@@ -26,74 +28,73 @@ namespace X3Platform.Web.APIs.Pages
         /// <summary></summary>
         public override void ProcessRequest(HttpContext context)
         {
-            // ʾ��: /api/application.method.hi.aspx
+            string responseText = string.Empty;
 
-            // ��ȡ�ͻ���ǩ�� clientId �� clientSecret
+            // 示例: /api/application.method.hi.aspx
 
-            string clientSignature = this.TryFetchRequstValue(context, "clientSignature", "client_signature");
+            // 获取客户端签名 clientId 和 clientSecret 或 clientId, clientSignature, timestamp, nonce
 
             string clientId = this.TryFetchRequstValue(context, "clientId", "client_id");
             string clientSecret = this.TryFetchRequstValue(context, "clientSecret", "client_secret");
+
+            string clientSignature = this.TryFetchRequstValue(context, "clientSignature", "client_signature");
+            string timestamp = context.Request["timestamp"] == null ? string.Empty : context.Request["timestamp"];
+            string nonce = context.Request["nonce"] == null ? string.Empty : context.Request["nonce"];
+
             string accessToken = this.TryFetchRequstValue(context, "accessToken", "access_token");
 
             string name = context.Request.QueryString["name"];
 
-            // ��֤Ȩ��
+            // 验证权限
             bool allowAccess = false;
 
-            if (!string.IsNullOrEmpty(clientSignature) && context.Request.UrlReferrer != null && context.Request.UrlReferrer.Host.IndexOf(KernelConfigurationView.Instance.Domain) > -1)
+            if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
             {
-                // 1.վ�� Ajax ����
-
-                // ��վ�ڲ�Ӧ��
-                if (!string.IsNullOrEmpty(clientSignature) && clientSignature == KernelConfigurationView.Instance.ApplicationClientSignature)
-                {
-                    clientId = KernelConfigurationView.Instance.ApplicationClientId;
-                    clientSecret = KernelConfigurationView.Instance.ApplicationClientSecret;
-
-                    allowAccess = true;
-                }
-            }
-            else if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
-            {
-                // ��֤�Ự
+                // 验证会话
                 allowAccess = true;
             }
             else if (!string.IsNullOrEmpty(clientId))
             {
-                // 2.������Ӧ������
+                // 2.第三方应用连接
                 ConnectInfo connect = ConnectContext.Instance.ConnectService[clientId];
 
                 if (connect == null)
                 {
-                    clientId = string.Empty;
                     allowAccess = false;
                 }
                 else
                 {
-                    if (HttpContext.Current.Request["APISessionId"] == HttpContext.Current.Session.SessionID)
+                    if (!string.IsNullOrEmpty(clientSignature) && !string.IsNullOrEmpty(timestamp) && !string.IsNullOrEmpty(nonce))
                     {
-                        allowAccess = true;
+                        // 加密方式签名
+
+                        var signature = Encrypter.EncryptSHA1(Encrypter.SortAndConcat(connect.AppSecret, timestamp, nonce));
+
+                        if (clientSignature == signature)
+                        {
+                            allowAccess = true;
+                        }
                     }
                     else if (!string.IsNullOrEmpty(clientSecret) && connect.AppSecret == clientSecret)
                     {
+                        // 明文客户端密钥
+
                         allowAccess = true;
                     }
                     else if (name == "connect.auth.authorize" || name == "connect.auth.token" || name == "connect.auth.callback" || name == "connect.oauth2.authorize" || name == "connect.oauth2.token" || name == "connect.oauth2.callback" || name == "session.me")
                     {
-                        // 3.�������ϳ��������ǣ�ȷ���Ƿ����û���¼��֤�ķ���
+                        // 3.如果以上场景都不是，确认是否是用户登录验证的方法
                         allowAccess = true;
                     }
                     else
                     {
-                        clientId = string.Empty;
                         allowAccess = false;
                     }
                 }
             }
             else if (name == "membership.member.login" || name == "session.me")
             {
-                // 3.�������ϳ��������ǣ�ȷ���Ƿ����û���¼��֤�ķ���
+                // 3.如果以上场景都不是，确认是否是用户登录验证的方法
                 allowAccess = true;
             }
 
@@ -117,7 +118,7 @@ namespace X3Platform.Web.APIs.Pages
                     doc.LoadXml(xml);
                 }
 
-                // �� QueryString �У��� name �������в���תΪͳһ��Xml�ĵ�������
+                // 将 QueryString 中，除 xhr-name 外的所有参数转为统一的Xml文档的数据
                 if (context.Request.QueryString.Count > 1)
                 {
                     for (int i = 0; i < context.Request.QueryString.Count; i++)
@@ -135,23 +136,20 @@ namespace X3Platform.Web.APIs.Pages
                     }
                 }
 
-                if (context.Request.HttpMethod == "POST")
+                // 将表单中，除 xhr-name 和 xhr-xml 外的所有参数转为统一的Xml文档的数据
+                if (context.Request.HttpMethod == "POST" && context.Request.Form.Count > 1)
                 {
-                    // �����У��� name �� xml �������в���תΪͳһ��Xml�ĵ�������
-                    if (context.Request.Form.Count > 1)
+                    for (int i = 0; i < context.Request.Form.Count; i++)
                     {
-                        for (int i = 0; i < context.Request.Form.Count; i++)
+                        if (context.Request.Form.Keys[i] == null) { continue; }
+
+                        if (context.Request.Form.Keys[i] != "xhr-name" && context.Request.Form.Keys[i] != "xhr-xml")
                         {
-                            if (context.Request.Form.Keys[i] == null) { continue; }
+                            XmlElement element = CreateXmlElement(doc, context.Request.Form.Keys[i]);
 
-                            if (context.Request.Form.Keys[i] != "xhr-name" && context.Request.Form.Keys[i] != "xhr-xml")
-                            {
-                                XmlElement element = CreateXmlElement(doc, context.Request.Form.Keys[i]);
+                            element.InnerText = context.Request.Form[i];
 
-                                element.InnerText = context.Request.Form[i];
-
-                                doc.DocumentElement.AppendChild(element);
-                            }
+                            doc.DocumentElement.AppendChild(element);
                         }
                     }
                 }
@@ -160,14 +158,12 @@ namespace X3Platform.Web.APIs.Pages
 
                 string resultType = (context.Request.Form["resultType"] == null) ? "json" : context.Request.Form["resultType"];
 
-                // �����������������ͣ�Ĭ��Ϊ json ��ʽ��
+                // 设置输出的内容类型，默认为 json 格式。
                 HttpContentTypeHelper.SetValue(resultType);
-
-                string responseText = string.Empty;
 
                 try
                 {
-                    // ��¼
+                    // 记录
                     if (ConnectConfigurationView.Instance.TrackingCall == "ON")
                     {
                         ConnectCallInfo call = new ConnectCallInfo(clientId, context.Request.RawUrl, doc.InnerXml);
@@ -244,10 +240,10 @@ namespace X3Platform.Web.APIs.Pages
         /// <returns></returns>
         private string TryFetchRequstValue(HttpContext context, string defaultName, string[] alias)
         {
-            // GET ��ʽ
+            // GET 方式
             string value = context.Request.QueryString[defaultName];
 
-            // POST ��ʽ
+            // POST 方式
             if (string.IsNullOrEmpty(value))
             {
                 value = context.Request.Form[defaultName];
@@ -255,7 +251,7 @@ namespace X3Platform.Web.APIs.Pages
 
             if (string.IsNullOrEmpty(value))
             {
-                // �������ݵ�����
+                // 其他兼容的名称
                 foreach (string item in alias)
                 {
                     if (!string.IsNullOrEmpty(context.Request.QueryString[item]))

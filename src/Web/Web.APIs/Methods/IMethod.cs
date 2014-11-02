@@ -2,10 +2,10 @@ namespace X3Platform.Web.APIs.Methods
 {
     using System;
 
-    /// <summary>�����ӿ�</summary>
+    /// <summary>方法接口</summary>
     public interface IMethod
     {
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         object Execute();
     }

@@ -109,9 +109,13 @@
             byte[] key = UTF8Encoding.UTF8.GetBytes("1234567812345678");
 
             byte[] iv = UTF8Encoding.UTF8.GetBytes("1234567812345678");
-
             //
-            string result = Encrypter.EncryptAES("123456", key, iv, CiphertextFormat.Base64String);
+            string result = Encrypter.EncryptAES("123456");
+
+            Assert.AreEqual("2eDiseYiSX62qk/WS/ZDmg==", result);
+
+            // 验证数字
+            result = Encrypter.EncryptAES("123456", key, iv, CiphertextFormat.Base64String);
 
             Assert.AreEqual("2eDiseYiSX62qk/WS/ZDmg==", result);
 
