@@ -11,6 +11,9 @@
 
     using X3Platform.Web.Builder;
     using X3Platform.Web.UserAgents;
+    using X3Platform.Security;
+    using X3Platform.DigitalNumber;
+    using X3Platform.Util;
     #endregion
 
     public class CustomController : Controller
@@ -104,8 +107,6 @@
             ViewData["version"] = KernelConfigurationView.Instance.Version;
             // 默认域名
             ViewData["domain"] = KernelConfigurationView.Instance.Domain;
-            // 签名
-            ViewData["signature"] = KernelConfigurationView.Instance.ApplicationClientSignature;
             // 身份标识名称
             ViewData["identityName"] = KernelContext.Current.AuthenticationManagement.IdentityName;
             // 给Session对象赋值，固定取得SessionID
@@ -113,8 +114,23 @@
             // 会话标识
             ViewData["session"] = HttpContext.Session.SessionID;
             // 时间间隔
-            ViewData["timeSpan"] = (new TimeSpan(DateTime.Now.Ticks).Subtract(new TimeSpan(this.initializedTime.Ticks)));
+            ViewData["timeSpan"] = DateHelper.GetTimeSpan(this.initializedTime);
 
+            // -------------------------------------------------------
+            // 生成签名
+            // -------------------------------------------------------
+
+            ViewData["clientId"] = KernelConfigurationView.Instance.ApplicationClientId;
+            // 时间戳
+            ViewData["timestamp"] = DateHelper.GetTimestamp();
+            // 随机数
+            ViewData["nonce"] = DigitalNumberContext.Generate("Key_Nonce");
+            // 签名
+            ViewData["clientSignature"] = Encrypter.EncryptSHA1(Encrypter.SortAndConcat(
+                KernelConfigurationView.Instance.ApplicationClientSecret, 
+                ViewData["timestamp"].ToString(),
+                ViewData["nonce"].ToString()));
+            
             base.OnActionExecuted(filterContext);
         }
         

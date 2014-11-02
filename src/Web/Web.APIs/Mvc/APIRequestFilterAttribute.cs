@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Diagnostics;
-using System.Web;
-
-namespace X3Platform.Web.Mvc.Attributes
+﻿namespace X3Platform.Web.Mvc.Attributes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Web;
+    using System.Web.Mvc;
+
     public class APIRequestFilterAttribute : ActionFilterAttribute
     {
         /// <summary>计时器</summary>

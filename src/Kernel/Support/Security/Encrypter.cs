@@ -170,7 +170,7 @@ namespace X3Platform.Security
         /// <returns>加密后的文本</returns>
         public static string EncryptDES(string text)
         {
-            return EncryptDES(text, SecurityConfigurationView.Instance.DESCryptoKey, SecurityConfigurationView.Instance.DESCryptoVI);
+            return EncryptDES(text, SecurityConfigurationView.Instance.DESCryptoKey, SecurityConfigurationView.Instance.DESCryptoIV);
         }
         #endregion
 
@@ -230,7 +230,7 @@ namespace X3Platform.Security
         /// <param name="text">文本</param>
         public static string DecryptDES(string text)
         {
-            return DecryptDES(text, SecurityConfigurationView.Instance.DESCryptoKey, SecurityConfigurationView.Instance.DESCryptoVI);
+            return DecryptDES(text, SecurityConfigurationView.Instance.DESCryptoKey, SecurityConfigurationView.Instance.DESCryptoIV);
         }
         #endregion
 
@@ -300,7 +300,7 @@ namespace X3Platform.Security
         /// <returns>加密后的文本</returns>
         public static string EncryptAES(string text)
         {
-            return EncryptAES(text, SecurityConfigurationView.Instance.AESCryptoKey, SecurityConfigurationView.Instance.AESCryptoVI);
+            return EncryptAES(text, SecurityConfigurationView.Instance.AESCryptoKey, SecurityConfigurationView.Instance.AESCryptoIV);
         }
         #endregion
 
@@ -365,7 +365,7 @@ namespace X3Platform.Security
         /// <param name="text">文本</param>
         public static string DecryptAES(string text)
         {
-            return DecryptAES(text, SecurityConfigurationView.Instance.AESCryptoKey, SecurityConfigurationView.Instance.AESCryptoVI);
+            return DecryptAES(text, SecurityConfigurationView.Instance.AESCryptoKey, SecurityConfigurationView.Instance.AESCryptoIV);
         }
         #endregion
 

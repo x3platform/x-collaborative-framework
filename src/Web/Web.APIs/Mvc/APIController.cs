@@ -6,17 +6,18 @@
     using System.Xml;
     using System.Web;
     using System.Web.Mvc;
-    
+
     using Common.Logging;
 
     using X3Platform.Apps;
     using X3Platform.Configuration;
     using X3Platform.Connect;
     using X3Platform.Connect.Model;
-    
+
     using X3Platform.Web.APIs.Configuration;
     using X3Platform.Web.APIs.Methods;
-    
+    using X3Platform.Security;
+
     /// <summary></summary>
     public sealed class APIController : Controller
     {
@@ -65,59 +66,73 @@
         /// <returns></returns>
         public bool Authenticate(HttpContextBase context)
         {
-            // 获取客户端签名 clientId 和 clientSecret
-
-            string clientSignature = this.TryFetchRequstValue(context, "clientSignature", "client_signature");
+            // 获取客户端签名 clientId 和 clientSecret 或 clientId, clientSignature, timestamp, nonce
 
             string clientId = this.TryFetchRequstValue(context, "clientId", "client_id");
             string clientSecret = this.TryFetchRequstValue(context, "clientSecret", "client_secret");
+
+            string clientSignature = this.TryFetchRequstValue(context, "clientSignature", "client_signature");
+            string timestamp = context.Request["timestamp"] == null ? string.Empty : context.Request["timestamp"];
+            string nonce = context.Request["nonce"] == null ? string.Empty : context.Request["nonce"];
+
             string accessToken = this.TryFetchRequstValue(context, "accessToken", "access_token");
 
             // 验证权限
             bool allowAccess = false;
 
-            if (!string.IsNullOrEmpty(clientSignature) && context.Request.UrlReferrer != null && context.Request.UrlReferrer.Host.IndexOf(KernelConfigurationView.Instance.Domain) > -1)
-            {
-                // 1.站内 Ajax 请求
-
-                // 网站内部应用
-                if (!string.IsNullOrEmpty(clientSignature) && clientSignature == KernelConfigurationView.Instance.ApplicationClientSignature)
-                {
-                    clientId = KernelConfigurationView.Instance.ApplicationClientId;
-                    clientSecret = KernelConfigurationView.Instance.ApplicationClientSecret;
-
-                    allowAccess = true;
-                }
-            }
-            else if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
+            if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
             {
                 // 验证会话
                 allowAccess = true;
             }
             else if (!string.IsNullOrEmpty(clientId))
             {
-                // 2.第三方应用连接
-                ConnectInfo connect = ConnectContext.Instance.ConnectService[clientId];
-
-                if (connect == null)
+                // 1.内部应用
+                if (clientId == KernelConfigurationView.Instance.ApplicationClientId)
                 {
-                    clientId = string.Empty;
-                    allowAccess = false;
+                    if (!string.IsNullOrEmpty(clientSignature) && !string.IsNullOrEmpty(timestamp) && !string.IsNullOrEmpty(nonce))
+                    {
+                        var signature = Encrypter.EncryptSHA1(Encrypter.SortAndConcat(
+                            KernelConfigurationView.Instance.ApplicationClientSecret, timestamp, nonce));
+
+                        if (clientSignature == signature)
+                        {
+                            allowAccess = true;
+                        }
+                    }
                 }
                 else
                 {
-                    if (context.Request["APISessionId"] == context.Session.SessionID)
+                    // 2.第三方应用连接
+                    ConnectInfo connect = ConnectContext.Instance.ConnectService[clientId];
+
+                    if (connect == null)
                     {
-                        allowAccess = true;
-                    }
-                    else if (!string.IsNullOrEmpty(clientSecret) && connect.AppSecret == clientSecret)
-                    {
-                        allowAccess = true;
+                        allowAccess = false;
                     }
                     else
                     {
-                        clientId = string.Empty;
-                        allowAccess = false;
+                        if (!string.IsNullOrEmpty(clientSignature) && !string.IsNullOrEmpty(timestamp) && !string.IsNullOrEmpty(nonce))
+                        {
+                            // 加密方式签名
+
+                            var signature = Encrypter.EncryptSHA1(Encrypter.SortAndConcat(connect.AppSecret, timestamp, nonce));
+
+                            if (clientSignature == signature)
+                            {
+                                allowAccess = true;
+                            }
+                        }
+                        else if (!string.IsNullOrEmpty(clientSecret) && connect.AppSecret == clientSecret)
+                        {
+                            // 明文客户端密钥
+
+                            allowAccess = true;
+                        }
+                        else
+                        {
+                            allowAccess = false;
+                        }
                     }
                 }
             }
@@ -173,21 +188,8 @@
 
             // 验证权限
             bool allowAccess = false;
-
-            if (!string.IsNullOrEmpty(clientSignature) && context.Request.UrlReferrer != null && context.Request.UrlReferrer.Host.IndexOf(KernelConfigurationView.Instance.Domain) > -1)
-            {
-                // 1.站内 Ajax 请求
-
-                // 网站内部应用
-                if (!string.IsNullOrEmpty(clientSignature) && clientSignature == KernelConfigurationView.Instance.ApplicationClientSignature)
-                {
-                    clientId = KernelConfigurationView.Instance.ApplicationClientId;
-                    clientSecret = KernelConfigurationView.Instance.ApplicationClientSecret;
-
-                    allowAccess = true;
-                }
-            }
-            else if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
+            
+            if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
             {
                 // 验证会话
                 allowAccess = true;

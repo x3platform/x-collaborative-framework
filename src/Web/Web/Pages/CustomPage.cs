@@ -11,6 +11,9 @@
     using X3Platform.Membership;
     using X3Platform.Velocity;
     using X3Platform.Web.Configuration;
+    using X3Platform.Util;
+    using X3Platform.DigitalNumber;
+    using X3Platform.Security;
 
     /// <summary>自定义页面</summary>
     public abstract class CustomPage : Page
@@ -278,10 +281,16 @@
             velocityContext.Put("buffer", renderBuffer.ToString());
 
             velocityContext.Put("footer", renderFooter.ToString());
+            // 系统名称
+            velocityContext.Put("systemName", KernelConfigurationView.Instance.SystemName);
+            // 系统状态
+            velocityContext.Put("systemStatus", KernelConfigurationView.Instance.SystemStatus);
+            // 版本
+            velocityContext.Put("version", KernelConfigurationView.Instance.Version);
             // 默认域名
             velocityContext.Put("domain", KernelConfigurationView.Instance.Domain);
-            // 签名
-            velocityContext.Put("signature", KernelConfigurationView.Instance.ApplicationClientSignature);
+            // 身份标识名称
+            velocityContext.Put("identityName", KernelContext.Current.AuthenticationManagement.IdentityName);
             // 页面加载次数
             velocityContext.Put("reloadCount", this.reloadCount);
             // 给Session对象赋值，固定取得SessionID
@@ -289,7 +298,22 @@
             // 会话标识
             velocityContext.Put("session", HttpContext.Current.Session.SessionID);
             // 时间间隔
-            velocityContext.Put("timeSpan", (new TimeSpan(DateTime.Now.Ticks).Subtract(new TimeSpan(this.initializedTime.Ticks))));
+            velocityContext.Put("timeSpan", DateHelper.GetTimeSpan(this.initializedTime));
+
+            // -------------------------------------------------------
+            // 生成签名
+            // -------------------------------------------------------
+
+            velocityContext.Put("clientId", KernelConfigurationView.Instance.ApplicationClientId);
+            // 时间戳
+            velocityContext.Put("timestamp", DateHelper.GetTimestamp());
+            // 随机数
+            velocityContext.Put("nonce", DigitalNumberContext.Generate("Key_Nonce"));
+            // 签名
+            velocityContext.Put("clientSignature", Encrypter.EncryptSHA1(Encrypter.SortAndConcat(
+                KernelConfigurationView.Instance.ApplicationClientSecret,
+                velocityContext.Get("timestamp").ToString(),
+                velocityContext.Get("nonce").ToString())));
 
             return VelocityManager.Instance.Merge(velocityContext, RenderBodyTemplatePath);
         }

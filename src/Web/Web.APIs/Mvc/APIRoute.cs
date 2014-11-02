@@ -1,10 +1,10 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-
-namespace X3Platform.Web.APIs.Mvc
+﻿namespace X3Platform.Web.APIs.Mvc
 {
+    using System;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
     /// <summary></summary>
     public class APIRoute : RouteBase
     {

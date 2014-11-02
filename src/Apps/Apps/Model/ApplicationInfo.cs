@@ -221,24 +221,6 @@
         }
         #endregion
 
-        #region 属性:EncryptedApplicationSecret
-        private string m_EncryptedApplicationSecretKey = string.Empty;
-
-        /// <summary>加密后的密钥</summary>
-        public string EncryptedApplicationSecret
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(m_EncryptedApplicationSecretKey))
-                {
-                    m_EncryptedApplicationSecretKey = Encrypter.EncryptAES(this.ApplicationSecret, this.ApplicationKey, this.ApplicationKey);
-                }
-
-                return this.m_EncryptedApplicationSecretKey;
-            }
-        }
-        #endregion
-
         #region 属性:PinYin
         private string m_PinYin = string.Empty;
 
