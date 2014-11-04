@@ -154,6 +154,7 @@
     <Content Include="views\main\sdk\aes.cshtml" />
     <Content Include="views\main\sdk\base64.cshtml" />
     <Content Include="views\main\sdk\qrcode.cshtml" />
+    <Content Include="views\main\sys\captcha.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
