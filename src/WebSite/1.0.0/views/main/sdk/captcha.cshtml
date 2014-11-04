@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "验证码校验工具";
+    Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<div id="background-container">
+<div class="form-container" >
+    <div class="form-top" >
+        <span><b>验证码 校验工具</b></span>
+    </div>
+    <div class="form-main" >
+        <dl class="form-cell">
+            <dt class="input-label">验证码</dt> 
+            <dd>
+                <input id="captcha" name="captcha" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="" />
+                <image src="data:image/png;base64,@ViewBag.ImageBase64String" style="height:30px; margin:8px 0 0 4px; border: 1px solid #ccc; border-radius: 3px; " />
+            </dd>
+        </dl>
+        <div class="form-actions">
+            <div class="button-submit button primary" ><a id="btnSubmit" href="javascript:void(0);">确定</a></div>
+        </div>
+    </div>
+    <div class="form-bottom" ><a href="/sdk/" >在线软件开发工具集</a></div>
+</div>
+</div>
+
+ <br />
