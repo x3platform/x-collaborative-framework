@@ -177,7 +177,6 @@
     <Compile Include="Configuration\NameValueConfigurationElement.cs" />
     <Compile Include="Configuration\XmlConfiguraton.cs" />
     <Compile Include="Configuration\KernelConfiguration.cs" />
-    <Compile Include="Configuration\KernelConfigurationConnectionManager.cs" />
     <Compile Include="Configuration\KernelConfigurationKey.cs" />
     <Compile Include="Configuration\KernelConfigurationKeyCollection.cs" />
     <Compile Include="Configuration\KernelConfigurationSectionHandler.cs" />
@@ -190,6 +189,7 @@
     <Compile Include="Configuration\XmlConfiguratonView.cs" />
     <Compile Include="Configuration\XmlConfiguratonOperator.cs" />
     <Compile Include="Configuration\YamlConfiguratonOperator.cs" />
+    <Compile Include="Data\DatabaseSettings.cs" />
     <Compile Include="Data\DataQueryExpression.cs" />
     <Compile Include="Data\DataQueryExpressionParser.cs" />
     <Compile Include="Data\DataQueryParameter.cs" />

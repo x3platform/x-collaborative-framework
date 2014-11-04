@@ -2,6 +2,7 @@ namespace X3Platform.Util
 {
     #region Using Libraries
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
@@ -88,6 +89,33 @@ namespace X3Platform.Util
             return new MemoryStream(Encoding.Default.GetBytes(text));
         }
         #endregion
+
+        /// <summary>串联字符串数组的所有非空内容，其中在每个元素之间使用逗号分隔符。</summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static string Join(params string[] values)
+        {
+            return Join(",", values);
+        }
+
+        /// <summary>串联字符串数组的所有非空元素，其中在每个元素之间使用指定的分隔符。</summary>
+        /// <param name="separator"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static string Join(string separator, params string[] values)
+        {
+            List<string> list = new List<string>();
+
+            foreach (var text in values)
+            {
+                if (!string.IsNullOrEmpty(text))
+                {
+                    list.Add(text);
+                }
+            }
+
+            return string.Join(separator, list.ToArray());
+        }
 
         //-------------------------------------------------------
         // 字符串格式化处理
@@ -611,7 +639,7 @@ namespace X3Platform.Util
             string[] ids = text.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (ids.Length == 0) { return string.Empty; }
-            
+
             for (int i = 0; i < ids.Length; i++)
             {
                 ids[i] = Regex.Replace(ids[i], ";|'|--", string.Empty);

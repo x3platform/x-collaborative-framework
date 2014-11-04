@@ -63,6 +63,7 @@ using X3Platform.IBatis.DataMapper.Scope;
 using X3Platform.IBatis.DataMapper.TypeHandlers;
 using X3Platform.Configuration;
 using X3Platform.Logging;
+using X3Platform.Data;
 
 #endregion
 
@@ -1676,14 +1677,17 @@ namespace X3Platform.IBatis.DataMapper.Configuration
             // -------------------------------------------------------
 
             KernelConfiguration kernelConfiguration = KernelConfigurationView.Instance.Configuration;
+            
+            DatabaseSettings databaseSettings = new DatabaseSettings(kernelConfiguration);
 
-            _configScope.Properties.Add("ApplicationPathRoot", kernelConfiguration.Keys["ApplicationPathRoot"].Value);
+            _configScope.Properties.Add("ApplicationPathRoot", KernelConfigurationView.Instance.ApplicationPathRoot);
 
-            _configScope.Properties.Add("DatabaseSettings.LoginName", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.LoginName") ? kernelConfiguration.Keys["DatabaseSettings.LoginName"].Value : string.Empty);
-            _configScope.Properties.Add("DatabaseSettings.Password", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.Password") ? kernelConfiguration.Keys["DatabaseSettings.Password"].Value : string.Empty);
-            _configScope.Properties.Add("DatabaseSettings.DataSource", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.DataSource") ? KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.DataSource"].Value) : string.Empty);
-            _configScope.Properties.Add("DatabaseSettings.Database", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.Database") ? KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.Database"].Value) : string.Empty);
-            _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", kernelConfiguration.Keys.ContainsKey("DatabaseSettings.IBatisSqlMapFilePathRoot") ? KernelConfigurationView.Instance.ReplaceKeyValue(kernelConfiguration.Keys["DatabaseSettings.IBatisSqlMapFilePathRoot"].Value) : string.Empty);
+            _configScope.Properties.Add("DatabaseSettings.DataSource", databaseSettings.DataSource);
+            _configScope.Properties.Add("DatabaseSettings.Database", databaseSettings.Database);
+            _configScope.Properties.Add("DatabaseSettings.LoginName", databaseSettings.LoginName);
+            _configScope.Properties.Add("DatabaseSettings.Password", databaseSettings.Password);
+            _configScope.Properties.Add("DatabaseSettings.Provider", databaseSettings.Provider);
+            _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", databaseSettings.IBatisSqlMapFilePathRoot);
 
             if (nodeProperties != null)
             {
