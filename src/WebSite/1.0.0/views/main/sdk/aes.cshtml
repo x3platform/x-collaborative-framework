@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "AES 在线加密工具";
+    Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<script type="text/javascript">
+    x.dom.ready(function()
+    {
+        function submit(methodName)
+        {
+            x.dom("#methodName").val(methodName);
+            document.getElementById('form1').submit();
+        }
+
+        x.dom("#btnEncrypt").on('click', function()
+        {
+            submit('encrypt');
+        });
+
+        x.dom("#btnDecrypt").on('click', function()
+        {
+            submit('decrypt');
+        });
+    });
+</script>
+<form id="form1" method="post" >
+<div class="form-container" >
+    <div class="form-top" >
+        <h3>AES 在线加密工具</h3>
+    </div>
+    <div class="form-main" >
+        <dl class="form-cell">
+            <dt class="input-label">原文</dt> 
+            <dd>
+                <input id="originalText" name="originalText" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.OriginalText" />
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">算法模式</dt> 
+            <dd>
+                <select id="cryptoMode" name="cryptoMode" >
+                    <option value="CBC" @if (HttpContext.Current.Request["cryptoMode"] == "CBC") { <text>selected="selected"</text> } >CBC</option>
+                    <option value="CFB" @if (HttpContext.Current.Request["cryptoMode"] == "CFB") { <text>selected="selected"</text> } >CFB</option>
+                    <option value="ECB" @if (HttpContext.Current.Request["cryptoMode"] == "ECB") { <text>selected="selected"</text> } >ECB</option>
+                    <option value="OFB" @if (HttpContext.Current.Request["cryptoMode"] == "OFB") { <text>selected="selected"</text> } >OFB</option>
+                </select>
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">加密密钥</dt> 
+            <dd>
+                <input id="cryptoKey" name="cryptoKey" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@HttpContext.Current.Request["cryptoKey"]" />
+                <p class="note" >默认值:12345678123456781234567812345678</p>
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">加密初始化向量</dt> 
+            <dd>
+                <input id="cryptoIV" name="cryptoIV" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@HttpContext.Current.Request["cryptoIV"]" />
+                <p class="note" >默认值:1234567812345678</p>
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">补码方式</dt> 
+            <dd>
+                <select id="paddingMode" name="paddingMode" >
+                    <option value="PKCS5" @if (HttpContext.Current.Request["paddingMode"] == "PKCS5") { <text>selected="selected"</text> } >PKCS5</option>
+                    <option value="PKCS7" @if (HttpContext.Current.Request["paddingMode"] == "PKCS7") { <text>selected="selected"</text> } >PKCS7</option>
+                </select>
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">密文格式</dt> 
+            <dd>
+                <select id="cryptoCiphertextFormat" name="cryptoCiphertextFormat" >
+                    <option value="Base64String" @if (HttpContext.Current.Request["cryptoCiphertextFormat"] == "Base64String" ) { <text>selected="selected"</text> } >Base64</option>
+                    <option value="HexStringWhitoutHyphen" @if (HttpContext.Current.Request["cryptoCiphertextFormat"] == "HexStringWhitoutHyphen") { <text>selected="selected"</text> } >十六进制</option>
+                </select>
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">密文</dt> 
+            <dd>
+                <input id="ciphertext" name="ciphertext" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.Ciphertext" />
+            </dd>
+        </dl>
+        <div class="form-actions">
+            <div class="button-submit button primary" ><a id="btnEncrypt" href="javascript:void(0);" >加密</a></div>
+            <div class="button-submit button primary" ><a id="btnDecrypt" href="javascript:void(0);" >解密</a></div>
+        </div>    
+        <input id="methodName" name="methodName" type="hidden" x-dom-data-type="value" value="@HttpContext.Current.Request["methodName"]" />    
+    </div>
+    <div class="form-bottom" ><a href="/sdk/" >在线软件开发工具集</a></div>
+</div>
+</form>

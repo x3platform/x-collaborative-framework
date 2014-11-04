@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "BASE64 在线加密解密工具";
+    Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<form id="form1" method="post" >
+<script type="text/javascript">
+    x.dom.ready(function()
+    {
+        function submit(methodName)
+        {
+            x.dom("#methodName").val( methodName);
+            document.getElementById('form1').submit();
+        }
+
+        x.dom("#btnEncrypt").on('click', function()
+        {
+            submit('encrypt');
+        });
+
+        x.dom("#btnDecrypt").on('click', function()
+        {
+            submit('decrypt');
+        });
+    });
+</script>
+<div class="form-container" >
+    <div class="form-top" >
+        <h3>BASE64 在线加密工具</h3>
+    </div>
+    <div class="form-main" >
+        <dl class="form-cell">
+            <dt class="input-label">原文</dt> 
+            <dd>
+                <input id="originalText" name="originalText" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.OriginalText" />
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">密文</dt> 
+            <dd>
+                <input id="ciphertext" name="ciphertext" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.Ciphertext" />
+            </dd>
+        </dl>
+        <div class="form-actions">
+            <div class="button-submit button primary" ><a id="btnEncrypt" href="javascript:void(0);" >加密</a></div>
+            <div class="button-submit button primary" ><a id="btnDecrypt" href="javascript:void(0);" >解密</a></div>
+        </div>    
+        <input id="methodName" name="methodName" type="hidden" x-dom-data-type="value" value="@HttpContext.Current.Request["methodName"]" />    
+    </div>
+    <div class="form-bottom" ><a href="/sdk/" >在线软件开发工具集</a></div>
+</div>
+</form>

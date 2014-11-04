@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "User Agent 解析器";
+    Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<div id="background-container">
+<div class="form-container" >
+    <div class="form-top" >
+        <h3>User Agent 解析器</h3>
+    </div>
+    <div class="form-main" >
+        <dl class="form-cell">
+            <dt class="input-label">内容</dt> 
+            <dd>
+                <input id="key" name="key" type="text" x-dom-data-type="value" x-dom-feature="email" class="window-sign-up-input-style" maxlength="400" value="@ViewBag.UserAgent" />
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">User Agent 字符串</dt> 
+            <dd>@ViewBag.UserAgent</dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">Device</dt> 
+            <dd>@ViewBag.Client.Device.Family</dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">OS</dt> 
+            <dd>@ViewBag.Client.OS.Family</dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">Browser</dt> 
+            <dd>@ViewBag.Client.UserAgent.Family</dd>
+        </dl>
+        <div class="form-actions">
+            <div class="button-submit button primary" ><a id="btnSubmit" href="javascript:void(0);">查询</a></div>
+        </div>
+    </div>
+    <div class="form-bottom" ><a href="/sdk/" >在线软件开发工具集</a></div>
+</div>
+</div>

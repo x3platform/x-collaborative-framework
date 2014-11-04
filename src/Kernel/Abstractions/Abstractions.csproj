@@ -230,7 +230,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml" />
+    <EmbeddedResource Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "MD5加密工具";
+    Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<div id="background-container">
+<form id="form1" method="post" action="" >
+<div class="form-container" >
+    <div class="form-top" >
+        <span><b>MD5 加密工具</b></span>
+    </div>
+    <div class="form-main" >
+        <dl class="form-cell">
+            <dt class="input-label">原文</dt> 
+            <dd>
+                <input id="text" name="text" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@HttpContext.Current.Request["text"]" />
+            </dd>
+        </dl>
+        <dl class="form-cell">
+            <dt class="input-label">密文</dt> 
+            <dd>
+                <input id="ciphertext" name="ciphertext" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.Ciphertext" />
+            </dd>
+        </dl>
+        <div class="form-actions">
+            <div class="button-submit button primary" ><a id="btnSubmit" href="javascript:void(0);" onclick="document.getElementById('form1').submit();" >加密</a></div>
+        </div>
+    </div>
+    <div class="form-bottom" ><a href="/sdk/" >在线软件开发工具集</a></div>
+</div>
+</form>
+</div>
