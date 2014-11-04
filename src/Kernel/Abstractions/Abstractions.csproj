@@ -256,7 +256,9 @@
     <Content Include="Security\Authority\db\权限管理初始化脚本%28SQLServer%29.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DigitalNumber\config\X3Platform.DigitalNumber.config" />
+    <None Include="DigitalNumber\config\X3Platform.DigitalNumber.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.IBatis.SqlMap.config" />
     <EmbeddedResource Include="DigitalNumber\defaults\config.yaml" />
     <EmbeddedResource Include="DigitalNumber\defaults\IBatis.SqlMap.xml">

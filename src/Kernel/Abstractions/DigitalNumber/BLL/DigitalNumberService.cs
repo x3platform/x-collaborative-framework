@@ -154,15 +154,8 @@ namespace X3Platform.DigitalNumber.BLL
 
                     param.Seed = seed;
 
-                    if (param.Name == "Key_32DigitGuid"
-                        || param.Name == "Key_Guid"
-                        || param.Name == "Key_Random_10"
-                        || param.Name == "Key_Timestamp"
-                        || param.Name == "Key_Session")
-                    {
-                        // 内置不需要自增的编号和更新时间的编号
-                    }
-                    else
+                    // 忽略不需要自增的编号和更新时间的编号
+                    if (DigitalNumberConfigurationView.Instance.IgnoreIncrementSeed.IndexOf(param.Name) == -1)
                     {
                         Save(param);
                     }

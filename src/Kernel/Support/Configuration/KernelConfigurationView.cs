@@ -105,12 +105,14 @@ namespace X3Platform.Configuration
                 }
             }
 
-            if (ConfigurationManager.ConnectionStrings[this.DataSourceName] != null)
+            DatabaseSettings settings = new DatabaseSettings(this.Configuration);
+
+            if (settings.Valid)
             {
                 try
                 {
                     // 加载数据库自定义选项信息
-                    GenericSqlCommand command = new GenericSqlCommand(this.DataSourceName);
+                    GenericSqlCommand command = new GenericSqlCommand(settings.ConnectionString, settings.Provider);
 
                     DataTable table = command.ExecuteQueryForDataTable("SELECT Name, Value FROM tb_Application_Option WHERE Status = 1;");
 
@@ -786,59 +788,5 @@ namespace X3Platform.Configuration
             }
         }
         #endregion
-
-        #region 属性:DataSourceName
-        private string m_DataSourceName = string.Empty;
-
-        /// <summary>应用程序的配置数据库连接</summary>
-        public string DataSourceName
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.m_DataSourceName))
-                {
-                    if (this.Configuration.Keys["DataSourceName"] == null)
-                    {
-                        this.m_DataSourceName = "ConnectionString";
-
-                        this.Configuration.Keys.Add(new KernelConfigurationKey("DataSourceName", this.m_DataSourceName));
-                    }
-                    else
-                    {
-                        this.m_DataSourceName = this.Configuration.Keys["DataSourceName"].Value;
-                    }
-                }
-
-                return this.m_DataSourceName;
-            }
-        }
-        #endregion
-
-        #region 属性:DataSourceType
-        private string m_DataSourceType = string.Empty;
-
-        /// <summary>应用程序的配置数据库类型</summary>
-        public string DataSourceType
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.m_DataSourceType))
-                {
-                    if (this.Configuration.Keys["DataSourceName"] == null)
-                    {
-                        this.m_DataSourceType = "MySql";
-
-                        this.Configuration.Keys.Add(new KernelConfigurationKey("DataSourceType", this.m_DataSourceName));
-                    }
-                    else
-                    {
-                        this.m_DataSourceType = this.Configuration.Keys["DataSourceType"].Value;
-                    }
-                }
-
-                return this.m_DataSourceType;
-            }
-        }
-        #endregion
-}
+    }
 }
