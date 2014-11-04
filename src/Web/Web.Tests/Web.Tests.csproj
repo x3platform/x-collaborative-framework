@@ -82,14 +82,17 @@
     <Reference Include="X3Platform.Web.APIs">
       <HintPath>..\..\..\bin\X3Platform.Web.APIs.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Web.Mixed">
+      <HintPath>..\..\..\bin\X3Platform.Web.Mixed.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\Configuration\APIsConfigurationTests.cs" />
-    <Compile Include="Component\Combobox\ComboboxBuilderTestSuite.cs" />
-    <Compile Include="Component\HtmlHelperTestSuite.cs" />
+    <Compile Include="Component\Combobox\ComboboxBuilderTests.cs" />
+    <Compile Include="Component\HtmlHelperTests.cs" />
     <Compile Include="Configuration\WebConfigurationTests.cs" />
-    <Compile Include="Customize\CustomizeContextTestSuite.cs" />
-    <Compile Include="Customize\Widgets\UnitTest1.cs" />
+    <Compile Include="Customize\CustomizeContextTests.cs" />
+    <Compile Include="Customize\Widgets\WidgetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAgents\UserAgentParserTests.cs" />
   </ItemGroup>

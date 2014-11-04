@@ -1,5 +1,4 @@
-﻿
-namespace X3Platform.Web.Component.TestSuite
+﻿namespace X3Platform.Web.Tests.Component
 {
     using System;
     using System.Text;
@@ -7,11 +6,12 @@ namespace X3Platform.Web.Component.TestSuite
     using System.Configuration;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using X3Platform.Web.Component.Combobox;
 
     /// <summary></summary>
     [TestClass]
-    public class ComboboxBuilderTestSuite
+    public class ComboboxBuilderTests
     {
         /// <summary>测试解析数据源</summary>
         [TestMethod]
@@ -23,9 +23,9 @@ namespace X3Platform.Web.Component.TestSuite
 
             Assert.AreEqual(list.Count, 3);
 
-            Assert.AreEqual(ComboboxBuilder.ParseText("1", dataSource), "重要");
+            Assert.AreEqual("重要", ComboboxBuilder.ParseText("1", dataSource));
 
-            Assert.AreEqual(ComboboxBuilder.ParseValue("重要", dataSource), "1");
+            Assert.AreEqual("1", ComboboxBuilder.ParseValue("重要", dataSource));
         }
     }
 }

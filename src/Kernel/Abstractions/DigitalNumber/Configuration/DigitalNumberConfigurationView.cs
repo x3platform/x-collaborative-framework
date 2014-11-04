@@ -5,6 +5,7 @@ namespace X3Platform.DigitalNumber.Configuration
     using System.IO;
 
     using X3Platform.Configuration;
+    using X3Platform.Util;
     #endregion
 
     /// <summary>流水号配置视图</summary>
@@ -66,5 +67,27 @@ namespace X3Platform.DigitalNumber.Configuration
         // -------------------------------------------------------
         // 自定义属性
         // -------------------------------------------------------
+
+        #region 属性:IgnoreIncrementSeed
+        private string m_IgnoreIncrementSeed = string.Empty;
+
+        /// <summary>忽略自增因子的规则 一般适用于随机数和 GUID</summary>
+        public string IgnoreIncrementSeed
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_IgnoreIncrementSeed))
+                {
+                    // 读取配置信息
+                    this.m_IgnoreIncrementSeed = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "IgnoreIncrementSeed", this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_IgnoreIncrementSeed = StringHelper.NullOrEmptyTo(this.m_IgnoreIncrementSeed, "Key_Guid");
+                }
+
+                return this.m_IgnoreIncrementSeed;
+            }
+        }
+        #endregion
     }
 }
