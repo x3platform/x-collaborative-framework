@@ -66,5 +66,31 @@ namespace X3Platform.Util
             return text;
         }
         #endregion
+
+        #region 函数:ToBase64(byte[] buffer)
+        /// <summary>将 Base64 编码文本转换成文本</summary>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public static string ToBase64(byte[] buffer)
+        {
+            int base64ArraySize = (int)Math.Ceiling(buffer.Length / 3d) * 4;
+
+            char[] charBuffer = new char[base64ArraySize];
+
+            Convert.ToBase64CharArray(buffer, 0, buffer.Length, charBuffer, 0);
+
+            return new string(charBuffer);
+        }
+        #endregion
+
+        #region 函数:FromBase64(string base64Text)
+        /// <summary>将 Base64 编码文本转换成 byte[]</summary>
+        /// <param name="base64Text">Base64 编码文本</param>
+        /// <returns></returns>
+        public static Byte[] FromBase64(string base64Text)
+        {
+            return Convert.FromBase64String(base64Text);
+        }
+        #endregion
     }
 }

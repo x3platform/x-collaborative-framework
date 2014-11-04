@@ -178,7 +178,7 @@ namespace X3Platform.Security
         /// <summary>加密-DES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <returns>加密后的文本</returns>
         public static string EncryptDES(string text, string key, string iv)
         {
@@ -192,7 +192,7 @@ namespace X3Platform.Security
         /// <summary>加密-DES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <param name="format">密文格式</param>
         /// <returns>加密后的文本</returns>
         public static string EncryptDES(string text, string key, string iv, CiphertextFormat format)
@@ -238,7 +238,7 @@ namespace X3Platform.Security
         /// <summary>解密-DES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <returns>解密后的文本</returns>
         public static string DecryptDES(string text, string key, string iv)
         {
@@ -308,7 +308,7 @@ namespace X3Platform.Security
         /// <summary>加密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <returns>加密后的文本</returns>
         public static string EncryptAES(string text, string key, string iv)
         {
@@ -322,7 +322,7 @@ namespace X3Platform.Security
         /// <summary>加密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <param name="format">密文格式</param>
         /// <returns>加密后的文本</returns>
         public static string EncryptAES(string text, string key, string iv, CiphertextFormat format)
@@ -331,14 +331,41 @@ namespace X3Platform.Security
         }
         #endregion
 
+        #region 函数:EncryptAES(string text, string key, string iv, CipherMode mode, PaddingMode padding, CiphertextFormat format)
+        /// <summary>加密-AES方式</summary>
+        /// <param name="text">文本</param>
+        /// <param name="key">密钥</param>
+        /// <param name="iv">初始化向量</param>
+        /// <returns>加密后的文本</returns>
+        public static string EncryptAES(string text, string key, string iv, CipherMode mode, PaddingMode padding, CiphertextFormat format)
+        {
+            return EncryptAES(text, UTF8Encoding.UTF8.GetBytes(key), UTF8Encoding.UTF8.GetBytes(iv), mode, padding, format);
+        }
+        #endregion
+
+        #region 函数:DecryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        /// <summary>加密-AES方式</summary>
+        /// <param name="text">文本</param>
+        /// <param name="key">密钥</param>
+        /// <param name="iv">初始化向量</param>
+        /// <returns>加密后的文本</returns>
+        public static string EncryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        {
+            var mode = (CipherMode)Enum.Parse(typeof(CipherMode), SecurityConfigurationView.Instance.AESCryptoMode);
+            var padding = (PaddingMode)Enum.Parse(typeof(PaddingMode), SecurityConfigurationView.Instance.AESCryptoPadding);
+
+            return EncryptAES(text, key, iv, mode, padding, format);
+        }
+        #endregion
+
         #region 函数:EncryptAES(string text, byte[] key, byte[] iv)
         /// <summary>加密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <param name="format">密文格式</param>
         /// <returns>加密后的文本</returns>
-        public static string EncryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        public static string EncryptAES(string text, byte[] key, byte[] iv, CipherMode mode, PaddingMode padding, CiphertextFormat format)
         {
             byte[] result = null;
 
@@ -348,8 +375,8 @@ namespace X3Platform.Security
 
             rijndaelManaged.Key = key;
             rijndaelManaged.IV = iv;
-            rijndaelManaged.Mode = CipherMode.CBC;
-            rijndaelManaged.Padding = PaddingMode.PKCS7;
+            rijndaelManaged.Mode = mode;
+            rijndaelManaged.Padding = padding;
 
             using (ICryptoTransform encryptor = rijndaelManaged.CreateEncryptor())
             {
@@ -373,7 +400,7 @@ namespace X3Platform.Security
         /// <summary>解密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <returns>解密后的文本</returns>
         public static string DecryptAES(string text, string key, string iv)
         {
@@ -383,18 +410,15 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 函数:DecryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        #region 函数:DecryptAES(string text, string key, string iv)
         /// <summary>解密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <returns>解密后的文本</returns>
-        public static string DecryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        public static string DecryptAES(string text, string key, string iv, CipherMode mode, PaddingMode padding, CiphertextFormat format)
         {
-            var mode = (CipherMode)Enum.Parse(typeof(CipherMode), SecurityConfigurationView.Instance.AESCryptoMode);
-            var padding = (PaddingMode)Enum.Parse(typeof(PaddingMode), SecurityConfigurationView.Instance.AESCryptoPadding);
-
-            return DecryptAES(text, key, iv, format, mode, padding);
+            return DecryptAES(text, UTF8Encoding.UTF8.GetBytes(key), UTF8Encoding.UTF8.GetBytes(iv), mode, padding, format);
         }
         #endregion
 
@@ -402,9 +426,24 @@ namespace X3Platform.Security
         /// <summary>解密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>
-        /// <param name="iv">向量</param>
+        /// <param name="iv">初始化向量</param>
         /// <returns>解密后的文本</returns>
-        public static string DecryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format, CipherMode mode, PaddingMode padding)
+        public static string DecryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        {
+            var mode = (CipherMode)Enum.Parse(typeof(CipherMode), SecurityConfigurationView.Instance.AESCryptoMode);
+            var padding = (PaddingMode)Enum.Parse(typeof(PaddingMode), SecurityConfigurationView.Instance.AESCryptoPadding);
+
+            return DecryptAES(text, key, iv, mode, padding, format);
+        }
+        #endregion
+
+        #region 函数:DecryptAES(string text, byte[] key, byte[] iv, CipherMode mode, PaddingMode padding, CiphertextFormat format)
+        /// <summary>解密-AES方式</summary>
+        /// <param name="text">文本</param>
+        /// <param name="key">密钥</param>
+        /// <param name="iv">初始化向量</param>
+        /// <returns>解密后的文本</returns>
+        public static string DecryptAES(string text, byte[] key, byte[] iv, CipherMode mode, PaddingMode padding, CiphertextFormat format)
         {
             byte[] result = null;
 
@@ -413,7 +452,7 @@ namespace X3Platform.Security
             RijndaelManaged rijndaelManaged = new RijndaelManaged();
 
             rijndaelManaged.Key = key;
-            rijndaelManaged.IV = key;
+            rijndaelManaged.IV = iv;
             rijndaelManaged.Mode = mode;
             rijndaelManaged.Padding = padding;
 

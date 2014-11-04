@@ -10,6 +10,8 @@ namespace X3Platform.Web.Customize.Widgets
     {
         public override string ParseHtml()
         {
+            // http://www.woaic.com/2013/03/389
+
             string widgetRuntimeId = StringHelper.ToGuid();
 
             VelocityContext context = new VelocityContext();
