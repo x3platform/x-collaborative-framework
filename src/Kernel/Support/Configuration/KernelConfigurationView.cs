@@ -102,7 +102,7 @@ namespace X3Platform.Configuration
                     // 加载数据库自定义选项信息
                     GenericSqlCommand command = new GenericSqlCommand(settings.ConnectionString, settings.Provider);
 
-                    DataTable table = command.ExecuteQueryForDataTable("SELECT Name, Value FROM tb_Application_Option WHERE Status = 1;");
+                    DataTable table = command.ExecuteQueryForDataTable(this.OptionCommandText);
 
                     foreach (DataRow row in table.Rows)
                     {
@@ -558,6 +558,33 @@ namespace X3Platform.Configuration
         }
         #endregion
 
+        #region 属性:OptionCommandText
+        private string m_OptionCommandText = string.Empty;
+
+        /// <summary>选项信息的查询命令</summary>
+        public string OptionCommandText
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_OptionCommandText))
+                {
+                    if (this.Configuration.Keys["OptionCommandText"] == null)
+                    {
+                        this.m_OptionCommandText = "SELECT Name, Value FROM tb_Application_Option WHERE Status = 1;";
+
+                        this.Configuration.Keys.Add(new KernelConfigurationKey("OptionCommandText", this.m_OptionCommandText));
+                    }
+                    else
+                    {
+                        this.m_OptionCommandText = this.Configuration.Keys["OptionCommandText"].Value;
+                    }
+                }
+
+                return this.m_OptionCommandText;
+            }
+        }
+        #endregion
+    
         #region 属性:AuthenticationManagementType
         private string m_AuthenticationManagementType = string.Empty;
 
@@ -776,5 +803,5 @@ namespace X3Platform.Configuration
             }
         }
         #endregion
-    }
+}
 }
