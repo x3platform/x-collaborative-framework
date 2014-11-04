@@ -1,5 +1,3 @@
-using System;
-
 namespace X3Platform.Web.UserAgents
 {
     /// <summary>设备类型</summary>

@@ -182,6 +182,12 @@
     <Compile Include="UserAgents\DeviceType.cs" />
     <Compile Include="UserAgents\DeviceTypeParser.cs" />
     <Compile Include="UserAgents\UAParser.cs" />
+    <Compile Include="UserAgents\Device.cs" />
+    <Compile Include="UserAgents\OS.cs" />
+    <Compile Include="UserAgents\UserAgent.cs" />
+    <Compile Include="UserAgents\ClientInfo.cs" />
+    <Compile Include="UserAgents\DictionaryExtensions.cs" />
+    <Compile Include="UserAgents\RegexConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
