@@ -1,0 +1,31 @@
+---
+# 键值信息配置
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: config\X3Platform.Web.Spring.config
+  # IBatis : 配置映射文件
+  IBatisMapping: config\X3Platform.Web.IBatis.SqlMap.config
+  # 服务器名称: 当服务器不以域名方式访问时, 必须需要指定服务器IP地址.
+  ServerName: 127.0.0.1;192.168.10.100
+  # 网站页面的布局: CollaborationPlatform | EnterprisePortalPlatform | Genius
+  Layout: Genius
+  # 网站页面的主题名称 default | dynamic
+  SiteThemeName: default
+  # 网站页面的整体输出模板
+  RenderTemplatePath: sites/default/render.vm
+  # 网站页面的头部模板
+  RenderHeadTemplatePath: sites/default/head.vm
+  # 网站页面的主体模板
+  RenderBodyTemplatePath: sites/default/body.vm
+  # 登录页面地址
+  SignInUrl: /account/signin?returnUrl={0}
+# 导航生成器
+navigation:
+  x3platform.com: "X3Platform.Web.Builder.Layouts.Genius.NavigationBuilder,X3Platform.Web.Builder.Layouts.Genius"
+# 菜单生成器
+menu:
+  x3platform.com: "X3Platform.Web.Builder.Layouts.Genius.MenuBuilder,X3Platform.Web.Builder.Layouts.Genius"
+# 自定义内容生成器
+customize:
+  x3platform.com: "X3Platform.Web.Builder.Layouts.Genius.CustomizeBuilder,X3Platform.Web.Builder.Layouts.Genius"
+...
