@@ -974,6 +974,24 @@ namespace X3Platform.Util
         #endregion
 
         //-------------------------------------------------------
+        // Base64 字符串处理
+        //-------------------------------------------------------
+
+        public static string ToBase64(string text)
+        {
+            byte[] buffer = Encoding.Default.GetBytes(text);
+
+            return Convert.ToBase64String(buffer);
+        }
+
+        public static string FromBase64(string base64Text)
+        {
+            byte[] buffer = Convert.FromBase64String(base64Text);
+
+            return Encoding.Default.GetString(buffer);
+        }
+
+        //-------------------------------------------------------
         // 空字符串处理
         //-------------------------------------------------------
 
