@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+
+      <!-- 页面 -->
+      <object id="X3Platform.Web.Customize.IBLL.IPageService"
+              type="X3Platform.Web.Customize.BLL.PageService,X3Platform.Web"
+              lazy-init="true" />
+
+      <object id="X3Platform.Web.Customize.IDAL.IPageProvider"
+              type="X3Platform.Web.Customize.DAL.IBatis.PageProvider,X3Platform.Web"
+              lazy-init="true" />
+
+      <!-- 部件 -->
+      <object id="X3Platform.Web.Customize.IBLL.IWidgetService"
+              type="X3Platform.Web.Customize.BLL.WidgetService,X3Platform.Web"
+              lazy-init="true" />
+
+      <object id="X3Platform.Web.Customize.IDAL.IWidgetProvider"
+              type="X3Platform.Web.Customize.DAL.IBatis.WidgetProvider,X3Platform.Web"
+              lazy-init="true" />
+
+      <!-- 部件实例 -->
+      <object id="X3Platform.Web.Customize.IBLL.IWidgetInstanceService"
+              type="X3Platform.Web.Customize.BLL.WidgetInstanceService,X3Platform.Web"
+              lazy-init="true" />
+
+      <object id="X3Platform.Web.Customize.IDAL.IWidgetInstanceProvider"
+              type="X3Platform.Web.Customize.DAL.IBatis.WidgetInstanceProvider,X3Platform.Web"
+              lazy-init="true" />
+</objects>
