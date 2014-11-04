@@ -115,7 +115,6 @@
     <Compile Include="DigitalNumber\Configuration\DigitalNumberConfiguration.cs" />
     <Compile Include="DigitalNumber\Configuration\DigitalNumberConfigurationView.cs" />
     <Compile Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.cs" />
-    <Compile Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.cs" />
     <Compile Include="DigitalNumber\DigitalNumberContext.cs" />
     <Compile Include="DigitalNumber\DigitalNumberScript.cs" />
     <Compile Include="DigitalNumber\IBLL\IDigitalNumberService.cs" />
@@ -231,9 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DigitalNumber\DAL\MySQL\DigitalNumberProvider.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="DigitalNumber\db\Init_Scripts_MySQL.sql" />
