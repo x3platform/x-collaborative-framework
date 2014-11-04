@@ -64,18 +64,6 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        private string m_KernelAssemblyName = null;
-
-        private string GetKernelAssemblyName()
-        {
-            if (string.IsNullOrEmpty(this.m_KernelAssemblyName))
-            {
-                this.m_KernelAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-            }
-
-            return this.m_KernelAssemblyName;
-        }
-
         #region 构造函数:LoadOptions()
         /// <summary>加载选项</summary>
         public void LoadOptions()
@@ -88,7 +76,7 @@ namespace X3Platform.Configuration
                 this.configurationSource = new KernelConfiguration();
 
                 // 加载默认配置文件
-                string configurationFilePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "config\\" + this.GetKernelAssemblyName() + ".config";
+                string configurationFilePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "config\\X3Platform.config";
 
                 if (File.Exists(configurationFilePath))
                 {
@@ -582,7 +570,7 @@ namespace X3Platform.Configuration
                 {
                     if (this.Configuration.Keys["AuthenticationManagementType"] == null)
                     {
-                        this.m_AuthenticationManagementType = this.GetKernelAssemblyName() + ".Membership.Authentication.HttpAuthenticationManagement," + this.GetKernelAssemblyName() + ".Membership";
+                        this.m_AuthenticationManagementType = "X3Platform.Membership.Authentication.HttpAuthenticationManagement,X3Platform.Membership";
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("AuthenticationManagementType", this.m_AuthenticationManagementType));
                     }
@@ -693,7 +681,7 @@ namespace X3Platform.Configuration
                 {
                     if (this.Configuration.Keys["ApplicationHomePage"] == null)
                     {
-                        this.m_ApplicationHomePage = "/apps/pages/default.aspx";
+                        this.m_ApplicationHomePage = "/";
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("ApplicationHomePage", this.m_ApplicationHomePage));
                     }

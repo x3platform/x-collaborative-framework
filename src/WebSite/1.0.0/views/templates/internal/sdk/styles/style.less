@@ -1,0 +1,210 @@
+﻿// 登录样式表
+/**********************************************************
+
+CSS Document 2.0
+
+default / style.css
+
+**********************************************************/
+
+// 导入全局定义
+@import "../define.less";
+
+// 字体颜色
+@color:#000;
+
+html,body {
+	color: @default-font-color;
+	background-color: @default-background-color;
+	margin: 0;
+	padding: 0;
+	font:12px/1.5 tahoma, helvetica, arial, "Hiragino Sans GB", "微软雅黑", "宋体", sans-serif;
+}
+body * {
+	vertical-align: baseline;
+}
+a {
+    color: @a-default-color;
+}
+a:hover {
+    color: @a-default-hover-color; 
+}
+footer {
+  text-align:center;
+  text-shadow: 0 1px 0 #fff;
+  padding: 0 0 10px 0;
+}
+.clear {
+	border-top:0px solid transparent !important;
+	/*margin-top:-1px !important;*/
+	border-top:0;
+	margin-top:0;
+	clear:both;
+	visibility:hidden;
+}
+
+// -------------------------------------------------------
+// 默认列表样式
+// -------------------------------------------------------
+
+/*#region list*/
+.list-container { 	
+    margin: auto;
+    background-color: #eee;
+    padding: 8px;
+}
+.list-container a { text-decoration:none; }
+.list-container h3 {
+  font-size:16px;
+  margin:4px;
+ } 
+.list-container ul { background-color:#fff; padding:0; border:1px solid #ccc; border-radius: 5px; }
+.list-container ul li { font-size:16px; line-height:200%; border-bottom:1px solid #ccc; list-style:none; padding:6px 10px 2px 10px; }
+.list-container ul li:last-child { border-bottom:none; }
+/*#endregion*/
+
+// -------------------------------------------------------
+// 默认表单样式
+// -------------------------------------------------------
+
+/*#region form*/
+.form-main-wrapper {
+	margin: auto;
+    background-color: #eee;
+    padding: 8px;
+}
+.form-main {
+    margin:auto;
+	padding:0 20px 0 20px;
+    line-height:200%;
+	border:1px solid #ccc;
+	background-color: #fff;
+}
+.form-main-input {
+	clear:both;
+}
+.form-main-wrapper span,
+.form-main-input input
+{
+	margin-top: 15px;
+    font-size: 12px;
+}
+.form-main dl.form-cell dt.input-label
+{
+    margin-top: 10px;
+    font-size: 16px;
+	padding: 0 0 5px 0;
+}
+.form-main dl.form-cell dd
+{
+    margin:0;
+}
+.form-main dl.form-cell dd input[type="text"],
+.form-main dl.form-cell dd input[type="password"]
+{
+    border-radius: 3px;
+    border:1px solid #ccc;
+    height:28px;
+    width:98%;
+    font-size:16px;
+    padding: 0 1% 0 1%;
+}
+.form-main dl.form-cell dd input[type="text"]:focus,
+.form-main dl.form-cell dd input[type="password"]:focus
+{
+    background-color:rgb(250, 255, 189);
+}
+.form-main dl.form-cell dd p.note
+{
+    color:#ccc;
+    line-height:120%;
+    margin-top:4px;
+}
+.form-actions {
+    padding-bottom:10px;
+}
+.form-actions:before {
+    display: table;
+    content: "";
+}
+.form-actions:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+.form-actions .button-submit {
+	float:right;
+	margin:0px 0 0 20px;
+}
+.form-actions .button-submit a {
+	display : block;
+	font-weight:bold;
+	color:#fff;
+	text-decoration:none;
+	text-align:center;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    background-color: #569e3d;
+    background-image: linear-gradient(#79d858, #569e3d);
+    background-repeat: repeat-x;
+    border-color: #4a993e;
+    padding: 0.5em 1em 0.5em 1em;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: @button-border-radius;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-appearance: none;
+    line-height:120%;
+}
+.form-actions .button-submit a:hover {
+    color:#fff; 
+    background-image: linear-gradient(@button-linear-gradient-from,@button-linear-gradient-to);
+}
+.form-actions .loading {
+	float:right;
+	margin:0 15px 0 0;
+}
+.form-bottom {
+    border:1px solid #ccc;
+    border-top:none;
+    background-color: #f6f6f6;
+    padding: 6px 10px 4px 10px;
+    text-align: right;
+    line-height:200%;
+}
+.form-bottom a {
+    font-weight: bold;
+    padding: 0px 10px 0px 0px;
+}
+/*#endregion*/
+
+/*#region window-sign-in-form-container*/
+.window-sign-in-form-wrapper {
+    
+}
+.window-sign-in-form-remember-me {
+    text-align: right;
+    padding: 4px 0px 10px 10px;
+	clear:both;
+}
+.window-sign-in-form-remember-me * {
+	vertical-align: middle;
+}
+.window-sign-in-form-remember-me a {
+    padding-right: 10px;
+    color: #666;
+}
+/*#endregion*/
+
+/*#region window-sign-up-form-container*/
+// 登录表单服务条款
+.window-sign-up-form-terms-of-service { 
+    border-top:1px solid #ccc;
+    border-bottom:1px solid #ccc;
+    line-height:150%;
+    padding:4px 0 4px 0;
+}
+/*#endregion*/
