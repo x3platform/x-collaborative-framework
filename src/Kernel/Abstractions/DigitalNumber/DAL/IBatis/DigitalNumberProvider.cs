@@ -30,19 +30,17 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         /// <summary>数据表名</summary>
         private string tableName = "tb_DigitalNumber";
 
+        #region 构造函数:AuthorityProvider()
+        /// <summary>构造函数</summary>
         public DigitalNumberProvider()
         {
-            configuration = DigitalNumberConfigurationView.Instance.Configuration;
+            this.configuration = DigitalNumberConfigurationView.Instance.Configuration;
 
-            ibatisMapping = configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
-
-        public DigitalNumberInfo this[string id]
-        {
-            get { return this.FindOne(id); }
-        }
+        #endregion
 
         // -------------------------------------------------------
         // 保存 添加 修改 删除
@@ -132,7 +130,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             args.Add("WhereClause", query.GetWhereSql());
             args.Add("OrderBy", query.GetOrderBySql());
             args.Add("Length", query.Length);
-            
+
             return this.ibatisMapper.QueryForList<DigitalNumberInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
@@ -185,9 +183,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             args.Add("EntityTableName", entityTableName);
             args.Add("Prefix", prefix);
 
-            // args.Add("EntityTableName", entityTableName);
-
-            int seed = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMaxSeedByPrefix", tableName)), args);
+            int seed = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMaxSeedByPrefix", tableName)), args));
 
             return DigitalNumberScript.RunScript(expression, prefixCode, DateTime.Now, ref seed);
         }

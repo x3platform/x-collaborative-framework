@@ -88,7 +88,7 @@ namespace X3Platform.Security.Authority.IDAL
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:Query(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -96,7 +96,7 @@ namespace X3Platform.Security.Authority.IDAL
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns> 
-        IList<AuthorityInfo> Query(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)

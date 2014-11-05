@@ -1,30 +1,18 @@
-// =============================================================================
-//
-// Copyright (c) 2007 RuanYu
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2007-09-28
-//
-// =============================================================================
-
 namespace X3Platform.Security.Authority
 {
+    #region Using Libraries
     using System;
     using X3Platform.CacheBuffer;
+    #endregion
 
-    /// <summary>Ȩ����Ϣ</summary>
+    /// <summary>权限信息</summary>
     public class AuthorityInfo : ICacheable
     {
-        /// <summary>���캯��</summary>
+        /// <summary>构造函数</summary>
         public AuthorityInfo() { }
 
-        /// <summary>���캯��</summary>
-        /// <param name="id">��ʶ</param>
+        /// <summary>构造函数</summary>
+        /// <param name="id">标识</param>
         public AuthorityInfo(string id)
         {
             this.m_Id = id;
@@ -55,7 +43,7 @@ namespace X3Platform.Security.Authority
         #region 属性:Description
         private string m_Description;
 
-        /// <summary>������Ϣ</summary>
+        /// <summary>描述信息</summary>
         public string Description
         {
             get { return m_Description; }
@@ -66,7 +54,7 @@ namespace X3Platform.Security.Authority
         #region 属性:Lock
         private int m_Lock;
 
-        /// <summary>������Ϣ</summary>
+        /// <summary>锁定 0=未锁定, 1=锁定</summary>
         public int Lock
         {
             get { return m_Lock; }
@@ -77,7 +65,7 @@ namespace X3Platform.Security.Authority
         #region 属性:Tags
         private string m_Tags;
 
-        /// <summary>��ǩ</summary>
+        /// <summary>标签</summary>
         public string Tags
         {
             get { return m_Tags; }
@@ -99,7 +87,7 @@ namespace X3Platform.Security.Authority
         #region 属性:UpdateDate
         private DateTime m_UpdateDate;
 
-        /// <summary>�޸�ʱ��</summary>
+        /// <summary>修改时间</summary>
         public DateTime UpdateDate
         {
             get { return m_UpdateDate; }
@@ -110,7 +98,7 @@ namespace X3Platform.Security.Authority
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>创建时间</summary>
         public DateTime CreateDate
         {
             get { return m_CreateDate; }
@@ -118,14 +106,14 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        //
-        // ��ʽʵ�� ICacheable
-        // 
+        // -------------------------------------------------------
+        // 显式实现 ICacheable
+        // -------------------------------------------------------
 
         #region 属性:Expires
-        private DateTime m_Expires = DateTime.Now.AddHours(6);
+        private DateTime m_Expires = DateTime.MaxValue;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>过期时间</summary>
         DateTime ICacheable.Expires
         {
             get { return m_Expires; }

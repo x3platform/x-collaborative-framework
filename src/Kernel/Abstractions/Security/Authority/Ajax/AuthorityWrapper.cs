@@ -137,7 +137,7 @@ namespace X3Platform.Security.Authority.Ajax
 
             int rowCount = -1;
 
-            IList<AuthorityInfo> list = this.service.Query(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+            IList<AuthorityInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;
 

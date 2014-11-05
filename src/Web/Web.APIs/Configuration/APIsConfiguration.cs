@@ -10,10 +10,10 @@ namespace X3Platform.Web.APIs.Configuration
     /// <summary>APIs 配置</summary>
     public class APIsConfiguration : XmlConfiguraton
     {
-        /// <summary>��������������</summary>
+        /// <summary>配置区的名称</summary>
         public const string SectionName = "web.apis";
 
-        /// <summary>��ȡ������������</summary>
+        /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
         {
             return SectionName;
@@ -29,9 +29,9 @@ namespace X3Platform.Web.APIs.Configuration
         }
         #endregion
 
-        #region 属性:Configure(XmlElement element)
-        /// <summary>����XmlԪ�����ö�����Ϣ</summary>
-        /// <param name="element">���ýڵ���XmlԪ��</param>
+        #region 函数:Configure(XmlElement element)
+        /// <summary>根据Xml元素配置对象信息</summary>
+        /// <param name="element">配置节点的Xml元素</param>
         public override void Configure(XmlElement element)
         {
             if (this.m_APIMethods == null)
@@ -39,7 +39,7 @@ namespace X3Platform.Web.APIs.Configuration
                 this.m_APIMethods = new Dictionary<string, APIMethod>();
             }
 
-            // ���ؼ���:Methods
+            // 加载 Methods 配置信息
             XmlNodeList nodes = element.SelectNodes(@"api");
 
             foreach (XmlNode node in nodes)

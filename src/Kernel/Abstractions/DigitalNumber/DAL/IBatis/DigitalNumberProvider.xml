@@ -136,7 +136,22 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        <select id="proc_DigitalNumber_GetPaging" resultMap="proc_DigitalNumber_FindAll_Result" >
+        <select id="proc_DigitalNumber_GetPaging#MySql"  resultMap="proc_DigitalNumber_FindAll_Result" >
+            SELECT * FROM tb_DigitalNumber T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_DigitalNumber_GetPaging#SqlServer" resultMap="proc_DigitalNumber_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
