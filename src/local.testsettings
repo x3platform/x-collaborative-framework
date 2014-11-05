@@ -4,8 +4,6 @@
   <NamingScheme baseName="UnitTests" appendTimeStamp="true" useDefault="true" />
   <Deployment>
     <DeploymentItem filename="MySql.Data.dll" />
-    <DeploymentItem filename="X3Platform.Velocity.dll" />
-    <DeploymentItem filename="X3Platform.Services.dll" />
-    <DeploymentItem filename="X3Platform.Web.dll" />
+    <DeploymentItem filename="NMock3.dll" />
   </Deployment>
 </TestSettings>

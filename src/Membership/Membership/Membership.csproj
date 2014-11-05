@@ -120,7 +120,9 @@
     <Compile Include="Ajax\JobWrapper.cs" />
     <Compile Include="Ajax\StandardRoleWrapper.cs" />
     <Compile Include="Ajax\StandardOrganizationWrapper.cs" />
+    <Compile Include="Authentication\DevelopmentAuthenticationManagement.cs" />
     <Compile Include="Authentication\GenericAuthenticationManagement.cs" />
+    <Compile Include="Authentication\TestingAuthenticationManagement.cs" />
     <Compile Include="BLL\AccountGrantService.cs" />
     <Compile Include="BLL\AccountLogService.cs" />
     <Compile Include="BLL\AccountService.cs" />
@@ -260,7 +262,6 @@
     <Compile Include="Authentication\HttpAuthenticationManagement.cs" />
     <Compile Include="Authentication\NLMAuthenticationManagement.cs" />
     <Compile Include="Authentication\HttpAuthenticationCookieSetter.cs" />
-    <Compile Include="Authentication\MockAuthenticationManagement.cs" />
     <Compile Include="GenericAccountStorageStrategy.cs" />
     <Compile Include="MembershipStorage.cs" />
     <Compile Include="Passwords\AESPasswordEncryptionManagement.cs" />

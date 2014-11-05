@@ -37,7 +37,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             this.configuration = DigitalNumberConfigurationView.Instance.Configuration;
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
-
+            Console.WriteLine(this.ibatisMapping);
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
         #endregion

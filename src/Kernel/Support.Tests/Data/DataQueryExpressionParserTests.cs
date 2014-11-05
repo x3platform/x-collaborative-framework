@@ -5,8 +5,9 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using X3Platform.Ajax;
+using X3Platform.Data;
 
-namespace X3Platform.TestSuite.Ajax
+namespace X3Platform.TestSuite.Data
 {
     [TestClass]
     public class AjaxSqlExpressionParserTests
@@ -24,7 +25,7 @@ namespace X3Platform.TestSuite.Ajax
             outString += "<expression key=\"key3\" value=\"value3\" type=\"int\" prefix=\"and\" />";
             outString += "</expression>";
 
-            result = AjaxSqlExpressionParser.Parse(outString);
+            result = DataQueryExpressionParser.Parse(outString);
 
             Assert.AreEqual(result, " ((key1=##value1##) OR (key2=##value2##) AND (key3=value3)) ");
 
@@ -36,7 +37,7 @@ namespace X3Platform.TestSuite.Ajax
             outString += "<expression key=\"w\" value=\"r\" type=\"string\" prefix=\"and\" />";
             outString += "</expression>";
 
-            result = AjaxSqlExpressionParser.Parse(outString);
+            result = DataQueryExpressionParser.Parse(outString);
 
             Assert.AreEqual(result, " ((w=##r1## OR (w=##r##)) OR (w=##r##) AND (w=##r##)) ");
         }

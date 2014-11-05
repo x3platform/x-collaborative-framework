@@ -189,6 +189,8 @@
   <ItemGroup>
     <Content Include="db\Init_Scripts_MySQL.sql" />
     <Content Include="db\Init_Scripts_SQLServer.sql" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <None Include="build.publish.bat" />
     <Content Include="config\MySQL\X3Platform.Connect.IBatis.SqlMap.config" />
     <Content Include="config\MySQL\X3Platform.Connect.Spring.config" />
@@ -198,41 +200,18 @@
     <None Include="default.build">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\ConnectAccessTokenProvider.xml">
-      <DependentUpon>ConnectAccessTokenProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ConnectProvider.xml">
-      <DependentUpon>ConnectProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ConnectCallProvider.xml">
-      <DependentUpon>ConnectCallProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ConnectAuthorizationCodeProvider.xml">
-      <DependentUpon>ConnectAuthorizationCodeProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ConnectAuthorizationCodeProvider.xml">
-      <DependentUpon>ConnectAuthorizationCodeProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ConnectCallProvider.xml">
-      <DependentUpon>ConnectCallProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ConnectProvider.xml">
-      <DependentUpon>ConnectProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ConnectAccessTokenProvider.xml">
-      <DependentUpon>ConnectAccessTokenProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
+    <EmbeddedResource Include="DAL\IBatis\ConnectAccessTokenProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ConnectProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ConnectCallProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ConnectAuthorizationCodeProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectAuthorizationCodeProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectCallProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectAccessTokenProvider.xml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

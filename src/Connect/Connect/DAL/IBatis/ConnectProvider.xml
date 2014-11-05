@@ -56,7 +56,6 @@
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
-
     <statements>
         <insert id="proc_Connect_Insert" parameterClass="ConnectInfo" >
             INSERT INTO tb_Connect
@@ -98,7 +97,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_Connect_Update" parameterClass="ConnectInfo" >
             UPDATE tb_Connect SET
 
@@ -112,20 +110,44 @@
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
-
         <delete id="proc_Connect_Delete">
             DELETE FROM tb_Connect WHERE Id = #Id#
         </delete>
-
         <select id="proc_Connect_FindOne" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
             SELECT * FROM tb_Connect WHERE Id = #Id#
         </select>
-
-        <select id="proc_Connect_FindOneByAppKey" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
+        <select id="proc_Connect_FindOneByAppKey#MySql" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
+            SELECT * FROM tb_Connect WHERE AppKey = #AppKey# LIMIT 0, 1
+        </select>
+        <select id="proc_Connect_FindOneByAppKey#SqlServer" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
             SELECT Top 1 * FROM tb_Connect WHERE AppKey = #AppKey#
         </select>
+        <select id="proc_Connect_FindAll#MySql" resultMap="proc_Connect_FindAll_Result" >
+            SELECT * FROM tb_Connect T
 
-        <select id="proc_Connect_FindAll" resultMap="proc_Connect_FindAll_Result" parameterClass="ConnectInfo" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="OrderBy" >
+                        $OrderBy$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Connect_FindAll#SqlServer" resultMap="proc_Connect_FindAll_Result" parameterClass="ConnectInfo" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -144,8 +166,22 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Connect_GetPaging#MySql"  resultMap="proc_Connect_FindAll_Result" >
+            SELECT * FROM tb_Connect T
 
-        <select id="proc_Connect_GetPaging" parameterClass="ConnectInfo" resultMap="proc_Connect_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Connect_GetPaging#SqlServer" resultMap="proc_Connect_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -161,30 +197,41 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
-        <select id="proc_Connect_GetQueryObjectPaging" resultMap="proc_ConnectQueryInfo_FindAll_Result" >      
-            SELECT *
-
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-            FROM tb_Connect T
+        <select id="proc_Connect_GetQueryObjectPaging#MySql"  resultMap="proc_ConnectQueryInfo_FindAll_Result" >
+            SELECT * FROM tb_Connect T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
                     <isNotEmpty prepend="AND" property="WhereClause" >
-                    $WhereClause$
+                        $WhereClause$
                     </isNotEmpty>
                 </isParameterPresent>
-            </dynamic>) TableIndex
+            </dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Connect_GetQueryObjectPaging#SqlServer" resultMap="proc_ConnectQueryInfo_FindAll_Result" >      
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+                FROM tb_Connect T
+
+                <dynamic prepend="WHERE">
+                    <isParameterPresent>
+                        <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                        </isNotEmpty>
+                    </isParameterPresent>
+                </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
-
         <select id="proc_Connect_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Connect T
+            SELECT COUNT(*) AS "RowCount" FROM tb_Connect T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -194,11 +241,9 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        
         <select id="proc_Connect_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM tb_Connect T WHERE $WhereClause$
+            SELECT COUNT(*) AS "Count" FROM tb_Connect T WHERE $WhereClause$
         </select>
-
         <update id="proc_Connect_ResetAppSecret" parameterClass="ConnectInfo" >
             UPDATE tb_Connect SET AppSecret = #AppSecret#, UpdateDate = CURRENT_TIMESTAMP WHERE AppKey = #AppKey#
         </update>

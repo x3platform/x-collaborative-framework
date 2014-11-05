@@ -22,7 +22,7 @@ namespace X3Platform.Tests.Ajax
 
             targetObject.Id = "10";
 
-            targetObject.Name = "Max";
+            targetObject.Name = "x3platform";
 
             targetObject.IP = "127.0.0.1";
 
@@ -34,7 +34,7 @@ namespace X3Platform.Tests.Ajax
             // 测试列表类型
             //
 
-            List<AccountInfo> list = new List<AccountInfo>();
+            IList<AccountInfo> list = new List<AccountInfo>();
 
             list.Add(new AccountInfo("10", "ff", "127.0.0.1"));
 
@@ -54,18 +54,18 @@ namespace X3Platform.Tests.Ajax
 
             string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                     + "<ajaxStorage>"
-                    + "<id><![CDATA[10]]></id>"
-                    + "<name><![CDATA[Max]]></name>"
+                    + "<id><![CDATA[9999]]></id>"
+                    + "<name><![CDATA[x3platform]]></name>"
                     + "<ip><![CDATA[127.0.0.1]]></ip>"
-                    + "<createDate><![CDATA[2008-01-01]]></createDate>"
+                    + "<createDate><![CDATA[2015-01-01]]></createDate>"
                     + "</ajaxStorage>";
 
             targetObject = (AccountInfo)AjaxUtil.Deserialize(targetObject, xml);
 
-            Assert.AreEqual(targetObject.Id, "10");
-            Assert.AreEqual(targetObject.Name, "Max");
-            Assert.AreEqual(targetObject.IP, "127.0.0.1");
-            Assert.AreEqual(targetObject.CreateDate, new DateTime(2008, 1, 1));
+            Assert.AreEqual("9999", targetObject.Id);
+            Assert.AreEqual("x3platform", targetObject.Name);
+            Assert.AreEqual("127.0.0.1", targetObject.IP);
+            Assert.AreEqual(new DateTime(2015, 1, 1), targetObject.CreateDate);
         }
 
         [TestMethod]
@@ -76,26 +76,27 @@ namespace X3Platform.Tests.Ajax
             string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                    + "<ajaxStorage>"
                    + "<id><![CDATA[10]]></id>"
-                   + "<name><![CDATA[Max]]></name>"
+                   + "<name><![CDATA[x3platform]]></name>"
                    + "<ip><![CDATA[127.0.0.1]]></ip>"
-                   + "<createDate><![CDATA[2008-01-01]]></createDate>"
+                   + "<createDate><![CDATA[2010-01-01]]></createDate>"
+                   + "<paging><pageSize><![CDATA[10]]></pageSize><pageIndex><![CDATA[100]]></pageIndex></paging>"
                    + "</ajaxStorage>";
-            
+
             XmlDocument doc = new XmlDocument();
 
             doc.LoadXml(xml);
 
             result = XmlHelper.Fetch("name", xml);
 
-            Assert.AreEqual(result,"Max");
+            Assert.AreEqual(result, "x3platform");
 
-            result = XmlHelper.Fetch("ajaxStorage", "name", xml);
+            result = XmlHelper.Fetch("paging", "pageSize", xml);
 
-            Assert.AreEqual(result, "Max");
+            Assert.AreEqual("10", result);
 
-            result = XmlHelper.Fetch("ajaxStorage", "updateDate", doc);
+            result = XmlHelper.Fetch("paging", "pageIndex", doc);
 
-            Assert.IsNull(result);
+            Assert.AreEqual("100", result);
         }
     }
 
