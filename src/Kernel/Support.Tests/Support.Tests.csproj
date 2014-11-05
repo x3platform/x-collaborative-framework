@@ -78,9 +78,6 @@
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
-    <Reference Include="xunit">
-      <HintPath>..\..\..\lib\xunit\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ajax\AjaxMethodParserTests.cs" />
@@ -90,6 +87,7 @@
     <EmbeddedResource Include="defaults\test_data.default.yaml" />
     <Compile Include="Configuration\KernelConfigurationViewTests.cs" />
     <Compile Include="Configuration\PropertiesFileTests.cs" />
+    <Compile Include="Data\DataQueryExpressionParserTests.cs" />
     <Compile Include="Logging\LoggingTests.cs" />
     <Compile Include="Messages\IMessageQueueObjectTestSuite.cs" />
     <Compile Include="defaults\I18n.Designer.cs">

@@ -1,26 +1,28 @@
-using System.Xml;
-using System.Resources;
-using System.Reflection;
-using Xunit;
-using System;
-
 namespace X3Platform.Tests
 {
+    using System.Xml;
+    using System.Resources;
+    using System.Reflection;
+    using System;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     /// <summary>字符资源加载工具类</summary>
+    [TestClass]
     public class ResourceStringLoaderTests
     {
-        [Fact]
+        [TestMethod]
         public void TestLoadString()
         {
             // ResourceManager rm = new ResourceManager("X3Platform.Tests.ResourceString", Assembly.GetExecutingAssembly());
 
             string result = ResourceStringLoader.LoadString("I18N", "aa");
 
-            Assert.NotNull(result);
+            Assert.IsNotNull(result);
 
-            result = ResourceStringLoader.LoadString("X3Platform.Tests.I18N","aa");
+            result = ResourceStringLoader.LoadString("X3Platform.Tests.I18N", "aa");
 
-            Assert.NotNull(result);
+            Assert.IsNotNull(result);
         }
     }
 }

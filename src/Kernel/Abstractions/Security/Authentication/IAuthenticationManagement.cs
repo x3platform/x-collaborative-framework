@@ -27,16 +27,20 @@
         /// <summary>获取认证的用户信息</summary>
         IAccountInfo GetAuthUser();
 
+        #region 方法:Login(string loginName, string password, bool isCreatePresistent)
         /// <summary>登录</summary>
         /// <returns></returns>
         int Login(string loginName, string password, bool isCreatePresistent);
+        #endregion
 
+        #region 方法:Logout()
         /// <summary>注销</summary>
         /// <returns></returns>
         int Logout();
+        #endregion
 
         #region 方法:GetSessions()
-        /// <summary></summary>
+        /// <summary>获取当前会话集合</summary>
         /// <returns></returns>
         IDictionary<string, IAccountInfo> GetSessions();
         #endregion

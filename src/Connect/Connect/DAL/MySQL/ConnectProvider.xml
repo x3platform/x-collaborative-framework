@@ -56,7 +56,6 @@
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
-
     <statements>
         <insert id="proc_Connect_Insert" parameterClass="ConnectInfo" >
             INSERT INTO tb_Connect
