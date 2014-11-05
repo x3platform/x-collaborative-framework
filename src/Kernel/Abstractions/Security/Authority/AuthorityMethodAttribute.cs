@@ -1,11 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using X3Platform.Membership;
-using System.Runtime.Remoting.Messaging;
-
 namespace X3Platform.Security.Authority
 {
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Runtime.Remoting.Messaging;
+
+    using X3Platform.Membership;
+    #endregion
+
     /// <summary>带权限的方法</summary>
     public sealed class AuthorityMethodAttribute : SecurityMethodAttribute
     {

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings name="本地" id="951d3843-4337-4d07-b4ca-fe3a90b2acec" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>这些设置为单元测试运行的默认测试设置。</Description>
+  <NamingScheme baseName="UnitTests" appendTimeStamp="true" useDefault="true" />
+  <Deployment>
+    <DeploymentItem filename="MySql.Data.dll" />
+    <DeploymentItem filename="X3Platform.Velocity.dll" />
+    <DeploymentItem filename="X3Platform.Services.dll" />
+    <DeploymentItem filename="X3Platform.Web.dll" />
+  </Deployment>
+</TestSettings>

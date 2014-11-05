@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Reflection;
 
@@ -24,7 +10,7 @@ using X3Platform.Security.Authority.IBLL;
 
 namespace X3Platform.Security.Authority
 {
-    /// <summary>Ȩ������</summary>
+    /// <summary>权限引擎</summary>
     public sealed class AuthorityContext : CustomPlugin
     {
         /// <summary>日志记录器</summary>
@@ -35,7 +21,7 @@ namespace X3Platform.Security.Authority
 
         private static object lockObject = new object();
 
-        /// <summary>ʵ��</summary>
+        /// <summary>实例</summary>
         public static AuthorityContext Instance
         {
             get
@@ -57,17 +43,17 @@ namespace X3Platform.Security.Authority
         #endregion
 
         #region 属性:Name
-        /// <summary>����</summary>
+        /// <summary>名称</summary>
         public override string Name
         {
-            get { return "Ȩ��"; }
+            get { return "权限"; }
         }
         #endregion
 
         #region 属性:Configuration
         private AuthorityConfiguration configuration = null;
 
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         public AuthorityConfiguration Configuration
         {
             get { return configuration; }
@@ -77,29 +63,29 @@ namespace X3Platform.Security.Authority
         #region 属性:AuthorityService
         private IAuthorityService m_AuthorityService = null;
 
-        /// <summary>Ȩ�޷���</summary>
+        /// <summary>权限服务</summary>
         public IAuthorityService AuthorityService
         {
             get { return m_AuthorityService; }
         }
         #endregion
 
-        #region ���캯��:AuthorityContext()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AuthorityContext()
+        /// <summary>构造函数</summary>
         private AuthorityContext()
         {
             Reload();
         }
         #endregion
 
-        #region 属性:Restart()
-        /// <summary>��������</summary>
-        /// <returns>������Ϣ. =0���������ɹ�, >0��������ʧ��.</returns>
+        #region 函数:Restart()
+        /// <summary>重启插件</summary>
+        /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
         public override int Restart()
         {
             try
             {
-                Reload();
+                this.Reload();
             }
             catch (Exception ex)
             {
@@ -111,13 +97,19 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region 属性:Reload()
-        /// <summary>���¼���</summary>
-        public void Reload()
+        #region 函数:Reload()
+        /// <summary>重新加载</summary>
+        private void Reload()
         {
-            configuration = AuthorityConfigurationView.Instance.Configuration;
+            this.configuration = AuthorityConfigurationView.Instance.Configuration;
 
-            this.m_AuthorityService = SpringContext.Instance.GetObject<IAuthorityService>(typeof(IAuthorityService));
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AuthorityConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据服务对象
+            this.m_AuthorityService = objectBuilder.GetObject<IAuthorityService>(typeof(IAuthorityService));
         }
         #endregion
     }

@@ -1,25 +1,9 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Security.Authority.BLL
 {
     #region Using Libraries
     using System;
     using System.Collections.Generic;
-    
+
     using Common.Logging;
 
     using X3Platform.CacheBuffer;
@@ -52,9 +36,14 @@ namespace X3Platform.Security.Authority.BLL
         /// <summary>构造函数</summary>
         public AuthorityService()
         {
-            configuration = AuthorityConfigurationView.Instance.Configuration;
+            this.configuration = AuthorityConfigurationView.Instance.Configuration;
 
-            this.provider = SpringContext.Instance.GetObject<IAuthorityProvider>(typeof(IAuthorityProvider));
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AuthorityConfiguration.ApplicationName, springObjectFile);
+
+            this.provider = objectBuilder.GetObject<IAuthorityProvider>(typeof(IAuthorityProvider));
         }
         #endregion
 
@@ -157,9 +146,9 @@ namespace X3Platform.Security.Authority.BLL
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个<see cref="AuthorityInfo"/>列表实例</returns> 
-        public IList<AuthorityInfo> Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        public IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.Query(startIndex, pageSize, query, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
