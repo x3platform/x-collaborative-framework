@@ -1,9 +1,9 @@
-using Xunit;
-
-using X3Platform.Ajax.Configuration;
-
 namespace X3Platform.Tests.Ajax.Configuration
 {
+    using Xunit;
+
+    using X3Platform.Ajax.Configuration;
+
     /// <summary>Ajax 配置信息检验测试程序</summary>
     public class AjaxConfigurationViewTests
     {
