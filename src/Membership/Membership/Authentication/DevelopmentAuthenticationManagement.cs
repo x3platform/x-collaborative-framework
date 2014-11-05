@@ -15,15 +15,16 @@
     using X3Platform.Membership.Configuration;
     #endregion
 
-    /// <summary>Http方式验证请求管理(测试环境)</summary>
-    public sealed class MockAuthenticationManagement : GenericAuthenticationManagement
+    /// <summary>开发环境验证请求管理</summary>
+    /// <remarks>登录帐号统一使用系统管理员配置登录密码</remarks>
+    public sealed class DevelopmentAuthenticationManagement : GenericAuthenticationManagement
     {
         /// <summary>获取认证的用户信息</summary>
         public override IAccountInfo GetAuthUser()
         {
             string accountIdentity = this.GetIdentityValue();
 
-            // Http方式的验证, accountIdentity 不允许为空.
+            // Http 方式的验证, accountIdentity 不允许为空.
             if (string.IsNullOrEmpty(accountIdentity)) { return null; }
 
             // 获取帐号信息

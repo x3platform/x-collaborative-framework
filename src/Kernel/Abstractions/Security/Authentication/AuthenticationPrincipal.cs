@@ -6,9 +6,7 @@ using X3Platform.Membership;
 
 namespace X3Platform.Security.Authentication
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary></summary>
     public class AuthenticationPrincipal : IPrincipal
     {
         private IAccountInfo account;
