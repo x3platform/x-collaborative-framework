@@ -4,9 +4,9 @@ keys:
   CamelStyle: On
 
 specialWords: 
-  IP: ip, 
-  MSN: msn, 
-  PinYin: pinyin, 
-  QQ: qq, 
+  IP: ip
+  MSN: msn
+  PinYin: pinyin
+  QQ: qq
   RMB: rmb
 ...
