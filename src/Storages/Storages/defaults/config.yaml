@@ -1,0 +1,9 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Storages/X3Platform.Storages/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.Storages.defaults.IBatis.SqlMap.xml
+  # Storages : 数据存储架构标识
+  StorageSchemaId: 01-14-Sessions
+...
