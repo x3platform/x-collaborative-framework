@@ -88,7 +88,6 @@
     <Compile Include="Ajax\Configuration\AjaxConfigurationViewTests.cs" />
     <Compile Include="Ajax\Net\AjaxRequestTests.cs" />
     <EmbeddedResource Include="defaults\test_data.default.yaml" />
-    <Compile Include="CategoryIndexes\TextCategoryIndexTests.cs" />
     <Compile Include="Configuration\KernelConfigurationViewTests.cs" />
     <Compile Include="Configuration\PropertiesFileTests.cs" />
     <Compile Include="Logging\LoggingTests.cs" />

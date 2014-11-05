@@ -1,0 +1,1 @@
+DELETE FROM tb_DigitalNumber WHERE name LIKE 'test_%';

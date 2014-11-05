@@ -38,67 +38,30 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private AuthorityConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Authority";
 
-        #region ���캯��:AuthorityProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AuthorityProvider()
+        /// <summary>构造函数</summary>
         public AuthorityProvider()
         {
             this.configuration = AuthorityConfigurationView.Instance.Configuration;
 
-            this.ibatisMapping = configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
         #endregion
-
-        // -------------------------------------------------------
-        // ����֧��
-        // -------------------------------------------------------
-
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
-        public void BeginTransaction()
-        {
-            this.ibatisMapper.BeginTransaction();
-        }
-        #endregion
-
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
-        public void BeginTransaction(IsolationLevel isolationLevel)
-        {
-            this.ibatisMapper.BeginTransaction(isolationLevel);
-        }
-        #endregion
-
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
-        public void CommitTransaction()
-        {
-            this.ibatisMapper.CommitTransaction();
-        }
-        #endregion
-
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
-        public void RollBackTransaction()
-        {
-            this.ibatisMapper.RollBackTransaction();
-        }
-        #endregion
-
+        
         //-------------------------------------------------------
         // 保存 添加 修改 删除 
         //-------------------------------------------------------
@@ -118,7 +81,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
                 Update(param);
             }
 
-            return (AuthorityInfo)param;
+            return param;
         }
         #endregion
 
@@ -233,7 +196,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         /// <param name="query">���ݲ�ѯ����</param>
         /// <param name="rowCount">����</param>
         /// <returns>����һ���б�ʵ��<see cref="AuthorityInfo"/></returns> 
-        public IList<AuthorityInfo> Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        public IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -246,9 +209,9 @@ namespace X3Platform.Security.Authority.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<AuthorityInfo> list = this.ibatisMapper.QueryForList<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_Query", tableName)), args);
+            IList<AuthorityInfo> list = this.ibatisMapper.QueryForList<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -269,9 +232,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
 
             args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
     }

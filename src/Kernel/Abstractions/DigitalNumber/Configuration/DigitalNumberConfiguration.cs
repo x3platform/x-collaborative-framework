@@ -32,24 +32,16 @@ namespace X3Platform.DigitalNumber.Configuration
         /// <summary></summary>
         public DigitalNumberConfiguration()
         {
-            using (var stream = typeof(DigitalNumberConfiguration).Assembly.GetManifestResourceStream("X3Platform.DigitalNumber.defaults.config.yaml"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    // 加载内置配置信息
-                    var yaml = new YamlStream();
+            // 根据内置 YAML 资源配置文件初始化对象信息
+            
+            var root = YamlConfiguratonOperator.GetRootNodeByResourceStream<YamlMappingNode>(
+                this.GetType().Assembly,
+                "X3Platform.DigitalNumber.defaults.config.yaml");
 
-                    yaml.Load(reader);
+            // 加载 Keys 键值配置信息
+            YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
 
-                    // 设置配置信息根节点
-                    var root = (YamlMappingNode)yaml.Documents[0].RootNode;
-
-                    // 加载 Keys 键值配置信息
-                    YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
-
-                    this.Initialized = true;
-                }
-            }
+            this.Initialized = true;
         }
         #endregion
     }

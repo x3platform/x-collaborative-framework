@@ -171,8 +171,6 @@
     <Compile Include="Security\Authority\Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Security\Authority\Configuration\AuthorityConfigurationView.cs" />
     <Compile Include="Security\Authority\DAL\IBatis\AuthorityProvider.cs" />
-    <Compile Include="Security\Authority\DAL\MySQL\AuthorityProvider.cs" />
-    <Compile Include="Security\Authority\DAL\SQLServer\AuthorityProvider.cs" />
     <Compile Include="Security\Authority\IBLL\IAuthorityService.cs" />
     <Compile Include="Security\Authority\IDAL\IAuthorityProvider.cs" />
     <Compile Include="Security\Authority\WebService\AuthorityWebService.cs">
@@ -229,29 +227,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Security\Authority\defaults\Objects.xml" />
+    <EmbeddedResource Include="Security\Authority\defaults\IBatis.SqlMap.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DigitalNumber\DAL\IBatis\DigitalNumberProvider.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="DigitalNumber\db\Init_Scripts_MySQL.sql" />
     <Content Include="DigitalNumber\db\Init_Scripts_SQLServer.sql" />
     <EmbeddedResource Include="DigitalNumber\defaults\Objects.xml" />
-    <Content Include="Security\Authority\DAL\IBatis\AuthorityProvider.xml">
-      <DependentUpon>AuthorityProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Security\Authority\DAL\MySQL\AuthorityProvider.xml">
-      <DependentUpon>AuthorityProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="Security\Authority\db\proc_Authority_FindAll.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_FindOne.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_FindOneByName.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_GetPages.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_HasAuthorizationObject.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_Insert.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_IsExit.sql" />
-    <Content Include="Security\Authority\db\proc_Authority_Update.sql" />
-    <Content Include="Security\Authority\db\权限管理初始化脚本%28MySQL%29.sql" />
-    <Content Include="Security\Authority\db\权限管理初始化脚本%28SQLServer%29.sql" />
+    <EmbeddedResource Include="Security\Authority\DAL\IBatis\AuthorityProvider.xml" />
+    <Content Include="Security\Authority\db\Init_Scripts_MySQL.sql" />
+    <Content Include="Security\Authority\db\Init_Scripts_SQLServer.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DigitalNumber\config\X3Platform.DigitalNumber.config">
@@ -264,6 +252,9 @@
     </EmbeddedResource>
     <None Include="DigitalNumber\README.md" />
     <Compile Include="Entities\IEntityFollowInfo.cs" />
+    <EmbeddedResource Include="Security\Authority\defaults\config.yaml" />
+    <None Include="Security\Authority\config\X3Platform.Security.Authority.config" />
+    <None Include="Security\Authority\config\X3Platform.Security.Authority.IBatis.SqlMap.config" />
     <None Include="Security\README.md" />
   </ItemGroup>
   <ItemGroup>

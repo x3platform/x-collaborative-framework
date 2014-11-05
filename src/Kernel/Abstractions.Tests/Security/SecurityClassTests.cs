@@ -1,16 +1,16 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using X3Platform.Security;
-using System.Security.Cryptography;
-using X3Platform.Security.Authority;
-using X3Platform.Membership;
-
-namespace X3Platform.TestSuite.Security
+﻿namespace X3Platform.Experiments.Tests.Security
 {
+    using System;
+    using System.Text;
+    using System.Collections.Generic;
+    using System.Security.Cryptography;
+   
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using X3Platform.Security;
+    using X3Platform.Security.Authority;
+    using X3Platform.Membership;
+
     /// <summary>
     /// 加密解密测试
     /// </summary>
@@ -51,8 +51,8 @@ namespace X3Platform.TestSuite.Security
     [SecurityClass]
     public sealed class AuthorityTicketTestClass : ContextBoundObject
     {
-
-        [AuthorityMethod("添加")]//设置验证属性和所需要的权限，以下同
+        //设置验证属性和所需要的权限，以下同
+        [AuthorityMethod("添加")]
         public string Insert()
         {
             return "Insert成功";
