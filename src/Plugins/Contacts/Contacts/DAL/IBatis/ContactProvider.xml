@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Contacts.DAL.IBatis.ContactProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ContactInfo" type="X3Platform.Plugins.Contacts.Model.ContactInfo,X3Platform.Plugins.Contacts" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Contact_FindOne_Result" class="ContactInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="Name" column="Name" />
+            <result property="Mobile" column="Mobile" />
+            <result property="Telephone" column="Telephone" />
+            <result property="Email" column="Email" />
+            <result property="QQ" column="QQ" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Contact_FindAll_Result" class="ContactInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="Name" column="Name" />
+            <result property="Mobile" column="Mobile" />
+            <result property="Telephone" column="Telephone" />
+            <result property="Email" column="Email" />
+            <result property="QQ" column="QQ" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Contact_Insert" parameterClass="ContactInfo">
+            INSERT INTO `tb_Contact` (
+                `Id`,
+                `AccountId`,
+                `Name`,
+                `Mobile`,
+                `Telephone`,
+                `Email`,
+                `QQ`,
+                `UpdateDate`,
+                `CreateDate`
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #Name#,
+                #Mobile#,
+                #Telephone#,
+                #Email#,
+                #QQ#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <update id="proc_Contact_Update" parameterClass="ContactInfo">
+            UPDATE `tb_Contact` SET
+
+                `Name` = #Name#,
+                `Mobile` = #Mobile#,
+                `Telephone` = #Telephone#,
+                `Email` = #Email#,
+                `QQ` = #QQ#,
+                `UpdateDate` = CURRENT_TIMESTAMP
+
+            WHERE `Id` = #Id#
+        </update>
+
+        <update id="proc_Contact_Delete" >
+            UPDATE `tb_Contact` SET `Status` = 0 WHERE $WhereClause$
+        </update>
+
+        <delete id="proc_Contact_Delete_PhysicallyRemoved" >
+            DELETE FROM `tb_Contact` WHERE $WhereClause$
+        </delete>
+
+        <update id="proc_Contact_Delete_VirtualRemoved" >
+            UPDATE `tb_Contact` SET `Status` = 0 WHERE $WhereClause$
+        </update>
+
+        <select id="proc_Contact_FindOne" resultMap="proc_Contact_FindOne_Result" >
+            SELECT * FROM `tb_Contact` T WHERE `Id` = #Id#
+        </select>
+
+        <select id="proc_Contact_FindAll" resultMap="proc_Contact_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM `tb_Contact` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Contact_Query" resultMap="proc_Contact_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `tb_Contact` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <!-- SQL Server 2000 -->
+        <select id="proc_Contact_Query_Ver8" resultMap="proc_Contact_FindAll_Result" >
+            SELECT TOP $PageSize$ *
+
+            FROM `tb_Contact` T
+
+            WHERE Id NOT IN (
+            
+            SELECT TOP $StartIndex$ Id FROM `tb_Contact` T
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic> ORDER BY $OrderBy$ )
+
+            <dynamic prepend="AND">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            ORDER BY $OrderBy$
+        </select>
+
+        <!-- SQL Server 2005 / SQL Server 2008 (榛樿) -->
+        <select id="proc_Contact_Query_Ver10" resultMap="proc_Contact_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM `tb_Contact` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Contact_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM `tb_Contact` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Contact_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM `tb_Contact` T WHERE $WhereClause$
+        </select>
+
+        <select id="proc_Contact_FetchCategoryIndex" >
+            SELECT CategoryIndex FROM `tb_Contact` T
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+    </statements>
+</sqlMap>

@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Favorite.DAL.IBatis.FavoriteProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="FavoriteInfo" type="X3Platform.Plugins.Favorite.Model.FavoriteInfo,X3Platform.Plugins.Favorite" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Favorite_FindOne_Result" class="FavoriteInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="CategoryIndex" column="CategoryIndex" />
+            <result property="Title" column="Title" />
+            <result property="Description" column="Description" />
+            <result property="Url" column="Url" />
+            <result property="Tags" column="Tags" />
+            <result property="IconPath" column="IconPath" />
+            <result property="IsTop" column="IsTop" />
+            <result property="Click" column="Click" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Favorite_FindAll_Result" class="FavoriteInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="CategoryIndex" column="CategoryIndex" />
+            <result property="Title" column="Title" />
+            <result property="Description" column="Description" />
+            <result property="Url" column="Url" />
+            <result property="Tags" column="Tags" />
+            <result property="IconPath" column="IconPath" />
+            <result property="IsTop" column="IsTop" />
+            <result property="Click" column="Click" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Favorite_Insert" parameterClass="FavoriteInfo">
+            INSERT INTO [tb_Favorite] (
+                [Id],
+                [AccountId],
+                [CategoryIndex],
+                [Title],
+                [Description],
+                [Url],
+                [Tags],
+                [IconPath],
+                [IsTop],
+                [Click],
+                [UpdateDate],
+                [CreateDate]
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #CategoryIndex#,
+                #Title#,
+                #Description#,
+                #Url#,
+                #Tags#,
+                #IconPath#,
+                #IsTop#,
+                #Click#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <update id="proc_Favorite_Update" parameterClass="FavoriteInfo">
+            UPDATE [tb_Favorite] SET
+
+                [AccountId] = #AccountId#,
+                [CategoryIndex] = #CategoryIndex#,
+                [Title] = #Title#,
+                [Description] = #Description#,
+                [Url] = #Url#,
+                [IsTop] = #IsTop#,
+                [UpdateDate] = CURRENT_TIMESTAMP
+
+            WHERE [Id] = #Id#
+        </update>
+
+        <update id="proc_Favorite_Delete" >
+            UPDATE [tb_Favorite] SET [Status] = 0 WHERE $WhereClause$
+        </update>
+
+        <delete id="proc_Favorite_Delete_PhysicallyRemoved" >
+            DELETE FROM [tb_Favorite] WHERE $WhereClause$
+        </delete>
+
+        <update id="proc_Favorite_Delete_VirtualRemoved" >
+            UPDATE [tb_Favorite] SET [Status] = 0 WHERE $WhereClause$
+        </update>
+
+        <select id="proc_Favorite_FindOne" resultMap="proc_Favorite_FindOne_Result" >
+            SELECT * FROM [tb_Favorite] T WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Favorite_FindAll" resultMap="proc_Favorite_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Favorite] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Favorite_GetPages" resultMap="proc_Favorite_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Favorite] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <!-- SQL Server 2000 -->
+        <select id="proc_Favorite_GetPages_Ver8" resultMap="proc_Favorite_FindAll_Result" >
+            SELECT TOP $PageSize$ *
+
+            FROM [tb_Favorite] T
+
+            WHERE Id NOT IN (
+            
+            SELECT TOP $StartIndex$ Id FROM [tb_Favorite] T
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic> ORDER BY $OrderBy$ )
+
+            <dynamic prepend="AND">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            ORDER BY $OrderBy$
+        </select>
+
+        <!-- SQL Server 2005 / SQL Server 2008 (榛樿) -->
+        <select id="proc_Favorite_GetPages_Ver10" resultMap="proc_Favorite_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Favorite] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Favorite_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Favorite] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Favorite_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM [tb_Favorite] T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Favorite_SetClick">
+            UPDATE [tb_Favorite] SET Click = Click + 1 WHERE Id = #Id#
+        </update>
+
+        <select id="proc_Favorite_FetchCategoryIndex" >
+            SELECT CategoryIndex FROM [tb_Favorite] T
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+    </statements>
+</sqlMap>

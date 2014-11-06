@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+
+    <!-- 应用配置 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationService"
+            type="X3Platform.Apps.BLL.ApplicationService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationProvider"
+            lazy-init="true" />
+
+    <!-- 应用功能 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationFeatureService"
+            type="X3Platform.Apps.BLL.ApplicationFeatureService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationFeatureProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationFeatureProvider"
+            lazy-init="true" />
+
+    <!-- 应用功能时间限制 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationFeatureDateLimitService"
+            type="X3Platform.Apps.BLL.ApplicationFeatureDateLimitService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationFeatureDateLimitProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationFeatureDateLimitProvider"
+            lazy-init="true" />
+
+    <!-- 应用错误 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationErrorService"
+            type="X3Platform.Apps.BLL.ApplicationErrorService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationErrorProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationErrorProvider"
+            lazy-init="true" />
+
+    <!-- 应用事件记录 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationEventService"
+            type="X3Platform.Apps.BLL.ApplicationEventService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationEventProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider"
+            lazy-init="true" />
+
+    <!-- 应用数据包 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationPackageService"
+            type="X3Platform.Apps.BLL.ApplicationPackageService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationPackageProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider"
+            lazy-init="true" />
+
+    <!-- 应用数据包发送记录 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationPackageLogService"
+            type="X3Platform.Apps.BLL.ApplicationPackageLogService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationPackageLogProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationPackageLogProvider"
+            lazy-init="true" />
+
+    <!-- 应用配置分组信息 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationSettingGroupService"
+            type="X3Platform.Apps.BLL.ApplicationSettingGroupService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationSettingGroupProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationSettingGroupProvider"
+            lazy-init="true" />
+
+    <!-- 应用配置信息 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationSettingService"
+            type="X3Platform.Apps.BLL.ApplicationSettingService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationSettingProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider"
+            lazy-init="true" />
+
+    <!-- 应用菜单信息 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationMenuService"
+            type="X3Platform.Apps.BLL.ApplicationMenuService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationMenuProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider"
+            lazy-init="true" />
+
+    <!-- 应用方法信息 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationMethodService"
+            type="X3Platform.Apps.BLL.ApplicationMethodService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationMethodProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider"
+            lazy-init="true" />
+
+    <!-- 应用选项 -->
+    <object name="X3Platform.Apps.IBLL.IApplicationOptionService"
+            type="X3Platform.Apps.BLL.ApplicationOptionService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Apps.IDAL.IApplicationOptionProvider"
+            type="X3Platform.Apps.DAL.IBatis.ApplicationOptionProvider"
+            lazy-init="true" />
+</objects>
