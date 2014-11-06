@@ -116,7 +116,7 @@
 
             int rowCount = -1;
 
-            IList<ApplicationOptionInfo> list = this.service.Query(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+            IList<ApplicationOptionInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;
 

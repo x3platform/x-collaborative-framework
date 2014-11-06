@@ -1,17 +1,30 @@
-﻿namespace X3Platform.Connect.Tests
+﻿#region Using Testing Libraries
+#if NUNIT
+using NUnit.Framework;
+using TestClass = NUnit.Framework.TestFixtureAttribute;
+using TestMethod = NUnit.Framework.TestAttribute;
+using TestInitialize = NUnit.Framework.SetUpAttribute;
+using TestCleanup = NUnit.Framework.TearDownAttribute;
+using TestContext = System.Object;
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Category = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute;
+#endif
+
+using NMock;
+#endregion
+
+namespace X3Platform.Connect.Tests
 {
     using System;
     using System.Text;
     using System.Collections.Generic;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     using X3Platform.Ajax.Net;
 
     using X3Platform.Connect.Model;
     using X3Platform.Connect.IBLL;
-    using X3Platform.Connect;
-
+    
     /// <summary></summary>
     [TestClass]
     public class ConnectContextTests

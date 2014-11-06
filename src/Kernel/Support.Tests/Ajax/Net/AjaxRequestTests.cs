@@ -13,6 +13,7 @@
     {
         public string hostName = KernelConfigurationView.Instance.HostName;
 
+        // [Ignore]
         [TestMethod]
         public void TestSend()
         {
@@ -24,7 +25,7 @@
             outString += "<loginName><![CDATA[test]]></loginName>";
             outString += "<password><![CDATA[test]]></password>";
             outString += "</root>";
-       // https://passport.x3platform.com/api/connect.auth.authorize
+            // https://passport.x3platform.com/api/connect.auth.authorize
             reqeustData.ActionUri = new Uri("http://passport.x3platform.com/membership.auth.aspx");
 
             reqeustData.Args.Add("returnType", "xml");
