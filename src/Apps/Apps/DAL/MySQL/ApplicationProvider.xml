@@ -66,7 +66,7 @@
 
     <statements>
         <insert id="proc_Application_Insert" parameterClass="ApplicationInfo" >
-            INSERT INTO `tb_Application` 
+            INSERT INTO tb_Application 
             (
                 Id,
                 AccountId,
@@ -88,7 +88,7 @@
                 HelpUrl,
                 LicenseStatus,
                 Hidden,
-                `Lock`,
+                Lock,
                 OrderId,
                 Status,
                 Remark,
@@ -127,7 +127,7 @@
         </insert>
 
         <update id="proc_Application_Update" parameterClass="ApplicationInfo" >
-            UPDATE `tb_Application` SET
+            UPDATE tb_Application SET
 
                 ParentId = #ParentId#,
                 Code = #Code#,
@@ -147,7 +147,7 @@
                 HelpUrl = #HelpUrl#,
                 LicenseStatus = #LicenseStatus#,
                 Hidden = #Hidden#,
-                `Lock` = #Lock#,
+                Lock = #Lock#,
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
@@ -169,19 +169,19 @@
         </update>
 
         <delete id="proc_Application_Delete">
-            DELETE FROM `tb_Application` WHERE $WhereClause$
+            DELETE FROM tb_Application WHERE $WhereClause$
         </delete>
 
         <select id="proc_Application_FindOne" parameterClass="ApplicationInfo" resultMap="proc_Application_FindOne_Result" >
-            SELECT * FROM `tb_Application` WHERE `Id` = #Id#
+            SELECT * FROM tb_Application WHERE Id = #Id#
         </select>
 
         <select id="proc_Application_FindOneByApplicationName" parameterClass="ApplicationInfo" resultMap="proc_Application_FindOne_Result" >
-            SELECT * FROM `tb_Application` WHERE `ApplicationName` = #ApplicationName#
+            SELECT * FROM tb_Application WHERE ApplicationName = #ApplicationName#
         </select>
 
         <select id="proc_Application_FindAll" resultMap="proc_Application_FindAll_Result" parameterClass="ApplicationInfo" >
-            SELECT * FROM `tb_Application` T
+            SELECT * FROM tb_Application T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -199,7 +199,7 @@
         </select>
 
         <select id="proc_Application_GetPages" parameterClass="ApplicationInfo" resultMap="proc_Application_FindAll_Result" >
-            SELECT * FROM `tb_Application` T
+            SELECT * FROM tb_Application T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -215,7 +215,7 @@
         </select>
 
         <select id="proc_Application_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM `tb_Application` T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Application T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -227,7 +227,7 @@
         </select>
 
         <select id="proc_Application_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM `tb_Application` T WHERE $WhereClause$
+            SELECT COUNT(*) AS "Count" FROM tb_Application T WHERE $WhereClause$
         </select>
 
         <select id="proc_Application_HasAuthority" >
@@ -241,7 +241,7 @@
         </select>
 
         <insert id="proc_Application_AddAuthorizationScopeObject">
-            INSERT INTO `tb_Application_Scope`
+            INSERT INTO tb_Application_Scope
             (AuthorizationObjectType, AuthorizationObjectId, AuthorityId, ApplicationId, UpdateDate, CreateDate)
 
             VALUES
@@ -249,17 +249,17 @@
         </insert>
 
         <delete id="proc_Application_RemoveAuthorizationScopeObjects">
-            DELETE FROM `tb_Application_Scope` WHERE ApplicationId = #ApplicationId# AND AuthorityId = #AuthorityId#
+            DELETE FROM tb_Application_Scope WHERE ApplicationId = #ApplicationId# AND AuthorityId = #AuthorityId#
         </delete>
 
         <select id="proc_Application_GetAuthorizationScopeObjects" >
-            SELECT * FROM `tb_Application_Scope` T WHERE ApplicationId = #ApplicationId# AND AuthorityId = #AuthorityId#
+            SELECT * FROM tb_Application_Scope T WHERE ApplicationId = #ApplicationId# AND AuthorityId = #AuthorityId#
         </select>
 
         <insert id="proc_Application_SyncFromPackPage" parameterClass="ApplicationInfo" >
-            IF EXISTS(SELECT 0 FROM `tb_Application` WHERE `Id` = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Application WHERE Id = #Id#)
             BEGIN
-                UPDATE `tb_Application` SET
+                UPDATE tb_Application SET
 
                     ParentId = #ParentId#,
                     Code = #Code#,
@@ -271,7 +271,7 @@
             END
             ELSE
             BEGIN
-                INSERT INTO `tb_Application` 
+                INSERT INTO tb_Application 
                 (
                     Id,
                     AccountId,

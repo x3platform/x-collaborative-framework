@@ -24,45 +24,46 @@
     <statements>
 
         <insert id="proc_Application_PackageLog_Insert" parameterClass="ApplicationPackageLogInfo">
-            INSERT INTO [tb_Application_PackageLog] (
-            [Id],
-            [ApplicationId],
-            [PackageCode],
-            [Success],
-            [Message],
-            [Date]
+            INSERT INTO tb_Application_PackageLog 
+            (
+                Id,
+                ApplicationId,
+                PackageCode,
+                Success,
+                Message,
+                Date
             )
             VALUES
             (
-            #Id#,
-            #ApplicationId#,
-            #PackageCode#,
-            #Success#,
-            #Message#,
-            #Date#
+                #Id#,
+                #ApplicationId#,
+                #PackageCode#,
+                #Success#,
+                #Message#,
+                #Date#
             )
         </insert>
 
         <update id="proc_Application_PackageLog_Update" parameterClass="ApplicationPackageLogInfo">
-            UPDATE [tb_Application_PackageLog] SET
+            UPDATE tb_Application_PackageLog SET
 
-            [Id] = #Id#,
-            [ApplicationId] = #ApplicationId#,
-            [PackageCode] = #PackageCode#,
-            [Success] = #Success#,
-            [Message] = #Message#,
-            [Date] = #Date#
+                Id = #Id#,
+                ApplicationId = #ApplicationId#,
+                PackageCode = #PackageCode#,
+                Success = #Success#,
+                Message = #Message#,
+                Date = #Date#
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_Application_PackageLog_Delete" >
-            DELETE FROM [tb_Application_PackageLog] WHERE $WhereClause$
+            DELETE FROM tb_Application_PackageLog WHERE $WhereClause$
         </delete>
 
         <select id="proc_Application_PackageLog_FindOne" resultMap="proc_Application_PackageLog_FindOne_Result" >
-            SELECT * FROM [tb_Application_PackageLog] T
-            WHERE [Id] = #Id#
+            SELECT * FROM tb_Application_PackageLog T
+            WHERE Id = #Id#
         </select>
 
         <select id="proc_Application_PackageLog_FindAll" resultMap="proc_Application_PackageLog_FindAll_Result" >
@@ -74,7 +75,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Application_PackageLog] T
+            * FROM tb_Application_PackageLog T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -90,7 +91,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Application_PackageLog] T
+            FROM tb_Application_PackageLog T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -106,7 +107,7 @@
 
         <select id="proc_Application_PackageLog_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_PackageLog] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_PackageLog T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -118,7 +119,7 @@
         </select>
 
         <select id="proc_Application_PackageLog_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Application_PackageLog] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Application_PackageLog T WHERE $WhereClause$
         </select>
 
     </statements>

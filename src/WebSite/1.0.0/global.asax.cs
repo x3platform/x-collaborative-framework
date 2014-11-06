@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -51,7 +50,7 @@ namespace X3Platform.WebSiteV10
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            logger.Info("application end request");
+            // logger.Info("application end request");
         }
 
         protected void Application_Error(object sender, EventArgs e)

@@ -31,18 +31,18 @@
 	</resultMaps>
 	<statements>
 		<insert id="proc_Application_Error_Insert" parameterClass="ApplicationErrorInfo">
-			INSERT INTO [tb_Application_Error]
+			INSERT INTO tb_Application_Error
 			(
-				[Id],
-				[ApplicationId],
-				[Code],
-				[Title],
-				[Description],
-                [StatusCode],
-				[Lock],
-				[Tags],
-				[UpdateDate],
-				[CreateDate]
+				Id,
+				ApplicationId,
+				Code,
+				Title,
+				Description,
+                StatusCode,
+				Lock,
+				Tags,
+				UpdateDate,
+				CreateDate
 			)
 			VALUES
 			(
@@ -60,39 +60,57 @@
 		</insert>
 
 		<update id="proc_Application_Error_Update" parameterClass="ApplicationErrorInfo">
-			UPDATE [tb_Application_Error] SET
+			UPDATE tb_Application_Error SET
 
-				[Id] = #Id#,
-				[ApplicationId] = #ApplicationId#,
-				[Code] = #Code#,
-				[Title] = #Title#,
-				[Description] = #Description#,
-                [StatusCode] = #StatusCode#,
-				[Lock] = #Lock#,
-				[Tags] = #Tags#,
-				[UpdateDate] = CURRENT_TIMESTAMP
+				Id = #Id#,
+				ApplicationId = #ApplicationId#,
+				Code = #Code#,
+				Title = #Title#,
+				Description = #Description#,
+                StatusCode = #StatusCode#,
+				Lock = #Lock#,
+				Tags = #Tags#,
+				UpdateDate = CURRENT_TIMESTAMP
 
-			WHERE [Id] = #Id#
+			WHERE Id = #Id#
 		</update>
 
 		<update id="proc_Application_Error_Delete" >
-			UPDATE [tb_Application_Error] SET [Status] = 0 WHERE $WhereClause$
+			UPDATE tb_Application_Error SET Status = 0 WHERE $WhereClause$
 		</update>
 
 		<delete id="proc_Application_Error_Delete(PhysicallyRemoved)" >
-			DELETE FROM [tb_Application_Error] WHERE $WhereClause$
+			DELETE FROM tb_Application_Error WHERE $WhereClause$
 		</delete>
 
 		<update id="proc_Application_Error_Delete(VirtualRemoved)" >
-			UPDATE [tb_Application_Error] SET [Status] = 0 WHERE $WhereClause$
+			UPDATE tb_Application_Error SET Status = 0 WHERE $WhereClause$
 		</update>
 
 		<select id="proc_Application_Error_FindOne" resultMap="proc_Application_Error_FindOne_Result" >
-			SELECT * FROM [tb_Application_Error] T WHERE [Id] = #Id#
+			SELECT * FROM tb_Application_Error T WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Application_Error_FindOneByCode" resultMap="proc_Application_Error_FindOne_Result" >
-			SELECT * FROM [tb_Application_Error] T WHERE [Code] = #Code#
+			SELECT * FROM tb_Application_Error T WHERE Code = #Code#
+		</select>
+
+		<select id="proc_Application_Error_FindAll#MySql" resultMap="proc_Application_Error_FindAll_Result" >
+			SELECT * FROM tb_Application_Error T
+
+			<dynamic prepend="WHERE">
+			    <isParameterPresent>
+				    <isNotEmpty prepend="AND" property="WhereClause" >
+				        $WhereClause$
+				    </isNotEmpty>
+			    </isParameterPresent>
+			</dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
 		</select>
 
 		<select id="proc_Application_Error_FindAll" resultMap="proc_Application_Error_FindAll_Result" >
@@ -104,7 +122,7 @@
 				</isNotEqual>
 			</dynamic>
 
-			* FROM [tb_Application_Error] T
+			* FROM tb_Application_Error T
 
 			  <dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -116,11 +134,27 @@
 		</select>
 
 		<select id="proc_Application_Error_GetPages" resultMap="proc_Application_Error_FindAll_Result" >
+			SELECT * FROM tb_Application_Error T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+		</select>
+
+		<select id="proc_Application_Error_GetPages" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-				FROM [tb_Application_Error] T
+				FROM tb_Application_Error T
 
 				<dynamic prepend="WHERE">
 				    <isParameterPresent>
@@ -137,10 +171,10 @@
 		<select id="proc_Application_Error_GetPages(SQLServer2000)" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT TOP $PageSize$ *
 
-			FROM [tb_Application_Error] T
+			FROM tb_Application_Error T
 
 			WHERE Id NOT IN (
-				SELECT TOP $StartIndex$ Id FROM [tb_Application_Error] T
+				SELECT TOP $StartIndex$ Id FROM tb_Application_Error T
 				<dynamic prepend="WHERE">
 					<isParameterPresent>
 						<isNotEmpty prepend="AND" property="WhereClause" >
@@ -165,7 +199,7 @@
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-				FROM [tb_Application_Error] T
+				FROM tb_Application_Error T
 
 				<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -179,7 +213,7 @@
 		</select>
 
 		<select id="proc_Application_Error_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM [tb_Application_Error] T
+			SELECT COUNT(0) AS 'RowCount' FROM tb_Application_Error T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -191,7 +225,7 @@
 		</select>
 
 		<select id="proc_Application_Error_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM [tb_Application_Error] T WHERE $WhereClause$
+			SELECT COUNT(0) AS 'Count' FROM tb_Application_Error T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

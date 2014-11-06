@@ -38,7 +38,6 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_Application_Method_Insert" parameterClass="ApplicationMethodInfo">
             INSERT INTO [tb_Application_Method] 
             (
