@@ -24,3 +24,11 @@
 `nant -t:mono-4.0`
 
 > 如果一切顺利可以在 dist\mono-4.0\ 目录下找到编译后的文件.
+
+####测试
+
+**MSTest**
+`nant -t:net-4.0 -D:testing=mstest`
+
+**NUnit**
+`nant -t:net-4.0 -D:testing=nunit`

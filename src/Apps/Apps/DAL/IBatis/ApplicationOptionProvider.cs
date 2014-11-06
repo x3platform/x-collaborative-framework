@@ -198,14 +198,14 @@ namespace X3Platform.Apps.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例</returns> 
-        public IList<ApplicationOptionInfo> Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        public IList<ApplicationOptionInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 

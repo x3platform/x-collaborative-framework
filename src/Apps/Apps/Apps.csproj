@@ -172,86 +172,36 @@
     <Compile Include="SecurityTokenManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\ApplicationErrorProvider.xml">
-      <DependentUpon>ApplicationErrorProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationFeatureDateLimitProvider.xml">
-      <DependentUpon>ApplicationFeatureDateLimitProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationMenuProvider.xml">
-      <DependentUpon>ApplicationMenuProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationMethodProvider.xml">
-      <DependentUpon>ApplicationMethodProvider.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\IBatis\ApplicationErrorProvider.xml">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationOptionProvider.xml">
-      <DependentUpon>ApplicationOptionProvider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\IBatis\ApplicationFeatureDateLimitProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationMenuProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationMethodProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationOptionProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationEventProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationPackageLogProvider.xml">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationProvider.xml">
-      <DependentUpon>ApplicationProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationEventProvider.xml">
-      <DependentUpon>ApplicationEventProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationPackageLogProvider.xml">
-      <DependentUpon>ApplicationPackageLogProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationPackageProvider.xml">
-      <DependentUpon>ApplicationPackageProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationFeatureProvider.xml">
-      <DependentUpon>ApplicationFeatureProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationSettingGroupProvider.xml">
-      <DependentUpon>ApplicationSettingGroupProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\ApplicationSettingProvider.xml">
-      <DependentUpon>ApplicationSettingProvider.cs</DependentUpon>
-    </Content>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\IBatis\ApplicationPackageProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationFeatureProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationSettingGroupProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationSettingProvider.xml" />
     <Content Include="DAL\MySQL\ApplicationErrorProvider.xml">
-      <DependentUpon>ApplicationErrorProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationEventProvider.xml">
-      <DependentUpon>ApplicationEventProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationFeatureDateLimitProvider.xml">
-      <DependentUpon>ApplicationFeatureDateLimitProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationFeatureProvider.xml">
-      <DependentUpon>ApplicationFeatureProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationMenuProvider.xml">
-      <DependentUpon>ApplicationMenuProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationMethodProvider.xml">
-      <DependentUpon>ApplicationMethodProvider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="DAL\MySQL\ApplicationOptionProvider.xml">
-      <DependentUpon>ApplicationOptionProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationPackageLogProvider.xml">
-      <DependentUpon>ApplicationPackageLogProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationPackageProvider.xml">
-      <DependentUpon>ApplicationPackageProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationProvider.xml">
-      <DependentUpon>ApplicationProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationSettingGroupProvider.xml">
-      <DependentUpon>ApplicationSettingGroupProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationSettingProvider.xml">
-      <DependentUpon>ApplicationSettingProvider.cs</DependentUpon>
-    </Content>
+    <Content Include="DAL\MySQL\ApplicationEventProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationFeatureDateLimitProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationFeatureProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationMenuProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationMethodProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationOptionProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationPackageLogProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationPackageProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationSettingGroupProvider.xml" />
+    <Content Include="DAL\MySQL\ApplicationSettingProvider.xml" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <Content Include="db\Init_Script_SQLServer.sql" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
