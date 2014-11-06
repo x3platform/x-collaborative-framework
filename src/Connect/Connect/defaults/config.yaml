@@ -1,0 +1,13 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Connect/X3Platform.Connect/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.Connect.defaults.IBatis.SqlMap.xml
+  # API主机名
+  ApiHostName: "${HostName}"
+  # 会话时间限制 (单位:秒)
+  SessionTimeLimit: 86400
+  # 跟踪调用信息 : On | Off(默认)
+  TrackingCall: Off
+...

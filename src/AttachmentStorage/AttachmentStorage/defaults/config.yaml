@@ -1,0 +1,21 @@
+---
+keys: 
+  # SQL Server : 数据库连接名称
+  DataSourceName: ConnectionString
+  # Spring.NET : 配置文件
+  SpringObjectFile: config\X3Platform.AttachmentStorage.Spring.config
+  # IBatis : 配置映射文件
+  IBatisMapping: config\X3Platform.AttachmentStorage.IBatis.SqlMap.config
+  # 上传文件夹物理目录根路径
+  PhysicalUploadFolder: ${ApplicationPathRoot}uploads\
+  # 上传文件夹物理路径规则
+  PhysicalUploadFolderRule: folder\year\quarter\month\
+  # 上传文件夹虚拟目录根路径
+  VirtualUploadFolder: /uploads/
+  # 生成图片名称的格式 : 可选的值 1.guid(默认) 2.yyyyMMddHHmmssfff
+  IdentityFormat: yyyyMMddHHmmssfff
+  # 匿名上传文件 : 可选的值 1.On 2.Off(默认)
+  AnonymousUpload: Off
+  # 分布式文件模式 : 可选的值 1.On 2.Off(默认)
+  DistributedFileStorageMode: Off
+...
