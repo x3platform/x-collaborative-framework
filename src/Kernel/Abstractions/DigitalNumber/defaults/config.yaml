@@ -1,0 +1,9 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Abstractions/X3Platform.DigitalNumber/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.DigitalNumber.defaults.IBatis.SqlMap.xml
+  # 忽略不需要自增的编号和更新时间的编号 一般适用于随机数和 GUID
+  IgnoreIncrementSeed: Key_32DigitGuid,Key_Guid,Key_Nonce,Key_Random_10,Key_Session
+...
