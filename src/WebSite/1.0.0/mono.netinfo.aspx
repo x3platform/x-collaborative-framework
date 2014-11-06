@@ -6,7 +6,7 @@
     // 程序名称：.Net空间信息 双向探针
     // Version:1.0
     // Written by RuanYu
-    // Copyright (C) 2005-2012 RuanYu All rights reserved.
+    // Copyright (C) 2010 RuanYu All rights reserved.
     // Email:ruanyu@live.com
     // 本程序代码完全免费，您可以任意复制，修改和传播。但请保留以上信息谢谢合作。
     // ---------------------------------------

@@ -122,9 +122,9 @@ namespace X3Platform.Apps.DAL.IBatis
             // 1.删除数据包记录
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" [ApplicationId] = '{0}' AND [Direction] = 'Out' ", 
+            args.Add("WhereClause", string.Format(" [ApplicationId] = '{0}' AND [Direction] = 'Out' ",
                 StringHelper.ToSafeSQL(MembershipConfigurationView.Instance.PackageStorageOutputApplicationId)));
-            
+
             ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
 
             // 2.删除数据包发送日志记录
@@ -219,9 +219,9 @@ namespace X3Platform.Apps.DAL.IBatis
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id='{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
 
             return isExist;
         }

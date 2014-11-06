@@ -32,59 +32,60 @@
     <statements>
 
         <insert id="proc_Application_Package_Insert" parameterClass="ApplicationPackageInfo">
-            INSERT INTO `tb_Application_Package` (
-            `Id`,
-            `ApplicationId`,
-            `Direction`,
-            `Code`,
-            `ParentCode`,
-            `Type`,
-            `Path`,
-            `BeginDate`,
-            `EndDate`,
-            `CreateDate`
+            INSERT INTO tb_Application_Package 
+            (
+                Id,
+                ApplicationId,
+                Direction,
+                Code,
+                ParentCode,
+                Type,
+                Path,
+                BeginDate,
+                EndDate,
+                CreateDate
             )
             VALUES
             (
-            #Id#,
-            #ApplicationId#,
-            #Direction#,
-            #Code#,
-            #ParentCode#,
-            #Type#,
-            #Path#,
-            #BeginDate#,
-            #EndDate#,
-            CURRENT_TIMESTAMP
+                #Id#,
+                #ApplicationId#,
+                #Direction#,
+                #Code#,
+                #ParentCode#,
+                #Type#,
+                #Path#,
+                #BeginDate#,
+                #EndDate#,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
         <update id="proc_Application_Package_Update" parameterClass="ApplicationPackageInfo">
-            UPDATE `tb_Application_Package` SET
+            UPDATE tb_Application_Package SET
 
-            `Id` = #Id#,
-            `ApplicationId` = #ApplicationId#,
-            `Direction` = #Direction#,
-            `Code` = #Code#,
-            `ParentCode` = #ParentCode#,
-            `Type` = #Type#,
-            `Path` = #Path#,
-            `BeginDate` = #BeginDate#,
-            `EndDate` = #EndDate#
+                Id = #Id#,
+                ApplicationId = #ApplicationId#,
+                Direction = #Direction#,
+                Code = #Code#,
+                ParentCode = #ParentCode#,
+                Type = #Type#,
+                Path = #Path#,
+                BeginDate = #BeginDate#,
+                EndDate = #EndDate#
 
-            WHERE `Id` = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_Application_Package_Delete" >
-            DELETE FROM `tb_Application_Package` WHERE $WhereClause$
+            DELETE FROM tb_Application_Package WHERE $WhereClause$
         </delete>
 
         <update id="proc_Application_Package_ResetPackageCode" >
-            UPDATE `tb_DigitalNumber` SET Seed = 0 WHERE Name = 'Table_Application_Package_Key_Code'
+            UPDATE tb_DigitalNumber SET Seed = 0 WHERE Name = 'Table_Application_Package_Key_Code'
         </update>
 
         <select id="proc_Application_Package_FindOne" resultMap="proc_Application_Package_FindOne_Result" >
-            SELECT * FROM `tb_Application_Package` T WHERE `Id` = #Id#
+            SELECT * FROM tb_Application_Package WHERE Id = #Id#
         </select>
 
         <select id="proc_Application_Package_FindAll" resultMap="proc_Application_Package_FindAll_Result" >
@@ -96,7 +97,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM `tb_Application_Package` T
+            * FROM tb_Application_Package T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -112,7 +113,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM `tb_Application_Package` T
+            FROM tb_Application_Package T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -127,8 +128,7 @@
         </select>
 
         <select id="proc_Application_Package_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM `tb_Application_Package` T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Package T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -140,12 +140,12 @@
         </select>
 
         <select id="proc_Application_Package_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM `tb_Application_Package` T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Application_Package T WHERE $WhereClause$
         </select>
 
         <select id="proc_Application_Package_GetLatestPackage" resultMap="proc_Application_Package_FindOne_Result" >
-            SELECT TOP 1 * FROM `tb_Application_Package` T 
-            WHERE `ApplicationId` = #ApplicationId# AND `Direction` = #Direction#
+            SELECT TOP 1 * FROM tb_Application_Package T 
+            WHERE ApplicationId = #ApplicationId# AND Direction = #Direction#
             ORDER BY Code DESC
         </select>
     </statements>

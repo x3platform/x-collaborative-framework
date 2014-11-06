@@ -52,6 +52,8 @@
     <if test="${property::exists('debug')}">
         <property name="framework.debug" value="${property::get-value('debug')}" />
     </if>
+    <!-- 单元测试 true 启用 false 禁用  -->
+    <property name="testing" value="none" />
     <!-- 设置 MSTest 命令行工具 -->
     <property name="tool.mstest" value="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\MSTest.exe" />
     <!-- 控制台输出彩色文本脚本 -->

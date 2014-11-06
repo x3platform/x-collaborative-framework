@@ -1,4 +1,5 @@
-﻿#if NUNIT
+﻿#region Using Testing Libraries
+#if NUNIT
 using NUnit.Framework;
 using TestClass = NUnit.Framework.TestFixtureAttribute;
 using TestMethod = NUnit.Framework.TestAttribute;
@@ -11,6 +12,7 @@ using Category = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribu
 #endif
 
 using NMock;
+#endregion
 
 namespace X3Platform.Connect.Tests.IBLL
 {
