@@ -48,18 +48,18 @@
     <statements>
 
         <insert id="proc_Application_Setting_Insert" parameterClass="ApplicationSettingInfo">
-            INSERT INTO [tb_Application_Setting] (
-                [Id],
-                [ApplicationId],
-                [ApplicationSettingGroupId],
-                [Code],
-                [Text],
-                [Value],
-                [OrderId],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
+            INSERT INTO tb_Application_Setting (
+                Id,
+                ApplicationId,
+                ApplicationSettingGroupId,
+                Code,
+                Text,
+                Value,
+                OrderId,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -78,30 +78,48 @@
         </insert>
 
         <update id="proc_Application_Setting_Update" parameterClass="ApplicationSettingInfo">
-            UPDATE [tb_Application_Setting] SET
+            UPDATE tb_Application_Setting SET
 
-                [ApplicationId] = #ApplicationId#,
-                [ApplicationSettingGroupId] = #ApplicationSettingGroupId#,
-                [Code] = #Code#,
-                [Text] = #Text#,
-                [Value] = #Value#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                ApplicationId = #ApplicationId#,
+                ApplicationSettingGroupId = #ApplicationSettingGroupId#,
+                Code = #Code#,
+                Text = #Text#,
+                Value = #Value#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id# AND [UpdateDate] = #UpdateDate#
+            WHERE Id = #Id# AND UpdateDate = #UpdateDate#
         </update>
 
         <delete id="proc_Application_Setting_Delete" >
-            DELETE FROM [tb_Application_Setting] WHERE $WhereClause$
+            DELETE FROM tb_Application_Setting WHERE $WhereClause$
         </delete>
 
         <select id="proc_Application_Setting_FindOne" resultMap="proc_Application_Setting_FindOne_Result" >
-            SELECT * FROM [tb_Application_Setting] T WHERE [Id] = #Id#
+            SELECT * FROM tb_Application_Setting T WHERE Id = #Id#
         </select>
 
-        <select id="proc_Application_Setting_FindAll" resultMap="proc_Application_Setting_FindAll_Result" >
+        <select id="proc_Application_Setting_FindAll#MySql" resultMap="proc_Application_Setting_FindAll_Result" >
+            SELECT * FROM tb_Application_Setting T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Application_Setting_FindAll#SqlServer" resultMap="proc_Application_Setting_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -110,7 +128,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Application_Setting] T
+            * FROM tb_Application_Setting T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -120,8 +138,24 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Application_Setting_FindAllQueryObject#MySql" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
+            SELECT * FROM tb_Application_Setting T
 
-        <select id="proc_Application_Setting_FindAllQueryObject" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Application_Setting_FindAllQueryObject#SqlServer" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -130,7 +164,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Application_Setting] T
+            * FROM tb_Application_Setting T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -140,13 +174,28 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Application_Setting_GetPaging#MySql" resultMap="proc_Application_Setting_FindAll_Result" >
+            SELECT * FROM tb_Application_Setting T
 
-        <select id="proc_Application_Setting_GetPages" resultMap="proc_Application_Setting_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$ 
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Application_Setting_GetPaging#SqlServer" resultMap="proc_Application_Setting_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Application_Setting] T
+            FROM tb_Application_Setting T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -160,12 +209,28 @@
 
         </select>
 
-        <select id="proc_Application_Setting_GetQueryObjectPages" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
+        <select id="proc_Application_Setting_GetQueryObjectPaging#MySql" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
+            SELECT * FROM tb_Application_Setting T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$ 
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Application_Setting_GetQueryObjectPaging#SqlServer" resultMap="proc_Application_Setting_FindAllQueryObject_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Application_Setting] T
+            FROM tb_Application_Setting T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -181,7 +246,7 @@
 
         <select id="proc_Application_Setting_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_Setting] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Setting T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -193,58 +258,57 @@
         </select>
 
         <select id="proc_Application_Setting_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Application_Setting] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Application_Setting T WHERE $WhereClause$
         </select>
 
         <insert id="proc_Application_Setting_SyncFromPackPage" parameterClass="ApplicationSettingInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_Application_Setting] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Application_Setting WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_Application_Setting] SET
+                UPDATE tb_Application_Setting SET
 
-                [ApplicationId] = #ApplicationId#,
-                [ApplicationSettingGroupId] = #ApplicationSettingGroupId#,
-                [Code] = #Code#,
-                [Text] = #Text#,
-                [Value] = #Value#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                    ApplicationId = #ApplicationId#,
+                    ApplicationSettingGroupId = #ApplicationSettingGroupId#,
+                    Code = #Code#,
+                    Text = #Text#,
+                    Value = #Value#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+                    Remark = #Remark#,
+                    UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
-
+                WHERE Id = #Id#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_Application_Setting] (
-                [Id],
-                [ApplicationId],
-                [ApplicationSettingGroupId],
-                [Code],
-                [Text],
-                [Value],
-                [OrderId],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
-            )
-            VALUES
-            (
-                #Id#,
-                #ApplicationId#,
-                #ApplicationSettingGroupId#,
-                #Code#,
-                #Text#,
-                #Value#,
-                #OrderId#,
-                #Status#,
-                #Remark#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
+                INSERT INTO tb_Application_Setting 
+                (
+                    Id,
+                    ApplicationId,
+                    ApplicationSettingGroupId,
+                    Code,
+                    Text,
+                    Value,
+                    OrderId,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES
+                (
+                    #Id#,
+                    #ApplicationId#,
+                    #ApplicationSettingGroupId#,
+                    #Code#,
+                    #Text#,
+                    #Value#,
+                    #OrderId#,
+                    #Status#,
+                    #Remark#,
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
+                )
             END
         </insert>
-
     </statements>
 </sqlMap>
