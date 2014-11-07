@@ -127,7 +127,14 @@ namespace X3Platform.Data
             {
                 this.connection.ConnectionString = this.connectionString;
 
-                this.connection.Open();
+                try
+                {
+                    this.connection.Open();
+                }
+                catch
+                {
+                    throw new GenericSqlConnectionException("连接数据库失败，请检查数据库配置信息.");
+                }
             }
         }
         #endregion

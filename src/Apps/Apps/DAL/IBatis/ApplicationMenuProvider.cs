@@ -222,7 +222,7 @@
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationMenuInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<ApplicationMenuInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -251,7 +251,7 @@
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationMenuQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPages", tableName)), args);
+            IList<ApplicationMenuQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

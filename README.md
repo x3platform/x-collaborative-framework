@@ -7,9 +7,9 @@
 - 构建工具 [NAnt](https://github.com/nant/nant "https://github.com/nant/nant")  
 
 #### Winodws 环境
-假设项目目录为D:\github\x-server-fx
+假设项目目录为D:\github\x-collaborative-framework
 
-`cd D:\github\x-server-fx`
+`cd D:\github\x-collaborative-framework`
 
 `nant -t:net-4.0`
 
@@ -17,9 +17,9 @@
 
 #### Linux 环境
 
-假设项目目录为 /github/x-server-fx
+假设项目目录为 /github/x-collaborative-framework
 
-`cd /github/x-server-fx`
+`cd /github/x-collaborative-framework`
 
 `nant -t:mono-4.0`
 
@@ -29,6 +29,3 @@
 
 **MSTest**
 `nant -t:net-4.0 -D:testing=mstest`
-
-**NUnit**
-`nant -t:net-4.0 -D:testing=nunit`

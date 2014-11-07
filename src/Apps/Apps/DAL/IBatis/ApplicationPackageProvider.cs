@@ -185,7 +185,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationPackageInfo> list = ibatisMapper.QueryForList<ApplicationPackageInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<ApplicationPackageInfo> list = ibatisMapper.QueryForList<ApplicationPackageInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
 

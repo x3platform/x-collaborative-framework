@@ -57,6 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\X3Platform.Support.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
     <OutputPath>bin\longfor\</OutputPath>
@@ -203,6 +204,7 @@
     <Compile Include="CommandLine\Attributes\OptionAttribute.cs" />
     <Compile Include="CommandLine\Attributes\OptionListAttribute.cs" />
     <Compile Include="CommandLine\Attributes\ValueListAttribute.cs" />
+    <Compile Include="Data\GenericSqlConnectionException.cs" />
     <Compile Include="Security\CiphertextFormat.cs" />
     <Compile Include="Security\Configuration\SecurityConfiguration.cs" />
     <Compile Include="Security\Configuration\SecurityConfigurationView.cs" />
@@ -1258,7 +1260,6 @@
     <None Include="Yaml\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <Content Include="config\X3Platform.Logging.config">
       <SubType>Designer</SubType>
     </Content>
