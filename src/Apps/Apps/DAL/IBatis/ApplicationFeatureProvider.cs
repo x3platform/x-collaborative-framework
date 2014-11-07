@@ -190,7 +190,7 @@
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationFeatureInfo> list = ibatisMapper.QueryForList<ApplicationFeatureInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<ApplicationFeatureInfo> list = ibatisMapper.QueryForList<ApplicationFeatureInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

@@ -34,13 +34,12 @@
         public string GetAuthorizeCode(XmlDocument doc)
         {
             // 地址示例
-            // http://x10.x3platform.com/api/connect.connect.oauth.authorize.aspx
-            // ?client_id=05ce2febad3eeaab116a8fc307bcc001
-            // &redirect_uri=https://x10.x3platform.com/api/connect.connect.oauth.token.aspx
-            // &response_type=code
+            // http://local.x3platform.com/api/connect.auth.authorize.aspx?clientId=52cf89ba-7db5-4e64-9c64-3c868b6e7a99
+            // &redirectUri=https://x10.x3platform.com/api/connect.oauth.token.aspx
+            // &responseType=code
             // &scope=public,news_read,tasks_read
 
-            // http://x10.x3platform.com/api/connect.auth.authorize.aspx?client_id=05ce2febad3eeaab116a8fc307bcc001&redirect_uri=https://x10.x3platform.com/api/connect.connect.oauth.token.aspx
+            // http://local.x3platform.com/api/connect.auth.authorize.aspx?client_id=05ce2febad3eeaab116a8fc307bcc001&redirect_uri=https://x10.x3platform.com/api/connect.connect.oauth.token.aspx
             // &response_type=code
             // &scope=oauth,news,tasks
 
@@ -348,7 +347,7 @@
 
             outString.Append("<body>");
 
-            outString.Append("<form id=\"authForm\" name=\"authForm\" method=\"POST\" action=\"/api/connect.auth.authorize.aspx?clientId=" + clientId
+            outString.Append("<form id=\"auth-form\" name=\"authForm\" method=\"POST\" action=\"/api/connect.auth.authorize.aspx?clientId=" + clientId
                 + (string.IsNullOrEmpty(redirectUri) ? "&redirectUri=" + connect.RedirectUri : "&redirectUri=" + redirectUri)
                 + (string.IsNullOrEmpty(responseType) ? "&responseType=code" : "&responseType=" + responseType)
                 + (string.IsNullOrEmpty(scope) ? string.Empty : "&scope=" + scope) + "\" >");
@@ -360,11 +359,11 @@
             outString.Append("<div class=\"window-login-form-container\" >");
             outString.Append("<div class=\"window-login-form-input\" >");
             outString.Append("<span>帐号</span> ");
-            outString.Append("<input id=\"loginName\" maxlength=\"20\" type=\"text\" class=\"window-login-input-style\" value=\"\" />");
+            outString.Append("<input id=\"loginName\" name=\"loginName\" maxlength=\"20\" type=\"text\" class=\"window-login-input-style\" value=\"\" />");
             outString.Append("</div>");
             outString.Append("<div class=\"window-login-form-input\" >");
             outString.Append("<span>密码</span>");
-            outString.Append("<input id=\"password\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
+            outString.Append("<input id=\"password\" name=\"password\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
             outString.Append("</div>");
 
             // outString.Append("<div class=\"window-login-form-remember-me\" >");
@@ -395,8 +394,7 @@
             outString.AppendLine("  return void(0);");
             outString.AppendLine("} ");
             outString.AppendLine();
-            outString.AppendLine("document.getElementById('xml').value = '<?xml version=\"1.0\" encoding=\"utf-8\" ?><root><loginName><![CDATA[' + document.getElementById('loginName').value + ']]></loginName><password><![CDATA[' + document.getElementById('password').value + ']]></password></root>';");
-            outString.AppendLine("document.getElementById('authForm').submit();");
+            outString.AppendLine("document.getElementById('auth-form').submit();");
             outString.AppendLine("} ");
             outString.Append("</script>");
 
