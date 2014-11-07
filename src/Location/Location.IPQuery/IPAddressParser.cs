@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace X3Platform.Location.IPQuery
 {
-    /// <summary>
-    /// IP地址分析器
-    /// </summary>
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    /// <summary>IP地址分析器</summary>
     public abstract class IPAddressParser
     {
         #region 函数:Parse(byte[] IPUnit, out int depth)
