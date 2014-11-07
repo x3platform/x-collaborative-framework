@@ -341,10 +341,11 @@
             outString.Append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\" />");
             outString.Append("<title>" + connect.Name + " 应用接入验证 - " + KernelConfigurationView.Instance.SystemName + "</title>");
             outString.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
-            outString.Append("<link rel=\"stylesheet\" media=\"all\" href=\"/resources/styles/mobile/login.css\" type=\"text/css\" />");
+            outString.Append("<link rel=\"stylesheet\" media=\"all\" href=\"/views/templates/internal/oauth/login.css\" type=\"text/css\" />");
             outString.Append("<link rel=\"shortcut icon\" href=\"/favorite.ico\" />");
-            outString.Append("</head>");
-
+            outString.Append("<script id=\"crypto-sha1-script\" type=\"text/javascript\" src=\"/resources/javascript/crypto/rollups/sha1.js\" ></script>");
+                outString.Append("</head>");
+            
             outString.Append("<body>");
 
             outString.Append("<form id=\"auth-form\" name=\"authForm\" method=\"POST\" action=\"/api/connect.auth.authorize.aspx?clientId=" + clientId
@@ -363,9 +364,10 @@
             outString.Append("</div>");
             outString.Append("<div class=\"window-login-form-input\" >");
             outString.Append("<span>密码</span>");
-            outString.Append("<input id=\"password\" name=\"password\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
+            outString.Append("<input id=\"originalPassword\" name=\"originalPassword\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
+            outString.Append("<input id=\"password\" name=\"password\" type=\"hidden\" value=\"\" />");
             outString.Append("</div>");
-
+            
             // outString.Append("<div class=\"window-login-form-remember-me\" >");
             // outString.Append("<a href=\"/public/forgot-password.aspx\" target=\"_blank\" >忘记登录密码？</a>");
             // outString.Append("<input id=\"remember\" name=\"remember\" type=\"checkbox\" > <span>记住登录状态</span>");
@@ -389,10 +391,12 @@
             outString.AppendLine();
             outString.AppendLine("<script type=\"text/javascript\">");
             outString.AppendLine("function loginCheck() {");
-            outString.AppendLine("if (document.getElementById('loginName').value == '' || document.getElementById('password').value == '') {");
+            outString.AppendLine("if (document.getElementById('loginName').value == '' || document.getElementById('originalPassword').value == '') {");
             outString.AppendLine("  alert('必须填写帐号和密码。');");
             outString.AppendLine("  return void(0);");
             outString.AppendLine("} ");
+            outString.AppendLine();
+            outString.AppendLine("document.getElementById('password').value = CryptoJS.SHA1(document.getElementById('originalPassword').value).toString(); ");
             outString.AppendLine();
             outString.AppendLine("document.getElementById('auth-form').submit();");
             outString.AppendLine("} ");
