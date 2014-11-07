@@ -61,7 +61,10 @@
             SELECT * FROM tb_Connect_AuthorizationCode WHERE Id = #Id#
         </select>
 
-        <select id="proc_Connect_AuthorizationCode_FindOneByAccountId" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
+        <select id="proc_Connect_AuthorizationCode_FindOneByAccountId#MySql" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
+            SELECT * FROM tb_Connect_AuthorizationCode WHERE AppKey = #AppKey# AND AccountId = #AccountId# LIMIT 1
+        </select>
+        <select id="proc_Connect_AuthorizationCode_FindOneByAccountId#SqlServer" parameterClass="ConnectAuthorizationCodeInfo" resultMap="proc_Connect_AuthorizationCode_FindOne_Result" >
             SELECT Top 1 * FROM tb_Connect_AuthorizationCode WHERE AppKey = #AppKey# AND AccountId = #AccountId#
         </select>
 
@@ -105,7 +108,6 @@
         </select>
 
         <select id="proc_Connect_AuthorizationCode_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM tb_Connect_AuthorizationCode T
 
             <dynamic prepend="WHERE">
@@ -118,7 +120,7 @@
         </select>
         
         <select id="proc_Connect_AuthorizationCode_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM tb_Connect_AuthorizationCode T WHERE Id = #Id#
+            SELECT COUNT(*) AS "Count" FROM tb_Connect_AuthorizationCode WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>
