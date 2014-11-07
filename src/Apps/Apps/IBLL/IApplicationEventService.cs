@@ -66,7 +66,7 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>
         /// 数据表 高效分页函数.
         /// </summary>
@@ -75,7 +75,7 @@
         /// <param name="whereClause">WHERE 查询条件.</param>
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <returns>返回一个 ApplicationEventInfo 列表实例.</returns> 
-        IList<ApplicationEventInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        IList<ApplicationEventInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string taskId, string receiverId)

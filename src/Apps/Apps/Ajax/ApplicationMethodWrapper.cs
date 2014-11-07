@@ -142,7 +142,7 @@ namespace X3Platform.Apps.Ajax
 
             int rowCount = -1;
 
-            IList<ApplicationMethodInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<ApplicationMethodInfo> list = this.service.GetPaging(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
 
             pages.RowCount = rowCount;
 

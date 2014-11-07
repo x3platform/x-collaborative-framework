@@ -28,21 +28,48 @@
         </resultMap>
     </resultMaps>
 
-    <statements>
+    <statements> 
+        <insert id="proc_Application_Event_Save#MySql" parameterClass="ApplicationEventInfo" >
+            INSERT INTO tb_Application_Event 
+            (
+                Id,
+                ApplicationId,
+                Tags,
+                Description,
+                StartTime,
+                FinishTime,
+                TimeSpan,
+                IP,
+                Date
+            )
+            SELECT            
+                #Id#,
+                #ApplicationId#,
+                #Tags#,
+                #Description#,
+                #StartTime#,
+                #FinishTime#,
+                #TimeSpan#,
+                #IP#,
+                CURRENT_TIMESTAMP
+            FROM DUAL
+            WHERE NOT EXISTS ( SELECT * FROM tb_Application_Event WHERE tb_Application_Event.Id = #Id#)
+        </insert>
+
         <insert id="proc_Application_Event_Save" parameterClass="ApplicationEventInfo" >
-            IF NOT EXISTS(SELECT 0 FROM [tb_Application_Event] WHERE [Id] = #Id#)
+            IF NOT EXISTS(SELECT 0 FROM tb_Application_Event WHERE Id = #Id#)
 			BEGIN
-			    INSERT INTO [tb_Application_Event] 
+			    INSERT INTO tb_Application_Event 
                 (
-                    [Id],
-                    [ApplicationId],
-                    [Tags],
-                    [Description],
-                    [StartTime],
-                    [FinishTime],
-                    [TimeSpan],
-                    [IP],
-                    [Date]
+                    Id,
+                    ApplicationId,
+                    Tags,
+                    Description,
+                    StartTime,
+                    FinishTime,
+                    TimeSpan,
+                    IP,
+                    Date
                 )
                 VALUES
                 (
@@ -60,14 +87,30 @@
         </insert>
 
         <delete id="proc_Application_Event_Delete">
-            DELETE FROM [tb_Application_Event] WHERE $WhereClause$
+            DELETE FROM tb_Application_Event WHERE $WhereClause$
         </delete>
 
         <select id="proc_Application_Event_FindOne" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindOne_Result" >
-            SELECT * FROM [tb_Application_Event] WHERE [Id] = #Id#
+            SELECT * FROM tb_Application_Event WHERE Id = #Id#
         </select>
+        <select id="proc_Application_Event_FindAll#MySql" resultMap="proc_Application_Event_FindAll_Result" parameterClass="ApplicationEventInfo" >
+            SELECT * FROM tb_Application_Event T
 
-        <select id="proc_Application_Event_FindAll" resultMap="proc_Application_Event_FindAll_Result" parameterClass="ApplicationEventInfo" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Application_Event_FindAll#SqlServer" resultMap="proc_Application_Event_FindAll_Result" parameterClass="ApplicationEventInfo" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -76,7 +119,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Application_Event] T
+            * FROM tb_Application_Event T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -86,13 +129,28 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Application_Event_GetPaging#MySql" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindAll_Result" >
+            SELECT * FROM tb_Application_Event T
 
-        <select id="proc_Application_Event_GetPages" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Application_Event_GetPaging#SqlServer" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Application_Event] T
+            FROM tb_Application_Event T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -103,12 +161,10 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
 
         <select id="proc_Application_Event_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_Event] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Event T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -120,7 +176,7 @@
         </select>
 
         <select id="proc_Application_Event_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM [tb_Application_Event] T WHERE $WhereClause$
+            SELECT COUNT(*) AS "Count" FROM tb_Application_Event WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

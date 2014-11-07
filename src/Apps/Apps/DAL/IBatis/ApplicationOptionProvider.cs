@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ApplicationOptionProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.DAL.IBatis
+﻿namespace X3Platform.Apps.DAL.IBatis
 {
     #region Using Libraries
     using System;
@@ -211,14 +195,16 @@ namespace X3Platform.Apps.DAL.IBatis
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", string.Empty);
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { 
+                { "Name", "LIKE" }, { "Value", "LIKE" } 
+            }));
             args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
             IList<ApplicationOptionInfo> list = this.ibatisMapper.QueryForList<ApplicationOptionInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -236,7 +222,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             args.Add("WhereClause", string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name)));
 
-            return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
     }
