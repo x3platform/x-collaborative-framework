@@ -89,18 +89,6 @@
     <Compile Include="Ajax\ApplicationPackageLogWrapper.cs" />
     <Compile Include="Ajax\ApplicationSettingWrapper.cs" />
     <Compile Include="Ajax\ApplicationSettingGroupWrapper.cs" />
-    <Compile Include="DAL\MySQL\ApplicationErrorProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationEventProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationFeatureDateLimitProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationFeatureProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationMenuProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationMethodProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationOptionProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationPackageLogProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationPackageProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationSettingGroupProvider.cs" />
-    <Compile Include="DAL\MySQL\ApplicationSettingProvider.cs" />
     <Compile Include="ApplicationError.cs" />
     <Compile Include="BLL\ApplicationErrorService.cs" />
     <Compile Include="BLL\ApplicationFeatureDateLimitService.cs" />
@@ -188,20 +176,6 @@
     <EmbeddedResource Include="DAL\IBatis\ApplicationFeatureProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationSettingGroupProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationSettingProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationErrorProvider.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\ApplicationEventProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationFeatureDateLimitProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationFeatureProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationMenuProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationMethodProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationOptionProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationPackageLogProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationPackageProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationSettingGroupProvider.xml" />
-    <Content Include="DAL\MySQL\ApplicationSettingProvider.xml" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <Content Include="db\Init_Script_SQLServer.sql" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
@@ -236,12 +210,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.bat" />
-    <None Include="config\IBatis\X3Platform.Apps.IBatis.SqlMap.config" />
-    <None Include="config\IBatis\X3Platform.Apps.Spring.config" />
     <None Include="config\MySQL\X3Platform.Apps.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Apps.Spring.config" />
     <None Include="config\X3Platform.Apps.config" />
     <EmbeddedResource Include="defaults\config.yaml" />
+    <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Apps.Spring.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />

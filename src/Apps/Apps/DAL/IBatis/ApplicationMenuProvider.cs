@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2011 Elane, ruany@chinasic.com
-//
-// FileName     :IApplicationMethodProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Apps.DAL.IBatis
+﻿namespace X3Platform.Apps.DAL.IBatis
 {
     #region Using Libraries
     using System;
@@ -188,12 +172,10 @@ namespace X3Platform.Apps.DAL.IBatis
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
+            args.Add("WhereClause", StringHelper.FixSQL(StringHelper.ToSafeSQL(whereClause), "MySQL"));
             args.Add("Length", length);
 
-            IList<ApplicationMenuInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
-
-            return list;
+            return this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -219,7 +201,7 @@ namespace X3Platform.Apps.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -227,7 +209,7 @@ namespace X3Platform.Apps.DAL.IBatis
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="ApplicationMenuInfo"/></returns>
-        public IList<ApplicationMenuInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationMenuInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -242,7 +224,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             IList<ApplicationMenuInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -271,7 +253,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             IList<ApplicationMenuQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPages", tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -283,20 +265,13 @@ namespace X3Platform.Apps.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("实例标识不能为空。");
-            }
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -313,6 +288,7 @@ namespace X3Platform.Apps.DAL.IBatis
         public bool HasAuthority(string entityId, string authorityName, IAccountInfo account)
         {
             return MembershipManagement.Instance.AuthorizationObjectService.HasAuthority(
+                // string.Format("sys_config.{0}_Scope", this.tableName),
                 string.Format("{0}_Scope", this.tableName),
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),
@@ -329,6 +305,7 @@ namespace X3Platform.Apps.DAL.IBatis
         public void BindAuthorizationScopeObjects(string entityId, string authorityName, string scopeText)
         {
             MembershipManagement.Instance.AuthorizationObjectService.BindAuthorizationScopeObjects(
+                // string.Format("sys_config.{0}_Scope", this.tableName),
                 string.Format("{0}_Scope", this.tableName),
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),
@@ -345,6 +322,7 @@ namespace X3Platform.Apps.DAL.IBatis
         public IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(string entityId, string authorityName)
         {
             return MembershipManagement.Instance.AuthorizationObjectService.GetAuthorizationScopeObjects(
+                // string.Format("sys_config.{0}_Scope", this.tableName),
                 string.Format("{0}_Scope", this.tableName),
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),

@@ -124,9 +124,9 @@
         /// <param name="whereClause">WHERE 查询条件.</param>
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <returns>返回一个 ApplicationEventInfo 列表实例.</returns> 
-        public IList<ApplicationEventInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationEventInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
-            return provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return provider.GetPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 

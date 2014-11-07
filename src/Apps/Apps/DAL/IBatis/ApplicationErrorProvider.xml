@@ -113,7 +113,7 @@
             </dynamic>
 		</select>
 
-		<select id="proc_Application_Error_FindAll" resultMap="proc_Application_Error_FindAll_Result" >
+		<select id="proc_Application_Error_FindAll#SqlServer" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT
 
 			<dynamic prepend="TOP">
@@ -133,7 +133,7 @@
 			  </dynamic>
 		</select>
 
-		<select id="proc_Application_Error_GetPages" resultMap="proc_Application_Error_FindAll_Result" >
+		<select id="proc_Application_Error_GetPaging#MySql" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT * FROM tb_Application_Error T
 
             <dynamic prepend="WHERE">
@@ -149,7 +149,7 @@
             LIMIT $StartIndex$, $PageSize$
 		</select>
 
-		<select id="proc_Application_Error_GetPages" resultMap="proc_Application_Error_FindAll_Result" >
+		<select id="proc_Application_Error_GetPaging#SqlServer" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -168,7 +168,7 @@
 		</select>
 
         <!-- SQL Server 2000 -->
-		<select id="proc_Application_Error_GetPages(SQLServer2000)" resultMap="proc_Application_Error_FindAll_Result" >
+		<select id="proc_Application_Error_GetPaging#SqlServer80" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT TOP $PageSize$ *
 
 			FROM tb_Application_Error T

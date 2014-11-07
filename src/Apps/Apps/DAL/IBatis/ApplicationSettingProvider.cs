@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IApplicationSettingProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -221,7 +207,7 @@ namespace X3Platform.Apps.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -229,7 +215,7 @@ namespace X3Platform.Apps.DAL.IBatis
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="ApplicationSettingInfo"/></returns>
-        public IList<ApplicationSettingInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationSettingInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -244,7 +230,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             IList<ApplicationSettingInfo> list = ibatisMapper.QueryForList<ApplicationSettingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -285,18 +271,13 @@ namespace X3Platform.Apps.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new Exception("实例标识不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id='{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -343,10 +324,10 @@ AND Text = ##{2}##
 ", StringHelper.ToSafeSQL(applicationId), StringHelper.ToSafeSQL(applicationSettingGroupName), StringHelper.ToSafeSQL(text));
 
             // 设置根级目录下的参数
-            if (string.IsNullOrEmpty(applicationSettingGroupName)) 
+            if (string.IsNullOrEmpty(applicationSettingGroupName))
             {
                 whereClause = string.Format(@" ApplicationId = ##{0}## 
-                    AND ApplicationSettingGroupId = ##00000000-0000-0000-0000-000000000000## AND Text = ##{1}## ", 
+                    AND ApplicationSettingGroupId = ##00000000-0000-0000-0000-000000000000## AND Text = ##{1}## ",
                     StringHelper.ToSafeSQL(applicationId), StringHelper.ToSafeSQL(text));
             }
 
