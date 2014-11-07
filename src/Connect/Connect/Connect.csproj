@@ -158,6 +158,13 @@
     <Compile Include="DAL\IBatis\ConnectProvider.cs" />
     <Compile Include="DAL\IBatis\ConnectCallProvider.cs" />
     <Compile Include="DAL\IBatis\ConnectAuthorizationCodeProvider.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="DAL\MySQL\ConnectAuthorizationCodeProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectCallProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectProvider.cs" />
+    <Compile Include="DAL\MySQL\ConnectAccessTokenProvider.cs" />
+>>>>>>> c8652ab74b96b7e513a4c0e229e3555fa77fc898
     <Compile Include="IBLL\IConnectService.cs" />
     <Compile Include="IBLL\IConnectCallService.cs" />
     <Compile Include="IBLL\IConnectAuthorizationCodeService.cs" />
@@ -188,9 +195,17 @@
     <EmbeddedResource Include="defaults\Objects.xml" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <None Include="build.publish.bat" />
+<<<<<<< HEAD
     <None Include="config\X3Platform.Connect.config" />
     <None Include="config\X3Platform.Connect.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Connect.Spring.config" />
+=======
+    <Content Include="config\MySQL\X3Platform.Connect.IBatis.SqlMap.config" />
+    <Content Include="config\MySQL\X3Platform.Connect.Spring.config" />
+    <None Include="config\IBatis\X3Platform.Connect.IBatis.SqlMap.config" />
+    <None Include="config\IBatis\X3Platform.Connect.Spring.config" />
+    <None Include="config\X3Platform.Connect.config" />
+>>>>>>> c8652ab74b96b7e513a4c0e229e3555fa77fc898
     <None Include="default.build">
       <SubType>Designer</SubType>
     </None>
@@ -199,11 +214,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DAL\IBatis\ConnectAccessTokenProvider.xml" />
+<<<<<<< HEAD
     <EmbeddedResource Include="DAL\IBatis\ConnectProvider.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ConnectCallProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ConnectAuthorizationCodeProvider.xml" />
+=======
+    <EmbeddedResource Include="DAL\IBatis\ConnectProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ConnectCallProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ConnectAuthorizationCodeProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectAuthorizationCodeProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectCallProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectProvider.xml" />
+    <Content Include="DAL\MySQL\ConnectAccessTokenProvider.xml" />
+>>>>>>> c8652ab74b96b7e513a4c0e229e3555fa77fc898
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
