@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Reflection;
 
 using Common.Logging;
+using X3Platform.Data;
 
 namespace X3Platform.WebSiteV10
 {
@@ -59,6 +60,12 @@ namespace X3Platform.WebSiteV10
             Exception ex = Server.GetLastError().GetBaseException();
 
             logger.Error(ex);
+
+            if (ex is GenericSqlConnectionException)
+            {
+                Response.Write(ex.Message);
+                Response.End();
+            }
         }
     }
 }

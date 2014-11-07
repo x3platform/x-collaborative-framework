@@ -127,7 +127,7 @@
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationEventInfo> list = this.ibatisMapper.QueryForList<ApplicationEventInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<ApplicationEventInfo> list = this.ibatisMapper.QueryForList<ApplicationEventInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

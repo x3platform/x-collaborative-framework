@@ -228,7 +228,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationSettingInfo> list = ibatisMapper.QueryForList<ApplicationSettingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<ApplicationSettingInfo> list = ibatisMapper.QueryForList<ApplicationSettingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -257,7 +257,7 @@ namespace X3Platform.Apps.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<ApplicationSettingQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationSettingQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPages", tableName)), args);
+            IList<ApplicationSettingQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationSettingQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPaging", tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
 
