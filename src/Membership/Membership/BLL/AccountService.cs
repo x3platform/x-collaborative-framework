@@ -602,7 +602,7 @@ namespace X3Platform.Membership.BLL
 
             param.Id = accountId;
 
-            param.Lock = 0;
+            param.Locking = 0;
 
             param.Status = -1;
 

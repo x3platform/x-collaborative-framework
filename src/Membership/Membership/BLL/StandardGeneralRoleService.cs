@@ -332,7 +332,7 @@ namespace X3Platform.Membership.BLL
             role.OrganizationId = organizationId;
             role.StandardRoleId = string.Empty;
             role.Type = 65536; // �ڲ�������ɫ
-            role.Lock = 0; // ������
+            role.Locking = 0; // ������
             role.Status = 1;
 
             string name = role.Name;

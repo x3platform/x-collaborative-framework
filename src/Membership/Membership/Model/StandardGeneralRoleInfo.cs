@@ -112,14 +112,14 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Lock
-        private int m_Lock;
+        #region 属性:Locking
+        private int m_Locking;
 
         /// <summary></summary>
-        public int Lock
+        public int Locking
         {
-            get { return m_Lock; }
-            set { m_Lock = value; }
+            get { return m_Locking; }
+            set { m_Locking = value; }
         }
         #endregion
 

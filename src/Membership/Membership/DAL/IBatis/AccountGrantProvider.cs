@@ -36,20 +36,20 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class AccountGrantProvider : IAccountGrantProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Account_Grant";
 
-        #region ���캯��:AccountGrantProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AccountGrantProvider()
+        /// <summary>构造函数</summary>
         public AccountGrantProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
@@ -61,36 +61,36 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -98,13 +98,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(IAccountGrantInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IAccountGrantInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IAccountGrantInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IAccountGrantInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IAccountGrantInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IAccountGrantInfo"/>详细信息</returns>
         public IAccountGrantInfo Save(IAccountGrantInfo param)
         {
             if (string.IsNullOrEmpty(param.Id) || !IsExist(param.Id))
@@ -120,9 +120,9 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(IAccountGrantInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IAccountGrantInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(IAccountGrantInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="IAccountGrantInfo"/>详细信息</param>
         public void Insert(IAccountGrantInfo param)
         {
             if (string.IsNullOrEmpty(param.Id))
@@ -139,18 +139,18 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Update(IAccountGrantInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IAccountGrantInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(IAccountGrantInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="IAccountGrantInfo"/>详细信息</param>
         public void Update(IAccountGrantInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">�ʺű�ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">帐号标识</param>
         public void Delete(string id)
         {
             if (string.IsNullOrEmpty(id)) { return; }
@@ -166,13 +166,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IAccountGrantInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IAccountGrantInfo"/>的详细信息</returns>
         public IAccountGrantInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -183,11 +183,11 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IAccountGrantInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IAccountGrantInfo"/>的详细信息</returns>
         public IList<IAccountGrantInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -200,17 +200,17 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="IAccountGrantInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="IAccountGrantInfo"/></returns>
         public IList<IAccountGrantInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -232,14 +232,14 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
-                throw new Exception("ʵ����ʶ����Ϊ�ա�");
+                throw new Exception("实例标识不能为空。");
 
             bool isExist = true;
 
@@ -253,28 +253,28 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
-        /// <summary>��ѯ�Ƿ���������ί���˵ļ�¼.</summary>
-        /// <param name="grantorId">ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
+        /// <summary>查询是否存在相关委托人的记录.</summary>
+        /// <param name="grantorId">委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
         {
             return this.IsExistGrantor(grantorId, grantedTimeFrom, grantedTimeTo, string.Empty);
         }
         #endregion
 
-        #region 属性:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
-        /// <summary>��ѯ�Ƿ���������ί���˵ļ�¼.</summary>
-        /// <param name="grantorId">ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <param name="ignoreIds">����ί�б�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
+        /// <summary>查询是否存在相关委托人的记录.</summary>
+        /// <param name="grantorId">委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <param name="ignoreIds">忽略委托标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantor(string grantorId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
         {
-            if (string.IsNullOrEmpty(grantorId)) { throw new Exception("ί���˱�ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(grantorId)) { throw new Exception("委托人标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -295,28 +295,28 @@ AND IsAborted = 0 AND Id NOT IN ('{3}') ", StringHelper.ToSafeSQL(grantorId), gr
         }
         #endregion
 
-        #region 属性:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
-        /// <summary>��ѯ�Ƿ��������ر�ί���˵ļ�¼.</summary>
-        /// <param name="granteeId">��ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
+        /// <summary>查询是否存在相关被委托人的记录.</summary>
+        /// <param name="granteeId">被委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo)
         {
             return this.IsExistGrantee(granteeId, grantedTimeFrom, grantedTimeTo, string.Empty);
         }
         #endregion
 
-        #region 属性:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
-        /// <summary>��ѯ�Ƿ��������ر�ί���˵ļ�¼.</summary>
-        /// <param name="granteeId">��ί���˱�ʶ</param>
-        /// <param name="grantedTimeFrom">ί�п�ʼʱ��</param>
-        /// <param name="grantedTimeTo">ί�н���ʱ��</param>
-        /// <param name="ignoreIds">����ί�б�ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
+        /// <summary>查询是否存在相关被委托人的记录.</summary>
+        /// <param name="granteeId">被委托人标识</param>
+        /// <param name="grantedTimeFrom">委托开始时间</param>
+        /// <param name="grantedTimeTo">委托结束时间</param>
+        /// <param name="ignoreIds">忽略委托标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGrantee(string granteeId, DateTime grantedTimeFrom, DateTime grantedTimeTo, string ignoreIds)
         {
-            if (string.IsNullOrEmpty(granteeId)) { throw new Exception("��ί���˱�ʶ����Ϊ�ա�"); }
+            if (string.IsNullOrEmpty(granteeId)) { throw new Exception("被委托人标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -337,9 +337,9 @@ AND IsAborted = 0 AND Id NOT IN ('{3}') ", StringHelper.ToSafeSQL(granteeId), gr
         }
         #endregion
 
-        #region 属性:Abort(string id)
-        /// <summary>��ֹ��ǰί��</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Abort(string id)
+        /// <summary>中止当前委托</summary>
+        /// <param name="id">标识</param>
         /// <returns></returns>
         public int Abort(string id)
         {
@@ -354,12 +354,12 @@ AND IsAborted = 0 AND Id NOT IN ('{3}') ", StringHelper.ToSafeSQL(granteeId), gr
         #endregion
 
         // -------------------------------------------------------
-        // ͬ������
+        // 同步管理
         // -------------------------------------------------------
 
-        #region 属性:SyncFromPackPage(IAccountGrantInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">�ʺ���Ϣ</param>
+        #region 函数:SyncFromPackPage(IAccountGrantInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">帐号信息</param>
         public int SyncFromPackPage(IAccountGrantInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);

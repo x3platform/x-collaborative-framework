@@ -78,7 +78,7 @@
 
     <statements>
         <insert id="proc_Member_Insert" parameterClass="MemberInfo" >
-            INSERT INTO [tb_Member] (
+            INSERT INTO tb_Member (
                 Id,
                 AccountId,
                 Headship,
@@ -126,7 +126,7 @@
         </insert>
 
         <update id="proc_Member_Update" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET
+            UPDATE tb_Member SET
 
                 Headship = #Headship#,
                 Sex = #Sex#,
@@ -152,22 +152,42 @@
         </update>
 
         <delete id="proc_Member_Delete">
-            DELETE FROM [tb_Member] WHERE $WhereClause$
+            DELETE FROM tb_Member WHERE $WhereClause$
         </delete>
 
         <select id="proc_Member_FindOne" resultMap="proc_Member_FindOne_Result" >
-            SELECT * FROM [tb_Member] WHERE [Id] = #Id#
+            SELECT * FROM tb_Member WHERE Id = #Id#
         </select>
 
         <select id="proc_Member_FindOneByAccountId" resultMap="proc_Member_FindOne_Result" >
-            SELECT * FROM [tb_Member] WHERE AccountId = #AccountId#
+            SELECT * FROM tb_Member WHERE AccountId = #AccountId#
         </select>
 
         <select id="proc_Member_FindOneByLoginName" resultMap="proc_Member_FindOne_Result" >
-            SELECT * FROM [tb_Member] WHERE AccountId IN (SELECT Id FROM tb_Account WHERE [LoginName] = #LoginName#)
+            SELECT * FROM tb_Member WHERE AccountId IN (SELECT Id FROM tb_Account WHERE LoginName = #LoginName#)
         </select>
 
-        <select id="proc_Member_FindAll" resultMap="proc_Member_FindAll_Result" >
+        <select id="proc_Member_FindAll#MySql" resultMap="proc_Member_FindAll_Result" >
+            SELECT
+
+            * FROM tb_Member
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Member_FindAll#SqlServer" resultMap="proc_Member_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -176,7 +196,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Member]
+            * FROM tb_Member
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -188,12 +208,28 @@
 
         </select>
 
-        <select id="proc_Member_GetPages" parameterClass="MemberInfo" resultMap="proc_Member_FindAll_Result" >
+        <select id="proc_Member_GetPaging#MySql" parameterClass="MemberInfo" resultMap="proc_Member_FindAll_Result" >
+            SELECT * FROM tb_Member T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Member_GetPaging#SqlServer" parameterClass="MemberInfo" resultMap="proc_Member_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Member] T
+            FROM tb_Member T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -208,7 +244,7 @@
 
         <select id="proc_Member_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Member] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Member T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -220,11 +256,11 @@
         </select>
 
         <select id="proc_Member_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM [tb_Member] T WHERE $WhereClause$
+            SELECT COUNT(*) AS 'Count' FROM tb_Member T WHERE $WhereClause$
         </select>
 
         <update id="proc_Member_SetContactCard" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET 
+            UPDATE tb_Member SET 
             
                 Mobile = #Mobile#, 
                 Telephone = #Telephone#, 
@@ -240,7 +276,7 @@
         </update>
         
         <update id="proc_Member_SetDefaultCorporationAndDepartments" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET 
+            UPDATE tb_Member SET 
             
                 CorporationId = #CorporationId#, 
                 DepartmentId = #DepartmentId#, 
@@ -252,29 +288,29 @@
         </update>
         
         <update id="proc_Member_SetDefaultOrganization" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET OrganizationId = #OrganizationId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET OrganizationId = #OrganizationId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultRole" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET RoleId = #RoleId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET RoleId = #RoleId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultJob" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET JobId = #JobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET JobId = #JobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultAssignedJob" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET AssignedJobId = #AssignedJobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET AssignedJobId = #AssignedJobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultJobGrade" parameterClass="MemberInfo" >
-            UPDATE [tb_Member] SET JobGradeId = #JobGradeId#, JobGradeDisplayName = (SELECT Name FROM tb_JobGrade WHERE Id = #JobGradeId#), UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET JobGradeId = #JobGradeId#, JobGradeDisplayName = (SELECT Name FROM tb_JobGrade WHERE Id = #JobGradeId#), UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <insert id="proc_Member_SyncFromPackPage" parameterClass="MemberInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_Member] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Member WHERE Id = #Id#)
             BEGIN
-                UPDATE [tb_Member] SET
+                UPDATE tb_Member SET
 
                     AccountId = #AccountId#,
                     CorporationId = #CorporationId#,
@@ -295,7 +331,7 @@
             END
             ELSE
             BEGIN
-                INSERT INTO [tb_Member] 
+                INSERT INTO tb_Member 
                 (
                     Id,
                     AccountId,

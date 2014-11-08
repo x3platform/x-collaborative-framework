@@ -10,7 +10,7 @@
             <result property="Name" column="Name" />
             <result property="GlobalName" column="GlobalName" />
             <result property="ParentId" column="ParentId" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -23,7 +23,7 @@
             <result property="Name" column="Name" />
             <result property="GlobalName" column="GlobalName" />
             <result property="ParentId" column="ParentId" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -34,18 +34,18 @@
     <statements>
 
         <insert id="proc_StandardOrganization_Insert" parameterClass="StandardOrganizationInfo">
-            INSERT INTO [tb_StandardOrganization] (
-            [Id],
-            [Code],
-            [Name],
-            [GlobalName],
-            [ParentId],
-            [Lock],
-            [OrderId],
-            [Status],
-            [Remark],
-            [UpdateDate],
-            [CreateDate]
+            INSERT INTO tb_StandardOrganization (
+            Id,
+            Code,
+            Name,
+            GlobalName,
+            ParentId,
+            Locking,
+            OrderId,
+            Status,
+            Remark,
+            UpdateDate,
+            CreateDate
             )
             VALUES
             (
@@ -54,7 +54,7 @@
             #Name#,
             #GlobalName#,
             #ParentId#,
-            #Lock#,
+            #Locking#,
             #OrderId#,
             #Status#,
             #Remark#,
@@ -64,27 +64,27 @@
         </insert>
 
         <update id="proc_StandardOrganization_Update" parameterClass="StandardOrganizationInfo">
-            UPDATE [tb_StandardOrganization] SET
+            UPDATE tb_StandardOrganization SET
 
-            [Code] = #Code#,
-            [Name] = #Name#,
-            [GlobalName] = #GlobalName#,
-            [ParentId] = #ParentId#,
-            [Lock] = #Lock#,
-            [OrderId] = #OrderId#,
-            [Status] = #Status#,
-            [Remark] = #Remark#,
-            [UpdateDate] = CURRENT_TIMESTAMP
+            Code = #Code#,
+            Name = #Name#,
+            GlobalName = #GlobalName#,
+            ParentId = #ParentId#,
+            Locking = #Locking#,
+            OrderId = #OrderId#,
+            Status = #Status#,
+            Remark = #Remark#,
+            UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_StandardOrganization_Delete" >
-            DELETE FROM [tb_StandardOrganization] WHERE $WhereClause$
+            DELETE FROM tb_StandardOrganization WHERE $WhereClause$
         </delete>
 
         <select id="proc_StandardOrganization_FindOne" resultMap="proc_StandardOrganization_FindOne_Result" >
-            SELECT * FROM [tb_StandardOrganization] T WHERE [Id] = #Id#
+            SELECT * FROM tb_StandardOrganization T WHERE Id = #Id#
         </select>
 
         <select id="proc_StandardOrganization_FindAll" resultMap="proc_StandardOrganization_FindAll_Result" >
@@ -96,7 +96,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_StandardOrganization] T
+            * FROM tb_StandardOrganization T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -112,7 +112,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_StandardOrganization] T
+            FROM tb_StandardOrganization T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -128,7 +128,7 @@
 
         <select id="proc_StandardOrganization_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_StandardOrganization] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_StandardOrganization T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -140,48 +140,48 @@
         </select>
 
         <select id="proc_StandardOrganization_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_StandardOrganization] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_StandardOrganization T WHERE $WhereClause$
         </select>
 
         <update id="proc_StandardOrganization_Rename" parameterClass="StandardOrganizationInfo">
-            UPDATE [tb_StandardOrganization] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_StandardOrganization SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_StandardOrganization_SetGlobalName" >
-            Update [tb_StandardOrganization] SET GlobalName = #GlobalName#, [UpdateDate] = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_StandardOrganization SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_StandardOrganization_SetParentId" >
-            UPDATE [tb_StandardOrganization] SET [ParentId] = #ParentId#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_StandardOrganization SET ParentId = #ParentId#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <insert id="proc_StandardOrganization_SyncFromPackPage" parameterClass="StandardOrganizationInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_StandardOrganization] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_StandardOrganization WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_StandardOrganization] SET
+            UPDATE tb_StandardOrganization SET
 
-            [Code] = #Code#,
-            [Name] = #Name#,
-            [ParentId] = #ParentId#,
-            [OrderId] = #OrderId#,
-            [Status] = #Status#,
-            [Remark] = #Remark#,
-            [UpdateDate] = CURRENT_TIMESTAMP
+            Code = #Code#,
+            Name = #Name#,
+            ParentId = #ParentId#,
+            OrderId = #OrderId#,
+            Status = #Status#,
+            Remark = #Remark#,
+            UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_StandardOrganization] (
-            [Id],
-            [Code],
-            [Name],
-            [ParentId],
-            [OrderId],
-            [Status],
-            [Remark],
-            [UpdateDate],
-            [CreateDate]
+            INSERT INTO tb_StandardOrganization (
+            Id,
+            Code,
+            Name,
+            ParentId,
+            OrderId,
+            Status,
+            Remark,
+            UpdateDate,
+            CreateDate
             )
             VALUES
             (

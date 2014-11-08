@@ -29,20 +29,20 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class JobProvider : IJobProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Job";
 
-        #region ���캯��:JobProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:JobProvider()
+        /// <summary>构造函数</summary>
         public JobProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
@@ -54,13 +54,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(IJobInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IJobInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IJobInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IJobInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IJobInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IJobInfo"/>详细信息</returns>
         public IJobInfo Save(IJobInfo param)
         {
             if (!IsExist(param.Id))
@@ -77,30 +77,30 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(IJobInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IJobInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(IJobInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="IJobInfo"/>详细信息</param>
         public void Insert(IJobInfo param)
         {
             ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
 
-            // �󶨹�ϵ
+            // 绑定关系
             // BindRelation(param);
         }
         #endregion
 
-        #region 属性:Update(IJobInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IJobInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(IJobInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="IJobInfo"/>详细信息</param>
         public void Update(IJobInfo param)
         {
             ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">�ʺű�ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">帐号标识</param>
         public void Delete(string id)
         {
             if (string.IsNullOrEmpty(id)) { return; }
@@ -116,13 +116,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IJobInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IJobInfo"/>的详细信息</returns>
         public IJobInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -135,11 +135,11 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IJobInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IJobInfo"/>的详细信息</returns>
         public IList<IJobInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -154,17 +154,17 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="IJobInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="IJobInfo"/></returns>
         public IList<IJobInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -180,59 +180,49 @@ namespace X3Platform.Membership.DAL.IBatis
 
             IList<IJobInfo> list = ibatisMapper.QueryForList<IJobInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new Exception("ʵ����ʶ����Ϊ�ա�");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new Exception("ʵ����ʶ����Ϊ�ա�"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Id = '{0}' ", id));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="name">ְλ����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">职位名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new Exception("ʵ�����Ʋ���Ϊ�ա�");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(name)) { throw new Exception("ʵ�����Ʋ���Ϊ�ա�"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Name = '{0}' ", name));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">ְλ��ʶ</param>
-        /// <param name="name">ְλ����</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">职位标识</param>
+        /// <param name="name">职位名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         public int Rename(string id, string name)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -246,9 +236,9 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(AssignedIJobInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">ְλ��Ϣ</param>
+        #region 函数:SyncFromPackPage(AssignedIJobInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">职位信息</param>
         public int SyncFromPackPage(IJobInfo param)
         {
             ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);

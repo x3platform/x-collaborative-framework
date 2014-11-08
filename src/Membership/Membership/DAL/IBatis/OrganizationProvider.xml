@@ -18,7 +18,7 @@
             <result property="StandardOrganizationId" column="StandardOrganizationId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
             <result property="EffectScope" column="EffectScope" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -40,7 +40,7 @@
             <result property="StandardOrganizationId" column="StandardOrganizationId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
             <result property="EffectScope" column="EffectScope" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -63,7 +63,7 @@
     <statements>
 
         <insert id="proc_Organization_Insert" parameterClass="OrganizationInfo" >
-            INSERT INTO [tb_Organization] 
+            INSERT INTO tb_Organization 
             (
                 Id,
                 Code,
@@ -76,7 +76,7 @@
                 StandardOrganizationId,
                 EnableExchangeEmail,
                 EffectScope,
-                Lock,
+                Locking,
                 OrderId,
                 Status,
                 Remark,
@@ -98,7 +98,7 @@
                 #StandardOrganizationId#,
                 #EnableExchangeEmail#,
                 #EffectScope#,
-                #Lock#,
+                #Locking#,
                 #OrderId#,
                 #Status#,
                 #Remark#,
@@ -110,7 +110,7 @@
         </insert>
 
         <update id="proc_Organization_Update" parameterClass="OrganizationInfo" >
-            UPDATE [tb_Organization] SET
+            UPDATE tb_Organization SET
 
                 Code = #Code#,
                 Name = #Name#,
@@ -123,7 +123,7 @@
                 StandardOrganizationId = #StandardOrganizationId#,
                 EnableExchangeEmail = #EnableExchangeEmail#,
                 EffectScope = #EffectScope#,
-                Lock = #Lock#,
+                Locking = #Locking#,
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
@@ -135,14 +135,30 @@
         </update>
 
         <delete id="proc_Organization_Delete">
-            DELETE FROM [tb_Organization] WHERE $WhereClause$
+            DELETE FROM tb_Organization WHERE $WhereClause$
         </delete>
 
         <select id="proc_Organization_FindOne" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindOne_Result" >
-            SELECT * FROM [tb_Organization] WHERE [Id] = #Id#
+            SELECT * FROM tb_Organization WHERE Id = #Id#
         </select>
+        <select id="proc_Organization_FindAll#MySql" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
+            SELECT * FROM tb_Organization T
 
-        <select id="proc_Organization_FindAll" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Organization_FindAll#SqlServer" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -151,7 +167,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Organization] T
+            * FROM tb_Organization T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -162,12 +178,28 @@
             </dynamic>
         </select>
 
-        <select id="proc_Organization_GetPages" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
+        <select id="proc_Organization_GetPaging#MySql" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
+            SELECT * FROM tb_Organization T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Organization_GetPaging#SqlServer" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Organization] T
+            FROM tb_Organization T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -183,7 +215,7 @@
 
         <select id="proc_Organization_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Organization] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Organization T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -195,29 +227,29 @@
         </select>
 
         <select id="proc_Organization_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM [tb_Organization] T WHERE $WhereClause$
+            SELECT COUNT(*) AS 'Count' FROM tb_Organization T WHERE $WhereClause$
         </select>
 
         <update id="proc_Organization_Rename" parameterClass="OrganizationInfo">
-            UPDATE [tb_Organization] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_Organization SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Organization_SetGlobalName" >
-            Update [tb_Organization] SET GlobalName = #GlobalName#, [UpdateDate] = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Organization SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Organization_SetParentId" >
-            UPDATE [tb_Organization] SET [ParentId] = #ParentId#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_Organization SET ParentId = #ParentId#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Organization_SetExchangeStatus" >
-            UPDATE [tb_Organization] SET [EnableExchangeEmail] = #EnableExchangeEmail#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_Organization SET EnableExchangeEmail = #EnableExchangeEmail#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <insert id="proc_Organization_SyncFromPackPage" parameterClass="OrganizationInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_Organization] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Organization WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_Organization] SET
+            UPDATE tb_Organization SET
 
             Code = #Code#,
             Name = #Name#,
@@ -234,7 +266,7 @@
             ELSE
             BEGIN
 
-            INSERT INTO [tb_Organization] (
+            INSERT INTO tb_Organization (
             Id,
             Code,
             Name,
@@ -271,7 +303,7 @@
 	            BeginDate,
 	            EndDate 
             FROM 
-	            [tb_Account_Organization]
+	            tb_Account_Organization
 		            INNER JOIN tb_Account ON tb_Account_Organization.AccountId = tb_Account.Id
 		            INNER JOIN tb_Organization ON tb_Account_Organization.OrganizationId = tb_Organization.Id
             WHERE 
@@ -279,25 +311,25 @@
         </select>
         
         <insert id="proc_Organization_AddRelation" >
-            IF EXISTS ( SELECT 0 FROM [tb_Account_Organization] WHERE [AccountId] = '$AccountId$' AND [OrganizationId] = '$OrganizationId$' )
+            IF EXISTS ( SELECT 0 FROM tb_Account_Organization WHERE AccountId = '$AccountId$' AND OrganizationId = '$OrganizationId$' )
             BEGIN
-                UPDATE [tb_Account_Organization] SET
+                UPDATE tb_Account_Organization SET
 
-                    [IsDefault] = '$IsDefault$',
-                    [BeginDate] = '$BeginDate$',
-                    [EndDate] = '$EndDate$'
+                    IsDefault = '$IsDefault$',
+                    BeginDate = '$BeginDate$',
+                    EndDate = '$EndDate$'
 
-                WHERE [AccountId] = '$AccountId$' AND [OrganizationId] = '$OrganizationId$'
+                WHERE AccountId = '$AccountId$' AND OrganizationId = '$OrganizationId$'
             END
             ELSE
             BEGIN
-                INSERT INTO [tb_Account_Organization] 
+                INSERT INTO tb_Account_Organization 
                 (
-                    [AccountId],
-                    [OrganizationId],
-                    [IsDefault],
-                    [BeginDate],
-                    [EndDate]
+                    AccountId,
+                    OrganizationId,
+                    IsDefault,
+                    BeginDate,
+                    EndDate
                 )
                 VALUES
                 (
@@ -311,35 +343,35 @@
         </insert>
 
         <update id="proc_Organization_ExtendRelation" >
-            UPDATE [tb_Account_Organization] SET
+            UPDATE tb_Account_Organization SET
 
-            [EndDate] = '$EndDate$'
+            EndDate = '$EndDate$'
 
-            WHERE [AccountId] = '$AccountId$' AND [OrganizationId] = '$OrganizationId$'
+            WHERE AccountId = '$AccountId$' AND OrganizationId = '$OrganizationId$'
         </update>
 
         <delete id="proc_Organization_RemoveRelation" >
-            DELETE FROM [tb_Account_Organization] WHERE $WhereClause$
+            DELETE FROM tb_Account_Organization WHERE $WhereClause$
         </delete>
 
         <select id="proc_Organization_HasDefaultRelation" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Account_Organization] T WHERE [AccountId] = '$AccountId$' AND [IsDefault] = 1
+            SELECT COUNT(0) AS 'Count' FROM tb_Account_Organization T WHERE AccountId = '$AccountId$' AND IsDefault = 1
         </select>
 
         <update id="proc_Organization_ResetRelation" >
-            UPDATE [tb_Account_Organization] SET [IsDefault] = 0 WHERE [AccountId] = '$AccountId$'
+            UPDATE tb_Account_Organization SET IsDefault = 0 WHERE AccountId = '$AccountId$'
         </update>
 
         <update id="proc_Organization_SetDefaultRelationIsDefault" >
-            UPDATE [tb_Account_Organization] SET [IsDefault] = 1 WHERE [AccountId] = '$AccountId$' AND [OrganizationId] = '$RoleId$'
+            UPDATE tb_Account_Organization SET IsDefault = 1 WHERE AccountId = '$AccountId$' AND OrganizationId = '$RoleId$'
         </update>
 
         <update id="proc_Organization_SetDefaultRelation" >
-            UPDATE [tb_Member] SET [OrganizationId] = '$OrganizationId$', UpdateDate = CURRENT_TIMESTAMP WHERE [AccountId] = '$AccountId$'
+            UPDATE tb_Member SET OrganizationId = '$OrganizationId$', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
 
         <update id="proc_Organization_SetNullDefaultRelation" >
-            UPDATE [tb_Member] SET [RoleId] = '', UpdateDate = CURRENT_TIMESTAMP WHERE [AccountId] = '$AccountId$'
+            UPDATE tb_Member SET RoleId = '', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
 
     </statements>

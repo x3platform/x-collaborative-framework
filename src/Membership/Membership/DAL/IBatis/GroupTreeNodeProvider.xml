@@ -30,17 +30,17 @@
     <statements>
 
         <insert id="proc_GroupTreeNode_Insert" parameterClass="GroupTreeNodeInfo">
-            INSERT INTO [tb_GroupTreeNode] 
+            INSERT INTO tb_GroupTreeNode 
             (
-                [Id],
-                [ParentId],
-                [Name],
-                [IsKey],
-                [OrderId],
-                [Remark],
-                [Status],
-                [UpdateDate],
-                [CreateDate]
+                Id,
+                ParentId,
+                Name,
+                IsKey,
+                OrderId,
+                Remark,
+                Status,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -57,25 +57,25 @@
         </insert>
 
         <update id="proc_GroupTreeNode_Update" parameterClass="GroupTreeNodeInfo">
-            UPDATE [tb_GroupTreeNode] SET
+            UPDATE tb_GroupTreeNode SET
 
-                [ParentId] = #ParentId#,
-                [Name] = #Name#,
-                [IsKey] = #IsKey#,
-                [OrderId] = #OrderId#,
-                [Remark] = #Remark#,
-                [Status] = #Status#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                ParentId = #ParentId#,
+                Name = #Name#,
+                IsKey = #IsKey#,
+                OrderId = #OrderId#,
+                Remark = #Remark#,
+                Status = #Status#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_GroupTreeNode_Delete" parameterClass="GroupTreeNodeInfo">
-            DELETE FROM [tb_GroupTreeNode] WHERE $WhereClause$
+            DELETE FROM tb_GroupTreeNode WHERE $WhereClause$
         </delete>
 
         <select id="proc_GroupTreeNode_FindOne" resultMap="proc_GroupTreeNode_FindOne_Result" >
-            SELECT * FROM [tb_GroupTreeNode] T WHERE [Id] = #Id#
+            SELECT * FROM tb_GroupTreeNode T WHERE Id = #Id#
         </select>
 
         <select id="proc_GroupTreeNode_FindAll" resultMap="proc_GroupTreeNode_FindAll_Result" >
@@ -87,7 +87,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_GroupTreeNode] T
+            * FROM tb_GroupTreeNode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -103,7 +103,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_GroupTreeNode] T
+            FROM tb_GroupTreeNode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -119,7 +119,7 @@
 
         <select id="proc_GroupTreeNode_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_GroupTreeNode] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_GroupTreeNode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -131,7 +131,7 @@
         </select>
 
         <select id="proc_GroupTreeNode_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_GroupTreeNode] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_GroupTreeNode T WHERE $WhereClause$
         </select>
 
     </statements>

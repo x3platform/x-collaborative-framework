@@ -10,7 +10,7 @@
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
             <result property="Value" column="Value" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -23,7 +23,7 @@
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
             <result property="Value" column="Value" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -34,18 +34,18 @@
     <statements>
 
         <insert id="proc_JobGrade_Insert" parameterClass="JobGradeInfo">
-            INSERT INTO [tb_JobGrade] 
+            INSERT INTO tb_JobGrade 
             (
-                [Id],
-                [JobFamilyId],
-                [Name],
-                [Value],
-                [Lock],
-                [OrderId],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
+                Id,
+                JobFamilyId,
+                Name,
+                Value,
+                Locking,
+                OrderId,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -53,7 +53,7 @@
                 #JobFamilyId#,
                 #Name#,
                 #Value#,
-                #Lock#,
+                #Locking#,
                 #OrderId#,
                 #Status#,
                 #Remark#,
@@ -63,29 +63,47 @@
         </insert>
 
         <update id="proc_JobGrade_Update" parameterClass="JobGradeInfo">
-            UPDATE [tb_JobGrade] SET
+            UPDATE tb_JobGrade SET
                 
-                [JobFamilyId] = #JobFamilyId#,
-                [Name] = #Name#,
-                [Value] = #Value#,
-                [Lock] = #Lock#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                JobFamilyId = #JobFamilyId#,
+                Name = #Name#,
+                Value = #Value#,
+                Locking = #Locking#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_JobGrade_Delete" >
-            DELETE FROM [tb_JobGrade] WHERE $WhereClause$
+            DELETE FROM tb_JobGrade WHERE $WhereClause$
         </delete>
 
         <select id="proc_JobGrade_FindOne" resultMap="proc_JobGrade_FindOne_Result" >
-            SELECT * FROM [tb_JobGrade] WHERE [Id] = #Id#
+            SELECT * FROM tb_JobGrade WHERE Id = #Id#
         </select>
 
-        <select id="proc_JobGrade_FindAll" resultMap="proc_JobGrade_FindAll_Result" >
+        <select id="proc_JobGrade_FindAll#MySql" resultMap="proc_JobGrade_FindAll_Result" >
+            SELECT * FROM tb_JobGrade T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+	
+        <select id="proc_JobGrade_FindAll#SqlServer" resultMap="proc_JobGrade_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -94,7 +112,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_JobGrade] T
+            * FROM tb_JobGrade T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -105,12 +123,28 @@
             </dynamic>
         </select>
 
-        <select id="proc_JobGrade_GetPages" resultMap="proc_JobGrade_FindAll_Result" >
+        <select id="proc_JobGrade_GetPaging#MySql" resultMap="proc_JobGrade_FindAll_Result" >
+            SELECT * FROM tb_JobGrade T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_JobGrade_GetPaging#SqlServer" resultMap="proc_JobGrade_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_JobGrade] T
+            FROM tb_JobGrade T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -124,7 +158,7 @@
         </select>
 
         <select id="proc_JobGrade_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_JobGrade] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_JobGrade T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -136,41 +170,41 @@
         </select>
 
         <select id="proc_JobGrade_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_JobGrade] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_JobGrade T WHERE $WhereClause$
         </select>
 
         <update id="proc_JobGrade_Rename" parameterClass="JobGradeInfo">
-            UPDATE [tb_JobGrade] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_JobGrade SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <insert id="proc_JobGrade_SyncFromPackPage" parameterClass="JobGradeInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_JobGrade] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_JobGrade WHERE Id = #Id#)
             BEGIN
-                UPDATE [tb_JobGrade] SET
+                UPDATE tb_JobGrade SET
                     
-                    [JobFamilyId] = #JobFamilyId#,
-                    [Name] = #Name#,
-                    [Value] = #Value#,
-                    [OrderId] = #OrderId#,
-                    [Status] = #Status#,
-                    [Remark] = #Remark#,
-                    [UpdateDate] = CURRENT_TIMESTAMP
+                    JobFamilyId = #JobFamilyId#,
+                    Name = #Name#,
+                    Value = #Value#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+                    Remark = #Remark#,
+                    UpdateDate = CURRENT_TIMESTAMP
 
-                WHERE [Id] = #Id#
+                WHERE Id = #Id#
             END
             ELSE
             BEGIN
-                INSERT INTO [tb_JobGrade] 
+                INSERT INTO tb_JobGrade 
                 (
-                    [Id],
-                    [JobFamilyId],
-                    [Name],
-                    [Value],
-                    [OrderId],
-                    [Status],
-                    [Remark],
-                    [UpdateDate],
-                    [CreateDate]
+                    Id,
+                    JobFamilyId,
+                    Name,
+                    Value,
+                    OrderId,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
                 )
                 VALUES
                 (

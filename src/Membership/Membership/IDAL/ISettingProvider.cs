@@ -71,20 +71,20 @@ namespace X3Platform.Membership.IDAL
         IList<SettingInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 函数:FindAllBySettingGroupId(string applicationSettingGroupId, string keyword)
+        #region 函数:FindAllBySettingGroupId(string settingGroupId, string keyword)
         /// <summary>根据参数分组信息查询所有相关记录</summary>
-        /// <param name="applicationSettingGroupId">参数分组标识</param>
+        /// <param name="settingGroupId">参数分组标识</param>
         /// <param name="keyword">文本信息关键字匹配</param>
         /// <returns>返回所有实例<see cref="SettingInfo"/>的详细信息</returns>
-        IList<SettingInfo> FindAllBySettingGroupId(string applicationSettingGroupId, string keyword);
+        IList<SettingInfo> FindAllBySettingGroupId(string settingGroupId, string keyword);
         #endregion
 
-        #region 函数:FindAllBySettingGroupName(string applicationSettingGroupName, string keyword)
+        #region 函数:FindAllBySettingGroupName(string settingGroupName, string keyword)
         /// <summary>根据参数分组信息查询所有相关记录</summary>
-        /// <param name="applicationSettingGroupName">参数分组名称</param>
+        /// <param name="settingGroupName">参数分组名称</param>
         /// <param name="keyword">文本信息关键字匹配</param>
         /// <returns>返回所有实例<see cref="SettingInfo"/>的详细信息</returns>
-        IList<SettingInfo> FindAllBySettingGroupName(string applicationSettingGroupName, string keyword);
+        IList<SettingInfo> FindAllBySettingGroupName(string settingGroupName, string keyword);
         #endregion
         
         //-------------------------------------------------------
@@ -109,20 +109,20 @@ namespace X3Platform.Membership.IDAL
         bool IsExist(string id);
         #endregion
 
-        #region 函数:GetValue(string applicationId, string applicationSettingGroupName, string value)
+        #region 函数:GetValue(string applicationId, string settingGroupName, string value)
         /// <summary>根据配置的文本获取值信息</summary>
-        /// <param name="applicationSettingGroupName"></param>
+        /// <param name="settingGroupName"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        string GetText(string applicationSettingGroupName, string value);
+        string GetText(string settingGroupName, string value);
         #endregion
 
-        #region 函数:GetValue(string applicationId, string applicationSettingGroupName, string text)
+        #region 函数:GetValue(string applicationId, string settingGroupName, string text)
         /// <summary>根据配置的文本获取值信息</summary>
-        /// <param name="applicationSettingGroupName"></param>
+        /// <param name="settingGroupName"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        string GetValue(string applicationSettingGroupName, string text);
+        string GetValue(string settingGroupName, string text);
         #endregion
     }
 }

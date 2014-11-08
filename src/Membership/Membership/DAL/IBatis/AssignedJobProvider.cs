@@ -229,7 +229,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回所有<see cref="IAssignedJobInfo"/>实例的详细信息</returns>
         public IList<IAssignedJobInfo> FindAllPartTimeJobsByAccountId(string accountId)
         {
-            string whereClause = " Id IN ( SELECT AssignedJobId FROM [tb_Account_AssignedJob] WHERE AccountId = ##" + accountId + "## AND IsDefault = 0 ) ";
+            string whereClause = " Id IN ( SELECT AssignedJobId FROM tb_Account_AssignedJob WHERE AccountId = ##" + accountId + "## AND IsDefault = 0 ) ";
 
             return FindAll(whereClause, 0);
         }
@@ -274,7 +274,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             IList<IAssignedJobInfo> list = this.ibatisMapper.QueryForList<IAssignedJobInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -292,7 +292,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -308,7 +308,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("WhereClause", string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name)));
 
-            return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 

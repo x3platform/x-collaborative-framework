@@ -47,7 +47,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             ibatisMapping = configuration.Keys["IBatisMapping"].Value;
 
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }
         #endregion
 
@@ -89,7 +89,7 @@ namespace X3Platform.Membership.DAL.IBatis
                 param.Code = DigitalNumberContext.Generate("Table_StandardOrganization_Key_Code");
             }
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
@@ -98,7 +98,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
         public void Update(IStandardOrganizationInfo param)
         {
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
@@ -114,7 +114,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(ids).Replace(",", "','")));
 
-            ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }
         #endregion
 
@@ -132,7 +132,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("Id", StringHelper.ToSafeSQL(id));
 
-            IStandardOrganizationInfo param = ibatisMapper.QueryForObject<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+            IStandardOrganizationInfo param = this.ibatisMapper.QueryForObject<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
 
             return param;
         }
@@ -150,7 +150,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<IStandardOrganizationInfo> list = ibatisMapper.QueryForList<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<IStandardOrganizationInfo> list = this.ibatisMapper.QueryForList<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -193,9 +193,9 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<IStandardOrganizationInfo> list = ibatisMapper.QueryForList<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<IStandardOrganizationInfo> list = this.ibatisMapper.QueryForList<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -207,18 +207,13 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new Exception("实例标识不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id='{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -228,18 +223,13 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
-            if (string.IsNullOrEmpty(name))
-                throw new Exception("实例标识不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(name)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -249,18 +239,13 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExistGlobalName(string globalName)
         {
-            if (string.IsNullOrEmpty(globalName))
-                throw new Exception("实例全局名称不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(globalName)) { throw new Exception("实例全局名称不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" GlobalName = '{0}' ", StringHelper.ToSafeSQL(globalName)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -276,8 +261,8 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("Id", StringHelper.ToSafeSQL(id));
             args.Add("Name", StringHelper.ToSafeSQL(name));
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Rename", tableName)), args);
-            
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Rename", tableName)), args);
+
             return 0;
         }
         #endregion
@@ -294,7 +279,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("Id", StringHelper.ToSafeSQL(id));
             args.Add("GlobalName", StringHelper.ToSafeSQL(globalName));
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetGlobalName", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetGlobalName", tableName)), args);
 
             return 0;
         }
@@ -312,7 +297,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("Id", StringHelper.ToSafeSQL(id));
             args.Add("ParentId", StringHelper.ToSafeSQL(parentId));
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetParentId", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetParentId", tableName)), args);
 
             return 0;
         }
@@ -323,8 +308,8 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="param">组织信息</param>
         public int SyncFromPackPage(IStandardOrganizationInfo param)
         {
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);
-        
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);
+
             return 0;
         }
         #endregion

@@ -11,7 +11,7 @@
             <result property="Name" column="Name" />
             <result property="Suffix" column="Suffix" />
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -24,7 +24,7 @@
             <result property="Name" column="Name" />
             <result property="Suffix" column="Suffix" />
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -51,7 +51,7 @@
                 [Name],
                 [Suffix],
                 [GroupTreeNodeId], 
-                [Lock],
+                [Locking],
                 [OrderId],
                 [Status],
                 [Remark],
@@ -65,7 +65,7 @@
                 #Name#,
                 #Suffix#,
                 #GroupTreeNodeId#,
-                #Lock#,
+                #Locking#,
                 #OrderId#,
                 #Status#,
                 #Remark#,
@@ -81,7 +81,7 @@
                 [Name] = #Name#,
                 [Suffix] = #Suffix#,
                 [GroupTreeNodeId] = #GroupTreeNodeId#,
-                [Lock] = #Lock#,
+                [Locking] = #Locking#,
                 [OrderId] = #OrderId#,
                 [Status] = #Status#,
                 [Remark] = #Remark#,

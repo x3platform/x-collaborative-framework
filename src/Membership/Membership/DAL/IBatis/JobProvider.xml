@@ -10,7 +10,7 @@
             <result property="Code" column="Code" />
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -22,7 +22,7 @@
             <result property="Code" column="Code" />
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -32,18 +32,18 @@
     <statements>
 
         <insert id="proc_Job_Insert" parameterClass="JobInfo">
-            INSERT INTO [tb_Job] 
+            INSERT INTO tb_Job 
             (
-                [Id],
-                [JobFamilyId],
-                [Code],
-                [Name],
-                [Lock],
-                [OrderId],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
+                Id,
+                JobFamilyId,
+                Code,
+                Name,
+                Locking,
+                OrderId,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -51,7 +51,7 @@
                 #JobFamilyId#,
                 #Code#,
                 #Name#,
-                #Lock#,
+                #Locking#,
                 #OrderId#,
                 #Status#,
                 #Remark#,
@@ -61,29 +61,47 @@
         </insert>
 
         <update id="proc_Job_Update" parameterClass="JobInfo">
-            UPDATE [tb_Job] SET
+            UPDATE tb_Job SET
 
-                [JobFamilyId] = #JobFamilyId#,
-                [Code] = #Code#,
-                [Name] = #Name#,
-                [Lock] = #Lock#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                JobFamilyId = #JobFamilyId#,
+                Code = #Code#,
+                Name = #Name#,
+                Locking = #Locking#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_Job_Delete" >
-            DELETE FROM [tb_Job] WHERE $WhereClause$
+            DELETE FROM tb_Job WHERE $WhereClause$
         </delete>
 
         <select id="proc_Job_FindOne" resultMap="proc_Job_FindOne_Result" >
-            SELECT * FROM [tb_Job] T WHERE [Id] = #Id#
+            SELECT * FROM tb_Job T WHERE Id = #Id#
         </select>
 
-        <select id="proc_Job_FindAll" resultMap="proc_Job_FindAll_Result" >
+        <select id="proc_Job_FindAll#MySql" resultMap="proc_Job_FindAll_Result" >
+            SELECT * FROM `tb_Job` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+	
+        <select id="proc_Job_FindAll#SqlServer" resultMap="proc_Job_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -92,7 +110,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Job] T
+            * FROM tb_Job T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -103,12 +121,28 @@
             </dynamic>
         </select>
 
-        <select id="proc_Job_GetPages" resultMap="proc_Job_FindAll_Result" >
+        <select id="proc_Job_GetPaging#MySql" resultMap="proc_Job_FindAll_Result" >
+            SELECT * FROM `tb_Job` T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Job_GetPaging#SqlServer" resultMap="proc_Job_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Job] T
+            FROM tb_Job T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -122,7 +156,7 @@
         </select>
 
         <select id="proc_Job_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Job] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Job T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -134,49 +168,49 @@
         </select>
 
         <select id="proc_Job_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Job] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Job T WHERE $WhereClause$
         </select>
 
         <update id="proc_Job_Rename" parameterClass="JobInfo">
-            UPDATE [tb_Job] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_Job SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         
         <delete id="proc_Job_StandardRole_DeleteByJobId" >
-            DELETE FROM [tb_Job_StandardRole] WHERE JobId = '$JobId$'
+            DELETE FROM tb_Job_StandardRole WHERE JobId = '$JobId$'
         </delete>
 
         <insert id="proc_Job_StandardRole_Insert" >
-            INSERT INTO [tb_Job_StandardRole] ([JobId], [StandardRoleId]) VALUES ('$JobId$','$StandardRoleId$')
+            INSERT INTO tb_Job_StandardRole (JobId, StandardRoleId) VALUES ('$JobId$','$StandardRoleId$')
         </insert>
 
         <insert id="proc_Job_SyncFromPackPage" parameterClass="JobInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_Job] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Job WHERE Id = #Id#)
             BEGIN
-                UPDATE [tb_Job] SET
+                UPDATE tb_Job SET
 
-                    [JobFamilyId] = #JobFamilyId#,
-                    [Code] = #Code#,
-                    [Name] = #Name#,
-                    [OrderId] = #OrderId#,
-                    [Status] = #Status#,
-                    [Remark] = #Remark#,
-                    [UpdateDate] = CURRENT_TIMESTAMP
+                    JobFamilyId = #JobFamilyId#,
+                    Code = #Code#,
+                    Name = #Name#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+                    Remark = #Remark#,
+                    UpdateDate = CURRENT_TIMESTAMP
 
-                WHERE [Id] = #Id#
+                WHERE Id = #Id#
             END
             ELSE
             BEGIN
-                INSERT INTO [tb_Job] 
+                INSERT INTO tb_Job 
                 (
-                    [Id],
-                    [JobFamilyId],
-                    [Code],
-                    [Name],
-                    [OrderId],
-                    [Status],
-                    [Remark],
-                    [UpdateDate],
-                    [CreateDate]
+                    Id,
+                    JobFamilyId,
+                    Code,
+                    Name,
+                    OrderId,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
                 )
                 VALUES
                 (

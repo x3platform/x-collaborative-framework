@@ -94,7 +94,7 @@ namespace X3Platform.Membership.Ajax
 
             if ((contactType & ContactType.StandardRole) == ContactType.StandardRole)
             {
-                whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND ( Status = 1 AND Lock = 1 )"));
+                whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND ( Status = 1 AND Locking = 1 )"));
 
                 outString.Append(FormatStandardRole(MembershipManagement.Instance.StandardRoleService.FindAll(whereClause)));
             }
@@ -690,7 +690,7 @@ namespace X3Platform.Membership.Ajax
             foreach (IStandardRoleInfo item in list)
             {
                 // 过滤禁用的对象
-                if (item.Lock == 0 || item.Status == 0)
+                if (item.Locking == 0 || item.Status == 0)
                     continue;
 
                 outString.Append("{");
