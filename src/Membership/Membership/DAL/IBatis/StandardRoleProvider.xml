@@ -15,7 +15,7 @@
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
             <result property="IsKey" column="IsKey" />
             <result property="IsDraft" column="IsDraft" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -33,7 +33,7 @@
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
             <result property="IsKey" column="IsKey" />
             <result property="IsDraft" column="IsDraft" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -44,24 +44,24 @@
     <statements>
 
         <insert id="proc_StandardRole_Insert" parameterClass="StandardRoleInfo">
-            INSERT INTO [tb_StandardRole] 
+            INSERT INTO tb_StandardRole 
             (
-                [Id],
-                [Code],
-                [Name],
-                [Type],
-                [Priority],
-                [ParentId],
-                [StandardOrganizationId],
-                [GroupTreeNodeId],
-                [IsKey],
-                [IsDraft],
-                [Lock],
-                [OrderId],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
+                Id,
+                Code,
+                Name,
+                Type,
+                Priority,
+                ParentId,
+                StandardOrganizationId,
+                GroupTreeNodeId,
+                IsKey,
+                IsDraft,
+                Locking,
+                OrderId,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -75,7 +75,7 @@
                 #GroupTreeNodeId#,
                 #IsKey#,
                 #IsDraft#,
-                #Lock#,
+                #Locking#,
                 #OrderId#,
                 #Status#,
                 #Remark#,
@@ -85,33 +85,33 @@
         </insert>
 
         <update id="proc_StandardRole_Update" parameterClass="StandardRoleInfo">
-            UPDATE [tb_StandardRole] SET
+            UPDATE tb_StandardRole SET
 
-                [Code] = #Code#,
-                [Name] = #Name#,
-                [Type] = #Type#,
-                [Priority] = #Priority#,
-                [ParentId] = #ParentId#,
-                [StandardOrganizationId] = #StandardOrganizationId#,
-                [GroupTreeNodeId] = #GroupTreeNodeId#,
-                [IsKey] =  #IsKey#,
-                [IsDraft] =  #IsDraft#,
-                [Lock] =  #Lock#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                Code = #Code#,
+                Name = #Name#,
+                Type = #Type#,
+                Priority = #Priority#,
+                ParentId = #ParentId#,
+                StandardOrganizationId = #StandardOrganizationId#,
+                GroupTreeNodeId = #GroupTreeNodeId#,
+                IsKey =  #IsKey#,
+                IsDraft =  #IsDraft#,
+                Locking =  #Locking#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_StandardRole_Delete" >
-            DELETE FROM [tb_StandardRole] WHERE $WhereClause$
+            DELETE FROM tb_StandardRole WHERE $WhereClause$
         </delete>
 
         <select id="proc_StandardRole_FindOne" resultMap="proc_StandardRole_FindOne_Result" >
-            SELECT * FROM [tb_StandardRole] T
-            WHERE [Id] = #Id#
+            SELECT * FROM tb_StandardRole T
+            WHERE Id = #Id#
         </select>
 
         <select id="proc_StandardRole_FindAll" resultMap="proc_StandardRole_FindAll_Result" >
@@ -123,7 +123,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_StandardRole] T
+            * FROM tb_StandardRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -139,7 +139,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_StandardRole] T
+            FROM tb_StandardRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -155,7 +155,7 @@
 
         <select id="proc_StandardRole_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_StandardRole] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_StandardRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -167,53 +167,53 @@
         </select>
 
         <select id="proc_StandardRole_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_StandardRole] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_StandardRole T WHERE $WhereClause$
         </select>
 
         <update id="proc_StandardRole_Rename" parameterClass="StandardRoleInfo">
-            UPDATE [tb_StandardRole] SET
+            UPDATE tb_StandardRole SET
 
-            [Name] = #Name#,
-            [UpdateDate] = CURRENT_TIMESTAMP
+            Name = #Name#,
+            UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <insert id="proc_StandardRole_SyncFromPackPage" parameterClass="StandardRoleInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_StandardRole] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_StandardRole WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_StandardRole] SET
+            UPDATE tb_StandardRole SET
 
-            [Code] = #Code#,
-            [Name] = #Name#,
-            [Type] = #Type#,
-            [ParentId] = #ParentId#,
-            [StandardOrganizationId] = #StandardOrganizationId#,
-            [IsKey] =  #IsKey#,
-            [GroupTreeNodeId] = #GroupTreeNodeId#,
-            [OrderId] = #OrderId#,
-            [Status] = #Status#,
-            [Remark] = #Remark#,
-            [UpdateDate] = CURRENT_TIMESTAMP
+            Code = #Code#,
+            Name = #Name#,
+            Type = #Type#,
+            ParentId = #ParentId#,
+            StandardOrganizationId = #StandardOrganizationId#,
+            IsKey =  #IsKey#,
+            GroupTreeNodeId = #GroupTreeNodeId#,
+            OrderId = #OrderId#,
+            Status = #Status#,
+            Remark = #Remark#,
+            UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_StandardRole] (
-            [Id],
-            [Code],
-            [Name],
-            [Type],
-            [ParentId],
-            [StandardOrganizationId],
-            [IsKey],
-            [GroupTreeNodeId],
-            [OrderId],
-            [Status],
-            [Remark],
-            [UpdateDate],
-            [CreateDate]
+            INSERT INTO tb_StandardRole (
+            Id,
+            Code,
+            Name,
+            Type,
+            ParentId,
+            StandardOrganizationId,
+            IsKey,
+            GroupTreeNodeId,
+            OrderId,
+            Status,
+            Remark,
+            UpdateDate,
+            CreateDate
             )
             VALUES
             (

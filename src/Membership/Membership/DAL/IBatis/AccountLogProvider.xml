@@ -25,15 +25,15 @@
     </resultMaps>
     <statements>
         <insert id="proc_Account_Log_Insert" parameterClass="AccountLogInfo">
-            INSERT INTO [tb_Account_Log] 
+            INSERT INTO tb_Account_Log 
             (
-                [Id],
-                [AccountId],
-                [OriginalObjectValue],
-                [OptionAccountId],
-                [OptionName],
-                [Description],
-                [Date]
+                Id,
+                AccountId,
+                OriginalObjectValue,
+                OptionAccountId,
+                OptionName,
+                Description,
+                Date
             )
             VALUES
             (
@@ -48,28 +48,46 @@
         </insert>
 
         <update id="proc_Account_Log_Update" parameterClass="AccountLogInfo">
-            UPDATE [tb_Account_Log] SET
+            UPDATE tb_Account_Log SET
 
-                [Id] = #Id#,
-                [AccountId] = #AccountId#,
-                [OriginalObjectValue] = #OriginalObjectValue#,
-                [OptionAccountId] = #OptionAccountId#,
-                [OptionName] = #OptionName#,
-                [Description] = #Description#,
-                [Date] = CURRENT_TIMESTAMP
+                Id = #Id#,
+                AccountId = #AccountId#,
+                OriginalObjectValue = #OriginalObjectValue#,
+                OptionAccountId = #OptionAccountId#,
+                OptionName = #OptionName#,
+                Description = #Description#,
+                Date = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_Account_Log_Delete" >
-            DELETE FROM [tb_Account_Log] WHERE $WhereClause$
+            DELETE FROM tb_Account_Log WHERE $WhereClause$
         </delete>
 
         <select id="proc_Account_Log_FindOne" resultMap="proc_Account_Log_FindOne_Result" >
-            SELECT * FROM [tb_Account_Log] T WHERE [Id] = #Id#
+            SELECT * FROM tb_Account_Log WHERE Id = #Id#
         </select>
 
-        <select id="proc_Account_Log_FindAll" resultMap="proc_Account_Log_FindAll_Result" >
+        <select id="proc_Account_Log_FindAll#MySql" resultMap="proc_Account_Log_FindAll_Result" >
+            SELECT * FROM tb_Account_Log T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_Account_Log_FindAll#SqlServer" resultMap="proc_Account_Log_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -78,7 +96,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Account_Log] T
+            * FROM tb_Account_Log T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -89,12 +107,28 @@
             </dynamic>
         </select>
 
-        <select id="proc_Account_Log_GetPages" resultMap="proc_Account_Log_FindAll_Result" >
+        <select id="proc_Account_Log_GetPaging#MySql" resultMap="proc_Account_Log_FindAll_Result" >
+            SELECT * FROM tb_Account_Log T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_Account_Log_GetPaging#SqlServer" resultMap="proc_Account_Log_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Account_Log] T
+            FROM tb_Account_Log T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -108,7 +142,7 @@
         </select>
 
         <select id="proc_Account_Log_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Account_Log] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Account_Log T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -120,7 +154,7 @@
         </select>
 
         <select id="proc_Account_Log_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Account_Log] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Account_Log T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

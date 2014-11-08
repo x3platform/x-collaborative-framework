@@ -183,7 +183,7 @@ namespace X3Platform.Membership.Ajax
 
             param.GroupTreeNodeId = string.IsNullOrEmpty(groupTreeNodeId) ? treeViewId : groupTreeNodeId;
 
-            param.Lock = 1;
+            param.Locking = 1;
 
             param.Status = 1;
 

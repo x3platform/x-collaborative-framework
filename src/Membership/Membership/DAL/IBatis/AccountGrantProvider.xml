@@ -40,21 +40,21 @@
     <statements>
 
         <insert id="proc_Account_Grant_Insert" parameterClass="AccountGrantInfo">
-            INSERT INTO [tb_Account_Grant] (
-                [Id],
-                [Code],
-                [GrantorId],
-                [GranteeId],
-                [GrantedTimeFrom],
-                [GrantedTimeTo],
-                [WorkflowGrantMode],
-                [DataQueryGrantMode],
-                [IsAborted],
-                [ApprovedUrl],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
+            INSERT INTO tb_Account_Grant (
+                Id,
+                Code,
+                GrantorId,
+                GranteeId,
+                GrantedTimeFrom,
+                GrantedTimeTo,
+                WorkflowGrantMode,
+                DataQueryGrantMode,
+                IsAborted,
+                ApprovedUrl,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -76,7 +76,7 @@
         </insert>
 
         <update id="proc_Account_Grant_Update" parameterClass="AccountGrantInfo">
-            UPDATE [tb_Account_Grant] SET
+            UPDATE tb_Account_Grant SET
 
                 Code = #Code#,
                 GrantorId = #GrantorId#,
@@ -91,13 +91,13 @@
                 Remark = #Remark#,
                 UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <insert id="proc_Account_Grant_Save" parameterClass="AccountGrantInfo">
-            IF EXISTS(SELECT 0 FROM [tb_Account_Grant] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Account_Grant WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_Account_Grant] SET
+            UPDATE tb_Account_Grant SET
 
             Id = #Id#,
             GrantorId = #GrantorId#,
@@ -107,19 +107,19 @@
             Remark = #Remark#,
             UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_Account_Grant](
-            [Id],
-            [GrantorId],
-            [GranteeId],
-            [GrantedTimeFrom],
-            [GrantedTimeTo],
-            [Remark],
-            [UpdateDate],
-            [CreateDate]
+            INSERT INTO tb_Account_Grant(
+            Id,
+            GrantorId,
+            GranteeId,
+            GrantedTimeFrom,
+            GrantedTimeTo,
+            Remark,
+            UpdateDate,
+            CreateDate
             )
             VALUES
             (
@@ -136,12 +136,12 @@
         </insert>
 
         <delete id="proc_Account_Grant_Delete" parameterClass="AccountGrantInfo">
-            DELETE FROM [tb_Account_Grant] WHERE $WhereClause$
+            DELETE FROM tb_Account_Grant WHERE $WhereClause$
         </delete>
 
         <select id="proc_Account_Grant_FindOne" resultMap="proc_Account_Grant_FindOne_Result" >
-            SELECT * FROM [tb_Account_Grant]
-            WHERE [Id] = #Id#
+            SELECT * FROM tb_Account_Grant
+            WHERE Id = #Id#
         </select>
 
         <select id="proc_Account_Grant_FindAll" resultMap="proc_Account_Grant_FindAll_Result" >
@@ -153,7 +153,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Account_Grant]
+            * FROM tb_Account_Grant
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -170,7 +170,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Account_Grant] T
+            FROM tb_Account_Grant T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -186,7 +186,7 @@
 
         <select id="proc_Account_Grant_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Account_Grant] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Account_Grant T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -198,23 +198,23 @@
         </select>
 
         <select id="proc_Account_Grant_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Account_Grant] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Account_Grant T WHERE $WhereClause$
         </select>
 
         <update id="proc_Account_Grant_Abort" parameterClass="AccountGrantInfo">
-            UPDATE [tb_Account_Grant] SET
+            UPDATE tb_Account_Grant SET
 
             IsAborted = 1,
             GrantedTimeTo = CURRENT_TIMESTAMP,
             UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <insert id="proc_Account_Grant_SyncFromPackPage" parameterClass="AccountGrantInfo" >
-            IF EXISTS ( SELECT 0 FROM [tb_Account_Grant] WHERE [Id] = #Id# )
+            IF EXISTS ( SELECT 0 FROM tb_Account_Grant WHERE Id = #Id# )
             BEGIN
-                UPDATE [tb_Account_Grant] SET
+                UPDATE tb_Account_Grant SET
 
                 Code = #Code#,
                 GrantorId = #GrantorId#,
@@ -228,27 +228,27 @@
                 Remark = #Remark#,
                 UpdateDate = CURRENT_TIMESTAMP
 
-                WHERE [Id] = #Id#
+                WHERE Id = #Id#
 
             END
             ELSE
             BEGIN
 
-                INSERT INTO [tb_Account_Grant] (
-                    [Id],
-                    [Code],
-                    [GrantorId],
-                    [GranteeId],
-                    [GrantedTimeFrom],
-                    [GrantedTimeTo],
-                    [WorkflowGrantMode],
-                    [DataQueryGrantMode],
-                    [IsAborted],
-                    [ApprovedUrl],
-                    [Status],
-                    [Remark],
-                    [UpdateDate],
-                    [CreateDate]
+                INSERT INTO tb_Account_Grant (
+                    Id,
+                    Code,
+                    GrantorId,
+                    GranteeId,
+                    GrantedTimeFrom,
+                    GrantedTimeTo,
+                    WorkflowGrantMode,
+                    DataQueryGrantMode,
+                    IsAborted,
+                    ApprovedUrl,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
                 )
                 VALUES
                 (

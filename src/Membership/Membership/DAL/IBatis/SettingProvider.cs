@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ISettingProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,20 +16,20 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class SettingProvider : ISettingProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Setting";
 
-        #region ���캯��:SettingProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:SettingProvider()
+        /// <summary>构造函数</summary>
         public SettingProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
@@ -55,13 +41,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         //-------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         //-------------------------------------------------------
 
-        #region 属性:Save(SettingInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="SettingInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="SettingInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(SettingInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="SettingInfo"/>详细信息</param>
+        /// <returns>实例<see cref="SettingInfo"/>详细信息</returns>
         public SettingInfo Save(SettingInfo param)
         {
             if (!IsExist(param.Id))
@@ -77,9 +63,9 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(SettingInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="SettingInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(SettingInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="SettingInfo"/>详细信息</param>
         public void Insert(SettingInfo param)
         {
             param.Code = DigitalNumberContext.Generate("Table_Application_Setting_Key_Code");
@@ -88,18 +74,18 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Update(SettingInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="SettingInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(SettingInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="SettingInfo"/>详细信息</param>
         public void Update(SettingInfo param)
         {
             ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号隔开.</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -114,13 +100,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         //-------------------------------------------------------
-        // ��ѯ
+        // 查询
         //-------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="SettingInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="SettingInfo"/>的详细信息</returns>
         public SettingInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -133,11 +119,11 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="SettingInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="SettingInfo"/>的详细信息</returns>
         public IList<SettingInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -151,14 +137,14 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAllBySettingGroupId(string settingGroupId, string keyword)
-        /// <summary>���ݲ���������Ϣ��ѯ�������ؼ�¼</summary>
-        /// <param name="settingGroupId">����������ʶ</param>
-        /// <param name="keyword">�ı���Ϣ�ؼ���ƥ��</param>
-        /// <returns>��������ʵ��<see cref="SettingInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllBySettingGroupId(string settingGroupId, string keyword)
+        /// <summary>根据参数分组信息查询所有相关记录</summary>
+        /// <param name="settingGroupId">参数分组标识</param>
+        /// <param name="keyword">文本信息关键字匹配</param>
+        /// <returns>返回所有实例<see cref="SettingInfo"/>的详细信息</returns>
         public IList<SettingInfo> FindAllBySettingGroupId(string settingGroupId, string keyword)
         {
-            string whereClause = string.Format(@" ApplicationSettingGroupId = ##{0}## AND Text LIKE ##%{1}%## ORDER BY Text ", StringHelper.ToSafeSQL(settingGroupId), StringHelper.ToSafeSQL(keyword));
+            string whereClause = string.Format(@" ApplicationSettingGroupId = ##{0}## AND Text LIKE ##%{1}%## ORDER BY OrderId, Text ", StringHelper.ToSafeSQL(settingGroupId), StringHelper.ToSafeSQL(keyword));
 
             if (string.IsNullOrEmpty(keyword))
             {
@@ -169,18 +155,18 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAllBySettingGroupName(string settingGroupName, string keyword)
-        /// <summary>���ݲ���������Ϣ��ѯ�������ؼ�¼</summary>
-        /// <param name="settingGroupName">������������</param>
-        /// <param name="keyword">�ı���Ϣ�ؼ���ƥ��</param>
-        /// <returns>��������ʵ��<see cref="SettingInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllBySettingGroupName(string settingGroupName, string keyword)
+        /// <summary>根据参数分组信息查询所有相关记录</summary>
+        /// <param name="settingGroupName">参数分组名称</param>
+        /// <param name="keyword">文本信息关键字匹配</param>
+        /// <returns>返回所有实例<see cref="SettingInfo"/>的详细信息</returns>
         public IList<SettingInfo> FindAllBySettingGroupName(string settingGroupName, string keyword)
         {
-            string whereClause = string.Format(@" ApplicationSettingGroupId = ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = ##{0}## ) AND Text LIKE ##%{1}%## ORDER BY Text ", StringHelper.ToSafeSQL(settingGroupName), StringHelper.ToSafeSQL(keyword));
+            string whereClause = string.Format(@" ApplicationSettingGroupId = ( SELECT Id FROM view_Application_SettingGroup WHERE Name = ##{0}## ) AND Text LIKE ##%{1}%## ORDER BY Text ", StringHelper.ToSafeSQL(settingGroupName), StringHelper.ToSafeSQL(keyword));
 
             if (string.IsNullOrEmpty(keyword))
             {
-                whereClause = string.Format(@" ApplicationSettingGroupId = ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = ##{0}## ) ORDER BY OrderId, Text ", StringHelper.ToSafeSQL(settingGroupName));
+                whereClause = string.Format(@" ApplicationSettingGroupId = ( SELECT Id FROM view_Application_SettingGroup WHERE Name = ##{0}## ) ORDER BY OrderId, Text ", StringHelper.ToSafeSQL(settingGroupName));
             }
 
             return FindAll(whereClause, 0);
@@ -188,17 +174,17 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         //-------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         //-------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="SettingInfo"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="SettingInfo"/></returns>
         public IList<SettingInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -214,35 +200,30 @@ namespace X3Platform.Membership.DAL.IBatis
 
             IList<SettingInfo> list = ibatisMapper.QueryForList<SettingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new Exception("ʵ����ʶ����Ϊ�ա�");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new ArgumentException("ʵ����ʶ����Ϊ�ա�"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id='{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
-        #region 属性:GetText(string settingGroupName, string value)
-        /// <summary>�������õ�ֵ��ȡ�ı���Ϣ</summary>
+        #region 函数:GetText(string settingGroupName, string value)
+        /// <summary>根据配置的值获取文本信息</summary>
         /// <param name="settingGroupName"></param>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -250,11 +231,11 @@ namespace X3Platform.Membership.DAL.IBatis
         {
             string whereClause = string.Format(@"
 ApplicationId = ##{0}##
-AND ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = ##{1}## )
+AND ApplicationSettingGroupId IN ( SELECT Id FROM view_Application_SettingGroup WHERE Name = ##{1}## )
 AND Value = ##{2}##
 ", "00000000-0000-0000-0000-000000000100", StringHelper.ToSafeSQL(settingGroupName), StringHelper.ToSafeSQL(value));
 
-            // ���ø���Ŀ¼�µĲ���
+            // 设置根级目录下的参数
             if (string.IsNullOrEmpty(settingGroupName))
             {
                 whereClause = string.Format(@" ApplicationId = ##{0}##
@@ -268,8 +249,8 @@ AND Value = ##{2}##
         }
         #endregion
 
-        #region 属性:GetValue(string settingGroupName, string text)
-        /// <summary>�������õ��ı���ȡֵ��Ϣ</summary>
+        #region 函数:GetValue(string settingGroupName, string text)
+        /// <summary>根据配置的文本获取值信息</summary>
         /// <param name="settingGroupName"></param>
         /// <param name="text"></param>
         /// <returns></returns>
@@ -277,11 +258,11 @@ AND Value = ##{2}##
         {
             string whereClause = string.Format(@"
 ApplicationId = ##{0}##
-AND ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = ##{1}## )
+AND ApplicationSettingGroupId IN ( SELECT Id FROM view_Application_SettingGroup WHERE Name = ##{1}## )
 AND Text = ##{2}##
 ", "00000000-0000-0000-0000-000000000100", StringHelper.ToSafeSQL(settingGroupName), StringHelper.ToSafeSQL(text));
 
-            // ���ø���Ŀ¼�µĲ���
+            // 设置根级目录下的参数
             if (string.IsNullOrEmpty(settingGroupName))
             {
                 whereClause = string.Format(@" ApplicationId = ##{0}##

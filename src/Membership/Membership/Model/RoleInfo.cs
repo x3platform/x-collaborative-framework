@@ -433,14 +433,14 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Lock
-        private int m_Lock = 1;
+        #region 属性:Locking
+        private int m_Locking = 1;
 
         /// <summary>防止意外删除 0 不锁定 | 1 锁定(默认)</summary>
-        public int Lock
+        public int Locking
         {
-            get { return m_Lock; }
-            set { m_Lock = value; }
+            get { return m_Locking; }
+            set { m_Locking = value; }
         }
         #endregion
 

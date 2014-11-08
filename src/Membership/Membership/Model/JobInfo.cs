@@ -23,11 +23,11 @@ namespace X3Platform.Membership.Model
     using System.Xml;
     #endregion
 
-    /// <summary>ְλ��Ϣ</summary>
+    /// <summary>职位信息</summary>
     public class JobInfo : IJobInfo
     {
-        #region ���캯��:JobInfo()
-        /// <summary>Ĭ�Ϲ��캯��</summary>
+        #region 构造函数:JobInfo()
+        /// <summary>默认构造函数</summary>
         public JobInfo() { }
         #endregion
 
@@ -45,7 +45,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobFamilyId
         private string m_JobFamilyId;
 
-        /// <summary>ְλ���б�ʶ</summary>
+        /// <summary>职位序列标识</summary>
         public string JobFamilyId
         {
             get { return m_JobFamilyId; }
@@ -56,7 +56,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobFamilyName
         private string m_JobFamilyName = null;
 
-        /// <summary>ְλ��������</summary>
+        /// <summary>职位序列名称</summary>
         public string JobFamilyName
         {
             get
@@ -97,7 +97,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Description
         private string m_Description;
 
-        /// <summary>����</summary>
+        /// <summary>描述</summary>
         public string Description
         {
             get { return m_Description; }
@@ -105,14 +105,14 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Lock
-        private int m_Lock = 1;
+        #region 属性:Locking
+        private int m_Locking = 1;
 
-        /// <summary>��ֹ����ɾ�� 0 ������ | 1 ����(Ĭ��)</summary>
-        public int Lock
+        /// <summary>防止意外删除 0 不锁定 | 1 锁定(默认)</summary>
+        public int Locking
         {
-            get { return m_Lock; }
-            set { m_Lock = value; }
+            get { return m_Locking; }
+            set { m_Locking = value; }
         }
         #endregion
 
@@ -141,7 +141,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Remark
         private string m_Remark;
 
-        /// <summary>��ע</summary>
+        /// <summary>备注</summary>
         public string Remark
         {
             get { return m_Remark; }
@@ -172,11 +172,11 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ��ʽʵ�� IAuthorizationObject Type
+        // 显式实现 IAuthorizationObject Type
         // -------------------------------------------------------
 
         #region 属性:IAuthorizationObject.Type
-        /// <summary>����</summary>
+        /// <summary>类型</summary>
         string IAuthorizationObject.Type
         {
             get { return "Job"; }
@@ -184,10 +184,10 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ʵ�� ISerializedObject ���л�
+        // 实现 ISerializedObject 序列化
         // -------------------------------------------------------
 
-        #region 属性:Deserialize(XmlElement element)
+        #region 函数:Deserialize(XmlElement element)
         /// <summary></summary>
         /// <param name="element"></param>
         public void Deserialize(XmlElement element)
@@ -200,7 +200,7 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Serializable()
+        #region 函数:Serializable()
         /// <summary></summary>
         /// <returns></returns>
         public string Serializable()
@@ -209,29 +209,29 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Serializable(bool displayComment, bool displayFriendlyName)
+        #region 函数:Serializable(bool displayComment, bool displayFriendlyName)
         /// <summary></summary>
         /// <returns></returns>
         public string Serializable(bool displayComment, bool displayFriendlyName)
         {
             StringBuilder outString = new StringBuilder();
             if (displayComment)
-                outString.Append("<!-- ְλ���� -->");
+                outString.Append("<!-- 职位对象 -->");
             outString.Append("<job>");
             if (displayComment)
-                outString.Append("<!-- ְλ��ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 职位标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<id><![CDATA[{0}]]></id>", this.Id);
             if (displayComment)
-                outString.Append("<!-- ���� (�ַ���) (nvarchar(30)) -->");
+                outString.Append("<!-- 编码 (字符串) (nvarchar(30)) -->");
             outString.AppendFormat("<code><![CDATA[{0}]]></code>", this.Code);
             if (displayComment)
-                outString.Append("<!-- ���� (�ַ���) (nvarchar(50)) -->");
+                outString.Append("<!-- 名称 (字符串) (nvarchar(50)) -->");
             outString.AppendFormat("<name><![CDATA[{0}]]></name>", this.Name);
             if (displayComment)
-                outString.Append("<!-- ״̬ (����) (int) -->");
+                outString.Append("<!-- 状态 (整型) (int) -->");
             outString.AppendFormat("<status><![CDATA[{0}]]></status>", this.Status);
             if (displayComment)
-                outString.Append("<!-- ��������ʱ�� (ʱ��) (datetime) -->");
+                outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
             outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
             outString.Append("</job>");
 

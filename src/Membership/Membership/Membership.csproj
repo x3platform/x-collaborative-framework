@@ -157,26 +157,6 @@
     <Compile Include="DAL\IBatis\StandardGeneralRoleProvider.cs" />
     <Compile Include="DAL\IBatis\StandardOrganizationProvider.cs" />
     <Compile Include="DAL\IBatis\StandardRoleProvider.cs" />
-    <Compile Include="DAL\MySQL\AccountGrantProvider.cs" />
-    <Compile Include="DAL\MySQL\AccountLogProvider.cs" />
-    <Compile Include="DAL\MySQL\AccountProvider.cs" />
-    <Compile Include="DAL\MySQL\AssignedJobProvider.cs" />
-    <Compile Include="DAL\MySQL\AuthorizationObjectProvider.cs" />
-    <Compile Include="DAL\MySQL\ContactProvider.cs" />
-    <Compile Include="DAL\MySQL\GeneralRoleProvider.cs" />
-    <Compile Include="DAL\MySQL\GroupProvider.cs" />
-    <Compile Include="DAL\MySQL\GroupTreeNodeProvider.cs" />
-    <Compile Include="DAL\MySQL\GroupTreeProvider.cs" />
-    <Compile Include="DAL\MySQL\JobFamilyProvider.cs" />
-    <Compile Include="DAL\MySQL\JobGradeProvider.cs" />
-    <Compile Include="DAL\MySQL\JobProvider.cs" />
-    <Compile Include="DAL\MySQL\MemberProvider.cs" />
-    <Compile Include="DAL\MySQL\OrganizationProvider.cs" />
-    <Compile Include="DAL\MySQL\RoleProvider.cs" />
-    <Compile Include="DAL\MySQL\SettingProvider.cs" />
-    <Compile Include="DAL\MySQL\StandardGeneralRoleProvider.cs" />
-    <Compile Include="DAL\MySQL\StandardOrganizationProvider.cs" />
-    <Compile Include="DAL\MySQL\StandardRoleProvider.cs" />
     <Compile Include="IBLL\IAccountGrantService.cs" />
     <Compile Include="IBLL\IAccountLogService.cs" />
     <Compile Include="IBLL\IAccountService.cs" />
@@ -278,150 +258,36 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\AccountGrantProvider.xml">
-      <DependentUpon>AccountGrantProvider.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\IBatis\AccountGrantProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AccountLogProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AccountProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\JobFamilyProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\SettingProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AssignedJobProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AuthorizationObjectProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ContactProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\GeneralRoleProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\GroupProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\GroupTreeNodeProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\GroupTreeProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\JobGradeProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\JobProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\MemberProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\OrganizationProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\RoleProvider.xml">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\AccountLogProvider.xml">
-      <DependentUpon>AccountLogProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\AccountProvider.xml">
-      <DependentUpon>AccountProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\JobFamilyProvider.xml">
-      <DependentUpon>JobFamilyProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\SettingProvider.xml">
-      <DependentUpon>SettingProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\AssignedJobProvider.xml">
-      <DependentUpon>AssignedJobProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\AuthorizationObjectProvider.xml">
-      <DependentUpon>AuthorizationObjectProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\ContactProvider.xml">
-      <DependentUpon>ContactProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\GeneralRoleProvider.xml">
-      <DependentUpon>GeneralRoleProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\GroupProvider.xml">
-      <DependentUpon>GroupProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\GroupTreeNodeProvider.xml">
-      <DependentUpon>GroupTreeNodeProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\GroupTreeProvider.xml">
-      <DependentUpon>GroupTreeProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\JobGradeProvider.xml">
-      <DependentUpon>JobGradeProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\JobProvider.xml">
-      <DependentUpon>JobProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\MemberProvider.xml">
-      <DependentUpon>MemberProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\OrganizationProvider.xml">
-      <DependentUpon>OrganizationProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\RoleProvider.xml">
-      <DependentUpon>RoleProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\StandardGeneralRoleProvider.xml">
-      <DependentUpon>StandardGeneralRoleProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\StandardOrganizationProvider.xml">
-      <DependentUpon>StandardOrganizationProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\StandardRoleProvider.xml">
-      <DependentUpon>StandardRoleProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\AccountGrantProvider.xml">
-      <DependentUpon>AccountGrantProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\AccountLogProvider.xml">
-      <DependentUpon>AccountLogProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\AccountProvider.xml">
-      <DependentUpon>AccountProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\AssignedJobProvider.xml">
-      <DependentUpon>AssignedJobProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\AuthorizationObjectProvider.xml">
-      <DependentUpon>AuthorizationObjectProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\ContactProvider.xml">
-      <DependentUpon>ContactProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\GeneralRoleProvider.xml">
-      <DependentUpon>GeneralRoleProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\GroupProvider.xml">
-      <DependentUpon>GroupProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\GroupTreeNodeProvider.xml">
-      <DependentUpon>GroupTreeNodeProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\GroupTreeProvider.xml">
-      <DependentUpon>GroupTreeProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\JobFamilyProvider.xml">
-      <DependentUpon>JobFamilyProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\JobGradeProvider.xml">
-      <DependentUpon>JobGradeProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\JobProvider.xml">
-      <DependentUpon>JobProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\MemberProvider.xml">
-      <DependentUpon>MemberProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\OrganizationProvider.xml">
-      <DependentUpon>OrganizationProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\RoleProvider.xml">
-      <DependentUpon>RoleProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\SettingProvider.xml">
-      <DependentUpon>SettingProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\StandardGeneralRoleProvider.xml">
-      <DependentUpon>StandardGeneralRoleProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\StandardOrganizationProvider.xml">
-      <DependentUpon>StandardOrganizationProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\StandardRoleProvider.xml">
-      <DependentUpon>StandardRoleProvider.cs</DependentUpon>
-    </Content>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\IBatis\StandardGeneralRoleProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\StandardOrganizationProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\StandardRoleProvider.xml" />
     <Content Include="db\Functions%28SQLServer%29\func_GetCorporationIdByOrganizationId.sql" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <Content Include="db\Init_Script_SQLServer.sql" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <None Include="config\X3Platform.Membership.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Membership.Spring.config" />
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

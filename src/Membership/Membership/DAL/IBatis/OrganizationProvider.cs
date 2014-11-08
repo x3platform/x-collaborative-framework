@@ -323,7 +323,7 @@ Id IN (
 
             IList<IOrganizationInfo> list = this.ibatisMapper.QueryForList<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -335,18 +335,13 @@ Id IN (
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentException("实例标识不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new ArgumentException("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -356,15 +351,13 @@ Id IN (
         /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
-            bool isExist = true;
+            if (string.IsNullOrEmpty(name)) { throw new ArgumentException("实例名称不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -374,18 +367,13 @@ Id IN (
         /// <returns>布尔值</returns>
         public bool IsExistGlobalName(string globalName)
         {
-            if (string.IsNullOrEmpty(globalName))
-                throw new Exception("实例全局名称不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(globalName)) { throw new Exception("实例全局名称不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" GlobalName = '{0}' ", StringHelper.ToSafeSQL(globalName)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 

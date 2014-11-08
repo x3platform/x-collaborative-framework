@@ -12,7 +12,7 @@
             <result property="PinYin" column="PinYin" />
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="Status" column="Status" />
             <result property="OrderId" column="OrderId" />
             <result property="Remark" column="Remark" />
@@ -29,7 +29,7 @@
             <result property="PinYin" column="PinYin" />
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="Status" column="Status" />
             <result property="OrderId" column="OrderId" />
             <result property="Remark" column="Remark" />
@@ -50,7 +50,7 @@
                 [PinYin],
                 [GroupTreeNodeId],
                 [EnableExchangeEmail],
-                [Lock],
+                [Locking],
                 [Status],
                 [OrderId],
                 [Remark],
@@ -68,7 +68,7 @@
                 #PinYin#,
                 #GroupTreeNodeId#,
                 #EnableExchangeEmail#,
-                #Lock#,
+                #Locking#,
                 #Status#,
                 #OrderId#,
                 #Remark#,
@@ -88,7 +88,7 @@
                 [PinYin] = #PinYin#,
                 [GroupTreeNodeId] = #GroupTreeNodeId#,
                 [EnableExchangeEmail] = #EnableExchangeEmail#,
-                [Lock] = #Lock#,
+                [Locking] = #Locking#,
                 [Status] = #Status#,
                 [OrderId] = #OrderId#,
                 [Remark] = #Remark#,

@@ -14,7 +14,7 @@
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
             <result property="RoleId" column="RoleId" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -29,7 +29,7 @@
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
             <result property="RoleId" column="RoleId" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -48,21 +48,21 @@
     <statements>
 
         <insert id="proc_AssignedJob_Insert" parameterClass="AssignedJobInfo">
-            INSERT INTO [tb_AssignedJob] 
+            INSERT INTO tb_AssignedJob 
             (
-                [Id],
-                [JobId],
-                [OrganizationId],
-                [ParentId],
-                [Code],
-                [Name],
-                [RoleId],
-                [Lock],
-                [OrderId],
-                [Status],
-                [Remark],
-                [UpdateDate],
-                [CreateDate]
+                Id,
+                JobId,
+                OrganizationId,
+                ParentId,
+                Code,
+                Name,
+                RoleId,
+                Locking,
+                OrderId,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -73,7 +73,7 @@
                 #Code#,
                 #Name#,
                 #RoleId#,
-                #Lock#,
+                #Locking#,
                 #OrderId#,
                 #Status#,
                 #Remark#,
@@ -83,33 +83,51 @@
         </insert>
 
         <update id="proc_AssignedJob_Update" parameterClass="AssignedJobInfo">
-            UPDATE [tb_AssignedJob] SET
+            UPDATE tb_AssignedJob SET
 
-                [JobId] = #JobId#,
-                [OrganizationId] = #OrganizationId#,
-                [ParentId] = #ParentId#,
-                [Code] = #Code#,
-                [Name] = #Name#,
-                [RoleId] = #RoleId#,
-                [Lock] = #Lock#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                JobId = #JobId#,
+                OrganizationId = #OrganizationId#,
+                ParentId = #ParentId#,
+                Code = #Code#,
+                Name = #Name#,
+                RoleId = #RoleId#,
+                Locking = #Locking#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
 
         </update>
 
         <delete id="proc_AssignedJob_Delete" >
-            DELETE FROM [tb_AssignedJob] WHERE $WhereClause$
+            DELETE FROM tb_AssignedJob WHERE $WhereClause$
         </delete>
 
         <select id="proc_AssignedJob_FindOne" resultMap="proc_AssignedJob_FindOne_Result" >
-            SELECT * FROM [tb_AssignedJob] WHERE [Id] = #Id#
+            SELECT * FROM tb_AssignedJob WHERE Id = #Id#
         </select>
 
-        <select id="proc_AssignedJob_FindAll" resultMap="proc_AssignedJob_FindAll_Result" >
+        <select id="proc_AssignedJob_FindAll#MySql" resultMap="proc_AssignedJob_FindAll_Result" >
+            SELECT * FROM tb_AssignedJob T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+
+        <select id="proc_AssignedJob_FindAll#SqlServer" resultMap="proc_AssignedJob_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -118,7 +136,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_AssignedJob] T
+            * FROM tb_AssignedJob T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -129,12 +147,28 @@
             </dynamic>
         </select>
 
-        <select id="proc_AssignedJob_GetPages" resultMap="proc_AssignedJob_FindAll_Result" >
+        <select id="proc_AssignedJob_GetPaging#MySql" resultMap="proc_AssignedJob_FindAll_Result" >
+            SELECT * FROM tb_AssignedJob T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+
+        <select id="proc_AssignedJob_GetPaging#SqlServer" resultMap="proc_AssignedJob_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_AssignedJob] T
+            FROM tb_AssignedJob T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -148,7 +182,7 @@
         </select>
 
         <select id="proc_AssignedJob_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_AssignedJob] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_AssignedJob T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -160,56 +194,56 @@
         </select>
 
         <select id="proc_AssignedJob_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_AssignedJob] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_AssignedJob T WHERE $WhereClause$
         </select>
 
         <update id="proc_AssignedJob_Rename" parameterClass="AssignedJobInfo">
-            UPDATE [tb_AssignedJob] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_AssignedJob SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_AssignedJob_SetJobId" >
-            UPDATE [tb_AssignedJob] SET [JobId] = #JobId# WHERE [Id] = #Id#
+            UPDATE tb_AssignedJob SET JobId = #JobId# WHERE Id = #Id#
         </update>
 
         <insert id="proc_AssignedJob_SyncFromPackPage" parameterClass="AssignedJobInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_AssignedJob] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_AssignedJob WHERE Id = #Id#)
             BEGIN
 
-                UPDATE [tb_AssignedJob] SET
+                UPDATE tb_AssignedJob SET
 
-                    [JobId] = #JobId#,
-                    [OrganizationId] = #OrganizationId#,
-                    [ParentId] = #ParentId#,
-                    [Code] = #Code#,
-                    [Name] = #Name#,
-                    [RoleId] = #RoleId#,
-                    [Lock] = #Lock#,
-                    [OrderId] = #OrderId#,
-                    [Status] = #Status#,
-                    [Remark] = #Remark#,
-                    [UpdateDate] = CURRENT_TIMESTAMP
+                    JobId = #JobId#,
+                    OrganizationId = #OrganizationId#,
+                    ParentId = #ParentId#,
+                    Code = #Code#,
+                    Name = #Name#,
+                    RoleId = #RoleId#,
+                    Locking = #Locking#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+                    Remark = #Remark#,
+                    UpdateDate = CURRENT_TIMESTAMP
 
-                WHERE [Id] = #Id#
+                WHERE Id = #Id#
 
             END
             ELSE
             BEGIN
 
-                INSERT INTO [tb_AssignedJob] 
+                INSERT INTO tb_AssignedJob 
                 (
-                    [Id],
-                    [JobId],
-                    [OrganizationId],
-                    [ParentId],
-                    [Code],
-                    [Name],
-                    [RoleId],
-                    [Lock],
-                    [OrderId],
-                    [Status],
-                    [Remark],
-                    [UpdateDate],
-                    [CreateDate]
+                    Id,
+                    JobId,
+                    OrganizationId,
+                    ParentId,
+                    Code,
+                    Name,
+                    RoleId,
+                    Locking,
+                    OrderId,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
                 )
                 VALUES
                 (
@@ -220,7 +254,7 @@
                     #Code#,
                     #Name#,
                     #RoleId#,
-                    #Lock#,
+                    #Locking#,
                     #OrderId#,
                     #Status#,
                     #Remark#,
@@ -241,7 +275,7 @@
 	            BeginDate,
 	            EndDate 
             FROM 
-	            [tb_Account_AssignedJob]
+	            tb_Account_AssignedJob
 		            INNER JOIN tb_Account ON tb_Account_AssignedJob.AccountId = tb_Account.Id
 		            INNER JOIN tb_AssignedJob ON tb_Account_AssignedJob.AssignedJobId = tb_AssignedJob.Id
             WHERE 
@@ -249,25 +283,25 @@
         </select>
         
         <insert id="proc_AssignedJob_AddRelation" >
-            IF EXISTS ( SELECT 0 FROM [tb_Account_AssignedJob] WHERE [AccountId] = '$AccountId$' AND [AssignedJobId] = '$AssignedJobId$' )
+            IF EXISTS ( SELECT 0 FROM tb_Account_AssignedJob WHERE AccountId = '$AccountId$' AND AssignedJobId = '$AssignedJobId$' )
             BEGIN
-                UPDATE [tb_Account_AssignedJob] SET
+                UPDATE tb_Account_AssignedJob SET
 
-                    [IsDefault] = '$IsDefault$',
-                    [BeginDate] = '$BeginDate$',
-                    [EndDate] = '$EndDate$'
+                    IsDefault = '$IsDefault$',
+                    BeginDate = '$BeginDate$',
+                    EndDate = '$EndDate$'
 
-                WHERE [AccountId] = '$AccountId$' AND [AssignedJobId] = '$AssignedJobId$'
+                WHERE AccountId = '$AccountId$' AND AssignedJobId = '$AssignedJobId$'
             END
             ELSE
             BEGIN
-                INSERT INTO [tb_Account_AssignedJob] 
+                INSERT INTO tb_Account_AssignedJob 
                 (
-                    [AccountId],
-                    [AssignedJobId],
-                    [IsDefault],
-                    [BeginDate],
-                    [EndDate]
+                    AccountId,
+                    AssignedJobId,
+                    IsDefault,
+                    BeginDate,
+                    EndDate
                 )
                 VALUES
                 (
@@ -281,31 +315,31 @@
         </insert>
 
         <update id="proc_AssignedJob_ExtendRelation" >
-            UPDATE [tb_Account_AssignedJob] SET [EndDate] = '$EndDate$' WHERE [AccountId] = '$AccountId$' AND [AssignedJobId] = '$AssignedJobId$'
+            UPDATE tb_Account_AssignedJob SET EndDate = '$EndDate$' WHERE AccountId = '$AccountId$' AND AssignedJobId = '$AssignedJobId$'
         </update>
 
         <delete id="proc_AssignedJob_RemoveRelation" >
-            DELETE FROM [tb_Account_AssignedJob] WHERE $WhereClause$
+            DELETE FROM tb_Account_AssignedJob WHERE $WhereClause$
         </delete>
 
         <select id="proc_AssignedJob_HasDefaultRelation" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Account_AssignedJob] T WHERE [AccountId] = '$AccountId$' AND [IsDefault] = 1
+            SELECT COUNT(0) AS 'Count' FROM tb_Account_AssignedJob T WHERE AccountId = '$AccountId$' AND IsDefault = 1
         </select>
 
         <update id="proc_AssignedJob_ResetRelation" >
-            UPDATE [tb_Account_AssignedJob] SET [IsDefault] = 0 WHERE [AccountId] = '$AccountId$'
+            UPDATE tb_Account_AssignedJob SET IsDefault = 0 WHERE AccountId = '$AccountId$'
         </update>
 
         <update id="proc_AssignedJob_SetDefaultRelationIsDefault" >
-            UPDATE [tb_Account_AssignedJob] SET [IsDefault] = 1 WHERE [AccountId] = '$AccountId$' AND [AssignedJobId] = '$AssignedJobId$'
+            UPDATE tb_Account_AssignedJob SET IsDefault = 1 WHERE AccountId = '$AccountId$' AND AssignedJobId = '$AssignedJobId$'
         </update>
         
         <update id="proc_AssignedJob_SetDefaultRelation" >
-            UPDATE [tb_Member] SET [AssignedJobId] = '$AssignedJobId$', UpdateDate = CURRENT_TIMESTAMP WHERE [AccountId] = '$AccountId$'
+            UPDATE tb_Member SET AssignedJobId = '$AssignedJobId$', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
         
         <update id="proc_AssignedJob_SetNullDefaultRelation" >
-            UPDATE [tb_Member] SET [AssignedJobId] = '', UpdateDate = CURRENT_TIMESTAMP WHERE [AccountId] = '$AccountId$'
-        </update>        
+            UPDATE tb_Member SET AssignedJobId = '', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+        </update>
     </statements>
 </sqlMap>
