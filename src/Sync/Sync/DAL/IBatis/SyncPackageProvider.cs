@@ -1,22 +1,25 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-
-using X3Platform.IBatis.DataMapper;
-using X3Platform.Util;
-
-using X3Platform.Apps.Configuration;
-using X3Platform.Apps.IDAL;
-using X3Platform.Apps.Model;
-using X3Platform.Membership.Configuration;
-
-namespace X3Platform.Apps.DAL.IBatis
+﻿namespace X3Platform.Apps.DAL.IBatis
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+
+    using X3Platform.IBatis.DataMapper;
+    using X3Platform.Util;
+
+    using X3Platform.Apps.Configuration;
+    using X3Platform.Apps.IDAL;
+    using X3Platform.Apps.Model;
+    using X3Platform.Membership.Configuration;
+    using Common.Logging;
+
     /// <summary></summary>
     [DataObject]
     public class ApplicationPackageProvider : IApplicationPackageProvider
     {
+        /// <summary>日志记录器</summary>
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>配置</summary>
         private AppsConfiguration configuration = null;
 
@@ -36,8 +39,9 @@ namespace X3Platform.Apps.DAL.IBatis
             configuration = AppsConfigurationView.Instance.Configuration;
 
             ibatisMapping = configuration.Keys["IBatisMapping"].Value;
-
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping);
+            logger.Info("begin");
+            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+            logger.Info("end");
         }
         #endregion
 

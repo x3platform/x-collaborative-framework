@@ -1016,20 +1016,28 @@ namespace X3Platform.IBatis.DataMapper.Configuration
                     _configScope.ErrorContext.ObjectId = provider.Name;
                     _configScope.ErrorContext.MoreInfo = "initialize provider";
 
-                    provider.Initialize();
-                    _configScope.Providers.Add(provider.Name, provider);
-
-                    if (provider.IsDefault)
+                    try
                     {
-                        if (_configScope.Providers[DEFAULT_PROVIDER_NAME] == null)
+                        provider.Initialize();
+
+                        _configScope.Providers.Add(provider.Name, provider);
+
+                        if (provider.IsDefault)
                         {
-                            _configScope.Providers.Add(DEFAULT_PROVIDER_NAME, provider);
+                            if (_configScope.Providers[DEFAULT_PROVIDER_NAME] == null)
+                            {
+                                _configScope.Providers.Add(DEFAULT_PROVIDER_NAME, provider);
+                            }
+                            else
+                            {
+                                throw new X3Platform.IBatis.Common.Exceptions.ConfigurationException(
+                                    string.Format("Error while configuring the Provider named \"{0}\" There can be only one default Provider.", provider.Name));
+                            }
                         }
-                        else
-                        {
-                            throw new X3Platform.IBatis.Common.Exceptions.ConfigurationException(
-                                string.Format("Error while configuring the Provider named \"{0}\" There can be only one default Provider.", provider.Name));
-                        }
+                    }
+                    catch (ConfigurationException ex)
+                    {
+                        _logger.Error(ex);
                     }
                 }
             }
@@ -1677,7 +1685,7 @@ namespace X3Platform.IBatis.DataMapper.Configuration
             // -------------------------------------------------------
 
             KernelConfiguration kernelConfiguration = KernelConfigurationView.Instance.Configuration;
-            
+
             DatabaseSettings databaseSettings = new DatabaseSettings(kernelConfiguration);
 
             _configScope.Properties.Add("ApplicationPathRoot", KernelConfigurationView.Instance.ApplicationPathRoot);

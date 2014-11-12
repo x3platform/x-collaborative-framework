@@ -8,11 +8,15 @@ namespace X3Platform.Apps
 
     using X3Platform.Apps.Configuration;
     using X3Platform.Apps.IBLL;
+    using Common.Logging;
     #endregion
 
     /// <summary>应用上下文环境</summary>
     public class AppsContext : CustomPlugin
     {
+        /// <summary>日志记录器</summary>
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region 静态属性:Instance
         private static volatile AppsContext instance = null;
 
@@ -107,26 +111,6 @@ namespace X3Platform.Apps
         }
         #endregion
 
-        #region 属性:ApplicationPackageService
-        private IApplicationPackageService m_ApplicationPackageService;
-
-        /// <summary>应用数据包</summary>
-        public IApplicationPackageService ApplicationPackageService
-        {
-            get { return m_ApplicationPackageService; }
-        }
-        #endregion
-
-        #region 属性:ApplicationPackageLogService
-        private IApplicationPackageLogService m_ApplicationPackageLogService;
-
-        /// <summary>应用数据包发送日志</summary>
-        public IApplicationPackageLogService ApplicationPackageLogService
-        {
-            get { return m_ApplicationPackageLogService; }
-        }
-        #endregion
-
         #region 属性:ApplicationSettingGroupService
         private IApplicationSettingGroupService m_ApplicationSettingGroupService;
 
@@ -185,6 +169,9 @@ namespace X3Platform.Apps
         }
         #endregion
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回服务. =0代表重启成功, >0代表重启失败.</returns>
@@ -193,9 +180,13 @@ namespace X3Platform.Apps
             try
             {
                 this.Reload();
+
+                // 自增重启次数计数器
+                this.restartCount++;
             }
-            catch
+            catch (Exception ex)
             {
+                logger.Error(ex.Message, ex);
                 throw;
             }
 
@@ -207,6 +198,12 @@ namespace X3Platform.Apps
         /// <summary>重新加载</summary>
         private void Reload()
         {
+            if (this.restartCount > 0)
+            {
+                // 重新加载配置信息
+                AppsConfigurationView.Instance.Reload();
+            }
+
             this.configuration = AppsConfigurationView.Instance.Configuration;
 
             // 创建对象构建器(Spring.NET)
@@ -216,17 +213,15 @@ namespace X3Platform.Apps
 
             // 创建数据服务对象
             this.m_ApplicationService = objectBuilder.GetObject<IApplicationService>(typeof(IApplicationService));
+            this.m_ApplicationOptionService = objectBuilder.GetObject<IApplicationOptionService>(typeof(IApplicationOptionService));
             this.m_ApplicationErrorService = objectBuilder.GetObject<IApplicationErrorService>(typeof(IApplicationErrorService));
             this.m_ApplicationEventService = objectBuilder.GetObject<IApplicationEventService>(typeof(IApplicationEventService));
             this.m_ApplicationFeatureService = objectBuilder.GetObject<IApplicationFeatureService>(typeof(IApplicationFeatureService));
             this.m_ApplicationFeatureDateLimitService = objectBuilder.GetObject<IApplicationFeatureDateLimitService>(typeof(IApplicationFeatureDateLimitService));
-            this.m_ApplicationPackageService = objectBuilder.GetObject<IApplicationPackageService>(typeof(IApplicationPackageService));
-            this.m_ApplicationPackageLogService = objectBuilder.GetObject<IApplicationPackageLogService>(typeof(IApplicationPackageLogService));
             this.m_ApplicationSettingService = objectBuilder.GetObject<IApplicationSettingService>(typeof(IApplicationSettingService));
             this.m_ApplicationSettingGroupService = objectBuilder.GetObject<IApplicationSettingGroupService>(typeof(IApplicationSettingGroupService));
             this.m_ApplicationMenuService = objectBuilder.GetObject<IApplicationMenuService>(typeof(IApplicationMenuService));
             this.m_ApplicationMethodService = objectBuilder.GetObject<IApplicationMethodService>(typeof(IApplicationMethodService));
-            this.m_ApplicationOptionService = objectBuilder.GetObject<IApplicationOptionService>(typeof(IApplicationOptionService));
         }
         #endregion
     }

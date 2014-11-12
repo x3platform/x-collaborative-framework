@@ -109,7 +109,7 @@
         </select>
 
         <select id="proc_Connect_AccessToken_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Connect_AccessToken T
+            SELECT COUNT(*) AS "RowCount" FROM tb_Connect_AccessToken T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -121,7 +121,7 @@
         </select>
         
         <select id="proc_Connect_AccessToken_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM tb_Connect_AccessToken WHERE $WhereClause$
+            SELECT COUNT(*) AS "Count" FROM tb_Connect_AccessToken WHERE $WhereClause$
         </select>
         
         <update id="proc_Connect_AccessToken_Refresh" >

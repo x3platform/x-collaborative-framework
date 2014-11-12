@@ -36,7 +36,7 @@
 
             ibatisMapping = configuration.Keys["IBatisMapping"].Value;
 
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping);
+            ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
         #endregion
 

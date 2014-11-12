@@ -112,7 +112,7 @@
 		</select>
 
 		<select id="proc_Connect_Call_GetRowCount" >
-			SELECT COUNT(1) AS 'RowCount' FROM tb_Connect_Call T
+			SELECT COUNT(1) AS "RowCount" FROM tb_Connect_Call T
 
 			<dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -124,7 +124,7 @@
 		</select>
 
 		<select id="proc_Connect_Call_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Connect_Call T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Connect_Call T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

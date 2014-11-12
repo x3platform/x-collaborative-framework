@@ -754,9 +754,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             args.Add("LoginName", loginName);
             args.Add("Password", password);
 
-            IAccountInfo param = this.ibatisMapper.QueryForObject<IAccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_LoginCheck", tableName)), args);
-
-            return param;
+            return this.ibatisMapper.QueryForObject<IAccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_LoginCheck", tableName)), args);
         }
         #endregion
 

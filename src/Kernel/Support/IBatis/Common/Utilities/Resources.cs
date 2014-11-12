@@ -437,7 +437,23 @@ namespace X3Platform.IBatis.Common.Utilities
                 Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 foreach (Assembly assembly in assemblies)
                 {
-                    Stream stream = assembly.GetManifestResourceStream(fileInfo.FileName);
+                    if (assembly.IsDynamic == true) continue;
+
+                    Stream stream = null;
+
+                    try
+                    {
+                        // assembly.FullName = "Microsoft.GeneratedCode";
+
+                        stream = assembly.GetManifestResourceStream(fileInfo.FileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error("assembly:" + assembly.FullName, ex);
+
+                        throw ex;
+                    }
+
                     if (stream != null)
                     {
                         try

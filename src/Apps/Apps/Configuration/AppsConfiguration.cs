@@ -26,24 +26,16 @@ namespace X3Platform.Apps.Configuration
         #region 构造函数:AppsConfiguration()
         public AppsConfiguration()
         {
-            using (var stream = typeof(AppsConfiguration).Assembly.GetManifestResourceStream("X3Platform.Apps.defaults.config.yaml"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    // 加载内置配置信息
-                    var yaml = new YamlStream();
+            // 根据内置 YAML 资源配置文件初始化对象信息
 
-                    yaml.Load(reader);
+            var root = YamlConfiguratonOperator.GetRootNodeByResourceStream<YamlMappingNode>(
+                this.GetType().Assembly,
+                "X3Platform.Apps.defaults.config.yaml");
 
-                    // 设置配置信息根节点
-                    var root = (YamlMappingNode)yaml.Documents[0].RootNode;
+            // 加载 Keys 键值配置信息
+            YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
 
-                    // 加载 Keys 键值配置信息
-                    YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
-
-                    this.Initialized = true;
-                }
-            }
+            this.Initialized = true;
         }
         #endregion
     }

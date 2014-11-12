@@ -108,7 +108,7 @@
         </select>
 
         <select id="proc_Connect_AuthorizationCode_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Connect_AuthorizationCode T
+            SELECT COUNT(*) AS "RowCount" FROM tb_Connect_AuthorizationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>

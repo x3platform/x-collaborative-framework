@@ -16,16 +16,17 @@
         string Name { get; }
         #endregion
 
-        #region 函数:Decrypt(string loginName)
+        #region 函数:Decrypt(string encryptedPassword)
         /// <summary>解密密码</summary>
-        /// <returns></returns>
+        /// <param name="encryptedPassword">加密的密码</param>
+        /// <returns>密码</returns>
         string Decrypt(string encryptedPassword);
         #endregion
 
-        #region 函数:Encrypt(string password)
+        #region 函数:Encrypt(string unencryptedPassword)
         /// <summary>加密密码</summary>
         /// <param name="unencryptedPassword">未加密的密码</param>
-        /// <returns></returns>
+        /// <returns>加密的密码</returns>
         string Encrypt(string unencryptedPassword);
         #endregion
     }

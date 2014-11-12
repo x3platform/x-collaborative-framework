@@ -51,14 +51,14 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region 属性:Lock
-        private int m_Lock;
+        #region 属性:Locking
+        private int m_Locking;
 
         /// <summary>锁定 0=未锁定, 1=锁定</summary>
-        public int Lock
+        public int Locking
         {
-            get { return m_Lock; }
-            set { m_Lock = value; }
+            get { return m_Locking; }
+            set { m_Locking = value; }
         }
         #endregion
 

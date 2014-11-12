@@ -23,9 +23,9 @@
         string Name { get; set; }
         #endregion
 
-        #region 属性:Lock
+        #region 属性:Locking
         /// <summary>防止意外删除 0 不锁定 | 1 锁定(默认)</summary>
-        int Lock { get; set; }
+        int Locking { get; set; }
         #endregion
 
         #region 属性:Status

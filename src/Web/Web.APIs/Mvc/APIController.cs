@@ -38,6 +38,11 @@
 
             string responseText = string.Empty;
 
+            if (logger.IsDebugEnabled)
+            {
+                logger.Debug("methodName:" + methodName);
+            }
+
             if (dictionary.ContainsKey(methodName))
             {
                 // 优先执行 WebAPI 配置文件中设置的方法.
@@ -56,7 +61,16 @@
                 }
             }
 
-            Response.ContentType = HttpContentTypeHelper.GetValue(true);
+            try
+            {
+                if (Response.StatusCode == 200)
+                {
+                    Response.ContentType = HttpContentTypeHelper.GetValue(true);
+                }
+            }
+            catch
+            {
+            }
 
             return Content(responseText);
         }
@@ -188,7 +202,7 @@
 
             // 验证权限
             bool allowAccess = false;
-            
+
             if (!string.IsNullOrEmpty(accessToken) && ConnectContext.Instance.ConnectAccessTokenService.IsExist(accessToken))
             {
                 // 验证会话

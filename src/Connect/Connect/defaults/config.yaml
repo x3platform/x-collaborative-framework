@@ -3,7 +3,7 @@ keys:
   # Spring.NET : 配置文件
   SpringObjectFile: assembly://X3Platform.Connect/X3Platform.Connect/defaults.Objects.xml
   # IBatis : 配置映射文件
-  IBatisMapping: embedded:X3Platform.Connect.defaults.IBatis.SqlMap.xml
+  IBatisMapping: embedded:defaults.IBatis.SqlMap.xml,X3Platform.Connect
   # API主机名
   ApiHostName: "${HostName}"
   # 会话时间限制 (单位:秒)

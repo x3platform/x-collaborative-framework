@@ -165,7 +165,7 @@ namespace X3Platform.Data
             {
                 if (this.connection != null)
                 {
-                    this.connection.Dispose();
+                    // this.connection.Dispose();
                 }
             }
         }

@@ -27,7 +27,7 @@ namespace X3Platform.Apps.Tests
 
     /// <summary></summary>
     [TestClass]
-    public class AppsContextTestSuite
+    public class AppsContextTests
     {
         //-------------------------------------------------------
         // 测试内容
@@ -42,8 +42,6 @@ namespace X3Platform.Apps.Tests
             Assert.IsNotNull(AppsContext.Instance.ApplicationEventService);
             Assert.IsNotNull(AppsContext.Instance.ApplicationFeatureService);
             Assert.IsNotNull(AppsContext.Instance.ApplicationFeatureDateLimitService);
-            Assert.IsNotNull(AppsContext.Instance.ApplicationPackageService);
-            Assert.IsNotNull(AppsContext.Instance.ApplicationPackageLogService);
             Assert.IsNotNull(AppsContext.Instance.ApplicationSettingGroupService);
             Assert.IsNotNull(AppsContext.Instance.ApplicationSettingService);
             Assert.IsNotNull(AppsContext.Instance.ApplicationMenuService);

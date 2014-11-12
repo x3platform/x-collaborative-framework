@@ -8,7 +8,7 @@
             <result property="Id" column="Id" />
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="Tags" column="Tags" />
             <result property="OrderId" column="OrderId" />
             <result property="UpdateDate" column="UpdateDate" />
@@ -18,7 +18,7 @@
             <result property="Id" column="Id" />
             <result property="Name" column="Name" />
             <result property="Description" column="Description" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="Tags" column="Tags" />
             <result property="OrderId" column="OrderId" />
             <result property="UpdateDate" column="UpdateDate" />
@@ -32,7 +32,7 @@
                 Id,
                 Name,
                 Description,
-                Lock,
+                Locking,
                 Tags,
                 OrderId,
                 UpdateDate,
@@ -43,7 +43,7 @@
                 #Id#,
                 #Name#,
                 #Description#,
-                #Lock#,
+                #Locking#,
                 #Tags#,
                 #OrderId#,
                 CURRENT_TIMESTAMP,
@@ -56,7 +56,7 @@
                 Id = #Id#,
                 Name = #Name#,
                 Description = #Description#,
-                Lock = #Lock#,
+                Locking = #Locking#,
                 Tags = #Tags#,
                 OrderId = #OrderId#,
                 UpdateDate = CURRENT_TIMESTAMP
