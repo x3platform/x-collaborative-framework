@@ -570,7 +570,7 @@ namespace X3Platform.Configuration
                 {
                     if (this.Configuration.Keys["OptionCommandText"] == null)
                     {
-                        this.m_OptionCommandText = "SELECT Name, Value FROM tb_Application_Option WHERE Status = 1;";
+                        this.m_OptionCommandText = "SELECT Name, Value FROM tb_Application_Option WHERE Status = 1";
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("OptionCommandText", this.m_OptionCommandText));
                     }

@@ -258,7 +258,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DAL\IBatis\AccountGrantProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AccountGrantProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\AccountLogProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\JobFamilyProvider.xml" />

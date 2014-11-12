@@ -106,7 +106,7 @@
             SELECT * FROM tb_Application_Method WHERE Name = #Name#
         </select>
 
-        <select id="proc_Application_Method_FindAll" resultMap="proc_Application_Method_FindAll_Result" >
+        <select id="proc_Application_Method_FindAll#MySql" resultMap="proc_Application_Method_FindAll_Result" >
             SELECT * FROM     tb_Application_Method     T
 
             <dynamic prepend="WHERE">
@@ -123,7 +123,7 @@
                 </isNotEqual>
             </dynamic>
         </select>
-        <select id="proc_Application_Method_FindAll" resultMap="proc_Application_Method_FindAll_Result" >
+        <select id="proc_Application_Method_FindAll#SqlServer" resultMap="proc_Application_Method_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -159,7 +159,7 @@
             LIMIT $StartIndex$, $PageSize$
         </select>
 
-        <select id="proc_Application_Method_GetPages" resultMap="proc_Application_Method_FindAll_Result" >
+        <select id="proc_Application_Method_GetPaging#SqlServer" resultMap="proc_Application_Method_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -178,7 +178,7 @@
         </select>
 
         <select id="proc_Application_Method_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Method T
+            SELECT COUNT(*) AS "RowCount" FROM tb_Application_Method T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -190,7 +190,7 @@
         </select>
 
         <select id="proc_Application_Method_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Application_Method WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_Application_Method WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <alias>
-        <typeAlias alias="ApplicationPackageInfo" type="X3Platform.Apps.Model.ApplicationPackageInfo, X3Platform.Apps" />
+        <typeAlias alias="ApplicationPackageInfo" type="X3Platform.Apps.Model.ApplicationPackageInfo,X3Platform.Apps" />
     </alias>
     <resultMaps>
         <resultMap id="proc_Application_Package_FindOne_Result" class="ApplicationPackageInfo">

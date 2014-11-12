@@ -7,7 +7,7 @@
         <setting useReflectionOptimizer="true"/>
     </settings>
 
-    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config"/>
+    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support"/>
 
     <database>
         <provider name="${DatabaseSettings.Provider}" />
@@ -19,17 +19,17 @@
     </typeHandlers>
 
     <sqlMaps>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationProvider.xml" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationErrorProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureDateLimitProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationPackageLogProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingGroupProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider.xml"/>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationOptionProvider.xml"/>
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationErrorProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureDateLimitProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationPackageLogProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingGroupProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider.xml,X3Platform.Apps" />
+        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationOptionProvider.xml,X3Platform.Apps" />
     </sqlMaps>
 </sqlMapConfig>

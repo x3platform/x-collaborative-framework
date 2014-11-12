@@ -3,7 +3,7 @@ keys:
   # Spring.NET : 配置文件
   SpringObjectFile: assembly://X3Platform.Apps/X3Platform.Apps/defaults.Objects.xml
   # IBatis : 配置映射文件
-  IBatisMapping: embedded:X3Platform.Apps.defaults.IBatis.SqlMap.xml
+  IBatisMapping: embedded:X3Platform.Apps.defaults.IBatis.SqlMap.xml,X3Platform.Apps
   # 内置超级管理员帐号,多个人以逗号隔开
   Administrators: root,administrator,admin
   # 隐藏开始菜单 : 可选的值 1.On 2.Off(默认)

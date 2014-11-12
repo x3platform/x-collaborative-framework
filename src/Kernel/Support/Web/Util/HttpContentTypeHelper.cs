@@ -43,8 +43,8 @@ namespace X3Platform.Web
 
                 if (destroy)
                 {
-                    HttpContext.Current.Response.Cookies.Remove(headerToken);
-                }
+                        HttpContext.Current.Response.Cookies.Remove(headerToken);
+               }
 
                 if (string.IsNullOrEmpty(value))
                 {

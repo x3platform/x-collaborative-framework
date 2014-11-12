@@ -309,12 +309,6 @@ namespace X3Platform.Membership
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            if (this.restartCount > 0)
-            {
-                // 重新加载配置信息
-                MembershipConfigurationView.Instance.Reload();
-            }
-
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
             // 创建对象构建器(Spring.NET)

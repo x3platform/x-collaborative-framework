@@ -52,6 +52,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -85,8 +88,6 @@
     <Compile Include="Ajax\ApplicationWrapper.cs" />
     <Compile Include="Ajax\ApplicationEventWrapper.cs" />
     <Compile Include="Ajax\ApplicationFeatureWrapper.cs" />
-    <Compile Include="Ajax\ApplicationPackageWrapper.cs" />
-    <Compile Include="Ajax\ApplicationPackageLogWrapper.cs" />
     <Compile Include="Ajax\ApplicationSettingWrapper.cs" />
     <Compile Include="Ajax\ApplicationSettingGroupWrapper.cs" />
     <Compile Include="ApplicationError.cs" />
@@ -96,8 +97,6 @@
     <Compile Include="BLL\ApplicationMenuService.cs" />
     <Compile Include="BLL\ApplicationMethodService.cs" />
     <Compile Include="BLL\ApplicationOptionService.cs" />
-    <Compile Include="BLL\ApplicationPackageService.cs" />
-    <Compile Include="BLL\ApplicationPackageLogService.cs" />
     <Compile Include="BLL\ApplicationSettingService.cs" />
     <Compile Include="BLL\ApplicationSettingGroupService.cs" />
     <Compile Include="Configuration\AppsConfiguration.cs" />
@@ -109,8 +108,6 @@
     <Compile Include="DAL\IBatis\ApplicationOptionProvider.cs" />
     <Compile Include="DAL\IBatis\ApplicationProvider.cs" />
     <Compile Include="DAL\IBatis\ApplicationEventProvider.cs" />
-    <Compile Include="DAL\IBatis\ApplicationPackageLogProvider.cs" />
-    <Compile Include="DAL\IBatis\ApplicationPackageProvider.cs" />
     <Compile Include="DAL\IBatis\ApplicationFeatureProvider.cs" />
     <Compile Include="DAL\IBatis\ApplicationSettingGroupProvider.cs" />
     <Compile Include="DAL\IBatis\ApplicationSettingProvider.cs" />
@@ -124,8 +121,6 @@
     <Compile Include="IBLL\IApplicationSettingGroupService.cs" />
     <Compile Include="IBLL\IApplicationSettingService.cs" />
     <Compile Include="IBLL\IApplicationFeatureService.cs" />
-    <Compile Include="IBLL\IApplicationPackageLogService.cs" />
-    <Compile Include="IBLL\IApplicationPackageService.cs" />
     <Compile Include="IBLL\IApplicationService.cs" />
     <Compile Include="IBLL\IApplicationEventService.cs" />
     <Compile Include="IDAL\IApplicationErrorProvider.cs" />
@@ -136,8 +131,6 @@
     <Compile Include="IDAL\IApplicationSettingProvider.cs" />
     <Compile Include="IDAL\IApplicationSettingGroupProvider.cs" />
     <Compile Include="IDAL\IApplicationFeatureProvider.cs" />
-    <Compile Include="IDAL\IApplicationPackageProvider.cs" />
-    <Compile Include="IDAL\IApplicationPackageLogProvider.cs" />
     <Compile Include="IDAL\IApplicationProvider.cs" />
     <Compile Include="IDAL\IApplicationEventProvider.cs" />
     <Compile Include="Model\ApplicationErrorInfo.cs" />
@@ -148,8 +141,6 @@
     <Compile Include="Model\ApplicationMenuQueryInfo.cs" />
     <Compile Include="Model\ApplicationMethodInfo.cs" />
     <Compile Include="Model\ApplicationOptionInfo.cs" />
-    <Compile Include="Model\ApplicationPackageInfo.cs" />
-    <Compile Include="Model\ApplicationPackageLogInfo.cs" />
     <Compile Include="Model\ApplicationFeatureInfo.cs" />
     <Compile Include="Model\ApplicationSettingInfo.cs" />
     <Compile Include="Model\ApplicationSettingGroupInfo.cs" />
@@ -169,10 +160,6 @@
     <EmbeddedResource Include="DAL\IBatis\ApplicationOptionProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationEventProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\ApplicationPackageLogProvider.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\IBatis\ApplicationPackageProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationFeatureProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationSettingGroupProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationSettingProvider.xml" />

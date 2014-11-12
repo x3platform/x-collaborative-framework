@@ -53,7 +53,7 @@
         #region 函数:Decrypt(string encryptedPassword)
         /// <summary>解密密码</summary>
         /// <param name="encryptedPassword">加密的密码</param>
-        /// <returns></returns>
+        /// <returns>密码</returns>
         public string Decrypt(string encryptedPassword)
         {
             this.LoadKey();
@@ -62,10 +62,10 @@
         }
         #endregion
 
-        #region 函数:Encrypt(string password)
+        #region 函数:Encrypt(string unencryptedPassword)
         /// <summary>加密密码</summary>
         /// <param name="unencryptedPassword">未加密的密码</param>
-        /// <returns></returns>
+        /// <returns>加密的密码</returns>
         public string Encrypt(string unencryptedPassword)
         {
             this.LoadKey();

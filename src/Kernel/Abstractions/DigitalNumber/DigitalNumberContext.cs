@@ -9,11 +9,15 @@ namespace X3Platform.DigitalNumber
 
     using X3Platform.DigitalNumber.Configuration;
     using X3Platform.DigitalNumber.IBLL;
+    using Common.Logging;
     #endregion
 
     /// <summary>流水号上下文环境</summary>
     public class DigitalNumberContext : CustomPlugin
     {
+        /// <summary>日志记录器</summary>
+        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         #region 属性:Name
         public override string Name
         {
@@ -64,6 +68,9 @@ namespace X3Platform.DigitalNumber
             Restart();
         }
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
@@ -72,10 +79,14 @@ namespace X3Platform.DigitalNumber
             try
             {
                 Reload();
+
+                // 自增重启次数计数器
+                this.restartCount++;
             }
             catch (Exception ex)
             {
-                throw ex;
+                logger.Error(ex.Message, ex);
+                throw;
             }
 
             return 0;
@@ -84,6 +95,12 @@ namespace X3Platform.DigitalNumber
 
         private void Reload()
         {
+            if (this.restartCount > 0)
+            {
+                // 重新加载配置信息
+                DigitalNumberConfigurationView.Instance.Reload();
+            }
+
             this.configuration = DigitalNumberConfigurationView.Instance.Configuration;
 
             // 创建对象构建器(Spring.NET)

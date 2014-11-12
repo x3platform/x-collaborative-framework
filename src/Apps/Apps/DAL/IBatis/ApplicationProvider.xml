@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <alias>
-        <typeAlias alias="ApplicationInfo" type="X3Platform.Apps.Model.ApplicationInfo, X3Platform.Apps" />
+        <typeAlias alias="ApplicationInfo" type="X3Platform.Apps.Model.ApplicationInfo,X3Platform.Apps" />
     </alias>
     <resultMaps>
         <resultMap id="proc_Application_FindOne_Result" class="ApplicationInfo">
@@ -17,10 +17,6 @@
             <result property="Description" column="Description" />
             <result property="HasChildren" column="HasChildren" />
             <result property="AdministratorEmail" column="AdministratorEmail" />
-            <result property="Authority" column="Authority" />
-            <result property="IsSync" column="IsSync" />
-            <result property="ReciveUrl" column="ReciveUrl" />
-            <result property="ReciveFilter" column="ReciveFilter" />
             <result property="IconPath" column="IconPath" />
             <result property="BigIconPath" column="BigIconPath" />
             <result property="HelpUrl" column="HelpUrl" />
@@ -46,10 +42,6 @@
             <result property="Description" column="Description" />
             <result property="HasChildren" column="HasChildren" />
             <result property="AdministratorEmail" column="AdministratorEmail" />
-            <result property="Authority" column="Authority" />
-            <result property="IsSync" column="IsSync" />
-            <result property="ReciveUrl" column="ReciveUrl" />
-            <result property="ReciveFilter" column="ReciveFilter" />
             <result property="IconPath" column="IconPath" />
             <result property="BigIconPath" column="BigIconPath" />
             <result property="HelpUrl" column="HelpUrl" />
@@ -77,11 +69,7 @@
                 ApplicationSecret,
                 PinYin,
                 Description,
-                AdministratorEmail,
-                Authority,
-                IsSync,
-                ReciveUrl,
-                ReciveFilter,
+                AdministratorEmail
                 IconPath,
                 BigIconPath,
                 HelpUrl,
@@ -106,11 +94,7 @@
                 #ApplicationSecret#,
                 #PinYin#,
                 #Description#,
-                #AdministratorEmail#,
-                #Authority#,
-                #IsSync#,
-                #ReciveUrl#,
-                #ReciveFilter#,
+                #AdministratorEmail#
                 #IconPath#,
                 #BigIconPath#,
                 #HelpUrl#,
@@ -136,10 +120,6 @@
                 PinYin = #PinYin#,
                 Description = #Description#,
                 AdministratorEmail = #AdministratorEmail#,
-                Authority = #Authority#,
-                IsSync = #IsSync#,
-                ReciveUrl = #ReciveUrl#,
-                ReciveFilter = #ReciveFilter#,
                 IconPath = #IconPath#,
                 BigIconPath = #BigIconPath#,
                 HelpUrl = #HelpUrl#,
@@ -307,10 +287,6 @@
                     PinYin,
                     Description,
                     AdministratorEmail,
-                    Authority,
-                    IsSync,
-                    ReciveUrl,
-                    ReciveFilter,
                     IconPath,
                     BigIconPath,
                     HelpUrl,
@@ -336,10 +312,6 @@
                     #PinYin#,
                     #Description#,
                     #AdministratorEmail#,
-                    #Authority#,
-                    #IsSync#,
-                    #ReciveUrl#,
-                    #ReciveFilter#,
                     #IconPath#,
                     #BigIconPath#,
                     #HelpUrl#,
