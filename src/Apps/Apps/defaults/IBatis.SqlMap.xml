@@ -24,8 +24,6 @@
         <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider.xml,X3Platform.Apps" />
         <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureProvider.xml,X3Platform.Apps" />
         <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureDateLimitProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationPackageLogProvider.xml,X3Platform.Apps" />
         <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingGroupProvider.xml,X3Platform.Apps" />
         <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider.xml,X3Platform.Apps" />
         <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider.xml,X3Platform.Apps" />
