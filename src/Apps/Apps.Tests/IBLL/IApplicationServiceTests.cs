@@ -83,7 +83,7 @@ namespace X3Platform.Apps.Tests.IBLL
         [TestMethod]
         public void TestGetAuthorizationScopeObjects()
         {
-            AppsContext.Instance.ApplicationService.GetAuthorizationScopeObjects("00000000-0000-0000-0000-000000000007", "应用_默认_管理员");
+            AppsContext.Instance.ApplicationService.GetAuthorizationScopeObjects("52cf89ba-7db5-4e64-9c64-3c868b6e7a99", "应用_默认_管理员");
         }
     }
 }

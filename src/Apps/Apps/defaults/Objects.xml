@@ -47,24 +47,6 @@
             type="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider,X3Platform.Apps"
             lazy-init="true" />
 
-    <!-- 应用数据包 -->
-    <object name="X3Platform.Apps.IBLL.IApplicationPackageService"
-            type="X3Platform.Apps.BLL.ApplicationPackageService,X3Platform.Apps"
-            lazy-init="true" />
-
-    <object name="X3Platform.Apps.IDAL.IApplicationPackageProvider"
-            type="X3Platform.Apps.DAL.IBatis.ApplicationPackageProvider,X3Platform.Apps"
-            lazy-init="true" />
-
-    <!-- 应用数据包发送记录 -->
-    <object name="X3Platform.Apps.IBLL.IApplicationPackageLogService"
-            type="X3Platform.Apps.BLL.ApplicationPackageLogService,X3Platform.Apps"
-            lazy-init="true" />
-
-    <object name="X3Platform.Apps.IDAL.IApplicationPackageLogProvider"
-            type="X3Platform.Apps.DAL.IBatis.ApplicationPackageLogProvider,X3Platform.Apps"
-            lazy-init="true" />
-
     <!-- 应用配置分组信息 -->
     <object name="X3Platform.Apps.IBLL.IApplicationSettingGroupService"
             type="X3Platform.Apps.BLL.ApplicationSettingGroupService,X3Platform.Apps"
