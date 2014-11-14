@@ -111,7 +111,11 @@
 
                         outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
-                        return outString.ToString();
+                        string callback = XmlHelper.Fetch("callback", doc);
+
+                        return string.IsNullOrEmpty(callback) 
+                            ? outString.ToString()
+                            : callback + "(" + outString.ToString() + ")";
                     }
                     else
                     {

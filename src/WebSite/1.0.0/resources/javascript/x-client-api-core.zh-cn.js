@@ -2,7 +2,7 @@
 // Name     : x-client-api 
 // Version  : 1.0.0 
 // Author   : ruanyu@live.com
-// Date     : 2014-11-02
+// Date     : 2014-11-15
 (function(global, factory) 
 {
     if (typeof module === "object" && typeof module.exports === "object") 
@@ -20,7 +20,9 @@
     {
         factory(global);
     }
-} (typeof window !== "undefined" ? window : this, function(window, noGlobal) {    // -------------------------------------------------------
+} (typeof window !== "undefined" ? window : this, function(window, noGlobal) {
+
+    // -------------------------------------------------------
     // 扩展 Function 对象方法
     // -------------------------------------------------------
     
@@ -56,12 +58,16 @@
     // -------------------------------------------------------
     // 扩展 String 对象方法
     // -------------------------------------------------------
-        /**
+    
+    /*#region 类:String*/
+    /**
     * 创建 String 对象
     * @class String 扩展 Javascript 的 String 对象的方法
     * @constructor String
     */
-        if (!String.prototype.trim)
+    
+    /*#region 函数:trim()*/
+    if (!String.prototype.trim)
     {
         /**
         * 去除字符串两侧空白
@@ -73,7 +79,11 @@
         {
             return this.replace(/(^\s*)|(\s*$)/g, '');
         }
-    };        if (!String.prototype.ltrim)
+    };
+    /*#endregion*/
+    
+    /*#region 函数:ltrim()*/
+    if (!String.prototype.ltrim)
     {
         /**
         * 去除字符串左侧空白
@@ -85,7 +95,11 @@
         {
             return this.replace(/(^\s*)/g, '');
         }
-    };        if (!String.prototype.rtrim)
+    };
+    /*#endregion*/
+    
+    /*#region 函数:rtrim()*/
+    if (!String.prototype.rtrim)
     {
         /**
         * 去除字符串右侧空白
@@ -97,7 +111,11 @@
         {
             return this.replace(/(\s*$)/g, '');
         }
-    };        if (!String.prototype.exists)
+    };
+    /*#endregion*/
+    
+    /*#region 函数:exists()*/
+    if (!String.prototype.exists)
     {
         /**
         * 利用正则表达式验证字符串规则
@@ -110,7 +128,11 @@
         {
             return this.match(regexp) !== null;
         }
-    };        if (!String.prototype.format)
+    };
+    /*#endregion*/
+    
+    /*#region 函数:format()*/
+    if (!String.prototype.format)
     {
         String.prototype.format = function()
         {
@@ -121,7 +143,11 @@
                 return args[i];
             });
         }
-    }        /*!
+    }
+    /*#endregion*/
+    
+    /*#endregion*/
+    /*!
      * Sizzle CSS Selector Engine v2.0.1-pre
      * http://sizzlejs.com/
      *
@@ -2220,7 +2246,13 @@
     
         // 缓存
         cache: {},
-            msg: function(text) { x.defaults.msg(text); },            /**
+    
+        /*#region 函数:msg(text)*/
+        msg: function(text) { x.defaults.msg(text); },
+        /*#endregion*/
+    
+        /*#region 函数:type(object)*/
+        /**
         * 检查对象类型
         * @method type
         * @memberof x
@@ -2240,7 +2272,11 @@
     
                 throw ex;
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isArray(object)*/
+        /**
         * 判断对象是否是 Array 类型
         * @method isArray
         * @memberof x
@@ -2248,7 +2284,11 @@
         isArray: function(object)
         {
             return x.type(object) === 'array';
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isFunction(object)*/
+        /**
         * 判断对象是否是 Function 类型
         * @method isFunction
         * @memberof x
@@ -2256,7 +2296,11 @@
         isFunction: function(object)
         {
             return x.type(object) === 'function';
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isString(object)*/
+        /**
         * 判断对象是否是 String 类型
         * @method isString
         * @memberof x
@@ -2264,7 +2308,11 @@
         isString: function(object)
         {
             return x.type(object) === 'string';
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isNumber(object)*/
+        /**
         * 判断对象是否是 Number 类型
         * @method inspect
         * @memberof Object
@@ -2272,7 +2320,11 @@
         isNumber: function(object)
         {
             return x.type(object) === 'number';
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isUndefined(value, replacementValue)*/
+        /**
         * 判断是否是 undefined 类型, 如果设置了替换的值, 则当第一个参数为 undefined, 则使用替换的值
         * @method isUndefined
         * @memberof x
@@ -2296,7 +2348,9 @@
             {
                 return x.type(object) === 'undefined';
             }
-        },    
+        },
+        /*#endregion*/
+    
         // 脚本代码片段
         scriptFragment: '<script[^>]*>([\\S\\s]*?)<\/script>',
     
@@ -2308,10 +2362,16 @@
     
         // Is it a simple selector
         isSimple: /^.[^:#\[\.,]*$/,
-            /**
+    
+        /*#region 函数:noop()*/
+        /**
         * 空操作
         */
-        noop: function() { },            /**
+        noop: function() { },
+        /*#endregion*/
+    
+        /*#region 函数:register(value)*/
+        /**
         * 注册对象信息
         * @method register
         * @memberof x3platform
@@ -2333,7 +2393,11 @@
             }
     
             return root;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:ext(destination, source)*/
+        /**
         * 将原始对象的属性和方法扩展至目标对象
         * @method ext
         * @memberof x
@@ -2365,7 +2429,11 @@
             }
     
             return result;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:clone(object)*/
+        /**
         * 克隆对象
         * @method clone
         * @memberof x
@@ -2374,7 +2442,11 @@
         clone: function(object)
         {
             return x.ext({}, object);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:invoke(object, fn)*/
+        /**
         * 执行对象方法
         * @method invoke
         * @memberof x
@@ -2385,7 +2457,11 @@
             var args = Array.prototype.slice.call(arguments).slice(2);
     
             return fn.apply(object, args);
-        },            /*
+        },
+        /*#endregion*/
+    
+        /*#region 函数:call(anything)*/
+        /*
         * 调用方法或者代码文本
         * @method call
         * @memberof x
@@ -2412,7 +2488,11 @@
                     x.debug.error(ex);
                 }
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:query(selector)*/
+        /**
         * 精确查询单个表单元素。
         * @method query
         * @memberof x
@@ -2431,7 +2511,11 @@
     
                 return (results.length == 0) ? null : results[0];
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:queryAll(selector)*/
+        /**
         * 精确查询单个表单元素。
         * @method query
         * @memberof x
@@ -2451,7 +2535,11 @@
             {
                 return Sizzle.apply(window, Array.prototype.slice.call(arguments, 0));
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:serialize(data)*/
+        /**
         * 返回数据串行化后的字符串  
         * @method serialize
         * @memberof x
@@ -2478,7 +2566,11 @@
             }
     
             return buffer.join('&');
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:each(data, callback)*/
+        /**
         * 遍历元素对象, 如果需要退出返回 false
         * @method query
         * @memberof x
@@ -2504,7 +2596,11 @@
             }
     
             return data;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:toXML(text)*/
+        /**
         * 将字符串转换为XML对象
         * @method toXML
         * @memberof x
@@ -2550,7 +2646,11 @@
             }
     
             return doc;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:toJSON(text)*/
+        /**
         * 将字符串转换为JSON对象
         * @method toJSON
         * @memberof x
@@ -2582,7 +2682,11 @@
                     return undefined;
                 }
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:toSafeJSON(text)*/
+        /**
         * 将普通文本信息转换为安全的符合JSON格式规范的文本信息
         * @method toSafeJSON
         * @memberof x
@@ -2628,7 +2732,11 @@
             }
     
             return outString;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:toSafeLike(text)*/
+        /**
         * 将字符串中特殊字符([%_)转换为可识别的Like内容.
         * @method toSafeLike
         * @memberof x
@@ -2637,7 +2745,11 @@
         toSafeLike: function(text)
         {
             return text.replace(/\[/g, '[[]').replace(/%/g, '[%]').replace(/_/g, '[_]');
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:cdata(text)*/
+        /**
         * 将普通文本信息转为为Xml不解析的文本信息
         * @method cdata
         * @memberof x
@@ -2646,7 +2758,11 @@
         cdata: function(text)
         {
             return '<![CDATA[' + text + ']]>';
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:camelCase(text)*/
+        /**
         * 将短划线文字转换至驼峰格式
         * @method camelCase
         * @memberof x
@@ -2665,7 +2781,11 @@
             {
                 return letter.toUpperCase();
             });
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:paddingZero(number, length)*/
+        /**
         * 数字补零
         * @method paddingZero
         * @memberof x
@@ -2675,7 +2795,11 @@
         paddingZero: function(number, length)
         {
             return (Array(length).join('0') + number).slice(-length);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:formatNature(text)*/
+        /**
         * 将字符串统一转换为本地标识标识
         * @method formatNature
         * @memberof x
@@ -2697,7 +2821,11 @@
             }
     
             return text;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:getFriendlyName(name)*/
+        /**
         * 将不规范的标识名称转换为友好的名称.
         * @method getFriendlyName
         * @memberof x
@@ -2709,7 +2837,11 @@
         getFriendlyName: function(name)
         {
             return x.camelCase(('x-' + name).replace(/[\#\$\.\/\\]/g, '-').replace(/[-]+/g, '-'));
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 类:newHashTable()*/
+        /**
         * 哈希表
         * @class HashTable 哈希表
         * @constructor newHashTable
@@ -2724,7 +2856,9 @@
     
                 // 内部数组对象
                 innerArray: [],
-                    /**
+    
+                /*#region 函数:clear()*/
+                /**
                 * 清空哈希表
                 * @method clear
                 * @memberof x.newHashTable#
@@ -2732,7 +2866,11 @@
                 clear: function()
                 {
                     this.innerArray = [];
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:exist(key)*/
+                /**
                 * 判断是否已存在相同键的对象
                 * @method exist
                 * @memberof x.newHashTable#
@@ -2749,14 +2887,22 @@
                     }
     
                     return false;
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:get(index)*/
+                /**
                 * @method get
                 * @memberof x.newHashTable#
                 */
                 get: function(index)
                 {
                     return this.innerArray[index];
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:add(key, value)*/
+                /**
                 * @method add
                 * @memberof x.newHashTable#
                 */
@@ -2785,7 +2931,11 @@
                             this.innerArray.push(x.types.newListItem(key, value));
                         }
                     }
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:find(key)*/
+                /**
                 * @method find
                 * @memberof x.newHashTable#
                 */
@@ -2800,7 +2950,11 @@
                     }
     
                     return null;
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:size()*/
+                /**
                 * 获取哈希表的当前大小
                 * @method size
                 * @memberof x.newHashTable#
@@ -2808,10 +2962,16 @@
                 size: function()
                 {
                     return this.innerArray.length;
-                }            };
+                }
+                /*#endregion*/
+            };
     
             return hashTable;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 类:newQueue()*/
+        /**
         * 队列
         * @description Queue 对象
         * @class Queue 队列
@@ -2833,7 +2993,9 @@
                 push: function(targetObject)
                 {
                     this.innerArray.push(targetObject);
-                },    
+                },
+                /*#endregion*/
+    
                 /**
                 * 弹出队列顶部元素
                 * @method pop
@@ -2859,7 +3021,9 @@
     
                         return targetObject;
                     }
-                },    
+                },
+                /*#endregion*/
+    
                 /**
                 * 取出队列底部元素(并不删除队列底部元素)
                 */
@@ -2871,7 +3035,11 @@
                     }
     
                     return this.innerArray[0];
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:clear()*/
+                /**
                 * 清空堆栈
                 <<<<<<< HEAD
                 * @method clear
@@ -2883,7 +3051,11 @@
                 clear: function()
                 {
                     this.innerArray.length = 0; //将元素的个数清零即可
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:size()*/
+                /**
                 * 获得线性队列当前大小
                 * @method size
                 * @memberof x.newQueue#
@@ -2891,7 +3063,11 @@
                 size: function()
                 {
                     return this.innerArray.length;
-                },                    /*
+                },
+                /*#endregion*/
+    
+                /*#region 函数:isEmpty()*/
+                /*
                 * 判断一个线性队列是否为空
                 * @method isEmpty
                 * @memberof x.newQueue#
@@ -2899,10 +3075,16 @@
                 isEmpty: function()
                 {
                     return (this.innerArray.length === 0) ? true : false;
-                }            };
+                }
+                /*#endregion*/
+            };
     
             return queue;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 类:newStack()*/
+        /**
         * 栈
         * @description 创建 Stack 对象
         * @class Stack
@@ -2922,7 +3104,9 @@
                 push: function(targetObject)
                 {
                     this.innerArray[this.innerArray.length] = targetObject;
-                },    
+                },
+                /*#endregion*/
+    
                 /*
                 * 弹出栈顶元素(并删除栈顶元素)
                 */
@@ -2940,7 +3124,9 @@
     
                         return targetObject;
                     }
-                },    
+                },
+                /*#endregion*/
+    
                 /*
                 * 取出栈顶元素(并不删除栈顶元素)
                 */
@@ -2952,14 +3138,20 @@
                     }
     
                     return this.innerArray[this.innerArray.length - 1];
-                },    
+                },
+                /*#endregion*/
+    
                 /*
                 * 清空堆栈
                 */
                 clear: function()
                 {
                     this.innerArray.length = 0; //将元素的个数清零即可
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:size()*/
+                /**
                 * 获得线性堆栈的当前大小
                 * @method size
                 * @memberof x.newStack#
@@ -2967,17 +3159,25 @@
                 size: function()
                 {
                     return this.innerArray.length;
-                },    
+                },
+                /*#endregion*/
+    
                 /*
                 * 判断一个线性堆栈是否为空
                 */
                 isEmpty: function()
                 {
                     return (this.innerArray.length === 0) ? true : false;
-                }            };
+                }
+                /*#endregion*/
+            };
     
             return stack;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 类:newStringBuilder()*/
+        /**
         * 高效字符串构建器<br />
         * 注: 现在的主流浏览器都针对字符串连接作了优化，所以性能要好于StringBuilder类，不推荐使用，仅作字符串算法研究。
         * @class StringBuilder
@@ -2990,7 +3190,9 @@
     
                 // 内部数组对象
                 innerArray: [],
-                    /**
+    
+                /*#region 函数:append(text)*/
+                /**
                 * 附加文本信息
                 * @method append
                 * @memberof x.newStringBuilder#
@@ -2999,7 +3201,11 @@
                 append: function(text)
                 {
                     this.innerArray[this.innerArray.length] = text;
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:toString()*/
+                /**
                 * 转换为字符串
                 * @method toString
                 * @memberof x.newStringBuilder#
@@ -3008,10 +3214,16 @@
                 toString: function()
                 {
                     return this.innerArray.join('');
-                }            };
+                }
+                /*#endregion*/
+            };
     
             return stringBuilder;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 类:newTimer(interval, callback)*/
+        /**
         * 计时器
         * @class Timer 计时器
         * @constructor newTimer
@@ -3038,7 +3250,9 @@
                 interval: interval * 1000,
                 // 回调函数
                 callback: callback,
-                    /**
+    
+                /*#region 函数:run()*/
+                /**
                 * 执行回调函数
                 * @private
                 * @method run
@@ -3047,7 +3261,11 @@
                 run: function()
                 {
                     this.callback(this);
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:start()*/
+                /**
                 * 启动计时器
                 * @method start
                 * @memberof x.newTimer#
@@ -3057,7 +3275,11 @@
                     eval(this.name + ' = this;');
     
                     this.timerId = setInterval(this.name + '.run()', this.interval);
-                },                    /**
+                },
+                /*#endregion*/
+    
+                /*#region 函数:stop()*/
+                /**
                 * 停止计时器
                 * @method stop
                 * @memberof x.newTimer#
@@ -3065,16 +3287,22 @@
                 stop: function()
                 {
                     clearInterval(this.timerId);
-                }            };
+                }
+                /*#endregion*/
+            };
     
             return timer;
-        },    
+        },
+        /*#endregion*/
+    
         /**
         * 事件
         * @namespace event
         * @memberof x
         */
-        event: {            /**
+        event: {
+            /*#region 函数:getEvent(event)*/
+            /**
             * 获取事件对象
             * @method getEvent
             * @memberof x.event
@@ -3083,7 +3311,11 @@
             getEvent: function(event)
             {
                 return window.event ? window.event : event;
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:getTarget(event)*/
+            /**
             * 获取事件的目标对象
             * @method getTarget
             * @memberof x.event
@@ -3092,7 +3324,11 @@
             getTarget: function(event)
             {
                 return window.event ? window.event.srcElement : (event ? event.target : null);
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:getPosition(event)*/
+            /**
             * 获取事件的光标坐标
             * @method getPosition
             * @memberof x.event
@@ -3108,7 +3344,11 @@
                     x: event.pageX || (event.clientX + (docElement.scrollLeft || body.scrollLeft) - (docElement.clientLeft || 0)),
                     y: event.pageY || (event.clientY + (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0))
                 };
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:preventDefault(event)*/
+            /**
             * 停止事件传播
             * @method preventDefault
             * @memberof x.event
@@ -3127,7 +3367,11 @@
                     //IE中阻止函数器默认动作的方式   
                     window.event.returnValue = false;
                 }
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:stopPropagation(event)*/
+            /**
             * 停止事件传播
             * @method stopPropagation
             * @memberof x.event
@@ -3160,7 +3404,11 @@
                     window.event.cancelBubble = true;
                 }
                 return false;
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:add(target, type, listener, useCapture)*/
+            /**
             * 添加事件监听器
             * @method add
             * @memberof x.event
@@ -3185,7 +3433,11 @@
                 {
                     target['on' + type] = listener;
                 }
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:remove(target, type, listener, useCapture)*/
+            /**
             * 移除事件监听器
             * @method remove
             * @memberof x.event
@@ -3210,14 +3462,18 @@
                 {
                     target['on' + type] = null;
                 }
-            }        },
+            }
+            /*#endregion*/
+        },
     
         /**
         * Guid 格式文本
         * @namespace guid
         * @memberof x
         */
-        guid: {            /**
+        guid: {
+            /*#region 函数:create(format, isUpperCase)*/
+            /**
             * 创建 Guid 格式文本
             * @method create
             * @memberof x.guid
@@ -3256,14 +3512,18 @@
                 text = isUpperCase ? text.toUpperCase() : text.toLowerCase();
     
                 return text;
-            }        },
+            }
+            /*#endregion*/
+        },
     
         /**
         * 随机文本
         * @namespace randomText
         * @memberof x
         */
-        randomText: {            /**
+        randomText: {
+            /*#region 函数:create(length)*/
+            /**
             * 创建随机文本信息
             * @method create
             * @memberof x.randomText
@@ -3284,7 +3544,9 @@
                 }
     
                 return result;
-            }        },
+            }
+            /*#endregion*/
+        },
     
         /**
         * 字符串
@@ -3292,7 +3554,9 @@
         * @memberof x
         */
         string: {
-                /**
+    
+            /*#region 函数:stringify(value)*/
+            /**
             * 将其他类型的值转换成字符串
             * @method stringify
             * @memberof x.string
@@ -3319,7 +3583,11 @@
                 }
     
                 return value;
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:trim(text, trimText)*/
+            /**
             * 去除字符串两端空白或其他文本信息
             * @method trim
             * @memberof x.string
@@ -3336,7 +3604,11 @@
                 {
                     return x.string.rtrim(x.string.ltrim(text, trimText), trimText);
                 }
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:ltrim(text, trimText)*/
+            /**
             * 去除字符串左侧空白.
             * @method ltrim
             * @memberof x.string
@@ -3353,7 +3625,11 @@
                 {
                     return text.replace(RegExp('(^' + trimText + ')', 'gi'), '');
                 }
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:rtrim(text, trimText)*/
+            /**
             * 去除字符串右侧空白.
             * @method rtrim
             * @memberof x.string
@@ -3371,7 +3647,11 @@
                     return text.replace(RegExp('(' + trimText + '$)', 'gi'), '');
                     // return (text.substr(text.length - trimText.length, trimText.length) === trimText) ? text.substr(0, text.length - trimText.length) : text;
                 }
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:format(text, args)*/
+            /**
             * 去除字符串右侧空白.
             * @method rtrim
             * @memberof x.string
@@ -3391,7 +3671,11 @@
                 }
     
                 return text;
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:left(text, length, hasEllipsis)*/
+            /**
             * 字符串长度超长时, 截取左侧字符
             * @method left
             * @memberof x.string
@@ -3417,7 +3701,9 @@
                 {
                     return text;
                 }
-            }        },
+            }
+            /*#endregion*/
+        },
     
         /**
         * 颜色编码
@@ -3563,7 +3849,7 @@
     * 加载脚本
     * @method require
     * @memberof x
-    * @param {object} options 选项,    
+    * @param {object} options 选项 
     */
     var require = x.require = function(options)
     {
@@ -3680,7 +3966,9 @@
         };
     
         var onScriptLoad = function(event)
-        {    
+        {
+            x.debug.log('require file {"id":"{0}", path:"{1}"} finished.'.format(context.id, context.path));
+    
             var node = x.event.getTarget(event);
     
             if (event.type === 'load' || /^(complete|loaded)$/.test(node.readyState))
@@ -3723,7 +4011,9 @@
             load(node, onScriptLoad);
     
             head.appendChild(node);
-            }
+    
+            x.debug.log('require file {"id":"{0}", path:"{1}"} loading.'.format(context.id, context.path));
+        }
         else
         {
             // 存在相关依赖文件
@@ -3735,9 +4025,31 @@
             {
                 load(node, onScriptLoad);
             }
-            }
+    
+            x.debug.log('require file {"id":"{0}", path:"{1}"} exist.'.format(options.id, options.path));
+        }
     
         return context;
+    };
+    
+    /**
+    * JSONP 函数
+    * @method require
+    * @memberof x
+    * @param {object} options 选项
+    */
+    x.jsonp = function(options)
+    {
+        var options = x.ext({
+            fileType: 'javascipt',
+            id: 'JSONP' + Number(new Date()),
+            jsonp: 'callback',
+            jsonpCallback: 'jsonpCallbackCallback'
+        }, options);
+    
+        options.path = options.url + ((options.url.indexOf('?') == -1) ? '?' : '&') + options.jsonp + '=' + options.jsonpCallback;
+    
+        x.require(options);
     };
     
     /**
@@ -3801,7 +4113,9 @@
         * x.browser.mobilesafari;
         */
         mobilesafari: !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
-            /** 
+    
+        /*#region 函数:current()*/
+        /** 
         * 获取当前浏览器的名称和版本
         * @method current 
         * @memberof x.browser
@@ -3811,7 +4125,11 @@
         current: function()
         {
             return { name: x.browser.getName(), version: x.browser.getVersion() };
-        },            /** 
+        },
+        /*#endregion*/
+    
+        /*#region 函数:getName()*/
+        /** 
         * 获取当前浏览器的名称
         * @method getName 
         * @memberof x.browser
@@ -3836,7 +4154,11 @@
                 return "Gecko";
     
             return "unknown";
-        },            /** 
+        },
+        /*#endregion*/
+    
+        /*#region 函数:getVersion()*/
+        /** 
         * 获取当前浏览器的版本
         * @method getVersion 
         * @memberof x.browser
@@ -3880,7 +4202,9 @@
             }
     
             return version;
-        },    
+        },
+        /*#endregion*/
+    
         /**
         * 浏览器特性
         * @namespace features
@@ -3967,7 +4291,9 @@
         styles: {
             dir: function() { return x.ui.stylesheetPathPrefix; }
         }
-    };    
+    };
+
+    
     /**
     * @namespace debug
     * @memberof x
@@ -3978,7 +4304,9 @@
         // 相关链接
         // http://getfirebug.com/wiki/index.php/Console_API
         // https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN#using_the_console_api
-            /**
+    
+        /*#region 函数:log(object)*/
+        /**
         * 记录普通的日志消息
         * @method log
         * @memberof x.debug
@@ -3991,7 +4319,11 @@
             {
                 console.log(object);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:warn(object)*/
+        /**
         * 记录警告的日志消息
         * @method warn
         * @memberof x.debug
@@ -4004,7 +4336,11 @@
             {
                 console.warn(object);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:error(object)*/
+        /**
         * 记录错误的日志消息
         * @method error
         * @memberof x.debug
@@ -4017,7 +4353,11 @@
             {
                 console.error(object);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:assert(expression)*/
+        /**
         * 断言
         * @method assert
         * @memberof x.debug
@@ -4030,7 +4370,11 @@
             {
                 console.assert(expression);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:time(name)*/
+        /**
         * 计时器
         * @method time
         * @memberof x.debug
@@ -4043,7 +4387,11 @@
             {
                 console.time(name);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:timeEnd(name)*/
+        /**
         * 停止计时器
         * @method timeEnd
         * @memberof x.debug
@@ -4056,7 +4404,11 @@
             {
                 console.timeEnd(name);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:timestamp()*/
+        /**
         * 获取当前时间信息
         * @method timestamp
         * @memberof x.debug
@@ -4075,7 +4427,11 @@
                          .replace(/mm/, timestamp.getMinutes() > 9 ? timestamp.getMinutes() : '0' + timestamp.getMinutes())
                          .replace(/ss|SS/, timestamp.getSeconds() > 9 ? timestamp.getSeconds() : '0' + timestamp.getSeconds())
                          .replace(/fff/g, ((timestamp.getMilliseconds() > 99) ? timestamp.getMilliseconds() : (timestamp.getMilliseconds() > 9) ? '0' + timestamp.getMilliseconds() : '00' + timestamp.getMilliseconds()));
-        }    };    
+        }
+        /*#endregion*/
+    };
+
+    
     /**
     * @namespace encoding
     * @memberof x
@@ -4097,7 +4453,9 @@
                 '"': '&#34;',
                 '\'': '&#39;'
             },
-                /**
+    
+            /*#region 函数:encode(text)*/
+            /**
             * html 编码
             * @method encode
             * @memberof x.encoding.html
@@ -4127,7 +4485,11 @@
                 //            outString = outString.replace(/\"/g, '&quot;');
     
                 //            return outString;
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:decode(text)*/
+            /**
             * html 解码
             * @method decode
             * @memberof x.encoding.html
@@ -4151,7 +4513,9 @@
                 outString = outString.replace(/&quot;/g, "\"");
     
                 return outString;
-            }        },
+            }
+            /*#endregion*/
+        },
     
         /**
         * @namespace unicode
@@ -4162,7 +4526,9 @@
     
             // 注意
             // html 的 unicode 编码格式是&#888888;, javascript 的 unicode 编码格式\u000000
-                /**
+    
+            /*#region 函数:encode(text)*/
+            /**
             * unicode 编码
             * @method encode
             * @memberof x.encoding.unicode
@@ -4197,7 +4563,11 @@
                 }
     
                 return outString.toLowerCase();
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:decode(text)*/
+            /**
             * unicode 解码
             * @method decode
             * @memberof x.encoding.unicode
@@ -4231,15 +4601,21 @@
                 }
     
                 return outString;
-            }        }
-    };    
+            }
+            /*#endregion*/
+        }
+    };
+
+    
     /**
     * @namespace cookies
     * @memberof x
     * @description Cookies 管理
     */
     x.cookies = {
-            /**
+    
+        /*#region 函数:query(name)*/
+        /**
         * 根据 Cookie 名称查找相关的值
         * @method query
         * @memberof x.cookies
@@ -4268,7 +4644,11 @@
             }
     
             return value;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:add(name, value, options)*/
+        /**
         * 新增 Cookie 的值
         * @method add
         * @memberof x.cookies
@@ -4314,7 +4694,11 @@
                 + ((!options.expire) ? '' : ('; expires=' + options.expire.toGMTString()))
                 + '; path=' + options.path
                 + ((!options.domain) ? '' : ('; domain=' + options.domain));
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:remove(name, options)*/
+        /**
         * 移除 Cookie 的值
         * @method remove
         * @memberof x.cookies
@@ -4347,7 +4731,11 @@
                     + '; expires=' + new Date(0).toGMTString()
                     + ((!options.domain) ? '' : ('; domain=' + options.domain));
             }
-        }    };    
+        }
+        /*#endregion*/
+    };
+
+    
     /**
     * @namespace css
     * @memberof x
@@ -4359,7 +4747,9 @@
         * @private
         */
         dict: {},
-            /**
+    
+        /*#region 函数:style(selector)*/
+        /**
         * 获取或设置元素对象的样式信息
         * @method style
         * @memberof x.css
@@ -4393,7 +4783,11 @@
                     element.style[arguments[1]] = arguments[2];
                 }
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:check(selector, className)*/
+        /**
         * 检测元素对象的 className 是否存在
         * @method check
         * @memberof x.css
@@ -4420,7 +4814,11 @@
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
     
             return element.className.match(reg) == null ? false : true;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:swap(selector, classNameA, classNameB)*/
+        /**
         * 替换元素对象的 className
         * @method swap
         * @memberof x.css
@@ -4445,7 +4843,11 @@
     
                 element.className = buffer.join(' ');
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:add(selector, className)*/
+        /**
         * 添加元素对象的 className
         * @method add
         * @memberof x.css
@@ -4463,7 +4865,11 @@
                 element.className += ' ' + className;
                 element.className = element.className.trim();
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:remove(selector, className)*/
+        /**
         * 移除元素对象的 className
         * @method remove
         * @memberof x.css
@@ -4483,7 +4889,9 @@
                 element.className = element.className.replace(reg, '');
                 element.className = element.className.trim();
             }
-        }    };// -*- ecoding=utf-8 -*-
+        }
+        /*#endregion*/
+    };// -*- ecoding=utf-8 -*-
     
     /**
     * @namespace date
@@ -5062,7 +5470,9 @@
     
             return timeSpan;
         }
-    };    
+    };
+
+    
     /**
     * @namespace expressions
     * @memberof x
@@ -5185,7 +5595,9 @@
                 'zipcode': /^\d{6}$/g
             }
         },
-            /**
+    
+        /*#region 函数:match(options)*/
+        /**
         * 匹配
         */
         match: function(options)
@@ -5211,7 +5623,11 @@
             }
     
             return text.match(regexp);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:exists(options)*/
+        /**
         * 利用正则表达式验证字符串规则
         * @method exists
         * @memberof x.expressions
@@ -5254,7 +5670,11 @@
             }
     
             return text.exists(regexp);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isFileExt(path, allowFileExt)*/
+        /**
         * 验证文件的扩展名.
         * @method isFileExt
         * @memberof x.expressions
@@ -5293,7 +5713,11 @@
             }
     
             return result;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isUrl(text)*/
+        /**
         * 验证URL地址格式
         * @method isUrl
         * @memberof x.expressions
@@ -5302,7 +5726,11 @@
         isUrl: function(text)
         {
             return text.toLowerCase().exists(x.expressions.rules['url']);
-        },            /*
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isEmail(text)*/
+        /*
         * 验证Email地址格式
         * @method isEmail
         * @memberof x.expressions
@@ -5311,7 +5739,11 @@
         isEmail: function(text)
         {
             return text.toLowerCase().exists(x.expressions.rules['email']);
-        },            /*
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isZipcode(text, nature))*/
+        /*
         * 验证邮编
         * @method isZipcode
         * @memberof x.expressions
@@ -5323,7 +5755,11 @@
             nature = x.formatNature(nature);
     
             return text.exists(x.expressions.rules[nature]['zipcode']);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:isSafeText(text)*/
+        /**
         * 验证输入的字符串是否为安全字符, 即只允许字母、数字、下滑线。
         * @method isSafeText
         * @memberof x.expressions
@@ -5332,7 +5768,11 @@
         isSafeText: function(text)
         {
             return text.exists(x.expressions.rules['safeText']);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:formatTelephone(text)*/
+        /**
         * 格式化输入的输入的文本为电话号码.
         * @method formatTelephone
         * @memberof x.expressions
@@ -5341,7 +5781,11 @@
         formatTelephone: function(text)
         {
             return text.replace(x.expressions.rules['non-telephone'], '');
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:formatInteger(value, removePaddingZero)*/
+        /**
         * 格式化输入的输入的文本为整数.
         * @method formatInteger
         * @memberof x.expressions
@@ -5373,7 +5817,11 @@
             }
     
             return value;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:formatNumber(value, removePaddingZero)*/
+        /**
         * 格式化输入的输入的文本为数字.
         * @method formatInteger
         * @memberof x.expressions
@@ -5402,7 +5850,11 @@
             }
     
             return value;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:formatNumberRound2(value, removePaddingZero)*/
+        /**
         * 格式化输入的文本统一为保留小数点后面两位的数字。
         * @method formatNumberRound2
         * @memberof x.expressions
@@ -5443,7 +5895,11 @@
             }
     
             return value;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:formatSafeText(text)*/
+        /**
         * 格式化输入的文本为安全字符(常用于登录名和拼音字母的检测)
         * @method formatSafeText
         * @memberof x.expressions
@@ -5456,7 +5912,11 @@
         formatSafeText: function(text)
         {
             return text.replace(x.expressions.rules['non-safeText'], '');
-        }    };    
+        }
+        /*#endregion*/
+    };
+
+    
     /**
     * @namespace dom
     * @memberof x
@@ -5487,7 +5947,9 @@
     
     // 扩展对象的方法
     dom = x.ext(dom, {
-            /**
+    
+        /*#region 函数:query(selector)*/
+        /**
         * 精确查询单个表单元素，返回一个jQuery对象。
         * @method query
         * @memberof dom
@@ -5502,7 +5964,9 @@
     
             // $(null) 会返回 整个文档对象，所以定义一个特殊 __null__ 变量替代空值。
             return result === null ? $('#__null__') : $(result);
-        },    
+        },
+        /*#endregion*/
+    
         nodes: function(html)
         {
             var list = [];
@@ -5518,7 +5982,9 @@
     
             return list;
         },
-            /**
+    
+        /*#region 函数:on(target, type, listener, useCapture)*/
+        /**
         * 添加事件监听器 x.event.add 的别名
         * @method add
         * @memberof x
@@ -5530,7 +5996,11 @@
         on: function(target, type, listener, useCapture)
         {
             return x.event.add(target, type, listener, useCapture);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:off(target, type, listener, useCapture)*/
+        /**
         * 移除事件监听器 x.event.remove 的别名
         * @method add
         * @memberof x
@@ -5542,7 +6012,11 @@
         off: function(target, type, listener, useCapture)
         {
             return x.event.add(target, type, listener, useCapture);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:attr(id, name, value)*/
+        /**
         * 获取或设置元素的属性信息
         * @method attr
         * @memberof dom
@@ -5572,7 +6046,11 @@
             {
                 node.setAttribute(name, value);
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:options(id)*/
+        /**
         * 获取元素的选项配置信息
         * @method options
         * @memberof dom
@@ -5583,7 +6061,9 @@
             var value = dom.attr(id, 'x-dom-options');
     
             return (x.isUndefined(value) || value == null || value == '') ? {} : x.toJSON(value);
-        },    
+        },
+        /*#endregion*/
+    
         // 追加 html 标记
         append: function(element, html)
         {
@@ -5636,7 +6116,9 @@
     
             return element;
         },
-            /**
+    
+        /*#region 函数:swap(options)*/
+        /**
         * 交换控件的数据
         * @method swap
         * @memberof dom
@@ -5656,7 +6138,11 @@
                     fromInput.removeAttr(node);
                 }
             });
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:fixed(selector, pointX, pointY)*/
+        /**
         * 设置元素的位置
         * @method fixed
         * @memberof dom
@@ -5671,7 +6157,11 @@
                 'left': pointX + 'px',
                 'top': pointY + 'px'
             });
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:setOpacity(selector, value)*/
+        /**
         * 设置容器的透明度
         * @method setOpacity
         * @memberof dom
@@ -5692,7 +6182,9 @@
                 //其他浏览器
                 element.style.opacity = value / 100;
             }
-        },    
+        },
+        /*#endregion*/
+    
         utils: {},
     
         hooks: {},
@@ -5771,7 +6263,9 @@
                                     path: options.featureScriptPath + 'x.dom.features.' + feature + '.js',
                                     data: { target: list[i], feature: feature },
                                     callback: function(context)
-                                    {                                        var data = context.data;
+                                    {
+                                        // x.debug.log('feature:' + feature + ',' + response.data.feature);
+                                        var data = context.data;
     
                                         // 加载完毕后, 加个 featureLoaded 标识, 避免重复加载效果.
                                         dom('#' + data.target.id).attr(options.featureLoadedAttributeName, '1');
@@ -6009,7 +6503,9 @@
             // 数据正则表达式规则验证失败提示信息证属性名称
             dataRegexpWarningAttributeName: 'x-dom-data-regexp-warning'
         },
-            /*
+    
+        /*#region 函数:bindInputData(options)*/
+        /*
         * 绊定控件的数据
         */
         bindInputData: function(options)
@@ -6055,7 +6551,11 @@
                     input.attr('selectedText', selectedText);
                 }
             }
-        },            /*
+        },
+        /*#endregion*/
+    
+        /*#region 函数:check(options)*/
+        /*
         * 验证客户端数据
         */
         check: function(options)
@@ -6096,7 +6596,11 @@
                 alert(warning);
                 return true;
             }
-        },            /*
+        },
+        /*#endregion*/
+    
+        /*#region 函数:checkDataInput(node, warnTooltip)*/
+        /*
         * 验证客户端数据
         */
         checkDataInput: function(node, warnTooltip)
@@ -6117,7 +6621,9 @@
                 if ($(node).val().trim() === '')
                 {
                     var dataVerifyWarning = $(node).attr('dataVerifyWarning');
-        
+    
+                    // x.debug.log('x:' + x.page.getElementLeft(node) + ' y:' + x.page.getElementTop(node));
+    
                     if (dataVerifyWarning)
                     {
                         if (warnTooltip == 1)
@@ -6138,7 +6644,9 @@
                     if (!x.expressions.exists({ text: $(node).val(), ignoreCase: $(node).attr('dataIgnoreCase'), regexpName: $(node).attr('dataRegExpName'), regexp: $(node).attr('dataRegExp') }))
                     {
                         var dataRegExpWarning = $(node).attr('dataRegExpWarning');
-        
+    
+                        // x.debug.log(x.page.getElementTop(node));
+    
                         if (dataRegExpWarning)
                         {
                             if (warnTooltip == 1)
@@ -6153,7 +6661,11 @@
             }
     
             return warning;
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:serialize(options)*/
+        /**
         * 序列化数据
         */
         serialize: function(options)
@@ -6166,10 +6678,14 @@
             if (x.isUndefined(serializeHooks[options.storageType])) { x.debug.error('Not supported serialize[{"storageType":"' + options.storageType + '"}].'); }
     
             return serializeHooks[options.storageType](options);
-        }    };
+        }
+        /*#endregion*/
+    };
     
     var serializeHooks = [];
-        /**
+    
+    /*#region 函数:serializeHooks['NORMAL'](options)*/
+    /**
     * 将表单数据序列化为普通格式数据
     * @private
     */
@@ -6212,7 +6728,11 @@
         outString = x.string.rtrim(outString, '&');
     
         return outString;
-    };        /**
+    };
+    /*#endregion*/
+    
+    /*#region 函数:serializeHooks['JSON'](options)*/
+    /**
     * 将表单数据序列化为JSON格式数据
     * @private
     */
@@ -6371,7 +6891,11 @@
         }
     
         return outString;
-    };        serializeHooks['XML'] = function(options)
+    };
+    /*#endregion*/
+    
+    /*#region 函数:serializeHooks['XML'](options)*/
+    serializeHooks['XML'] = function(options)
     {
         var outString = '';
     
@@ -6466,7 +6990,9 @@
         }
     
         return outString;
-    }    /**
+    }
+    /*#endregion*//*#region 函数:val()*/
+    /**
      * 获取对象的值
      * @method val
      * @memberof x.dom
@@ -6491,7 +7017,11 @@
     };
     
     var valHooks = [];
-            dom.fn.html = function(value)
+    
+    /*#endregion*/
+    
+    /*#region 函数:html()*/
+    dom.fn.html = function(value)
     {
         if (x.isUndefined(value))
         {
@@ -6508,7 +7038,11 @@
         }
     
         return this;
-    };        /**
+    };
+    /*#endregion*/
+    
+    /*#region 函数:size()*/
+    /**
      * 查看结果集记录数
      * @method size
      * @memberof x.dom
@@ -6516,7 +7050,11 @@
     dom.fn.size = function()
     {
         return this.results.length;
-    };        /**
+    };
+    /*#endregion*/
+    
+    /*#region 函数:css()*/
+    /**
      * 设置样式
      * @method css
      * @memberof x.dom
@@ -6550,7 +7088,9 @@
         }
     
         return this;
-    };    
+    };
+    /*#endregion*/// -*- ecoding=utf-8 -*-
+    
     /**
     * @namespace net
     * @memberof x
@@ -6623,7 +7163,9 @@
                             container: null,
                             // 消息框
                             message: null,
-                                create: function(text)
+    
+                            /*#region 函数:create(text)*/
+                            create: function(text)
                             {
                                 if (document.getElementById(this.name + '-text') == null)
                                 {
@@ -6638,7 +7180,11 @@
                                 {
                                     this.container = document.getElementById(this.name + '-container');
                                 }
-                            },                                /*
+                            },
+                            /*#endregion*/
+    
+                            /*#region 函数:show(text)*/
+                            /*
                             * 显示
                             */
                             show: function()
@@ -6657,7 +7203,11 @@
                                     left: '4px',
                                     bottom: '4px'
                                 });
-                            },                                /*
+                            },
+                            /*#endregion*/
+    
+                            /*#region 函数:hide()*/
+                            /*
                             * 隐藏
                             */
                             hide: function()
@@ -6673,7 +7223,9 @@
                                     //    $(this.container).css({ display: 'none' });
                                     // });
                                 }
-                            }                        };
+                            }
+                            /*#endregion*/
+                        };
                     }
                     else
                     {
@@ -6706,7 +7258,9 @@
                             height: options.height ? options.height : 50,
     
                             width: options.width ? options.width : 200,
-                                setPosition: function()
+    
+                            /*#region 函数:setPosition()*/
+                            setPosition: function()
                             {
                                 // 弹出窗口的位置
                                 var range = x.page.getRange();
@@ -6715,7 +7269,11 @@
                                 var pointY = (range.height - this.height) / 3;
     
                                 x.util.setLocation(this.container, pointX, pointY);
-                            },                                createMaskWrapper: function()
+                            },
+                            /*#endregion*/
+    
+                            /*#region 函数:createMaskWrapper()*/
+                            createMaskWrapper: function()
                             {
                                 var wrapper = document.getElementById(this.name + '$maskWrapper');
     
@@ -6741,7 +7299,11 @@
                                         // $(document.getElementById(mask.popupWindowName)).css({ display: '' });
                                     });
                                 }
-                            },                                create: function(text)
+                            },
+                            /*#endregion*/
+    
+                            /*#region 函数:create(text)*/
+                            create: function(text)
                             {
                                 if (document.getElementById(this.name + '$text') == null)
                                 {
@@ -6759,7 +7321,11 @@
                                     this.container = document.getElementById(this.name + '$container');
                                     this.maskWrapper = document.getElementById(this.name + '$maskWrapper');
                                 }
-                            },                                /*
+                            },
+                            /*#endregion*/
+    
+                            /*#region 函数:show(text)*/
+                            /*
                             * 显示
                             */
                             show: function(text)
@@ -6771,7 +7337,9 @@
                                 var timer = x.newTimer(this.lazy, function(timer)
                                 {
                                     if (that.lock > 0)
-                                    {    
+                                    {
+                                        // x.debug.log('x.net.waitingWindow.lock:【' + that.lock + '】');
+    
                                         if (that.maskWrapper === null)
                                         {
                                             that.maskWrapper = x.mask.newMaskWrapper(that.name + '$maskWrapper');
@@ -6802,13 +7370,19 @@
                                 });
     
                                 timer.start();
-                            },                                /*
+                            },
+                            /*#endregion*/
+    
+                            /*#region 函数:hide()*/
+                            /*
                             * 隐藏
                             */
                             hide: function()
                             {
                                 this.lock--;
-        
+    
+                                x.debug.log('x.net.waitingWindow.lock:【' + this.lock + '】');
+    
                                 if (this.lock === 0)
                                 {
                                     if (this.container != null)
@@ -6827,7 +7401,9 @@
                                         });
                                     }
                                 }
-                            }                        };
+                            }
+                            /*#endregion*/
+                        };
                     }
                 }
                 else
@@ -6836,7 +7412,9 @@
                 }
     
                 return window[name];
-            },    
+            },
+            /*#endregion*/
+    
             // 捕获异常
             catchException: function(response, outputType)
             {
@@ -6861,7 +7439,9 @@
                     x.debug.error(ex);
                 }
             }
-        },    
+        },
+        /*#endregion*/
+    
         /**
         * 发起网络请求
         * @method xhr
@@ -7026,7 +7606,9 @@
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
-                {    
+                {
+                    x.debug.log(XMLHttpRequest.responseText);
+    
                     if (x.isFunction(options.error))
                     {
                         options.error(XMLHttpRequest, textStatus, errorThrown);
@@ -7052,7 +7634,9 @@
                     }
                 }
             });
-        },    
+        },
+        /*#endregion*/
+    
         // 已加载的文件标识
         requireLoaded: {},
     
@@ -7070,19 +7654,25 @@
             }, options || {});
     
             if (options.id != '' && x.net.requireLoaded[options.id])
-            {    
+            {
+                x.debug.log('require file {"id":"{0}", path:"{1}"} exist. [ajax]'.format(options.id, options.path));
+    
                 x.call(options.callback);
     
                 return true;
             }
-        
+    
+            x.debug.log('require file {"id":"{0}", path:"{1}"} loading. [ajax]'.format(options.id, options.path));
+    
             x.net.ajax(
             {
                 type: options.type,
                 url: options.path,
                 async: options.async,
                 success: function(responseText)
-                {    
+                {
+                    x.debug.log('require file {"id":"{0}", path:"{1}"} finished. [ajax]'.format(options.id, options.path));
+    
                     var head = document.getElementsByTagName("HEAD").item(0);
     
                     if (options.fileType == 'template')
@@ -7134,7 +7724,9 @@
             var request = x.net.newHttpRequest(options);
     
             request.send();
-        },    
+        },
+        /*#endregion*/
+    
         newHttpRequest: function(options)
         {
             var request = {
@@ -7167,7 +7759,9 @@
                     {
                         var xhr = me.xhr;
     
-                        // 监听状态    
+                        // 监听状态
+                        // x.debug.log('{0} readyState:{1} status:{2} done:{3}'.format(x.debug.timestamp(), xhr.readyState, xhr.status, me.done));
+    
                         // 保持等待，直到数据完全加载，并保证请求未超时  
                         if (xhr.readyState == 4 && !me.done)
                         {
@@ -7229,7 +7823,9 @@
     
             return request;
         },
-            /**
+    
+        /*#region 函数:newXmlHttpRequest()*/
+        /**
         * 创建 XMLHttpRequest 对象
         * @private
         */
@@ -7257,14 +7853,18 @@
             }
     
             return xhr;
-        },    
+        },
+        /*#endregion*/
+    
         /**
         * 请求信息
         * @namespace request
         * @memberof x.net
         */
         request: {
-                /**
+    
+            /*#region 函数:find(key)*/
+            /**
             * 获取请求地址中某个参数的值
             * @method find
             * @memberof x.net.request
@@ -7286,7 +7886,11 @@
                 }
     
                 return resultValue;
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:findAll()*/
+            /**
             * 查找请求的全部信息, 返回的值是个JSON格式.
             * 获取请求地址中所有参数的值
             * @method findAll
@@ -7318,21 +7922,33 @@
                 outString += '}';
     
                 return x.evalJSON(outString);
-            },                /**
+            },
+            /*#endregion*/
+    
+            /*#region 函数:getRawUrl()*/
+            /**
             * 获取附加了查询字符串的 URL 路径
             */
             getRawUrl: function()
             {
                 return location.href.replace(location.origin, '');
-            },                /*
+            },
+            /*#endregion*/
+    
+            /*#region 函数:hash(key)*/
+            /*
             * 判断锚点
             */
             hash: function(key)
             {
                 return location.hash === ('#' + key) ? true : false;
-            }        }
+            }
+            /*#endregion*/
+        }
     };
-        /**
+    
+    /*#region 私有函数:request_callback(response)*/
+    /**
     * 网络请求的默认回调函数
     * @private
     */
@@ -7356,14 +7972,19 @@
                 x.msg(result.value);
                 break;
         }
-    };    
+    };
+    /*#endregion*/
+
+    
     /**
     * @namespace page
     * @memberof x
     * @description 页面管理
     */
     x.page = {
-            /**
+    
+        /*#region 函数:back()*/
+        /**
         * 返回上一个页面. window.history.back() 函数的别名
         * @method back
         * @memberof x.page
@@ -7371,7 +7992,11 @@
         back: function()
         {
             window.history.back(arguments);
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:close()*/
+        /**
         * 关闭窗口<br />
         * 注: 由于浏览器安全限制, 此方法只支持关闭以 _blank 方式打开的窗口.
         * @method close
@@ -7389,7 +8014,11 @@
             {
                 window.close();
             }
-        },            /**
+        },
+        /*#endregion*/
+    
+        /*#region 函数:refreshParentWindow()*/
+        /**
         * 刷新父级窗口
         * @method refreshParentWindow
         * @memberof x.page
@@ -7407,8 +8036,12 @@
                 window.opener.window$refresh$callback();
             }
             else
-            {            }
-        },    
+            {
+                x.debug.log('父级窗口未定义 window$refresh$callback() 函数。');
+            }
+        },
+        /*#endregion*/
+    
         /**
         * 获取页面范围信息
         * @method getRange
@@ -7754,7 +8387,9 @@
             hotkeys: [67],
     
             message: '当前页面【禁止拷贝】信息。',
-        
+    
+            /*#region 函数:listen()*/
+    
             listen: function()
             {
                 if ($(document.getElementById('forbidCopy$activate')).val() === '1')
@@ -7762,7 +8397,11 @@
                     // 禁止拷贝
                     x.page.forbidCopy.activate();
                 }
-            },                activate: function(e)
+            },
+            /*#endregion*/
+    
+            /*#region 函数:activate(e)*/
+            activate: function(e)
             {
                 var event = window.event ? window.event : e;
     
@@ -7789,7 +8428,11 @@
     
                 // 键盘
                 document.onkeydown = x.page.forbidCopy.keyboard;
-            },                mouse: function(e)
+            },
+            /*#endregion*/
+    
+            /*#region 函数:mouse(e)*/
+            mouse: function(e)
             {
                 var event = window.event ? window.event : e;
     
@@ -7808,7 +8451,11 @@
                         window.document.oncontextmenu = function() { return false; }
                     }
                 }
-            },                keyboard: function(e)
+            },
+            /*#endregion*/
+    
+            /*#region 函数:keyboard(e)*/
+            keyboard: function(e)
             {
                 var event = window.event ? window.event : e;
     
@@ -7829,10 +8476,14 @@
                 if (event.ctrlKey || result)
                 {
                     alert(x.page.forbidCopy.message);
-        
+    
+                    x.debug.log(x.page.forbidCopy.message);
+    
                     return false;
                 }
-            }        },
+            }
+            /*#endregion*/
+        },
     
         /*
         * 创建分页对象
