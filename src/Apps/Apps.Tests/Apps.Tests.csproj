@@ -91,6 +91,7 @@
     <Compile Include="IBLL\IApplicationServiceTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IBLL\IApplicationOptionServiceTests.cs" />
     <Compile Include="SecurityTokenManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

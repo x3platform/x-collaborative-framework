@@ -1,24 +1,21 @@
 namespace X3Platform.Tests.Util
 {
-    using System.Xml;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    using X3Platform.Ajax;
-    using X3Platform.Util;
+    using System;
     using System.Collections;
     using System.Web.Script.Serialization;
     using System.Collections.Generic;
     using System.Dynamic;
-    using System;
     using System.Collections.ObjectModel;
-    using X3Platform.Ajax.Net;
-    using X3Platform.Ajax.Json;
     using System.Diagnostics;
+    using System.Xml;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using X3Platform.Util;
 
     /// <summary></summary>
     [TestClass]
-    public class StringHelperTestSuite
+    public class StringHelperTests
     {
         [TestMethod]
         public void TestTo16DigitGuid()
@@ -30,7 +27,7 @@ namespace X3Platform.Tests.Util
                 result = StringHelper.To16DigitGuid();
 
                 Trace.WriteLine(result + "(" + result.Length + ")");
-                // Assert.IsTrue(result.Length == 16);
+                Assert.IsTrue(result.Length >= 16);
             }
         }
 
@@ -44,7 +41,7 @@ namespace X3Platform.Tests.Util
                 result = StringHelper.ToInt64Guid();
 
                 Trace.WriteLine(result + "(" + result.Length + ")");
-                // Assert.IsTrue(result.Length == 16);
+                Assert.IsTrue(result.Length == 19);
             }
         }
 

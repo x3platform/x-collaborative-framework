@@ -190,7 +190,9 @@
     <Compile Include="Configuration\XmlConfiguratonView.cs" />
     <Compile Include="Configuration\XmlConfiguratonOperator.cs" />
     <Compile Include="Configuration\YamlConfiguratonOperator.cs" />
-    <Compile Include="Data\DatabaseSettings.cs" />
+    <Compile Include="Data\ConnectionPlugins\IConnectionPlugin.cs" />
+    <Compile Include="Data\ConnectionPlugins\InnerConnectionPlugin.cs" />
+    <Compile Include="Data\ConnectionPlugins\GenericConnectionPlugin.cs" />
     <Compile Include="Data\DataQueryExpression.cs" />
     <Compile Include="Data\DataQueryExpressionParser.cs" />
     <Compile Include="Data\DataQueryParameter.cs" />
@@ -1222,7 +1224,9 @@
     <Content Include="IBatis\DataMapper\ReadMe.txt" />
     <EmbeddedResource Include="Ajax\defaults\config.yaml" />
     <None Include="DynamicProxy\README.md" />
-    <EmbeddedResource Include="IBatis\defaults\X3Platform.IBatis.Providers.config" />
+    <EmbeddedResource Include="IBatis\defaults\X3Platform.IBatis.Providers.config">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="IBatis\README.md" />
     <None Include="Json\README.md" />
     <Content Include="Logging\db\database.setup.sql" />

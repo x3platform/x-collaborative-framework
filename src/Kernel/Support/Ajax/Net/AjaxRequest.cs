@@ -248,6 +248,18 @@
         }
         #endregion
 
+        #region 静态函数:Request(AjaxRequestData requestData, string httpMethod)
+        /// <summary>发送同步请求</summary>
+        public static string Request(AjaxRequestData requestData, string httpMethod)
+        {
+            AjaxRequest request = new AjaxRequest(requestData);
+
+            AjaxResponseData response = request.Request(requestData.ActionUri, httpMethod);
+
+            return response.ResponseText;
+        }
+        #endregion
+
         #region 静态函数:RequestAsync(AjaxRequestData requestData, InvokeAsyncCallbackDelegate callback)
         /// <summary>发送异步请求</summary>
         /// <param name="requestData"></param>

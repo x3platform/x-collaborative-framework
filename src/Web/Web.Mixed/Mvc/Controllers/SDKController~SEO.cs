@@ -58,7 +58,7 @@ namespace X3Platform.Web.Mvc.Controllers
         }
         #endregion
 
-        #region 函数:whois()
+        #region 函数:Whois()
         /// <summary>验证码</summary>
         /// <returns></returns>
         public ActionResult Whois()

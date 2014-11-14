@@ -105,6 +105,14 @@
 
                         HttpContext.Current.Response.Redirect(CombineUrlAndAccessToken(redirectUri, token));
                     }
+                    else if (responseType == "json")
+                    {
+                        outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectAccessTokenInfo>(ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id)) + ",");
+
+                        outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+
+                        return outString.ToString();
+                    }
                     else
                     {
                         HttpContext.Current.Response.Redirect(CombineUrlAndAuthorizationCode(redirectUri, code));
@@ -112,7 +120,7 @@
                 }
             }
 
-            outString.Append("{\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("{\"message\":{\"returnCode\":0,\"value\":\"执行成功。\"}}");
 
             return outString.ToString();
         }
@@ -184,7 +192,7 @@
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"response\":{");
+            outString.Append("{\"data\":{");
             outString.Append("accessToken:\"" + accessTokenInfo.Id + "\",");
             outString.Append("expiresIn:\"" + accessTokenInfo.ExpiresIn + "\",");
             outString.Append("refreshToken:\"" + accessTokenInfo.RefreshToken + "\" ");
@@ -238,7 +246,7 @@
                 return "{\"message\":{\"returnCode\":1,\"value\":\"people not find, args[id:" + id + "]\"}}";
             }
 
-            return "{\"response\":" + ToPeopleJson(member) + ",\"message\":{\"returnCode\":0,\"value\":\"查询成功\"}}";
+            return "{\"data\":" + ToPeopleJson(member) + ",\"message\":{\"returnCode\":0,\"value\":\"查询成功\"}}";
         }
         #endregion
 
@@ -344,16 +352,14 @@
             outString.Append("<link rel=\"stylesheet\" media=\"all\" href=\"/views/templates/internal/oauth/login.css\" type=\"text/css\" />");
             outString.Append("<link rel=\"shortcut icon\" href=\"/favorite.ico\" />");
             outString.Append("<script id=\"crypto-sha1-script\" type=\"text/javascript\" src=\"/resources/javascript/crypto/rollups/sha1.js\" ></script>");
-                outString.Append("</head>");
-            
+            outString.Append("</head>");
+
             outString.Append("<body>");
 
             outString.Append("<form id=\"auth-form\" name=\"authForm\" method=\"POST\" action=\"/api/connect.auth.authorize.aspx?clientId=" + clientId
                 + (string.IsNullOrEmpty(redirectUri) ? "&redirectUri=" + connect.RedirectUri : "&redirectUri=" + redirectUri)
                 + (string.IsNullOrEmpty(responseType) ? "&responseType=code" : "&responseType=" + responseType)
                 + (string.IsNullOrEmpty(scope) ? string.Empty : "&scope=" + scope) + "\" >");
-
-            outString.Append("<input id=\"xml\" name=\"xml\" type=\"hidden\" value=\"\" />");
 
             outString.Append("<div class=\"window-login-main-wrapper\" style=\"width:100%;\" >");
             outString.Append("<div class=\"window-login-form-wrapper\" style=\"margin:4px auto 0 auto; float:none;\" >");
@@ -364,10 +370,10 @@
             outString.Append("</div>");
             outString.Append("<div class=\"window-login-form-input\" >");
             outString.Append("<span>密码</span>");
-            outString.Append("<input id=\"originalPassword\" name=\"originalPassword\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
+            outString.Append("<input id=\"originalPassword\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
             outString.Append("<input id=\"password\" name=\"password\" type=\"hidden\" value=\"\" />");
             outString.Append("</div>");
-            
+
             // outString.Append("<div class=\"window-login-form-remember-me\" >");
             // outString.Append("<a href=\"/public/forgot-password.aspx\" target=\"_blank\" >忘记登录密码？</a>");
             // outString.Append("<input id=\"remember\" name=\"remember\" type=\"checkbox\" > <span>记住登录状态</span>");

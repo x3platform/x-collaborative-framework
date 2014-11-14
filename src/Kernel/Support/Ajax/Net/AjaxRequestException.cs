@@ -1,28 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxRequestException.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 
 namespace X3Platform.Ajax.Net
 {
-    /// <summary>Ajax�����쳣</summary>
+    /// <summary>Ajax请求异常</summary>
     public class AjaxRequestException : Exception
     {
         #region 属性:RequestData
         private AjaxRequestData requestData;
 
-        /// <summary>����������</summary>
+        /// <summary>请求的数据</summary>
         public AjaxRequestData RequestData
         {
             get { return requestData; }
@@ -33,7 +19,7 @@ namespace X3Platform.Ajax.Net
         #region 属性:ResponseData
         private AjaxResponseData responseData;
 
-        /// <summary>��Ӧ������</summary>
+        /// <summary>响应的数据</summary>
         public AjaxResponseData ResponseData
         {
             get { return responseData; }

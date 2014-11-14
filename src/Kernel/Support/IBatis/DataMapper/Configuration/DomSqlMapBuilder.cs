@@ -64,6 +64,7 @@ using X3Platform.IBatis.DataMapper.TypeHandlers;
 using X3Platform.Configuration;
 using X3Platform.Logging;
 using X3Platform.Data;
+using X3Platform.Data.ConnectionPlugins;
 
 #endregion
 
@@ -1686,16 +1687,23 @@ namespace X3Platform.IBatis.DataMapper.Configuration
 
             KernelConfiguration kernelConfiguration = KernelConfigurationView.Instance.Configuration;
 
-            DatabaseSettings databaseSettings = new DatabaseSettings(kernelConfiguration);
+            Type objectType = Type.GetType(kernelConfiguration.Keys.ContainsKey("DatabaseSettings.Plugin")
+                ? kernelConfiguration.Keys["DatabaseSettings.Plugin"].Value
+                : "X3Platform.Data.ConnectionPlugins.InnerConnectionPlugin,X3Platform.Support");
 
-            _configScope.Properties.Add("ApplicationPathRoot", KernelConfigurationView.Instance.ApplicationPathRoot);
+            if (objectType != null)
+            {
+                IConnectionPlugin connection = (IConnectionPlugin)Activator.CreateInstance(objectType, kernelConfiguration);
 
-            _configScope.Properties.Add("DatabaseSettings.DataSource", databaseSettings.DataSource);
-            _configScope.Properties.Add("DatabaseSettings.Database", databaseSettings.Database);
-            _configScope.Properties.Add("DatabaseSettings.LoginName", databaseSettings.LoginName);
-            _configScope.Properties.Add("DatabaseSettings.Password", databaseSettings.Password);
-            _configScope.Properties.Add("DatabaseSettings.Provider", databaseSettings.Provider);
-            _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", databaseSettings.IBatisSqlMapFilePathRoot);
+                _configScope.Properties.Add("ApplicationPathRoot", KernelConfigurationView.Instance.ApplicationPathRoot);
+
+                _configScope.Properties.Add("DatabaseSettings.DataSource", connection.DataSource);
+                _configScope.Properties.Add("DatabaseSettings.Database", connection.Database);
+                _configScope.Properties.Add("DatabaseSettings.LoginName", connection.LoginName);
+                _configScope.Properties.Add("DatabaseSettings.Password", connection.Password);
+                _configScope.Properties.Add("DatabaseSettings.Provider", connection.Provider);
+                _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", connection.IBatisSqlMapFilePathRoot);
+            }
 
             if (nodeProperties != null)
             {

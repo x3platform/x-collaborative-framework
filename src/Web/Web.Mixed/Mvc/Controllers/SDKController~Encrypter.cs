@@ -7,9 +7,10 @@
     using X3Platform.Security.Configuration;
     using System.Security.Cryptography;
     using X3Platform.Util;
+    using X3Platform.Configuration;
 
     /// <summary>在线开发辅助工具包</summary>
-    public sealed partial class SDKController 
+    public sealed partial class SDKController
     {
         #region 函数:MD5()
         /// <summary>MD5 加密</summary>
@@ -95,12 +96,12 @@
         {
             // 方法 加密|解密
             var methodName = Request["methodName"];
-            
+
             // 原文
             var originalText = ViewBag.OriginalText = Request["originalText"];
             // 密文
             var ciphertext = ViewBag.Ciphertext = Request["ciphertext"];
-            
+
             // 密钥
             var cryptoKey = string.IsNullOrEmpty(Request["cryptoKey"]) ? SecurityConfigurationView.Instance.AESCryptoKey : Request["cryptoKey"];
             // 密钥偏移量
@@ -128,6 +129,55 @@
             }
 
             return View("/views/main/sdk/aes.cshtml");
+        }
+        #endregion
+
+        #region 函数:Password()
+        /// <summary>AES 加密</summary>
+        /// <returns></returns>
+        public ActionResult Password()
+        {
+            return View("/views/main/sdk/password.cshtml");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Password(object args)
+        {
+            // 方法 加密|解密
+            var methodName = Request["methodName"];
+
+            // 原文
+            var originalText = ViewBag.OriginalText = Request["originalText"];
+            // 密文
+            var ciphertext = ViewBag.Ciphertext = Request["ciphertext"];
+
+            // 密钥
+            var cryptoKey = KernelConfigurationView.Instance.ApplicationClientId;
+            // 密钥偏移量
+            var cryptoIV = KernelConfigurationView.Instance.ApplicationClientSecret;
+            // 加密结果编码方式
+            var cryptoMode = string.IsNullOrEmpty(Request["cryptoMode"]) ? SecurityConfigurationView.Instance.AESCryptoMode : Request["cryptoMode"];
+            // 加密结果编码方式
+            var cryptoPadding = string.IsNullOrEmpty(Request["cryptoPadding"]) ? SecurityConfigurationView.Instance.AESCryptoPadding : Request["cryptoPadding"];
+            // 加密结果编码方式
+            var cryptoCiphertextFormat = string.IsNullOrEmpty(Request["cryptoCiphertextFormat"]) ? SecurityConfigurationView.Instance.AESCryptoCiphertextFormat : Request["cryptoCiphertextFormat"];
+
+            if (methodName == "encrypt" && !string.IsNullOrEmpty(originalText))
+            {
+                ViewBag.Ciphertext = Encrypter.EncryptAES(originalText, cryptoKey, cryptoIV,
+                    (CipherMode)Enum.Parse(typeof(CipherMode), cryptoMode),
+                    (PaddingMode)Enum.Parse(typeof(PaddingMode), cryptoPadding),
+                    (CiphertextFormat)Enum.Parse(typeof(CiphertextFormat), cryptoCiphertextFormat));
+            }
+            else if (methodName == "decrypt" && !string.IsNullOrEmpty(ciphertext))
+            {
+                ViewBag.OriginalText = Encrypter.DecryptAES(ciphertext, cryptoKey, cryptoIV,
+                    (CipherMode)Enum.Parse(typeof(CipherMode), cryptoMode),
+                    (PaddingMode)Enum.Parse(typeof(PaddingMode), cryptoPadding),
+                    (CiphertextFormat)Enum.Parse(typeof(CiphertextFormat), cryptoCiphertextFormat));
+            }
+
+            return View("/views/main/sdk/password.cshtml");
         }
         #endregion
     }

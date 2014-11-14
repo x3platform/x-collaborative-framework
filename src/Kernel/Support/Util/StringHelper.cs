@@ -90,6 +90,7 @@ namespace X3Platform.Util
         }
         #endregion
 
+        #region 函数:Join(params string[] values)
         /// <summary>串联字符串数组的所有非空内容，其中在每个元素之间使用逗号分隔符。</summary>
         /// <param name="values"></param>
         /// <returns></returns>
@@ -116,6 +117,7 @@ namespace X3Platform.Util
 
             return string.Join(separator, list.ToArray());
         }
+        #endregion
 
         //-------------------------------------------------------
         // 字符串格式化处理
@@ -329,17 +331,17 @@ namespace X3Platform.Util
             //
             // 说明符      返回值的格式
             //
-            //N             32 位：
-            //              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            // N             32 位：
+            //               xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
             //
-            //D             由连字符分隔的 32 位数字：
-            //              xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+            // D             由连字符分隔的 32 位数字：
+            //               xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
             //
-            //B             括在大括号中、由连字符分隔的 32 位数字：
-            //              {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
+            // B             括在大括号中、由连字符分隔的 32 位数字：
+            //               {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}
             //
-            //P             括在圆括号中、由连字符分隔的 32 位数字：
-            //              (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+            // P             括在圆括号中、由连字符分隔的 32 位数字：
+            //               (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
             //
 
             return g.ToString("D");
@@ -354,7 +356,7 @@ namespace X3Platform.Util
             return To16DigitGuid(Guid.NewGuid());
         }
 
-        /// <summary>以一个Guid为因子生成一个16位格式的字符串</summary>
+        /// <summary>以一个Guid为因子生成一个16进制格式的字符串</summary>
         /// <param name="g"></param>
         /// <returns></returns>
         public static string To16DigitGuid(Guid g)
@@ -372,6 +374,7 @@ namespace X3Platform.Util
         }
         #endregion
 
+        #region 函数:ToInt64Guid()
         public static string ToInt64Guid()
         {
             return ToInt64Guid(Guid.NewGuid());
@@ -383,6 +386,7 @@ namespace X3Platform.Util
 
             return BitConverter.ToInt64(buffer, 0).ToString();
         }
+        #endregion
 
         #region 函数:ToMD5(string text)
         /// <summary>取得MD5 Hash值</summary>

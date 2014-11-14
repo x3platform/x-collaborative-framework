@@ -28,7 +28,6 @@
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             ApplicationErrorInfo param = new ApplicationErrorInfo();
@@ -45,7 +44,6 @@
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string ids = XmlHelper.Fetch("ids", doc);
@@ -64,7 +62,6 @@
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -85,7 +82,6 @@
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -112,8 +108,7 @@
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -139,7 +134,6 @@
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -154,7 +148,6 @@
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();

@@ -19,14 +19,14 @@ using X3Platform.Messages;
 
 namespace X3Platform.Ajax.Net
 {
-    /// <summary>Ajax��Ӧ������</summary>
+    /// <summary>Ajax响应的数据</summary>
     public class AjaxResponseData
     {
         #region 属性:ResponseText
         private string m_ResponseText;
 
         /// <summary>
-        /// ��Ӧ���ı���Ϣ
+        /// 响应的文本信息
         /// </summary>
         public string ResponseText
         {
@@ -39,7 +39,7 @@ namespace X3Platform.Ajax.Net
         private MessageObject m_Result;
 
         /// <summary>
-        /// ������Ϣ
+        /// 结果信息
         /// </summary>
         public MessageObject Result
         {
@@ -52,7 +52,7 @@ namespace X3Platform.Ajax.Net
         private WebException m_ResponseException;
 
         /// <summary>
-        /// ��Ӧ���쳣��Ϣ
+        /// 响应的异常信息
         /// </summary>
         public WebException ResponseException
         {
