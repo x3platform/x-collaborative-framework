@@ -125,7 +125,12 @@ namespace X3Platform.Web.APIs
                 }
             }
 
-            return responseText;
+            // JSONP
+            string callback = context.Request["callback"];
+
+            return string.IsNullOrEmpty(callback)
+                ? responseText
+                : callback + "(" + responseText + ")";
         }
 
         /// <summary>解析分页参数</summary>

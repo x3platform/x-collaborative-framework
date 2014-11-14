@@ -38,12 +38,14 @@
             // reqeustData.Args.Add("responseType", "token");
             // reqeustData.Args.Add("redirectUri", "http://project.x3platform.com/sso.aspx");
 
-            var response = AjaxRequest.Request(reqeustData, "POST");
+            var responseText = AjaxRequest.Request(reqeustData, "POST");
 
-            var reader = new JsonReader(response);
-            
-            var o =reader.Value;
+            var response = JsonMapper.ToObject(responseText);
 
+            var data = response["data"];
+            var message = response["message"];
+
+            Assert.AreEqual("0", message["returnCode"].ToString());
             Assert.IsNotNull(response);
         }
     }
