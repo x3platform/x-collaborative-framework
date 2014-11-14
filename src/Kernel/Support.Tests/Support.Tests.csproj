@@ -103,6 +103,7 @@
     <Compile Include="Util\StringHelperTests.cs" />
     <Compile Include="Util\XmlHelperTests.cs" />
     <Compile Include="Util\FileHelperTests.cs" />
+    <Compile Include="Util\DateHelperTests.cs" />
     <Compile Include="Web\UrlRewriter\Configuration\UrlRewriterConfigurationViewTestSuite.cs" />
     <Compile Include="Web\UrlRewriter\RewriterRuleParserTestSuite.cs" />
     <Compile Include="Web\VirtualPathHelperTestSuite.cs" />

@@ -11,6 +11,7 @@ namespace X3Platform.Configuration
     using System.Reflection;
 
     using X3Platform.Data;
+    using X3Platform.Data.ConnectionPlugins;
     using X3Platform.Security;
     using X3Platform.Util;
     using X3Platform.Web;
@@ -93,25 +94,32 @@ namespace X3Platform.Configuration
                 }
             }
 
-            DatabaseSettings settings = new DatabaseSettings(this.Configuration);
+            Type objectType = Type.GetType(this.Configuration.Keys.ContainsKey("DatabaseSettings.Plugin")
+                ? this.Configuration.Keys["DatabaseSettings.Plugin"].Value
+                : "X3Platform.Data.ConnectionPlugins.InnerConnectionPlugin,X3Platform.Support");
 
-            if (settings.Valid)
+            if (objectType != null)
             {
-                try
+                IConnectionPlugin connection = (IConnectionPlugin)Activator.CreateInstance(objectType, this.Configuration);
+
+                if (connection.Valid)
                 {
-                    // 加载数据库自定义选项信息
-                    GenericSqlCommand command = new GenericSqlCommand(settings.ConnectionString, settings.Provider);
-
-                    DataTable table = command.ExecuteQueryForDataTable(this.OptionCommandText);
-
-                    foreach (DataRow row in table.Rows)
+                    try
                     {
-                        this.AddKeyValue(row[0].ToString(), row[1].ToString(), true);
+                        // 加载数据库自定义选项信息
+                        GenericSqlCommand command = new GenericSqlCommand(connection.ConnectionString, connection.Provider);
+
+                        DataTable table = command.ExecuteQueryForDataTable(this.OptionCommandText);
+
+                        foreach (DataRow row in table.Rows)
+                        {
+                            this.AddKeyValue(row[0].ToString(), row[1].ToString(), true);
+                        }
                     }
-                }
-                catch
-                {
-                    throw;
+                    catch
+                    {
+                        throw;
+                    }
                 }
             }
         }
@@ -584,7 +592,7 @@ namespace X3Platform.Configuration
             }
         }
         #endregion
-    
+
         #region 属性:AuthenticationManagementType
         private string m_AuthenticationManagementType = string.Empty;
 
@@ -803,5 +811,5 @@ namespace X3Platform.Configuration
             }
         }
         #endregion
-}
+    }
 }

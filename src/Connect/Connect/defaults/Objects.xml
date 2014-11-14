@@ -3,7 +3,7 @@
     <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
     <!-- 应用连接 -->
-    <object name="X3Platform.Connect.IBLL.IConnectService"
+    <object id="X3Platform.Connect.IBLL.IConnectService"
             type="X3Platform.Connect.BLL.ConnectService,X3Platform.Connect"
             lazy-init="true" />
 
@@ -12,7 +12,7 @@
             lazy-init="true" />
 
     <!-- 应用连接授权码 -->
-    <object name="X3Platform.Connect.IBLL.IConnectAuthorizationCodeService"
+    <object id="X3Platform.Connect.IBLL.IConnectAuthorizationCodeService"
             type="X3Platform.Connect.BLL.ConnectAuthorizationCodeService,X3Platform.Connect"
             lazy-init="true" />
 
@@ -21,20 +21,20 @@
             lazy-init="true" />
 
     <!-- 应用连接访问令牌 -->
-    <object name="X3Platform.Connect.IBLL.IConnectAccessTokenService"
+    <object id="X3Platform.Connect.IBLL.IConnectAccessTokenService"
             type="X3Platform.Connect.BLL.ConnectAccessTokenService,X3Platform.Connect"
             lazy-init="true" />
 
-    <object name="X3Platform.Connect.IDAL.IConnectAccessTokenProvider"
+    <object id="X3Platform.Connect.IDAL.IConnectAccessTokenProvider"
             type="X3Platform.Connect.DAL.IBatis.ConnectAccessTokenProvider,X3Platform.Connect"
             lazy-init="true" />
 
     <!-- 应用连接调用 -->
-    <object name="X3Platform.Connect.IBLL.IConnectCallService"
+    <object id="X3Platform.Connect.IBLL.IConnectCallService"
             type="X3Platform.Connect.BLL.ConnectCallService,X3Platform.Connect"
             lazy-init="true" />
 
-    <object name="X3Platform.Connect.IDAL.IConnectCallProvider"
+    <object id="X3Platform.Connect.IDAL.IConnectCallProvider"
             type="X3Platform.Connect.DAL.IBatis.ConnectCallProvider,X3Platform.Connect"
             lazy-init="true" />
 </objects>

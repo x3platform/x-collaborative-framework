@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\Configuration\APIsConfigurationTests.cs" />
+    <Compile Include="Auth\APIsConfigurationTests.cs" />
     <Compile Include="Component\Combobox\ComboboxBuilderTests.cs" />
     <Compile Include="Component\HtmlHelperTests.cs" />
     <Compile Include="Configuration\WebConfigurationTests.cs" />

@@ -7,27 +7,27 @@ namespace X3Platform.Data.ConnectionPlugins
     public interface IConnectionPlugin
     {
         /// <summary>数据库的默认连接是否有效</summary>
-        public bool Valid { get; }
+        bool Valid { get; }
 
         /// <summary>数据库的默认连接</summary>
-        public string ConnectionString { get; }
+        string ConnectionString { get; }
 
         /// <summary>数据库的服务器地址</summary>
-        public string DataSource { get; }
+        string DataSource { get; }
 
         /// <summary>数据库的默认数据库名称</summary>
-        public string Database { get; }
+        string Database { get; }
 
         /// <summary>数据库的登录帐号</summary>
-        public string LoginName { get; }
+        string LoginName { get; }
 
         /// <summary>数据库的登录密码</summary>
-        public string Password { get; }
+        string Password { get; }
 
         /// <summary>数据库的提供器名称</summary>
-        public string Provider { get; }
+        string Provider { get; }
 
         /// <summary>数据库的 IBatis 配置文件所在根目录位置</summary>
-        public string IBatisSqlMapFilePathRoot { get; }
+        string IBatisSqlMapFilePathRoot { get; }
     }
 }

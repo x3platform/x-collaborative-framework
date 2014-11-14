@@ -177,8 +177,39 @@ namespace X3Platform.IBatis.DataMapper
         /// </summary>
         public void CreateConnection(string connectionString)
         {
+            connectionString = GetNativeConnectionString(_dataSource.DbProvider.Name, connectionString);
+
             _connection = _dataSource.DbProvider.CreateConnection();
+
             _connection.ConnectionString = connectionString;
+        }
+
+        /// <summary>
+        /// 获得特定类型的数据库连接字符串
+        /// </summary>
+        private string GetNativeConnectionString(string name, string connectionString)
+        {
+            name = name.ToUpper();
+
+            // 需要将 connectionString 的关键字小写
+            if (name.IndexOf("MYSQL") == 0)
+            {
+
+            }
+            else if (name.IndexOf("SQLSERVER") == 0)
+            {
+
+            }
+            else if (name.IndexOf("ORACLE") == 0)
+            {
+                connectionString = connectionString.Replace("server=", "data source=")
+                       .Replace("uid=", "user id=")
+                       .Replace("pwd=", "password=")
+                       .Replace("database=;", string.Empty)
+                       .Replace("connection reset=false;", string.Empty);
+            }
+
+            return connectionString;
         }
 
         /// <summary>

@@ -150,10 +150,13 @@
     <Content Include="views\main\sdk\qrcode.cshtml" />
     <Content Include="views\main\sys\sessions.cshtml" />
     <Content Include="views\main\sys\caches.cshtml" />
+    <Content Include="views\main\sdk\xhr.cshtml" />
+    <Content Include="views\main\sdk\jsonp.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="views\main\auth\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

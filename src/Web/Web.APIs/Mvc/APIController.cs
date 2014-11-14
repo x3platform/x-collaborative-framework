@@ -61,16 +61,16 @@
                 }
             }
 
-            try
-            {
-                if (Response.StatusCode == 200)
-                {
-                    Response.ContentType = HttpContentTypeHelper.GetValue(true);
-                }
-            }
-            catch
-            {
-            }
+            //try
+            //{
+            //    if (Response.StatusCode == 200)
+            //    {
+            //        Response.ContentType = HttpContentTypeHelper.GetValue(true);
+            //    }
+            //}
+            //catch
+            //{
+            //}
 
             return Content(responseText);
         }

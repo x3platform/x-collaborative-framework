@@ -1,16 +1,17 @@
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using X3Platform.Ajax.Json;
-using X3Platform.Util;
 
 namespace X3Platform.Tests.Util
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Web.Script.Serialization;
+    using X3Platform.Ajax.Json;
+    using X3Platform.Util;
+
     /// <summary></summary>
     [TestClass]
-    public class JsonHelperTestSuite
+    public class JsonHelperTests
     {
         [TestMethod]
         public void TestToHashtable()

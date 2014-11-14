@@ -1,17 +1,3 @@
-//=============================================================================
-//
-// Copyright (c) 2009 X3Platform
-//
-// Filename     :PagingHelper.cs
-//
-// Summary      :pages helper
-//
-// Author       :X3Platform
-//
-// Date			:2008-04-26
-//
-//=============================================================================
-
 namespace X3Platform.Tests.Util
 {
     using System.Xml;
@@ -22,7 +8,7 @@ namespace X3Platform.Tests.Util
 
     /// <summary>∑÷“≥π‹¿Ì∆˜</summary>
     [TestClass]
-    public class XmlHelperTestSuite
+    public class XmlHelperTests
     {
         [TestMethod]
         public void TestToXml()
