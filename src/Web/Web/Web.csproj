@@ -169,6 +169,7 @@
     <Compile Include="Customize\Widgets\WeatherWidget.cs" />
     <Compile Include="Mvc\Controllers\PlatformController.cs" />
     <Compile Include="Mvc\Controllers\AccountController.cs" />
+    <Compile Include="Mvc\Controllers\SharedController.cs" />
     <Compile Include="Pages\CustomPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
