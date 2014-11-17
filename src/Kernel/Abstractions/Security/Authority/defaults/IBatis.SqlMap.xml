@@ -7,7 +7,7 @@
         <setting useReflectionOptimizer="true"/>
     </settings>
 
-    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config"/>
+    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support"/>
 
     <database>
         <provider name="${DatabaseSettings.Provider}" />
@@ -19,6 +19,6 @@
     </typeHandlers>
 
     <sqlMaps>
-        <sqlMap embedded="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider.xml"/>
+        <sqlMap embedded="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider.xml,X3Platform.Abstractions"/>
     </sqlMaps>
 </sqlMapConfig>
