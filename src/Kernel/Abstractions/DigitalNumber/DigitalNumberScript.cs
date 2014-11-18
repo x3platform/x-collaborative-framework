@@ -149,6 +149,23 @@ namespace X3Platform.DigitalNumber
                     if (subexpression.Length == 1)
                     {
                         return Guid.NewGuid().ToString("D");
+                    } 
+                    else if (subexpression.Length == 3)
+                    {
+                        if (subexpression[2].ToUpper() == "U")
+                        {
+                            // U = Upper
+                            return Guid.NewGuid().ToString(subexpression[1].ToUpper()).ToUpper();
+                        }
+                        else if (subexpression[2].ToUpper() == "L")
+                        {
+                            // L = Lower
+                            return Guid.NewGuid().ToString(subexpression[1].ToUpper()).ToLower();
+                        }
+                        else 
+                        {
+                            return Guid.NewGuid().ToString(subexpression[1].ToUpper());
+                        }
                     }
                     else
                     {

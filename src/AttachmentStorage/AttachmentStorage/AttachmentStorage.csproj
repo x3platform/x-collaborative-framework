@@ -211,6 +211,8 @@
     <Content Include="DAL\MySQL\AttachmentWarnProvider.xml">
       <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
     </Content>
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
     <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>

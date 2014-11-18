@@ -7,6 +7,7 @@
     using System.Net;
     using System.Text;
     using System.Web;
+    using X3Platform.Util;
     #endregion
 
     /// <summary>Ajax请求</summary>
@@ -16,10 +17,10 @@
         /// <param name="response"></param>
         public delegate void InvokeAsyncCallbackDelegate(string response);
 
-        /// <summary></summary>
+        /// <summary>请求的数据信息</summary>
         private AjaxRequestData requestData = null;
 
-        /// <summary></summary>
+        /// <summary>响应的数据信息</summary>
         private AjaxResponseData responseData = null;
 
         private InvokeAsyncCallbackDelegate callback;
@@ -46,10 +47,32 @@
 
         #region 函数:Request(AjaxRequestData requestData, string httpMethod)
         /// <summary>发送请求</summary>
-        /// <param name="uri">请求的数据</param>
+        /// <param name="uri">请求的地址</param>
         /// <param name="httpMethod">请求的方式( GET | POST )</param>
-        /// <returns></returns>
+        /// <returns>响应的数据信息</returns>
         private AjaxResponseData Request(Uri uri, string httpMethod)
+        {
+            StringBuilder httpParams = new StringBuilder();
+
+            foreach (KeyValuePair<string, string> arg in requestData.Args)
+            {
+                httpParams.AppendFormat("{0}={1}&", arg.Key, HttpUtility.UrlEncode(arg.Value));
+            }
+
+            httpParams = StringHelper.TrimEnd(httpParams, "&");
+
+            return Request(uri, httpMethod, "application/x-www-form-urlencoded", httpParams.ToString());
+        }
+        #endregion
+
+        #region 函数:Request(AjaxRequestData requestData, string httpMethod, string contentType, string content)
+        /// <summary>发送请求</summary>
+        /// <param name="uri">请求的地址</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
+        /// <param name="contentType">内容类型</param>
+        /// <param name="content">内容</param>
+        /// <returns>响应的数据信息</returns>
+        private AjaxResponseData Request(Uri uri, string httpMethod, string contentType, string content)
         {
             // -------------------------------------------------------
             // 1.发送请求
@@ -65,18 +88,11 @@
 
             request.Method = httpMethod;
 
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = contentType;
 
             if (request.Method == "POST")
             {
-                StringBuilder httpParams = new StringBuilder();
-
-                foreach (KeyValuePair<string, string> arg in requestData.Args)
-                {
-                    httpParams.AppendFormat("{0}={1}&", arg.Key, HttpUtility.UrlEncode(arg.Value));
-                }
-
-                byte[] buffer = Encoding.UTF8.GetBytes(httpParams.ToString());
+                byte[] buffer = Encoding.UTF8.GetBytes(content);
 
                 request.ContentLength = buffer.Length;
 
@@ -104,10 +120,10 @@
             {
                 using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    // Get the stream associated with the response.
+                    // 获取相关的响应流
                     using (Stream stream = response.GetResponseStream())
                     {
-                        // Pipes the stream to a higher level stream reader with the required encoding format. 
+                        // 设置流格式的编码格式
 
                         Encoding encoding = Encoding.UTF8;
 
@@ -122,15 +138,15 @@
 
                             streamReader.Close();
                         }
+
                         stream.Close();
                     }
+
                     response.Close();
                 }
             }
             catch (Exception ex)
             {
-                // LoggingContext.Instance.Write("Response Data:" + this.responseData.ResponseText);
-
                 throw new AjaxRequestException(ex.Message, requestData, ex);
             }
 
@@ -143,6 +159,10 @@
         // -------------------------------------------------------
 
         #region 函数:RequestAsync(Uri uri, string httpMethod)
+        /// <summary>发送异步请求</summary>
+        /// <param name="uri">请求的地址</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
+        /// <returns>响应的数据信息</returns>
         private void RequestAsync(Uri uri, string httpMethod)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -158,6 +178,53 @@
             request.ContentType = "application/x-www-form-urlencoded";
 
             request.BeginGetRequestStream(new AsyncCallback(RequestReady), request);
+        }
+        #endregion
+
+        #region 函数:RequestAsync(Uri uri, string httpMethod, string contentType, string content)
+        /// <summary>发送异步请求</summary>
+        /// <param name="uri">请求的地址</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
+        /// <param name="contentType">内容类型</param>
+        /// <param name="content">内容</param>
+        /// <returns>响应的数据信息</returns>
+        private void RequestAsync(Uri uri, string httpMethod, string contentType, string content)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+
+            if (!string.IsNullOrEmpty(requestData.LoginName))
+            {
+                // 设置身份验证信息
+                request.Credentials = new NetworkCredential(requestData.LoginName, requestData.Password);
+            }
+
+            request.Method = httpMethod;
+
+            request.ContentType = contentType;
+
+            if (request.Method == "POST")
+            {
+                byte[] buffer = Encoding.UTF8.GetBytes(content);
+
+                request.ContentLength = buffer.Length;
+
+                if (buffer.Length > 0)
+                {
+                    using (Stream stream = request.GetRequestStream())
+                    {
+                        stream.Write(buffer, 0, buffer.Length);
+                    }
+                }
+            }
+            else
+            {
+                // Some limitations
+                request.MaximumAutomaticRedirections = 4;
+                request.MaximumResponseHeadersLength = 4;
+                request.ContentLength = 0;
+            }
+
+            request.BeginGetResponse(new AsyncCallback(ResponseReady), request);
         }
         #endregion
 
@@ -182,15 +249,24 @@
         }
         #endregion
 
-        #region 函数:RequestReady(IAsyncResult asyncResult)
+        #region 函数:ResponseReady(IAsyncResult asyncResult)
         private void ResponseReady(IAsyncResult asyncResult)
         {
             WebRequest request = asyncResult.AsyncState as WebRequest;
 
-            using (WebResponse response = request.EndGetResponse(asyncResult))
+            using (HttpWebResponse response =  (HttpWebResponse)request.EndGetResponse(asyncResult))
             {
                 using (Stream stream = response.GetResponseStream())
                 {
+                    // 设置流格式的编码格式
+
+                    Encoding encoding = Encoding.UTF8;
+
+                    if (!string.IsNullOrEmpty(response.CharacterSet))
+                    {
+                        encoding = Encoding.GetEncoding(response.CharacterSet);
+                    }
+
                     using (StreamReader streamReader = new StreamReader(stream))
                     {
                         this.responseData = ParseResponseData(streamReader.ReadToEnd());
@@ -238,6 +314,7 @@
 
         #region 静态函数:Request(AjaxRequestData requestData)
         /// <summary>发送同步请求</summary>
+        /// <param name="requestData">请求的数据信息</param>
         public static string Request(AjaxRequestData requestData)
         {
             AjaxRequest request = new AjaxRequest(requestData);
@@ -250,6 +327,8 @@
 
         #region 静态函数:Request(AjaxRequestData requestData, string httpMethod)
         /// <summary>发送同步请求</summary>
+        /// <param name="requestData">请求的数据信息</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
         public static string Request(AjaxRequestData requestData, string httpMethod)
         {
             AjaxRequest request = new AjaxRequest(requestData);
@@ -260,15 +339,59 @@
         }
         #endregion
 
+        #region 静态函数:Request(AjaxRequestData requestData, string httpMethod, string contentType, string content)
+        /// <summary>发送同步请求</summary>
+        /// <param name="requestData">请求的数据</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
+        /// <param name="contentType">内容类型</param>
+        /// <param name="content">内容</param>
+        public static string Request(AjaxRequestData requestData, string httpMethod, string contentType, string content)
+        {
+            AjaxRequest request = new AjaxRequest(requestData);
+
+            AjaxResponseData response = request.Request(requestData.ActionUri, httpMethod, contentType, content);
+
+            return response.ResponseText;
+        }
+        #endregion
+
         #region 静态函数:RequestAsync(AjaxRequestData requestData, InvokeAsyncCallbackDelegate callback)
         /// <summary>发送异步请求</summary>
-        /// <param name="requestData"></param>
-        /// <param name="callback"></param>
+        /// <param name="requestData">请求的数据</param>
+        /// <param name="callback">回调函数</param>
         public static void RequestAsync(AjaxRequestData requestData, InvokeAsyncCallbackDelegate callback)
         {
             AjaxRequest request = new AjaxRequest(requestData, callback);
 
             request.RequestAsync(requestData.ActionUri, "POST");
+        }
+        #endregion
+
+        #region 静态函数:RequestAsync(AjaxRequestData requestData, string httpMethod, InvokeAsyncCallbackDelegate callback)
+        /// <summary>发送异步请求</summary>
+        /// <param name="requestData">请求的数据</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
+        /// <param name="callback">回调函数</param>
+        public static void RequestAsync(AjaxRequestData requestData, string httpMethod, InvokeAsyncCallbackDelegate callback)
+        {
+            AjaxRequest request = new AjaxRequest(requestData, callback);
+
+            request.RequestAsync(requestData.ActionUri, httpMethod);
+        }
+        #endregion
+
+        #region 静态函数:RequestAsync(AjaxRequestData requestData, string httpMethod , string contentType, string content, InvokeAsyncCallbackDelegate callback)
+        /// <summary>发送异步请求</summary>
+        /// <param name="requestData">请求的数据</param>
+        /// <param name="httpMethod">请求的方式( GET | POST )</param>
+        /// <param name="contentType">内容类型</param>
+        /// <param name="content">内容</param>
+        /// <param name="callback">回调函数</param>
+        public static void RequestAsync(AjaxRequestData requestData, string httpMethod, string contentType, string content, InvokeAsyncCallbackDelegate callback)
+        {
+            AjaxRequest request = new AjaxRequest(requestData, callback);
+
+            request.RequestAsync(requestData.ActionUri, httpMethod, contentType, content);
         }
         #endregion
     }
