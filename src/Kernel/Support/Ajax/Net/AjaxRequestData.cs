@@ -1,23 +1,9 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :AjaxRequestData.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Net;
-using System.Collections.Generic;
-
 namespace X3Platform.Ajax.Net
 {
+    using System;
+    using System.Net;
+    using System.Collections.Generic;
+
     /// <summary>Ajax请求的数据</summary>
     public class AjaxRequestData
     {

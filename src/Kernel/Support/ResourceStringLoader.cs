@@ -6,6 +6,7 @@ namespace X3Platform
     using System.Text;
     using System.Reflection;
     using System.Resources;
+    using System.IO;
     #endregion
 
     /// <summary>Helper class to load resources strings.</summary>
@@ -15,43 +16,36 @@ namespace X3Platform
         /// <param name="baseName">The base name of the resource.</param>
         /// <param name="resourceName">The resource name.</param>
         /// <returns>The string from the resource.</returns>
-        public static string LoadString(string baseName, string resourceName)
+        public static string LoadString(string resourceName)
         {
-            return LoadString(baseName, resourceName, Assembly.GetCallingAssembly());
+            return LoadString(resourceName, Assembly.GetCallingAssembly());
         }
 
         /// <summary>加载资源字符串</summary>
-        /// <param name="baseName">The base name of the resource.</param>
-        /// <param name="resourceName">The resource name.</param>
-        /// <param name="asm">The assembly to load the resource from.</param>
-        /// <returns>The string from the resource.</returns>
-        public static string LoadString(string baseName, string resourceName, Assembly assembly)
+        /// <param name="resourceName">资源名称</param>
+        /// <param name="assembly">程序集信息</param>
+        public static string LoadString(string resourceName, Assembly assembly)
         {
-            if (string.IsNullOrEmpty(baseName)) throw new ArgumentNullException("baseName");
             if (string.IsNullOrEmpty(resourceName)) throw new ArgumentNullException("resourceName");
 
             string value = null;
 
-            if (null != assembly) value = LoadAssemblyString(assembly, baseName, resourceName);
-            if (null == value) value = LoadAssemblyString(Assembly.GetExecutingAssembly(), baseName, resourceName);
+            if (null != assembly) value = LoadAssemblyString(assembly, resourceName);
+            if (null == value) value = LoadAssemblyString(Assembly.GetExecutingAssembly(), resourceName);
             if (null == value) return string.Empty;
-            
+
             return value;
         }
 
-        private static string LoadAssemblyString(Assembly assembly, string baseName, string resourceName)
+        private static string LoadAssemblyString(Assembly assembly, string resourceName)
         {
-            try
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
             {
-                ResourceManager resourceManager = new ResourceManager(baseName, assembly);
-
-                return resourceManager.GetString(resourceName);
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
             }
-            catch (MissingManifestResourceException)
-            {
-            }
-
-            return null;
         }
     }
 }
