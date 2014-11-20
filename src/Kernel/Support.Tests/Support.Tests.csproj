@@ -84,6 +84,7 @@
     <Compile Include="Ajax\AjaxUtilTests.cs" />
     <Compile Include="Ajax\Configuration\AjaxConfigurationViewTests.cs" />
     <Compile Include="Ajax\Net\AjaxRequestTests.cs" />
+    <Compile Include="Json\JsonMapperTests.cs" />
     <EmbeddedResource Include="defaults\test_data.default.yaml" />
     <Compile Include="Configuration\KernelConfigurationViewTests.cs" />
     <Compile Include="Configuration\PropertiesFileTests.cs" />
