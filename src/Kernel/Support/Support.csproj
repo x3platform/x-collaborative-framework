@@ -207,6 +207,8 @@
     <Compile Include="CommandLine\Attributes\OptionListAttribute.cs" />
     <Compile Include="CommandLine\Attributes\ValueListAttribute.cs" />
     <Compile Include="Data\GenericSqlConnectionException.cs" />
+    <Compile Include="Json\JsonDynamicObject.cs" />
+    <Compile Include="Json\JsonDynamicConverter.cs" />
     <Compile Include="Security\CiphertextFormat.cs" />
     <Compile Include="Security\Configuration\SecurityConfiguration.cs" />
     <Compile Include="Security\Configuration\SecurityConfigurationView.cs" />

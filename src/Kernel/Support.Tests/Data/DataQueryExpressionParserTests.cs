@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using X3Platform.Ajax;
 using X3Platform.Data;
 
-namespace X3Platform.TestSuite.Data
+namespace X3Platform.Tests.Data
 {
     [TestClass]
     public class AjaxSqlExpressionParserTests
