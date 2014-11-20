@@ -1,0 +1,11 @@
+---
+keys: 
+  CamelStyle: true
+
+specialWords: 
+  IP: ip, 
+  MSN: msn, 
+  PinYin: pinyin, 
+  QQ: qq, 
+  RMB: rmb
+...

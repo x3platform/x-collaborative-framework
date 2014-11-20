@@ -2,3 +2,4 @@
 
 = 修改记录 =
 + 修改名称空间为 X3Platform.Json
++ 在JsonMapper类下增加 ToDynamicObject(string json) 方法

@@ -69,26 +69,26 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 函数:ToJosn(DataView dataView, bool removeAjaxStorageRoot)
+        #region 函数:ToJosn(DataView dataView, bool removeDataRoot)
         /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataView"></param>
         /// <param name="selectedColumnName"></param>
         /// <param name="selectedValue"></param>
-        /// <param name="removeAjaxStorageRoot"></param>
+        /// <param name="removeDataRoot"></param>
         /// <returns></returns>
-        public static string ToJosn(DataView dataView, bool removeAjaxStorageRoot)
+        public static string ToJosn(DataView dataView, bool removeDataRoot)
         {
-            return ToJosn(dataView, string.Empty, string.Empty, removeAjaxStorageRoot);
+            return ToJosn(dataView, string.Empty, string.Empty, removeDataRoot);
         }
         #endregion
 
-        #region 函数:ToJosn(DataTable dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        #region 函数:ToJosn(DataTable dataView, bool columnNameFirstCharLower, bool removeDataRoot)
         /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
         /// <param name="columnNameFirstCharLower">列名首字符小写</param>
-        /// <param name="removeAjaxStorageRoot"></param>
+        /// <param name="removeDataRoot"></param>
         /// <returns></returns>
-        public static string ToJosn(DataView dataView, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        public static string ToJosn(DataView dataView, bool columnNameFirstCharLower, bool removeDataRoot)
         {
             if (columnNameFirstCharLower)
             {
@@ -98,18 +98,18 @@ namespace X3Platform.Util
                 }
             }
 
-            return ToJosn(dataView, string.Empty, string.Empty, removeAjaxStorageRoot);
+            return ToJosn(dataView, string.Empty, string.Empty, removeDataRoot);
         }
         #endregion
 
-        #region 函数:ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
+        #region 函数:ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeDataRoot)
         /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataView"></param>
         /// <param name="selectedColumnName"></param>
         /// <param name="selectedValue"></param>
-        /// <param name="removeAjaxStorageRoot"></param>
+        /// <param name="removeDataRoot"></param>
         /// <returns></returns>
-        public static string ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
+        public static string ToJosn(DataView dataView, string selectedColumnName, string selectedValue, bool removeDataRoot)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -117,7 +117,7 @@ namespace X3Platform.Util
 
             string dataColumnValue = string.Empty;
 
-            outString.Append(removeAjaxStorageRoot ? "[" : "{\"ajaxStorage\":[");
+            outString.Append(removeDataRoot ? "[" : "{\"data\":[");
 
             if (dataView.Table.Rows.Count > 0)
             {
@@ -164,7 +164,7 @@ namespace X3Platform.Util
                 }
             }
 
-            outString.Append(removeAjaxStorageRoot ? "]" : "]}");
+            outString.Append(removeDataRoot ? "]" : "]}");
 
             return outString.ToString();
         }
@@ -180,24 +180,24 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 函数:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        #region 函数:ToJosn(DataTable dataTable, bool removeDataRoot)
         /// <summary>将一个DataView对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
-        /// <param name="removeAjaxStorageRoot"></param>
+        /// <param name="removeDataRoot"></param>
         /// <returns></returns>
-        public static string ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        public static string ToJosn(DataTable dataTable, bool removeDataRoot)
         {
-            return ToJosn(dataTable, string.Empty, string.Empty, removeAjaxStorageRoot);
+            return ToJosn(dataTable, string.Empty, string.Empty, removeDataRoot);
         }
         #endregion
 
-        #region 函数:ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        #region 函数:ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeDataRoot)
         /// <summary>将一个DataTable对象转换到Json格式文本</summary>
         /// <param name="dataTable"></param>
         /// <param name="columnNameFirstCharLower">列名首字符小写</param>
-        /// <param name="removeAjaxStorageRoot"></param>
+        /// <param name="removeDataRoot"></param>
         /// <returns></returns>
-        public static string ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeAjaxStorageRoot)
+        public static string ToJosn(DataTable dataTable, bool columnNameFirstCharLower, bool removeDataRoot)
         {
             if (columnNameFirstCharLower)
             {
@@ -207,18 +207,18 @@ namespace X3Platform.Util
                 }
             }
 
-            return ToJosn(dataTable, string.Empty, string.Empty, removeAjaxStorageRoot);
+            return ToJosn(dataTable, string.Empty, string.Empty, removeDataRoot);
         }
         #endregion
 
-        #region 函数:ToJosn(DataTable dataTable, bool removeAjaxStorageRoot)
+        #region 函数:ToJosn(DataTable dataTable, bool removeDataRoot)
         /// <summary>将 DataTable 形式的数据转换成Json的形式的数据</summary>
         /// <param name="dataTable">数据源</param>
         /// <param name="selectedColumnName">下拉框匹配的列名</param>
         /// <param name="selectedValue">下拉框选中项的值</param>
-        /// <param name="removeAjaxStorageRoot"></param>
+        /// <param name="removeDataRoot"></param>
         /// <returns></returns>
-        public static string ToJosn(DataTable dataTable, string selectedColumnName, string selectedValue, bool removeAjaxStorageRoot)
+        public static string ToJosn(DataTable dataTable, string selectedColumnName, string selectedValue, bool removeDataRoot)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -228,7 +228,7 @@ namespace X3Platform.Util
 
             List<string> colNameList = new List<string>();
 
-            outString.Append(removeAjaxStorageRoot ? "[" : "{\"ajaxStorage\":[");
+            outString.Append(removeDataRoot ? "[" : "{\"data\":[");
 
             if (dataTable.Rows.Count > 0)
             {
@@ -275,7 +275,7 @@ namespace X3Platform.Util
                 }
             }
 
-            outString.Append(removeAjaxStorageRoot ? "]" : "]}");
+            outString.Append(removeDataRoot ? "]" : "]}");
 
             return outString.ToString();
         }
