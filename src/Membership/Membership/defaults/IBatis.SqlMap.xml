@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <settings>
+        <setting useStatementNamespaces="false"/>
+        <setting cacheModelsEnabled="true"/>
+        <setting validateSqlMap="false"/>
+        <setting useReflectionOptimizer="true"/>
+    </settings>
+
+    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support"/>
+
+    <database>
+        <provider name="${DatabaseSettings.Provider}" />
+        <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512" />
+    </database>
+
+    <typeHandlers>
+        <typeHandler type="string" callback="AnsiStringTypeHandler"/>
+    </typeHandlers>
+
+    <sqlMaps>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AuthorizationObjectProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AccountProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AccountLogProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AccountGrantProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.MemberProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.OrganizationProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.RoleProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GeneralRoleProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardRoleProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardGeneralRoleProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardOrganizationProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupTreeProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupTreeNodeProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.ContactProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AssignedJobProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.JobGradeProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.JobProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.SettingProvider.xml,X3Platform.Membership"/>
+    </sqlMaps>
+</sqlMapConfig>
