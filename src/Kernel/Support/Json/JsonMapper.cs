@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Web.Script.Serialization;
+using X3Platform.Ajax.Configuration;
 
 
 namespace X3Platform.Json
@@ -913,15 +914,50 @@ namespace X3Platform.Json
         }
         #endregion
 
-        public static dynamic ToDynamicObject(string json)
+        /// <summary>转为动态对象</summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static JsonDynamicObject ToDynamicObject(string json)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             serializer.RegisterConverters(new JavaScriptConverter[] { new JsonDynamicConverter() });
 
-            return serializer.Deserialize(json, typeof(object)) as dynamic;
+            return serializer.Deserialize(json, typeof(object)) as JsonDynamicObject;
         }
 
+        /// <summary>转为动态对象</summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static JsonDynamicObject ToDynamicObject(object obj)
+        {
+            return ToDynamicObject(obj, (AjaxConfigurationView.Instance.CamelStyle == "ON"));
+        }
+
+        /// <summary>转为动态对象</summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static JsonDynamicObject ToDynamicObject(object obj, bool camelStyle)
+        {
+            string json = ToJson(obj);
+
+            JsonDynamicObject jsonObj = ToDynamicObject(json);
+
+            if (camelStyle)
+            {
+                json = jsonObj.ToString(camelStyle);
+
+                return ToDynamicObject(json);
+            }
+            else
+            {
+                return jsonObj;
+            }
+        }
+
+        /// <summary>转为 JSON 字符串</summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static string ToJson(object obj)
         {
             lock (static_writer_lock)
