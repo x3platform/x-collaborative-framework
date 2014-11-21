@@ -1,12 +1,15 @@
 namespace X3Platform.Json
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Dynamic;
     using System.Linq;
     using System.Text;
-    using System;
+    using X3Platform.Ajax.Configuration;
+    using X3Platform.Util;
 
+    /// <summary>JSON ¶¯Ì¬¶ÔÏó</summary>
     public class JsonDynamicObject : DynamicObject
     {
         private IDictionary<string, object> dictionary { get; set; }
@@ -56,7 +59,7 @@ namespace X3Platform.Json
                 return new JsonDynamicObject(dictionary);
 
             var arrayList = result as ArrayList;
-        
+
             if (arrayList != null && arrayList.Count > 0)
             {
                 return arrayList[0] is IDictionary<string, object>
@@ -69,14 +72,19 @@ namespace X3Platform.Json
 
         public override string ToString()
         {
+            return this.ToString((AjaxConfigurationView.Instance.CamelStyle == "ON"));
+        }
+
+        public string ToString(bool camelStyle)
+        {
             var outString = new StringBuilder("{");
-            
-            ToString(outString);
+
+            ToString(outString, camelStyle);
 
             return outString.ToString();
         }
 
-        private void ToString(StringBuilder outString)
+        private void ToString(StringBuilder outString, bool camelStyle)
         {
             var firstInDictionary = true;
             foreach (var pair in this.dictionary)
@@ -84,15 +92,37 @@ namespace X3Platform.Json
                 if (!firstInDictionary)
                     outString.Append(",");
                 firstInDictionary = false;
+               
                 var value = pair.Value;
                 var name = pair.Key;
-                if (value is string)
+
+                if (AjaxConfigurationView.Instance.CamelStyle == "ON")
                 {
-                    outString.AppendFormat("{0}:\"{1}\"", name, value);
+                    if (AjaxConfigurationView.Instance.Configuration.SpecialWords[name] == null)
+                    {
+                        name = StringHelper.ToFirstLower(name);
+                    }
+                    else
+                    {
+                        name = AjaxConfigurationView.Instance.Configuration.SpecialWords[name].Value;
+                    }
+                }
+
+                if (value ==null)
+                {
+                    outString.AppendFormat("\"{0}\":\"\"", name);
+                } 
+                else if (value is string)
+                {
+                    outString.AppendFormat("\"{0}\":\"{1}\"", name, value);
+                }
+                else if (value is DateTime)
+                {
+                    outString.AppendFormat("\"{0}\":\"{1}\"", name, ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss.fff"));
                 }
                 else if (value is IDictionary<string, object>)
                 {
-                    new JsonDynamicObject((IDictionary<string, object>)value).ToString(outString);
+                    new JsonDynamicObject((IDictionary<string, object>)value).ToString(outString, camelStyle);
                 }
                 else if (value is ArrayList)
                 {
@@ -104,7 +134,7 @@ namespace X3Platform.Json
                             outString.Append(",");
                         firstInArray = false;
                         if (arrayValue is IDictionary<string, object>)
-                            new JsonDynamicObject((IDictionary<string, object>)arrayValue).ToString(outString);
+                            new JsonDynamicObject((IDictionary<string, object>)arrayValue).ToString(outString, camelStyle);
                         else if (arrayValue is string)
                             outString.AppendFormat("\"{0}\"", arrayValue);
                         else
@@ -115,7 +145,7 @@ namespace X3Platform.Json
                 }
                 else
                 {
-                    outString.AppendFormat("{0}:{1}", name, value);
+                    outString.AppendFormat("\"{0}\":{1}", name, value);
                 }
             }
             outString.Append("}");

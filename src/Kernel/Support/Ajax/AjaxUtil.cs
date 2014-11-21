@@ -70,6 +70,11 @@ namespace X3Platform.Ajax
 
             if (targetObject == null) return "{}";
 
+            if (targetObject is X3Platform.Json.JsonDynamicObject)
+            {
+                return targetObject.ToString();
+            }
+
             // string propertyName = string.Empty;
 
             object result = null;
