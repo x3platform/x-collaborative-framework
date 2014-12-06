@@ -2,13 +2,12 @@ namespace X3Platform.Apps.Configuration
 {
     #region Using Libraries
     using System.Configuration;
-    using System.IO;
 
     using X3Platform.Configuration;    
     using X3Platform.Yaml.RepresentationModel;
     #endregion
 
-    /// <summary>任务配置信息</summary>
+    /// <summary>应用配置信息</summary>
     public class AppsConfiguration : X3Platform.Configuration.XmlConfiguraton
     {
         /// <summary>所属应用的名称</summary>

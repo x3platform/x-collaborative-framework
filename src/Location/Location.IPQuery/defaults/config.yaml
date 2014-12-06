@@ -1,0 +1,15 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Location.IPQuery/X3Platform.Location.IPQuery/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.Location.IPQuery.defaults.IBatis.SqlMap.xml,X3Platform.Location.IPQuery
+  # 内置超级管理员帐号,多个人以逗号隔开
+  Administrators: root,administrator,admin
+  # 隐藏开始菜单 : 可选的值 1.On 2.Off(默认)
+  HiddenStartMenu: Off
+  # 隐藏顶部菜单 : 可选的值 1.On 2.Off(默认)
+  HiddenTopMenu: Off
+  # 隐藏快捷方式 : 可选的值 1.On 2.Off(默认)
+  HiddenShortcutMenu: Off
+...

@@ -28,7 +28,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             ApplicationSettingInfo param = new ApplicationSettingInfo();
@@ -45,7 +44,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string ids = XmlHelper.Fetch("ids", doc);
@@ -64,7 +62,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -73,7 +70,7 @@ namespace X3Platform.Apps.Ajax
 
             ApplicationSettingInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -85,7 +82,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -96,7 +92,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationSettingInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -112,7 +108,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -125,7 +120,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -139,7 +134,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -154,7 +148,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -173,7 +166,7 @@ namespace X3Platform.Apps.Ajax
 
             param.Status = 1;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -185,7 +178,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取权重值列表</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("getCombobox")]
         public string GetCombobox(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -217,7 +209,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationSettingInfo> list = this.service.FindAll(whereClause, 0);
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             if (!string.IsNullOrEmpty(emptyItemText))
             {

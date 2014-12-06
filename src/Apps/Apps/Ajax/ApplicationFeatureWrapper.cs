@@ -84,7 +84,7 @@ namespace X3Platform.Apps.Ajax
 
             ApplicationFeatureInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -107,7 +107,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationFeatureInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -128,7 +128,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationFeatureInfo> list = this.service.FindAllByApplicationId(applicationId);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -157,7 +157,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -203,7 +203,7 @@ namespace X3Platform.Apps.Ajax
 
             param.Status = 1;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -234,7 +234,7 @@ namespace X3Platform.Apps.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
             outString.Append("{\"tree\":\"" + tree + "\",");
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");
@@ -289,7 +289,7 @@ namespace X3Platform.Apps.Ajax
 
             DataTable table = this.service.GetApplicationFeatureScope(applicationId, authorizationObjectType, authorizationObjectId);
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             foreach (DataRow row in table.Rows)
             {

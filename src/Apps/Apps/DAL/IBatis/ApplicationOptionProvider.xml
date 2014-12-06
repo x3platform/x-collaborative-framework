@@ -166,8 +166,7 @@
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
 
-        <!-- SQL Server 2000 -->
-        <select id="proc_Application_Option_GetPages(SQLServer2000)" resultMap="proc_Application_Option_FindAll_Result" >
+        <select id="proc_Application_Option_GetPaging#SqlServer80" resultMap="proc_Application_Option_FindAll_Result" >
             SELECT TOP $PageSize$ *
 
             FROM tb_Application_Option T
@@ -190,25 +189,6 @@
                 </isParameterPresent>
             </dynamic>
             ORDER BY $OrderBy$
-        </select>
-
-        <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
-        <select id="proc_Application_Option_GetPages(SQLServer2008)" resultMap="proc_Application_Option_FindAll_Result" >
-            SELECT *
-
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-                FROM tb_Application_Option T
-
-                <dynamic prepend="WHERE">
-                <isParameterPresent>
-                  <isNotEmpty prepend="AND" property="WhereClause" >
-                    $WhereClause$
-                  </isNotEmpty>
-                </isParameterPresent>
-                </dynamic>) TableIndex
-
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
 
         <select id="proc_Application_Option_GetRowCount" >

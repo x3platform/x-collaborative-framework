@@ -70,7 +70,7 @@
 
             ApplicationOptionInfo param = this.service.FindOne(name);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -92,7 +92,7 @@
 
             IList<ApplicationOptionInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationOptionInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -120,7 +120,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationOptionInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
@@ -165,7 +165,7 @@
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
