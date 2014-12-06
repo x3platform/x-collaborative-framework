@@ -78,7 +78,7 @@ namespace X3Platform.Apps.Ajax
 
             ApplicationMenuInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMenuInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMenuInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -101,7 +101,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationMenuInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -130,7 +130,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -179,7 +179,7 @@ namespace X3Platform.Apps.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
             outString.Append("{\"tree\":\"" + tree + "\",");
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");

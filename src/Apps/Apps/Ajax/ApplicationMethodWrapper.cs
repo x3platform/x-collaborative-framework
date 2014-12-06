@@ -94,7 +94,7 @@ namespace X3Platform.Apps.Ajax
 
             ApplicationMethodInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -117,7 +117,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationMethodInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMethodInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -146,7 +146,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMethodInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -196,7 +196,7 @@ namespace X3Platform.Apps.Ajax
 
             param.CreateDate = param.UpdateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

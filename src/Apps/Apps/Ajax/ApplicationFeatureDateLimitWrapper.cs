@@ -73,7 +73,7 @@
 
             ApplicationFeatureDateLimitInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -96,7 +96,7 @@
 
             IList<ApplicationFeatureDateLimitInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -125,7 +125,7 @@
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -167,7 +167,7 @@
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
 

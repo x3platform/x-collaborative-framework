@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Tasks.DAL.SQLServer.TaskReceiverProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="TaskWorkItemInfo" type="X3Platform.Tasks.Model.TaskWorkItemInfo, X3Platform.Tasks" />
+        <typeAlias alias="TaskWorkReceiverInfo" type="X3Platform.Tasks.Model.TaskWorkReceiverInfo, X3Platform.Tasks" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Task_Receiver_FindOne_Result" class="TaskWorkItemInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsRead" column="IsRead" />
+            <result property="FinishTime" column="FinishTime" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Task_Receiver_FindAll_Result" class="TaskWorkItemInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsRead" column="IsRead" />
+            <result property="FinishTime" column="FinishTime" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    
+    <statements>
+        <insert id="proc_Task_Receiver_Insert" parameterClass="TaskWorkReceiverInfo">
+            IF NOT EXISTS ( SELECT 0 FROM [tb_Task_Receiver] WHERE ( [TaskId] = #TaskId# AND [ReceiverId] = #ReceiverId# ) )
+            BEGIN
+                INSERT INTO [tb_Task_Receiver] 
+                (
+                    [TaskId],
+                    [ReceiverId],
+                    [Status],
+                    [IsRead],
+                    [FinishTime]
+                )
+                VALUES
+                (
+                    #TaskId#,
+                    #ReceiverId#,
+                    #Status#,
+                    #IsRead#,
+                    #FinishTime#
+                )
+            END
+        </insert>
+
+        <update id="proc_Task_Receiver_Update" parameterClass="TaskWorkReceiverInfo">
+            UPDATE [tb_Task_Receiver] SET
+
+                [TaskId] = #TaskId#,
+                [ReceiverId] = #ReceiverId#,
+                [Status] = #Status#,
+                [IsRead] = #IsRead#,
+                [FinishTime] = #FinishTime#
+
+            WHERE [TaskId] = #TaskId#AND [ReceiverId] = #ReceiverId#
+        </update>
+        
+        <insert id="proc_Task_Receiver_Save" parameterClass="TaskWorkReceiverInfo">
+            IF EXISTS(SELECT 0 FROM [tb_Task_Receiver] WHERE [TaskId] = #TaskId# AND [ReceiverId] = #ReceiverId#)
+            BEGIN
+                UPDATE [tb_Task_Receiver] SET
+
+                    [TaskId] = #TaskId#,
+                    [ReceiverId] = #ReceiverId#,
+                    [Status] = #Status#,
+                    [IsRead] = #IsRead#,
+                    [FinishTime] = #FinishTime#
+
+                WHERE [TaskId] = #TaskId#AND [ReceiverId] = #ReceiverId#
+            END
+            ELSE
+            BEGIN
+                INSERT INTO [tb_Task_Receiver]
+                (
+                    [TaskId],
+                    [ReceiverId],
+                    [Status],
+                    [IsRead],
+                    [FinishTime]
+                )
+                VALUES
+                (
+                    #TaskId#,
+                    #ReceiverId#,
+                    #Status#,
+                    #IsRead#,
+                    #FinishTime#
+                )
+            END
+        </insert>
+        
+        <delete id="proc_Task_Receiver_Delete" parameterClass="TaskWorkReceiverInfo">
+            DELETE FROM [tb_Task_Receiver] WHERE $WhereClause$
+        </delete>
+        
+        <delete id="proc_Task_Receiver_DeleteByTaskCode" parameterClass="TaskWorkInfo">
+            DELETE FROM [tb_Task_Receiver] WHERE TaskId IN ( SELECT Id FROM [tb_Task] WHERE [ApplicationId] = #ApplicationId# AND [TaskCode] = #TaskCode# )
+        </delete>
+
+        <select id="proc_Task_Receiver_FindOne" resultMap="proc_Task_Receiver_FindOne_Result" >
+            SELECT * FROM [view_Task_WorkItem] T WHERE [Id] = #TaskId# AND [ReceiverId] = #ReceiverId#
+        </select>
+
+        <select id="proc_Task_Receiver_FindAll" resultMap="proc_Task_Receiver_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [view_Task_WorkItem] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Task_Receiver_GetPages" resultMap="proc_Task_Receiver_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [view_Task_WorkItem] T 
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Task_Receiver_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM [view_Task_WorkItem] T 
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Task_Receiver_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM [tb_Task_Receiver] T WHERE $WhereClause$
+        </select>
+        
+        <insert id="proc_Task_Receiver_Copy" >
+            IF NOT EXISTS ( SELECT 0 FROM [tb_Task_Receiver] WHERE ( [TaskId] = '$TaskId$' AND [ReceiverId] = '$ToReceiverId$' ) )
+            BEGIN
+                INSERT INTO [tb_Task_Receiver]
+                (
+                    [TaskId],
+                    [ReceiverId],
+                    [Status],
+                    [IsRead],
+                    [FinishTime]
+                )
+                VALUES
+                (
+                    '$TaskId$',
+                    '$ToReceiverId$',
+                    '$Status$',
+                    '$IsRead$',
+                    '$FinishTime$'
+                )
+            END
+        </insert>
+        
+        <insert id="proc_Task_Receiver_Cut" >
+            IF NOT EXISTS ( SELECT 0 FROM [tb_Task_Receiver] WHERE [TaskId] = '$TaskId$' AND [ReceiverId] = '$ToReceiverId$' )
+            BEGIN
+                UPDATE [tb_Task_Receiver] SET
+
+                    [TaskId] = '$TaskId$',
+                    [ReceiverId] = '$ToReceiverId$',
+                    [Status] = '$Status$',
+                    [IsRead] = '$IsRead$',
+                    [FinishTime] = '$FinishTime$'
+
+                WHERE [TaskId] = '$TaskId$' AND [ReceiverId] = '$FromReceiverId$'
+            END
+        </insert>
+        
+        <update id="proc_Task_Receiver_SetRead" >
+            UPDATE [tb_Task_Receiver] SET IsRead = #IsRead# WHERE TaskId = #TaskId# AND ReceiverId = #ReceiverId#
+        </update>
+
+        <update id="proc_Task_Receiver_SetStatus" >
+            UPDATE [tb_Task_Receiver] SET Status = #Status# WHERE TaskId = #TaskId# AND ReceiverId = #ReceiverId#
+        </update>
+
+        <update id="proc_Task_Receiver_SetFinished" >
+            UPDATE [tb_Task_Receiver] SET Status = 1, FinishTime = CURRENT_TIMESTAMP  WHERE $WhereClause$
+        </update>
+
+        <update id="proc_Task_Receiver_SetUnfinished" >
+            UPDATE [tb_Task_Receiver] SET Status = 0 WHERE $WhereClause$
+        </update>
+        
+        <update id="proc_Task_Receiver_SetUnfinished_RefreshCreateDate" >
+            UPDATE [tb_Task] SET CreateDate = CURRENT_TIMESTAMP WHERE $WhereClause$
+        </update>
+        
+        <select id="proc_Task_Receiver_GetUnfinishedQuantities" >
+            SELECT CONVERT(INT, [Type]) AS 'Type', COUNT(*) AS 'Count' FROM tb_Task WHERE Id IN ( 
+                SELECT TaskId FROM tb_Task_Receiver WHERE ReceiverId = '$ReceiverId$' AND Status = 0 ) GROUP BY [Type] ORDER BY [Type]
+        </select>
+    </statements>
+</sqlMap>

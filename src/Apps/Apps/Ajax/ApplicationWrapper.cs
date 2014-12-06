@@ -26,7 +26,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             ApplicationInfo param = new ApplicationInfo();
@@ -69,7 +68,6 @@ namespace X3Platform.Apps.Ajax
         /// </summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string ids = XmlHelper.Fetch("ids", doc);
@@ -90,7 +88,6 @@ namespace X3Platform.Apps.Ajax
         /// </summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -99,7 +96,7 @@ namespace X3Platform.Apps.Ajax
 
             ApplicationInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -110,7 +107,8 @@ namespace X3Platform.Apps.Ajax
         // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
-        #region 函数:GetPages(XmlDocument doc)
+
+        #region 函数:Query(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
@@ -126,7 +124,7 @@ namespace X3Platform.Apps.Ajax
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"ajaxStorage\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
@@ -160,7 +158,7 @@ namespace X3Platform.Apps.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
             outString.Append("{\"tree\":\"" + tree + "\",");
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");
@@ -196,7 +194,7 @@ namespace X3Platform.Apps.Ajax
         /// <returns></returns>
         public string GetExtTreeView(XmlDocument doc)
         {
-            // �����ֶ�
+            // 必填字段
             string tree = XmlHelper.Fetch("tree", doc);
             string parentId = XmlHelper.Fetch("parentId", doc);
 

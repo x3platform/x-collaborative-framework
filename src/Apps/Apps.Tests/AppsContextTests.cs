@@ -34,7 +34,7 @@ namespace X3Platform.Apps.Tests
         //-------------------------------------------------------
 
         [TestMethod]
-        public void TestReload()
+        public void TestRestart()
         {
             AppsContext.Instance.Restart();
 

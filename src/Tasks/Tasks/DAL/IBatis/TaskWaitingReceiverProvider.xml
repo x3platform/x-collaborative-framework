@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Tasks.DAL.IBatis.TaskWaitingReceiverProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="TaskWaitingItemInfo" type="X3Platform.Tasks.Model.TaskWaitingItemInfo,X3Platform.Tasks" />
+        <typeAlias alias="TaskWaitingReceiverInfo" type="X3Platform.Tasks.Model.TaskWaitingReceiverInfo,X3Platform.Tasks" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_TaskWaiting_Receiver_FindOne_Result" class="TaskWaitingItemInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsSend" column="IsSend" />
+            <result property="SendTime" column="SendTime" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_TaskWaiting_Receiver_FindAll_Result" class="TaskWaitingItemInfo">
+            <result property="Id" column="Id" />
+            <result property="ApplicationId" column="ApplicationId" />
+            <result property="TaskCode" column="TaskCode" />
+            <result property="Type" column="Type" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="SenderId" column="SenderId" />
+            <result property="ReceiverId" column="ReceiverId" />
+            <result property="Status" column="Status" />
+            <result property="IsSend" column="IsSend" />
+            <result property="SendTime" column="SendTime" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_TaskWaiting_Receiver_Insert" parameterClass="TaskWaitingReceiverInfo">
+            INSERT INTO [tb_TaskWaiting_Receiver] 
+            (
+                [TaskWaitingId],
+                [ReceiverId],
+                [IsSend],
+                [SendTime]
+            )
+            VALUES
+            (
+                #TaskWaitingId#,
+                #ReceiverId#,
+                #IsSend#,
+                #SendTime#
+            )
+        </insert>
+
+        <update id="proc_TaskWaiting_Receiver_Update" parameterClass="TaskWaitingReceiverInfo">
+            UPDATE [tb_TaskWaiting_Receiver] SET
+
+                [TaskWaitingId] = #TaskWaitingId#,
+                [ReceiverId] = #ReceiverId#,
+                [IsSend] = #IsSend#,
+                [SendTime] = #SendTime#
+
+            WHERE [TaskWaitingId] = #TaskWaitingId# AND [ReceiverId] = #ReceiverId#
+        </update>
+        <insert id="proc_TaskWaiting_Receiver_Save" parameterClass="TaskWaitingReceiverInfo">
+            IF EXISTS(SELECT 0 FROM [tb_TaskWaiting_Receiver] WHERE [TaskWaitingId] = #TaskWaitingId#AND [ReceiverId] = #ReceiverId#)
+            BEGIN
+            UPDATE [tb_TaskWaiting_Receiver] SET
+
+            [TaskWaitingId] = #TaskWaitingId#,
+            [ReceiverId] = #ReceiverId#,
+            [IsSend] = #IsSend#,
+            [SendTime] = #SendTime#
+
+            WHERE [TaskWaitingId] = #TaskWaitingId#AND [ReceiverId] = #ReceiverId#
+            END
+            ELSE
+            BEGIN
+            INSERT INTO [tb_TaskWaiting_Receiver](
+            [TaskWaitingId],
+            [ReceiverId],
+            [IsSend],
+            [SendTime]
+            )
+            VALUES
+            (
+            #TaskWaitingId#,
+            #ReceiverId#,
+            #IsSend#,
+            #SendTime#
+            )
+            END
+        </insert>
+        <delete id="proc_TaskWaiting_Receiver_Delete" >
+            DELETE FROM [tb_TaskWaiting_Receiver] WHERE TaskWaitingId IN ($Ids$)
+        </delete>
+        <delete id="proc_TaskWaiting_Receiver_DeleteByTaskCode" parameterClass="TaskWaitingInfo">
+            DELETE FROM [tb_TaskWaiting_Receiver] WHERE TaskWaitingId IN (
+            SELECT Id FROM tb_TaskWaiting WHERE [ApplicationId] = #ApplicationId# AND TaskCode = #TaskCode# )
+        </delete>
+        <select id="proc_TaskWaiting_Receiver_FindOne" resultMap="proc_TaskWaiting_Receiver_FindOne_Result" >
+            SELECT * FROM [view_Task_WaitingItem] WHERE [Id] = #TaskWaitingId# AND [ReceiverId] = #ReceiverId#
+        </select>
+
+        <select id="proc_TaskWaiting_Receiver_FindAll" resultMap="proc_TaskWaiting_Receiver_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [view_Task_WaitingItem] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_TaskWaiting_Receiver_GetPaging" resultMap="proc_TaskWaiting_Receiver_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [view_Task_WaitingItem] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_TaskWaiting_Receiver_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_TaskWaiting_Receiver] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_TaskWaiting_Receiver_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM [tb_TaskWaiting_Receiver] T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_TaskWaiting_SetSent" >
+            UPDATE [tb_TaskWaiting_Receiver] SET IsSend = 1, SendTime = CURRENT_TIMESTAMP WHERE $WhereClause$
+        </update>
+
+        <update id="proc_TaskWaiting_SetUnsent" >
+            UPDATE [tb_TaskWaiting_Receiver] SET IsSend = 0, SendTime = '2000-1-1' WHERE $WhereClause$
+        </update>
+    </statements>
+</sqlMap>

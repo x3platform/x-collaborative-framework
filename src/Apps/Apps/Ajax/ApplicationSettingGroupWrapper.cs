@@ -83,7 +83,7 @@ namespace X3Platform.Apps.Ajax
 
             ApplicationSettingGroupInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingGroupInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingGroupInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -106,7 +106,7 @@ namespace X3Platform.Apps.Ajax
 
             IList<ApplicationSettingGroupInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingGroupInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingGroupInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -135,7 +135,7 @@ namespace X3Platform.Apps.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationSettingGroupInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationSettingGroupInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -181,7 +181,7 @@ namespace X3Platform.Apps.Ajax
 
             param.Status = 1;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -212,7 +212,7 @@ namespace X3Platform.Apps.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
             outString.Append("{\"tree\":\"" + tree + "\",");
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");
