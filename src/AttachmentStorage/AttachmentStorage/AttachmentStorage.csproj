@@ -149,8 +149,8 @@
     <Compile Include="BLL\AttachmentDistributedFileService.cs" />
     <Compile Include="BLL\AttachmentFileService.cs" />
     <Compile Include="BLL\AttachmentWarnService.cs" />
-    <Compile Include="DAL\IBatis\AttachmentStorageProvider.cs" />
     <Compile Include="DAL\IBatis\AttachmentDistributedFileProvider.cs" />
+    <Compile Include="DAL\IBatis\AttachmentFileProvider.cs" />
     <Compile Include="DAL\IBatis\AttachmentWarnProvider.cs" />
     <Compile Include="DistributedFileStorage.cs">
       <SubType>Code</SubType>
@@ -184,8 +184,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\AttachmentStorageProvider.xml" />
     <Content Include="DAL\IBatis\AttachmentDistributedFileProvider.xml" />
+    <Content Include="DAL\IBatis\AttachmentFileProvider.xml" />
     <Content Include="DAL\IBatis\AttachmentWarnProvider.xml" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
@@ -218,6 +218,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>@rem $(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>
