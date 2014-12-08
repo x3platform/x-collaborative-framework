@@ -147,13 +147,11 @@
     <Compile Include="Ajax\AttachmentWarnWrapper.cs" />
     <Compile Include="AttachmentStorageContext.cs" />
     <Compile Include="BLL\AttachmentDistributedFileService.cs" />
+    <Compile Include="BLL\AttachmentFileService.cs" />
     <Compile Include="BLL\AttachmentWarnService.cs" />
     <Compile Include="DAL\IBatis\AttachmentStorageProvider.cs" />
     <Compile Include="DAL\IBatis\AttachmentDistributedFileProvider.cs" />
     <Compile Include="DAL\IBatis\AttachmentWarnProvider.cs" />
-    <Compile Include="DAL\MySQL\AttachmentDistributedFileProvider.cs" />
-    <Compile Include="DAL\MySQL\AttachmentStorageProvider.cs" />
-    <Compile Include="DAL\MySQL\AttachmentWarnProvider.cs" />
     <Compile Include="DistributedFileStorage.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -181,41 +179,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.bat" />
-    <None Include="config\IBatis\X3Platform.AttachmentStorage.IBatis.SqlMap.config" />
-    <None Include="config\IBatis\X3Platform.AttachmentStorage.Spring.config" />
-    <None Include="config\MySQL\X3Platform.AttachmentStorage.IBatis.SqlMap.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="config\MySQL\X3Platform.AttachmentStorage.Spring.config" />
     <None Include="config\X3Platform.AttachmentStorage.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\AttachmentStorageProvider.xml">
-      <DependentUpon>AttachmentStorageProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\AttachmentDistributedFileProvider.xml">
-      <DependentUpon>AttachmentDistributedFileProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\AttachmentWarnProvider.xml">
-      <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\AttachmentDistributedFileProvider.xml">
-      <DependentUpon>AttachmentDistributedFileProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\AttachmentStorageProvider.xml">
-      <DependentUpon>AttachmentStorageProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\AttachmentWarnProvider.xml">
-      <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
-    </Content>
+    <Content Include="DAL\IBatis\AttachmentStorageProvider.xml" />
+    <Content Include="DAL\IBatis\AttachmentDistributedFileProvider.xml" />
+    <Content Include="DAL\IBatis\AttachmentWarnProvider.xml" />
     <Content Include="db\Init_Script_MySQL.sql" />
-    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <EmbeddedResource Include="defaults\Objects.xml" />
     <EmbeddedResource Include="defaults\config.yaml" />
+    <None Include="config\X3Platform.AttachmentStorage.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.AttachmentStorage.Spring.config" />
     <None Include="db\README.md" />
     <None Include="README.md" />
   </ItemGroup>
