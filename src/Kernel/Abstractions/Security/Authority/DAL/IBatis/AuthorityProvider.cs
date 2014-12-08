@@ -61,7 +61,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
         #endregion
-        
+
         //-------------------------------------------------------
         // 保存 添加 修改 删除 
         //-------------------------------------------------------
@@ -158,8 +158,6 @@ namespace X3Platform.Security.Authority.DAL.IBatis
                 }
 
                 return param;
-
-                // return this.ibatisMapper.QueryForObject<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByName", tableName)), args);
             }
             catch (Exception ex)
             {

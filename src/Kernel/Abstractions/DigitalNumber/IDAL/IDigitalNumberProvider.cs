@@ -37,10 +37,10 @@ namespace X3Platform.DigitalNumber.IDAL
         void Update(DigitalNumberInfo param);
         #endregion
 
-        #region 函数:Delete(string id)
+        #region 函数:Delete(string name)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识信息,多个以逗号分开.</param>
-        void Delete(string id);
+        /// <param name="name">名称</param>
+        void Delete(string name);
         #endregion
 
         // -------------------------------------------------------

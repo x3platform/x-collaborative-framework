@@ -19,11 +19,11 @@
     </typeHandlers>
 
     <sqlMaps>
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskReceiverProvider.xml" />
+        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWorkProvider.xml" />
+        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWorkReceiverProvider.xml" />
         <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskCategoryProvider.xml" />
         <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskHistoryProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TimingTaskProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TimingTaskReceiverProvider.xml" />
+        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWaitingProvider.xml" />
+        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWaitingReceiverProvider.xml" />
     </sqlMaps>
 </sqlMapConfig>

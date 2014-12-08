@@ -124,7 +124,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="receiverId">接收人标识</param>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
@@ -133,7 +133,7 @@ namespace X3Platform.Tasks.DAL.IBatis
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns> 
-        public IList<TaskHistoryItemInfo> GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskHistoryItemInfo> GetPaging(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -155,7 +155,7 @@ namespace X3Platform.Tasks.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<TaskHistoryItemInfo> list = this.ibatisMapper.QueryForList<TaskHistoryItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", this.tableName)), args);
+            IList<TaskHistoryItemInfo> list = this.ibatisMapper.QueryForList<TaskHistoryItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

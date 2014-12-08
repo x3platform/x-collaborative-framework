@@ -86,6 +86,7 @@ namespace X3Platform.Data
                     return "Oracle.DataAccess.Client";
                 case "MYSQL":
                     return "MySql.Data.MySqlClient";
+                case "ORACLECLIENT":
                 case "ORACLECLIENT1.0":
                     return "System.Data.OracleClient";
                 default:

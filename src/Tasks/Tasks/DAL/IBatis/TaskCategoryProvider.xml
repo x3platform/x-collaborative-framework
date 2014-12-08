@@ -147,7 +147,7 @@
 			</dynamic>
 		</select>
 
-		<select id="proc_Task_Category_GetPages" resultMap="proc_Task_Category_FindAll_Result" >
+		<select id="proc_Task_Category_GetPaging" resultMap="proc_Task_Category_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

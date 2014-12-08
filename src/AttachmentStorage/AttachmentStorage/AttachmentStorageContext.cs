@@ -59,11 +59,11 @@ namespace X3Platform.AttachmentStorage
         #endregion
 
         #region 属性:AttachmentStorageService
-        private IAttachmentStorageService m_AttachmentStorageService = null;
+        private IAttachmentFileService m_AttachmentFileService = null;
 
-        public IAttachmentStorageService AttachmentStorageService
+        public IAttachmentFileService AttachmentFileService
         {
-            get { return m_AttachmentStorageService; }
+            get { return this.m_AttachmentFileService; }
         }
         #endregion
 
@@ -123,7 +123,7 @@ namespace X3Platform.AttachmentStorage
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AttachmentStorageConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据服务对象
-            this.m_AttachmentStorageService = objectBuilder.GetObject<IAttachmentStorageService>(typeof(IAttachmentStorageService));
+            this.m_AttachmentFileService = objectBuilder.GetObject<IAttachmentFileService>(typeof(IAttachmentFileService));
             this.m_AttachmentDistributedFileService = objectBuilder.GetObject<IAttachmentDistributedFileService>(typeof(IAttachmentDistributedFileService));
             this.m_AttachmentWarnService = objectBuilder.GetObject<IAttachmentWarnService>(typeof(IAttachmentWarnService));
         }

@@ -57,16 +57,16 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns><see cref="DigitalNumberInfo"/> 实例详细信息</returns>
         public DigitalNumberInfo Save(DigitalNumberInfo param)
         {
-            return provider.Save(param);
+            return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
+        #region 函数:Delete(string name)
         /// <summary>删除记录</summary>
-        /// <param name="keys">实例的标识,多条记录以逗号分开</param>
-        public void Delete(string id)
+        /// <param name="name">名称</param>
+        public void Delete(string name)
         {
-            provider.Delete(id);
+            this.provider.Delete(name);
         }
         #endregion
 
@@ -80,7 +80,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>返回一个<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public DigitalNumberInfo FindOne(string name)
         {
-            return provider.FindOne(name);
+            return this.provider.FindOne(name);
         }
         #endregion
 
@@ -100,7 +100,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>返回所有<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(DataQuery query)
         {
-            return provider.FindAll(query);
+            return this.provider.FindAll(query);
         }
         #endregion
 
@@ -113,7 +113,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>返回一个列表</returns>
         public IList<DigitalNumberInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return provider.GetPaging(startIndex, pageSize, query, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
@@ -123,7 +123,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
-            return provider.IsExistName(name);
+            return this.provider.IsExistName(name);
         }
         #endregion
 
@@ -174,7 +174,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         {
-            return provider.GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
+            return this.provider.GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
         }
         #endregion
 
@@ -187,7 +187,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
         {
-            return provider.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, expression);
+            return this.provider.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, expression);
         }
         #endregion
 
@@ -200,7 +200,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
-            return provider.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, expression);
+            return this.provider.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, expression);
         }
         #endregion
 
@@ -214,7 +214,7 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
-            return provider.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, expression);
+            return this.provider.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, expression);
         }
         #endregion
     }

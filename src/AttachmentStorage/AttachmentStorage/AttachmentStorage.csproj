@@ -140,12 +140,11 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Ajax\AttachmentStorageWrapper.cs" />
+    <Compile Include="Ajax\AttachmentFileWrapper.cs" />
     <Compile Include="Ajax\FileUploadWrapper.cs" />
     <Compile Include="Ajax\ImageUploadWrapper.cs" />
     <Compile Include="Ajax\ImageThumbnailWrapper.cs" />
     <Compile Include="Ajax\AttachmentWarnWrapper.cs" />
-    <Compile Include="BLL\AttachmentStorageService.cs" />
     <Compile Include="AttachmentStorageContext.cs" />
     <Compile Include="BLL\AttachmentDistributedFileService.cs" />
     <Compile Include="BLL\AttachmentWarnService.cs" />
@@ -159,13 +158,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IAttachmentFileInfo.cs" />
-    <Compile Include="IBLL\IAttachmentStorageService.cs" />
+    <Compile Include="IBLL\IAttachmentFileService.cs" />
     <Compile Include="AttachmentFileInfo.cs" />
     <Compile Include="Configuration\AttachmentStorageConfigurationView.cs" />
     <Compile Include="Configuration\AttachmentStorageConfiguration.cs" />
     <Compile Include="IBLL\IAttachmentDistributedFileService.cs" />
     <Compile Include="IBLL\IAttachmentWarnService.cs" />
-    <Compile Include="IDAL\IAttachmentStorageProvider.cs" />
+    <Compile Include="IDAL\IAttachmentFileProvider.cs" />
     <Compile Include="IDAL\IAttachmentDistributedFileProvider.cs" />
     <Compile Include="IDAL\IAttachmentWarnProvider.cs" />
     <Compile Include="Images\ThumbnailInfo.cs" />
@@ -211,16 +210,16 @@
     <Content Include="DAL\MySQL\AttachmentWarnProvider.xml">
       <DependentUpon>AttachmentWarnProvider.cs</DependentUpon>
     </Content>
+    <Content Include="db\Init_Script_MySQL.sql" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="defaults\Objects.xml" />
     <EmbeddedResource Include="defaults\config.yaml" />
+    <None Include="db\README.md" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="db\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

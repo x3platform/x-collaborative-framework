@@ -12,11 +12,19 @@ namespace X3Platform.AttachmentStorage.Images
     /// <summary>缩略图管理</summary>
     public sealed class ThumbnailManagement
     {
+        /// <summary></summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public static bool IsExist(string fileName)
         {
             return File.Exists(AttachmentStorageConfigurationView.Instance.PhysicalUploadFolder + "thumbnails/" + fileName);
         }
 
+        /// <summary>创建缩略图</summary>
+        /// <param name="stream"></param>
+        /// <param name="fileType"></param>
+        /// <param name="targetWidth"></param>
+        /// <param name="targetHeight"></param>
         public static void CreateThumbnail(Stream stream, string fileType, int targetWidth, int targetHeight)
         {
             Image image = System.Drawing.Image.FromStream(stream);
@@ -24,6 +32,11 @@ namespace X3Platform.AttachmentStorage.Images
             CreateThumbnail(image, fileType, targetWidth, targetHeight);
         }
 
+        /// <summary></summary>
+        /// <param name="image"></param>
+        /// <param name="fileType"></param>
+        /// <param name="targetWidth"></param>
+        /// <param name="targetHeight"></param>
         public static void CreateThumbnail(Image image, string fileType, int targetWidth, int targetHeight)
         {
             string thumbnailId = DateTime.Now.ToString("yyyyMMddHHmmssfff");

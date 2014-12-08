@@ -99,7 +99,12 @@ namespace X3Platform.Location.IPQuery
         {
             this.configuration = IPQueryConfigurationView.Instance.Configuration;
 
-            this.ipAddressParser = SpringContext.Instance.GetObject<IPAddressParser>(typeof(IPAddressParser));
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(IPQueryConfiguration.ApplicationName, springObjectFile);
+
+            this.ipAddressParser = objectBuilder.GetObject<IPAddressParser>(typeof(IPAddressParser));
         }
         #endregion
 

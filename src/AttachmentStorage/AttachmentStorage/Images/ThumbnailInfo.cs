@@ -36,9 +36,9 @@ namespace X3Platform.AttachmentStorage.Images
         }
         #endregion
 
-        //
+        // -------------------------------------------------------
         // 显式实现 ICacheable
-        // 
+        // -------------------------------------------------------
 
         #region 属性:Expires
         private DateTime m_Expires = DateTime.Now.AddHours(6);

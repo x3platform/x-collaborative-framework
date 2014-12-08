@@ -5,14 +5,14 @@ namespace X3Platform.Sessions.DAL.MySQL
     using System.Collections.Generic;
     using System.ComponentModel;
 
+    using Common.Logging;
+
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Storages;
     using X3Platform.Util;
 
-    using X3Platform.Sessions;
     using X3Platform.Sessions.Configuration;
     using X3Platform.Sessions.IDAL;
-    using Common.Logging;
     #endregion
 
     /// <summary>帐号缓存数据提供者</summary>

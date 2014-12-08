@@ -121,22 +121,17 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="DAL\IBatis\AccountCacheProvider.xml">
-      <DependentUpon>AccountCacheProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\AccountCacheProvider.xml">
-      <DependentUpon>AccountCacheProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
+    <EmbeddedResource Include="DAL\IBatis\AccountCacheProvider.xml" />
+    <Content Include="DAL\MySQL\AccountCacheProvider.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <None Include="build.publish.bat" />
     <Content Include="config\X3Platform.Sessions.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\MySQL\X3Platform.Sessions.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Sessions.Spring.config" />
-    <None Include="config\IBatis\X3Platform.Sessions.IBatis.SqlMap.config" />
-    <None Include="config\IBatis\X3Platform.Sessions.Spring.config" />
+    <EmbeddedResource Include="defaults\config.yaml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

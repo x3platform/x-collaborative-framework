@@ -98,7 +98,7 @@ namespace X3Platform.Tasks.BLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>��ҳ����</summary>
         /// <param name="receiverId">�����˱�ʶ</param>
         /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
@@ -107,9 +107,9 @@ namespace X3Platform.Tasks.BLL
         /// <param name="orderBy">ORDER BY ��������</param>
         /// <param name="rowCount">��¼����</param>
         /// <returns>����һ���б�</returns> 
-        public IList<TaskHistoryItemInfo> GetPages(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskHistoryItemInfo> GetPaging(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
-            return this.provider.GetPages(receiverId, startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(receiverId, startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 

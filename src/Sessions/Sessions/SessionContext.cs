@@ -124,7 +124,8 @@ namespace X3Platform.Sessions
 
             timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
             {
-                SessionContext.Instance.AccountCacheService.Clear(DateTime.Now.AddHours(-SessionsConfigurationView.Instance.SessionTimeLimit));
+                
+                // SessionContext.Instance.AccountCacheService.Clear(DateTime.Now.AddHours(-SessionsConfigurationView.Instance.SessionTimeLimit));
             };
 
             timer.Start();

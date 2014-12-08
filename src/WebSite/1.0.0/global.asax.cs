@@ -29,6 +29,18 @@ namespace X3Platform.WebSiteV10
             // 配置 /api/ 路由
             routes.Add("api-methods", new X3Platform.Web.APIs.Mvc.APIRoute());
 
+            // 管理界面
+            routes.MapRoute(
+                // Route name
+                "Home",
+                // URL with parameters                         
+                "",
+                // Parameter defaults
+                new { controller = "Home", action = "Index" },
+                // Namespaces
+                new string[] { "X3Platform.Admins.Controllers" }
+            );
+
             // 默认地址
             routes.MapRoute(
                 "Default", // Route name

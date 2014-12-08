@@ -15,7 +15,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
     #endregion
 
     [DataObject]
-    public class AttachmentStorageProvider : IAttachmentStorageProvider
+    public class AttachmentFileProvider : IAttachmentFileProvider
     {
         /// <summary>配置</summary>
         private AttachmentStorageConfiguration configuration = null;
@@ -27,10 +27,10 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "tb_Attachment_Storage";
+        private string tableName = "tb_AttachmentStorage_File";
 
         /// <summary></summary>
-        public AttachmentStorageProvider()
+        public AttachmentFileProvider()
         {
             this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
 

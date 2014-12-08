@@ -13,13 +13,13 @@ namespace X3Platform.AttachmentStorage.BLL
     using X3Platform.AttachmentStorage.Util;
     #endregion
 
-    public sealed class AttachmentStorageService : IAttachmentStorageService
+    public sealed class AttachmentFileService : IAttachmentFileService
     {
-        private IAttachmentStorageProvider provider = null;
+        private IAttachmentFileProvider provider = null;
 
         private AttachmentStorageConfiguration configuration = null;
 
-        public AttachmentStorageService()
+        public AttachmentFileService()
         {
             // 读取配置信息
             this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
@@ -30,7 +30,7 @@ namespace X3Platform.AttachmentStorage.BLL
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AttachmentStorageConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据服务对象
-            this.provider = objectBuilder.GetObject<IAttachmentStorageProvider>(typeof(IAttachmentStorageProvider));
+            this.provider = objectBuilder.GetObject<IAttachmentFileProvider>(typeof(IAttachmentFileProvider));
         }
 
         #region 索引:this[string id]

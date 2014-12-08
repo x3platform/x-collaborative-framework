@@ -30,7 +30,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         /// <summary>数据表名</summary>
         private string tableName = "tb_DigitalNumber";
 
-        #region 构造函数:AuthorityProvider()
+        #region 构造函数:DigitalNumberProvider()
         /// <summary>构造函数</summary>
         public DigitalNumberProvider()
         {
@@ -85,16 +85,16 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         }
         #endregion
 
-        #region 函数:Delete(string id)
+        #region 函数:Delete(string name)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号分开</param>
-        public void Delete(string id)
+        /// <param name="name">名称</param>
+        public void Delete(string name)
         {
-            if (string.IsNullOrEmpty(id)) { return; }
+            if (string.IsNullOrEmpty(name)) { return; }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Ids", string.Format("'{0}'", id.Replace(",", "','")));
+            args.Add("Name", StringHelper.ToSafeSQL(name, true));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }

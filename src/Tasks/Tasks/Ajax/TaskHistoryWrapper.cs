@@ -18,11 +18,11 @@ namespace X3Platform.Tasks.Ajax
     {
         ITaskHistoryService service = TasksContext.Instance.TaskHistoryService;
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回一个相关的实例列表.</returns> 
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -30,7 +30,7 @@ namespace X3Platform.Tasks.Ajax
 
             int rowCount = -1;
 
-            IList<TaskHistoryItemInfo> list = this.service.GetPages(KernelContext.Current.User.Id, pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<TaskHistoryItemInfo> list = this.service.GetPaging(KernelContext.Current.User.Id, pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
 
             pages.RowCount = rowCount;
 

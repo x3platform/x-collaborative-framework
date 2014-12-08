@@ -34,10 +34,10 @@ namespace X3Platform.DigitalNumber.IBLL
         DigitalNumberInfo Save(DigitalNumberInfo param);
         #endregion
 
-        #region 函数:Delete(string id)
+        #region 函数:Delete(string name)
         /// <summary>删除记录</summary>
-        /// <param name="id">标识</param>
-        void Delete(string id);
+        /// <param name="name">名称</param>
+        void Delete(string name);
         #endregion
 
         // -------------------------------------------------------
@@ -46,7 +46,7 @@ namespace X3Platform.DigitalNumber.IBLL
 
         #region 函数:FindOne(string name)
         /// <summary>查询某条记录</summary>
-        /// <param name="name">DigitalNumberInfo Id号</param>
+        /// <param name="name">名称</param>
         /// <returns>返回一个<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         DigitalNumberInfo FindOne(string name);
         #endregion

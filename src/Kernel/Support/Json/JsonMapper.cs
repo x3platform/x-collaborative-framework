@@ -915,23 +915,11 @@ namespace X3Platform.Json
         #endregion
 
         /// <summary>转为动态对象</summary>
-        /// <param name="json"></param>
-        /// <returns></returns>
-        public static JsonDynamicObject ToDynamicObject(string json)
-        {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-            serializer.RegisterConverters(new JavaScriptConverter[] { new JsonDynamicConverter() });
-
-            return serializer.Deserialize(json, typeof(object)) as JsonDynamicObject;
-        }
-
-        /// <summary>转为动态对象</summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public static JsonDynamicObject ToDynamicObject(object obj)
         {
-            return ToDynamicObject(obj, (AjaxConfigurationView.Instance.CamelStyle == "ON"));
+            return ToDynamicObject(obj, false);
         }
 
         /// <summary>转为动态对象</summary>
@@ -953,6 +941,16 @@ namespace X3Platform.Json
             {
                 return jsonObj;
             }
+        }
+
+        /// <summary>转为动态对象</summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static JsonDynamicObject ToDynamicObject(string json)
+        {
+            JsonData data = ToObject(json);
+
+            return new JsonDynamicObject(data);
         }
 
         /// <summary>转为 JSON 字符串</summary>

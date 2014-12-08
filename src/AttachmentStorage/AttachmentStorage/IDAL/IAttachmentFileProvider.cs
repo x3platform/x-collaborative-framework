@@ -3,7 +3,7 @@
 //
 // Copyright (c) 2010 Elane, ruany@chinasic.com
 //
-// FileName     :IAttachmentStorageProvider.cs
+// FileName     :IAttachmentFileProvider.cs
 //
 // Description  :
 //
@@ -24,8 +24,8 @@ namespace X3Platform.AttachmentStorage.IDAL
     #endregion
 
     /// <summary>附件存储</summary>
-    [SpringObject("X3Platform.AttachmentStorage.IDAL.IAttachmentStorageProvider")]     
-    public interface IAttachmentStorageProvider
+    [SpringObject("X3Platform.AttachmentStorage.IDAL.IAttachmentFileProvider")]     
+    public interface IAttachmentFileProvider
     {
         // -------------------------------------------------------
         // 保存 添加 修改 删除

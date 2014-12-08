@@ -86,6 +86,7 @@
     <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Location.IPQuery.config" />
     <None Include="db\database.setup.sql" />
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -106,9 +107,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAL\IBatis\" />
-    <Folder Include="DAL\SQLite\" />
-    <Folder Include="DAL\SQLServer\" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
