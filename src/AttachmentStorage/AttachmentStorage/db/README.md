@@ -13,6 +13,6 @@
 | FileType         | varchar(20)     |
 | FileSize         | int             |
 | FileStatus       | int             |
-| OrderId          | varchar(40)     |
 | StorageNodeIndex | int             |
+| OrderId          | varchar(40)     |
 | CreateDate       | datetime        |
