@@ -72,9 +72,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Spring.Core">
-      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -93,20 +90,11 @@
     <Reference Include="X3Platform.Membership">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Services">
-      <HintPath>..\..\..\bin\X3Platform.Services.dll</HintPath>
-    </Reference>
     <Reference Include="X3Platform.Storages">
       <HintPath>..\..\..\bin\X3Platform.Storages.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
-    </Reference>
-    <Reference Include="X3Platform.Velocity">
-      <HintPath>..\..\..\bin\X3Platform.Velocity.dll</HintPath>
-    </Reference>
-    <Reference Include="X3Platform.Web">
-      <HintPath>..\..\..\bin\X3Platform.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -115,122 +103,64 @@
     </Compile>
     <Compile Include="Ajax\TaskCategoryWrapper.cs" />
     <Compile Include="Ajax\TaskHistoryWrapper.cs" />
-    <Compile Include="Ajax\TimingTaskWrapper.cs" />
+    <Compile Include="Ajax\TaskWaitingWrapper.cs" />
+    <Compile Include="Ajax\TaskWorkReceiverWrapper.cs" />
+    <Compile Include="Ajax\TaskWorkWrapper.cs" />
     <Compile Include="BLL\TaskCategoryService.cs" />
     <Compile Include="BLL\TaskHistoryService.cs" />
-    <Compile Include="BLL\TimingTaskReceiverService.cs" />
-    <Compile Include="BLL\TimingTaskService.cs" />
+    <Compile Include="BLL\TaskWaitingReceiverService.cs" />
+    <Compile Include="BLL\TaskWaitingService.cs" />
+    <Compile Include="BLL\TaskWorkReceiverService.cs" />
+    <Compile Include="BLL\TaskWorkService.cs" />
     <Compile Include="Configuration\TasksConfiguration.cs" />
     <Compile Include="Configuration\TasksConfigurationView.cs" />
-    <Compile Include="Customize\TaskWidget.cs" />
     <Compile Include="DAL\IBatis\TaskCategoryProvider.cs" />
     <Compile Include="DAL\IBatis\TaskHistoryProvider.cs" />
-    <Compile Include="DAL\IBatis\TaskProvider.cs" />
-    <Compile Include="DAL\IBatis\TaskReceiverProvider.cs" />
-    <Compile Include="Ajax\TaskWrapper.cs" />
     <Compile Include="Ajax\TaskReadingWrapper.cs" />
-    <Compile Include="Ajax\TaskReceiverWrapper.cs" />
-    <Compile Include="BLL\TaskService.cs" />
-    <Compile Include="DAL\IBatis\TimingTaskProvider.cs" />
-    <Compile Include="DAL\IBatis\TimingTaskReceiverProvider.cs" />
-    <Compile Include="DAL\MySQL\TaskCategoryProvider.cs" />
-    <Compile Include="DAL\MySQL\TaskHistoryProvider.cs" />
-    <Compile Include="DAL\SQLServer\TaskCategoryProvider.cs" />
-    <Compile Include="DAL\SQLServer\TaskHistoryProvider.cs" />
-    <Compile Include="DAL\SQLServer\TaskProvider.cs" />
-    <Compile Include="DAL\SQLServer\TaskReceiverProvider.cs" />
-    <Compile Include="DAL\SQLServer\TimingTaskProvider.cs" />
-    <Compile Include="DAL\SQLServer\TimingTaskReceiverProvider.cs" />
-    <Compile Include="DAL\MySQL\TaskProvider.cs" />
-    <Compile Include="DAL\MySQL\TaskReceiverProvider.cs" />
-    <Compile Include="DAL\MySQL\TimingTaskProvider.cs" />
-    <Compile Include="DAL\MySQL\TimingTaskReceiverProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskWaitingProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskWaitingReceiverProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskWorkProvider.cs" />
+    <Compile Include="DAL\IBatis\TaskWorkReceiverProvider.cs" />
     <Compile Include="IBLL\ITaskCategoryService.cs" />
     <Compile Include="IBLL\ITaskHistoryService.cs" />
-    <Compile Include="IBLL\ITimingTaskReceiverService.cs" />
-    <Compile Include="IBLL\ITimingTaskService.cs" />
+    <Compile Include="IBLL\ITaskWaitingReceiverService.cs" />
+    <Compile Include="IBLL\ITaskWaitingService.cs" />
+    <Compile Include="IBLL\ITaskWorkReceiverService.cs" />
+    <Compile Include="IBLL\ITaskWorkService.cs" />
     <Compile Include="IDAL\ITaskCategoryProvider.cs" />
     <Compile Include="IDAL\ITaskHistoryProvider.cs" />
-    <Compile Include="IDAL\ITimingTaskProvider.cs" />
-    <Compile Include="IDAL\ITimingTaskReceiverProvider.cs" />
-    <Compile Include="IServiceContracts\ITaskWebService.cs" />
+    <Compile Include="IDAL\ITaskWaitingProvider.cs" />
+    <Compile Include="IDAL\ITaskWaitingReceiverProvider.cs" />
+    <Compile Include="IDAL\ITaskWorkProvider.cs" />
+    <Compile Include="IDAL\ITaskWorkReceiverProvider.cs" />
     <Compile Include="Model\TaskCategoryInfo.cs" />
     <Compile Include="Model\TaskHistoryItemInfo.cs" />
-    <Compile Include="Model\TimingTaskInfo.cs" />
-    <Compile Include="Model\TimingTaskReceiverInfo.cs" />
+    <Compile Include="Model\TaskWaitingInfo.cs" />
+    <Compile Include="Model\TaskWaitingReceiverInfo.cs" />
+    <Compile Include="Model\TaskWorkInfo.cs" />
     <Compile Include="Model\TaskWorkItemInfo.cs" />
     <Compile Include="Model\TaskWaitingItemInfo.cs" />
+    <Compile Include="Model\TaskWorkReceiverInfo.cs" />
     <Compile Include="MSMQ\TaskQueue.cs" />
-    <Compile Include="ServiceObservers\TaskServiceObserver.cs" />
-    <Compile Include="ServiceObservers\TaskWaitingItemServiceObserver.cs" />
     <Compile Include="TasksContext.cs" />
-    <Compile Include="IBLL\ITaskService.cs" />
-    <Compile Include="IBLL\ITaskReceiverService.cs" />
-    <Compile Include="IDAL\ITaskProvider.cs" />
-    <Compile Include="IDAL\ITaskReceiverProvider.cs" />
-    <Compile Include="Model\TaskInfo.cs" />
-    <Compile Include="Model\TaskReceiverInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BLL\TaskReceiverService.cs" />
-    <Compile Include="Proxy\TaskProxy.cs">
-    </Compile>
-    <Compile Include="ServiceContracts\TaskWebService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DAL\IBatis\TimingTaskProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\TimingTaskReceiverProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\TaskReceiverProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\TaskProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\TaskCategoryProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\TaskHistoryProvider.xml" />
-    <Content Include="DAL\MySQL\TaskCategoryProvider.xml">
-      <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\TaskHistoryProvider.xml">
-      <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\SQLServer\TaskCategoryProvider.xml">
-      <DependentUpon>TaskCategoryProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\SQLServer\TaskHistoryProvider.xml">
-      <DependentUpon>TaskHistoryProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\SQLServer\TaskProvider.xml">
-      <DependentUpon>TaskProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\SQLServer\TaskReceiverProvider.xml">
-      <DependentUpon>TaskReceiverProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\SQLServer\TimingTaskProvider.xml">
-      <DependentUpon>TimingTaskProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\SQLServer\TimingTaskReceiverProvider.xml">
-      <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\TaskProvider.xml">
-      <DependentUpon>TaskProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\TaskReceiverProvider.xml">
-      <DependentUpon>TaskReceiverProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\MySQL\TimingTaskProvider.xml">
-      <DependentUpon>TimingTaskProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\TimingTaskReceiverProvider.xml">
-      <DependentUpon>TimingTaskReceiverProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="DAL\IBatis\TaskWaitingProvider.xml" />
+    <Content Include="DAL\IBatis\TaskWaitingReceiverProvider.xml" />
+    <Content Include="DAL\IBatis\TaskWorkProvider.xml" />
+    <Content Include="DAL\IBatis\TaskWorkReceiverProvider.xml" />
+    <Content Include="db\Init_Sccript_MySQL-multi-node.sql" />
     <Content Include="db\Init_Sccript_MySQL.sql" />
     <Content Include="db\Init_Sccript_SQLServer.sql" />
-    <None Include="config\IBatis\X3Platform.Tasks.IBatis.SqlMap.config" />
-    <None Include="config\IBatis\X3Platform.Tasks.Spring.config" />
     <EmbeddedResource Include="defaults\config.yaml" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <EmbeddedResource Include="defaults\Objects.xml" />
+    <None Include="config\X3Platform.Tasks.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Tasks.Spring.config" />
+    <None Include="db\README.md" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

@@ -167,5 +167,8 @@
   <ItemGroup>
     <EmbeddedResource Include="defaults\test_resources" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="defaults\test_json" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
 </Project>

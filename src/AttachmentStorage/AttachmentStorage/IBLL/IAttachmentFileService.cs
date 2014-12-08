@@ -9,8 +9,8 @@ namespace X3Platform.AttachmentStorage.IBLL
     #endregion
 
     /// <summary></summary>
-    [SpringObject("X3Platform.AttachmentStorage.IBLL.IAttachmentStorageService")]
-    public interface IAttachmentStorageService
+    [SpringObject("X3Platform.AttachmentStorage.IBLL.IAttachmentFileService")]
+    public interface IAttachmentFileService
     {
         #region Ë÷Òý:this[string id]
         /// <summary>Ë÷Òý</summary>

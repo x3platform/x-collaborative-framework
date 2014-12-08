@@ -8,7 +8,7 @@
 
     using X3Platform.Ajax;
     using X3Platform.Util;
-    
+
     using X3Platform.DigitalNumber.Model;
     using X3Platform.DigitalNumber.IBLL;
     #endregion
@@ -46,11 +46,11 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string name = XmlHelper.Fetch("name", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(name);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
@@ -70,7 +70,7 @@
 
             DigitalNumberInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<DigitalNumberInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<DigitalNumberInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -82,11 +82,11 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(XmlDocument doc)
+        #region 函数:Query(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        public string GetPaging(XmlDocument doc)
+        public string Query(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -98,11 +98,33 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<DigitalNumberInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<DigitalNumberInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        #region 函数:CreateNewObject(XmlDocument doc)
+        /// <summary>创建新的对象</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string CreateNewObject(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            DigitalNumberInfo param = new DigitalNumberInfo();
+
+            param.Name = StringHelper.ToGuid();
+
+            param.CreateDate = param.UpdateDate = DateTime.Now;
+
+            outString.Append("{\"data\":" + AjaxUtil.Parse<DigitalNumberInfo>(param) + ",");
+
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
 
             return outString.ToString();
         }
@@ -114,15 +136,11 @@
         /// <returns>返回操作结果</returns> 
         public string Generate(XmlDocument doc)
         {
-            StringBuilder outString = new StringBuilder();
-
             string name = XmlHelper.Fetch("name", doc);
 
             string result = this.service.Generate(name);
 
-            outString.Append("{\"ajaxStorage\":\"" + result + "\",\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
-
-            return outString.ToString();
+            return "{\"data\":\"" + result + "\",\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}";
         }
         #endregion
     }

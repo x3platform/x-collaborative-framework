@@ -57,7 +57,7 @@
                 // 支持客户端赋值附件标识
                 if (!string.IsNullOrEmpty(attachmentId))
                 {
-                    if (AttachmentStorageContext.Instance.AttachmentStorageService.IsExist(attachmentId))
+                    if (AttachmentStorageContext.Instance.AttachmentFileService.IsExist(attachmentId))
                     {
                         HttpContext.Current.Response.StatusCode = 500;
                         HttpContext.Current.Response.Write("Attachment id already exists.");

@@ -26,7 +26,6 @@ namespace X3Platform.Security.Authority.Ajax
         /// <summary>保存信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             AuthorityInfo param = new AuthorityInfo();
@@ -35,7 +34,7 @@ namespace X3Platform.Security.Authority.Ajax
 
             service.Save(param);
 
-            return "{message:{\"returnCode\":0,\"value\":\"保存成功。\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
         #endregion
 
@@ -43,14 +42,13 @@ namespace X3Platform.Security.Authority.Ajax
         /// <summary>删除数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            service.Delete(ids);
+            service.Delete(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
@@ -62,7 +60,6 @@ namespace X3Platform.Security.Authority.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -71,9 +68,9 @@ namespace X3Platform.Security.Authority.Ajax
 
             AuthorityInfo param = service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -83,7 +80,6 @@ namespace X3Platform.Security.Authority.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("findOneByName")]
         public string FindOneByName(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -92,7 +88,7 @@ namespace X3Platform.Security.Authority.Ajax
 
             AuthorityInfo param = service.FindOneByName(name);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -104,7 +100,6 @@ namespace X3Platform.Security.Authority.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -113,9 +108,9 @@ namespace X3Platform.Security.Authority.Ajax
 
             IList<AuthorityInfo> list = service.FindAll(new DataQuery());
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<AuthorityInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -126,7 +121,7 @@ namespace X3Platform.Security.Authority.Ajax
         //-------------------------------------------------------
 
         #region 属性:Query(XmlDocument doc)
-        /// <summary>分页内容</summary>
+        /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
         public string Query(XmlDocument doc)
@@ -141,12 +136,12 @@ namespace X3Platform.Security.Authority.Ajax
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<AuthorityInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
             outString.Append("\"msg\":\"success\",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -156,7 +151,6 @@ namespace X3Platform.Security.Authority.Ajax
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -167,9 +161,9 @@ namespace X3Platform.Security.Authority.Ajax
 
             param.CreateDate = param.UpdateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
 
             return outString.ToString();
         }

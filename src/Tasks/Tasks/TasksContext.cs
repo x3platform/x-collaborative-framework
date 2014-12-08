@@ -57,26 +57,6 @@ namespace X3Platform.Tasks
         }
         #endregion
 
-        #region 属性:TaskService
-        private ITaskService m_TaskService;
-
-        /// <summary>任务</summary>
-        public ITaskService TaskService
-        {
-            get { return m_TaskService; }
-        }
-        #endregion
-
-        #region 属性:TaskReceiverService
-        private ITaskReceiverService m_TaskReceiverService;
-
-        /// <summary>任务接收者</summary>
-        public ITaskReceiverService TaskReceiverService
-        {
-            get { return m_TaskReceiverService; }
-        }
-        #endregion
-
         #region 属性:TaskCategoryService
         private ITaskCategoryService m_TaskCategoryService;
 
@@ -87,6 +67,46 @@ namespace X3Platform.Tasks
         }
         #endregion
 
+        #region 属性:TaskWaitingService
+        private ITaskWaitingService m_TaskWaitingService;
+
+        /// <summary>定时任务</summary>
+        public ITaskWaitingService TaskWaitingService
+        {
+            get { return m_TaskWaitingService; }
+        }
+        #endregion
+
+        #region 属性:TaskWaitingReceiverService
+        private ITaskWaitingReceiverService m_TaskWaitingReceiverService;
+
+        /// <summary>定时任务接收者</summary>
+        public ITaskWaitingReceiverService TaskWaitingReceiverService
+        {
+            get { return m_TaskWaitingReceiverService; }
+        }
+        #endregion
+
+        #region 属性:TaskWorkService
+        private ITaskWorkService m_TaskWorkService;
+
+        /// <summary>任务</summary>
+        public ITaskWorkService TaskWorkService
+        {
+            get { return m_TaskWorkService; }
+        }
+        #endregion
+
+        #region 属性:TaskWorkReceiverService
+        private ITaskWorkReceiverService m_TaskWorkReceiverService;
+
+        /// <summary>任务接收者</summary>
+        public ITaskWorkReceiverService TaskWorkReceiverService
+        {
+            get { return m_TaskWorkReceiverService; }
+        }
+        #endregion
+
         #region 属性:TaskHistoryService
         private ITaskHistoryService m_TaskHistoryService;
 
@@ -94,26 +114,6 @@ namespace X3Platform.Tasks
         public ITaskHistoryService TaskHistoryService
         {
             get { return m_TaskHistoryService; }
-        }
-        #endregion
-
-        #region 属性:TimingTaskService
-        private ITimingTaskService m_TimingTaskService;
-
-        /// <summary>定时任务</summary>
-        public ITimingTaskService TimingTaskService
-        {
-            get { return m_TimingTaskService; }
-        }
-        #endregion
-
-        #region 属性:TimingTaskReceiverService
-        private ITimingTaskReceiverService m_TimingTaskReceiverService;
-
-        /// <summary>定时任务接收者</summary>
-        public ITimingTaskReceiverService TimingTaskReceiverService
-        {
-            get { return m_TimingTaskReceiverService; }
         }
         #endregion
 
@@ -155,12 +155,12 @@ namespace X3Platform.Tasks
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(TasksConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据服务对象
-            this.m_TaskService = objectBuilder.GetObject<ITaskService>(typeof(ITaskService));
-            this.m_TaskReceiverService = objectBuilder.GetObject<ITaskReceiverService>(typeof(ITaskReceiverService));
+            this.m_TaskWorkService = objectBuilder.GetObject<ITaskWorkService>(typeof(ITaskWorkService));
+            this.m_TaskWorkReceiverService = objectBuilder.GetObject<ITaskWorkReceiverService>(typeof(ITaskWorkReceiverService));
             this.m_TaskCategoryService = objectBuilder.GetObject<ITaskCategoryService>(typeof(ITaskCategoryService));
             this.m_TaskHistoryService = objectBuilder.GetObject<ITaskHistoryService>(typeof(ITaskHistoryService));
-            this.m_TimingTaskService = objectBuilder.GetObject<ITimingTaskService>(typeof(ITimingTaskService));
-            this.m_TimingTaskReceiverService = objectBuilder.GetObject<ITimingTaskReceiverService>(typeof(ITimingTaskReceiverService));
+            this.m_TaskWaitingService = objectBuilder.GetObject<ITaskWaitingService>(typeof(ITaskWaitingService));
+            this.m_TaskWaitingReceiverService = objectBuilder.GetObject<ITaskWaitingReceiverService>(typeof(ITaskWaitingReceiverService));
         }
         #endregion
     }

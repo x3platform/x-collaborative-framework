@@ -26,7 +26,6 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             TaskCategoryInfo param = new TaskCategoryInfo();
@@ -43,7 +42,6 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -69,7 +67,6 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -78,7 +75,7 @@ namespace X3Platform.Tasks.Ajax
 
             TaskCategoryInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<TaskCategoryInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -90,14 +87,13 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             IList<TaskCategoryInfo> list = this.service.FindAll();
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -109,12 +105,11 @@ namespace X3Platform.Tasks.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -122,11 +117,11 @@ namespace X3Platform.Tasks.Ajax
 
             int rowCount = -1;
 
-            IList<TaskCategoryInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<TaskCategoryInfo> list = this.service.GetPaging(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -140,7 +135,6 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -155,7 +149,6 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -168,7 +161,7 @@ namespace X3Platform.Tasks.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskCategoryInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<TaskCategoryInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -180,7 +173,6 @@ namespace X3Platform.Tasks.Ajax
         /// <summary>设置类别状态(停用/启用)</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("setStatus")]
         public string SetStatus(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);

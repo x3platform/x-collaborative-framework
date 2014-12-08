@@ -154,7 +154,7 @@
 			SELECT * FROM tb_Task_HistoryItem WHERE Id = #Id#
 		</select>
 
-		<select id="proc_Task_HistoryItem_GetPages" resultMap="proc_Task_HistoryItem_FindAll_Result" >
+		<select id="proc_Task_HistoryItem_GetPaging" resultMap="proc_Task_HistoryItem_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

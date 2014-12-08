@@ -35,7 +35,7 @@ namespace X3Platform.Sessions.DAL.IBatis
         private string tableName = "tb_AccountCache";
 
         /// <summary>数据存储架构标识</summary>
-        private string storageSchemaId = "01-14-Session";
+        private string storageSchemaId = null;
 
         /// <summary>数据存储策略</summary>
         private IStorageStrategy storageStrategy = null;
@@ -47,6 +47,8 @@ namespace X3Platform.Sessions.DAL.IBatis
             this.configuration = SessionsConfigurationView.Instance.Configuration;
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
+
+            this.storageSchemaId = this.configuration.Keys["StorageSchemaId"].Value;
 
             this.ibatisMappers = StorageContext.Instance.CreateSqlMappers(this.storageSchemaId, this.ibatisMapping);
 

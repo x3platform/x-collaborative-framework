@@ -199,7 +199,7 @@ namespace X3Platform.AttachmentStorage
         /// <summary>还原附件信息</summary>
         public void Restore(string id)
         {
-            IAttachmentFileInfo temp = AttachmentStorageContext.Instance.AttachmentStorageService.FindOne(id);
+            IAttachmentFileInfo temp = AttachmentStorageContext.Instance.AttachmentFileService.FindOne(id);
 
             this.Id = temp.Id;
             this.EntityId = temp.EntityId;
@@ -222,7 +222,7 @@ namespace X3Platform.AttachmentStorage
         /// <summary>保存附件信息</summary>
         public void Save()
         {
-            AttachmentStorageContext.Instance.AttachmentStorageService.Save(this);
+            AttachmentStorageContext.Instance.AttachmentFileService.Save(this);
 
             //
             // 保存 二进制数据

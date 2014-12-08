@@ -44,7 +44,7 @@ namespace X3Platform.Tasks.MSMQ
 
                 try
                 {
-                    data = new TaskInfo();
+                    data = new TaskWorkInfo();
 
                     // 如果消息队列为空时, 将会导致无限期占用线程, 设置等待10秒钟Receive()函数无响应，则返回空值。
                     Message message = queue.Receive(new TimeSpan(0, 0, 10));

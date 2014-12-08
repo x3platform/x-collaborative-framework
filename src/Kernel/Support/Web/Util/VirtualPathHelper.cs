@@ -62,7 +62,7 @@ namespace X3Platform.Web
         /// <returns></returns>
         public static string GetPhysicalPath(string virtualPath)
         {
-            return HttpContext.Current.Server.MapPath(virtualPath);
+            return HttpContext.Current == null ? virtualPath : HttpContext.Current.Server.MapPath(virtualPath);
         }
         #endregion
     }

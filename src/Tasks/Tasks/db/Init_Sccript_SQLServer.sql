@@ -51,10 +51,10 @@ FROM
 
 GO
 
--- proc_SendTimingTask
+-- proc_SendTaskWaiting
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proc_SendTimingTask]') AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[proc_SendTimingTask]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proc_SendTaskWaiting]') AND type in (N'P', N'PC'))
+	DROP PROCEDURE [dbo].[proc_SendTaskWaiting]
 GO
 
 SET ANSI_NULLS ON
@@ -62,7 +62,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-Create PROCEDURE [dbo].[proc_SendTimingTask]
+Create PROCEDURE [dbo].[proc_SendTaskWaiting]
 AS
 BEGIN
   DECLARE @todayNo int
@@ -118,7 +118,7 @@ BEGIN
   DROP TABLE #taskId
 END
 
--- job_SendTimingTask
+-- job_SendTaskWaiting
 
 USE [msdb]
 GO
@@ -138,7 +138,7 @@ END
 DECLARE @jobId BINARY(16)
 
 -- ³£¹æ
-EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'job_SendTimingTask', 
+EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'job_SendTaskWaiting', 
 		@enabled=1, 
 		@notify_level_eventlog=0, 
 		@notify_level_email=0, 

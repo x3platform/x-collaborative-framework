@@ -9,6 +9,8 @@ namespace X3Platform.Util
     public class DirectoryHelper
     {
         #region 函数:Create(string path)
+        /// <summary>创建目录</summary>
+        /// <param name="path"></param>
         public static void Create(string path)
         {
             // 检查目标目录是否以目录分割字符结束如果不是则添加之

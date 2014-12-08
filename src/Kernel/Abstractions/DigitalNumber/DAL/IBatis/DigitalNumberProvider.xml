@@ -96,15 +96,13 @@
             </dynamic>
             
             <dynamic prepend="ORDER BY">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="OrderBy" >
-                        $OrderBy$
-                    </isNotEmpty>
-                </isParameterPresent>
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
             </dynamic>
             
             <dynamic prepend="LIMIT">
-                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue="0">
                     0, $Length$
                 </isNotEqual>
             </dynamic>
@@ -147,7 +145,11 @@
                 </isParameterPresent>
             </dynamic>
             
-            ORDER BY $OrderBy$
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
             
             LIMIT $StartIndex$, $PageSize$
         </select>

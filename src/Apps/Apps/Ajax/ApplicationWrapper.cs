@@ -14,7 +14,7 @@ namespace X3Platform.Apps.Ajax
     #endregion
 
     /// <summary></summary>
-    public class ApplicationWrapper : ContextWrapper
+    public class ApplicationWrapper
     {
         private IApplicationService service = AppsContext.Instance.ApplicationService;
 
@@ -63,16 +63,14 @@ namespace X3Platform.Apps.Ajax
         #endregion
 
         #region 函数:Delete(XmlDocument doc)
-        /// <summary>
-        /// 删除记录
-        /// </summary>
+        /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
             return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
@@ -83,9 +81,7 @@ namespace X3Platform.Apps.Ajax
         // -------------------------------------------------------
 
         #region 函数:FindOne(XmlDocument doc)
-        /// <summary>
-        /// 获取详细信息
-        /// </summary>
+        /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
         public string FindOne(XmlDocument doc)
@@ -98,7 +94,7 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -127,10 +123,10 @@ namespace X3Platform.Apps.Ajax
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
-            outString.Append("\"metaData\":{\"root\":\"ajaxStorage\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
             outString.Append("\"success\":1,");
             outString.Append("\"msg\":\"success\",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"���ҳɹ���\"}}");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -182,7 +178,7 @@ namespace X3Platform.Apps.Ajax
             if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
                 outString = outString.Remove(outString.Length - 1, 1);
 
-            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }
@@ -198,21 +194,21 @@ namespace X3Platform.Apps.Ajax
             string tree = XmlHelper.Fetch("tree", doc);
             string parentId = XmlHelper.Fetch("parentId", doc);
 
-            // ��������
+            // 附加属性
             string treeViewId = XmlHelper.Fetch("treeViewId", doc);
             string treeViewName = XmlHelper.Fetch("treeViewName", doc);
             string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
 
             string url = XmlHelper.Fetch("url", doc);
 
-            // ���οؼ�Ĭ�ϸ��ڵ���ʶΪ0, ��Ҫ���⴦��.
+            // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
 
             StringBuilder outString = new StringBuilder();
 
             outString.Append("{\"childNodes\":[");
 
-            // ԭʼ�ĸ������ݽڵ���ʶ
+            // 查找树的子节点
             string originalParentId = (treeViewRootTreeNodeId == parentId) ? "00000000-0000-0000-0000-000000000000" : parentId;
 
             string whereClause = string.Format(" ParentId = ##{0}## AND Status = 1 ORDER BY OrderId, Code ", originalParentId);
@@ -233,7 +229,7 @@ namespace X3Platform.Apps.Ajax
             if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
                 outString = outString.Remove(outString.Length - 1, 1);
 
-            outString.Append("],\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+            outString.Append("],\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

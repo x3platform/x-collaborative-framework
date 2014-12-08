@@ -17,7 +17,7 @@ namespace X3Platform.Tasks.Ajax
     /// <summary></summary>
     public class TaskReadingWrapper : ContextWrapper
     {
-        ITaskReceiverService service = TasksContext.Instance.TaskReceiverService;
+        ITaskWorkReceiverService service = TasksContext.Instance.TaskWorkReceiverService;
 
         /// <summary></summary>
         public override void ProcessRequest(HttpContext context)

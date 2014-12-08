@@ -14,9 +14,9 @@
     #endregion
 
     /// <summary>附件存储信息</summary>
-    public class AttachmentStorageWrapper : ContextWrapper
+    public class AttachmentFileWrapper : ContextWrapper
     {
-        private IAttachmentStorageService service = AttachmentStorageContext.Instance.AttachmentStorageService; // 数据服务
+        private IAttachmentFileService service = AttachmentStorageContext.Instance.AttachmentFileService; // 数据服务
 
         // -------------------------------------------------------
         // 保存 删除
@@ -72,7 +72,7 @@
 
             IAttachmentFileInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAttachmentFileInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAttachmentFileInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查找成功。\"}}");
 
@@ -84,7 +84,7 @@
         /// <summary>获取列表内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-         public string FindAll(XmlDocument doc)
+        public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -114,10 +114,10 @@
             {
                 query.Orders.Add(orderBy);
             }
-            
+
             IList<IAttachmentFileInfo> list = this.service.FindAll(query);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -129,11 +129,11 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(XmlDocument doc)
+        #region 函数:Query(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        public string GetPaging(XmlDocument doc)
+        public string Query(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -145,10 +145,12 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
-
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
-
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\",");
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查找成功。\"}}");
 
             return outString.ToString();
