@@ -1,6 +1,18 @@
-Êı¾İ×Öµä
+æ•°æ®å­—å…¸
 
-| Name | Description          |
-| ------------- | ----------- |
-| Help      | ~~Display the~~ help window.|
-| Close     | _Closes_ a window     |
+**Table Name: é™„ä»¶ä¿¡æ¯** 
+
+| Column Name      | Type(Length)    | Default   | Description   | PK   | FK   | Index |  
+| :----            | :----           | :----     | :----         | :--- | :--- | :---- |  
+| Id               | varchar(36)     |           |               |  âˆš  |      |   âˆš  |
+| EntityId         | varchar(50)     |           |               |
+| EntityClassName  | varchar(400)    |
+| AttachmentName   | varchar(100)    |
+| VirtualPath      | varchar(1000)   |
+| FolderRule       | varchar(100)    |
+| FileType         | varchar(20)     |
+| FileSize         | int             |
+| FileStatus       | int             |
+| OrderId          | varchar(40)     |
+| StorageNodeIndex | int             |
+| CreateDate       | datetime        |
