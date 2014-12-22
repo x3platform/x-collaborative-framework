@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="AuthorityInfo" type="X3Platform.Security.Authority.AuthorityInfo,X3Platform.Abstractions" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Authority_FindOne_Result" class="AuthorityInfo">
+            <result property="Id" column="Id" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Locking" column="Locking" />
+            <result property="Tags" column="Tags" />
+            <result property="OrderId" column="OrderId" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Authority_FindAll_Result" class="AuthorityInfo">
+            <result property="Id" column="Id" />
+            <result property="Name" column="Name" />
+            <result property="Description" column="Description" />
+            <result property="Locking" column="Locking" />
+            <result property="Tags" column="Tags" />
+            <result property="OrderId" column="OrderId" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_Authority_Insert" parameterClass="AuthorityInfo">
+            INSERT INTO tb_Authority 
+            (
+                Id,
+                Name,
+                Description,
+                Locking,
+                Tags,
+                OrderId,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #Name#,
+                #Description#,
+                #Locking#,
+                #Tags#,
+                #OrderId#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+        <update id="proc_Authority_Update" parameterClass="AuthorityInfo">
+            UPDATE tb_Authority SET
+
+                Id = #Id#,
+                Name = #Name#,
+                Description = #Description#,
+                Locking = #Locking#,
+                Tags = #Tags#,
+                OrderId = #OrderId#,
+                UpdateDate = CURRENT_TIMESTAMP
+
+            WHERE Id = #Id#
+        </update>
+        <delete id="proc_Authority_Delete" >
+            DELETE FROM tb_Authority WHERE $WhereClause$
+        </delete>
+        <select id="proc_Authority_FindOne" resultMap="proc_Authority_FindOne_Result" >
+            SELECT * FROM tb_Authority WHERE Id = #Id#
+        </select>
+        <select id="proc_Authority_FindOneByName" resultMap="proc_Authority_FindOne_Result" >
+            SELECT * FROM tb_Authority WHERE Name = #Name#
+        </select>
+        <select id="proc_Authority_FindAll#MySql" resultMap="proc_Authority_FindAll_Result" >
+            SELECT * FROM tb_Authority
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="OrderBy" >
+                        $OrderBy$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Authority_FindAll" resultMap="proc_Authority_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM tb_Authority T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Authority_GetPaging#MySql"  resultMap="proc_Authority_FindAll_Result" >
+            SELECT * FROM tb_Authority T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Authority_GetPaging#SqlServer" resultMap="proc_Authority_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM tb_Authority T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+        <select id="proc_Authority_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Authority T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Authority_IsExist" >
+            SELECT COUNT(0) AS "Count" FROM tb_Authority WHERE $WhereClause$
+        </select>
+        <select id="proc_Authority_HasAuthorizationObject" >
+            SELECT COUNT(0) AS "Count" FROM view_AuthorizationObject_Account T WHERE $WhereClause$
+        </select>
+        
+    </statements>
+</sqlMap>
