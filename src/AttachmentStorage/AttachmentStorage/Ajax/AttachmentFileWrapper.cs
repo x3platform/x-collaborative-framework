@@ -16,6 +16,7 @@
     /// <summary>附件存储信息</summary>
     public class AttachmentFileWrapper : ContextWrapper
     {
+        /// <summary>数据服务</summary>
         private IAttachmentFileService service = AttachmentStorageContext.Instance.AttachmentFileService; // 数据服务
 
         // -------------------------------------------------------
@@ -89,31 +90,30 @@
             StringBuilder outString = new StringBuilder();
 
             // SQL过滤条件
-            string whereClause = XmlHelper.Fetch("whereClause", doc);
+            string entityId = XmlHelper.Fetch("entityId", doc);
+            string entityClassName = XmlHelper.Fetch("entityClassName", doc);
             // 排序条件
             string orderBy = XmlHelper.Fetch("orderBy", doc);
             // 文件列表最大长度
             int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-            if (string.IsNullOrEmpty(whereClause))
+            if (string.IsNullOrEmpty(entityId) || string.IsNullOrEmpty(entityClassName))
             {
-                outString.Append("\"message\":{\"returnCode\":1,\"value\":\"请填写过滤条件【WhereClause】。\"}}");
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(orderBy) && whereClause.ToUpper().IndexOf(" ORDER BY ") == -1)
-                {
-                    whereClause = whereClause + " ORDER BY " + orderBy;
-                }
+                return "{\"message\":{\"returnCode\":1,\"value\":\"请填写附件所属实体对象信息【entityId】和【entityClassName】。\"}}";
             }
 
             // 这里需要修改
             DataQuery query = new DataQuery();
 
+            query.Where.Add("entityId", entityId);
+            query.Where.Add("entityClassName", entityClassName);
+          
             if (!string.IsNullOrEmpty(orderBy))
             {
                 query.Orders.Add(orderBy);
             }
+            
+            query.Length = length;
 
             IList<IAttachmentFileInfo> list = this.service.FindAll(query);
 
@@ -139,8 +139,11 @@
 
             PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
-            int rowCount = -1;
+            // 设置查询方案
+            paging.Query.Variables.Add("Scenario", "Query");
 
+            int rowCount = -1;
+            
             IList<IAttachmentFileInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;

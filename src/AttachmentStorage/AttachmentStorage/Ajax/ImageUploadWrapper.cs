@@ -10,6 +10,7 @@
 
     using X3Platform.AttachmentStorage.Images;
     using X3Platform.AttachmentStorage.Util;
+    using X3Platform.AttachmentStorage.Configuration;
     #endregion
 
     /// <summary>图片上传</summary>
@@ -31,8 +32,8 @@
             // [*]寻求别的验证方法替代当前方式. 
             //
             // 登录用户才可上传文件
-            // if (AttachmentStorageConfigurationView.Instance.AnonymousUpload == "OFF" && KernelContext.Current.User == null)
-            //    return;
+             if (AttachmentStorageConfigurationView.Instance.AnonymousUpload == "OFF" && KernelContext.Current.User == null)
+                return;
 
             HttpRequest request = context.Request;
 

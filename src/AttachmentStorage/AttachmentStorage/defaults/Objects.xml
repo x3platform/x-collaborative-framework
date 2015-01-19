@@ -4,11 +4,11 @@
     
     <!-- 附件存储记录 -->
     <object id="X3Platform.AttachmentStorage.IBLL.IAttachmentFileService"
-            type="X3Platform.AttachmentStorage.BLL.AttachmentStorageService"
+            type="X3Platform.AttachmentStorage.BLL.AttachmentFileService"
             lazy-init="true" />
 
     <object id="X3Platform.AttachmentStorage.IDAL.IAttachmentFileProvider"
-            type="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentStorageProvider"
+            type="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentFileProvider"
             lazy-init="true" />
 
     <!-- 附件二进制文件 -->

@@ -1,35 +1,19 @@
+-- ================================================
+-- 验证码管理初始化脚本 MySQL 版 (2010-01-01)
+-- ================================================
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[proc_Authority_Delete]') AND type in (N'P', N'PC'))
-	DROP PROCEDURE [dbo].[proc_Authority_Delete]
-GO
+-- 创建数据库: sys_config
+-- CREATE DATABASE sys_config
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+-- 创建表: tb_VerificationCode
+CREATE TABLE tb_VerificationCode (
+	Id varchar(36) NOT NULL ,
+	ObjectType  varchar(20) NULL ,
+	ObjectValue  varchar(36) NULL ,
+	Code  varchar(6) NULL ,
+	ValidationType  varchar(20) NULL ,
+	CreateDate  datetime NULL
+);
 
-Create PROCEDURE [dbo].[proc_Authority_Delete]
-(
-	@Ids nvarchar(800)
-)
-
-AS
-
---===========================================================
--- Author	: RuanYu
--- Summary	: 
--- Date		: 2009-06-20
---===========================================================
-
-SET NOCOUNT ON
-DECLARE @Err int
-
-BEGIN
-	
-	DECLARE @SQL AS nvarchar(4000)
-
-	SET @SQL = 'DELETE FROM [tb_Authority] WHERE [Id] IN (' + @Ids + ') '
-
-	EXEC sp_executesql @SQL
-	
-END
+-- 设置主键: Id
+ALTER TABLE tb_VerificationCode ADD CONSTRAINT PK_tb_VerificationCode PRIMARY KEY CLUSTERED (Id);

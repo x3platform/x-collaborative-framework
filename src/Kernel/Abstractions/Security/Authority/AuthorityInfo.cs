@@ -11,13 +11,6 @@ namespace X3Platform.Security.Authority
         /// <summary>构造函数</summary>
         public AuthorityInfo() { }
 
-        /// <summary>构造函数</summary>
-        /// <param name="id">标识</param>
-        public AuthorityInfo(string id)
-        {
-            this.m_Id = id;
-        }
-
         #region 属性:Id
         private string m_Id;
 
@@ -30,13 +23,13 @@ namespace X3Platform.Security.Authority
         #endregion
 
         #region 属性:Name
-        private string m_NickName;
+        private string m_Name;
 
         /// <summary></summary>
         public string Name
         {
-            get { return m_NickName; }
-            set { m_NickName = value; }
+            get { return this.m_Name; }
+            set { this.m_Name = value; }
         }
         #endregion
 

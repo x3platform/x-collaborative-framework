@@ -4,7 +4,7 @@
         <typeAlias alias="AttachmentFileInfo" type="X3Platform.AttachmentStorage.AttachmentFileInfo,X3Platform.AttachmentStorage" />
     </alias>
     <resultMaps>
-        <resultMap id="proc_Attachment_Storage_FindOne_Result" class="AttachmentFileInfo">
+        <resultMap id="proc_Attachment_File_FindOne_Result" class="AttachmentFileInfo">
             <result property="Id" column="Id" />
             <result property="EntityId" column="EntityId" />
             <result property="EntityClassName" column="EntityClassName" />
@@ -16,7 +16,7 @@
             <result property="FileStatus" column="FileStatus" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
-        <resultMap id="proc_Attachment_Storage_FindAll_Result" class="AttachmentFileInfo">
+        <resultMap id="proc_Attachment_File_FindAll_Result" class="AttachmentFileInfo">
             <result property="Id" column="Id" />
             <result property="EntityId" column="EntityId" />
             <result property="EntityClassName" column="EntityClassName" />
@@ -29,10 +29,9 @@
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
-
     <statements>
-        <insert id="proc_Attachment_Storage_Save" parameterClass="AttachmentFileInfo" >
-            INSERT INTO [tb_Attachment_Storage]
+        <insert id="proc_Attachment_File_Save" parameterClass="AttachmentFileInfo" >
+            INSERT INTO tb_Attachment_File
             (
                 Id,
                 EntityId,
@@ -59,16 +58,13 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
-        <delete id="proc_Attachment_Storage_Delete">
-            DELETE FROM [tb_Attachment_Storage] WHERE Id IN($Ids$)
+        <delete id="proc_Attachment_File_Delete">
+            DELETE FROM tb_Attachment_File WHERE $WhereClause$
         </delete>
-
-        <select id="proc_Attachment_Storage_FindOne" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_Storage_FindOne_Result" >
-            SELECT * FROM [tb_Attachment_Storage] WHERE [Id] = #Id#
+        <select id="proc_Attachment_File_FindOne" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_File_FindOne_Result" >
+            SELECT * FROM tb_Attachment_File WHERE Id = #Id#
         </select>
-
-        <select id="proc_Attachment_Storage_FindAll" resultMap="proc_Attachment_Storage_FindAll_Result" parameterClass="AttachmentFileInfo" >
+        <select id="proc_Attachment_File_FindAll#SqlServer" resultMap="proc_Attachment_File_FindAll_Result" parameterClass="AttachmentFileInfo" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -77,7 +73,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Attachment_Storage] T
+            * FROM tb_Attachment_File T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -86,14 +82,42 @@
                     </isNotEmpty>
                 </isParameterPresent>
             </dynamic>
-        </select>
 
-        <select id="proc_Attachment_Storage_GetPaging" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_Storage_FindAll_Result" >
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>   
+        </select>
+        <select id="proc_Attachment_File_FindAll#MySql" resultMap="proc_Attachment_File_FindAll_Result" parameterClass="AttachmentFileInfo" >
+            SELECT * FROM tb_Attachment_File T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue="0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Attachment_File_GetPaging#SqlServer" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_File_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Attachment_Storage] T
+            FROM tb_Attachment_File T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -105,9 +129,27 @@
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
+        <select id="proc_Attachment_File_GetPaging#MySql" parameterClass="AttachmentFileInfo" resultMap="proc_Attachment_File_FindAll_Result" >
+            SELECT * FROM tb_Attachment_File T
 
-        <select id="proc_Attachment_Storage_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Attachment_Storage] T
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Attachment_File_GetRowCount" >
+            SELECT COUNT(*) AS "RowCount" FROM tb_Attachment_File T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -117,13 +159,11 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
-        <select id="proc_Attachment_Storage_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM [tb_Attachment_Storage] T WHERE Id = #Id#
+        <select id="proc_Attachment_File_IsExist" >
+            SELECT COUNT(*) AS "Count" FROM tb_Attachment_File T WHERE $WhereClause$
         </select>
-
-        <update id="proc_Attachment_Storage_Rename" >
-            UPDATE [tb_Attachment_Storage] SET AttachmentName = #AttachmentName# WHERE Id = #Id#
+        <update id="proc_Attachment_File_Rename" >
+            UPDATE tb_Attachment_File SET AttachmentName = #AttachmentName# WHERE Id = #Id#
         </update>
     </statements>
 </sqlMap>

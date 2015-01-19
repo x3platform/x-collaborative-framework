@@ -7,20 +7,23 @@
         <resultMap id="proc_Attachment_DistributedFile_FindOne_Result" class="DistributedFileInfo">
             <result property="Id" column="Id" />
             <result property="VirtualPath" column="VirtualPath" />
-            <result property="FileData" column="FileData" dbType="image" />
+            <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
+            <result property="FileData" column="FileData" dbType="blob" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
         <resultMap id="proc_Attachment_DistributedFile_FindAll_Result" class="DistributedFileInfo">
             <result property="Id" column="Id" />
             <result property="VirtualPath" column="VirtualPath" />
-            <result property="FileData" column="FileData" dbType="image" />
+            <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
+            <result property="FileData" column="FileData" dbType="blob" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
 
     <statements>
-        <insert id="proc_Attachment_DistributedFile_Save" parameterClass="DistributedFileInfo" >
-            INSERT INTO [tb_Attachment_DistributedFile]
+        <!-- 
+        <insert id="proc_Attachment_DistributedFile_Save#SqlServer" parameterClass="DistributedFileInfo" >
+            INSERT INTO tb_Attachment_DistributedFile
             (
                 Id,
                 VirtualPath,
@@ -35,13 +38,30 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
+        -->
+        <insert id="proc_Attachment_DistributedFile_Save#MySql" parameterClass="DistributedFileInfo" >
+            INSERT INTO tb_Attachment_DistributedFile
+            (
+                Id,
+                VirtualPath,
+                FileData,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #VirtualPath#,
+                #FileData:blob#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
 
         <delete id="proc_Attachment_DistributedFile_Delete">
-            DELETE FROM [tb_Attachment_DistributedFile] WHERE Id IN ($Ids$)
+            DELETE FROM tb_Attachment_DistributedFile WHERE Id IN ($Ids$)
         </delete>
 
         <select id="proc_Attachment_DistributedFile_FindOne" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindOne_Result" >
-            SELECT * FROM [tb_Attachment_DistributedFile] WHERE [Id] = #Id#
+            SELECT * FROM tb_Attachment_DistributedFile WHERE Id = #Id#
         </select>
 
         <select id="proc_Attachment_DistributedFile_FindAll" resultMap="proc_Attachment_DistributedFile_FindAll_Result" parameterClass="DistributedFileInfo" >
@@ -53,7 +73,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Attachment_DistributedFile] T
+            * FROM tb_Attachment_DistributedFile T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -69,7 +89,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Attachment_DistributedFile] T
+            FROM tb_Attachment_DistributedFile T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -83,7 +103,7 @@
         </select>
 
         <select id="proc_Attachment_DistributedFile_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Attachment_DistributedFile] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Attachment_DistributedFile T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -95,7 +115,7 @@
         </select>
 
         <select id="proc_Attachment_DistributedFile_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM [tb_Attachment_DistributedFile] T WHERE Id = #Id#
+            SELECT COUNT(*) AS 'Count' FROM tb_Attachment_DistributedFile T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

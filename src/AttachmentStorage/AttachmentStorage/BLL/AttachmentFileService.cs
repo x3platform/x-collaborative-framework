@@ -17,15 +17,10 @@ namespace X3Platform.AttachmentStorage.BLL
     {
         private IAttachmentFileProvider provider = null;
 
-        private AttachmentStorageConfiguration configuration = null;
-
         public AttachmentFileService()
         {
-            // 读取配置信息
-            this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AttachmentStorageConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AttachmentStorageConfiguration.ApplicationName, springObjectFile);
 

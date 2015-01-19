@@ -202,7 +202,11 @@
                 </isParameterPresent>
             </dynamic>
 
-            ORDER BY $OrderBy$
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
             
             LIMIT $StartIndex$, $PageSize$
         </select>

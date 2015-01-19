@@ -1,11 +1,14 @@
 # 文件夹
 obj
 bin
+aspnet_client
 dist
 doc
 node_modules
 releases
 /src/tests
+/src/WebSite/1.0.0/logs
+/src/WebSite/1.0.0/tests
 
 # 临时文件
 *.suo

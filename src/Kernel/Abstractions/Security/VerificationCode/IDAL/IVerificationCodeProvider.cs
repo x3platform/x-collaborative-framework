@@ -19,37 +19,37 @@ using System;
 using System.Collections.Generic;
 
 using X3Platform.Spring;
-using X3Platform.Security.Authority.Configuration;
+using X3Platform.Security.VerificationCode.Configuration;
 using X3Platform.Data;
 #endregion
 
-namespace X3Platform.Security.Authority.IDAL
+namespace X3Platform.Security.VerificationCode.IDAL
 {
     /// <summary></summary>
-    [SpringObject("X3Platform.Security.Authority.IDAL.IAuthorityProvider")]
-    public interface IAuthorityProvider
+    [SpringObject("X3Platform.Security.VerificationCode.IDAL.IVerificationCodeProvider")]
+    public interface IVerificationCodeProvider
     {
         // -------------------------------------------------------
         // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(AuthorityInfo param)
+        #region 函数:Save(VerificationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param"> 实例<see cref="AuthorityInfo"/>详细信息</param>
-        /// <returns>AuthorityInfo 实例详细信息</returns>
-        AuthorityInfo Save(AuthorityInfo param);
+        /// <param name="param"> 实例<see cref="VerificationCodeInfo"/>详细信息</param>
+        /// <returns>VerificationCodeInfo 实例详细信息</returns>
+        VerificationCodeInfo Save(VerificationCodeInfo param);
         #endregion
 
-        #region 函数:Insert(AuthorityInfo param)
+        #region 函数:Insert(VerificationCodeInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">AuthorityInfo 实例的详细信息</param>
-        void Insert(AuthorityInfo param);
+        /// <param name="param">VerificationCodeInfo 实例的详细信息</param>
+        void Insert(VerificationCodeInfo param);
         #endregion
 
-        #region 函数:Update(AuthorityInfo param)
+        #region 函数:Update(VerificationCodeInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">AuthorityInfo 实例的详细信息</param>
-        void Update(AuthorityInfo param);
+        /// <param name="param">VerificationCodeInfo 实例的详细信息</param>
+        void Update(VerificationCodeInfo param);
         #endregion
 
         #region 函数:Delete(string ids)
@@ -62,26 +62,21 @@ namespace X3Platform.Security.Authority.IDAL
         // 查询
         // -------------------------------------------------------
 
-        #region 函数:FindOne(string id)
+        #region 函数:FindOne(string objectType, string objectValue, string validationType)
         /// <summary>查询某条记录</summary>
-        /// <param name="id">AuthorityInfo id号</param>
-        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
-        AuthorityInfo FindOne(string id);
-        #endregion
-
-        #region 函数:FindOneByName(string name)
-        /// <summary>查询某条记录</summary>
-        /// <param name="name">权限名称</param>
-        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
-        AuthorityInfo FindOneByName(string name);
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <returns>返回一个<see cref="VerificationCodeInfo"/>实例的详细信息</returns>
+        VerificationCodeInfo FindOne(string objectType, string objectValue, string validationType);
         #endregion
 
         #region 属性:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有 AuthorityInfo 实例的详细信息</returns>
-        IList<AuthorityInfo> FindAll(DataQuery query);
+        /// <returns>返回所有 VerificationCodeInfo 实例的详细信息</returns>
+        IList<VerificationCodeInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------
@@ -96,7 +91,7 @@ namespace X3Platform.Security.Authority.IDAL
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns> 
-        IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        IList<VerificationCodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)

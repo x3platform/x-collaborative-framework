@@ -174,9 +174,6 @@
     <Compile Include="Security\Authority\DAL\IBatis\AuthorityProvider.cs" />
     <Compile Include="Security\Authority\IBLL\IAuthorityService.cs" />
     <Compile Include="Security\Authority\IDAL\IAuthorityProvider.cs" />
-    <Compile Include="Security\Authority\WebService\AuthorityWebService.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Security\SecurityClassAttribute.cs" />
     <Compile Include="Security\SecurityClassMessageSink.cs" />
     <Compile Include="Security\SecurityClassProperty.cs" />
@@ -184,6 +181,15 @@
     <Compile Include="Security\SecurityManagement.cs" />
     <Compile Include="Security\SecurityMethodAttribute.cs" />
     <Compile Include="Security\SecurityObject.cs" />
+    <Compile Include="Security\VerificationCode\Ajax\VerificationCodeWrapper.cs" />
+    <Compile Include="Security\VerificationCode\BLL\VerificationCodeService.cs" />
+    <Compile Include="Security\VerificationCode\Configuration\VerificationCodeConfiguration.cs" />
+    <Compile Include="Security\VerificationCode\Configuration\VerificationCodeConfigurationView.cs" />
+    <Compile Include="Security\VerificationCode\DAL\IBatis\VerificationCodeProvider.cs" />
+    <Compile Include="Security\VerificationCode\IBLL\IVerificationCodeService.cs" />
+    <Compile Include="Security\VerificationCode\IDAL\IVerificationCodeProvider.cs" />
+    <Compile Include="Security\VerificationCode\VerificationCodeContext.cs" />
+    <Compile Include="Security\VerificationCode\VerificationCodeInfo.cs" />
     <Compile Include="Sessions\AccountCacheInfo.cs" />
     <Compile Include="Sessions\IAccountStorageStrategy.cs" />
     <Compile Include="Spring\Configuration\SpringConfiguration.cs" />
@@ -228,6 +234,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Security\VerificationCode\DAL\IBatis\VerificationCodeProvider.xml" />
+    <Content Include="Security\VerificationCode\db\Init_Scripts_MySQL.sql" />
+    <Content Include="Security\VerificationCode\db\Init_Scripts_SQLServer.sql" />
+    <EmbeddedResource Include="Security\VerificationCode\defaults\IBatis.SqlMap.xml" />
+    <EmbeddedResource Include="Security\VerificationCode\defaults\Objects.xml" />
     <EmbeddedResource Include="Security\Authority\defaults\Objects.xml" />
     <EmbeddedResource Include="Security\Authority\defaults\IBatis.SqlMap.xml">
       <SubType>Designer</SubType>
@@ -257,10 +268,12 @@
     <None Include="Security\Authority\config\X3Platform.Security.Authority.config" />
     <None Include="Security\Authority\config\X3Platform.Security.Authority.IBatis.SqlMap.config" />
     <None Include="Security\README.md" />
+    <None Include="Security\VerificationCode\config\X3Platform.Security.VerificationCode.config" />
+    <None Include="Security\VerificationCode\config\X3Platform.Security.VerificationCode.IBatis.SqlMap.config" />
+    <EmbeddedResource Include="Security\VerificationCode\defaults\config.yaml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Partials\" />
-    <Folder Include="Security\VerificationCode\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

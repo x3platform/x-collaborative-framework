@@ -170,12 +170,14 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Uploads\AttachmentUploader.cs" />
     <Compile Include="Util\UploadPathHelper.cs" />
     <Compile Include="IAttachmentParentObject.cs" />
     <Compile Include="AttachmentParentObject.cs" />
     <Compile Include="Util\UploadFileHelper.cs" />
     <Compile Include="DistributedFileInfo.cs" />
     <Compile Include="AttachmentWarnInfo.cs" />
+    <Compile Include="IAttachmentUploader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.bat" />
@@ -184,9 +186,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\AttachmentDistributedFileProvider.xml" />
-    <Content Include="DAL\IBatis\AttachmentFileProvider.xml" />
-    <Content Include="DAL\IBatis\AttachmentWarnProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AttachmentDistributedFileProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AttachmentFileProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\IBatis\AttachmentWarnProvider.xml" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <EmbeddedResource Include="defaults\Objects.xml" />
@@ -218,6 +222,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>@rem $(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>

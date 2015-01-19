@@ -16,14 +16,7 @@ namespace X3Platform.AttachmentStorage
     /// <summary>附件上下文环境</summary>
     public sealed class AttachmentStorageContext : CustomPlugin
     {
-        #region 属性:Name
-        public override string Name
-        {
-            get { return "附件存储"; }
-        }
-        #endregion
-
-        #region 属性:Instance
+        #region 静态属性:Instance
         private static volatile AttachmentStorageContext instance = null;
 
         private static object lockObject = new object();
@@ -48,17 +41,14 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
-        #region 属性:Configuration
-        private AttachmentStorageConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public AttachmentStorageConfiguration Configuration
+        #region 属性:Name
+        public override string Name
         {
-            get { return configuration; }
+            get { return "附件存储"; }
         }
         #endregion
 
-        #region 属性:AttachmentStorageService
+        #region 属性:AttachmentFileService
         private IAttachmentFileService m_AttachmentFileService = null;
 
         public IAttachmentFileService AttachmentFileService
@@ -93,6 +83,9 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
@@ -115,10 +108,14 @@ namespace X3Platform.AttachmentStorage
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
+            if (this.restartCount > 0)
+            {
+                // 重新加载配置信息
+                AttachmentStorageConfigurationView.Instance.Reload();
+            }
 
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AttachmentStorageConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AttachmentStorageConfiguration.ApplicationName, springObjectFile);
 
@@ -126,27 +123,6 @@ namespace X3Platform.AttachmentStorage
             this.m_AttachmentFileService = objectBuilder.GetObject<IAttachmentFileService>(typeof(IAttachmentFileService));
             this.m_AttachmentDistributedFileService = objectBuilder.GetObject<IAttachmentDistributedFileService>(typeof(IAttachmentDistributedFileService));
             this.m_AttachmentWarnService = objectBuilder.GetObject<IAttachmentWarnService>(typeof(IAttachmentWarnService));
-        }
-        #endregion
-
-        #region 函数:CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, string fileName, byte[] fileData)
-        /// <summary></summary>
-        /// <param name="entityId"></param>
-        /// <param name="entityClassName"></param>
-        /// <param name="attachmentEntityClassName"></param>
-        /// <param name="attachmentFolder"></param>
-        /// <param name="fileName"></param>
-        /// <param name="fileData"></param>
-        /// <returns></returns>
-        public IAttachmentFileInfo CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, string fileName, byte[] fileData)
-        {
-            IAttachmentParentObject parent = new AttachmentParentObject(entityId, entityClassName, attachmentEntityClassName, attachmentFolder);
-
-            IAttachmentFileInfo attachment = UploadFileHelper.CreateAttachmentFile(parent, fileName, Path.GetExtension(fileName), fileData.Length, fileData);
-
-            attachment.Save();
-
-            return attachment;
         }
         #endregion
     }

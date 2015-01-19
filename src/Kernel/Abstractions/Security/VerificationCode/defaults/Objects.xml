@@ -2,13 +2,12 @@
 <objects xmlns="http://www.springframework.net">
     <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
-    <!-- 权限 -->
-    <object id="X3Platform.Security.Authority.IBLL.IAuthorityService"
-            type="X3Platform.Security.Authority.BLL.AuthorityService"
+    <!-- 验证码 -->
+    <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationCodeService"
+            type="X3Platform.Security.VerificationCode.BLL.VerificationCodeService"
             lazy-init="true" />
 
-    <object id="X3Platform.Security.Authority.IDAL.IAuthorityProvider"
-            type="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider"
+    <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeProvider"
+            type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider"
             lazy-init="true" />
-
 </objects>

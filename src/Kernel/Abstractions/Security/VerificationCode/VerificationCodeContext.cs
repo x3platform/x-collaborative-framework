@@ -5,24 +5,24 @@ using Common.Logging;
 
 using X3Platform.Plugins;
 using X3Platform.Spring;
-using X3Platform.Security.Authority.Configuration;
-using X3Platform.Security.Authority.IBLL;
+using X3Platform.Security.VerificationCode.Configuration;
+using X3Platform.Security.VerificationCode.IBLL;
 
-namespace X3Platform.Security.Authority
+namespace X3Platform.Security.VerificationCode
 {
     /// <summary>权限引擎</summary>
-    public sealed class AuthorityContext : CustomPlugin
+    public sealed class VerificationCodeContext : CustomPlugin
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         #region 静态属性:Instance
-        private static volatile AuthorityContext instance = null;
+        private static volatile VerificationCodeContext instance = null;
 
         private static object lockObject = new object();
 
         /// <summary>实例</summary>
-        public static AuthorityContext Instance
+        public static VerificationCodeContext Instance
         {
             get
             {
@@ -32,7 +32,7 @@ namespace X3Platform.Security.Authority
                     {
                         if (instance == null)
                         {
-                            instance = new AuthorityContext();
+                            instance = new VerificationCodeContext();
                         }
                     }
                 }
@@ -51,28 +51,28 @@ namespace X3Platform.Security.Authority
         #endregion
 
         #region 属性:Configuration
-        private AuthorityConfiguration configuration = null;
+        private VerificationCodeConfiguration configuration = null;
 
         /// <summary>配置</summary>
-        public AuthorityConfiguration Configuration
+        public VerificationCodeConfiguration Configuration
         {
             get { return configuration; }
         }
         #endregion
 
-        #region 属性:AuthorityService
-        private IAuthorityService m_AuthorityService = null;
+        #region 属性:VerificationCodeService
+        private IVerificationCodeService m_VerificationCodeService = null;
 
         /// <summary>权限服务</summary>
-        public IAuthorityService AuthorityService
+        public IVerificationCodeService VerificationCodeService
         {
-            get { return m_AuthorityService; }
+            get { return m_VerificationCodeService; }
         }
         #endregion
 
-        #region 构造函数:AuthorityContext()
+        #region 构造函数:VerificationCodeContext()
         /// <summary>构造函数</summary>
-        private AuthorityContext()
+        private VerificationCodeContext()
         {
             Reload();
         }
@@ -101,15 +101,15 @@ namespace X3Platform.Security.Authority
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            this.configuration = AuthorityConfigurationView.Instance.Configuration;
+            this.configuration = VerificationCodeConfigurationView.Instance.Configuration;
 
             // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
-            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AuthorityConfiguration.ApplicationName, springObjectFile);
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(VerificationCodeConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据服务对象
-            this.m_AuthorityService = objectBuilder.GetObject<IAuthorityService>(typeof(IAuthorityService));
+            this.m_VerificationCodeService = objectBuilder.GetObject<IVerificationCodeService>(typeof(IVerificationCodeService));
         }
         #endregion
     }
