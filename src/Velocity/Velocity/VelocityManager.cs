@@ -179,7 +179,6 @@ namespace X3Platform.Velocity
             return Evaluate(context, templateValue);
         }
 
-
         /// <summary>获取模板信息</summary>
         /// <param name="virtualPath">模板信息</param>
         /// <returns></returns>

@@ -3,12 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4FE08777-D6DA-4ED6-B630-C6FE8BEC0C8B}</ProjectGuid>
+    <ProjectGuid>{4fe08777-d6da-4ed6-b630-c6fe8bec0c8b}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>X3Platform.Drawing.Captcha</RootNamespace>
     <AssemblyName>X3Platform.Drawing.Captcha</AssemblyName>
     <ReleaseVersion>1.0.0</ReleaseVersion>
-    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,6 +32,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
     <Reference Include="X3Platform.Abstractions">
       <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>

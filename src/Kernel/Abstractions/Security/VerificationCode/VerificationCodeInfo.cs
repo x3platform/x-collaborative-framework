@@ -1,22 +1,15 @@
-namespace X3Platform.Security.Authority
+namespace X3Platform.Security.VerificationCode
 {
     #region Using Libraries
     using System;
     using X3Platform.CacheBuffer;
     #endregion
 
-    /// <summary>权限信息</summary>
-    public class AuthorityInfo : ICacheable
+    /// <summary>验证码信息</summary>
+    public class VerificationCodeInfo
     {
         /// <summary>构造函数</summary>
-        public AuthorityInfo() { }
-
-        /// <summary>构造函数</summary>
-        /// <param name="id">标识</param>
-        public AuthorityInfo(string id)
-        {
-            this.m_Id = id;
-        }
+        public VerificationCodeInfo() { }
 
         #region 属性:Id
         private string m_Id;
@@ -29,72 +22,61 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
-        #region 属性:Name
-        private string m_NickName;
+        #region 属性:ObjectType
+        private string m_ObjectType;
 
-        /// <summary></summary>
-        public string Name
+        /// <summary>对象类型: SessionId 会话标识, AccountId 帐号标识, PhoneNumber 电话号码</summary>
+        public string ObjectType
         {
-            get { return m_NickName; }
-            set { m_NickName = value; }
+            get { return this.m_ObjectType; }
+            set { this.m_ObjectType = value; }
         }
         #endregion
 
-        #region 属性:Description
-        private string m_Description;
+        #region 属性:ObjectValue
+        private string m_ObjectValue;
 
-        /// <summary>描述信息</summary>
-        public string Description
+        /// <summary>对象的值</summary>
+        public string ObjectValue
         {
-            get { return m_Description; }
-            set { m_Description = value; }
+            get { return m_ObjectValue; }
+            set { m_ObjectValue = value; }
         }
         #endregion
 
-        #region 属性:Locking
-        private int m_Locking;
+        #region 属性:Code
+        private string m_Code;
 
-        /// <summary>锁定 0=未锁定, 1=锁定</summary>
-        public int Locking
+        /// <summary>验证码</summary>
+        public string Code
         {
-            get { return m_Locking; }
-            set { m_Locking = value; }
+            get { return m_Code; }
+            set { m_Code = value; }
         }
         #endregion
 
-        #region 属性:Tags
-        private string m_Tags;
+        #region 属性:ValidationType
+        private string m_ValidationType;
 
-        /// <summary>标签</summary>
-        public string Tags
+        /// <summary>验证类型: Login 登录, ForgetPassword 忘记密码</summary>
+        public string ValidationType
         {
-            get { return m_Tags; }
-            set { m_Tags = value; }
+            get { return m_ValidationType; }
+            set { m_ValidationType = value; }
         }
         #endregion
 
-        #region 属性:OrderId
-        private string m_OrderId;
+        #region 属性:Expires
+        private int m_Expires;
 
-        /// <summary></summary>
-        public string OrderId
+        /// <summary>验证码的有效时间, 单位:秒 second</summary>
+        public int Expires
         {
-            get { return m_OrderId; }
-            set { m_OrderId = value; }
+            get { return m_Expires; }
+            set { m_Expires = value; }
         }
         #endregion
-
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
-
-        /// <summary>修改时间</summary>
-        public DateTime UpdateDate
-        {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
-        }
-        #endregion
-
+        
         #region 属性:CreateDate
         private DateTime m_CreateDate;
 
@@ -103,21 +85,6 @@ namespace X3Platform.Security.Authority
         {
             get { return m_CreateDate; }
             set { m_CreateDate = value; }
-        }
-        #endregion
-
-        // -------------------------------------------------------
-        // 显式实现 ICacheable
-        // -------------------------------------------------------
-
-        #region 属性:Expires
-        private DateTime m_Expires = DateTime.MaxValue;
-
-        /// <summary>过期时间</summary>
-        DateTime ICacheable.Expires
-        {
-            get { return m_Expires; }
-            set { m_Expires = value; }
         }
         #endregion
     }

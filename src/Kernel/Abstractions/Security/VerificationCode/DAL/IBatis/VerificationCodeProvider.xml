@@ -1,79 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<sqlMap namespace="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<sqlMap namespace="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <alias>
-        <typeAlias alias="AuthorityInfo" type="X3Platform.Security.Authority.AuthorityInfo,X3Platform.Abstractions" />
+        <typeAlias alias="VerificationCodeInfo" type="X3Platform.Security.VerificationCode.VerificationCodeInfo,X3Platform.Abstractions" />
     </alias>
     <resultMaps>
-        <resultMap id="proc_Authority_FindOne_Result" class="AuthorityInfo">
+        <resultMap id="proc_VerificationCode_FindOne_Result" class="VerificationCodeInfo">
             <result property="Id" column="Id" />
-            <result property="Name" column="Name" />
-            <result property="Description" column="Description" />
-            <result property="Locking" column="Locking" />
-            <result property="Tags" column="Tags" />
-            <result property="OrderId" column="OrderId" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ObjectType" column="ObjectType" />
+            <result property="ObjectValue" column="ObjectValue" />
+            <result property="Code" column="Code" />
+            <result property="ValidationType" column="ValidationType" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
-        <resultMap id="proc_Authority_FindAll_Result" class="AuthorityInfo">
+        <resultMap id="proc_VerificationCode_FindAll_Result" class="VerificationCodeInfo">
             <result property="Id" column="Id" />
-            <result property="Name" column="Name" />
-            <result property="Description" column="Description" />
-            <result property="Locking" column="Locking" />
-            <result property="Tags" column="Tags" />
-            <result property="OrderId" column="OrderId" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ObjectType" column="ObjectType" />
+            <result property="ObjectValue" column="ObjectValue" />
+            <result property="Code" column="Code" />
+            <result property="ValidationType" column="ValidationType" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
     <statements>
-        <insert id="proc_Authority_Insert" parameterClass="AuthorityInfo">
-            INSERT INTO tb_Authority 
+        <insert id="proc_VerificationCode_Insert" parameterClass="VerificationCodeInfo">
+            INSERT INTO tb_VerificationCode 
             (
                 Id,
-                Name,
-                Description,
-                Locking,
-                Tags,
-                OrderId,
-                UpdateDate,
+                ObjectType,
+                ObjectValue,
+                Code,
+                ValidationType,
                 CreateDate
             )
             VALUES
             (
                 #Id#,
-                #Name#,
-                #Description#,
-                #Locking#,
-                #Tags#,
-                #OrderId#,
-                CURRENT_TIMESTAMP,
+                #ObjectType#,
+                #ObjectValue#,
+                #Code#,
+                #ValidationType#,
                 CURRENT_TIMESTAMP
             )
         </insert>
-        <update id="proc_Authority_Update" parameterClass="AuthorityInfo">
-            UPDATE tb_Authority SET
-
-                Id = #Id#,
-                Name = #Name#,
-                Description = #Description#,
-                Locking = #Locking#,
-                Tags = #Tags#,
-                OrderId = #OrderId#,
-                UpdateDate = CURRENT_TIMESTAMP
-
-            WHERE Id = #Id#
-        </update>
-        <delete id="proc_Authority_Delete" >
-            DELETE FROM tb_Authority WHERE $WhereClause$
+        <delete id="proc_VerificationCode_Delete" >
+            DELETE FROM tb_VerificationCode WHERE $WhereClause$
         </delete>
-        <select id="proc_Authority_FindOne" resultMap="proc_Authority_FindOne_Result" >
-            SELECT * FROM tb_Authority WHERE Id = #Id#
+        <select id="proc_VerificationCode_FindOne" resultMap="proc_VerificationCode_FindOne_Result" >
+            SELECT * FROM tb_VerificationCode WHERE Id = #Id#
         </select>
-        <select id="proc_Authority_FindOneByName" resultMap="proc_Authority_FindOne_Result" >
-            SELECT * FROM tb_Authority WHERE Name = #Name#
+        <select id="proc_VerificationCode_FindOneByObjectType" resultMap="proc_VerificationCode_FindOne_Result" >
+            SELECT * FROM tb_VerificationCode WHERE ObjectType = #ObjectType# AND ObjectValue = #ObjectValue# ORDER BY CreateDate DESC;
         </select>
-        <select id="proc_Authority_FindAll#MySql" resultMap="proc_Authority_FindAll_Result" >
-            SELECT * FROM tb_Authority
+        <select id="proc_VerificationCode_FindAll#MySql" resultMap="proc_VerificationCode_FindAll_Result" >
+            SELECT * FROM tb_VerificationCode
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -97,7 +76,7 @@
                 </isNotEqual>
             </dynamic>
         </select>
-        <select id="proc_Authority_FindAll" resultMap="proc_Authority_FindAll_Result" >
+        <select id="proc_VerificationCode_FindAll" resultMap="proc_VerificationCode_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -106,7 +85,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM tb_Authority T
+            * FROM tb_VerificationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -116,8 +95,8 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        <select id="proc_Authority_GetPaging#MySql"  resultMap="proc_Authority_FindAll_Result" >
-            SELECT * FROM tb_Authority T
+        <select id="proc_VerificationCode_GetPaging#MySql"  resultMap="proc_VerificationCode_FindAll_Result" >
+            SELECT * FROM tb_VerificationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -131,12 +110,12 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-        <select id="proc_Authority_GetPaging#SqlServer" resultMap="proc_Authority_FindAll_Result" >
+        <select id="proc_VerificationCode_GetPaging#SqlServer" resultMap="proc_VerificationCode_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM tb_Authority T
+            FROM tb_VerificationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -148,8 +127,8 @@
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
-        <select id="proc_Authority_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Authority T
+        <select id="proc_VerificationCode_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM tb_VerificationCode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -159,12 +138,11 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        <select id="proc_Authority_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_Authority WHERE $WhereClause$
+        <select id="proc_VerificationCode_IsExist" >
+            SELECT COUNT(0) AS "Count" FROM tb_VerificationCode WHERE $WhereClause$
         </select>
-        <select id="proc_Authority_HasAuthorizationObject" >
-            SELECT COUNT(0) AS "Count" FROM view_AuthorizationObject_Account T WHERE $WhereClause$
+        <select id="proc_VerificationCode_IsExist" >
+            SELECT COUNT(0) AS "Count" FROM tb_VerificationCode WHERE $WhereClause$
         </select>
-        
     </statements>
 </sqlMap>

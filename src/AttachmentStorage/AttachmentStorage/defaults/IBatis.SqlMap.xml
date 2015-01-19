@@ -19,8 +19,8 @@
     </typeHandlers>
 
     <sqlMaps>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationProvider.xml,X3Platform.AttachmentStorage" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationErrorProvider.xml,X3Platform.AttachmentStorage" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider.xml,X3Platform.AttachmentStorage" />
+        <sqlMap embedded="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentFileProvider.xml,X3Platform.AttachmentStorage" />
+        <sqlMap embedded="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentDistributedFileProvider.xml,X3Platform.AttachmentStorage" />
+        <sqlMap embedded="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentWarnProvider.xml,X3Platform.AttachmentStorage" />
     </sqlMaps>
 </sqlMapConfig>

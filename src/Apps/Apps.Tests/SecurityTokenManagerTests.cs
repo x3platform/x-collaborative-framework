@@ -26,9 +26,6 @@ namespace X3Platform.Apps.Tests
     [TestClass]
     public class SecurityTokenManagerTests
     {
-        /// <summary>加载配置</summary>
-        private string fullConfigPath = ConfigurationManager.AppSettings["fullConfigPath"];
-
         //初始化mockery
         private MockFactory factory = new MockFactory();
 

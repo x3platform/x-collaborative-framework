@@ -3,7 +3,7 @@
 //
 // Copyright (c) x3platfrom.com
 //
-// FileName     :AuthorityProvider.cs
+// FileName     :VerificationCodeProvider.cs
 //
 // Description  :
 //
@@ -14,7 +14,7 @@
 // =============================================================================
 #endregion
 
-namespace X3Platform.Security.Authority.DAL.IBatis
+namespace X3Platform.Security.VerificationCode.DAL.IBatis
 {
     #region Using Libraries
     using System;
@@ -25,21 +25,21 @@ namespace X3Platform.Security.Authority.DAL.IBatis
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Util;
 
-    using X3Platform.Security.Authority.Configuration;
-    using X3Platform.Security.Authority.IDAL;
+    using X3Platform.Security.VerificationCode.Configuration;
+    using X3Platform.Security.VerificationCode.IDAL;
     using X3Platform.Data;
     using Common.Logging;
     #endregion
 
     /// <summary></summary>
     [DataObject]
-    public class AuthorityProvider : IAuthorityProvider
+    public class VerificationCodeProvider : IVerificationCodeProvider
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>配置</summary>
-        private AuthorityConfiguration configuration = null;
+        private VerificationCodeConfiguration configuration = null;
 
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
@@ -48,13 +48,13 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "tb_Authority";
+        private string tableName = "tb_VerificationCode";
 
-        #region 构造函数:AuthorityProvider()
+        #region 构造函数:VerificationCodeProvider()
         /// <summary>构造函数</summary>
-        public AuthorityProvider()
+        public VerificationCodeProvider()
         {
-            this.configuration = AuthorityConfigurationView.Instance.Configuration;
+            this.configuration = VerificationCodeConfigurationView.Instance.Configuration;
 
             this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
 
@@ -66,11 +66,11 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         // 保存 添加 修改 删除 
         //-------------------------------------------------------
 
-        #region 函数:Save(AuthorityInfo param)
+        #region 函数:Save(VerificationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">AuthorityInfo 实例详细信息</param>
-        /// <returns>AuthorityInfo 实例详细信息</returns>
-        public AuthorityInfo Save(AuthorityInfo param)
+        /// <param name="param">VerificationCodeInfo 实例详细信息</param>
+        /// <returns>VerificationCodeInfo 实例详细信息</returns>
+        public VerificationCodeInfo Save(VerificationCodeInfo param)
         {
             if (!IsExist(param.Id))
             {
@@ -85,19 +85,19 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(AuthorityInfo param)
+        #region 属性:Insert(VerificationCodeInfo param)
         /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="AuthorityInfo"/>��ϸ��Ϣ</param>
-        public void Insert(AuthorityInfo param)
+        /// <param name="param">ʵ��<see cref="VerificationCodeInfo"/>��ϸ��Ϣ</param>
+        public void Insert(VerificationCodeInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
-        #region 函数:Update(AuthorityInfo param)
+        #region 函数:Update(VerificationCodeInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">AuthorityInfo 实例的详细信息</param>
-        public void Update(AuthorityInfo param)
+        /// <param name="param">VerificationCodeInfo 实例的详细信息</param>
+        public void Update(VerificationCodeInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
@@ -105,7 +105,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
 
         #region 函数:Delete(string ids)
         /// <summary>删除记录</summary>
-        /// <param name="param">AuthorityInfo 实例的标识信息,多个以逗号隔开</param>
+        /// <param name="param">VerificationCodeInfo 实例的标识信息,多个以逗号隔开</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -122,64 +122,37 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         //-------------------------------------------------------
         // 查询
         //-------------------------------------------------------
-
-        #region 函数:FindOne(string id)
+        
+        #region 函数:FindOne(string objectType, string objectValue, string validationType)
         /// <summary>查询某条记录</summary>
-        /// <param name="id">AuthorityInfo Id号</param>
-        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
-        public AuthorityInfo FindOne(string id)
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <returns>返回一个<see cref="VerificationCodeInfo"/>实例的详细信息</returns>
+        public VerificationCodeInfo FindOne(string objectType, string objectValue, string validationType)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Id", StringHelper.ToSafeSQL(id));
+            args.Add("ObjectType", StringHelper.ToSafeSQL(objectType));
+            args.Add("ObjectValue", StringHelper.ToSafeSQL(objectValue));
+            args.Add("ValidationType", StringHelper.ToSafeSQL(validationType));
 
-            return this.ibatisMapper.QueryForObject<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
-        }
-        #endregion
-
-        #region 函数:FindOneByName(string name)
-        /// <summary>查询某条记录</summary>
-        /// <param name="name">权限名称</param>
-        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
-        public AuthorityInfo FindOneByName(string name)
-        {
-            try
-            {
-                Dictionary<string, object> args = new Dictionary<string, object>();
-
-                args.Add("Name", StringHelper.ToSafeSQL(name));
-
-                AuthorityInfo param = this.ibatisMapper.QueryForObject<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByName", tableName)), args);
-
-                if (param == null)
-                {
-                    logger.Debug(string.Format("[{0}] is null", name));
-                    logger.Error(this.ibatisMapper.DataSource.ConnectionString);
-                }
-
-                return param;
-            }
-            catch (Exception ex)
-            {
-                logger.Error(this.ibatisMapper.DataSource.ConnectionString);
-                logger.Error(ex);
-                throw ex;
-            }
+            return this.ibatisMapper.QueryForObject<VerificationCodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
         }
         #endregion
 
         #region 属性:FindAll(DataQuery query)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="query">���ݲ�ѯ����</param>
-        /// <returns>��������ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
-        public IList<AuthorityInfo> FindAll(DataQuery query)
+        /// <returns>��������ʵ��<see cref="VerificationCodeInfo"/>����ϸ��Ϣ</returns>
+        public IList<VerificationCodeInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql());
             args.Add("Length", query.Length);
 
-            return this.ibatisMapper.QueryForList<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            return this.ibatisMapper.QueryForList<VerificationCodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -193,8 +166,8 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         /// <param name="pageSize">ҳ����С</param>
         /// <param name="query">���ݲ�ѯ����</param>
         /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="AuthorityInfo"/></returns> 
-        public IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>����һ���б�ʵ��<see cref="VerificationCodeInfo"/></returns> 
+        public IList<VerificationCodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -207,7 +180,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<AuthorityInfo> list = this.ibatisMapper.QueryForList<AuthorityInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+            IList<VerificationCodeInfo> list = this.ibatisMapper.QueryForList<VerificationCodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

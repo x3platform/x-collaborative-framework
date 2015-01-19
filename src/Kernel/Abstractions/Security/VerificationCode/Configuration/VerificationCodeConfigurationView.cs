@@ -1,4 +1,4 @@
-namespace X3Platform.Security.Authority.Configuration
+namespace X3Platform.Security.VerificationCode.Configuration
 {
     #region Using Libraries
     using System;
@@ -7,25 +7,25 @@ namespace X3Platform.Security.Authority.Configuration
 
     using X3Platform.Configuration;
 
-    using X3Platform.Security.Authority;
+    using X3Platform.Security.VerificationCode;
     #endregion
 
     /// <summary>权限配置视图</summary>
-    public class AuthorityConfigurationView : XmlConfigurationView<AuthorityConfiguration>
+    public class VerificationCodeConfigurationView : XmlConfigurationView<VerificationCodeConfiguration>
     {
         /// <summary>配置文件的默认路径</summary>
-        private const string configFile = "config\\X3Platform.Security.Authority.config";
+        private const string configFile = "config\\X3Platform.Security.VerificationCode.config";
 
         /// <summary>配置信息的全局前缀</summary>
-        private const string configGlobalPrefix = AuthorityConfiguration.ApplicationName;
+        private const string configGlobalPrefix = VerificationCodeConfiguration.ApplicationName;
 
         #region 静态属性:Instance
-        private static volatile AuthorityConfigurationView instance = null;
+        private static volatile VerificationCodeConfigurationView instance = null;
 
         private static object lockObject = new object();
 
         /// <summary>实例</summary>
-        public static AuthorityConfigurationView Instance
+        public static VerificationCodeConfigurationView Instance
         {
             get
             {
@@ -35,7 +35,7 @@ namespace X3Platform.Security.Authority.Configuration
                     {
                         if (instance == null)
                         {
-                            instance = new AuthorityConfigurationView();
+                            instance = new VerificationCodeConfigurationView();
                         }
                     }
                 }
@@ -45,9 +45,9 @@ namespace X3Platform.Security.Authority.Configuration
         }
         #endregion
 
-        #region 构造函数:AuthorityConfigurationView()
+        #region 构造函数:VerificationCodeConfigurationView()
         /// <summary>构造函数</summary>
-        private AuthorityConfigurationView()
+        private VerificationCodeConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
         }

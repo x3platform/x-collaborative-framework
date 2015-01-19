@@ -11,7 +11,6 @@ namespace X3Platform.Web.APIs
 
     using X3Platform.Util;
 
-
     /// <summary></summary>
     /// <param name="methodName"></param>
     /// <param name="doc"></param>
@@ -36,7 +35,7 @@ namespace X3Platform.Web.APIs
 
                 if (string.IsNullOrEmpty(xml))
                 {
-                    doc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<root></root>");
+                    doc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<data></data>");
                 }
                 else
                 {
@@ -94,7 +93,7 @@ namespace X3Platform.Web.APIs
 
                 try
                 {
-                    var responseObject = methodInvoke(methodName, doc, logger); ;
+                    var responseObject = methodInvoke(methodName, doc, logger);
 
                     responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
 

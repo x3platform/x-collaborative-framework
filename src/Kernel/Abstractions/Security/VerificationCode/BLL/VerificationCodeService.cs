@@ -1,4 +1,4 @@
-namespace X3Platform.Security.Authority.BLL
+namespace X3Platform.Security.VerificationCode.BLL
 {
     #region Using Libraries
     using System;
@@ -10,62 +10,40 @@ namespace X3Platform.Security.Authority.BLL
     using X3Platform.Data;
     using X3Platform.Spring;
 
-    using X3Platform.Security.Authority.Configuration;
-    using X3Platform.Security.Authority.IBLL;
-    using X3Platform.Security.Authority.IDAL;
+    using X3Platform.Security.VerificationCode.Configuration;
+    using X3Platform.Security.VerificationCode.IBLL;
+    using X3Platform.Security.VerificationCode.IDAL;
     #endregion
 
     /// <summary>权限服务</summary>
-    public class AuthorityService : IAuthorityService
+    public class VerificationCodeService : IVerificationCodeService
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>配置</summary>
-        private AuthorityConfiguration configuration = null;
+        private VerificationCodeConfiguration configuration = null;
 
         /// <summary>数据提供器</summary>
-        private IAuthorityProvider provider = null;
+        private IVerificationCodeProvider provider = null;
 
         /// <summary>缓存存储</summary>
-        private IDictionary<string, AuthorityInfo> dictionary = new Dictionary<string, AuthorityInfo>();
+        private IDictionary<string, VerificationCodeInfo> dictionary = new Dictionary<string, VerificationCodeInfo>();
 
         private DateTime actionTime = DateTime.Now;
 
-        #region 构造函数:AuthorityService()
+        #region 构造函数:VerificationCodeService()
         /// <summary>构造函数</summary>
-        public AuthorityService()
+        public VerificationCodeService()
         {
-            this.configuration = AuthorityConfigurationView.Instance.Configuration;
+            this.configuration = VerificationCodeConfigurationView.Instance.Configuration;
 
             // 创建对象构建器(Spring.NET)
             string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
 
-            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AuthorityConfiguration.ApplicationName, springObjectFile);
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(VerificationCodeConfiguration.ApplicationName, springObjectFile);
 
-            this.provider = objectBuilder.GetObject<IAuthorityProvider>(typeof(IAuthorityProvider));
-        }
-        #endregion
-
-        #region 索引:this[string name]
-        /// <summary>索引</summary>
-        /// <param name="name">权限名称</param>
-        /// <returns></returns>
-        public AuthorityInfo this[string name]
-        {
-            get
-            {
-                AuthorityInfo authority = this.FindOneByName(name);
-
-                if (logger.IsDebugEnabled) { logger.Debug(authority); }
-
-                if (authority == null)
-                {
-                    throw new NullReferenceException("未找到【" + name + "】权限信息。");
-                }
-
-                return authority;
-            }
+            this.provider = objectBuilder.GetObject<IVerificationCodeProvider>(typeof(IVerificationCodeProvider));
         }
         #endregion
 
@@ -73,22 +51,22 @@ namespace X3Platform.Security.Authority.BLL
         // 保存 删除
         //-------------------------------------------------------
 
-        #region 函数:Save(AuthorityInfo param)
+        #region 函数:Save(VerificationCodeInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param"> 实例<see cref="AuthorityInfo"/>详细信息</param>
-        /// <returns>AuthorityInfo 实例详细信息</returns>
-        public AuthorityInfo Save(AuthorityInfo param)
+        /// <param name="param"> 实例<see cref="VerificationCodeInfo"/>详细信息</param>
+        /// <returns>VerificationCodeInfo 实例详细信息</returns>
+        public VerificationCodeInfo Save(VerificationCodeInfo param)
         {
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 属性:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号分开.</param>
-        public void Delete(string ids)
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            this.provider.Delete(ids);
+            this.provider.Delete(id);
         }
         #endregion
 
@@ -96,40 +74,23 @@ namespace X3Platform.Security.Authority.BLL
         // 查询
         //-------------------------------------------------------
 
-        #region 函数:FindOne(string id)
+        #region 函数:FindOne(string objectType, string objectValue, string validationType)
         /// <summary>查询某条记录</summary>
-        /// <param name="id">AuthorityInfo id号</param>
-        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
-        public AuthorityInfo FindOne(string id)
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <returns>返回一个<see cref="VerificationCodeInfo"/>实例的详细信息</returns>
+        public VerificationCodeInfo FindOne(string objectType, string objectValue, string validationType)
         {
-            return this.provider.FindOne(id);
-        }
-        #endregion
-
-        #region 函数:FindOneByName(string name)
-        /// <summary>查询某条记录</summary>
-        /// <param name="name">权限名称</param>
-        /// <returns>返回一个 AuthorityInfo 实例的详细信息</returns>
-        public AuthorityInfo FindOneByName(string name)
-        {
-            return this.provider.FindOneByName(name);
-        }
-        #endregion
-
-        #region 函数:FindAll()
-        /// <summary>查询所有相关记录</summary>
-        /// <returns>返回所有 AuthorityInfo 实例的详细信息</returns>
-        public IList<AuthorityInfo> FindAll()
-        {
-            return this.FindAll(new DataQuery());
+            return this.provider.FindOne(objectType, objectValue, validationType);
         }
         #endregion
 
         #region 属性:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
-        /// <returns>返回所有<see cref="AuthorityInfo"/>实例的详细信息</returns>
-        public IList<AuthorityInfo> FindAll(DataQuery query)
+        /// <returns>返回所有<see cref="VerificationCodeInfo"/>实例的详细信息</returns>
+        public IList<VerificationCodeInfo> FindAll(DataQuery query)
         {
             return this.provider.FindAll(query);
         }
@@ -145,8 +106,8 @@ namespace X3Platform.Security.Authority.BLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个<see cref="AuthorityInfo"/>列表实例</returns> 
-        public IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个<see cref="VerificationCodeInfo"/>列表实例</returns> 
+        public IList<VerificationCodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
@@ -159,6 +120,27 @@ namespace X3Platform.Security.Authority.BLL
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
+        }
+        #endregion
+
+        #region 函数:Create(string objectType, string objectValue, string validationType)
+        /// <summary>创建新的验证码</summary>
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <returns>验证码对象</returns>
+        public VerificationCodeInfo Create(string objectType, string objectValue, string validationType)
+        {
+            VerificationCodeInfo param = new VerificationCodeInfo();
+
+            param.Id = "";
+            param.ObjectType = "";
+            param.ObjectValue = "";
+            param.Code = "";
+            param.ValidationType = "";
+            param.CreateDate = DateTime.Now;
+
+            return this.provider.Save(param);
         }
         #endregion
     }

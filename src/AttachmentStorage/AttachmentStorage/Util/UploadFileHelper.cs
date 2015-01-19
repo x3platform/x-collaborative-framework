@@ -17,22 +17,64 @@ namespace X3Platform.AttachmentStorage.Util
     /// <summary>上传文件工具函数</summary>
     public sealed class UploadFileHelper
     {
-        /// <summary>生成附件</summary>
+        /// <summary>生成新的附件标识</summary>
         /// <returns></returns>
-        public static string GenerateIdentity()
+        public static string NewIdentity()
         {
+            // 注:StringHelper.ToRandom("0123456789", 6)
+            // 随机数生成函数在产生随机数时, 系统内部机制线程会暂停1毫秒钟以等待定时器的推进, 避免在时间极短的情况下生成相同的随机数
+            
             switch (AttachmentStorageConfigurationView.Instance.IdentityFormat.ToLower())
             {
                 case "yyyymmddhhmmssfff":
-                    // 暂停1毫秒，避免服务器系统过快产生重复数据
-                    // Thread.Sleep(1);
-                    return DateTime.Now.ToString("yyyyMMddHHmmssfff") + StringHelper.ToRandom("0123456789", 6);
-
+                    // datetime(17) + randomtext(6) = 唯一标识长度(23) 
+                    return string.Concat(DateTime.Now.ToString("yyyyMMddHHmmssfff"), StringHelper.ToRandom("0123456789", 6));
+                case "timestamp":
+                    // timestamp(13) + randomtext(6) = 唯一标识长度(19)
+                    return string.Concat(DateHelper.GetTimestamp(), StringHelper.ToRandom("0123456789", 6));
                 case "guid":
                 default:
+                    // 唯一标识长度 = 36
                     return StringHelper.ToGuid();
             }
         }
+        #region 函数:CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, string fileName, byte[] fileData)
+        /// <summary>创建附件</summary>
+        /// <param name="entityId"></param>
+        /// <param name="entityClassName"></param>
+        /// <param name="attachmentEntityClassName"></param>
+        /// <param name="attachmentFolder"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileData"></param>
+        /// <returns></returns>
+        public static IAttachmentFileInfo CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, HttpPostedFile file)
+        {
+            return CreateAttachmentFile(
+                entityId,
+                entityClassName,
+                attachmentEntityClassName,
+                attachmentFolder,
+                file.FileName,
+                StreamHelper.ToBytes(file.InputStream));
+        }
+        #endregion
+
+        #region 函数:CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, string fileName, byte[] fileData)
+        /// <summary>创建附件</summary>
+        /// <param name="entityId"></param>
+        /// <param name="entityClassName"></param>
+        /// <param name="attachmentEntityClassName"></param>
+        /// <param name="attachmentFolder"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileData"></param>
+        /// <returns></returns>
+        public static IAttachmentFileInfo CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, string fileName, byte[] fileData)
+        {
+            IAttachmentParentObject parent = new AttachmentParentObject(entityId, entityClassName, attachmentEntityClassName, attachmentFolder);
+
+            return UploadFileHelper.CreateAttachmentFile(parent, fileName, Path.GetExtension(fileName), fileData.Length, fileData);
+        }
+        #endregion
 
         /// <summary>创建附件</summary>
         /// <param name="applicationName"></param>
@@ -54,7 +96,7 @@ namespace X3Platform.AttachmentStorage.Util
         public static IAttachmentFileInfo CreateAttachmentFile(IAttachmentParentObject parent, string attachmentName, string fileType, int fileSize, byte[] fileData)
         {
             return CreateAttachmentFile(parent,
-                GenerateIdentity(),
+                NewIdentity(),
                 attachmentName,
                 fileType,
                 fileSize,
@@ -75,18 +117,18 @@ namespace X3Platform.AttachmentStorage.Util
             // 创建数据服务对象
             IAttachmentFileInfo param = objectBuilder.GetObject<IAttachmentFileInfo>(typeof(IAttachmentFileInfo), new object[] { parent });
 
-            param.Id = string.IsNullOrEmpty(attachmentId) ? GenerateIdentity() : attachmentId;
+            param.Id = string.IsNullOrEmpty(attachmentId) ? NewIdentity() : attachmentId;
             param.AttachmentName = attachmentName;
             param.FileType = fileType;
             param.FileSize = fileSize;
             param.FileData = fileData;
             param.CreateDate = DateTime.Now;
 
-            //虚拟路径需要创建时间和文件类型参数
+            // 虚拟路径需要创建时间和文件类型参数
             param.VirtualPath = UploadPathHelper.GetVirtualPathFormat(parent.AttachmentFolder, param);
 
             param.FolderRule = AttachmentStorageConfigurationView.Instance.PhysicalUploadFolderRule;
-            
+
             return param;
         }
     }

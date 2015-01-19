@@ -24,7 +24,7 @@ namespace X3Platform.AttachmentStorage.Configuration
 
             var root = YamlConfiguratonOperator.GetRootNodeByResourceStream<YamlMappingNode>(
                 this.GetType().Assembly,
-                "X3Platform.Apps.defaults.config.yaml");
+                "X3Platform.AttachmentStorage.defaults.config.yaml");
 
             // 加载 Keys 键值配置信息
             YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);

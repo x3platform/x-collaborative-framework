@@ -12,6 +12,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.IDAL;
+    using System.Text;
     #endregion
 
     [DataObject]
@@ -27,7 +28,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "tb_AttachmentStorage_File";
+        private string tableName = "tb_Attachment_File";
 
         /// <summary></summary>
         public AttachmentFileProvider()
@@ -162,23 +163,26 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
-        
+
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例</returns> 
         public IList<IAttachmentFileInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
+            string whereClause = GetWhereClauseByScenarioName(query);
+            string orderBy = query.GetOrderBySql(" CreateDate DESC ");
+
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", query.GetWhereSql());
-            args.Add("OrderBy", query.GetOrderBySql(" CreateDate DESC "));
+            args.Add("WhereClause", whereClause);
+            args.Add("OrderBy", orderBy);
 
             args.Add("RowCount", 0);
 
             IList<IAttachmentFileInfo> list = this.ibatisMapper.QueryForList<IAttachmentFileInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args));
 
             return list;
         }
@@ -190,18 +194,13 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new Exception("实例标识不能为空.");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Id", id);
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
@@ -219,5 +218,38 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Rename", this.tableName)), args);
         }
         #endregion
+
+        /// <summary>根据查询方案名称生成查询语句</summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        private string GetWhereClauseByScenarioName(DataQuery query)
+        {
+            string whereClause = string.Empty;
+            string scenario = query.Variables["Scenario"];
+
+            if (string.IsNullOrEmpty(scenario))
+            {
+                // 默认查询方式
+                whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "AttachmentName", "LIKE" } });
+            }
+            else
+            {
+                StringBuilder outString = new StringBuilder();
+
+                // DataQueryBuilder
+                if (scenario == "Query")
+                {
+                    DataQueryBuilder.BindWhereClause(query.Where, "id", outString);
+                    DataQueryBuilder.BindWhereClause(query.Where, "attachmentName", outString);
+                    DataQueryBuilder.BindWhereClause(query.Where, "entityId", outString);
+
+                    DataQueryBuilder.BindWhereBetweenClause(query.Where, "createDate", "beginDate", "endDate", outString);
+
+                    return outString.ToString();
+                }
+
+            }
+            return whereClause;
+        }
     }
 }

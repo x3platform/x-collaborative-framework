@@ -19,9 +19,9 @@
         public string Upload(XmlDocument doc)
         {
             this.ProcessRequest(HttpContext.Current);
-
+            
             HttpContext.Current.Response.End();
-
+            
             return string.Empty;
         }
 
@@ -49,9 +49,14 @@
                 string attachmentEntityClassName = request.Form["attachmentEntityClassName"];
                 string attachmentFolder = request.Form["attachmentFolder"];
 
-                IAttachmentParentObject parent = new AttachmentParentObject(entityId, entityClassName, attachmentEntityClassName, attachmentFolder);
+                // IAttachmentParentObject parent = new AttachmentParentObject(entityId, entityClassName, attachmentEntityClassName, attachmentFolder);
 
-                IAttachmentFileInfo attachment = UploadFileHelper.CreateAttachmentFile(parent, file);
+                IAttachmentFileInfo attachment = UploadFileHelper.CreateAttachmentFile(
+                    entityId, 
+                    entityClassName, 
+                    attachmentEntityClassName,
+                    attachmentFolder,
+                    file);
 
                 // Office 在线客户端上传方式
                 // 支持客户端赋值附件标识

@@ -51,16 +51,6 @@ namespace X3Platform.Apps
         }
         #endregion
 
-        #region 属性:Configuration
-        private AppsConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public AppsConfiguration Configuration
-        {
-            get { return configuration; }
-        }
-        #endregion
-
         #region 属性:ApplicationService
         private IApplicationService m_ApplicationService;
 
@@ -204,10 +194,8 @@ namespace X3Platform.Apps
                 AppsConfigurationView.Instance.Reload();
             }
 
-            this.configuration = AppsConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AppsConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AppsConfiguration.ApplicationName, springObjectFile);
 

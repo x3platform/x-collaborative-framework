@@ -19,6 +19,6 @@
     </typeHandlers>
 
     <sqlMaps>
-        <sqlMap embedded="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider.xml,X3Platform.Abstractions"/>
+        <sqlMap embedded="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider.xml,X3Platform.Abstractions"/>
     </sqlMaps>
 </sqlMapConfig>
