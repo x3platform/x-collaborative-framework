@@ -72,7 +72,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc" >
+    <Reference Include="System.Web.Mvc">
       <HintPath>..\..\..\lib\ASP.NET MVC 4\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
@@ -107,7 +107,9 @@
     <Compile Include="Methods\AbstractMethod.cs" />
     <Compile Include="Methods\AjaxMethod.cs" />
     <Compile Include="Mvc\APIRequestFilterAttribute.cs" />
-    <Compile Include="Pages\APIPage.cs" />
+    <Compile Include="Pages\APIPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Methods\GenericMethod.cs" />
     <Compile Include="Methods\IMethod.cs" />
     <Compile Include="Methods\RESTMethod.cs" />
