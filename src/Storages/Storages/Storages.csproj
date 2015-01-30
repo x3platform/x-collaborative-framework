@@ -73,7 +73,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>E:\Workspace\X3Platform\lib\Common.Logging\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
