@@ -54,7 +54,7 @@ namespace X3Platform.Membership.Ajax
 
             string whereClause = null;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             if ((contactType & ContactType.Account) == ContactType.Account)
             {
@@ -260,7 +260,7 @@ namespace X3Platform.Membership.Ajax
 
             // 0 全部 1 2 4 8;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             if ((contactType & ContactType.Organization) == ContactType.Organization)
             {
@@ -315,7 +315,7 @@ namespace X3Platform.Membership.Ajax
 
             // 0 全部 1 2 4 8;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             if ((contactType & ContactType.StandardOrganization) == ContactType.StandardOrganization)
             {
@@ -359,7 +359,7 @@ namespace X3Platform.Membership.Ajax
 
             // 0 全部 1 2 4 8;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             switch (groupType)
             {
@@ -936,7 +936,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(organizationId);
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             foreach (IOrganizationInfo item in list)
             {
@@ -946,7 +946,7 @@ namespace X3Platform.Membership.Ajax
 
                 childNodes = GetTreeView(item.Id);
 
-                childNodes = childNodes.Replace("{\"ajaxStorage\":[", "[").Replace("]}", "]");
+                childNodes = childNodes.Replace("{\"data\":[", "[").Replace("]}", "]");
 
                 outString.Append("\"childNodes\":" + childNodes + ", ");
 
@@ -970,7 +970,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("getDynamicTreeView")]
         public string GetDynamicTreeView(XmlDocument doc)
         {
             // 必填字段
@@ -990,7 +989,7 @@ namespace X3Platform.Membership.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
             outString.Append("{\"tree\":\"" + tree + "\",");
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");
@@ -1036,7 +1035,6 @@ namespace X3Platform.Membership.Ajax
                 case "workflow-role":
                     outString.Append(GetTreeViewWithWorkflowRole(parentId, url, treeViewRootTreeNodeId));
                     break;
-
                 case "organization":
                 default:
                     outString.Append(GetTreeViewWithOrganization(parentId, url, treeViewRootTreeNodeId));

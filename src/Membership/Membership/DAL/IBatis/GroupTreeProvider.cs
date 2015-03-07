@@ -49,7 +49,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             ibatisMapping = configuration.Keys["IBatisMapping"].Value;
 
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }
         #endregion
 
@@ -81,7 +81,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="param">实例<see cref="GroupTreeInfo"/>详细信息</param>
         public void Insert(GroupTreeInfo param)
         {
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
@@ -90,7 +90,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="param">实例<see cref="GroupTreeInfo"/>详细信息</param>
         public void Update(GroupTreeInfo param)
         {
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
@@ -106,7 +106,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("WhereClause", string.Format(" Id IN ('{0}') ", ids.Replace(",", "','")));
 
-            ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }
         #endregion
 
@@ -124,7 +124,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("Id", StringHelper.ToSafeSQL(id));
 
-            GroupTreeInfo param = ibatisMapper.QueryForObject<GroupTreeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+            GroupTreeInfo param = this.ibatisMapper.QueryForObject<GroupTreeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
 
             return param;
         }
@@ -142,7 +142,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<GroupTreeInfo> list = ibatisMapper.QueryForList<GroupTreeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<GroupTreeInfo> list = this.ibatisMapper.QueryForList<GroupTreeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -173,9 +173,9 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<GroupTreeInfo> list = ibatisMapper.QueryForList<GroupTreeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<GroupTreeInfo> list = this.ibatisMapper.QueryForList<GroupTreeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -187,19 +187,14 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new Exception("实例标识不能为空。");
-
-            bool isExist = true;
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id='{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-            return isExist;
-        }
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
+  }
         #endregion
     }
 }

@@ -21,8 +21,8 @@ namespace X3Platform.Membership.Model
     using System.Collections.Generic;
     using System.Text;
     using System.Xml;
-
     using X3Platform.CacheBuffer;
+    using X3Platform.Membership.Configuration;
     using X3Platform.Spring;
     #endregion
 
@@ -57,9 +57,13 @@ namespace X3Platform.Membership.Model
             {
                 if (m_ExtensionInformation == null)
                 {
+                    string springObjectFile = MembershipConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
+
+                    SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
+
                     string extensionInformationName = "X3Platform.Membership.Model.OrganizationInfo.ExtensionInformation";
 
-                    m_ExtensionInformation = (IExtensionInformation)SpringContext.Instance.Application.GetObject(extensionInformationName);
+                    m_ExtensionInformation = objectBuilder.GetObject<IExtensionInformation>(extensionInformationName);
                 }
 
                 return m_ExtensionInformation;
@@ -339,7 +343,7 @@ namespace X3Platform.Membership.Model
         }
 
         #endregion
-        
+
         #region 属性:Roles
         private IList<IRoleInfo> m_Roles = null;
 

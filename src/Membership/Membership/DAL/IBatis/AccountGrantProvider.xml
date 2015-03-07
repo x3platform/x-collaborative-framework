@@ -38,7 +38,6 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_Account_Grant_Insert" parameterClass="AccountGrantInfo">
             INSERT INTO tb_Account_Grant (
                 Id,
@@ -93,58 +92,30 @@
 
             WHERE Id = #Id#
         </update>
-
-        <insert id="proc_Account_Grant_Save" parameterClass="AccountGrantInfo">
-            IF EXISTS(SELECT 0 FROM tb_Account_Grant WHERE Id = #Id#)
-            BEGIN
-            UPDATE tb_Account_Grant SET
-
-            Id = #Id#,
-            GrantorId = #GrantorId#,
-            GranteeId = #GranteeId#,
-            GrantedTimeFrom = #GrantedTimeFrom#,
-            GrantedTimeTo = #GrantedTimeTo#,
-            Remark = #Remark#,
-            UpdateDate = CURRENT_TIMESTAMP
-
-            WHERE Id = #Id#
-            END
-            ELSE
-            BEGIN
-            INSERT INTO tb_Account_Grant(
-            Id,
-            GrantorId,
-            GranteeId,
-            GrantedTimeFrom,
-            GrantedTimeTo,
-            Remark,
-            UpdateDate,
-            CreateDate
-            )
-            VALUES
-            (
-            #Id#,
-            #GrantorId#,
-            #GranteeId#,
-            #GrantedTimeFrom#,
-            #GrantedTimeTo#,
-            #Remark#,
-            CURRENT_TIMESTAMP,
-            CURRENT_TIMESTAMP
-            )
-            END
-        </insert>
-
         <delete id="proc_Account_Grant_Delete" parameterClass="AccountGrantInfo">
             DELETE FROM tb_Account_Grant WHERE $WhereClause$
         </delete>
-
         <select id="proc_Account_Grant_FindOne" resultMap="proc_Account_Grant_FindOne_Result" >
-            SELECT * FROM tb_Account_Grant
-            WHERE Id = #Id#
+            SELECT * FROM tb_Account_Grant WHERE Id = #Id#
         </select>
+        <select id="proc_Account_Grant_FindAll#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
+            SELECT * FROM tb_Organization T
 
-        <select id="proc_Account_Grant_FindAll" resultMap="proc_Account_Grant_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Account_Grant_FindAll#SqlServer" resultMap="proc_Account_Grant_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -162,10 +133,23 @@
                     </isNotEmpty>
                 </isParameterPresent>
             </dynamic>
-
         </select>
+        <select id="proc_Account_Grant_GetPaging#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
+            SELECT * FROM tb_Account_Grant T
 
-        <select id="proc_Account_Grant_GetPages" resultMap="proc_Account_Grant_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Account_Grant_GetPaging#SqlServer" resultMap="proc_Account_Grant_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -179,13 +163,10 @@
                     </isNotEmpty>
                 </isParameterPresent>
             </dynamic>) TableIndex
-
+            
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_Account_Grant_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM tb_Account_Grant T
 
             <dynamic prepend="WHERE">
@@ -196,21 +177,18 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Account_Grant_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM tb_Account_Grant T WHERE $WhereClause$
         </select>
-
         <update id="proc_Account_Grant_Abort" parameterClass="AccountGrantInfo">
             UPDATE tb_Account_Grant SET
 
-            IsAborted = 1,
-            GrantedTimeTo = CURRENT_TIMESTAMP,
-            UpdateDate = CURRENT_TIMESTAMP
+                IsAborted = 1,
+                GrantedTimeTo = CURRENT_TIMESTAMP,
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
-
         <insert id="proc_Account_Grant_SyncFromPackPage" parameterClass="AccountGrantInfo" >
             IF EXISTS ( SELECT 0 FROM tb_Account_Grant WHERE Id = #Id# )
             BEGIN

@@ -13,7 +13,10 @@ namespace X3Platform.Data
     {
         #region 属性:Variables
         private Dictionary<string, string> m_Variables = new Dictionary<string, string>() {
-           { "ElevatedPrivileges", "0" }
+           // 权限提升
+           { "elevatedPrivileges", "0" }, 
+           // 查询场景
+           { "scence", "default" } 
         };
 
         /// <summary>查询上下文环境变量集合</summary>

@@ -133,13 +133,23 @@
 
             WHERE Id = #Id#
         </update>
-
         <delete id="proc_Organization_Delete">
             DELETE FROM tb_Organization WHERE $WhereClause$
         </delete>
-
         <select id="proc_Organization_FindOne" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindOne_Result" >
             SELECT * FROM tb_Organization WHERE Id = #Id#
+        </select>
+        <select id="proc_Organization_FindCorporationByOrganizationId#MySql" resultMap="proc_Organization_FindOne_Result" >
+            SELECT * FROM tb_Organization WHERE Id IN ( func_GetCorporationIdByOrganizationId(#OrganizationId#) )  
+        </select>
+        <select id="proc_Organization_FindCorporationByOrganizationId#SqlServer" resultMap="proc_Organization_FindOne_Result" >
+            SELECT * FROM tb_Organization WHERE Id IN ( dbo.func_GetCorporationIdByOrganizationId(#OrganizationId#) )  
+        </select>
+        <select id="proc_Organization_FindDepartmentByOrganizationId#MySql" resultMap="proc_Organization_FindOne_Result" >
+            SELECT * FROM tb_Organization WHERE Id IN ( func_GetDepartmentIdByOrganizationId(#OrganizationId#,#Level#) )  
+        </select>
+        <select id="proc_Organization_FindDepartmentByOrganizationId#SqlServer" resultMap="proc_Organization_FindOne_Result" >
+            SELECT * FROM tb_Organization WHERE Id IN ( dbo.func_GetDepartmentIdByOrganizationId(#OrganizationId#,#Level#) )
         </select>
         <select id="proc_Organization_FindAll#MySql" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
             SELECT * FROM tb_Organization T
@@ -177,8 +187,7 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
-        <select id="proc_Organization_GetPaging#MySql" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
+        <select id="proc_Organization_GetPaging#MySql" resultMap="proc_Organization_FindAll_Result" >
             SELECT * FROM tb_Organization T
 
             <dynamic prepend="WHERE">
@@ -194,7 +203,7 @@
             LIMIT $StartIndex$, $PageSize$
         </select>
 
-        <select id="proc_Organization_GetPaging#SqlServer" parameterClass="OrganizationInfo" resultMap="proc_Organization_FindAll_Result" >
+        <select id="proc_Organization_GetPaging#SqlServer" resultMap="proc_Organization_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -210,9 +219,7 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_Organization_GetRowCount" >
 
             SELECT COUNT(*) AS 'RowCount' FROM tb_Organization T
