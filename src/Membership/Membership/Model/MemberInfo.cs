@@ -61,7 +61,7 @@ namespace X3Platform.Membership.Model
             {
                 if (this.m_ExtensionInformation == null && !string.IsNullOrEmpty(this.AccountId))
                 {
-                    // �������󹹽���(Spring.NET)
+                    // 创建对象构建器(Spring.NET)
                     string springObjectFile = MembershipConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
                     SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);

@@ -15,6 +15,7 @@ namespace X3Platform.Membership.DAL.IBatis
     using X3Platform.Membership.IDAL;
     using X3Platform.Membership.Model;
     using X3Platform.Membership.Scope;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -257,7 +258,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAllByOrganizationId(string organizationId)
         {
-            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Account_Organization WHERE OrganizationId =  ##{0}## ) ", organizationId);
+            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Account_Organization WHERE OrganizationId = ##{0}## ) ", organizationId);
 
             return this.FindAll(whereClause, 0);
         }
@@ -289,7 +290,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAllByRoleId(string roleId)
         {
-            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM [tb_Account_Role] WHERE RoleId = ##{0}## ) ", roleId);
+            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId = ##{0}## ) ", roleId);
 
             return FindAll(whereClause, 0);
         }
@@ -302,7 +303,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAllByGroupId(string groupId)
         {
-            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM [tb_Account_Group] WHERE GroupId = ##{0}##) ", groupId);
+            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Account_Group WHERE GroupId = ##{0}##) ", groupId);
 
             return FindAll(whereClause, 0);
         }
@@ -314,7 +315,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
         public IList<IAccountInfo> FindAllWithoutMemberInfo(int length)
         {
-            string whereClause = " Id NOT IN ( SELECT AccountId FROM [tb_Member] ) ";
+            string whereClause = " Id NOT IN ( SELECT AccountId FROM tb_Member ) ";
 
             return FindAll(whereClause, length);
         }
@@ -360,28 +361,25 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns>
-        public IList<IAccountInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<IAccountInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " OrderId DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<IAccountInfo> list = this.ibatisMapper.QueryForList<IAccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<IAccountInfo> list = this.ibatisMapper.QueryForList<IAccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

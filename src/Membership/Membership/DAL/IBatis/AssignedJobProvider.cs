@@ -241,7 +241,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回所有<see cref="IAssignedJobInfo"/>实例的详细信息</returns>
         public IList<IAssignedJobInfo> FindAllByRoleId(string roleId)
         {
-            string whereClause = " JobId IN ( SELECT JobId FROM [tb_Job_StandardRole] WHERE StandardRoleId = ##" + roleId + "## ) AND OrganizationId IN (SELECT OrganizationId FROM [tb_Role] WHERE Id = ##" + roleId + "##) ";
+            string whereClause = " JobId IN ( SELECT JobId FROM tb_Job_StandardRole WHERE StandardRoleId = ##" + roleId + "## ) AND OrganizationId IN (SELECT OrganizationId FROM tb_Role WHERE Id = ##" + roleId + "##) ";
 
             return FindAll(whereClause, 0);
         }

@@ -56,9 +56,13 @@ namespace X3Platform.Membership.Model
             {
                 if (m_ExtensionInformation == null)
                 {
+                    string springObjectFile = MembershipConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
+
+                    SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
+
                     string extensionInformationName = "X3Platform.Membership.Model.RoleInfo.ExtensionInformation";
 
-                    m_ExtensionInformation = (IExtensionInformation)SpringContext.Instance.Application.GetObject(extensionInformationName);
+                    m_ExtensionInformation = objectBuilder.GetObject<IExtensionInformation>(extensionInformationName);
                 }
 
                 return m_ExtensionInformation;

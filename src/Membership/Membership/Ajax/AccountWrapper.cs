@@ -47,7 +47,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             AccountInfo param = new AccountInfo();
@@ -148,7 +147,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -178,7 +176,6 @@ namespace X3Platform.Membership.Ajax
         #region 函数:FindOne(XmlDocument doc)
         /// <summary>获取对象信息</summary>
         /// <param name="doc">Xml 文档对象</param>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -187,7 +184,7 @@ namespace X3Platform.Membership.Ajax
 
             IAccountInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -206,7 +203,7 @@ namespace X3Platform.Membership.Ajax
 
             IAccountInfo param = this.service.FindOneByLoginName(loginName);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -216,8 +213,7 @@ namespace X3Platform.Membership.Ajax
 
         #region 函数:FindAll(XmlDocument doc)
         /// <summary>查询所有数据</summary>
-        /// <returns>返回一个相关的实例列表.</returns> 
-        [AjaxMethod("findAll")]
+        /// <returns>返回一个相关的实例列表.</returns>
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -226,7 +222,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IAccountInfo> list = this.service.FindAll(whereClause);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -236,8 +232,7 @@ namespace X3Platform.Membership.Ajax
 
         #region 函数:FindAllWithoutMemberInfo(XmlDocument doc)
         /// <summary>查询所有数据</summary>
-        /// <returns>返回一个相关的实例列表.</returns> 
-        [AjaxMethod("findAllWithoutMemberInfo")]
+        /// <returns>返回一个相关的实例列表.</returns>
         public string FindAllWithoutMemberInfo(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -246,7 +241,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IAccountInfo> list = this.service.FindAllWithoutMemberInfo(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -261,25 +256,35 @@ namespace X3Platform.Membership.Ajax
         #region 函数:GetPages(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
-        /// <returns></returns> 
-        [AjaxMethod("getPages")]
+        /// <returns></returns>
         public string GetPages(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            // 设置当前用户权限
+            if (XmlHelper.Fetch("su", doc) == "1")
+            {
+                paging.Query.Variables["elevatedPrivileges"] = "1";
+            }
+
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
 
             int rowCount = -1;
 
-            IList<IAccountInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<IAccountInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
-
-            outString.Append("\"pages\":" + pages + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            // 兼容 ExtJS 设置
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
 
             return outString.ToString();
         }
@@ -289,7 +294,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -304,7 +308,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -324,7 +328,7 @@ namespace X3Platform.Membership.Ajax
 
             int result = MembershipManagement.Instance.AccountService.GetPasswordStrength(loginName);
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
 
             if (result == 1)
             {
@@ -369,7 +373,6 @@ namespace X3Platform.Membership.Ajax
 
         #region 函数:ChangeBasicInfo(XmlDocument doc)
         /// <summary></summary>
-        [AjaxMethod("changeBasicInfo")]
         public string ChangeBasicInfo(XmlDocument doc)
         {
             AccountInfo param = new AccountInfo();
@@ -396,7 +399,6 @@ namespace X3Platform.Membership.Ajax
 
         #region 函数:ChangePassword(string xml)
         /// <summary></summary>
-        [AjaxMethod("changePassword")]
         public string ChangePassword(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -445,12 +447,10 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-
         #region 函数:SetGlobalName(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("setGlobalName")]
         public string SetGlobalName(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -476,7 +476,6 @@ namespace X3Platform.Membership.Ajax
 
         #region 函数:SetPassword(XmlDocument doc)
         /// <summary>设置密码</summary>
-        [AjaxMethod("setPassword")]
         public string SetPassword(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -503,7 +502,6 @@ namespace X3Platform.Membership.Ajax
 
         #region 函数:SetLoginName(XmlDocument doc)
         /// <summary></summary>
-        [AjaxMethod("setLoginName")]
         public string SetLoginName(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -543,7 +541,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("setStatus")]
         public string SetStatus(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -570,21 +567,20 @@ namespace X3Platform.Membership.Ajax
         #region 函数:GetAuthorizationObjects(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
-        /// <returns></returns> 
-        [AjaxMethod("getAuthorizationObjects")]
+        /// <returns></returns>
         public string GetAuthorizationObjects(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"));
 
             int rowCount = -1;
 
-            DataTable table = MembershipManagement.Instance.AuthorizationObjectService.Filter(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            DataTable table = MembershipManagement.Instance.AuthorizationObjectService.Filter(paging.RowIndex, paging.PageSize, paging.WhereClause, paging.OrderBy, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             foreach (DataRow row in table.Rows)
             {
@@ -602,7 +598,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("],");
 
-            outString.Append("\"pages\":" + pages + ",");
+            outString.Append("\"paging\":" + paging + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

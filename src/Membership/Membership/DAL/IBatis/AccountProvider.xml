@@ -104,7 +104,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_Account_Update" parameterClass="AccountInfo">
             UPDATE tb_Account SET
 
@@ -126,19 +125,15 @@
 
             WHERE Id = #Id#
         </update>
-
         <delete id="proc_Account_Delete">
             DELETE FROM tb_Account WHERE $WhereClause$
         </delete>
-
         <delete id="proc_Account_Delete_AccountGroup">
             DELETE FROM tb_Account_Group WHERE AccountId = '$Account$'
         </delete>
-        
         <delete id="proc_Account_Delete_AccountRole">
             DELETE FROM tb_Account_Role WHERE AccountId = '$Account$'
         </delete>
-        
         <delete id="proc_Account_Delete_AccountAssignedJob">
             DELETE FROM tb_Account_AssignedJob WHERE AccountId = '$Account$'
         </delete>
@@ -162,7 +157,7 @@
         <select id="proc_Account_FindOneByLoginName" resultMap="proc_Account_FindOne_Result" >
             SELECT * FROM tb_Account WHERE LoginName = #LoginName#
         </select>
-	<select id="proc_Account_FindAll#MySql" resultMap="proc_Account_FindAll_Result" >
+	    <select id="proc_Account_FindAll#MySql" resultMap="proc_Account_FindAll_Result" >
             SELECT * FROM tb_Account T
 
             <dynamic prepend="WHERE">
@@ -198,7 +193,6 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Account_GetPaging#MySql" parameterClass="AccountInfo" resultMap="proc_Account_FindAll_Result" >
             SELECT * FROM tb_Account T
 
@@ -214,7 +208,6 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-
         <select id="proc_Account_GetPaging#SqlServer" parameterClass="AccountInfo" resultMap="proc_Account_FindAll_Result" >
             SELECT *
 
@@ -233,11 +226,8 @@
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
 
         </select>
-
         <select id="proc_Account_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM tb_Account T
-
             <dynamic prepend="WHERE">
                 <isParameterPresent>
                     <isNotEmpty prepend="AND" property="WhereClause" >

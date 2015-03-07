@@ -42,22 +42,22 @@
     <statements>
 
         <insert id="proc_GeneralRole_Insert" parameterClass="GeneralRoleInfo">
-            INSERT INTO [tb_GeneralRole] (
-                [Id],
-                [Code],
-                [Name],
-                [GlobalName],
-                [PinYin],
-                [GroupTreeNodeId],
-                [EnableExchangeEmail],
-                [Locking],
-                [Status],
-                [OrderId],
-                [Remark],
-                [FullPath],
-                [DistinguishedName],
-                [UpdateDate],
-                [CreateDate]
+            INSERT INTO tb_GeneralRole (
+                Id,
+                Code,
+                Name,
+                GlobalName,
+                PinYin,
+                GroupTreeNodeId,
+                EnableExchangeEmail,
+                Locking,
+                Status,
+                OrderId,
+                Remark,
+                FullPath,
+                DistinguishedName,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -80,31 +80,31 @@
         </insert>
 
         <update id="proc_GeneralRole_Update" parameterClass="GeneralRoleInfo">
-            UPDATE [tb_GeneralRole] SET
+            UPDATE tb_GeneralRole SET
                 
-                [Code] = #Code#,
-                [Name] = #Name#,
-                [GlobalName] = #GlobalName#,
-                [PinYin] = #PinYin#,
-                [GroupTreeNodeId] = #GroupTreeNodeId#,
-                [EnableExchangeEmail] = #EnableExchangeEmail#,
-                [Locking] = #Locking#,
-                [Status] = #Status#,
-                [OrderId] = #OrderId#,
-                [Remark] = #Remark#,
-                [FullPath] = #FullPath#,
-                [DistinguishedName] = #DistinguishedName#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                Code = #Code#,
+                Name = #Name#,
+                GlobalName = #GlobalName#,
+                PinYin = #PinYin#,
+                GroupTreeNodeId = #GroupTreeNodeId#,
+                EnableExchangeEmail = #EnableExchangeEmail#,
+                Locking = #Locking#,
+                Status = #Status#,
+                OrderId = #OrderId#,
+                Remark = #Remark#,
+                FullPath = #FullPath#,
+                DistinguishedName = #DistinguishedName#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_GeneralRole_Delete" parameterClass="GeneralRoleInfo">
-            DELETE FROM [tb_GeneralRole] WHERE $WhereClause$
+            DELETE FROM tb_GeneralRole WHERE $WhereClause$
         </delete>
 
         <select id="proc_GeneralRole_FindOne" resultMap="proc_GeneralRole_FindOne_Result" >
-            SELECT * FROM [tb_GeneralRole] T WHERE [Id] = #Id#
+            SELECT * FROM tb_GeneralRole T WHERE Id = #Id#
         </select>
 
         <select id="proc_GeneralRole_FindAll" resultMap="proc_GeneralRole_FindAll_Result" >
@@ -116,7 +116,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_GeneralRole] T
+            * FROM tb_GeneralRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -132,7 +132,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_GeneralRole] T
+            FROM tb_GeneralRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -148,7 +148,7 @@
 
         <select id="proc_GeneralRole_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_GeneralRole] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_GeneralRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -160,15 +160,15 @@
         </select>
 
         <select id="proc_GeneralRole_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_GeneralRole] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_GeneralRole T WHERE $WhereClause$
         </select>
 
         <update id="proc_GeneralRole_Rename" >
-            UPDATE [tb_GeneralRole] SET [Name] = #Name#, [UpdateDate] = CURRENT_TIMESTAMP WHERE [Id] = #Id#
+            UPDATE tb_GeneralRole SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_GeneralRole_SetGlobalName" >
-            Update [tb_GeneralRole] SET GlobalName = #GlobalName#, [UpdateDate] = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_GeneralRole SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
     </statements>
