@@ -87,7 +87,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IAccountGrantInfo> list = this.service.FindAll(whereClause);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountGrantInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -107,7 +107,7 @@ namespace X3Platform.Membership.Ajax
 
             IAccountGrantInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -119,28 +119,38 @@ namespace X3Platform.Membership.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
-        /// <returns></returns> 
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        /// <returns></returns>
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            // 设置当前用户权限
+            if (XmlHelper.Fetch("su", doc) == "1")
+            {
+                paging.Query.Variables["elevatedPrivileges"] = "1";
+            }
+
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
 
             int rowCount = -1;
 
-            IList<IAccountGrantInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<IAccountGrantInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(list) + ",");
-
-            outString.Append("\"pages\":" + pages + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountGrantInfo>(list) + ",");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            // 兼容 ExtJS 设置
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
 
             return outString.ToString();
         }
@@ -169,7 +179,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

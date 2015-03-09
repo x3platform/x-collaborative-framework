@@ -128,11 +128,19 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            // 设置当前用户权限
+            if (XmlHelper.Fetch("su", doc) == "1")
+            {
+                paging.Query.Variables["elevatedPrivileges"] = "1";
+            }
+
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
 
             int rowCount = -1;
 
-            IList<GroupTreeInfo> list = this.service.GetPages(paging.RowIndex, paging.PageSize, paging.WhereClause, paging.OrderBy, out rowCount);
+            IList<GroupTreeInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;
 
