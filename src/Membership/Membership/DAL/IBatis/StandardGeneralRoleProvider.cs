@@ -25,6 +25,7 @@ namespace X3Platform.Membership.DAL.IBatis
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.IDAL;
     using X3Platform.Membership.Model;
+    using X3Platform.Data;
 
     /// <summary></summary>
     [DataObject]
@@ -175,30 +176,27 @@ namespace X3Platform.Membership.DAL.IBatis
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="IStandardGeneralRoleInfo"/></returns>
-        public IList<IStandardGeneralRoleInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="IStandardGeneralRoleInfo"/></returns>
+        public IList<IStandardGeneralRoleInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<IStandardGeneralRoleInfo> list = ibatisMapper.QueryForList<IStandardGeneralRoleInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+            IList<IStandardGeneralRoleInfo> list = ibatisMapper.QueryForList<IStandardGeneralRoleInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
             return list;
         }
@@ -261,34 +259,31 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("StandardGeneralRoleId", StringHelper.ToSafeSQL(standardGeneralRoleId));
             args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
 
-            return this. ibatisMapper.QueryForObject<IStandardGeneralRoleMappingRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneMappingRelation", tableName)), args);
+            return this.ibatisMapper.QueryForObject<IStandardGeneralRoleMappingRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneMappingRelation", tableName)), args);
         }
         #endregion
 
-        #region 属性:GetMappingRelationPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��׼ͨ�ý�ɫӳ����ϵ��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="IStandardGeneralRoleMappingRelationInfo"/></returns>
-        public IList<IStandardGeneralRoleMappingRelationInfo> GetMappingRelationPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 属性:GetMappingRelationPaging(int startIndex, int pageSize,  DataQuery query, out int rowCount)
+        /// <summary>标准通用角色映射关系分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="IStandardGeneralRoleMappingRelationInfo"/></returns>
+        public IList<IStandardGeneralRoleMappingRelationInfo> GetMappingRelationPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " RoleName DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" RoleName "));
 
             args.Add("RowCount", 0);
 
-            IList<IStandardGeneralRoleMappingRelationInfo> list = ibatisMapper.QueryForList<IStandardGeneralRoleMappingRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMappingRelationPages", tableName)), args);
+            IList<IStandardGeneralRoleMappingRelationInfo> list = ibatisMapper.QueryForList<IStandardGeneralRoleMappingRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMappingRelationPaging", tableName)), args);
 
-            rowCount = (int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMappingRelationRowCount", tableName)), args);
+            rowCount = Convert.ToInt32(ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetMappingRelationRowCount", tableName)), args));
 
             return list;
         }

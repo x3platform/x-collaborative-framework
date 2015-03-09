@@ -113,17 +113,16 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:Filter(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ѯ��Ȩ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">��¼����</param>
-        /// <returns>����һ���б�</returns>
-        public DataTable Filter(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:Filter(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>查询授权对象信息</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">记录行数</param>
+        /// <returns>返回一个列表</returns>
+        public DataTable Filter(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return provider.Filter(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.Filter(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 

@@ -86,7 +86,7 @@ namespace X3Platform.Membership.Ajax
 
             IJobFamilyInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IJobFamilyInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -108,7 +108,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IJobFamilyInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IJobFamilyInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -132,11 +132,11 @@ namespace X3Platform.Membership.Ajax
 
             int rowCount = -1;
 
-            IList<IJobFamilyInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<IJobFamilyInfo> list = this.service.GetPaging(pages.RowIndex, pages.PageSize, pages.Query, out rowCount);
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IJobFamilyInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 
@@ -179,7 +179,7 @@ namespace X3Platform.Membership.Ajax
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IJobFamilyInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IJobFamilyInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -206,7 +206,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IJobFamilyInfo> list = this.service.FindAll(whereClause);
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             if (!string.IsNullOrEmpty(emptyItemText))
             {

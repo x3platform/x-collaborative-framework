@@ -81,7 +81,7 @@ namespace X3Platform.Membership.Ajax
 
             if (param == null) { return "{\"message\":{\"returnCode\":0,\"value\":\"未找到相关对象。\"}}"; }
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(param) + ",");
 
             outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxUtil.Parse<IAccountInfo>(param.Account)));
 
@@ -106,7 +106,7 @@ namespace X3Platform.Membership.Ajax
 
             if (param == null) { return "{\"message\":{\"returnCode\":0,\"value\":\"未找到相关对象。\"}}"; }
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(param) + ",");
 
             outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxUtil.Parse<IAccountInfo>(param.Account)));
 
@@ -128,7 +128,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultOrganization(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -148,7 +148,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultJob(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -168,7 +168,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultAssignedJob(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -188,7 +188,7 @@ namespace X3Platform.Membership.Ajax
 
             IList<IMemberInfo> list = this.service.FindAllWithoutDefaultRole(length);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 
             outString.Append("message:{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -208,15 +208,23 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            // 设置当前用户权限
+            if (XmlHelper.Fetch("su", doc) == "1")
+            {
+                paging.Query.Variables["elevatedPrivileges"] = "1";
+            }
+
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
 
             int rowCount = -1;
 
-            IList<IMemberInfo> list = this.service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<IMemberInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             int index = 0;
 
@@ -235,10 +243,13 @@ namespace X3Platform.Membership.Ajax
                 outString = outString.Remove(outString.Length - 1, 1);
 
             outString.Append("],");
-
-            outString.Append("\"pages\":" + pages + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            // 兼容 ExtJS 设置
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
 
             return outString.ToString();
         }
@@ -301,7 +312,7 @@ namespace X3Platform.Membership.Ajax
 
             IAccountInfo param = strategy.Deserialize(SessionContext.Instance.AccountCacheService.Read(key));
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

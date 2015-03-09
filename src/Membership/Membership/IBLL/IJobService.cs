@@ -19,6 +19,7 @@ using System.Text;
 using X3Platform.Spring;
 
 using X3Platform.Membership.Model;
+using X3Platform.Data;
 
 namespace X3Platform.Membership.IBLL
 {
@@ -86,15 +87,14 @@ namespace X3Platform.Membership.IBLL
         // �Զ��幦��
         // -------------------------------------------------------
 
-        #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="IJobInfo"/></returns>
-        IList<IJobInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="IJobInfo"/></returns>
+        IList<IJobInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 属性:IsExist(string id)

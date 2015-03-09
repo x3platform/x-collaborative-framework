@@ -576,7 +576,7 @@ namespace X3Platform.Membership.Ajax
 
             int rowCount = -1;
 
-            DataTable table = MembershipManagement.Instance.AuthorizationObjectService.Filter(paging.RowIndex, paging.PageSize, paging.WhereClause, paging.OrderBy, out rowCount);
+            DataTable table = MembershipManagement.Instance.AuthorizationObjectService.Filter(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;
 

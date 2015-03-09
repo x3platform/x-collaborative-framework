@@ -287,7 +287,7 @@ namespace X3Platform.Membership.IBLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">记录行数</param>
-        /// <returns>返回一个列表</returns>
+        /// <returns>返回一个列表<see cref="IRoleInfo"/></returns>
         IList<IRoleInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
