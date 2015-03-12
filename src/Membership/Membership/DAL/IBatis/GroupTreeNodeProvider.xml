@@ -28,7 +28,6 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_GroupTreeNode_Insert" parameterClass="GroupTreeNodeInfo">
             INSERT INTO tb_GroupTreeNode 
             (
@@ -55,7 +54,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_GroupTreeNode_Update" parameterClass="GroupTreeNodeInfo">
             UPDATE tb_GroupTreeNode SET
 
@@ -69,15 +67,12 @@
 
             WHERE Id = #Id#
         </update>
-
         <delete id="proc_GroupTreeNode_Delete" parameterClass="GroupTreeNodeInfo">
             DELETE FROM tb_GroupTreeNode WHERE $WhereClause$
         </delete>
-
         <select id="proc_GroupTreeNode_FindOne" resultMap="proc_GroupTreeNode_FindOne_Result" >
             SELECT * FROM tb_GroupTreeNode T WHERE Id = #Id#
         </select>
-
         <select id="proc_GroupTreeNode_FindAll" resultMap="proc_GroupTreeNode_FindAll_Result" >
             SELECT
 
@@ -97,8 +92,22 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_GroupTreeNode_GetPaging#MySql" resultMap="proc_GroupTreeNode_FindAll_Result" >
+            SELECT * FROM tb_GroupTreeNode T
 
-        <select id="proc_GroupTreeNode_GetPaging" resultMap="proc_GroupTreeNode_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_GroupTreeNode_GetPaging#SqlServer" resultMap="proc_GroupTreeNode_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -114,11 +123,8 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_GroupTreeNode_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM tb_GroupTreeNode T
 
             <dynamic prepend="WHERE">
@@ -129,10 +135,8 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_GroupTreeNode_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM tb_GroupTreeNode T WHERE $WhereClause$
         </select>
-
     </statements>
 </sqlMap>

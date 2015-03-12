@@ -281,8 +281,29 @@
             WHERE 
                 $WhereClause$
         </select>
-        
-        <insert id="proc_AssignedJob_AddRelation" >
+        <insert id="proc_AssignedJob_AddRelation#MySql" parameterClass="AccountAssignedJobRelationInfo" >
+            INSERT INTO tb_Account_AssignedJob
+            (
+                AccountId,
+                AssignedJobId,
+                IsDefault,
+                BeginDate,
+                EndDate
+            )
+            VALUES
+            (
+                #AccountId#,
+                #AssignedJobId#,
+                #IsDefault#,
+                #BeginDate#,
+                #EndDate#
+            ) 
+            ON DUPLICATE KEY UPDATE 
+                IsDefault = #IsDefault#,
+                BeginDate = #BeginDate#,
+                EndDate = #EndDate#
+        </insert>
+        <insert id="proc_AssignedJob_AddRelation#SqlServer" parameterClass="AccountAssignedJobRelationInfo" >
             IF EXISTS ( SELECT 0 FROM tb_Account_AssignedJob WHERE AccountId = '$AccountId$' AND AssignedJobId = '$AssignedJobId$' )
             BEGIN
                 UPDATE tb_Account_AssignedJob SET

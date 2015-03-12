@@ -87,7 +87,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_Group_Update" parameterClass="GroupInfo">
             UPDATE tb_Group SET
 
@@ -108,15 +107,12 @@
 
             WHERE Id = #Id#
         </update>
-
         <delete id="proc_Group_Delete" parameterClass="GroupInfo">
             DELETE FROM tb_Group WHERE $WhereClause$
         </delete>
-
         <select id="proc_Group_FindOne" resultMap="proc_Group_FindOne_Result" >
             SELECT * FROM tb_Group T WHERE Id = #Id#
         </select>
-
         <select id="proc_Group_FindAll#MySql" resultMap="proc_Group_FindAll_Result" >
             SELECT * FROM tb_Group T
 
@@ -134,7 +130,6 @@
                 </isNotEqual>
             </dynamic>
         </select>
-
         <select id="proc_Group_FindAll#SqlServer" resultMap="proc_Group_FindAll_Result" >
             SELECT
 
@@ -154,7 +149,6 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Group_GetPaging#MySql" resultMap="proc_Group_FindAll_Result" >
             SELECT * FROM tb_Group T
 
@@ -170,7 +164,6 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-
         <select id="proc_Group_GetPaging#SqlServer" resultMap="proc_Group_FindAll_Result" >
             SELECT *
 
@@ -187,9 +180,7 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_Group_GetRowCount" >
             SELECT COUNT(*) AS 'RowCount' FROM tb_Group T
 
@@ -201,23 +192,18 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Group_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM tb_Group T WHERE $WhereClause$
         </select>
-
         <update id="proc_Group_Rename" parameterClass="GroupInfo">
             UPDATE tb_Group SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <update id="proc_Group_SetGlobalName" >
             Update tb_Group SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <update id="proc_Group_SetExchangeStatus" >
             UPDATE tb_Group SET EnableExchangeEmail = #EnableExchangeEmail#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-        
         <select id="proc_Group_FindAllRelation" resultMap="proc_Group_FindAllRelation_Result" >
             SELECT 
 	            AccountId, 
@@ -233,8 +219,26 @@
             WHERE 
                 $WhereClause$
         </select>
-        
-        <insert id="proc_Group_AddRelation" >
+        <insert id="proc_Group_AddRelation#MySql" parameterClass="AccountGroupRelationInfo" >
+            INSERT INTO tb_Account_Group
+            (
+                AccountId,
+                GroupId,
+                BeginDate,
+                EndDate
+            )
+            VALUES
+            (
+                #AccountId#,
+                #GroupId#,
+                #BeginDate#,
+                #EndDate#
+            ) 
+            ON DUPLICATE KEY UPDATE 
+                BeginDate = #BeginDate#,
+                EndDate = #EndDate#
+        </insert>
+        <insert id="proc_Group_AddRelation#SqlServer" parameterClass="AccountGroupRelationInfo" >
             IF EXISTS ( SELECT 0 FROM tb_Account_Group WHERE AccountId = '$AccountId$' AND GroupId = '$GroupId$' )
             BEGIN
                 UPDATE tb_Account_Group SET
@@ -262,11 +266,9 @@
                 )
             END
         </insert>
-
         <update id="proc_Group_ExtendRelation" >
             UPDATE tb_Account_Group SET EndDate = '$EndDate$' WHERE AccountId = '$AccountId$' AND GroupId = '$GroupId$'
         </update>
-
         <delete id="proc_Group_RemoveRelation" >
             DELETE FROM tb_Account_Group WHERE $WhereClause$
         </delete>

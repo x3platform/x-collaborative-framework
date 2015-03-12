@@ -296,7 +296,18 @@ namespace X3Platform.Ajax
                                     result = (string.IsNullOrEmpty(value)) ? 0 : Convert.ToDecimal(value);
                                     break;
                                 case "System.Boolean":
-                                    result = (string.IsNullOrEmpty(value)) ? false : Convert.ToBoolean(value);
+                                    if (value == "1" || value == "true" || value == "Yes")
+                                    {
+                                        result = true;
+                                    }
+                                    else if (value == "0" || value == "false" || value == "No")
+                                    {
+                                        result = false;
+                                    }
+                                    else
+                                    {
+                                        result = (string.IsNullOrEmpty(value)) ? false : Convert.ToBoolean(value);
+                                    }
                                     break;
                                 case "System.Guid":
                                     result = (string.IsNullOrEmpty(value)) ? Guid.Empty : new Guid(value);

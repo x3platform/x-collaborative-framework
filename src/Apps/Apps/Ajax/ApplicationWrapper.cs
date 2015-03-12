@@ -104,11 +104,11 @@ namespace X3Platform.Apps.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:Query(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        public string Query(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -122,11 +122,11 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
-            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
-            outString.Append("\"msg\":\"success\",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("\"msg\":\"success\"}");
 
             return outString.ToString();
         }

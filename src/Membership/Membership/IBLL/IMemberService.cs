@@ -26,106 +26,106 @@ namespace X3Platform.Membership.IBLL
     [SpringObject("X3Platform.Membership.IBLL.IMemberService")]
     public interface IMemberService
     {
-        #region 属性:this[string index]
-        /// <summary>����</summary>
-        /// <param name="id">��Ա��ʶ</param>
+        #region 索引:this[string index]
+        /// <summary>索引</summary>
+        /// <param name="id">会员标识</param>
         /// <returns></returns>
         IMemberInfo this[string id] { get; }
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IAccount param)
-        /// <summary>������¼</summary>
-        /// <param name="param">IAccount ʵ����ϸ��Ϣ</param>
-        /// <returns>IAccount ʵ����ϸ��Ϣ</returns>
+        #region 函数:Save(IAccount param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">IAccount 实例详细信息</param>
+        /// <returns>IAccount 实例详细信息</returns>
         IMemberInfo Save(IMemberInfo param);
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号分开</param>
         void Delete(string ids);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��Ա��ʶ</param>
-        /// <returns>����һ�� MemberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">会员标识</param>
+        /// <returns>返回一个 MemberInfo 实例的详细信息</returns>
         IMemberInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindOneByAccountId(string accountId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����һ�� MemberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByAccountId(string accountId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回一个 MemberInfo 实例的详细信息</returns>
         IMemberInfo FindOneByAccountId(string accountId);
         #endregion
 
-        #region 属性:FindOneByLoginName(string loginName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="loginName">��¼��</param>
-        /// <returns>����һ�� MemberInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByLoginName(string loginName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="loginName">登录名</param>
+        /// <returns>返回一个 MemberInfo 实例的详细信息</returns>
         IMemberInfo FindOneByLoginName(string loginName);
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAll();
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAll(string whereClause);
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 属性:FindAllWithoutDefaultOrganization(int length)
-        /// <summary>��������û��Ĭ����֯�ĳ�Ա��Ϣ</summary>
-        /// <param name="length">����, 0��ʾȫ��</param>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllWithoutDefaultOrganization(int length)
+        /// <summary>返回所有没有默认组织的成员信息</summary>
+        /// <param name="length">条数, 0表示全部</param>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAllWithoutDefaultOrganization(int length);
         #endregion
 
-        #region 属性:FindAllWithoutDefaultJob(int length)
-        /// <summary>��������û��Ĭ��ְλ�ĳ�Ա��Ϣ</summary>
-        /// <param name="length">����, 0��ʾȫ��</param>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllWithoutDefaultJob(int length)
+        /// <summary>返回所有没有默认职位的成员信息</summary>
+        /// <param name="length">条数, 0表示全部</param>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAllWithoutDefaultJob(int length);
         #endregion
 
-        #region 属性:FindAllWithoutDefaultAssignedJob(int length)
-        /// <summary>��������û��Ĭ�ϸ�λ�ĳ�Ա��Ϣ</summary>
-        /// <param name="length">����, 0��ʾȫ��</param>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllWithoutDefaultAssignedJob(int length)
+        /// <summary>返回所有没有默认岗位的成员信息</summary>
+        /// <param name="length">条数, 0表示全部</param>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAllWithoutDefaultAssignedJob(int length);
         #endregion
 
-        #region 属性:FindAllWithoutDefaultRole(int length)
-        /// <summary>��������û��Ĭ�Ͻ�ɫ�ĳ�Ա��Ϣ</summary>
-        /// <param name="length">����, 0��ʾȫ��</param>
-        /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllWithoutDefaultRole(int length)
+        /// <summary>返回所有没有默认角色的成员信息</summary>
+        /// <param name="length">条数, 0表示全部</param>
+        /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
         IList<IMemberInfo> FindAllWithoutDefaultRole(int length);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -138,87 +138,87 @@ namespace X3Platform.Membership.IBLL
         IList<IMemberInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">��Ա��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">人员标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
 
-        #region 属性:CreateEmptyMember(string accountId)
-        /// <summary>�����յ���Ա��Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:CreateEmptyMember(string accountId)
+        /// <summary>创建空的人员信息</summary>
+        /// <param name="accountId">帐号标识</param>
         /// <returns></returns>
         IMemberInfo CreateEmptyMember(string accountId);
         #endregion
 
-        #region 属性:CombineFullPath(string name, string organizationId)
-        /// <summary>��Աȫ·��</summary>
-        /// <param name="name">����</param>
-        /// <param name="organizationId">������֯��ʶ</param>
+        #region 函数:CombineFullPath(string name, string organizationId)
+        /// <summary>成员全路径</summary>
+        /// <param name="name">姓名</param>
+        /// <param name="organizationId">所属组织标识</param>
         /// <returns></returns>
         string CombineFullPath(string name, string organizationId);
         #endregion
 
-        #region 属性:SetContactCard(string accountId, Dictionary<string,string> contactItems);
-        /// <summary>������ϵ����Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="contactItems">��ϵ���ֵ�</param>
-        /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
+        #region 函数:SetContactCard(string accountId, Dictionary<string,string> contactItems);
+        /// <summary>设置联系卡信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="contactItems">联系项字典</param>
+        /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
         int SetContactCard(string accountId, Dictionary<string,string> contactItems);
         #endregion
 
-        #region 属性:SetDefaultCorporationAndDepartments(string accountId, string organizationIds)
-        /// <summary>����Ĭ����֯��λ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationIds">��֯��λ��ʶ��[0]��˾��ʶ��[1]һ�����ű�ʶ��[2]�������ű�ʶ��[3]�������ű�ʶ��</param>
-        /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
+        #region 函数:SetDefaultCorporationAndDepartments(string accountId, string organizationIds)
+        /// <summary>设置默认组织单位</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationIds">组织单位标识，[0]公司标识，[1]一级部门标识，[2]二级部门标识，[3]三级部门标识。</param>
+        /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
         int SetDefaultCorporationAndDepartments(string accountId, string organizationIds);
         #endregion
 
-        #region 属性:SetDefaultOrganization(string accountId, string organizationId)
-        /// <summary>����Ĭ����֯��λ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��λ��ʶ</param>
-        /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
+        #region 函数:SetDefaultOrganization(string accountId, string organizationId)
+        /// <summary>设置默认组织单位</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织单位标识</param>
+        /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
         int SetDefaultOrganization(string accountId, string organizationId);
         #endregion
 
-        #region 属性:SetDefaultRole(string accountId, string roleId)
-        /// <summary>����Ĭ�Ͻ�ɫ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="roleId">��ɫ��ʶ</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetDefaultRole(string accountId, string roleId)
+        /// <summary>设置默认角色</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="roleId">角色标识</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetDefaultRole(string accountId, string roleId);
         #endregion
 
-        #region 属性:SetDefaultJob(string accountId, string jobId)
-        /// <summary>����Ĭ��ְλ��Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="jobId">ְλ��Ϣ</param>
-        /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
+        #region 函数:SetDefaultJob(string accountId, string jobId)
+        /// <summary>设置默认职位信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="jobId">职位信息</param>
+        /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
         int SetDefaultJob(string accountId, string jobId);
         #endregion
 
-        #region 属性:SetDefaultAssignedJob(string accountId, string assignedJobId)
-        /// <summary>����Ĭ�ϸ�λ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="assignedJobId">��λ��ʶ</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetDefaultAssignedJob(string accountId, string assignedJobId)
+        /// <summary>设置默认岗位</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="assignedJobId">岗位标识</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         int SetDefaultAssignedJob(string accountId, string assignedJobId);
         #endregion
 
-        #region 属性:SetDefaultJobGrade(string accountId, string jobGradeId)
-        /// <summary>����Ĭ��ְ����Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="jobGradeId">ְ����ʶ</param>
-        /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
+        #region 函数:SetDefaultJobGrade(string accountId, string jobGradeId)
+        /// <summary>设置默认职级信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="jobGradeId">职级标识</param>
+        /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
         int SetDefaultJobGrade(string accountId, string jobGradeId);
         #endregion
 
-        #region 属性:SyncFromPackPage(IMemberInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">��Ա��Ϣ</param>
+        #region 函数:SyncFromPackPage(IMemberInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">成员信息</param>
         int SyncFromPackPage(IMemberInfo param);
         #endregion
     }

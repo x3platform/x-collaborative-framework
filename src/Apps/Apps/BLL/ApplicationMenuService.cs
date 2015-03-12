@@ -14,6 +14,7 @@
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.IDAL;
     using X3Platform.Apps.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -151,29 +152,29 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="ApplicationMenuInfo"/></returns>
-        public IList<ApplicationMenuInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="ApplicationMethodInfo"/></returns>
+        public IList<ApplicationMenuInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
             // 验证管理员身份
-            if (AppsSecurity.IsAdministrator(KernelContext.Current.User, AppsConfiguration.ApplicationName))
-            {
-                return this.provider.GetPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
-            }
-            else
-            {
-                return this.provider.GetPaging(startIndex, pageSize, this.BindAuthorizationScopeSQL(whereClause), orderBy, out rowCount);
-            }
+            // if (AppsSecurity.IsAdministrator(KernelContext.Current.User, AppsConfiguration.ApplicationName))
+            // {
+            //    return this.provider.GetPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            // }
+            // else
+            // {
+            //    return this.provider.GetPaging(startIndex, pageSize, this.BindAuthorizationScopeSQL(whereClause), orderBy, out rowCount);
+            // }
         }
         #endregion
 
-        #region 函数:GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -181,16 +182,16 @@
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="ApplicationMenuQueryInfo"/></returns>
-        public IList<ApplicationMenuQueryInfo> GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationMenuQueryInfo> GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             // 验证管理员身份
             if (AppsSecurity.IsAdministrator(KernelContext.Current.User, AppsConfiguration.ApplicationName))
             {
-                return this.provider.GetQueryObjectPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+                return this.provider.GetQueryObjectPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
             }
             else
             {
-                return this.provider.GetQueryObjectPages(startIndex, pageSize, this.BindAuthorizationScopeSQL(whereClause), orderBy, out rowCount);
+                return this.provider.GetQueryObjectPaging(startIndex, pageSize, this.BindAuthorizationScopeSQL(whereClause), orderBy, out rowCount);
             }
         }
         #endregion

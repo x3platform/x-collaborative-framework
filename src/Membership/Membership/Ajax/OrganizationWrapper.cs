@@ -253,7 +253,6 @@ namespace X3Platform.Membership.Ajax
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
-            // 兼容 ExtJS 设置
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
