@@ -372,10 +372,24 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
+            if (query.Variables["scence"] == "Query")
+            {
+               string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+               args.Add("WhereClause", " ( T.Name LIKE '%" + searchText + "%' OR T.GlobalName LIKE '%" + searchText + "%' OR T.LoginName LIKE '%" + searchText + "%' ) ");
+            }
+            else if (query.Variables["scence"] == "QueryByOrganizationId")
+            {
+                args.Add("WhereClause", " T.Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( SELECT Id FROM tb_Role WHERE OrganizationId = '" + StringHelper.ToSafeSQL(query.Where["OrganizationId"].ToString()) + "' ) ) ");
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            }
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
+
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
 
             args.Add("RowCount", 0);
 

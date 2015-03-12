@@ -196,7 +196,7 @@
         }
         #endregion
 
-        #region 函数:GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -204,9 +204,9 @@
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="ApplicationSettingQueryInfo"/></returns>
-        public IList<ApplicationSettingQueryInfo> GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationSettingQueryInfo> GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
-            return this.provider.GetQueryObjectPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetQueryObjectPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 

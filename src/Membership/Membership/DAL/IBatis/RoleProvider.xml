@@ -59,7 +59,6 @@
             <result property="EndDate" column="EndDate" />
         </resultMap>
     </resultMaps>
-
     <statements>
         <insert id="proc_Role_Insert" parameterClass="RoleInfo" >
             INSERT INTO tb_Role 
@@ -109,7 +108,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_Role_Update" parameterClass="RoleInfo" >
             UPDATE tb_Role SET
 
@@ -134,23 +132,18 @@
 
             WHERE Id = #Id#
         </update>
-
         <insert id="proc_Role_Authority_Insert" >
             INSERT INTO tb_Role_Authority (RoleId,AuthorityId) VALUES (#RoleId#, #AuthorityId#)
         </insert>
-
         <delete id="proc_Role_Authority_DeleteByRoleId">
             DELETE FROM tb_Role_Authority WHERE RoleId = #RoleId#
         </delete>
-
         <delete id="proc_Role_Delete">
             DELETE FROM tb_Role WHERE $WhereClause$
         </delete>
-
         <select id="proc_Role_FindOne" resultMap="proc_Role_FindOne_Result" >
             SELECT * FROM tb_Role WHERE Id = #Id#
         </select>
-
         <select id="proc_Role_FindAll#MySql" resultMap="proc_Role_FindAll_Result" >
             SELECT * FROM tb_Role T
 
@@ -168,7 +161,6 @@
                 </isNotEqual>
             </dynamic>
         </select>
-
         <select id="proc_Role_FindAll#SqlServer" resultMap="proc_Role_FindAll_Result" >
             SELECT
 
@@ -188,19 +180,12 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Role_FindAllByAccountId" resultMap="proc_Role_FindAll_Result" >
             SELECT * FROM tb_Role WHERE Id IN (SELECT RoleId FROM tb_Account_Role WHERE AccountId = #AccountId#)
         </select>
-
         <select id="proc_Role_FindAllByCorporationId" resultMap="proc_Role_FindAll_Result" >
-            SELECT * FROM 
-	    
-	    (SELECT func_GetCorporationIdByOrganizationId(OrganizationId) CorporationId, * from tb_Role ) AS T
-
-            WHERE $WhereClause$
+            SELECT * FROM  (SELECT func_GetCorporationIdByOrganizationId(OrganizationId) CorporationId, * from tb_Role ) AS T WHERE $WhereClause$
         </select>
-
         <select id="proc_Role_GetPaging#MySql" parameterClass="RoleInfo" resultMap="proc_Role_FindAll_Result" >
             SELECT * FROM tb_Role T
 
@@ -216,7 +201,6 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-
         <select id="proc_Role_GetPaging#SqlServer" parameterClass="RoleInfo" resultMap="proc_Role_FindAll_Result" >
             SELECT *
 
@@ -234,7 +218,6 @@
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
-
         <select id="proc_Role_GetRowCount" >
             SELECT COUNT(*) AS 'RowCount' FROM tb_Role T
 
@@ -246,31 +229,24 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Role_IsExist" >
             SELECT COUNT(*) AS 'Count' FROM tb_Role T WHERE $WhereClause$
         </select>
-
         <update id="proc_Role_Rename" parameterClass="RoleInfo" >
             UPDATE tb_Role SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-        
         <update id="proc_Role_SetGlobalName" >
             UPDATE tb_Role SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <update id="proc_Role_SetParentId" >
             UPDATE tb_Role SET ParentId = #ParentId#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <update id="proc_Role_SetExchangeStatus" >
             UPDATE tb_Role SET EnableExchangeEmail = #EnableExchangeEmail#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <select id="proc_Role_GetAuthorities" resultClass="string" >
             SELECT AuthorityId FROM tb_Role_Authority WHERE RoleId = #RoleId#
         </select>
-
         <insert id="proc_Role_SyncFromPackPage" parameterClass="RoleInfo" >
             IF EXISTS(SELECT 0 FROM tb_Role WHERE Id = #Id#)
             BEGIN
@@ -318,7 +294,6 @@
                 )
             END
         </insert>
-
         <select id="proc_Role_FindAllRelation" resultMap="proc_Role_FindAllRelation_Result" >
             SELECT 
 	            AccountId, 
@@ -335,8 +310,29 @@
             WHERE 
                 $WhereClause$
         </select>
-        
-        <insert id="proc_Role_AddRelation" >
+        <insert id="proc_Role_AddRelation#MySql" parameterClass="AccountRoleRelationInfo" >
+            INSERT INTO tb_Account_Role
+            (
+                AccountId,
+                RoleId,
+                IsDefault,
+                BeginDate,
+                EndDate
+            )
+            VALUES
+            (
+                #AccountId#,
+                #RoleId#,
+                #IsDefault#,
+                #BeginDate#,
+                #EndDate#
+            ) 
+            ON DUPLICATE KEY UPDATE 
+                IsDefault = #IsDefault#,
+                BeginDate = #BeginDate#,
+                EndDate = #EndDate#
+        </insert>
+        <insert id="proc_Role_AddRelation#SqlServer" parameterClass="AccountRoleRelationInfo" >
             IF EXISTS ( SELECT 0 FROM tb_Account_Role WHERE AccountId = '$AccountId$' AND RoleId = '$RoleId$' )
             BEGIN
                 UPDATE tb_Account_Role SET
@@ -367,31 +363,24 @@
                 )
             END
         </insert>
-
         <update id="proc_Role_ExtendRelation" >
             UPDATE tb_Account_Role SET EndDate = '$EndDate$' WHERE AccountId = '$AccountId$' AND RoleId = '$RoleId$'
         </update>
-
         <delete id="proc_Role_RemoveRelation" >
             DELETE FROM tb_Account_Role WHERE $WhereClause$
         </delete>
-
         <select id="proc_Role_HasDefaultRelation" >
             SELECT COUNT(0) AS 'Count' FROM tb_Account_Role T WHERE AccountId = '$AccountId$' AND IsDefault = 1
         </select>
-
         <update id="proc_Role_ResetRelation" >
             UPDATE tb_Account_Role SET IsDefault = 0 WHERE AccountId = '$AccountId$'
         </update>
-
         <update id="proc_Role_SetDefaultRelationIsDefault" >
             UPDATE tb_Account_Role SET IsDefault = 1 WHERE AccountId = '$AccountId$' AND RoleId = '$RoleId$'
         </update>
-        
         <update id="proc_Role_SetDefaultRelation" >
             UPDATE tb_Member SET RoleId = '$RoleId$', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
-        
         <update id="proc_Role_SetNullDefaultRelation" >
             UPDATE tb_Member SET RoleId = '', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>

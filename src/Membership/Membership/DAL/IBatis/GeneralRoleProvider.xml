@@ -40,9 +40,9 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_GeneralRole_Insert" parameterClass="GeneralRoleInfo">
-            INSERT INTO tb_GeneralRole (
+            INSERT INTO tb_GeneralRole 
+            (
                 Id,
                 Code,
                 Name,
@@ -78,7 +78,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_GeneralRole_Update" parameterClass="GeneralRoleInfo">
             UPDATE tb_GeneralRole SET
                 
@@ -98,15 +97,12 @@
 
             WHERE Id = #Id#
         </update>
-
         <delete id="proc_GeneralRole_Delete" parameterClass="GeneralRoleInfo">
             DELETE FROM tb_GeneralRole WHERE $WhereClause$
         </delete>
-
         <select id="proc_GeneralRole_FindOne" resultMap="proc_GeneralRole_FindOne_Result" >
             SELECT * FROM tb_GeneralRole T WHERE Id = #Id#
         </select>
-
         <select id="proc_GeneralRole_FindAll" resultMap="proc_GeneralRole_FindAll_Result" >
             SELECT
 
@@ -126,8 +122,22 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_GeneralRole_GetPaging#MySql" resultMap="proc_GeneralRole_FindAll_Result" >
+            SELECT * FROM tb_GeneralRole T
 
-        <select id="proc_GeneralRole_GetPages" resultMap="proc_GeneralRole_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_GeneralRole_GetPaging#SqlServer" resultMap="proc_GeneralRole_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -143,11 +153,8 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_GeneralRole_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM tb_GeneralRole T
 
             <dynamic prepend="WHERE">
@@ -158,18 +165,14 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_GeneralRole_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM tb_GeneralRole T WHERE $WhereClause$
         </select>
-
         <update id="proc_GeneralRole_Rename" >
             UPDATE tb_GeneralRole SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <update id="proc_GeneralRole_SetGlobalName" >
             Update tb_GeneralRole SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
     </statements>
 </sqlMap>

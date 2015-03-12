@@ -797,15 +797,11 @@ AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
         /// <param name="accountId">帐号标识</param>
         public bool HasDefaultRelation(string accountId)
         {
-            bool isExist = true;
-
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
 
-            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_HasDefaultRelation", tableName)), args) == 0) ? false : true;
-
-            return isExist;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_HasDefaultRelation", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 

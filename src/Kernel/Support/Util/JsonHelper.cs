@@ -9,6 +9,7 @@ namespace X3Platform.Util
     using System.Text;
     using System.Reflection;
     using System.Web.Script.Serialization;
+    using X3Platform.Json;
     #endregion
 
     /// <summary>JSON 数据处理辅助类</summary>
@@ -323,7 +324,7 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // 2.将Json字符串转换为Xml字符串
+        // 将Json字符串转换为Xml字符串
         // -------------------------------------------------------
 
         #region 函数:ToXmlDocument(string json)
@@ -354,11 +355,11 @@ namespace X3Platform.Util
             /*
              * Test case :
              *
-             * { "ajaxStorage":"hello world."}
+             * { "data":"hello world."}
              *
-             * { "ajaxStorage":{"name": "Max","msn": "ruanyu1983@msn.com"}}
+             * { "data":{"name": "Max","msn": "ruanyu1983@msn.com"}}
              *
-             * { "ajaxStorage":[{"name": "Max","msn": "ruanyu1983@msn.com"},{"name": "Max","msn":"ruanyu1983@msn.com"}]}
+             * { "data":[{"name": "Max","msn": "ruanyu1983@msn.com"},{"name": "Max","msn":"ruanyu1983@msn.com"}]}
              *
              *  hidden key
              */
@@ -456,7 +457,7 @@ namespace X3Platform.Util
         #endregion
 
         // -------------------------------------------------------
-        // 3.将Json字符串转换为HashTable
+        // 将Json字符串转换为HashTable
         // -------------------------------------------------------
 
         #region 函数:ToHashtable(string json)
@@ -470,11 +471,11 @@ namespace X3Platform.Util
             /*
              * Test case :
              *
-             * { "ajaxStorage":"hello world."}
+             * { "data":"hello world."}
              *
-             * { "ajaxStorage":{"name": "Max","msn": "ruanyu1983@msn.com"}}
+             * { "data":{"name": "Max","msn": "ruanyu1983@msn.com"}}
              *
-             * { "ajaxStorage":[{"name": "Max","msn": "ruanyu1983@msn.com"},{"name": "Max","msn":"ruanyu1983@msn.com"}]}
+             * { "data":[{"name": "Max","msn": "ruanyu1983@msn.com"},{"name": "Max","msn":"ruanyu1983@msn.com"}]}
              *
              *  hidden key
              */
@@ -503,15 +504,39 @@ namespace X3Platform.Util
             JavaScriptSerializer serializer = new JavaScriptSerializer();
 
             Dictionary<string, object> dictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            
-            if (dictionary["ajaxStorage"] != null)
+
+            if (dictionary["data"] != null)
             {
-                return (Dictionary<string, object>)dictionary["ajaxStorage"];
+                return (Dictionary<string, object>)dictionary["data"];
             }
             else
             {
                 return dictionary;
             }
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // JsonData 对象操作
+        // -------------------------------------------------------
+
+        #region 函数:GetDataValue(JsonData data, string name)
+        /// <summary></summary>
+        /// <param name="data">Json数据对象</param>
+        /// <returns></returns>
+        public static string GetDataValue(JsonData data, string name)
+        {
+            return GetDataValue(data, name, string.Empty);
+        }
+        #endregion
+
+        #region 函数:GetDataValue(JsonData data, string name, string defaultValue)
+        /// <summary></summary>
+        /// <param name="data">Json数据对象</param>
+        /// <returns></returns>
+        public static string GetDataValue(JsonData data, string name, string defaultValue)
+        {
+            return data.Keys.Contains(name) ? data[name].ToString() : defaultValue;
         }
         #endregion
     }

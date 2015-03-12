@@ -15,6 +15,7 @@
     using X3Platform.Apps.Configuration;
     using X3Platform.Apps.IDAL;
     using X3Platform.Apps.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -201,26 +202,21 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="ApplicationMenuInfo"/></returns>
-        public IList<ApplicationMenuInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationMenuInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
-
-            args.Add("RowCount", 0);
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             IList<ApplicationMenuInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
@@ -230,7 +226,7 @@
         }
         #endregion
 
-        #region 函数:GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -238,7 +234,7 @@
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="ApplicationMenuQueryInfo"/></returns>
-        public IList<ApplicationMenuQueryInfo> GetQueryObjectPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<ApplicationMenuQueryInfo> GetQueryObjectPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -288,7 +284,7 @@
         public bool HasAuthority(string entityId, string authorityName, IAccountInfo account)
         {
             return MembershipManagement.Instance.AuthorizationObjectService.HasAuthority(
-                // string.Format("sys_config.{0}_Scope", this.tableName),
+                this.ibatisMapper.CreateGenericSqlCommand(),
                 string.Format("{0}_Scope", this.tableName),
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),
@@ -305,7 +301,7 @@
         public void BindAuthorizationScopeObjects(string entityId, string authorityName, string scopeText)
         {
             MembershipManagement.Instance.AuthorizationObjectService.BindAuthorizationScopeObjects(
-                // string.Format("sys_config.{0}_Scope", this.tableName),
+                this.ibatisMapper.CreateGenericSqlCommand(),
                 string.Format("{0}_Scope", this.tableName),
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),
@@ -322,7 +318,7 @@
         public IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(string entityId, string authorityName)
         {
             return MembershipManagement.Instance.AuthorizationObjectService.GetAuthorizationScopeObjects(
-                // string.Format("sys_config.{0}_Scope", this.tableName),
+                this.ibatisMapper.CreateGenericSqlCommand(),
                 string.Format("{0}_Scope", this.tableName),
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),

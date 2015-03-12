@@ -101,10 +101,9 @@
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件.</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">记录行数</param>
-        /// <returns>返回一个列表</returns> 
+        /// <returns>返回一个列表<see cref="ApplicationInfo"/></returns> 
         IList<ApplicationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 

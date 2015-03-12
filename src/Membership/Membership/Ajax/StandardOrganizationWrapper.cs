@@ -43,7 +43,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             StandardOrganizationInfo param = new StandardOrganizationInfo();
@@ -56,12 +55,12 @@ namespace X3Platform.Membership.Ajax
             
             if (string.IsNullOrEmpty(param.Name))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"名称不能为空。\"}}";
+                return "{\"message\":{\"returnCode\":1,\"value\":\"名称不能为空。\"}}";
             }
 
             if (string.IsNullOrEmpty(param.GlobalName))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"全局名称不能为空。\"}}";
+                return "{\"message\":{\"returnCode\":1,\"value\":\"全局名称不能为空。\"}}";
             }
 
             if (string.IsNullOrEmpty(param.Id))
@@ -70,7 +69,7 @@ namespace X3Platform.Membership.Ajax
 
                 if (this.service.IsExistGlobalName(param.GlobalName))
                 {
-                    return "{message:{\"returnCode\":1,\"value\":\"此全局名称已存在。\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"此全局名称已存在。\"}}";
                 }
 
                 param.Id = DigitalNumberContext.Generate("Key_Guid");
@@ -83,7 +82,7 @@ namespace X3Platform.Membership.Ajax
                 {
                     if (this.service.IsExistGlobalName(param.GlobalName))
                     {
-                        return "{message:{\"returnCode\":1,\"value\":\"此全局名称已存在。\"}}";
+                        return "{\"message\":{\"returnCode\":1,\"value\":\"此全局名称已存在。\"}}";
                     }
                 }
 
@@ -95,7 +94,7 @@ namespace X3Platform.Membership.Ajax
                     {
                         if (item.Name == param.Name)
                         {
-                            return "{message:{\"returnCode\":1,\"value\":\"此父级组织下面已已存在相同名称标准组织.\"}}";
+                            return "{\"message\":{\"returnCode\":1,\"value\":\"此父级组织下面已已存在相同名称标准组织.\"}}";
                         }
                     }
                 }
@@ -111,14 +110,13 @@ namespace X3Platform.Membership.Ajax
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
@@ -130,7 +128,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -151,7 +148,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -174,12 +170,11 @@ namespace X3Platform.Membership.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -216,7 +211,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -231,7 +225,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -259,10 +252,9 @@ namespace X3Platform.Membership.Ajax
         #endregion
 
         #region 函数:GetStandardOrganizationTypes(XmlDocument doc)
-        /// <summary>查询是否存在相关的记录</summary>
+        /// <summary>查询标准组织类型</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getStandardOrganizationTypes")]
         public string GetStandardOrganizationTypes(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -321,7 +313,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("getDynamicTreeView")]
         public string GetDynamicTreeView(XmlDocument doc)
         {
             // 必填字段
@@ -346,11 +337,11 @@ namespace X3Platform.Membership.Ajax
             outString.Append("childNodes:[");
 
             //查找树的子节点
-            string whereClause = string.Format(" [ParentId] = ##{0}## AND [Status] = 1 ORDER BY OrderId, Code ", parentId);
+            string whereClause = string.Format(" ParentId = ##{0}## AND Status = 1 ORDER BY OrderId, Code ", parentId);
 
             if (parentId == "70000000-0000-0000-0000-000000000000")
             {
-                whereClause = " [ParentId] = ##00000000-0000-0000-0000-000000000001## AND [Status] = 1 ORDER BY OrderId, Code ";
+                whereClause = " ParentId = ##00000000-0000-0000-0000-000000000001## AND Status = 1 ORDER BY OrderId, Code ";
             }
 
             IList<IStandardOrganizationInfo> list = MembershipManagement.Instance.StandardOrganizationService.FindAll(whereClause);

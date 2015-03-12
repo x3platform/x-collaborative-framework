@@ -49,7 +49,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             ibatisMapping = configuration.Keys["IBatisMapping"].Value;
 
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }
         #endregion
 
@@ -91,7 +91,7 @@ namespace X3Platform.Membership.DAL.IBatis
                 param.Code = DigitalNumberContext.Generate("Table_Group_Key_Code");
             }
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
@@ -100,7 +100,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="param">实例<see cref="IGroupInfo"/>详细信息</param>
         public void Update(IGroupInfo param)
         {
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
@@ -151,7 +151,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("Id", StringHelper.ToSafeSQL(id));
 
-            IGroupInfo param = ibatisMapper.QueryForObject<IGroupInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+            IGroupInfo param = this.ibatisMapper.QueryForObject<IGroupInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
 
             return param;
         }
@@ -169,7 +169,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<IGroupInfo> list = ibatisMapper.QueryForList<IGroupInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<IGroupInfo> list = this.ibatisMapper.QueryForList<IGroupInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -221,7 +221,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<IGroupInfo> list = ibatisMapper.QueryForList<IGroupInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+            IList<IGroupInfo> list = this.ibatisMapper.QueryForList<IGroupInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -289,7 +289,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("Id", StringHelper.ToSafeSQL(id));
             args.Add("Name", StringHelper.ToSafeSQL(name));
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Rename", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Rename", tableName)), args);
 
             return 0;
         }
@@ -307,7 +307,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("Id", StringHelper.ToSafeSQL(id));
             args.Add("GlobalName", StringHelper.ToSafeSQL(globalName));
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetGlobalName", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetGlobalName", tableName)), args);
 
             return 0;
         }
@@ -325,7 +325,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("Id", StringHelper.ToSafeSQL(accountId));
             args.Add("EnableExchangeEmail", status);
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetExchangeStatus", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetExchangeStatus", tableName)), args);
 
             return 0;
         }
@@ -336,7 +336,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="param">群组信息</param>
         public int SyncFromPackPage(IGroupInfo param)
         {
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);
 
             return 0;
         }
@@ -359,7 +359,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
 
-            return ibatisMapper.QueryForList<IAccountGroupRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllRelation", tableName)), args);
+            return this.ibatisMapper.QueryForList<IAccountGroupRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllRelation", tableName)), args);
         }
         #endregion
 
@@ -402,7 +402,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("BeginDate", beginDate);
             args.Add("EndDate", endDate);
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_AddRelation", tableName)), args);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_AddRelation", tableName)), args);
 
             return 0;
         }
@@ -421,7 +421,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("GroupId", groupId);
             args.Add("EndDate", endDate);
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_ExtendRelation", tableName)), args);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_ExtendRelation", tableName)), args);
 
             return 0;
         }
@@ -439,7 +439,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
 
-            ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_RemoveRelation", tableName)), args);
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_RemoveRelation", tableName)), args);
 
             return 0;
         }

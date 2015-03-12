@@ -199,11 +199,12 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
         public IOrganizationInfo FindOneByRoleId(string roleId, int level)
         {
-            string whereClause = string.Format(@" Id IN ( SELECT dbo.func_GetDepartmentIdByOrganizationId( OrganizationId , {1} ) FROM tb_Role WHERE Id = ##{0}## ) ", StringHelper.ToSafeSQL(roleId), level);
+            Dictionary<string, object> args = new Dictionary<string, object>();
 
-            IList<IOrganizationInfo> list = FindAll(whereClause, 0);
+            args.Add("RoleId", StringHelper.ToSafeSQL(roleId));
+            args.Add("Level", level);
 
-            return list.Count > 0 ? list[0] : null;
+            return this.ibatisMapper.QueryForObject<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByRoleId", tableName)), args);
         }
         #endregion
 

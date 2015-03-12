@@ -42,7 +42,6 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_StandardRole_Insert" parameterClass="StandardRoleInfo">
             INSERT INTO tb_StandardRole 
             (
@@ -83,7 +82,6 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_StandardRole_Update" parameterClass="StandardRoleInfo">
             UPDATE tb_StandardRole SET
 
@@ -104,16 +102,13 @@
 
             WHERE Id = #Id#
         </update>
-
         <delete id="proc_StandardRole_Delete" >
             DELETE FROM tb_StandardRole WHERE $WhereClause$
         </delete>
-
         <select id="proc_StandardRole_FindOne" resultMap="proc_StandardRole_FindOne_Result" >
             SELECT * FROM tb_StandardRole T
             WHERE Id = #Id#
         </select>
-
         <select id="proc_StandardRole_FindAll" resultMap="proc_StandardRole_FindAll_Result" >
             SELECT
 
@@ -133,8 +128,22 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_StandardRole_GetPaging#MySql" resultMap="proc_StandardRole_FindAll_Result" >
+            SELECT * FROM tb_StandardRole T
 
-        <select id="proc_StandardRole_GetPages" resultMap="proc_StandardRole_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_StandardRole_GetPaging#SqlServer" resultMap="proc_StandardRole_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -150,11 +159,8 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_StandardRole_GetRowCount" >
-
             SELECT COUNT(*) AS 'RowCount' FROM tb_StandardRole T
 
             <dynamic prepend="WHERE">
@@ -165,20 +171,12 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_StandardRole_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM tb_StandardRole T WHERE $WhereClause$
         </select>
-
         <update id="proc_StandardRole_Rename" parameterClass="StandardRoleInfo">
-            UPDATE tb_StandardRole SET
-
-            Name = #Name#,
-            UpdateDate = CURRENT_TIMESTAMP
-
-            WHERE Id = #Id#
+            UPDATE tb_StandardRole SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
-
         <insert id="proc_StandardRole_SyncFromPackPage" parameterClass="StandardRoleInfo" >
             IF EXISTS(SELECT 0 FROM tb_StandardRole WHERE Id = #Id#)
             BEGIN
