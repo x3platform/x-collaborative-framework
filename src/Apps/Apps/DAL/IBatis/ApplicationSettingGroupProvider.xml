@@ -34,7 +34,6 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_Application_SettingGroup_Insert" parameterClass="ApplicationSettingGroupInfo">
             INSERT INTO tb_Application_SettingGroup 
             (
@@ -67,32 +66,28 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_Application_SettingGroup_Update" parameterClass="ApplicationSettingGroupInfo">
             UPDATE tb_Application_SettingGroup SET
 
-            ApplicationId = #ApplicationId#,
-            ParentId = #ParentId#,
-            Code = #Code#,
-            Name = #Name#,
-            DisplayName = #DisplayName#,
-            ContentType = #ContentType#,
-            OrderId = #OrderId#,
-            Status = #Status#,
-            Remark = #Remark#,
-            UpdateDate = CURRENT_TIMESTAMP
+                ApplicationId = #ApplicationId#,
+                ParentId = #ParentId#,
+                Code = #Code#,
+                Name = #Name#,
+                DisplayName = #DisplayName#,
+                ContentType = #ContentType#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id# AND UpdateDate = #UpdateDate#
+            WHERE Id = #Id#
         </update>
-
         <delete id="proc_Application_SettingGroup_Delete" >
             DELETE FROM tb_Application_SettingGroup WHERE $WhereClause$
         </delete>
-
         <select id="proc_Application_SettingGroup_FindOne" resultMap="proc_Application_SettingGroup_FindOne_Result" >
             SELECT * FROM tb_Application_SettingGroup WHERE Id = #Id#
         </select>
-
         <select id="proc_Application_SettingGroup_FindAll#MySql" resultMap="proc_Application_SettingGroup_FindAll_Result" >
             SELECT * FROM tb_Application_SettingGroup T
 
@@ -110,7 +105,6 @@
                 </isNotEqual>
             </dynamic>
         </select>
-
         <select id="proc_Application_SettingGroup_FindAll#SqlServer" resultMap="proc_Application_SettingGroup_FindAll_Result" >
             SELECT
 
@@ -130,7 +124,6 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Application_SettingGroup_GetPaging#MySql" resultMap="proc_Application_SettingGroup_FindAll_Result" >
             SELECT * FROM tb_Application_SettingGroup T
 
@@ -146,7 +139,6 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-
         <select id="proc_Application_SettingGroup_GetPaging#SqlServer" resultMap="proc_Application_SettingGroup_FindAll_Result" >
             SELECT *
 
@@ -163,9 +155,7 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_Application_SettingGroup_GetRowCount" >
 
             SELECT COUNT(*) AS 'RowCount' FROM tb_Application_SettingGroup T
@@ -178,11 +168,9 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Application_SettingGroup_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM tb_Application_SettingGroup T WHERE $WhereClause$
         </select>
-
         <insert id="proc_Application_SettingGroup_SyncFromPackPage" parameterClass="ApplicationSettingGroupInfo" >
             IF EXISTS(SELECT 0 FROM tb_Application_SettingGroup WHERE Id = #Id#)
             BEGIN
@@ -235,6 +223,5 @@
                 )
             END
         </insert>
-
     </statements>
 </sqlMap>
