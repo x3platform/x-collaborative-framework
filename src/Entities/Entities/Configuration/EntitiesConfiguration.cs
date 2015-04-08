@@ -22,6 +22,7 @@ using System.Xml;
 using Common.Logging;
 
 using X3Platform.Configuration;
+using X3Platform.Yaml.RepresentationModel;
 #endregion
 
 namespace X3Platform.Entities.Configuration
@@ -43,5 +44,22 @@ namespace X3Platform.Entities.Configuration
         {
             return SectionName;
         }
+
+        #region 构造函数:EntitiesConfiguration()
+        /// <summary></summary>
+        public EntitiesConfiguration()
+        {
+            // 根据内置 YAML 资源配置文件初始化对象信息
+
+            var root = YamlConfiguratonOperator.GetRootNodeByResourceStream<YamlMappingNode>(
+                this.GetType().Assembly,
+                "X3Platform.Entities.defaults.config.yaml");
+
+            // 加载 Keys 键值配置信息
+            YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
+
+            this.Initialized = true;
+        }
+        #endregion
     }
 }

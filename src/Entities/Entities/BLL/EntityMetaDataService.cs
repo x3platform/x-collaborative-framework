@@ -17,9 +17,6 @@ namespace X3Platform.Entities.BLL
     /// <summary></summary>
     public class EntityMetaDataService : IEntityMetaDataService
     {
-        /// <summary>配置</summary>
-        private EntitiesConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IEntityMetaDataProvider provider = null;
 
@@ -27,9 +24,13 @@ namespace X3Platform.Entities.BLL
         /// <summary>构造函数</summary>
         public EntityMetaDataService()
         {
-            configuration = EntitiesConfigurationView.Instance.Configuration;
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = EntitiesConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
-            provider = SpringContext.Instance.GetObject<IEntityMetaDataProvider>(typeof(IEntityMetaDataProvider));
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(EntitiesConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据提供器
+            provider = objectBuilder.GetObject<IEntityMetaDataProvider>(typeof(IEntityMetaDataProvider));
         }
         #endregion
 

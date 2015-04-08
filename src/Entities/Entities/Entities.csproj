@@ -226,44 +226,23 @@
     <None Include="config\X3Platform.Entities.Spring.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\IBatis\EntityFeedbackProvider.xml">
-      <DependentUpon>EntityFeedbackProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\EntityOperationLogProvider.xml">
-      <DependentUpon>EntityOperationLogProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\EntitySnapshotProvider.xml">
-      <DependentUpon>EntitySnapshotProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\EntitySchemaProvider.xml">
-      <DependentUpon>EntitySchemaProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\EntityMetaDataProvider.xml">
-      <DependentUpon>EntityMetaDataProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\EntityDraftProvider.xml">
-      <DependentUpon>EntityDraftProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\EntityLifeHistoryProvider.xml">
-      <DependentUpon>EntityLifeHistoryProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\IBatis\EntityClickProvider.xml">
-      <DependentUpon>EntityClickProvider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="DAL\IBatis\EntityDocObjectProvider.xml">
-      <DependentUpon>EntityDocObjectProvider.cs</DependentUpon>
-    </Content>
+    <EmbeddedResource Include="DAL\IBatis\EntityFeedbackProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntityOperationLogProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntitySnapshotProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntitySchemaProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntityMetaDataProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntityDraftProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntityLifeHistoryProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntityClickProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\EntityDocObjectProvider.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="db\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -280,6 +259,10 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="db\Init_Script_MySQL.sql" />
+    <Content Include="db\Init_Script_SQLServer.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

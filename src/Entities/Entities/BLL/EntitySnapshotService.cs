@@ -16,9 +16,6 @@ namespace X3Platform.Entities.BLL
     /// <summary></summary>
     public class EntitySnapshotService : IEntitySnapshotService
     {
-        /// <summary>配置</summary>
-        private EntitiesConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IEntitySnapshotProvider provider = null;
 
@@ -26,9 +23,13 @@ namespace X3Platform.Entities.BLL
         /// <summary>构造函数</summary>
         public EntitySnapshotService()
         {
-            configuration = EntitiesConfigurationView.Instance.Configuration;
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = EntitiesConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
-            provider = SpringContext.Instance.GetObject<IEntitySnapshotProvider>(typeof(IEntitySnapshotProvider));
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(EntitiesConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据提供器
+            provider = objectBuilder.GetObject<IEntitySnapshotProvider>(typeof(IEntitySnapshotProvider));
         }
         #endregion
 

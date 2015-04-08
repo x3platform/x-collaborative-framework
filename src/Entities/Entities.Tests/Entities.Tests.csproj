@@ -60,18 +60,6 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\lib\Log4net\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
-      <HintPath>..\..\..\lib\Entlib.v3.1\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
-      <HintPath>..\..\..\lib\Entlib.v3.1\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder">
-      <HintPath>..\..\..\lib\Entlib.v3.1\Microsoft.Practices.ObjectBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Spring.Core">
       <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
@@ -82,16 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\EntitiesConfigurationViewTestSuite.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EntitiesManagementTestSuite.cs" />
-    <Compile Include="IBLL\IEntityOperationLogServiceTestSuite.cs" />
-    <Compile Include="IBLL\IEntityClickServiceTestSuite.cs" />
-    <Compile Include="IBLL\IEntityLifeHistroyServiceTestSuite.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IBLL\IEntityMetaDataServiceTestSuite.cs" />
+    <Compile Include="Configuration\EntitiesConfigurationViewTests.cs" />
+    <Compile Include="EntitiesManagementTests.cs" />
+    <Compile Include="IBLL\IEntityClickServiceTests.cs" />
+    <Compile Include="IBLL\IEntityLifeHistroyServiceTests.cs" />
+    <Compile Include="IBLL\IEntityMetaDataServiceTests.cs" />
+    <Compile Include="IBLL\IEntityOperationLogServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

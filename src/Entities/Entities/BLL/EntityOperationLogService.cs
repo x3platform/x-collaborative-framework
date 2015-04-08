@@ -17,9 +17,6 @@
     /// <summary></summary>
     public class EntityOperationLogService : IEntityOperationLogService
     {
-        /// <summary>配置</summary>
-        private EntitiesConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IEntityOperationLogProvider provider = null;
 
@@ -27,9 +24,13 @@
         /// <summary>构造函数</summary>
         public EntityOperationLogService()
         {
-            this.configuration = EntitiesConfigurationView.Instance.Configuration;
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = EntitiesConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
-            this.provider = SpringContext.Instance.GetObject<IEntityOperationLogProvider>(typeof(IEntityOperationLogProvider));
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(EntitiesConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据提供器
+            this.provider = objectBuilder.GetObject<IEntityOperationLogProvider>(typeof(IEntityOperationLogProvider));
         }
         #endregion
 

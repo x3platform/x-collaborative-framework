@@ -8,7 +8,7 @@ using Elane.X.IBatis.DataMapper;
 namespace Elane.X.Entities.TestSuite.Configuration
 {
     [TestClass]
-    public class EntitiesConfigurationViewTests
+    public class EntitiesConfigurationViewTestSuite
     {
         /// <summary>≤‚ ‘≈‰÷√¬∑æ∂</summary>
         public string fullConfigPath = ConfigurationManager.AppSettings["fullConfigPath"];
