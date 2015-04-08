@@ -29,7 +29,6 @@
 			<result property="CreateDate" column="CreateDate" />
 		</resultMap>
 	</resultMaps>
-
 	<statements>
 		<insert id="proc_Task_Category_Insert" parameterClass="TaskCategoryInfo">
 			INSERT INTO tb_Task_Category 
@@ -59,7 +58,6 @@
 			    CURRENT_TIMESTAMP
 			)
 		</insert>
-
 		<update id="proc_Task_Category_Update" parameterClass="TaskCategoryInfo">
 			UPDATE tb_Task_Category SET
 
@@ -72,7 +70,6 @@
 
 			WHERE Id = #Id#
 		</update>
-
 		<insert id="proc_Task_Category_Save" parameterClass="TaskCategoryInfo">
 			IF EXISTS(SELECT 0 FROM tb_Task_Category WHERE Id = #Id#)
 			BEGIN
@@ -114,19 +111,15 @@
 			    )
 			END
 		</insert>
-
 		<select id="proc_Task_Category_CanDelete" >
 			SELECT COUNT(1) AS 'RowCount' FROM tb_Task_HistoryItem WHERE CategoryId = #CategoryId#
 		</select>
-
 		<delete id="proc_Task_Category_Delete">
 			UPDATE tb_Task_Category SET Status = 2, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</delete>
-
 		<select id="proc_Task_Category_FindOne" resultMap="proc_Task_Category_FindOne_Result" >
 			SELECT * FROM tb_Task_Category WHERE Id = #Id#
 		</select>
-
 		<select id="proc_Task_Category_FindAll" resultMap="proc_Task_Category_FindAll_Result" >
 			SELECT
 
@@ -146,8 +139,22 @@
 				</isParameterPresent>
 			</dynamic>
 		</select>
+		<select id="proc_Task_Category_GetPaging#MySql" resultMap="proc_Task_Category_FindAll_Result" >
+            SELECT * FROM tb_Task_Category T
 
-		<select id="proc_Task_Category_GetPaging" resultMap="proc_Task_Category_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+		</select>
+		<select id="proc_Task_Category_GetPaging#SqlServer" resultMap="proc_Task_Category_FindAll_Result" >
 			SELECT *
 
 			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -164,7 +171,6 @@
 
 			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
 		</select>
-
 		<select id="proc_Task_Category_GetRowCount" >
 			SELECT COUNT(1) AS 'RowCount' FROM tb_Task_Category T
 
@@ -176,15 +182,12 @@
 				</isParameterPresent>
 			</dynamic>
 		</select>
-
 		<select id="proc_Task_Category_IsExist" >
 			SELECT COUNT(0) AS 'Count' FROM tb_Task_Category T WHERE $WhereClause$
 		</select>
-
 		<update id="proc_Task_Category_SetStatus">
 			UPDATE tb_Task_Category SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</update>
-
 		<select id="proc_Task_Category_GetComboboxByWhereClause" >
 			SELECT CategoryIndex AS Text, CONVERT(nvarchar(36),Id) AS VALUE, OrderId FROM tb_Task_Category 
 			<dynamic prepend="WHERE">

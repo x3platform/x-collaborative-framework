@@ -12,6 +12,7 @@
     using X3Platform.Tasks.Configuration;
     using X3Platform.Tasks.Model;
     using System.Data;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -118,22 +119,52 @@
         /// <param name="orderBy">ORDER BY 排序条件.</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns> 
-        public IList<TaskWorkItemInfo> GetPaging(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskWorkItemInfo> GetPaging(string receiverId, int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " CreateDate DESC " : orderBy;
+            string whereClause = string.Empty;
+
+            if (query.Variables["scence"] == "Query")
+            {
+                whereClause += " Type IN (" + StringHelper.ToSafeSQL(query.Where["Type"].ToString()) + ") ";
+
+                if (query.Where.ContainsKey("Status") && !string.IsNullOrEmpty(query.Where["Status"].ToString()))
+                {
+                    whereClause += " AND Status IN (" + StringHelper.ToSafeSQL(query.Where["Status"].ToString()) + ") ";
+                }
+
+                if (query.Where.ContainsKey("SearchText") && !string.IsNullOrEmpty(query.Where["SearchText"].ToString()))
+                {
+                    whereClause += " AND Title LIKE '%" + StringHelper.ToSafeSQL(query.Where["SearchText"].ToString()) + "%' ";
+                }
+
+                if (query.Where.ContainsKey("DateBegin") && !string.IsNullOrEmpty(query.Where["DateBegin"].ToString()))
+                {
+                    whereClause += " AND CreateDate > '" + StringHelper.ToSafeSQL(query.Where["DateBegin"].ToString()) + "' ";
+                }
+
+                if (query.Where.ContainsKey("DateEnd") && !string.IsNullOrEmpty(query.Where["DateEnd"].ToString()))
+                {
+                    whereClause += " AND CreateDate < '" + StringHelper.ToSafeSQL(query.Where["DateEnd"].ToString()) + "' ";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "LIKE", "LIKE" } }));
+            }
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
+            args.Add("OrderBy", query.GetOrderBySql(" CreateDate DESC "));
 
             args.Add("RowCount", 0);
 
             IList<TaskWorkItemInfo> list = this.ibatisMapper.QueryForList<TaskWorkItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args));
 
             return list;
         }
@@ -275,7 +306,7 @@
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("TaskId", taskId);
+            args.Add("Id", taskId);
             args.Add("ReceiverId", receiverId);
             args.Add("IsRead", (isRead ? 1 : 0));
 

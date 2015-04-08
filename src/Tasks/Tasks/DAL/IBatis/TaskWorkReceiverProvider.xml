@@ -36,18 +36,17 @@
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
-    
     <statements>
         <insert id="proc_Task_Receiver_Insert" parameterClass="TaskWorkReceiverInfo">
-            IF NOT EXISTS ( SELECT 0 FROM [tb_Task_Receiver] WHERE ( [TaskId] = #TaskId# AND [ReceiverId] = #ReceiverId# ) )
+            IF NOT EXISTS ( SELECT 0 FROM tb_Task_Receiver WHERE ( TaskId = #TaskId# AND ReceiverId = #ReceiverId# ) )
             BEGIN
-                INSERT INTO [tb_Task_Receiver] 
+                INSERT INTO tb_Task_Receiver 
                 (
-                    [TaskId],
-                    [ReceiverId],
-                    [Status],
-                    [IsRead],
-                    [FinishTime]
+                    TaskId,
+                    ReceiverId,
+                    Status,
+                    IsRead,
+                    FinishTime
                 )
                 VALUES
                 (
@@ -59,41 +58,39 @@
                 )
             END
         </insert>
-
         <update id="proc_Task_Receiver_Update" parameterClass="TaskWorkReceiverInfo">
-            UPDATE [tb_Task_Receiver] SET
+            UPDATE tb_Task_Receiver SET
 
-                [TaskId] = #TaskId#,
-                [ReceiverId] = #ReceiverId#,
-                [Status] = #Status#,
-                [IsRead] = #IsRead#,
-                [FinishTime] = #FinishTime#
+                TaskId = #TaskId#,
+                ReceiverId = #ReceiverId#,
+                Status = #Status#,
+                IsRead = #IsRead#,
+                FinishTime = #FinishTime#
 
-            WHERE [TaskId] = #TaskId#AND [ReceiverId] = #ReceiverId#
+            WHERE TaskId = #TaskId#AND ReceiverId = #ReceiverId#
         </update>
-        
         <insert id="proc_Task_Receiver_Save" parameterClass="TaskWorkReceiverInfo">
-            IF EXISTS(SELECT 0 FROM [tb_Task_Receiver] WHERE [TaskId] = #TaskId# AND [ReceiverId] = #ReceiverId#)
+            IF EXISTS(SELECT 0 FROM tb_Task_Receiver WHERE TaskId = #TaskId# AND ReceiverId = #ReceiverId#)
             BEGIN
-                UPDATE [tb_Task_Receiver] SET
+                UPDATE tb_Task_Receiver SET
 
-                    [TaskId] = #TaskId#,
-                    [ReceiverId] = #ReceiverId#,
-                    [Status] = #Status#,
-                    [IsRead] = #IsRead#,
-                    [FinishTime] = #FinishTime#
+                    TaskId = #TaskId#,
+                    ReceiverId = #ReceiverId#,
+                    Status = #Status#,
+                    IsRead = #IsRead#,
+                    FinishTime = #FinishTime#
 
-                WHERE [TaskId] = #TaskId#AND [ReceiverId] = #ReceiverId#
+                WHERE TaskId = #TaskId#AND ReceiverId = #ReceiverId#
             END
             ELSE
             BEGIN
-                INSERT INTO [tb_Task_Receiver]
+                INSERT INTO tb_Task_Receiver
                 (
-                    [TaskId],
-                    [ReceiverId],
-                    [Status],
-                    [IsRead],
-                    [FinishTime]
+                    TaskId,
+                    ReceiverId,
+                    Status,
+                    IsRead,
+                    FinishTime
                 )
                 VALUES
                 (
@@ -105,29 +102,24 @@
                 )
             END
         </insert>
-        
         <delete id="proc_Task_Receiver_Delete" parameterClass="TaskWorkReceiverInfo">
-            DELETE FROM [tb_Task_Receiver] WHERE $WhereClause$
+            DELETE FROM tb_Task_Receiver WHERE $WhereClause$
         </delete>
-        
         <delete id="proc_Task_Receiver_DeleteByTaskCode" parameterClass="TaskWorkInfo">
-            DELETE FROM [tb_Task_Receiver] WHERE TaskId IN ( SELECT Id FROM [tb_Task] WHERE [ApplicationId] = #ApplicationId# AND [TaskCode] = #TaskCode# )
+            DELETE FROM tb_Task_Receiver WHERE TaskId IN ( SELECT Id FROM tb_Task WHERE ApplicationId = #ApplicationId# AND TaskCode = #TaskCode# )
         </delete>
-
         <select id="proc_Task_Receiver_FindOne" resultMap="proc_Task_Receiver_FindOne_Result" >
-            SELECT * FROM [view_Task_WorkItem] T WHERE [Id] = #TaskId# AND [ReceiverId] = #ReceiverId#
+            SELECT * FROM view_Task_WorkItem T WHERE Id = #TaskId# AND ReceiverId = #ReceiverId#
         </select>
-
         <select id="proc_Task_Receiver_FindAll" resultMap="proc_Task_Receiver_FindAll_Result" >
             SELECT
-
             <dynamic prepend="TOP">
                 <isNotEqual prepend="TOP" property="Length" compareValue = "0">
                     $Length$
                 </isNotEqual>
             </dynamic>
 
-            * FROM [view_Task_WorkItem] T
+            * FROM view_Task_WorkItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -137,13 +129,27 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Task_Receiver_GetPaging#MySql" resultMap="proc_Task_Receiver_FindAll_Result" >
+            SELECT * FROM view_Task_WorkItem T
 
-        <select id="proc_Task_Receiver_GetPaging" resultMap="proc_Task_Receiver_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Task_Receiver_GetPaging#SqlServer" resultMap="proc_Task_Receiver_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [view_Task_WorkItem] T 
+            FROM view_Task_WorkItem T 
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -155,9 +161,8 @@
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
-
         <select id="proc_Task_Receiver_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [view_Task_WorkItem] T 
+            SELECT COUNT(*) AS 'RowCount' FROM view_Task_WorkItem T 
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -167,21 +172,19 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Task_Receiver_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Task_Receiver] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Task_Receiver T WHERE $WhereClause$
         </select>
-        
         <insert id="proc_Task_Receiver_Copy" >
-            IF NOT EXISTS ( SELECT 0 FROM [tb_Task_Receiver] WHERE ( [TaskId] = '$TaskId$' AND [ReceiverId] = '$ToReceiverId$' ) )
+            IF NOT EXISTS ( SELECT 0 FROM tb_Task_Receiver WHERE ( TaskId = '$TaskId$' AND ReceiverId = '$ToReceiverId$' ) )
             BEGIN
-                INSERT INTO [tb_Task_Receiver]
+                INSERT INTO tb_Task_Receiver
                 (
-                    [TaskId],
-                    [ReceiverId],
-                    [Status],
-                    [IsRead],
-                    [FinishTime]
+                    TaskId,
+                    ReceiverId,
+                    Status,
+                    IsRead,
+                    FinishTime
                 )
                 VALUES
                 (
@@ -193,45 +196,55 @@
                 )
             END
         </insert>
-        
         <insert id="proc_Task_Receiver_Cut" >
-            IF NOT EXISTS ( SELECT 0 FROM [tb_Task_Receiver] WHERE [TaskId] = '$TaskId$' AND [ReceiverId] = '$ToReceiverId$' )
+            IF NOT EXISTS ( SELECT 0 FROM tb_Task_Receiver WHERE TaskId = '$TaskId$' AND ReceiverId = '$ToReceiverId$' )
             BEGIN
-                UPDATE [tb_Task_Receiver] SET
+                UPDATE tb_Task_Receiver SET
 
-                    [TaskId] = '$TaskId$',
-                    [ReceiverId] = '$ToReceiverId$',
-                    [Status] = '$Status$',
-                    [IsRead] = '$IsRead$',
-                    [FinishTime] = '$FinishTime$'
+                    TaskId = '$TaskId$',
+                    ReceiverId = '$ToReceiverId$',
+                    Status = '$Status$',
+                    IsRead = '$IsRead$',
+                    FinishTime = '$FinishTime$'
 
-                WHERE [TaskId] = '$TaskId$' AND [ReceiverId] = '$FromReceiverId$'
+                WHERE TaskId = '$TaskId$' AND ReceiverId = '$FromReceiverId$'
             END
         </insert>
-        
         <update id="proc_Task_Receiver_SetRead" >
-            UPDATE [tb_Task_Receiver] SET IsRead = #IsRead# WHERE TaskId = #TaskId# AND ReceiverId = #ReceiverId#
+            UPDATE tb_Task_WorkItem SET IsRead = #IsRead# WHERE Id = #TaskId# AND ReceiverId = #ReceiverId#
         </update>
-
         <update id="proc_Task_Receiver_SetStatus" >
-            UPDATE [tb_Task_Receiver] SET Status = #Status# WHERE TaskId = #TaskId# AND ReceiverId = #ReceiverId#
+            UPDATE tb_Task_WorkItem SET Status = #Status# WHERE Id = #TaskId# AND ReceiverId = #ReceiverId#
         </update>
-
         <update id="proc_Task_Receiver_SetFinished" >
-            UPDATE [tb_Task_Receiver] SET Status = 1, FinishTime = CURRENT_TIMESTAMP  WHERE $WhereClause$
+            UPDATE tb_Task_WorkItem SET Status = 1, FinishTime = CURRENT_TIMESTAMP  WHERE $WhereClause$
         </update>
-
         <update id="proc_Task_Receiver_SetUnfinished" >
-            UPDATE [tb_Task_Receiver] SET Status = 0 WHERE $WhereClause$
+            UPDATE tb_Task_WorkItem SET Status = 0 WHERE $WhereClause$
         </update>
-        
         <update id="proc_Task_Receiver_SetUnfinished_RefreshCreateDate" >
-            UPDATE [tb_Task] SET CreateDate = CURRENT_TIMESTAMP WHERE $WhereClause$
+            UPDATE tb_Task_WorkItem SET CreateDate = CURRENT_TIMESTAMP WHERE $WhereClause$
         </update>
-        
         <select id="proc_Task_Receiver_GetUnfinishedQuantities" >
-            SELECT CONVERT(INT, [Type]) AS 'Type', COUNT(*) AS 'Count' FROM tb_Task WHERE Id IN ( 
-                SELECT TaskId FROM tb_Task_Receiver WHERE ReceiverId = '$ReceiverId$' AND Status = 0 ) GROUP BY [Type] ORDER BY [Type]
+            SELECT CONVERT(INT, Type) AS 'Type', COUNT(*) AS 'Count' 
+              FROM tb_Task_WorkItem 
+             WHERE ReceiverId = '$ReceiverId$' AND Status = 0
+          GROUP BY Type 
+          ORDER BY Type
+        </select>
+        <select id="proc_Task_Receiver_GetUnfinishedQuantities#MySql" >
+            SELECT CONVERT(Type, SIGNED) AS 'Type', COUNT(*) AS 'Count' 
+              FROM tb_Task_WorkItem 
+             WHERE ReceiverId = '$ReceiverId$' AND Status = 0
+          GROUP BY Type 
+          ORDER BY Type
+        </select>
+        <select id="proc_Task_Receiver_GetUnfinishedQuantities#SqlServer" >
+            SELECT CONVERT(INT, Type) AS 'Type', COUNT(*) AS 'Count' 
+              FROM tb_Task_WorkItem 
+             WHERE ReceiverId = '$ReceiverId$' AND Status = 0 
+          GROUP BY Type 
+          ORDER BY Type
         </select>
     </statements>
 </sqlMap>
