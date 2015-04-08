@@ -6,8 +6,82 @@ keys:
   IBatisMapping: embedded:X3Platform.Membership.defaults.IBatis.SqlMap.xml
   # API主机名
   ApiHostName: "${HostName}"
-  # 会话时间限制 (单位:秒)
-  SessionTimeLimit: 86400
-  # 跟踪调用信息 : On | Off(默认)
-  TrackingCall: Off
+  # 授权范围数据表的前缀：当多库时需要配置 `sys_config`. | `sys_hris`.
+  PrefixAuthorizationScopeEntitySQLTable: "`sys_hris`."
+  # 单点登录 : 可选的值 1.On 2.Off(默认)
+  SingleSignOn: Off
+  # 密码加密方式 : 可选的值 1.None(默认) 2.SHA1(不可逆加密) 3.AES(可逆加密)
+  PasswordEncryption: None
+  # 密码可逆加密方式的密钥 (长度必须为32位GUID类型字符串)
+  PasswordEncryptionSecret: "${ApplicationClientId}"
+  # 根据字段数据自动绑定组织信息 : 可选的值 1.None(默认) 2.Self 3.AssignedJobId 4.RoleId
+  AutoBindingOrganizationByPrimaryKey: None
+  # 根据岗位数据自动绑定职位信息 : 可选的值 1.None(默认) 2.Self 3.AssignedJobId
+  AutoBindingJobByPrimaryKey: None
+  # 根据岗位数据自动绑定职级信息 : 可选的值 1.None(默认) 2.Self 3.AssignedJobId
+  AutoBindingJobGradeByPrimaryKey: None
+  # 模拟验证的密码
+  MockAuthenticationPassword: 888888
+  # 管理员的 Cookie 标记
+  AdministratorIdentityCookieToken: administratorIdentity
+  # 用户的 Cookie 标记
+  MemberIdentityCookieToken: memberIdentity
+  # 默认单机版登录名
+  StandaloneLoginName: admin
+  # 默认系统帐号的登录名
+  SystemAccountLoginName: admin
+  # 默认的游客帐号
+  GuestLoginName: guest
+  # 默认的游客名称
+  GuestNickName: 匿名帐号
+  # 默认初始密码 : 系统新建帐号和重置时的初始密码
+  DefaultPassword: 888888
+  # 默认的组织标识 : 组织结构(帐号创建时默认所在的组织信息)
+  DefaultOrganizationId: 00000000-0000-0000-0000-000000000001
+  # 默认的标准角色标识 : 默认标准角色(角色创建时默认的标准角色信息)
+  DefaultStandardRoleId: 00000000-0000-0000-0000-000000000000
+  # 默认的通用角色标识 : 默认通用角色(角色创建时默认的通用角色信息)
+  DefaultGeneralRoleId: 00000000-0000-0000-0000-000000000000
+  # 默认的权限范围
+  DefaultScopeText: Role#00000000-0000-0000-0000-000000000000#所有人
+  # 同步服务响应时显示的名称
+  PackageServiceDisplayName: 人员及权限数据同步管理系统
+  # 同步服务验证安全标识 : 可选的值 1.On 2.Off(默认)
+  PackageServiceValidateSecurityToken: Off
+  # 同步更新包文件夹根目录位置
+  PackageStoragePathRoot: ${ApplicationPathRoot}packages\
+  # 同步更新包输出时使用的 ApplicationId
+  PackageStorageOutputApplicationId: 00000000-0000-0000-0000-000000000000
+  # 同步更新包输出的数据包类型值
+  PackageStorageOutputPackageTypeValues: standardOrganization,standardRole,organization,role,application,application.feature,application.menu,application.settingGroup,application.setting,user,grant,job,assignedJob
+  # 同步更新包输出时每个数据包的最大记录数
+  PackageStorageOutputMaxRowCount: 50
+  # 同步更新包查看地址前缀
+  PackageStorageViewUrlPrefix: "${HostName}"
+  # 同步更新包变化提醒模式 : 可选的值 1.On 2.Off(默认)
+  PackageStorageNoticeMode: Off
+  # 同步更新包变化提醒范围
+  PackageStorageNoticeScope: Account#00000000-0000-0000-0000-000000011137#冯驰
+  # 地址簿禁止预览的对象
+  ProhibitedPreviewObjects: 一级员工 | 二级员工 | 三级员工 | 四级员工 | 五级员工 | 六级员工 | 七级员工 | 八级员工 | 九级员工 
+  # 职级群组数值映射关系
+  JobGradeMapping: "{&quot;data&quot;:{&quot;[e2bede28-01e0-4b61-861e-0ab835cfc23a]&quot;:&quot;10&quot;,&quot;[e2bede28-01e0-4b61-861e-0ab835cfc23a]&quot;:&quot;20&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;30&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;40&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;50&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;60&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;70&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;80&quot;,&quot;e2bede28-01e0-4b61-861e-0ab835cfc23a&quot;:&quot;90&quot;}}"
+  # 流程角色：权重优先领导角色
+  PriorityLeader90DisplayName: 集团部门负责人/地区公司负责人
+  PriorityLeader80DisplayName: 集团中心负责人/地区职能部门负责人
+  PriorityLeader70DisplayName: 七级负责人角色
+  PriorityLeader60DisplayName: 六级负责人角色
+  PriorityLeader50DisplayName: 五级负责人角色
+  # 流程角色：正向领导角色
+  ForwardLeader01DisplayName: 公司负责人
+  ForwardLeader02DisplayName: 部门负责人
+  ForwardLeader03DisplayName: 中心负责人
+  ForwardLeader04DisplayName: 小组负责人
+  ForwardLeader05DisplayName: 正向五级领导
+  # 流程角色：反向领导角色
+  BackwardLeader01DisplayName: 直接上级领导
+  BackwardLeader02DisplayName: 反向二级领导
+  BackwardLeader03DisplayName: 反向三级领导
+  BackwardLeader04DisplayName: 反向四级领导
+  BackwardLeader05DisplayName: 反向五级领导
 ...

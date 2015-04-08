@@ -21,6 +21,7 @@ using X3Platform.Logging;
 using X3Platform.CacheBuffer;
 using System.Xml;
 using X3Platform.Ajax;
+using X3Platform.Util;
 
 namespace X3Platform.Membership.HumanResources.Model
 {
@@ -410,36 +411,36 @@ namespace X3Platform.Membership.HumanResources.Model
         public void Load(XmlDocument doc)
         {
             // 常用信息
-            this.AccountId = AjaxStorageConvertor.Fetch("accountId", doc);
+            this.AccountId = XmlHelper.Fetch("accountId", doc);
 
-            this.Country = AjaxStorageConvertor.Fetch("country", doc);
-            this.National = AjaxStorageConvertor.Fetch("national", doc);
-            this.Passport = AjaxStorageConvertor.Fetch("passport", doc);
-            this.MaritalStatus = AjaxStorageConvertor.Fetch("maritalStatus", doc);
-            this.Professional = AjaxStorageConvertor.Fetch("professional", doc);
-            this.Hobby = AjaxStorageConvertor.Fetch("hobby", doc);
-            this.Profile = AjaxStorageConvertor.Fetch("profile", doc);
+            this.Country = XmlHelper.Fetch("country", doc);
+            this.National = XmlHelper.Fetch("national", doc);
+            this.Passport = XmlHelper.Fetch("passport", doc);
+            this.MaritalStatus = XmlHelper.Fetch("maritalStatus", doc);
+            this.Professional = XmlHelper.Fetch("professional", doc);
+            this.Hobby = XmlHelper.Fetch("hobby", doc);
+            this.Profile = XmlHelper.Fetch("profile", doc);
 
             // 学历信息
-            this.HighestEducation = AjaxStorageConvertor.Fetch("highestEducation", doc);
-            this.HighestDegree = AjaxStorageConvertor.Fetch("highestDegree", doc);
-            this.ForeignLanguage = AjaxStorageConvertor.Fetch("foreignLanguage", doc);
-            this.ForeignLanguageLevel = AjaxStorageConvertor.Fetch("foreignLanguageLevel", doc);
-            this.GraduationSchool = AjaxStorageConvertor.Fetch("graduationSchool", doc);
-            this.GraduationCertificateId = AjaxStorageConvertor.Fetch("graduationCertificateId", doc);
-            this.Major = AjaxStorageConvertor.Fetch("major", doc);
+            this.HighestEducation = XmlHelper.Fetch("highestEducation", doc);
+            this.HighestDegree = XmlHelper.Fetch("highestDegree", doc);
+            this.ForeignLanguage = XmlHelper.Fetch("foreignLanguage", doc);
+            this.ForeignLanguageLevel = XmlHelper.Fetch("foreignLanguageLevel", doc);
+            this.GraduationSchool = XmlHelper.Fetch("graduationSchool", doc);
+            this.GraduationCertificateId = XmlHelper.Fetch("graduationCertificateId", doc);
+            this.Major = XmlHelper.Fetch("major", doc);
 
             // 用工信息
-            this.EmployeeId = AjaxStorageConvertor.Fetch("employeeId", doc);
-            this.AttendanceCardId = AjaxStorageConvertor.Fetch("attendanceCardId", doc);
-            this.JobBegindate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("jobBegindate", doc));
-            this.JobOfficialDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("jobOfficialDate", doc));
-            this.JobEndDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("jobEndDate", doc));
-            this.JobStatus = Convert.ToInt32(AjaxStorageConvertor.Fetch("jobStatus", doc));
-            this.ContractType = AjaxStorageConvertor.Fetch("contractType", doc);
-            this.ContractExpireDate = Convert.ToDateTime(AjaxStorageConvertor.Fetch("contractExpireDate", doc));
-            this.PaidHoliday = Convert.ToInt32(AjaxStorageConvertor.Fetch("paidHoliday", doc));
-            this.Remark = AjaxStorageConvertor.Fetch("remark", doc);
+            this.EmployeeId = XmlHelper.Fetch("employeeId", doc);
+            this.AttendanceCardId = XmlHelper.Fetch("attendanceCardId", doc);
+            this.JobBegindate = Convert.ToDateTime(XmlHelper.Fetch("jobBegindate", doc));
+            this.JobOfficialDate = Convert.ToDateTime(XmlHelper.Fetch("jobOfficialDate", doc));
+            this.JobEndDate = Convert.ToDateTime(XmlHelper.Fetch("jobEndDate", doc));
+            this.JobStatus = Convert.ToInt32(XmlHelper.Fetch("jobStatus", doc));
+            this.ContractType = XmlHelper.Fetch("contractType", doc);
+            this.ContractExpireDate = Convert.ToDateTime(XmlHelper.Fetch("contractExpireDate", doc));
+            this.PaidHoliday = Convert.ToInt32(XmlHelper.Fetch("paidHoliday", doc));
+            this.Remark = XmlHelper.Fetch("remark", doc);
         }
 
         public void Load(Dictionary<string, object> args)

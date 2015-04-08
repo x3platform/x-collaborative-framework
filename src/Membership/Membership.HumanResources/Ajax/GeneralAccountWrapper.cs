@@ -8,6 +8,7 @@
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.Membership.HumanResources.IBLL;
     using X3Platform.Membership.HumanResources.Model;
+    using X3Platform.Util;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -29,7 +30,7 @@
 
             MemberExtensionInformation memberProperties = new MemberExtensionInformation();
 
-            member = (MemberInfo)AjaxStorageConvertor.Deserialize(member, doc);
+            member = (MemberInfo)AjaxUtil.Deserialize(member, doc);
 
             member.ExtensionInformation.Load(doc);
 
@@ -42,7 +43,7 @@
             }
             else
             {
-                member.Account.IdentityCard = AjaxStorageConvertor.Fetch("identityCard", doc);
+                member.Account.IdentityCard = XmlHelper.Fetch("identityCard", doc);
             }
 
             this.service.SetMemberCard(member);
@@ -60,7 +61,7 @@
         /// <returns>返回操作结果</returns>
         public string GetCertifiedAvatar(XmlDocument doc)
         {
-            string accountId = AjaxStorageConvertor.Fetch("accountId", doc);
+            string accountId = XmlHelper.Fetch("accountId", doc);
 
             IAccountInfo account = null;
 
@@ -95,9 +96,9 @@
         [AjaxMethod("changePassword")]
         public string ChangePassword(XmlDocument doc)
         {
-            string password = AjaxStorageConvertor.Fetch("password", doc);
+            string password = XmlHelper.Fetch("password", doc);
 
-            string originalPassword = AjaxStorageConvertor.Fetch("originalPassword", doc);
+            string originalPassword = XmlHelper.Fetch("originalPassword", doc);
 
             int result = service.ChangePassword(password, originalPassword);
 

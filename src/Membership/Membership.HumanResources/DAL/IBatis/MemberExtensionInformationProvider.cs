@@ -39,20 +39,20 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
     [DataObject]
     public class MemberExtensionInformationProvider : IMemberExtensionInformationProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private HumanResourcesConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_Member_ExtensionInformation";
 
-        #region ���캯��:MemberExtensionInformationProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:MemberExtensionInformationProvider()
+        /// <summary>构造函数</summary>
         public MemberExtensionInformationProvider()
         {
             configuration = HumanResourcesConfigurationView.Instance.Configuration;
@@ -64,13 +64,13 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
         #endregion
 
         //-------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         //-------------------------------------------------------
 
-        #region ����:Save(MemberExtensionInformation param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="MemberExtensionInformation"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="MemberExtensionInformation"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(MemberExtensionInformation param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="MemberExtensionInformation"/>详细信息</param>
+        /// <returns>实例<see cref="MemberExtensionInformation"/>详细信息</returns>
         public MemberExtensionInformation Save(MemberExtensionInformation param)
         {
             if (!IsExist(param.AccountId))
@@ -86,27 +86,27 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
         }
         #endregion
 
-        #region ����:Insert(MemberExtensionInformation param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="MemberExtensionInformation"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(MemberExtensionInformation param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="MemberExtensionInformation"/>详细信息</param>
         public void Insert(MemberExtensionInformation param)
         {
             ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
-        #region ����:Update(MemberExtensionInformation param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="MemberExtensionInformation"/>��ϸ��Ϣ</param>
+        #region 函数:Update(MemberExtensionInformation param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="MemberExtensionInformation"/>详细信息</param>
         public void Update(MemberExtensionInformation param)
         {
             ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region ����:Delete(string ids)
-        ///<summary>ɾ����¼</summary>
-        ///<param name="ids">��ʶ,�����Զ��Ÿ���.</param>
+        #region 函数:Delete(string ids)
+        ///<summary>删除记录</summary>
+        ///<param name="ids">标识,多个以逗号隔开.</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -121,13 +121,13 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
         #endregion
 
         //-------------------------------------------------------
-        // ��ѯ
+        // 查询
         //-------------------------------------------------------
 
-        #region ����:FindOne(string id)
-        ///<summary>��ѯĳ����¼</summary>
-        ///<param name="accountId">��ʶ</param>
-        ///<returns>����ʵ��<see cref="MemberExtensionInformation"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        ///<summary>查询某条记录</summary>
+        ///<param name="accountId">标识</param>
+        ///<returns>返回实例<see cref="MemberExtensionInformation"/>的详细信息</returns>
         public MemberExtensionInformation FindOneByAccountId(string accountId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -140,11 +140,11 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
         }
         #endregion
 
-        #region ����:FindAll(string whereClause,int length)
-        ///<summary>��ѯ�������ؼ�¼</summary>
-        ///<param name="whereClause">SQL ��ѯ����</param>
-        ///<param name="length">����</param>
-        ///<returns>��������ʵ��<see cref="MemberExtensionInformation"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        ///<summary>查询所有相关记录</summary>
+        ///<param name="whereClause">SQL 查询条件</param>
+        ///<param name="length">条数</param>
+        ///<returns>返回所有实例<see cref="MemberExtensionInformation"/>的详细信息</returns>
         public IList<MemberExtensionInformation> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -159,17 +159,17 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
         #endregion
 
         //-------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         //-------------------------------------------------------
 
-        #region ����:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="whereClause">WHERE ��ѯ����</param>
-        /// <param name="orderBy">ORDER BY ��������</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="MemberExtensionInformation"/></returns>
+        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="MemberExtensionInformation"/></returns>
         public IList<MemberExtensionInformation> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -191,14 +191,14 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
         }
         #endregion
 
-        #region ����:IsExist(string id)
-        ///<summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        ///<param name="id">��ʶ</param>
-        ///<returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        ///<summary>查询是否存在相关的记录.</summary>
+        ///<param name="id">标识</param>
+        ///<returns>布尔值</returns>
         public bool IsExist(string accountId)
         {
             if (string.IsNullOrEmpty(accountId))
-                throw new Exception("ʵ����ʶ����Ϊ��.");
+                throw new Exception("实例标识不能为空.");
 
             bool isExist = true;
 

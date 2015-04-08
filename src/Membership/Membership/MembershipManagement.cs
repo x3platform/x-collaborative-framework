@@ -52,16 +52,6 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:Configuration
-        private MembershipConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public MembershipConfiguration Configuration
-        {
-            get { return configuration; }
-        }
-        #endregion
-
         #region 属性:PasswordEncryptionManagement
         private IPasswordEncryptionManagement m_PasswordEncryptionManagement;
 
@@ -309,10 +299,14 @@ namespace X3Platform.Membership
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            this.configuration = MembershipConfigurationView.Instance.Configuration;
+            if (this.restartCount > 0)
+            {
+                // 重新加载配置信息
+                MembershipConfigurationView.Instance.Reload();
+            }
 
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = MembershipConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
