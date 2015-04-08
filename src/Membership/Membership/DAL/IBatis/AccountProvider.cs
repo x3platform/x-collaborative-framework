@@ -386,12 +386,11 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             {
                 args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             }
+
             args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-
-            args.Add("RowCount", 0);
 
             IList<IAccountInfo> list = this.ibatisMapper.QueryForList<IAccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 

@@ -11,6 +11,6 @@
             lazy-init="true" />
 
     <object name="X3Platform.Membership.HumanResources.IDAL.IMemberExtensionInformationProvider"
-            type="X3Platform.Membership.HumanResources.DAL.MySQL.MemberExtensionInformationProvider,X3Platform.Membership.HumanResources"
+            type="X3Platform.Membership.HumanResources.DAL.IBatis.MemberExtensionInformationProvider,X3Platform.Membership.HumanResources"
             lazy-init="true" />
 </objects>

@@ -15,9 +15,6 @@ namespace X3Platform.Membership.BLL
     /// <summary>帐号代理服务</summary>
     public class AccountGrantService : IAccountGrantService
     {
-        /// <summary>配置</summary>
-        private MembershipConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IAccountGrantProvider provider = null;
 
@@ -25,10 +22,8 @@ namespace X3Platform.Membership.BLL
         /// <summary>构造函数</summary>
         public AccountGrantService()
         {
-            this.configuration = MembershipConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = MembershipConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 

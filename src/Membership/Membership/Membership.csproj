@@ -282,7 +282,12 @@
     <EmbeddedResource Include="DAL\IBatis\StandardGeneralRoleProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\StandardOrganizationProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\StandardRoleProvider.xml" />
-    <Content Include="db\Functions%28SQLServer%29\func_GetCorporationIdByOrganizationId.sql" />
+    <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationId.sql" />
+    <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationId.sql" />
+    <Content Include="db\Functions_MySQL\func_GetDepartmentLevelByOrganizationId.sql" />
+    <Content Include="db\Functions_SQLServer\func_GetCorporationIdByOrganizationId.sql" />
+    <Content Include="db\Functions_SQLServer\func_GetDepartmentIdByOrganizationId.sql" />
+    <Content Include="db\Functions_SQLServer\func_GetDepartmentLevelByOrganizationId.sql" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <Content Include="db\Init_Script_SQLServer.sql" />
     <EmbeddedResource Include="defaults\Objects.xml" />
@@ -319,9 +324,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="db\Functions%28MySQL%29\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

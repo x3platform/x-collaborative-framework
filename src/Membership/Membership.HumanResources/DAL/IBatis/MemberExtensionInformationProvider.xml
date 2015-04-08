@@ -68,35 +68,35 @@
   <statements>
 
     <insert id="proc_Member_ExtensionInformation_Insert" parameterClass="MemberExtensionInformation">
-      INSERT INTO [tb_Member_ExtensionInformation] (
-      [Id],
-      [AccountId],
-      [Country],
-      [National],
-      [Passport],
-      [MaritalStatus],
-      [Professional],
-      [Hobby],
-      [Profile],
-      [HighestEducation],
-      [HighestDegree],
-      [ForeignLanguage],
-      [ForeignLanguageLevel],
-      [GraduationSchool],
-      [GraduationCertificateId],
-      [Major],
-      [EmployeeId],
-      [AttendanceCardId],
-      [JobBegindate],
-      [JobOfficialDate],
-      [JobEndDate],
-      [JobStatus],
-      [ContractType],
-      [ContractExpireDate],
-      [PaidHoliday],
-      [Remark],
-      [UpdateDate],
-      [CreateDate]
+      INSERT INTO tb_Member_ExtensionInformation (
+      Id,
+      AccountId,
+      Country,
+      National,
+      Passport,
+      MaritalStatus,
+      Professional,
+      Hobby,
+      Profile,
+      HighestEducation,
+      HighestDegree,
+      ForeignLanguage,
+      ForeignLanguageLevel,
+      GraduationSchool,
+      GraduationCertificateId,
+      Major,
+      EmployeeId,
+      AttendanceCardId,
+      JobBegindate,
+      JobOfficialDate,
+      JobEndDate,
+      JobStatus,
+      ContractType,
+      ContractExpireDate,
+      PaidHoliday,
+      Remark,
+      UpdateDate,
+      CreateDate
       )
       VALUES
       (
@@ -126,106 +126,106 @@
       #ContractExpireDate#,
       #PaidHoliday#,
       #Remark#,
-      GETDATE(),
-      GETDATE()
+      CURRENT_TIMESTAMP,
+      CURRENT_TIMESTAMP
       )
     </insert>
 
     <update id="proc_Member_ExtensionInformation_Update" parameterClass="MemberExtensionInformation">
-      UPDATE [tb_Member_ExtensionInformation] SET
+      UPDATE tb_Member_ExtensionInformation SET
 
-      [Country] = #Country#,
-      [National] = #National#,
-      [Passport] = #Passport#,
-      [MaritalStatus] = #MaritalStatus#,
-      [Professional] = #Professional#,
-      [Hobby] = #Hobby#,
-      [Profile] = #Profile#,
-      [HighestEducation] = #HighestEducation#,
-      [HighestDegree] = #HighestDegree#,
-      [ForeignLanguage] = #ForeignLanguage#,
-      [ForeignLanguageLevel] = #ForeignLanguageLevel#,
-      [GraduationSchool] = #GraduationSchool#,
-      [GraduationCertificateId] = #GraduationCertificateId#,
-      [Major] = #Major#,
-      [EmployeeId] = #EmployeeId#,
-      [AttendanceCardId] = #AttendanceCardId#,
-      [JobBegindate] = #JobBegindate#,
-      [JobOfficialDate] = #JobOfficialDate#,
-      [JobEndDate] = #JobEndDate#,
-      [JobStatus] = #JobStatus#,
-      [ContractType] = #ContractType#,
-      [ContractExpireDate] = #ContractExpireDate#,
-      [PaidHoliday] = #PaidHoliday#,
-      [Remark] = #Remark#,
-      [UpdateDate] = GETDATE()
+      Country = #Country#,
+      National = #National#,
+      Passport = #Passport#,
+      MaritalStatus = #MaritalStatus#,
+      Professional = #Professional#,
+      Hobby = #Hobby#,
+      Profile = #Profile#,
+      HighestEducation = #HighestEducation#,
+      HighestDegree = #HighestDegree#,
+      ForeignLanguage = #ForeignLanguage#,
+      ForeignLanguageLevel = #ForeignLanguageLevel#,
+      GraduationSchool = #GraduationSchool#,
+      GraduationCertificateId = #GraduationCertificateId#,
+      Major = #Major#,
+      EmployeeId = #EmployeeId#,
+      AttendanceCardId = #AttendanceCardId#,
+      JobBegindate = #JobBegindate#,
+      JobOfficialDate = #JobOfficialDate#,
+      JobEndDate = #JobEndDate#,
+      JobStatus = #JobStatus#,
+      ContractType = #ContractType#,
+      ContractExpireDate = #ContractExpireDate#,
+      PaidHoliday = #PaidHoliday#,
+      Remark = #Remark#,
+      UpdateDate = CURRENT_TIMESTAMP
 
-      WHERE [AccountId] = #AccountId#
+      WHERE AccountId = #AccountId#
     </update>
     <insert id="proc_Member_ExtensionInformation_Save" parameterClass="MemberExtensionInformation">
-      IF EXISTS(SELECT 0 FROM [tb_Member_ExtensionInformation] WHERE [AccountId] = #AccountId#)
+      IF EXISTS(SELECT 0 FROM tb_Member_ExtensionInformation WHERE AccountId = #AccountId#)
       BEGIN
-      UPDATE [tb_Member_ExtensionInformation] SET
+      UPDATE tb_Member_ExtensionInformation SET
 
-      [Country] = #Country#,
-      [National] = #National#,
-      [Passport] = #Passport#,
-      [MaritalStatus] = #MaritalStatus#,
-      [Professional] = #Professional#,
-      [Hobby] = #Hobby#,
-      [Profile] = #Profile#,
-      [HighestEducation] = #HighestEducation#,
-      [HighestDegree] = #HighestDegree#,
-      [ForeignLanguage] = #ForeignLanguage#,
-      [ForeignLanguageLevel] = #ForeignLanguageLevel#,
-      [GraduationSchool] = #GraduationSchool#,
-      [GraduationCertificateId] = #GraduationCertificateId#,
-      [Major] = #Major#,
-      [EmployeeId] = #EmployeeId#,
-      [AttendanceCardId] = #AttendanceCardId#,
-      [JobBegindate] = #JobBegindate#,
-      [JobOfficialDate] = #JobOfficialDate#,
-      [JobEndDate] = #JobEndDate#,
-      [JobStatus] = #JobStatus#,
-      [ContractType] = #ContractType#,
-      [ContractExpireDate] = #ContractExpireDate#,
-      [PaidHoliday] = #PaidHoliday#,
-      [Remark] = #Remark#,
-      [UpdateDate] = GETDATE()
+      Country = #Country#,
+      National = #National#,
+      Passport = #Passport#,
+      MaritalStatus = #MaritalStatus#,
+      Professional = #Professional#,
+      Hobby = #Hobby#,
+      Profile = #Profile#,
+      HighestEducation = #HighestEducation#,
+      HighestDegree = #HighestDegree#,
+      ForeignLanguage = #ForeignLanguage#,
+      ForeignLanguageLevel = #ForeignLanguageLevel#,
+      GraduationSchool = #GraduationSchool#,
+      GraduationCertificateId = #GraduationCertificateId#,
+      Major = #Major#,
+      EmployeeId = #EmployeeId#,
+      AttendanceCardId = #AttendanceCardId#,
+      JobBegindate = #JobBegindate#,
+      JobOfficialDate = #JobOfficialDate#,
+      JobEndDate = #JobEndDate#,
+      JobStatus = #JobStatus#,
+      ContractType = #ContractType#,
+      ContractExpireDate = #ContractExpireDate#,
+      PaidHoliday = #PaidHoliday#,
+      Remark = #Remark#,
+      UpdateDate = CURRENT_TIMESTAMP
 
-      WHERE [AccountId] = #AccountId#
+      WHERE AccountId = #AccountId#
       END
       ELSE
       BEGIN
-      INSERT INTO [tb_Member_ExtensionInformation](
-      [Id],
-      [AccountId],
-      [Country],
-      [National],
-      [Passport],
-      [MaritalStatus],
-      [Professional],
-      [Hobby],
-      [Profile],
-      [HighestEducation],
-      [HighestDegree],
-      [ForeignLanguage],
-      [ForeignLanguageLevel],
-      [GraduationSchool],
-      [GraduationCertificateId],
-      [Major],
-      [EmployeeId],
-      [AttendanceCardId],
-      [JobBegindate],
-      [JobOfficialDate],
-      [JobEndDate],
-      [JobStatus],
-      [ContractType],
-      [ContractExpireDate],
-      [PaidHoliday],
-      [Remark],
-      [UpdateDate],
-      [CreateDate]
+      INSERT INTO tb_Member_ExtensionInformation(
+      Id,
+      AccountId,
+      Country,
+      National,
+      Passport,
+      MaritalStatus,
+      Professional,
+      Hobby,
+      Profile,
+      HighestEducation,
+      HighestDegree,
+      ForeignLanguage,
+      ForeignLanguageLevel,
+      GraduationSchool,
+      GraduationCertificateId,
+      Major,
+      EmployeeId,
+      AttendanceCardId,
+      JobBegindate,
+      JobOfficialDate,
+      JobEndDate,
+      JobStatus,
+      ContractType,
+      ContractExpireDate,
+      PaidHoliday,
+      Remark,
+      UpdateDate,
+      CreateDate
       )
       VALUES
       (
@@ -255,17 +255,17 @@
       #ContractExpireDate#,
       #PaidHoliday#,
       #Remark#,
-      GETDATE(),
-      GETDATE()
+      CURRENT_TIMESTAMP,
+      CURRENT_TIMESTAMP
       )
       END
     </insert>
     <delete id="proc_Member_ExtensionInformation_Delete" parameterClass="MemberExtensionInformation">
-      DELETE FROM [tb_Member_ExtensionInformation] WHERE Id IN($Ids$)
+      DELETE FROM tb_Member_ExtensionInformation WHERE Id IN($Ids$)
     </delete>
     <select id="proc_Member_ExtensionInformation_FindOneByAccountId" resultMap="proc_Member_ExtensionInformation_FindOne_Result" >
-      SELECT * FROM [tb_Member_ExtensionInformation]
-      WHERE [AccountId] = #AccountId#
+      SELECT * FROM tb_Member_ExtensionInformation
+      WHERE AccountId = #AccountId#
     </select>
 
     <select id="proc_Member_ExtensionInformation_FindAll" resultMap="proc_Member_ExtensionInformation_FindAll_Result" >
@@ -277,7 +277,7 @@
         </isNotEqual>
       </dynamic>
 
-      * FROM [tb_Member_ExtensionInformation]
+      * FROM tb_Member_ExtensionInformation
     </select>
 
     <select id="proc_Member_ExtensionInformation_GetPages" resultMap="proc_Member_ExtensionInformation_FindAll_Result" >
@@ -285,7 +285,7 @@
 
       FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-      FROM [tb_Member_ExtensionInformation] T
+      FROM tb_Member_ExtensionInformation T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -301,7 +301,7 @@
 
     <select id="proc_Member_ExtensionInformation_GetRowCount" >
 
-      SELECT COUNT(*) AS 'RowCount' FROM [tb_Member_ExtensionInformation] T
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Member_ExtensionInformation T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -313,7 +313,7 @@
     </select>
 
     <select id="proc_Member_ExtensionInformation_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM [tb_Member_ExtensionInformation] T WHERE $WhereClause$
+      SELECT COUNT(0) AS 'Count' FROM tb_Member_ExtensionInformation T WHERE $WhereClause$
     </select>
 
   </statements>

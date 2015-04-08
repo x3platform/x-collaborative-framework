@@ -8,6 +8,7 @@
     using X3Platform.Membership.Model;
     using X3Platform.Membership.HumanResources.IBLL;
     using X3Platform.Membership.HumanResources.Model;
+    using X3Platform.Util;
 
     public class HumanResourceOfficerWrapper : ContextWrapper
     {
@@ -29,7 +30,7 @@
 
             MemberExtensionInformation memberProperties = new MemberExtensionInformation();
 
-            member = (MemberInfo)AjaxStorageConvertor.Deserialize(member, doc);
+            member = (MemberInfo)AjaxUtil.Deserialize(member, doc);
 
             member.ExtensionInformation.Load(doc);
 
@@ -42,9 +43,9 @@
                 // 创建新的空白帐号信息并保存到数据库
                 MembershipManagement.Instance.AccountService.Save(MembershipManagement.Instance.AccountService.CreateEmptyAccount(member.AccountId));
 
-                member.Account.Code = AjaxStorageConvertor.Fetch("code", doc);
-                member.Account.Name = AjaxStorageConvertor.Fetch("name", doc);
-                member.Account.IdentityCard = AjaxStorageConvertor.Fetch("identityCard", doc);
+                member.Account.Code = XmlHelper.Fetch("code", doc);
+                member.Account.Name = XmlHelper.Fetch("name", doc);
+                member.Account.IdentityCard = XmlHelper.Fetch("identityCard", doc);
             }
 
             HumanResourceManagement.Instance.GeneralAccountService.SetMemberCard(member);
@@ -73,7 +74,7 @@
 
             MemberExtensionInformation memberProperties = new MemberExtensionInformation();
 
-            member = (MemberInfo)AjaxStorageConvertor.Deserialize(member, doc);
+            member = (MemberInfo)AjaxUtil.Deserialize(member, doc);
 
             member.ExtensionInformation.Load(doc);
 
@@ -83,11 +84,11 @@
             }
             else
             {
-                member.Account.Code = AjaxStorageConvertor.Fetch("code", doc);
-                member.Account.IdentityCard = AjaxStorageConvertor.Fetch("identityCard", doc);
+                member.Account.Code = XmlHelper.Fetch("code", doc);
+                member.Account.IdentityCard = XmlHelper.Fetch("identityCard", doc);
             }
 
-            string partTimeJobsText = AjaxStorageConvertor.Fetch("partTimeJobsText", doc);
+            string partTimeJobsText = XmlHelper.Fetch("partTimeJobsText", doc);
           
             this.ResetPartTimeJobss(member, partTimeJobsText);
 
@@ -134,15 +135,15 @@
         [AjaxMethod("grantApply")]
         public string GrantApply(XmlDocument doc)
         {
-            string grantorId = AjaxStorageConvertor.Fetch("grantorId", doc);
+            string grantorId = XmlHelper.Fetch("grantorId", doc);
 
-            string granteeId = AjaxStorageConvertor.Fetch("granteeId", doc);
+            string granteeId = XmlHelper.Fetch("granteeId", doc);
 
-            DateTime grantedTimeFrom = Convert.ToDateTime(AjaxStorageConvertor.Fetch("grantedTimeFrom", doc));
+            DateTime grantedTimeFrom = Convert.ToDateTime(XmlHelper.Fetch("grantedTimeFrom", doc));
 
-            DateTime grantedTimeTo = Convert.ToDateTime(AjaxStorageConvertor.Fetch("grantedTimeTo", doc));
+            DateTime grantedTimeTo = Convert.ToDateTime(XmlHelper.Fetch("grantedTimeTo", doc));
 
-            string remark = AjaxStorageConvertor.Fetch("remark", doc);
+            string remark = XmlHelper.Fetch("remark", doc);
 
             this.service.GrantApply(grantorId, granteeId, grantedTimeFrom, grantedTimeTo, remark);
 

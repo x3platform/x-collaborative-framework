@@ -81,25 +81,25 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="X3Platform.Abstractions">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.Abstractions.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Apps">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.Apps.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.AttachmentStorage">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.AttachmentStorage.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.AttachmentStorage.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Location.IPQuery">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.Location.IPQuery.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Membership">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.Membership.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Sessions">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.Sessions.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Sessions.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Support">
-      <HintPath>D:\GitHub\x-server-fx\bin\X3Platform.Support.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -113,7 +113,6 @@
     <Compile Include="Configuration\HumanResourcesConfiguration.cs" />
     <Compile Include="Configuration\HumanResourcesConfigurationView.cs" />
     <Compile Include="DAL\IBatis\MemberExtensionInformationProvider.cs" />
-    <Compile Include="DAL\MySQL\MemberExtensionInformationProvider.cs" />
     <Compile Include="IBLL\IHumanResourceOfficerService.cs" />
     <Compile Include="IBLL\IGeneralAccountService.cs" />
     <Compile Include="HumanResourceManagement.cs" />
@@ -125,12 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\X3Platform.Membership.HumanResources.config" />
-    <Content Include="DAL\IBatis\MemberExtensionInformationProvider.xml">
-      <DependentUpon>MemberExtensionInformationProvider.cs</DependentUpon>
-    </Content>
-    <Content Include="DAL\MySQL\MemberExtensionInformationProvider.xml">
-      <DependentUpon>MemberExtensionInformationProvider.cs</DependentUpon>
-    </Content>
+    <EmbeddedResource Include="DAL\IBatis\MemberExtensionInformationProvider.xml" />
+    <EmbeddedResource Include="defaults\Objects.xml" />
+    <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\X3Platform.Membership.HumanResources.Spring.config" />
@@ -142,10 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.bat" />
-    <Content Include="config\MySQL\X3Platform.Membership.HumanResources.IBatis.SqlMap.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="config\MySQL\X3Platform.Membership.HumanResources.Spring.config" />
+    <EmbeddedResource Include="defaults\config.yaml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
