@@ -145,6 +145,14 @@ namespace X3Platform.Data
                                 outString.AppendFormat("{0} LIKE '%{1}%'", item.Key, StringHelper.ToSafeSQL(item.Value.ToString()));
                             }
                         }
+                        else if (op == "IN")
+                        {
+                            // 字符串 LIKE 查询内容必须不为空
+                            if (!string.IsNullOrEmpty(item.Value.ToString()))
+                            {
+                                outString.AppendFormat("{0} IN ({1})", item.Key, string.Concat("'", StringHelper.ToSafeSQL(item.Value.ToString()).Replace(",", "','"), "'"));
+                            }
+                        }
                         else
                         {
                             outString.AppendFormat("{0} {1} '{2}'", item.Key, op, StringHelper.ToSafeSQL(item.Value.ToString()));
@@ -157,7 +165,10 @@ namespace X3Platform.Data
                         break;
                 }
 
-                outString.Append(" AND ");
+                if (outString.Length > 0)
+                {
+                    outString.Append(" AND ");
+                }
             }
 
             // 移除最后的 AND 标记
@@ -225,7 +236,7 @@ namespace X3Platform.Data
             string innerText = null;
 
             outString.Append("<query>");
-            
+
             // Table
             outString.AppendFormat("<table><![CDATA[{0}]]></table>", this.Table);
 
