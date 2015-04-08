@@ -8,6 +8,7 @@
             <result property="Id" column="Id" />
             <result property="VirtualPath" column="VirtualPath" />
             <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
+            <!-- MySql : <result property="FileData" column="FileData" dbType="blob" /> -->
             <result property="FileData" column="FileData" dbType="blob" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
@@ -15,6 +16,7 @@
             <result property="Id" column="Id" />
             <result property="VirtualPath" column="VirtualPath" />
             <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
+            <!-- MySql : <result property="FileData" column="FileData" dbType="blob" /> -->
             <result property="FileData" column="FileData" dbType="blob" />
             <result property="CreateDate" column="CreateDate" />
         </resultMap>

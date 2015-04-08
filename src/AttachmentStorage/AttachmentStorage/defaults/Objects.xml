@@ -2,6 +2,11 @@
 <objects xmlns="http://www.springframework.net">
     <description>服务提供者配置信息 | 数据提供者配置信息</description>
     
+    <!-- 实现 IAttachmentFileInfo 接口的对象 -->
+    <object id="X3Platform.AttachmentStorage.IAttachmentFileInfo"
+            type="X3Platform.AttachmentStorage.AttachmentFileInfo"
+            singleton="false" />
+    
     <!-- 附件存储记录 -->
     <object id="X3Platform.AttachmentStorage.IBLL.IAttachmentFileService"
             type="X3Platform.AttachmentStorage.BLL.AttachmentFileService"
@@ -28,9 +33,4 @@
     <object id="X3Platform.AttachmentStorage.IDAL.IAttachmentWarnProvider"
             type="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentWarnProvider"
             lazy-init="true" />
-
-    <!-- 实现 IAttachmentFileInfo 接口的对象 -->
-    <object id="X3Platform.AttachmentStorage.IAttachmentFileInfo"
-            type="X3Platform.AttachmentStorage.AttachmentFileInfo"
-            singleton="false" />
 </objects>
