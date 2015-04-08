@@ -8,11 +8,18 @@ namespace X3Platform.Entities
 
     using X3Platform.Entities.Configuration;
     using X3Platform.Entities.IBLL;
+    using X3Platform.Apps;
+    using Common.Logging;
+    using System.Reflection;
+    using X3Platform.Apps.Model;
+    using X3Platform.DigitalNumber;
     #endregion
 
     /// <summary>实体类管理上下文环境</summary>
     public sealed class EntitiesManagement : CustomPlugin
     {
+        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
+
         #region 属性:Name
         public override string Name
         {
@@ -42,16 +49,6 @@ namespace X3Platform.Entities
 
                 return instance;
             }
-        }
-        #endregion
-
-        #region 属性:Configuration
-        private EntitiesConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public EntitiesConfiguration Configuration
-        {
-            get { return configuration; }
         }
         #endregion
 
@@ -144,18 +141,48 @@ namespace X3Platform.Entities
         }
         #endregion
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
         public override int Restart()
         {
+            ApplicationInfo application = AppsContext.Instance.ApplicationService[EntitiesConfiguration.ApplicationName];
+
+            ApplicationEventInfo applicationEvent = new ApplicationEventInfo();
+
+            applicationEvent.Id = DigitalNumberContext.Generate("Key_Guid");
+
+            applicationEvent.ApplicationId = application.Id;
+            applicationEvent.Tags = "信息";
+            applicationEvent.Description = string.Format("【{0}】应用执行{1}事件。", application.ApplicationDisplayName, (this.restartCount == 0 ? "初始化" : "第" + this.restartCount + "次重启"));
+
+            applicationEvent.Start();
+
             try
             {
+                // 重新加载信息
                 Reload();
+
+                // 自增重启次数计数器
+                this.restartCount++;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                logger.Error(ex.ToString());
+
+                applicationEvent.Tags = "错误";
+                applicationEvent.Description = string.Format("【错误】{0}错误信息:{1}", applicationEvent.Description, ex.Message);
+
+                throw ex;
+            }
+            finally
+            {
+                applicationEvent.Finish();
+
+                AppsContext.Instance.ApplicationEventService.Save(applicationEvent);
             }
 
             return 0;
@@ -166,17 +193,26 @@ namespace X3Platform.Entities
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            configuration = EntitiesConfigurationView.Instance.Configuration;
+            if (this.restartCount > 0)
+            {
+                // 重新加载配置信息
+                EntitiesConfigurationView.Instance.Reload();
+            }
 
-            this.m_EntityClickService = SpringContext.Instance.GetObject<IEntityClickService>(typeof(IEntityClickService));
-            this.m_EntityDocObjectService = SpringContext.Instance.GetObject<IEntityDocObjectService>(typeof(IEntityDocObjectService));
-            this.m_EntityDraftService = SpringContext.Instance.GetObject<IEntityDraftService>(typeof(IEntityDraftService));
-            this.m_EntityFeedbackService = SpringContext.Instance.GetObject<IEntityFeedbackService>(typeof(IEntityFeedbackService));
-            this.m_EntityLifeHistoryService = SpringContext.Instance.GetObject<IEntityLifeHistoryService>(typeof(IEntityLifeHistoryService));
-            this.m_EntityMetaDataService = SpringContext.Instance.GetObject<IEntityMetaDataService>(typeof(IEntityMetaDataService));
-            this.m_EntityOperationLogService = SpringContext.Instance.GetObject<IEntityOperationLogService>(typeof(IEntityOperationLogService));
-            this.m_EntitySchemaService = SpringContext.Instance.GetObject<IEntitySchemaService>(typeof(IEntitySchemaService));
-            this.m_EntitySnapshotService = SpringContext.Instance.GetObject<IEntitySnapshotService>(typeof(IEntitySnapshotService));
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = EntitiesConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
+
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(EntitiesConfiguration.ApplicationName, springObjectFile);
+
+            this.m_EntityClickService = objectBuilder.GetObject<IEntityClickService>(typeof(IEntityClickService));
+            this.m_EntityDocObjectService = objectBuilder.GetObject<IEntityDocObjectService>(typeof(IEntityDocObjectService));
+            this.m_EntityDraftService = objectBuilder.GetObject<IEntityDraftService>(typeof(IEntityDraftService));
+            this.m_EntityFeedbackService = objectBuilder.GetObject<IEntityFeedbackService>(typeof(IEntityFeedbackService));
+            this.m_EntityLifeHistoryService = objectBuilder.GetObject<IEntityLifeHistoryService>(typeof(IEntityLifeHistoryService));
+            this.m_EntityMetaDataService = objectBuilder.GetObject<IEntityMetaDataService>(typeof(IEntityMetaDataService));
+            this.m_EntityOperationLogService = objectBuilder.GetObject<IEntityOperationLogService>(typeof(IEntityOperationLogService));
+            this.m_EntitySchemaService = objectBuilder.GetObject<IEntitySchemaService>(typeof(IEntitySchemaService));
+            this.m_EntitySnapshotService = objectBuilder.GetObject<IEntitySnapshotService>(typeof(IEntitySnapshotService));
         }
         #endregion
     }

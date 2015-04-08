@@ -16,9 +16,6 @@
     /// <summary></summary>
     public class EntityFeedbackService : IEntityFeedbackService
     {
-        /// <summary>配置</summary>
-        private EntitiesConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IEntityFeedbackProvider provider = null;
 
@@ -26,9 +23,13 @@
         /// <summary>构造函数</summary>
         public EntityFeedbackService()
         {
-            configuration = EntitiesConfigurationView.Instance.Configuration;
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = EntitiesConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
-            provider = SpringContext.Instance.GetObject<IEntityFeedbackProvider>(typeof(IEntityFeedbackProvider));
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(EntitiesConfiguration.ApplicationName, springObjectFile);
+
+            // 创建数据提供器
+            provider = objectBuilder.GetObject<IEntityFeedbackProvider>(typeof(IEntityFeedbackProvider));
         }
         #endregion
 
