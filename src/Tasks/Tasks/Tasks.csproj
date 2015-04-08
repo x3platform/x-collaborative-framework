@@ -148,10 +148,10 @@
   <ItemGroup>
     <EmbeddedResource Include="DAL\IBatis\TaskCategoryProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\TaskHistoryProvider.xml" />
-    <Content Include="DAL\IBatis\TaskWaitingProvider.xml" />
-    <Content Include="DAL\IBatis\TaskWaitingReceiverProvider.xml" />
-    <Content Include="DAL\IBatis\TaskWorkProvider.xml" />
-    <Content Include="DAL\IBatis\TaskWorkReceiverProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskWaitingProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskWaitingReceiverProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskWorkProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\TaskWorkReceiverProvider.xml" />
     <Content Include="db\Init_Sccript_MySQL-multi-node.sql" />
     <Content Include="db\Init_Sccript_MySQL.sql" />
     <Content Include="db\Init_Sccript_SQLServer.sql" />

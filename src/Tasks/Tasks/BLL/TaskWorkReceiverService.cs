@@ -13,6 +13,7 @@
     using X3Platform.Tasks.IBLL;
     using X3Platform.Tasks.IDAL;
     using X3Platform.Tasks.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -97,30 +98,27 @@
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="TaskWorkItemInfo"/></returns>
-        public IList<TaskWorkItemInfo> GetPaging(string receiverId, int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskWorkItemInfo> GetPaging(string receiverId, int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             // 我的待办 过滤接收者
-            //
-            // [兼容]
-            // 龙湖的待办系统接收者标识取的是登录名, 系统默认取帐号标识.
-            //
-            string bindReceiverSQL = string.Format(" T.ReceiverId = ##{0}## ", receiverId);
 
-            // if (KernelContext.ParseObjectType(this.provider.GetType()) == "X3Platform.Plugins.Longfor.Tasks.DAL.IBatis.TaskWorkReceiverProvider, X3Platform.Plugins.Longfor")
+            // string bindReceiverSQL = string.Format(" T.ReceiverId = ##{0}## ", receiverId);
+
+            // if (string.IsNullOrEmpty(whereClause))
             // {
-            //    bindReceiverSQL = string.Format(" T.ReceiverId = ##{0}## ", KernelContext.Current.User.LoginName);
+            //    whereClause = string.Format(" {0} AND T.Status = 0 ", bindReceiverSQL);
+            // }
+            // else if (whereClause.IndexOf(bindReceiverSQL) == -1)
+            // {
+            //    whereClause += string.Format(" AND {0} ", bindReceiverSQL);
             // }
 
-            if (string.IsNullOrEmpty(whereClause))
-            {
-                whereClause = string.Format(" {0} AND T.Status = 0 ", bindReceiverSQL);
-            }
-            else if (whereClause.IndexOf(bindReceiverSQL) == -1)
-            {
-                whereClause += string.Format(" AND {0} ", bindReceiverSQL);
-            }
-
-            return this.provider.GetPaging(receiverId, startIndex, pageSize, whereClause, orderBy, out rowCount);
+                query.Where.Add("ReceiverId", receiverId);
+                //if (string.IsNullOrEmpty(whereClause))
+                //{ query.Where.Add("Status", 0); 
+                //}
+            
+            return this.provider.GetPaging(receiverId, startIndex, pageSize, query, out rowCount);
         }
         #endregion
 

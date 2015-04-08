@@ -50,11 +50,11 @@ namespace X3Platform.Tasks.Ajax
             {
                 this.service.Delete(id);
 
-                return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+                return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
             }
             else
             {
-                return "{message:{\"returnCode\":1,\"value\":\"此类别下还有相关业务数据，不能被删除。\"}}";
+                return "{\"message\":{\"returnCode\":1,\"value\":\"此类别下还有相关业务数据，不能被删除。\"}}";
             }
         }
         #endregion
@@ -113,19 +113,43 @@ namespace X3Platform.Tasks.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            // 设置当前用户权限
+            if (XmlHelper.Fetch("su", doc) == "1")
+            {
+                paging.Query.Variables["elevatedPrivileges"] = "1";
+            }
+
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
+
+            // 设置特定的业务场景
+            if (paging.Query.Where.ContainsKey("scence"))
+            {
+                // 场景
+                // Query 根据关键字查询
+                // QueryByOrganizationId 根据组织标识查询
+                if (paging.Query.Where["scence"].ToString() == "Query" || paging.Query.Where["scence"].ToString() == "QueryByOrganizationId")
+                {
+                    paging.Query.Variables["scence"] = paging.Query.Where["scence"].ToString();
+                }
+
+                paging.Query.Where.Remove("scence");
+            }
 
             int rowCount = -1;
 
-            IList<TaskCategoryInfo> list = this.service.GetPaging(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<TaskCategoryInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<TaskCategoryInfo>(list) + ",");
-
-            outString.Append("\"pages\":" + pages + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
 
             return outString.ToString();
         }

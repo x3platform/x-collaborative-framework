@@ -13,6 +13,7 @@ namespace X3Platform.Tasks.DAL.IBatis
     using X3Platform.Tasks.IDAL;
     using X3Platform.Tasks.Model;
     using X3Platform.Tasks.Configuration;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -269,26 +270,21 @@ namespace X3Platform.Tasks.DAL.IBatis
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计.</param>
         /// <param name="pageSize">每页显示的数据行数</param>
-        /// <param name="whereClause">WHERE 查询条件.</param>
-        /// <param name="orderBy">ORDER BY 排序条件.</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">符合条件的数据总行数</param>
         /// <returns></returns>
-        public IList<TaskCategoryInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<TaskCategoryInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
-
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
-
-            args.Add("RowCount", 0);
+            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             IList<TaskCategoryInfo> list = this.ibatisMapper.QueryForList<TaskCategoryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 

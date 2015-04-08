@@ -5,9 +5,8 @@ namespace X3Platform.Tasks.IBLL
     using System.Collections.Generic;
     using System.Data;
     using System.Text;
-
+    using X3Platform.Data;
     using X3Platform.Spring;
-
     using X3Platform.Tasks.Model;
     #endregion
 
@@ -103,15 +102,14 @@ namespace X3Platform.Tasks.IBLL
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
-        /// <param name="startIndex">开始行索引数,由0开始统计.</param>
-        /// <param name="pageSize">每页显示的数据条数</param>
-        /// <param name="whereClause">WHERE 查询条件.</param>
-        /// <param name="orderBy">ORDER BY 排序条件.</param>
-        /// <param name="rowCount">如何条件的数据总行数</param>
-        /// <returns>返回一个列表实例<see cref="TaskCategoryInfo"/></returns>
-        IList<TaskCategoryInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount);
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表</returns>
+        IList<TaskCategoryInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)
