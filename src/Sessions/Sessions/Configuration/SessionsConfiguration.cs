@@ -40,6 +40,5 @@ using X3Platform.Yaml.RepresentationModel;
             this.Initialized = true;
         }
         #endregion
-   
     }
 }
