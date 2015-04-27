@@ -29,6 +29,6 @@
         <ProjectToBuild Include="Tasks\Tasks\Tasks.csproj" />
     </ItemGroup>
     <Target Name="Build">
-        <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release" />
+        <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release;WarningLevel=0" />
     </Target>
 </Project>
