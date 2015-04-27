@@ -26,14 +26,14 @@
     <statements>
 
         <insert id="proc_Entity_LifeHistory_Insert" parameterClass="EntityLifeHistoryInfo">
-            INSERT INTO [tb_Entity_LifeHistory] (
-                [Id],
-                [EntityId],
-                [EntityClassName],
-                [AccountId],
-                [MethodName],
-                [ContextDiffLog],
-                [Date]
+            INSERT INTO tb_Entity_LifeHistory (
+                Id,
+                EntityId,
+                EntityClassName,
+                AccountId,
+                MethodName,
+                ContextDiffLog,
+                Date
             )
             VALUES
             (
@@ -48,25 +48,25 @@
         </insert>
 
         <update id="proc_Entity_LifeHistory_Update" parameterClass="EntityLifeHistoryInfo">
-            UPDATE [tb_Entity_LifeHistory] SET
+            UPDATE tb_Entity_LifeHistory SET
 
-            [EntityId] = #EntityId#,
-            [EntityClassName] = #EntityClassName#,
-            [AccountId] = #AccountId#,
-            [MethodName] = #MethodName#,
-            [ContextDiffLog] = #ContextDiffLog#,
-            [Date] = CURRENT_TIMESTAMP
+            EntityId = #EntityId#,
+            EntityClassName = #EntityClassName#,
+            AccountId = #AccountId#,
+            MethodName = #MethodName#,
+            ContextDiffLog = #ContextDiffLog#,
+            Date = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_Entity_LifeHistory_Delete" >
-            DELETE FROM [tb_Entity_LifeHistory] WHERE $WhereClause$
+            DELETE FROM tb_Entity_LifeHistory WHERE $WhereClause$
         </delete>
 
         <select id="proc_Entity_LifeHistory_FindOne" resultMap="proc_Entity_LifeHistory_FindOne_Result" >
-            SELECT * FROM [tb_Entity_LifeHistory] T
-            WHERE [Id] = #Id#
+            SELECT * FROM tb_Entity_LifeHistory T
+            WHERE Id = #Id#
         </select>
 
         <select id="proc_Entity_LifeHistory_FindAll" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
@@ -78,7 +78,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Entity_LifeHistory] T
+            * FROM tb_Entity_LifeHistory T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -94,7 +94,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Entity_LifeHistory] T
+            FROM tb_Entity_LifeHistory T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -110,7 +110,7 @@
 
         <select id="proc_Entity_LifeHistory_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Entity_LifeHistory] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_LifeHistory T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -122,7 +122,7 @@
         </select>
 
         <select id="proc_Entity_LifeHistory_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Entity_LifeHistory] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Entity_LifeHistory T WHERE $WhereClause$
         </select>
 
     </statements>

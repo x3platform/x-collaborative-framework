@@ -287,6 +287,11 @@ namespace X3Platform.Data
         {
             XmlNode node = null;
 
+            // Scence
+            node = element.SelectSingleNode("scence");
+
+            this.Variables["scence"] = (node == null) ? "default" : node.InnerText;
+
             // Table
             node = element.SelectSingleNode("table");
 
@@ -350,6 +355,23 @@ namespace X3Platform.Data
                     this.Fields.Add(order);
                 }
             }
+        }
+        #endregion
+
+        #region 静态函数:Create(string queryXml)
+        /// <summary>创建查询参数</summary>
+        /// <param name="queryXml">Xml文本格式</param>
+        public static DataQuery Create(string queryXml)
+        {
+            DataQuery query = new DataQuery();
+
+            XmlDocument doc = new XmlDocument();
+
+            doc.LoadXml(string.Format("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<root>{0}</root>", queryXml));
+
+            query.Deserialize(doc.DocumentElement);
+
+            return query;
         }
         #endregion
     }

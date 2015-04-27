@@ -22,11 +22,11 @@
             
             if (string.IsNullOrEmpty(path))
             {
-                return View("/views/shared/default.cshtml");
+                return View("~/views/shared/default.cshtml");
             }
             else
             {
-                return View("/views/shared/" + path + ".cshtml");
+                return View("~/views/shared/" + path + ".cshtml");
             }
         }
         #endregion

@@ -132,6 +132,8 @@
     <Content Include="config\MySQL\X3Platform.Sessions.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Sessions.Spring.config" />
     <EmbeddedResource Include="defaults\config.yaml" />
+    <None Include="config\X3Platform.Sessions.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Sessions.Spring.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

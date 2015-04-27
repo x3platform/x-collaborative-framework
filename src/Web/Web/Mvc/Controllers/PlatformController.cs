@@ -20,7 +20,7 @@ namespace X3Platform.Web.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View("/views/main/platform/default.cshtml");
+            return View("~/views/main/platform/default.cshtml");
         }
         #endregion
     }

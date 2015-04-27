@@ -18,7 +18,7 @@ namespace X3Platform.Web.Mvc.Controllers
                 return Redirect(KernelConfigurationView.Instance.ApplicationHomePage);
             }
 
-            return View("/views/main/default.cshtml");
+            return View("~/views/main/default.cshtml");
         }
     }
 }

@@ -33,7 +33,7 @@
     </resultMaps>
     
     <statements>
-        <insert id="proc_Task_Insert" parameterClass="X3Platform.Tasks.Model.TaskWorkItemInfo,X3Platform.Tasks" >
+        <insert id="proc_Task_Insert#SqlServer" parameterClass="X3Platform.Tasks.Model.TaskWorkItemInfo,X3Platform.Tasks" >
             INSERT INTO tb_Task_WorkItem
             (
                 Id,

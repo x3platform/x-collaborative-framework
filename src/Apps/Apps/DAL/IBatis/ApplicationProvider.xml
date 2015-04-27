@@ -155,7 +155,7 @@
         <select id="proc_Application_FindOneByApplicationName" parameterClass="ApplicationInfo" resultMap="proc_Application_FindOne_Result" >
             SELECT * FROM tb_Application WHERE ApplicationName = #ApplicationName#
         </select>
-        <select id="proc_Application_FindAll#MySql" resultMap="proc_Application_FindAll_Result" parameterClass="ApplicationInfo" >
+        <select id="proc_Application_FindAll#MySql" resultMap="proc_Application_FindAll_Result" >
             SELECT * FROM tb_Application T
 
             <dynamic prepend="WHERE">
@@ -172,7 +172,7 @@
                 </isNotEqual>
             </dynamic>
         </select>
-        <select id="proc_Application_FindAll#SqlServer" resultMap="proc_Application_FindAll_Result" parameterClass="ApplicationInfo" >
+        <select id="proc_Application_FindAll#SqlServer" resultMap="proc_Application_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -191,7 +191,7 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        <select id="proc_Application_GetPaging#MySql" parameterClass="ApplicationInfo" resultMap="proc_Application_FindAll_Result" >
+        <select id="proc_Application_GetPaging#MySql" resultMap="proc_Application_FindAll_Result" >
             SELECT * FROM tb_Application T
 
             <dynamic prepend="WHERE">
@@ -210,7 +210,7 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-        <select id="proc_Application_GetPaging#SqlServer" parameterClass="ApplicationInfo" resultMap="proc_Application_FindAll_Result" >
+        <select id="proc_Application_GetPaging#SqlServer" resultMap="proc_Application_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

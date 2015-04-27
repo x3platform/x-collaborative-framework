@@ -204,6 +204,7 @@
     <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Apps.Spring.config" />
+    <None Include="db\README.md" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />

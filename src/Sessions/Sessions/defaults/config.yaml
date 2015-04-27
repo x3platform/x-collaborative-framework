@@ -7,7 +7,7 @@ keys:
   # Storages : 数据存储架构标识
   StorageSchemaId: 01-14-Sessions
   # 会话持久化 : 可选的值 1.On 2.Off(默认)
-  SessionPersistentMode : Off
+  SessionPersistentMode : On
   # 会话定时器执行时间间隔(单位:分钟)
   SessionTimerInterval : 15
   # 会话时间限制(单位:分钟)

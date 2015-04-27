@@ -30,7 +30,7 @@
     <statements>
 
         <select id="proc_Entity_DocObject_FindOne" resultMap="proc_Entity_DocObject_FindOne_Result" >
-            SELECT * FROM $CustomTableName$ WHERE [Id] = #Id#
+            SELECT * FROM $CustomTableName$ WHERE Id = #Id#
         </select>
 
         <select id="proc_Entity_DocObject_FindAll" resultMap="proc_Entity_DocObject_FindAll_Result" >

@@ -68,6 +68,44 @@ namespace X3Platform.Membership.Configuration
         // 自定义属性
         // -------------------------------------------------------
 
+        #region 属性:DataTablePrefix
+        private string m_DataTablePrefix = string.Empty;
+
+        /// <summary>数据表前缀</summary>
+        public string DataTablePrefix
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_DataTablePrefix))
+                {
+                    // 属性名称
+                    string propertyName = "DataTablePrefix";
+                    // 属性全局名称
+                    string propertyGlobalName = string.Format("{0}.{1}", configGlobalPrefix, propertyName);
+
+                    if (KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName] != null)
+                    {
+                        this.m_DataTablePrefix = KernelConfigurationView.Instance.ReplaceKeyValue(
+                                  KernelConfigurationView.Instance.Configuration.Keys[propertyGlobalName].Value);
+                    }
+                    else if (this.Configuration.Keys[propertyName] != null)
+                    {
+                        this.m_DataTablePrefix = KernelConfigurationView.Instance.ReplaceKeyValue(
+                           this.Configuration.Keys[propertyName].Value);
+                    }
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (string.IsNullOrEmpty(this.m_DataTablePrefix))
+                    {
+                        this.m_DataTablePrefix = "Empty";
+                    }
+                }
+
+                return this.m_DataTablePrefix == "Empty" ? string.Empty : this.m_DataTablePrefix;
+            }
+        }
+        #endregion
+
         #region 属性:SingleSignOn
         private string m_SingleSignOn = string.Empty;
 

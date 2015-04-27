@@ -35,20 +35,20 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class AuthorizationObjectProvider : IAuthorizationObjectProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "view_AuthorizationObject";
 
-        #region ���캯��:AuthorizationObjectProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AuthorizationObjectProvider()
+        /// <summary>构造函数</summary>
         public AuthorizationObjectProvider()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -60,36 +60,36 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ����֧��
+        // 事务支持
         // -------------------------------------------------------
 
-        #region 属性:BeginTransaction()
-        /// <summary>��������</summary>
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
         public void BeginTransaction()
         {
             this.ibatisMapper.BeginTransaction();
         }
         #endregion
 
-        #region 属性:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>��������</summary>
-        /// <param name="isolationLevel">�������뼶��</param>
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
             this.ibatisMapper.BeginTransaction(isolationLevel);
         }
         #endregion
 
-        #region 属性:CommitTransaction()
-        /// <summary>�ύ����</summary>
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
         public void CommitTransaction()
         {
             this.ibatisMapper.CommitTransaction();
         }
         #endregion
 
-        #region 属性:RollBackTransaction()
-        /// <summary>�ع�����</summary>
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
         public void RollBackTransaction()
         {
             this.ibatisMapper.RollBackTransaction();
@@ -97,7 +97,7 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:Filter(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -111,10 +111,11 @@ namespace X3Platform.Membership.DAL.IBatis
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             args.Add("OrderBy", query.GetOrderBySql(" AccountLoginName, AuthorizationObjectType "));
+
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
 
             args.Add("RowCount", 0);
 
@@ -126,29 +127,29 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:HasAuthority(string scopeTableName, string entityId, string entityClassName, string authorityName, IAccountInfo account)
-        /// <summary>�ж���Ȩ�����Ƿ�ӵ��ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="account">��Ȩ��������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:HasAuthority(string scopeTableName, string entityId, string entityClassName, string authorityName, IAccountInfo account)
+        /// <summary>判断授权对象是否拥有实体对象的权限信息</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="account">授权对象类型</param>
+        /// <returns>布尔值</returns>
         public bool HasAuthority(string scopeTableName, string entityId, string entityClassName, string authorityName, IAccountInfo account)
         {
             return this.HasAuthority(scopeTableName, entityId, entityClassName, authorityName, "Account", account.Id);
         }
         #endregion
 
-        #region 属性:HasAuthority(string scopeTableName, string entityId, string entityClassName, string authorityName, string authorizationObjectType, string authorizationObjectId)
-        /// <summary>�ж���Ȩ�����Ƿ�ӵ��ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="authorizationObjectType">��Ȩ��������</param>
-        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:HasAuthority(string scopeTableName, string entityId, string entityClassName, string authorityName, string authorizationObjectType, string authorizationObjectId)
+        /// <summary>判断授权对象是否拥有实体对象的权限信息</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="authorizationObjectType">授权对象类型</param>
+        /// <param name="authorizationObjectId">授权对象标识</param>
+        /// <returns>布尔值</returns>
         public bool HasAuthority(string scopeTableName, string entityId, string entityClassName, string authorityName, string authorizationObjectType, string authorizationObjectId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -173,31 +174,31 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:HasAuthority(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, IAccountInfo account)
-        /// <summary>�ж���Ȩ�����Ƿ�ӵ��ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="account">��Ȩ��������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:HasAuthority(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, IAccountInfo account)
+        /// <summary>判断授权对象是否拥有实体对象的权限信息</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="account">授权对象类型</param>
+        /// <returns>布尔值</returns>
         public bool HasAuthority(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, IAccountInfo account)
         {
             return this.HasAuthority(command, scopeTableName, entityId, entityClassName, authorityName, "Account", account.Id);
         }
         #endregion
 
-        #region 属性:HasAuthority(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string authorizationObjectType, string authorizationObjectId)
-        /// <summary>�ж���Ȩ�����Ƿ�ӵ��ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="authorizationObjectType">��Ȩ��������</param>
-        /// <param name="authorizationObjectId">��Ȩ������ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:HasAuthority(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string authorizationObjectType, string authorizationObjectId)
+        /// <summary>判断授权对象是否拥有实体对象的权限信息</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="authorizationObjectType">授权对象类型</param>
+        /// <param name="authorizationObjectId">授权对象标识</param>
+        /// <returns>布尔值</returns>
         public bool HasAuthority(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string authorizationObjectType, string authorizationObjectId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -226,13 +227,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:AddAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
-        /// <summary>�Ƴ�ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="scopeText">Ȩ�޷�Χ���ı�</param>
+        #region 函数:AddAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
+        /// <summary>移除实体对象的权限信息</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="scopeText">权限范围的文本</param>
         public void AddAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -263,14 +264,14 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:AddAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
-        /// <summary>�Ƴ�ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="scopeText">Ȩ�޷�Χ���ı�</param>
+        #region 函数:AddAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
+        /// <summary>移除实体对象的权限信息</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="scopeText">权限范围的文本</param>
         public void AddAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -303,12 +304,12 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:RemoveAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName)
-        /// <summary>�Ƴ�ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
+        #region 函数:RemoveAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName)
+        /// <summary>移除实体对象的权限信息</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
         public void RemoveAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -324,13 +325,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:RemoveAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName)
-        /// <summary>�Ƴ�ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
+        #region 函数:RemoveAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName)
+        /// <summary>移除实体对象的权限信息</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
         public void RemoveAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -348,59 +349,59 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:BindAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
-        /// <summary>����ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="scopeText">Ȩ�޷�Χ���ı�</param>
+        #region 函数:BindAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
+        /// <summary>配置实体对象的权限信息</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="scopeText">权限范围的文本</param>
         public void BindAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
         {
             if (!string.IsNullOrEmpty(entityId) && !string.IsNullOrEmpty(authorityName))
             {
-                // �Ƴ�Ȩ����Ϣ
+                // 移除权限信息
                 this.RemoveAuthorizationScopeObjects(scopeTableName, entityId, entityClassName, authorityName);
 
-                // ����Ȩ����Ϣ
+                // 添加权限信息
                 this.AddAuthorizationScopeObjects(scopeTableName, entityId, entityClassName, authorityName, scopeText);
             }
         }
         #endregion
 
-        #region 属性:BindAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
-        /// <summary>����ʵ��������Ȩ����Ϣ</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
-        /// <param name="scopeText">Ȩ�޷�Χ���ı�</param>
+        #region 函数:BindAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
+        /// <summary>配置实体对象的权限信息</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
+        /// <param name="scopeText">权限范围的文本</param>
         public void BindAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName, string scopeText)
         {
             if (!string.IsNullOrEmpty(entityId) && !string.IsNullOrEmpty(authorityName))
             {
-                // �Ƴ�Ȩ����Ϣ
+                // 移除权限信息
                 this.RemoveAuthorizationScopeObjects(command, scopeTableName, entityId, entityClassName, authorityName);
 
-                // ����Ȩ����Ϣ
+                // 添加权限信息
                 this.AddAuthorizationScopeObjects(command, scopeTableName, entityId, entityClassName, authorityName, scopeText);
             }
         }
         #endregion
 
-        #region 属性:GetAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName)
-        /// <summary>��ѯӦ�õ�Ȩ����Ϣ</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
+        #region 函数:GetAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName)
+        /// <summary>查询应用的权限信息</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
         /// <returns></returns>
         public IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(string scopeTableName, string entityId, string entityClassName, string authorityName)
         {
             if (string.IsNullOrEmpty(entityId))
             {
-                new Exception("ʵ�������ı�ʶ������Ϊ�ա�");
+                new Exception("实体对象的标识不允许为空。");
             }
 
             string scopeText = null;
@@ -427,19 +428,19 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:GetAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName)
-        /// <summary>��ѯӦ�õ�Ȩ����Ϣ</summary>
-        /// <param name="command">ͨ��SQL��������</param>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="entityId">ʵ����ʶ</param>
-        /// <param name="entityClassName">ʵ��������</param>
-        /// <param name="authorityName">Ȩ������</param>
+        #region 函数:GetAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName)
+        /// <summary>查询应用的权限信息</summary>
+        /// <param name="command">通用SQL命令对象</param>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="authorityName">权限名称</param>
         /// <returns></returns>
         public IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(GenericSqlCommand command, string scopeTableName, string entityId, string entityClassName, string authorityName)
         {
             if (string.IsNullOrEmpty(entityId))
             {
-                new Exception("ʵ�������ı�ʶ������Ϊ�ա�");
+                new Exception("实体对象的标识不允许为空。");
             }
 
             string scopeText = null;
@@ -468,15 +469,15 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:GetAuthorizationScopeEntitySQL(string scopeTableName, string accountId, ContactType contactType, string authorityIds, string entityIdDataColumnName, string entityClassNameDataColumnName, string entityClassName)
-        /// <summary>��ȡʵ��������ʶSQL����</summary>
-        /// <param name="scopeTableName">���ݱ�������</param>
-        /// <param name="accountId">�û���ʶ</param>
-        /// <param name="contactType">��ϵ�˶���</param>
-        /// <param name="authorityIds">Ȩ�ޱ�ʶ</param>
-        /// <param name="entityIdDataColumnName">ʵ������ʶ����������</param>
-        /// <param name="entityClassNameDataColumnName">ʵ�������Ƶ���������</param>
-        /// <param name="entityClassName">ʵ��������</param>
+        #region 函数:GetAuthorizationScopeEntitySQL(string scopeTableName, string accountId, ContactType contactType, string authorityIds, string entityIdDataColumnName, string entityClassNameDataColumnName, string entityClassName)
+        /// <summary>获取实体对象标识SQL语句</summary>
+        /// <param name="scopeTableName">数据表的名称</param>
+        /// <param name="accountId">用户标识</param>
+        /// <param name="contactType">联系人对象</param>
+        /// <param name="authorityIds">权限标识</param>
+        /// <param name="entityIdDataColumnName">实体类标识的数据列名</param>
+        /// <param name="entityClassNameDataColumnName">实体类名称的数据列名</param>
+        /// <param name="entityClassName">实体类名称</param>
         /// <returns></returns>
         public string GetAuthorizationScopeEntitySQL(string scopeTableName, string accountId, ContactType contactType, string authorityIds, string entityIdDataColumnName, string entityClassNameDataColumnName, string entityClassName)
         {
@@ -488,62 +489,62 @@ namespace X3Platform.Membership.DAL.IBatis
 
             if (string.IsNullOrEmpty(entityIdDataColumnName))
             {
-                outString.AppendFormat("SELECT DISTINCT {0}.[EntityId] FROM {0} INNER JOIN (\r\n", scopeTableName);
+                outString.AppendFormat("SELECT DISTINCT {0}.EntityId FROM {0} INNER JOIN (\r\n", scopeTableName);
             }
             else
             {
-                outString.AppendFormat("SELECT {0}.[{1}] AS [EntityId] FROM {0} INNER JOIN (\r\n", scopeTableName, entityIdDataColumnName);
+                outString.AppendFormat("SELECT {0}.{1} AS EntityId FROM {0} INNER JOIN (\r\n", scopeTableName, entityIdDataColumnName);
             }
 
-            string PrefixAuthorizationScopeEntitySQLTable = this.configuration.Keys["PrefixAuthorizationScopeEntitySQLTable"].Value;
+            string dataTablePrefix = MembershipConfigurationView.Instance.DataTablePrefix;
 
-            // �ʺš���ǰ�ʺš�
+            // 帐号【当前帐号】
             outString.AppendFormat("SELECT N##Account## AS AuthorizationObjectType, ##{0}## AS AuthorizationObjectId\r\n", accountId);
 
-            // �ʺ�ί��
-            outString.AppendFormat("UNION SELECT N##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}[tb_Account_Grant] WHERE GrantedTimeFrom < CURRENT_TIMESTAMP AND GrantedTimeTo > CURRENT_TIMESTAMP AND GrantorId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+            // 帐号委托
+            outString.AppendFormat("UNION SELECT N##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}tb_Account_Grant WHERE GrantedTimeFrom < CURRENT_TIMESTAMP AND GrantedTimeTo > CURRENT_TIMESTAMP AND GrantorId = ##{0}##\r\n", accountId, dataTablePrefix);
 
-            // ��֯
+            // 组织
             if ((contactType & ContactType.Organization) == ContactType.Organization)
             {
-                outString.AppendFormat("UNION SELECT N##Organization## AS AuthorizationObjectType, OrganizationId AS AuthorizationObjectId FROM {1}[tb_Account_Organization] WHERE AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+                outString.AppendFormat("UNION SELECT N##Organization## AS AuthorizationObjectType, OrganizationId AS AuthorizationObjectId FROM {1}tb_Account_Organization WHERE AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
-            // ��ɫ
+            // 角色
             if ((contactType & ContactType.Role) == ContactType.Role)
             {
-                outString.AppendFormat("UNION SELECT N##Role## AS AuthorizationObjectType, RoleId AS AuthorizationObjectId FROM {1}[tb_Account_Role] WHERE AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+                outString.AppendFormat("UNION SELECT N##Role## AS AuthorizationObjectType, RoleId AS AuthorizationObjectId FROM {1}tb_Account_Role WHERE AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
-            // Ⱥ��
+            // 群组
             if ((contactType & ContactType.Group) == ContactType.Group)
             {
-                outString.AppendFormat("UNION SELECT N##Group## AS AuthorizationObjectType, GroupId AS AuthorizationObjectId FROM {1}[tb_Account_Group] WHERE AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+                outString.AppendFormat("UNION SELECT N##Group## AS AuthorizationObjectType, GroupId AS AuthorizationObjectId FROM {1}tb_Account_Group WHERE AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
-            //  ͨ�ý�ɫ
+            //  通用角色
             if ((contactType & ContactType.StandardRole) == ContactType.StandardRole)
             {
-                outString.AppendFormat("UNION SELECT N##GeneralRole## AS AuthorizationObjectType, GeneralRoleId AS AuthorizationObjectId FROM {1}[tb_Account_Role] INNER JOIN {1}[tb_Role] ON [tb_Role].[Id] = [tb_Account_Role].RoleId AND AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+                outString.AppendFormat("UNION SELECT N##GeneralRole## AS AuthorizationObjectType, GeneralRoleId AS AuthorizationObjectId FROM {1}tb_Account_Role INNER JOIN {1}[tb_Role] ON [tb_Role].[Id] = [tb_Account_Role].RoleId AND AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
-            //  ��׼��֯
+            //  标准组织
             if ((contactType & ContactType.StandardOrganization) == ContactType.StandardOrganization)
             {
-                outString.AppendFormat("UNION SELECT N##StandardOrganization## AS AuthorizationObjectType, StandardOrganizationId AS AuthorizationObjectId FROM {1}[tb_StandardRole] INNER JOIN {1}[tb_Role] ON [tb_StandardRole].Id = [tb_Role].StandardRoleId INNER JOIN {1}[tb_Account_Role] ON [tb_Role].Id = [tb_Account_Role].RoleId AND AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+                outString.AppendFormat("UNION SELECT N##StandardOrganization## AS AuthorizationObjectType, StandardOrganizationId AS AuthorizationObjectId FROM {1}tb_StandardRole INNER JOIN {1}[tb_Role] ON [tb_StandardRole].Id = [tb_Role].StandardRoleId INNER JOIN {1}[tb_Account_Role] ON [tb_Role].Id = [tb_Account_Role].RoleId AND AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
-            //  ��׼��ɫ
+            //  标准角色
             if ((contactType & ContactType.StandardRole) == ContactType.StandardRole)
             {
-                outString.AppendFormat("UNION SELECT N##StandardRole## AS AuthorizationObjectType, StandardRoleId AS AuthorizationObjectId FROM {1}[tb_Role] INNER JOIN {1}[tb_Account_Role] ON [tb_Role].[Id] = [tb_Account_Role].[RoleId] AND AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+                outString.AppendFormat("UNION SELECT N##StandardRole## AS AuthorizationObjectType, StandardRoleId AS AuthorizationObjectId FROM {1}tb_Role INNER JOIN {1}tb_Account_Role ON tb_Role.Id = tb_Account_Role.RoleId AND AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
-            // [��ʱ����]����׼��ɫ��
-            // �����ٳ�������ɺ�ȡ���˴���
-            outString.AppendFormat("UNION SELECT N##StandardRole## AS AuthorizationObjectType, StandardRoleId AS AuthorizationObjectId FROM {1}[tb_Role] INNER JOIN {1}[tb_Account_Role] ON [tb_Role].[Id] = [tb_Account_Role].[RoleId] AND AccountId = ##{0}##\r\n", accountId, PrefixAuthorizationScopeEntitySQLTable);
+            // [临时补丁]【标准角色】
+            // 等请假出差开发完成后取消此代码
+            // outString.AppendFormat("UNION SELECT N##StandardRole## AS AuthorizationObjectType, StandardRoleId AS AuthorizationObjectId FROM {1}[tb_Role] INNER JOIN {1}[tb_Account_Role] ON [tb_Role].[Id] = [tb_Account_Role].[RoleId] AND AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
 
-            // �����ˡ�������ɫ��
+            // 所有人【特殊角色】
             outString.Append("UNION SELECT N##Role## AS AuthorizationObjectType, N##00000000-0000-0000-0000-000000000000##\r\n");
 
             outString.AppendFormat(") AS AuthorizationObject ON {0}.AuthorityId IN (##{1}##) ", scopeTableName, authorityIds.Replace(",", "##,##"));

@@ -174,7 +174,19 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(string entityTableName, string prefixCode, string expression)
         {
-            return this.provider.GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
+            string code = string.Empty;
+
+            int count = 0;
+
+            // 有可能生成编号失败，所以 while。
+            while (string.IsNullOrEmpty(code))
+            {
+                code = this.provider.GenerateCodeByPrefixCode(entityTableName, prefixCode, expression);
+
+                if (count++ > 10) { break; }
+            }
+
+            return code;
         }
         #endregion
 
@@ -187,7 +199,19 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByPrefixCode(GenericSqlCommand command, string entityTableName, string prefixCode, string expression)
         {
-            return this.provider.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, expression);
+            string code = string.Empty;
+
+            int count = 0;
+
+            // 有可能生成编号失败，所以 while。
+            while (string.IsNullOrEmpty(code))
+            {
+                code = this.provider.GenerateCodeByPrefixCode(command, entityTableName, prefixCode, expression);
+
+                if (count++ > 10) { break; }
+            }
+
+            return code;
         }
         #endregion
 
@@ -200,7 +224,19 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
-            return this.provider.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, expression);
+            string code = string.Empty;
+
+            int count = 0;
+
+            // 有可能生成编号失败，所以 while。
+            while (string.IsNullOrEmpty(code))
+            {
+                code = this.provider.GenerateCodeByCategoryId(entityTableName, entityCategoryTableName, entityCategoryId, expression);
+
+                if (count++ > 10) { break; }
+            }
+
+            return code;
         }
         #endregion
 
@@ -214,7 +250,19 @@ namespace X3Platform.DigitalNumber.BLL
         /// <returns>数字编码</returns>
         public string GenerateCodeByCategoryId(GenericSqlCommand command, string entityTableName, string entityCategoryTableName, string entityCategoryId, string expression)
         {
-            return this.provider.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, expression);
+            string code = string.Empty;
+
+            int count = 0;
+
+            // 有可能生成编号失败，所以 while。
+            while (string.IsNullOrEmpty(code))
+            {
+                code = this.provider.GenerateCodeByCategoryId(command, entityTableName, entityCategoryTableName, entityCategoryId, expression);
+
+                if (count++ > 10) { break; }
+            }
+
+            return code;
         }
         #endregion
     }

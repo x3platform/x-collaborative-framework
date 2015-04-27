@@ -22,42 +22,43 @@
 	<statements>
 
 		<insert id="proc_Entity_Draft_Insert" parameterClass="EntityDraftInfo">
-			INSERT INTO [tb_Entity_Draft] (
-					[Id],
-					[EntityId],
-					[EntityClassName],
-					[OriginalEntityId],
-					[Date]
-				)
-				VALUES
-				(
-					#Id#,
-					#EntityId#,
-					#EntityClassName#,
-					#OriginalEntityId#,
-					#Date#
-				)
+			INSERT INTO tb_Entity_Draft 
+            (
+				Id,
+				EntityId,
+				EntityClassName,
+				OriginalEntityId,
+				Date
+			)
+			VALUES
+			(
+				#Id#,
+				#EntityId#,
+				#EntityClassName#,
+				#OriginalEntityId#,
+				#Date#
+			)
 		</insert>
 
 		<update id="proc_Entity_Draft_Update" parameterClass="EntityDraftInfo">
-			UPDATE [tb_Entity_Draft] SET
+			UPDATE tb_Entity_Draft SET
 
-					[Id] = #Id#,
-					[EntityId] = #EntityId#,
-					[EntityClassName] = #EntityClassName#,
-					[OriginalEntityId] = #OriginalEntityId#,
-					[Date] = #Date#
+					Id = #Id#,
+					EntityId = #EntityId#,
+					EntityClassName = #EntityClassName#,
+					OriginalEntityId = #OriginalEntityId#,
+					Date = #Date#
 
-				WHERE [Id] = #Id#
+				WHERE Id = #Id#
 		</update>
 
 		<delete id="proc_Entity_Draft_Delete" >
-			DELETE FROM [tb_Entity_Draft] WHERE $WhereClause$
+			DELETE FROM tb_Entity_Draft WHERE $WhereClause$
 		</delete>
 
 		<select id="proc_Entity_Draft_FindOne" resultMap="proc_Entity_Draft_FindOne_Result" >
-			SELECT * FROM [tb_Entity_Draft] T
-				WHERE [Id] = #Id#
+			SELECT * FROM tb_Entity_Draft T
+				WHERE Id = #Id#
 		</select>
 
 		<select id="proc_Entity_Draft_FindAll" resultMap="proc_Entity_Draft_FindAll_Result" >
@@ -69,7 +70,7 @@
 				</isNotEqual>
 			</dynamic>
 
-			* FROM [tb_Entity_Draft] T
+			* FROM tb_Entity_Draft T
 
 			  <dynamic prepend="WHERE">
 				<isParameterPresent>
@@ -85,7 +86,7 @@
 
 		  FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-		  FROM [tb_Entity_Draft] T
+		  FROM tb_Entity_Draft T
 
 		  <dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -101,7 +102,7 @@
 
 		<select id="proc_Entity_Draft_GetRowCount" >
 
-		  SELECT COUNT(*) AS 'RowCount' FROM [tb_Entity_Draft] T
+		  SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_Draft T
 
 		  <dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -113,7 +114,7 @@
 		</select>
 
 		<select id="proc_Entity_Draft_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM [tb_Entity_Draft] T WHERE $WhereClause$
+			SELECT COUNT(0) AS 'Count' FROM tb_Entity_Draft T WHERE $WhereClause$
 		</select>
 
 	</statements>

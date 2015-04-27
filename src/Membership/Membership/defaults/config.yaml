@@ -6,8 +6,8 @@ keys:
   IBatisMapping: embedded:X3Platform.Membership.defaults.IBatis.SqlMap.xml
   # API主机名
   ApiHostName: "${HostName}"
-  # 授权范围数据表的前缀：当多库时需要配置 `sys_config`. | `sys_hris`.
-  PrefixAuthorizationScopeEntitySQLTable: "`sys_hris`."
+  # 数据表前缀
+  DataTablePrefix: Empty 
   # 单点登录 : 可选的值 1.On 2.Off(默认)
   SingleSignOn: Off
   # 密码加密方式 : 可选的值 1.None(默认) 2.SHA1(不可逆加密) 3.AES(可逆加密)

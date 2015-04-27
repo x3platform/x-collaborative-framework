@@ -19,9 +19,6 @@ namespace X3Platform.Entities.DAL.IBatis
     [DataObject]
     public class EntityClickProvider : IEntityClickProvider
     {
-        /// <summary>配置</summary>
-        private EntitiesConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -35,11 +32,9 @@ namespace X3Platform.Entities.DAL.IBatis
         /// <summary>构造函数</summary>
         public EntityClickProvider()
         {
-            this.configuration = EntitiesConfigurationView.Instance.Configuration;
+            this.ibatisMapping = EntitiesConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
-            this.ibatisMapping = configuration.Keys["IBatisMapping"].Value;
-
-            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping);
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }
         #endregion
 
@@ -137,7 +132,7 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("AccountId", StringHelper.ToSafeSQL(param.AccountId));
             args.Add("Click", param.Click);
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), args);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), args);
         }
         #endregion
 
@@ -164,7 +159,7 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("AccountId", StringHelper.ToSafeSQL(param.AccountId));
             args.Add("Click", param.Click);
 
-            ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), args);
         }
         #endregion
 
@@ -234,7 +229,7 @@ namespace X3Platform.Entities.DAL.IBatis
         public IList<IEntityClickInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName, DataResultMapper mapper)
         {
             string whereClause = string.Format(" {0} = ##{1}## AND {2} = ##{3}## ORDER BY {4} DESC ", mapper["EntityId"].DataColumnName, entityId, mapper["EntityClassName"].DataColumnName, entityClassName, mapper["UpdateDate"].DataColumnName);
-            
+
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("CustomTableName", StringHelper.ToSafeSQL(customTableName));
@@ -242,7 +237,7 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", 0);
 
-            return ibatisMapper.QueryForList<IEntityClickInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            return this.ibatisMapper.QueryForList<IEntityClickInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -283,7 +278,7 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("CustomTableName", StringHelper.ToSafeSQL(customTableName));
             args.Add("WhereClause", string.Format(" EntityId = '{0}' AND EntityClassName = '{1}' AND AccountId = '{2}' ", StringHelper.ToSafeSQL(entityId), StringHelper.ToSafeSQL(entityClassName), StringHelper.ToSafeSQL(accountId)));
 
-            isExist = ((int)ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
+            isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
 
             return isExist;
         }
@@ -337,7 +332,7 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("EntityClassName", StringHelper.ToSafeSQL(entityClassName));
             args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
 
-            ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Increment", tableName)), args);
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Increment", tableName)), args);
 
             return 0;
         }
