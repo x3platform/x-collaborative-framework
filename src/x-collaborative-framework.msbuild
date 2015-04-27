@@ -18,7 +18,7 @@
         <ProjectToBuild Include="Sessions\Sessions\Sessions.csproj" />
         <ProjectToBuild Include="Membership\Membership\Membership.csproj" />
         <ProjectToBuild Include="Connect\Connect\Connect.csproj" />
-        <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" />
+        <!-- <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" /> -->
         <ProjectToBuild Include="Apps\Apps\Apps.csproj" />
         <ProjectToBuild Include="Entities\Entities\Entities.csproj" />
         <ProjectToBuild Include="AttachmentStorage\AttachmentStorage\AttachmentStorage.csproj" />

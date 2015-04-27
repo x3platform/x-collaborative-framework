@@ -119,5 +119,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.example.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(ProjectDir)App.config" copy "$(ProjectDir)App.example.config" "$(ProjectDir)App.config" /y
+copy "$(ProjectDir)App.config" "$(TargetDir)$(TargetFileName).config" /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
