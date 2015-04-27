@@ -1,11 +1,18 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
+        <!-- Configuration = Debug
         <ProjectToBuild Include="Kernel\Support\Support.csproj">
-            <Properties>Configuration=Release</Properties>
+            <Properties>Configuration=Debug</Properties>
         </ProjectToBuild>
+        -->
+        <ProjectToBuild Include="Kernel\Support\Support.csproj" />
         <ProjectToBuild Include="Kernel\Abstractions\Abstractions.csproj" />
+        <ProjectToBuild Include="Velocity\Velocity\Velocity.csproj" />
+        <ProjectToBuild Include="Services\Services\Services.csproj" />
+        <ProjectToBuild Include="Services\Services.Host\Services.Host.csproj" />
+        <ProjectToBuild Include="Storages\Storages\Storages.csproj" />
     </ItemGroup>
     <Target Name="Build">
-        <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Debug" />
+        <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release" />
     </Target>
 </Project>
