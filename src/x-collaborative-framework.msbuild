@@ -9,8 +9,23 @@
         <ProjectToBuild Include="Kernel\Abstractions\Abstractions.csproj" />
         <ProjectToBuild Include="Velocity\Velocity\Velocity.csproj" />
         <ProjectToBuild Include="Services\Services\Services.csproj" />
-        <ProjectToBuild Include="Services\Services.Host\Services.Host.csproj" />
+        <!-- <ProjectToBuild Include="Services\Services.Host\Services.Host.csproj" /> -->
         <ProjectToBuild Include="Storages\Storages\Storages.csproj" />
+        <ProjectToBuild Include="ActiveDirectory\ActiveDirectory\ActiveDirectory.csproj" />
+        <ProjectToBuild Include="Email\Email.Client\Email.Client.csproj" />
+        <ProjectToBuild Include="Drawing\Drawing.Captcha\Drawing.Captcha.csproj" />
+        <ProjectToBuild Include="Location\Location.IPQuery\Location.IPQuery.csproj" />
+        <ProjectToBuild Include="Sessions\Sessions\Sessions.csproj" />
+        <ProjectToBuild Include="Membership\Membership\Membership.csproj" />
+        <ProjectToBuild Include="Connect\Connect\Connect.csproj" />
+        <ProjectToBuild Include="Apps\Apps\Apps.csproj" />
+        <ProjectToBuild Include="Entities\Entities\Entities.csproj" />
+        <ProjectToBuild Include="AttachmentStorage\AttachmentStorage\AttachmentStorage.csproj" />
+        <ProjectToBuild Include="Navigation\Navigation\Navigation.csproj" />
+        <ProjectToBuild Include="Web\Web\Web.csproj" />
+        <ProjectToBuild Include="Web\Web.APIs\Web.APIs.csproj" />
+        <ProjectToBuild Include="Web\Web.Mixed\Web.Mixed.csproj" />
+        <ProjectToBuild Include="Tasks\Tasks\Tasks.csproj" />
     </ItemGroup>
     <Target Name="Build">
         <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release" />
