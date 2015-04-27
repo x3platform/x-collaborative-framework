@@ -1,5 +1,6 @@
 ﻿namespace X3Platform.Entities.DAL.IBatis
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -11,14 +12,11 @@
     using X3Platform.Entities.Configuration;
     using X3Platform.Entities.IDAL;
     using X3Platform.Entities.Model;
+    #endregion
 
     /// <summary></summary>
-    [DataObject]
     public class EntityOperationLogProvider : IEntityOperationLogProvider
     {
-        /// <summary>配置</summary>
-        private EntitiesConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -32,9 +30,7 @@
         /// <summary>构造函数</summary>
         public EntityOperationLogProvider()
         {
-            this.configuration = EntitiesConfigurationView.Instance.Configuration;
-
-            this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = EntitiesConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping);
         }

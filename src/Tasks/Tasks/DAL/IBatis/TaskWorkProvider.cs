@@ -409,7 +409,7 @@
 
             Dictionary<string, object> args2 = new Dictionary<string, object>();
 
-            args2.Add("WhereClause", " Id NOT IN ( SELECT TaskId FROM tb_Task_Receiver ) ");
+            args2.Add("WhereClause", " Id NOT IN ( SELECT Id FROM tb_Task_WorkItem ) ");
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args2);
         }
@@ -423,13 +423,13 @@
             // DELETE FROM tb_Task WHERE CreateDate < DATEADD(month, 3,(SELECT  MIN(CreateDate) FROM tb_Task))
             Dictionary<string, object> args1 = new Dictionary<string, object>();
 
-            args1.Add("WhereClause", string.Format(" EXISTS ( SELECT Id FROM tb_Task_HistoryItem WHERE tb_Task_HistoryItem.Id = tb_Task_Receiver.TaskId AND tb_Task_HistoryItem.ReceiverId = tb_Task_Receiver.ReceiverId AND CreateDate < '{0}' ) ", expireDate));
+            args1.Add("WhereClause", string.Format(" EXISTS ( SELECT Id FROM tb_Task_HistoryItem WHERE tb_Task_HistoryItem.Id = tb_Task_WorkItem.Id AND tb_Task_HistoryItem.ReceiverId = tb_Task_WorkItem.ReceiverId AND CreateDate < '{0}' ) ", expireDate));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Receiver_Delete", this.tableName)), args1);
 
             Dictionary<string, object> args2 = new Dictionary<string, object>();
 
-            args2.Add("WhereClause", " Id NOT IN ( SELECT TaskId FROM tb_Task_Receiver ) ");
+            args2.Add("WhereClause", " Id NOT IN ( SELECT Id FROM tb_Task_WorkItem ) ");
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args2);
         }

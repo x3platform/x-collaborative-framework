@@ -1,16 +1,18 @@
 ﻿namespace X3Platform.Entities.DAL.IBatis
 {
+    #region Using Libraries
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-
+    using System.Data;
+    
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Util;
 
     using X3Platform.Entities.Configuration;
     using X3Platform.Entities.IDAL;
     using X3Platform.Entities.Model;
-    using System.Data;
+    #endregion
 
     /// <summary></summary>
     [DataObject]

@@ -31,7 +31,6 @@ using System.Data;
 using System.Globalization;
 
 using X3Platform.IBatis.DataMapper.Configuration.ResultMapping;
-using System.Data.SqlClient;
 #endregion
 
 namespace X3Platform.IBatis.DataMapper.TypeHandlers.Customize
@@ -49,12 +48,18 @@ namespace X3Platform.IBatis.DataMapper.TypeHandlers.Customize
         {
             if (parameter == null)
             {
-                setter.Value =string.Empty;
+                setter.Value = string.Empty;
             }
             else
             {
                 // 设置parameter的其它属性,本例为size.
-                ((SqlParameter)setter.DataParameter).Size = int.MaxValue;
+
+                if (setter.DataParameter is System.Data.SqlClient.SqlParameter)
+                {
+                    // SQL Server
+                    ((System.Data.SqlClient.SqlParameter)setter.DataParameter).Size = int.MaxValue;
+                }
+
                 setter.Value = parameter;
             }
         }

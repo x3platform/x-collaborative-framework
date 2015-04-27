@@ -132,7 +132,6 @@
 				</isParameterPresent>
 			  </dynamic>
 		</select>
-
 		<select id="proc_Application_Error_GetPaging#MySql" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT * FROM tb_Application_Error T
 
@@ -148,7 +147,6 @@
             
             LIMIT $StartIndex$, $PageSize$
 		</select>
-
 		<select id="proc_Application_Error_GetPaging#SqlServer" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT *
 
@@ -166,7 +164,6 @@
 
 			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
 		</select>
-
         <!-- SQL Server 2000 -->
 		<select id="proc_Application_Error_GetPaging#SqlServer80" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT TOP $PageSize$ *
@@ -192,7 +189,6 @@
 			</dynamic>
 			ORDER BY $OrderBy$
 		</select>
-
         <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
 		<select id="proc_Application_Error_GetPages(SQLServer2008)" resultMap="proc_Application_Error_FindAll_Result" >
 			SELECT *
@@ -211,7 +207,6 @@
 
 			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
 		</select>
-
 		<select id="proc_Application_Error_GetRowCount" >
 			SELECT COUNT(0) AS 'RowCount' FROM tb_Application_Error T
 
@@ -223,7 +218,6 @@
 			</isParameterPresent>
 			</dynamic>
 		</select>
-
 		<select id="proc_Application_Error_IsExist" >
 			SELECT COUNT(0) AS 'Count' FROM tb_Application_Error T WHERE $WhereClause$
 		</select>

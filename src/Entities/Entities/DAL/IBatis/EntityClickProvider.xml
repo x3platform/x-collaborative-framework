@@ -24,17 +24,38 @@
         </resultMap>
     </resultMaps>
     <statements>
-
-        <insert id="proc_Entity_Click_Insert" >
+        <insert id="proc_Entity_Click_Insert#MySql" >
             INSERT INTO $CustomTableName$ 
             (
-                [Id],
-                [EntityId],
-                [EntityClassName],
-                [AccountId],
-                [Click],
-                [UpdateDate],
-                [CreateDate]
+                Id,
+                EntityId,
+                EntityClassName,
+                AccountId,
+                Click,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                (REPLACE(LOWER(UUID()),'-','')),
+                '$EntityId$',
+                '$EntityClassName$',
+                '$AccountId$',
+                $Click$,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+        <insert id="proc_Entity_Click_Insert#SqlServer" >
+            INSERT INTO $CustomTableName$ 
+            (
+                Id,
+                EntityId,
+                EntityClassName,
+                AccountId,
+                Click,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
@@ -47,21 +68,18 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-
         <update id="proc_Entity_Click_Update" >
             UPDATE $CustomTableName$ SET
 
-                [Click] = $Click$,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                Click = $Click$,
+                UpdateDate = CURRENT_TIMESTAMP
 
             WHERE
-                [EntityId] = '$EntityId$' AND [EntityClassName] = '$EntityClassName$' AND [AccountId] = '$AccountId$'
+                EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AccountId = '$AccountId$'
         </update>
-
         <delete id="proc_Entity_Click_Delete" >
             DELETE FROM $CustomTableName$ WHERE $WhereClause$
         </delete>
-
         <select id="proc_Entity_Click_FindAll" resultMap="proc_Entity_Click_FindAll_Result" >
             SELECT
 
@@ -92,38 +110,23 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Entity_Click_IsExist" >
             SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ WHERE $WhereClause$
         </select>
-
-        <insert id="proc_Entity_Click_Increment" >
-            IF EXISTS ( SELECT 0 FROM $CustomTableName$ WHERE [EntityId] = '$EntityId$' AND [EntityClassName] = '$EntityClassName$' AND [AccountId] = '$AccountId$' )
-            BEGIN
-            UPDATE $CustomTableName$ SET
-
-                [Click] = ([Click] + 1),
-                [UpdateDate] = CURRENT_TIMESTAMP
-
-            WHERE
-                [EntityId] = '$EntityId$' AND [EntityClassName] = '$EntityClassName$' AND [AccountId] = '$AccountId$'
-
-            END
-            ELSE
-            BEGIN
-
-            INSERT INTO $CustomTableName$ (
-                [Id],
-                [EntityId],
-                [EntityClassName],
-                [AccountId],
-                [Click],
-                [UpdateDate],
-                [CreateDate]
+        <insert id="proc_Entity_Click_Increment#MySql" >
+            INSERT INTO $CustomTableName$ 
+            (
+                Id,
+                EntityId,
+                EntityClassName,
+                AccountId,
+                Click,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
-                (REPLACE(LOWER(NEWID()),'-','')),
+                (REPLACE(LOWER(UUID()),'-','')),
                 '$EntityId$',
                 '$EntityClassName$',
                 '$AccountId$',
@@ -131,12 +134,46 @@
                 CURRENT_TIMESTAMP,
                 CURRENT_TIMESTAMP
             )
+            ON DUPLICATE KEY
+            UPDATE Click = (Click + 1), UpdateDate = CURRENT_TIMESTAMP
+        </insert>
+        <insert id="proc_Entity_Click_Increment#SqlServer" >
+            IF EXISTS ( SELECT 0 FROM $CustomTableName$ WHERE EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AccountId = '$AccountId$' )
+            BEGIN
+                UPDATE $CustomTableName$ SET
+
+                    Click = (Click + 1),
+                    UpdateDate = CURRENT_TIMESTAMP
+
+                WHERE
+                    EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AccountId = '$AccountId$'
 
             END
+            ELSE
+            BEGIN
+                INSERT INTO $CustomTableName$ (
+                    Id,
+                    EntityId,
+                    EntityClassName,
+                    AccountId,
+                    Click,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES
+                (
+                    (REPLACE(LOWER(NEWID()),'-','')),
+                    '$EntityId$',
+                    '$EntityClassName$',
+                    '$AccountId$',
+                    1,
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
+                )
+            END
         </insert>
-        
         <select id="proc_Entity_Click_CalculateClickCount" >
-            SELECT SUM(Click) AS 'Count' FROM $CustomTableName$ WHERE [EntityId] = '$EntityId$' AND [EntityClassName] = '$EntityClassName$'
+            SELECT SUM(Click) AS 'Count' FROM $CustomTableName$ WHERE EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$'
         </select>
     </statements>
 </sqlMap>

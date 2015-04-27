@@ -27,20 +27,45 @@
             <result property="CreateDate" column="CreateDate" />
         </resultMap>
     </resultMaps>
-    <statements>
-
-        <insert id="proc_Entity_OperationLog_Save" >
+    <statements>        
+        <insert id="proc_Entity_OperationLog_Save#MySql" >
             INSERT INTO $CustomTableName$ 
             (
-                [Id],
-                [EntityId],
-                [EntityClassName],
-                [AccountId],
-                [OperationType],
-                [ToAuthorizationObjectId],
-                [ToAuthorizationObjectType],
-                [Reason],
-                [CreateDate]
+                Id,
+                EntityId,
+                EntityClassName,
+                AccountId,
+                OperationType,
+                ToAuthorizationObjectId,
+                ToAuthorizationObjectType,
+                Reason,
+                CreateDate
+            )
+            VALUES
+            (
+                (REPLACE(LOWER(UUID()),'-','')),
+                #EntityId#,
+                #EntityClassName#,
+                #AccountId#,
+                #OperationType#,
+                #ToAuthorizationObjectId#,
+                #ToAuthorizationObjectType#,
+                #Reason#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+        <insert id="proc_Entity_OperationLog_Save#SqlServer" >
+            INSERT INTO $CustomTableName$ 
+            (
+                Id,
+                EntityId,
+                EntityClassName,
+                AccountId,
+                OperationType,
+                ToAuthorizationObjectId,
+                ToAuthorizationObjectType,
+                Reason,
+                CreateDate
             )
             VALUES
             (
@@ -55,12 +80,27 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-        
         <delete id="proc_Entity_OperationLog_Delete" >
             DELETE FROM $CustomTableName$ WHERE $WhereClause$
         </delete>
+        <select id="proc_Entity_OperationLog_FindAll#MySql" resultMap="proc_Entity_OperationLog_FindAll_Result" >
+            SELECT * FROM $CustomTableName$ T
 
-        <select id="proc_Entity_OperationLog_FindAll" resultMap="proc_Entity_OperationLog_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Entity_OperationLog_FindAll#SqlServer" resultMap="proc_Entity_OperationLog_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -79,42 +119,8 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
-        <select id="proc_Entity_OperationLog_GetPages" resultMap="proc_Entity_OperationLog_FindAll_Result" >
-            SELECT *
-
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-            FROM $CustomTableName$ T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
-
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
-        </select>
-
-        <select id="proc_Entity_OperationLog_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM $CustomTableName$ T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-
         <select id="proc_Entity_OperationLog_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ WHERE $WhereClause$
         </select>
-
     </statements>
 </sqlMap>

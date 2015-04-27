@@ -39,7 +39,8 @@
     </resultMaps>
     <statements>
         <insert id="proc_Account_Grant_Insert" parameterClass="AccountGrantInfo">
-            INSERT INTO tb_Account_Grant (
+            INSERT INTO tb_Account_Grant 
+            (
                 Id,
                 Code,
                 GrantorId,
@@ -99,7 +100,7 @@
             SELECT * FROM tb_Account_Grant WHERE Id = #Id#
         </select>
         <select id="proc_Account_Grant_FindAll#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
-            SELECT * FROM tb_Organization T
+            SELECT * FROM tb_Account_Grant T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>

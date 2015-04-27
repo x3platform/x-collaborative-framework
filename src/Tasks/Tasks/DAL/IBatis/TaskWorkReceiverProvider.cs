@@ -441,9 +441,9 @@
 
             for (int i = 0; i < table.Rows.Count; i++)
             {
-                if (dictionary.ContainsKey((int)table.Rows[i][0]))
+                if (dictionary.ContainsKey(Convert.ToInt32(table.Rows[i][0])))
                 {
-                    dictionary[(int)table.Rows[i][0]] = (int)table.Rows[i][1];
+                    dictionary[Convert.ToInt32(table.Rows[i][0])] = Convert.ToInt32(table.Rows[i][1]);
                 }
             }
 

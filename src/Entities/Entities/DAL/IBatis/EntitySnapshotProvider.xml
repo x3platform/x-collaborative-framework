@@ -22,13 +22,13 @@
     <statements>
 
         <insert id="proc_Entity_Snapshot_Insert" parameterClass="EntitySnapshotInfo">
-            INSERT INTO [tb_Entity_Snapshot] 
+            INSERT INTO tb_Entity_Snapshot 
             (
-                [Id],
-                [EntityId],
-                [EntityClassName],
-                [SnapshotObject],
-                [Date]
+                Id,
+                EntityId,
+                EntityClassName,
+                SnapshotObject,
+                Date
             )
             VALUES
             (
@@ -41,22 +41,22 @@
         </insert>
 
         <update id="proc_Entity_Snapshot_Update" parameterClass="EntitySnapshotInfo">
-            UPDATE [tb_Entity_Snapshot] SET
+            UPDATE tb_Entity_Snapshot SET
 
-                [EntityId] = #EntityId#,
-                [EntityClassName] = #EntityClassName#,
-                [SnapshotObject] = #SnapshotObject#,
-                [Date] = CURRENT_TIMESTAMP
+                EntityId = #EntityId#,
+                EntityClassName = #EntityClassName#,
+                SnapshotObject = #SnapshotObject#,
+                Date = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
+            WHERE Id = #Id#
         </update>
 
         <delete id="proc_Entity_Snapshot_Delete" >
-            DELETE FROM [tb_Entity_Snapshot] WHERE $WhereClause$
+            DELETE FROM tb_Entity_Snapshot WHERE $WhereClause$
         </delete>
 
         <select id="proc_Entity_Snapshot_FindOne" resultMap="proc_Entity_Snapshot_FindOne_Result" >
-            SELECT * FROM [tb_Entity_Snapshot] T WHERE [Id] = #Id#
+            SELECT * FROM tb_Entity_Snapshot T WHERE Id = #Id#
         </select>
 
         <select id="proc_Entity_Snapshot_FindAll" resultMap="proc_Entity_Snapshot_FindAll_Result" >
@@ -68,7 +68,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Entity_Snapshot] T
+            * FROM tb_Entity_Snapshot T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -84,7 +84,7 @@
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Entity_Snapshot] T
+            FROM tb_Entity_Snapshot T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -98,7 +98,7 @@
         </select>
 
         <select id="proc_Entity_Snapshot_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Entity_Snapshot] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_Snapshot T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -110,7 +110,7 @@
         </select>
 
         <select id="proc_Entity_Snapshot_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Entity_Snapshot] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Entity_Snapshot T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

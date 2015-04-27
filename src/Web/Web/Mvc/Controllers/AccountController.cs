@@ -21,7 +21,7 @@ namespace X3Platform.Web.Mvc.Controllers
         [LoginFilter]
         public ActionResult Index()
         {
-            return View("/views/" + LocateFolder("main") + "/account/default.cshtml");
+            return View("~/views/" + LocateFolder("main") + "/account/default.cshtml");
         }
         #endregion
 
@@ -31,7 +31,7 @@ namespace X3Platform.Web.Mvc.Controllers
         [LoginFilter]
         public ActionResult Settings()
         {
-            return View("/views/" + LocateFolder("main") + "/account/settings.cshtml");
+            return View("~/views/" + LocateFolder("main") + "/account/settings.cshtml");
         }
         #endregion
 
@@ -39,7 +39,7 @@ namespace X3Platform.Web.Mvc.Controllers
         /// <summary>注册</summary>
         public ActionResult SignUp()
         {
-            return View("/views/" + LocateFolder("main") + "/account/sign-up.cshtml");
+            return View("~/views/" + LocateFolder("main") + "/account/sign-up.cshtml");
         }
         #endregion
 
@@ -47,7 +47,7 @@ namespace X3Platform.Web.Mvc.Controllers
         /// <summary>登录</summary>
         public ActionResult SignIn()
         {
-            return View("/views/" + LocateFolder("main") + "/account/sign-in.cshtml");
+            return View("~/views/" + LocateFolder("main") + "/account/sign-in.cshtml");
         }
         #endregion
 
@@ -85,7 +85,7 @@ namespace X3Platform.Web.Mvc.Controllers
             // 记录帐号操作日志
             MembershipManagement.Instance.AccountLogService.Log(account.Id, "退出", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", account.Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), IPQueryContext.GetClientIP()));
 
-            return View("/views/" + LocateFolder("main") + "/account/sign-out.cshtml");
+            return View("~/views/" + LocateFolder("main") + "/account/sign-out.cshtml");
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace X3Platform.Web.Mvc.Controllers
         /// <summary>忘记密码</summary>
         public ActionResult ForgotPassword()
         {
-            return View("/views/main/account/forgot-password.cshtml");
+            return View("~/views/main/account/forgot-password.cshtml");
         }
         #endregion
     }
