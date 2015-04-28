@@ -51,16 +51,6 @@ namespace X3Platform.Connect
         }
         #endregion
 
-        #region 属性:Configuration
-        private ConnectConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public ConnectConfiguration Configuration
-        {
-            get { return configuration; }
-        }
-        #endregion
-
         #region 属性:ConnectService
         private IConnectService m_ConnectService = null;
 
@@ -145,10 +135,8 @@ namespace X3Platform.Connect
                 ConnectConfigurationView.Instance.Reload();
             }
 
-            this.configuration = ConnectConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = ConnectConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 
