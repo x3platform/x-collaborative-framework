@@ -48,7 +48,7 @@ namespace X3Platform.Data.ConnectionPlugins
                         ";database=", Database,
                         ";uid=", LoginName,
                         ";pwd=", Password,
-                        ";connection reset=false;connection lifetime=10;min pool size=1;max pool size=100");
+                        ";pooling=true;connection reset=false;connection lifetime=10;min pool size=1;max pool size=100;connection timeout=30;");
                 }
                 else if (Provider == "SqlServer")
                 {
