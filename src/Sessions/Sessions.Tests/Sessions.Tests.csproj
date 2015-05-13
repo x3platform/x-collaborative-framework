@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CF3C9D6E-78F6-434F-80F9-9E324A2975C6}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>X3Platform.Sessions.TestSuite</RootNamespace>
-    <AssemblyName>X3Platform.Sessions.TestSuite</AssemblyName>
+    <RootNamespace>X3Platform.Sessions.Tests</RootNamespace>
+    <AssemblyName>X3Platform.Sessions.Tests</AssemblyName>
     <WarningLevel>4</WarningLevel>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <FileUpgradeFlags>
@@ -86,13 +86,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\SessionsConfigurationViewTests.cs" />
-    <Compile Include="IBLL\IStorageNodeServiceTestSuite.cs" />
+    <Compile Include="IBLL\IStorageNodeServiceTests.cs" />
     <Compile Include="SessionContextTests.cs" />
-    <Compile Include="Sessions\IAccountCacheServiceTestSuite.cs" />
+    <Compile Include="Sessions\IAccountCacheServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.example.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -122,4 +122,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(ProjectDir)App.config" copy "$(ProjectDir)App.example.config" "$(ProjectDir)App.config" /y
+copy "$(ProjectDir)App.config" "$(TargetDir)$(TargetFileName).config" /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
