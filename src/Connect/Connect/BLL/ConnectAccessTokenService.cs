@@ -14,21 +14,16 @@ namespace X3Platform.Connect.BLL
     using X3Platform.Connect.IBLL;
     using X3Platform.Connect.IDAL;
     using X3Platform.Connect.Model;
-    using X3Platform.Location.IPQuery;
     #endregion
 
     public sealed class ConnectAccessTokenService : IConnectAccessTokenService
     {
-        private ConnectConfiguration configuration = null;
-
         private IConnectAccessTokenProvider provider = null;
 
         public ConnectAccessTokenService()
         {
-            this.configuration = ConnectConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = ConnectConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 

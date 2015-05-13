@@ -8,7 +8,6 @@ namespace X3Platform.Connect.DAL.IBatis
     using X3Platform.Data;
     using X3Platform.DigitalNumber;
     using X3Platform.IBatis.DataMapper;
-    using X3Platform.Membership.Scope;
     using X3Platform.Util;
 
     using X3Platform.Connect.Configuration;

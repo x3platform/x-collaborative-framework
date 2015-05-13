@@ -45,9 +45,9 @@
         IDictionary<string, IAccountInfo> GetSessions();
         #endregion
 
-        #region 方法:AddSession(string sessionId, IAccountInfo account)
+        #region 方法:AddSession(string appKey, string sessionId, IAccountInfo account)
         /// <summary>新增会话</summary>
-        void AddSession(string sessionId, IAccountInfo account);
+        void AddSession(string appKey, string sessionId, IAccountInfo account);
         #endregion
 
         #region 方法:RemoveSession(string sessionId)

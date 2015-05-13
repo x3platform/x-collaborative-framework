@@ -18,5 +18,13 @@ namespace X3Platform.Sessions
         /// <returns></returns>
         AccountCacheInfo Serialize(string accountIdentity, IAccountInfo account);
         #endregion
+
+        #region 方法:Serialize(string appKey, string accountIdentity, IAccountInfo account)
+        /// <summary>序列化缓存信息信息</summary>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <param name="account">帐号信息</param>
+        /// <returns></returns>
+        AccountCacheInfo Serialize(string appKey, string accountIdentity, IAccountInfo account);
+        #endregion
     }
 }

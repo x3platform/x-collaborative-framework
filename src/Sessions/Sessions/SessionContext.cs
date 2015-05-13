@@ -3,7 +3,7 @@ namespace X3Platform.Sessions
     #region Using Libraries
     using System;
     using System.Timers;
-    
+
     using X3Platform.Membership;
     using X3Platform.Plugins;
     using X3Platform.Spring;
@@ -124,7 +124,7 @@ namespace X3Platform.Sessions
 
             timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
             {
-                
+
                 // SessionContext.Instance.AccountCacheService.Clear(DateTime.Now.AddHours(-SessionsConfigurationView.Instance.SessionTimeLimit));
             };
 
@@ -171,7 +171,18 @@ namespace X3Platform.Sessions
         /// <param name="account">帐号信息</param>
         public void Write(IAccountStorageStrategy strategy, string accountIdentity, IAccountInfo account)
         {
-            this.m_AccountCacheService.Write(strategy, accountIdentity, account);
+            this.m_AccountCacheService.Write(strategy, string.Empty, accountIdentity, account);
+        }
+        #endregion
+
+        #region 函数:Write(IAccountStorageStrategy strategy, string accountIdentity, IAccountInfo account)
+        /// <summary>写入帐号缓存信息</summary>
+        /// <param name="strategy">存储策略</param>
+        /// <param name="accountIdentity">帐号会话唯一标识</param>
+        /// <param name="account">帐号信息</param>
+        public void Write(IAccountStorageStrategy strategy, string appKey, string accountIdentity, IAccountInfo account)
+        {
+            this.m_AccountCacheService.Write(strategy, appKey, accountIdentity, account);
         }
         #endregion
     }

@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.DAL.IBatis
+﻿namespace X3Platform.Membership.DAL.IBatis
 {
     using System;
     using System.Collections.Generic;
@@ -315,11 +301,12 @@ Id IN (
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
-
+            
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
+            
             IList<IOrganizationInfo> list = this.ibatisMapper.QueryForList<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));

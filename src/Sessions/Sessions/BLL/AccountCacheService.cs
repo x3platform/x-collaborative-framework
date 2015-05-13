@@ -115,19 +115,19 @@ namespace X3Platform.Sessions.BLL
             return this.FindByAccountCacheValue(accountCacheValue);
         }
 
-        #region 函数:Write(IAccountStorageStrategy strategy, string accountIdentity, IAccountInfo account)
+        #region 函数:Write(IAccountStorageStrategy strategy, string appKey, string accountIdentity, IAccountInfo account)
         ///<summary>写入信息</summary>
         ///<param name="strategy">策略</param>
         /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <param name="account">帐号信息</param>
         ///<returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
-        public void Write(IAccountStorageStrategy strategy, string accountIdentity, IAccountInfo account)
+        public void Write(IAccountStorageStrategy strategy, string appKey, string accountIdentity, IAccountInfo account)
         {
             // 过滤空值
             if (string.IsNullOrEmpty(accountIdentity)) { return; }
 
             AccountCacheInfo param = strategy.Serialize(accountIdentity, account);
-
+            
             param.UpdateDate = DateTime.Now;
 
             // 更新字典信息

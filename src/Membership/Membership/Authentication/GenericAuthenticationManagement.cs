@@ -73,6 +73,12 @@
             }
         }
 
+        /// <summary></summary>
+        public virtual string GetAccessToken()
+        {
+            return (HttpContext.Current.Request["accessToken"] == null) ? string.Empty : HttpContext.Current.Request["accessToken"];
+        }
+
         /// <summary>获取认证的用户信息</summary>
         public abstract IAccountInfo GetAuthUser();
 
@@ -107,6 +113,14 @@
         /// <summary>新增会话</summary>
         public void AddSession(string sessionId, IAccountInfo account)
         {
+            AddSession(string.Empty, sessionId, account);
+        }
+        #endregion
+
+        #region 方法:AddSession(string appKey, string sessionId, IAccountInfo account)
+        /// <summary>新增会话</summary>
+        public void AddSession(string appKey, string sessionId, IAccountInfo account)
+        {
             if (account == null)
             {
                 this.cacheStorage.Remove(sessionId);
@@ -120,7 +134,7 @@
 
                 if (SessionsConfigurationView.Instance.SessionPersistentMode == "ON")
                 {
-                    SessionContext.Instance.Write(this.strategy, sessionId, account);
+                    SessionContext.Instance.Write(this.strategy, appKey, sessionId, account);
                 }
             }
         }
@@ -138,7 +152,7 @@
             }
         }
         #endregion
-
+        
         #region 方法:GetSessionAccount(string sessionId)
         /// <summary>获取会话帐号信息</summary>
         public IAccountInfo GetSessionAccount(string sessionId)

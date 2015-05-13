@@ -33,14 +33,25 @@
         protected abstract IAccountInfo DeserializeObject(AccountCacheInfo accountCache);
         #endregion
 
-        #region 方法:Serialize()
+        #region 方法:Serialize(string sessionId, IAccountInfo account)
         /// <summary>序列化缓存信息</summary>
         /// <returns></returns>
         public virtual AccountCacheInfo Serialize(string sessionId, IAccountInfo account)
         {
+            return Serialize(string.Empty, sessionId, account);
+        }
+        #endregion
+
+        #region 方法:Serialize(string appKey, string sessionId, IAccountInfo account)
+        /// <summary>序列化缓存信息</summary>
+        /// <returns></returns>
+        public virtual AccountCacheInfo Serialize(string appKey, string sessionId, IAccountInfo account)
+        {
             AccountCacheInfo accountCache = new AccountCacheInfo();
 
             accountCache.AccountIdentity = sessionId;
+
+            accountCache.AppKey = appKey;
 
             accountCache.AccountCacheValue = account.LoginName;
 

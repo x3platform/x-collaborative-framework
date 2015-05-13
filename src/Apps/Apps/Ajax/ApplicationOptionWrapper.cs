@@ -104,11 +104,11 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:Query(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        public string Query(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -135,7 +135,6 @@
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExistName")]
         public string IsExistName(XmlDocument doc)
         {
             string name = XmlHelper.Fetch("name", doc);
@@ -150,7 +149,6 @@
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();

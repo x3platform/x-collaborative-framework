@@ -62,21 +62,14 @@ namespace X3Platform.Sessions.IBLL
         AccountCacheInfo ReadWithAccountCacheValue(string accountCacheValue);
         #endregion
 
-        //#region 函数:ReadWithAccountCacheValue(string accountCacheValue, string ip)
-        ///// <summary>查找缓存记录</summary>
-        ///// <param name="accountCacheValue">缓存的值</param>
-        ///// <param name="ip">访问者IP</param>
-        ///// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
-        //AccountCacheInfo ReadWithAccountCacheValue(string accountCacheValue, string ip);
-        //#endregion
-
-        #region 函数:Write(IAccountStorageStrategy strategy)
+        #region 函数:Write(IAccountStorageStrategy strategy, string appKey, string accountIdentity, IAccountInfo account)
         /// <summary>写入信息</summary>
         /// <param name="strategy">策略</param>
+        /// <param name="appKey">AppKey</param>
         /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <param name="account">帐号信息</param>
         /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
-        void Write(IAccountStorageStrategy strategy, string accountIdentity, IAccountInfo account);
+        void Write(IAccountStorageStrategy strategy, string appKey, string accountIdentity, IAccountInfo account);
         #endregion
 
         #region 函数:FindByAccountIdentity(string accountIdentity)

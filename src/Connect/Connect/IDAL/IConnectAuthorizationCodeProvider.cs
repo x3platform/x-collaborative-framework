@@ -4,7 +4,6 @@ namespace X3Platform.Connect.IDAL
     using System;
     using System.Collections.Generic;
 
-    using X3Platform.Membership.Scope;
     using X3Platform.Spring;
 
     using X3Platform.Connect.Model;

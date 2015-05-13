@@ -534,7 +534,7 @@ namespace X3Platform.Membership.Ajax
 
                 string accountIdentity = string.Format("{0}-{1}", account.Id, DigitalNumberContext.Generate("Key_Session"));
 
-                KernelContext.Current.AuthenticationManagement.AddSession(accountIdentity, account);
+                KernelContext.Current.AuthenticationManagement.AddSession(string.Empty, accountIdentity, account);
 
                 HttpAuthenticationCookieSetter.SetUserCookies(accountIdentity);
 
