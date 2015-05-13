@@ -126,8 +126,8 @@ namespace X3Platform.Sessions.BLL
             // 过滤空值
             if (string.IsNullOrEmpty(accountIdentity)) { return; }
 
-            AccountCacheInfo param = strategy.Serialize(accountIdentity, account);
-            
+            AccountCacheInfo param = strategy.Serialize(appKey, accountIdentity, account);
+
             param.UpdateDate = DateTime.Now;
 
             // 更新字典信息
