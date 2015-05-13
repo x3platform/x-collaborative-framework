@@ -93,6 +93,13 @@
                     // 设置访问令牌
                     ConnectContext.Instance.ConnectAccessTokenService.Write(clientId, account.Id);
 
+                    // 设置会话信息
+                    ConnectAccessTokenInfo token = ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id);
+
+                    string sessionId = token.AccountId + "-" + token.Id;
+
+                    KernelContext.Current.AuthenticationManagement.AddSession(clientId, sessionId, account);
+
                     string code = ConnectContext.Instance.ConnectAuthorizationCodeService.GetAuthorizationCode(clientId, account);
 
                     if (responseType == "code")
@@ -101,19 +108,17 @@
                     }
                     else if (responseType == "token")
                     {
-                        ConnectAccessTokenInfo token = ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id);
-
                         HttpContext.Current.Response.Redirect(CombineUrlAndAccessToken(redirectUri, token));
                     }
                     else if (responseType == "json")
                     {
-                        outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectAccessTokenInfo>(ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id)) + ",");
+                        outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectAccessTokenInfo>(token) + ",");
 
                         outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
                         string callback = XmlHelper.Fetch("callback", doc);
 
-                        return string.IsNullOrEmpty(callback) 
+                        return string.IsNullOrEmpty(callback)
                             ? outString.ToString()
                             : callback + "(" + outString.ToString() + ")";
                     }

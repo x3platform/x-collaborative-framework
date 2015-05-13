@@ -218,14 +218,13 @@ namespace X3Platform.Apps.DAL.IBatis
         public IList<ApplicationSettingInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
-
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
+            
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
-            args.Add("RowCount", 0);
-
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
+            
             IList<ApplicationSettingInfo> list = ibatisMapper.QueryForList<ApplicationSettingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
@@ -248,13 +247,12 @@ namespace X3Platform.Apps.DAL.IBatis
 
             orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
 
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
 
-            args.Add("RowCount", 0);
-
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
+            
             IList<ApplicationSettingQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationSettingQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPaging", tableName)), args);
 
             rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);

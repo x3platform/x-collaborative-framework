@@ -112,12 +112,6 @@
     <Reference Include="X3Platform.Abstractions">
       <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Location.IPQuery">
-      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
-    </Reference>
-    <Reference Include="X3Platform.Membership">
-      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
-    </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
@@ -126,10 +120,6 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Ajax\ConnectWrapper.cs" />
-    <Compile Include="Ajax\ConnectCallWrapper.cs" />
-    <Compile Include="Ajax\ConnectAuthWrapper.cs" />
-    <Compile Include="Ajax\ConnectOAuth2Wrapper.cs" />
     <Compile Include="BLL\ConnectAuthorizationCodeService.cs" />
     <Compile Include="BLL\ConnectService.cs" />
     <Compile Include="BLL\ConnectCallService.cs" />
@@ -146,7 +136,6 @@
     <Compile Include="IDAL\IConnectCallProvider.cs" />
     <Compile Include="IDAL\IConnectAuthorizationCodeProvider.cs" />
     <Compile Include="IDAL\IConnectAccessTokenProvider.cs" />
-    <Compile Include="IServiceContracts\IConnectWebService.cs" />
     <Compile Include="Model\ConnectInfo.cs" />
     <Compile Include="Configuration\ConnectConfigurationView.cs" />
     <Compile Include="Configuration\ConnectConfiguration.cs" />
@@ -159,16 +148,12 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ServiceContracts\ConnectWebService.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="db\Init_Scripts_MySQL.sql" />
     <Content Include="db\Init_Scripts_SQLServer.sql" />
     <EmbeddedResource Include="defaults\Objects.xml" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Connect.config" />
     <None Include="config\X3Platform.Connect.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Connect.Spring.config" />
@@ -208,6 +193,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>

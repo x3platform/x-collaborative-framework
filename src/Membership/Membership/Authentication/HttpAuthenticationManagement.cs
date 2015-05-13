@@ -12,6 +12,8 @@
 
     using X3Platform.Membership.Model;
     using X3Platform.Membership.Configuration;
+    using X3Platform.Connect;
+    using X3Platform.Connect.Model;
     #endregion
 
     /// <summary>Http方式的验证请求管理</summary>
@@ -20,7 +22,17 @@
         /// <summary>获取认证的用户信息</summary>
         public override IAccountInfo GetAuthUser()
         {
+            string accessToken = this.GetAccessToken();
+
             string accountIdentity = this.GetIdentityValue();
+
+            if (string.IsNullOrEmpty(accountIdentity) && !string.IsNullOrEmpty(accessToken))
+            {
+                // accessToken => accountIdentity
+                ConnectAccessTokenInfo token = ConnectContext.Instance.ConnectAccessTokenService[accessToken];
+
+                accountIdentity = token.AccountId + "-" + token.Id;
+            }
 
             // Http方式的验证, accountIdentity 不允许为空.
             if (string.IsNullOrEmpty(accountIdentity)) { return null; }

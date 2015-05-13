@@ -207,16 +207,29 @@
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
-            string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
+            string whereClause = null;
+          
+            if (query.Variables["scence"] == "Query")
+            {     
+                string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    whereClause += " ( T.Code LIKE '%" + searchText + "%' OR T.Name LIKE '%" + searchText + "%' ) ";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            } 
+            
+            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            args.Add("WhereClause", whereClause);
-            args.Add("OrderBy", orderBy);
-
-            args.Add("RowCount", 0);
-
+            
             IList<ApplicationMethodInfo> list = this.ibatisMapper.QueryForList<ApplicationMethodInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
