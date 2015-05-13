@@ -47,9 +47,9 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
             return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
@@ -71,7 +71,7 @@
 
             StorageSchemaInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<StorageSchemaInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<StorageSchemaInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -100,7 +100,7 @@
 
             IList<StorageSchemaInfo> list = this.service.FindAll(query);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<StorageSchemaInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<StorageSchemaInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -128,7 +128,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<StorageSchemaInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<StorageSchemaInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 

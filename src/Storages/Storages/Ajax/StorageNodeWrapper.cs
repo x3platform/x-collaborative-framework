@@ -47,11 +47,11 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
         #endregion
 
@@ -71,7 +71,7 @@
 
             IStorageNode param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStorageNode>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -100,7 +100,7 @@
 
             IList<IStorageNode> list = this.service.FindAll(query);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStorageNode>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -128,7 +128,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStorageNode>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
@@ -168,7 +168,7 @@
 
             param.UpdateDate = param.CreateDate = DateTime.Now;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<IStorageNode>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStorageNode>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
 
