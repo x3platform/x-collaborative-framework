@@ -213,10 +213,11 @@
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
 
             IList<ApplicationMenuInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
