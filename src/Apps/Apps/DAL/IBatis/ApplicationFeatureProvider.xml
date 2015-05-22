@@ -20,7 +20,7 @@
             <result property="AuthorizationReadScopeObjectText" column="AuthorizationReadScopeObjectText" />
             <result property="Hidden" column="Hidden" />
             <result property="EffectScope" column="EffectScope" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -43,7 +43,7 @@
             <result property="AuthorizationReadScopeObjectText" column="AuthorizationReadScopeObjectText" />
             <result property="Hidden" column="Hidden" />
             <result property="EffectScope" column="EffectScope" />
-            <result property="Lock" column="Lock" />
+            <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
@@ -54,80 +54,80 @@
     <statements>
 
         <insert id="proc_Application_Feature_Insert" parameterClass="ApplicationFeatureInfo">
-            INSERT INTO [tb_Application_Feature] (
-            [Id],
-            [ApplicationId],
-            [ParentId],
-            [Code],
-            [Name],
-            [DisplayName],
-            [Type],
-            [Url],
-            [IconPath],
-            [BigIconPath],
-            [HelpUrl],
-            [Lock],
-            [Hidden],
-            [OrderId],
-            [Status],
-            [Remark],
-            [UpdateDate],
-            [CreateDate]
+            INSERT INTO tb_Application_Feature 
+            (
+                Id,
+                ApplicationId,
+                ParentId,
+                Code,
+                Name,
+                DisplayName,
+                Type,
+                Url,
+                IconPath,
+                BigIconPath,
+                HelpUrl,
+                Locking,
+                Hidden,
+                OrderId,
+                Status,
+                Remark,
+                UpdateDate,
+                CreateDate
             )
             VALUES
             (
-            #Id#,
-            #ApplicationId#,
-            #ParentId#,
-            #Code#,
-            #Name#,
-            #DisplayName#,
-            #Type#,
-            #Url#,
-            #IconPath#,
-            #BigIconPath#,
-            #HelpUrl#,
-            #Lock#,
-            #Hidden#,
-            #OrderId#,
-            #Status#,
-            #Remark#,
-            CURRENT_TIMESTAMP,
-            CURRENT_TIMESTAMP
+                #Id#,
+                #ApplicationId#,
+                #ParentId#,
+                #Code#,
+                #Name#,
+                #DisplayName#,
+                #Type#,
+                #Url#,
+                #IconPath#,
+                #BigIconPath#,
+                #HelpUrl#,
+                #Locking#,
+                #Hidden#,
+                #OrderId#,
+                #Status#,
+                #Remark#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
         <update id="proc_Application_Feature_Update" parameterClass="ApplicationFeatureInfo">
-            UPDATE [tb_Application_Feature] SET
+            UPDATE tb_Application_Feature SET
 
-            [ApplicationId] = #ApplicationId#,
-            [ParentId] = #ParentId#,
-            [Code] = #Code#,
-            [Name] = #Name#,
-            [DisplayName] = #DisplayName#,
-            [Type] = #Type#,
-            [Url] = #Url#,
-            [IconPath] = #IconPath#,
-            [BigIconPath] = #BigIconPath#,
-            [HelpUrl] = #HelpUrl#,
-            [Lock] = #Lock#,
-            [Hidden] = #Hidden#,
-            [OrderId] = #OrderId#,
-            [Status] = #Status#,
-            [Remark] = #Remark#,
-            [UpdateDate] = CURRENT_TIMESTAMP
+                ApplicationId = #ApplicationId#,
+                ParentId = #ParentId#,
+                Code = #Code#,
+                Name = #Name#,
+                DisplayName = #DisplayName#,
+                Type = #Type#,
+                Url = #Url#,
+                IconPath = #IconPath#,
+                BigIconPath = #BigIconPath#,
+                HelpUrl = #HelpUrl#,
+                Locking = #Locking#,
+                Hidden = #Hidden#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+                Remark = #Remark#,
+                UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id# AND [UpdateDate] = #UpdateDate#
+            WHERE Id = #Id# AND UpdateDate = #UpdateDate#
 
         </update>
 
         <delete id="proc_Application_Feature_Delete" >
-            DELETE FROM [tb_Application_Feature] WHERE $WhereClause$
+            DELETE FROM tb_Application_Feature WHERE $WhereClause$
         </delete>
 
         <select id="proc_Application_Feature_FindOne" resultMap="proc_Application_Feature_FindOne_Result" >
-            SELECT * FROM [tb_Application_Feature] T
-            WHERE [Id] = #Id#
+            SELECT * FROM tb_Application_Feature T WHERE Id = #Id#
         </select>
 
         <select id="proc_Application_Feature_FindAll" resultMap="proc_Application_Feature_FindAll_Result" >
@@ -139,7 +139,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM [tb_Application_Feature] T
+            * FROM tb_Application_Feature T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -149,13 +149,27 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Application_Feature_GetPaging#MySql" resultMap="proc_Application_Feature_FindAll_Result" >
+            SELECT * FROM tb_Application_Feature T
 
-        <select id="proc_Application_Feature_GetPages" resultMap="proc_Application_Feature_FindAll_Result" >
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$ 
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Application_Feature_GetPaging#SqlServer" resultMap="proc_Application_Feature_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM [tb_Application_Feature] T
+            FROM tb_Application_Feature T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -166,12 +180,10 @@
             </dynamic>) TableIndex
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
         </select>
-
         <select id="proc_Application_Feature_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Application_Feature] T
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Feature T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -181,108 +193,123 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-
         <select id="proc_Application_Feature_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Application_Feature] T WHERE $WhereClause$
+            SELECT COUNT(0) AS 'Count' FROM tb_Application_Feature T WHERE $WhereClause$
         </select>
-
-        <select id="proc_Application_Feature_Scope_GetRelations" >
+        <select id="proc_Application_Feature_Scope_GetRelations#MySql" >
             SELECT
-            Id,
-            ApplicationId,
-            ParentId,
-            Code,
-            Name,
-            DisplayName,
-            [Type],
-            ISNULL( AuthorizationObjectType,'') as 'AuthorizationObjectType',
-            ISNULL( AuthorizationObjectId, '') as 'AuthorizationObjectId',
-            CASE ISNULL(AuthorizationObjectId,'') WHEN '' THEN 0 ELSE 1 END AS 'Authorized'
-            FROM [tb_Application_Feature] LEFT JOIN tb_Application_Feature_Scope
-            ON tb_Application_Feature_Scope.EntityId = tb_Application_Feature.Id
-            AND tb_Application_Feature_Scope.AuthorizationObjectType = '$AuthorizationObjectType$'
-            AND tb_Application_Feature_Scope.AuthorizationObjectId = '$AuthorizationObjectId$'
-            WHERE tb_Application_Feature.ApplicationId = '$ApplicationId$' AND [Status] = 1
+                Id,
+                ApplicationId,
+                ParentId,
+                Code,
+                Name,
+                DisplayName,
+                Type,
+                IFNULL( AuthorizationObjectType,'') as 'AuthorizationObjectType',
+                IFNULL( AuthorizationObjectId, '') as 'AuthorizationObjectId',
+                CASE IFNULL(AuthorizationObjectId,'') WHEN '' THEN 0 ELSE 1 END AS 'Authorized'
+            FROM tb_Application_Feature 
+                 LEFT JOIN tb_Application_Feature_Scope
+                ON tb_Application_Feature_Scope.EntityId = tb_Application_Feature.Id
+                AND tb_Application_Feature_Scope.AuthorizationObjectType = '$AuthorizationObjectType$'
+                AND tb_Application_Feature_Scope.AuthorizationObjectId = '$AuthorizationObjectId$'
+            WHERE tb_Application_Feature.ApplicationId = '$ApplicationId$' AND Status = 1
+        </select>
+        <select id="proc_Application_Feature_Scope_GetRelations#SqlServer" >
+            SELECT
+                Id,
+                ApplicationId,
+                ParentId,
+                Code,
+                Name,
+                DisplayName,
+                Type,
+                ISNULL( AuthorizationObjectType,'') as 'AuthorizationObjectType',
+                ISNULL( AuthorizationObjectId, '') as 'AuthorizationObjectId',
+                CASE ISNULL(AuthorizationObjectId,'') WHEN '' THEN 0 ELSE 1 END AS 'Authorized'
+            FROM tb_Application_Feature 
+                 LEFT JOIN tb_Application_Feature_Scope
+                ON tb_Application_Feature_Scope.EntityId = tb_Application_Feature.Id
+                AND tb_Application_Feature_Scope.AuthorizationObjectType = '$AuthorizationObjectType$'
+                AND tb_Application_Feature_Scope.AuthorizationObjectId = '$AuthorizationObjectId$'
+            WHERE tb_Application_Feature.ApplicationId = '$ApplicationId$' AND Status = 1
         </select>
 
         <insert id="proc_Application_Feature_Scope_AddRelation" >
             INSERT INTO tb_Application_Feature_Scope
             (
-            EntityId,
-            EntityClassName,
-            AuthorityId,
-            AuthorizationObjectType,
-            AuthorizationObjectId
+              EntityId,
+              EntityClassName,
+              AuthorityId,
+              AuthorizationObjectType,
+              AuthorizationObjectId
             )
             VALUES
             (
-            '$EntityId$',
-            '$EntityClassName$',
-            '$AuthorityId$',
-            '$AuthorizationObjectType$',
-            '$AuthorizationObjectId$'
+              '$EntityId$',
+              '$EntityClassName$',
+              '$AuthorityId$',
+              '$AuthorizationObjectType$',
+              '$AuthorizationObjectId$'
             )
         </insert>
-
         <delete id="proc_Application_Feature_Scope_RemoveRelation" >
             DELETE FROM tb_Application_Feature_Scope
             WHERE EntityId IN ( SELECT Id FROM tb_Application_Feature WHERE ApplicationId = '$ApplicationId$' )
-            AND EntityClassName = '$EntityClassName$'
-            AND AuthorityId = '$AuthorityId$'
-            AND AuthorizationObjectType = '$AuthorizationObjectType$'
-            AND AuthorizationObjectId = '$AuthorizationObjectId$'
+                  AND EntityClassName = '$EntityClassName$'
+                  AND AuthorityId = '$AuthorityId$'
+                  AND AuthorizationObjectType = '$AuthorizationObjectType$'
+                  AND AuthorizationObjectId = '$AuthorizationObjectId$'
         </delete>
-
         <insert id="proc_Application_Feature_SyncFromPackPage" parameterClass="ApplicationFeatureInfo" >
-            IF EXISTS(SELECT 0 FROM [tb_Application_Feature] WHERE [Id] = #Id#)
+            IF EXISTS(SELECT 0 FROM tb_Application_Feature WHERE Id = #Id#)
             BEGIN
-            UPDATE [tb_Application_Feature] SET
+                UPDATE tb_Application_Feature SET
 
-            [Id] = #Id#,
-            [ApplicationId] = #ApplicationId#,
-            [ParentId] = #ParentId#,
-            [Code] = #Code#,
-            [Name] = #Name#,
-            [Type] = #Type#,
-            [OrderId] = #OrderId#,
-            [Status] = #Status#,
-            [Remark] = #Remark#,
-            [UpdateDate] = CURRENT_TIMESTAMP
+                    Id = #Id#,
+                    ApplicationId = #ApplicationId#,
+                    ParentId = #ParentId#,
+                    Code = #Code#,
+                    Name = #Name#,
+                    Type = #Type#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+                    Remark = #Remark#,
+                    UpdateDate = CURRENT_TIMESTAMP
 
-            WHERE [Id] = #Id#
-
+                WHERE Id = #Id#
             END
             ELSE
             BEGIN
-            INSERT INTO [tb_Application_Feature] (
-            [Id],
-            [ApplicationId],
-            [ParentId],
-            [Code],
-            [Name],
-            [Type],
-            [OrderId],
-            [Status],
-            [Remark],
-            [UpdateDate],
-            [CreateDate]
-            )
-            VALUES
-            (
-            #Id#,
-            #ApplicationId#,
-            #ParentId#,
-            #Code#,
-            #Name#,
-            #Type#,
-            #OrderId#,
-            #Status#,
-            #Remark#,
-            CURRENT_TIMESTAMP,
-            CURRENT_TIMESTAMP
-            )
+                INSERT INTO tb_Application_Feature 
+                (
+                    Id,
+                    ApplicationId,
+                    ParentId,
+                    Code,
+                    Name,
+                    Type,
+                    OrderId,
+                    Status,
+                    Remark,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES
+                (
+                    #Id#,
+                    #ApplicationId#,
+                    #ParentId#,
+                    #Code#,
+                    #Name#,
+                    #Type#,
+                    #OrderId#,
+                    #Status#,
+                    #Remark#,
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
+                )
             END
         </insert>
-
     </statements>
 </sqlMap>

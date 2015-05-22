@@ -46,9 +46,9 @@
         </resultMap>
     </resultMaps>
     <statements>
-
         <insert id="proc_Application_Setting_Insert" parameterClass="ApplicationSettingInfo">
-            INSERT INTO tb_Application_Setting (
+            INSERT INTO tb_Application_Setting 
+            (
                 Id,
                 ApplicationId,
                 ApplicationSettingGroupId,
@@ -189,7 +189,6 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-
         <select id="proc_Application_Setting_GetPaging#SqlServer" resultMap="proc_Application_Setting_FindAll_Result" >
             SELECT *
 

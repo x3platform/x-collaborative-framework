@@ -29,7 +29,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             ApplicationFeatureInfo param = new ApplicationFeatureInfo();
@@ -42,7 +41,7 @@ namespace X3Platform.Apps.Ajax
             {
                 if (this.service.IsExistName(param.Name))
                 {
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"�Ѵ�����ͬ�����ơ�\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"已存在相同的名称。\"}}";
                 }
             }
 
@@ -56,12 +55,11 @@ namespace X3Platform.Apps.Ajax
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
             return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
@@ -75,7 +73,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -96,7 +93,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -119,7 +115,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAllByApplicationId")]
         public string FindAllByApplicationId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -140,28 +135,29 @@ namespace X3Platform.Apps.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
-            PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             int rowCount = -1;
 
-            IList<ApplicationFeatureInfo> list = this.service.GetPaging(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+            IList<ApplicationFeatureInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-            pages.RowCount = rowCount;
+            paging.RowCount = rowCount;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureInfo>(list) + ",");
-
-            outString.Append("\"pages\":" + pages + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
 
             return outString.ToString();
         }
@@ -171,7 +167,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -186,7 +181,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -215,7 +209,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("getDynamicTreeView")]
         public string GetDynamicTreeView(XmlDocument doc)
         {
             // 必填字段
@@ -240,11 +233,11 @@ namespace X3Platform.Apps.Ajax
             outString.Append("childNodes:[");
 
             //查找树的子节点
-            string whereClause = string.Format(" [ParentId] = ##{0}## AND [Type] = ##function## AND [Status] = 1 ORDER BY OrderId DESC ", parentId);
+            string whereClause = string.Format(" ParentId = ##{0}## AND Type = ##function## AND Status = 1 ORDER BY OrderId DESC ", parentId);
 
             if (treeViewRootTreeNodeId == parentId)
             {
-                whereClause = string.Format(" [ApplicationId] = ##{0}## AND ParentId = ##00000000-0000-0000-0000-000000000000## AND [Type] = ##function## AND [Status] = 1 ORDER BY OrderId DESC ", treeViewRootTreeNodeId);
+                whereClause = string.Format(" ApplicationId = ##{0}## AND ParentId = ##00000000-0000-0000-0000-000000000000## AND Type = ##function## AND Status = 1 ORDER BY OrderId DESC ", treeViewRootTreeNodeId);
             }
 
             IList<ApplicationFeatureInfo> list = this.service.FindAll(whereClause);
@@ -277,7 +270,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("getTreeTableView")]
         public string GetTreeTableView(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -320,7 +312,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("setTreeTableView")]
         public string SetTreeTableView(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
