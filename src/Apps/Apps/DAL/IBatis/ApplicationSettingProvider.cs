@@ -254,7 +254,6 @@
         args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
       }
 
-      args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
       args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
       args.Add("StartIndex", startIndex);

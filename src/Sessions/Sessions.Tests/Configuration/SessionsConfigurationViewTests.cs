@@ -1,4 +1,4 @@
-namespace X3Platform.Sessions.TestSuite.Configuration
+namespace X3Platform.Sessions.Tests.Configuration
 {
     using System.Configuration;
 
@@ -8,7 +8,7 @@ namespace X3Platform.Sessions.TestSuite.Configuration
     using X3Platform.IBatis.DataMapper;
 
     [TestClass]
-    public class SessionsConfigurationViewTestSuite
+    public class SessionsConfigurationViewTests
     {
         [TestMethod]
         public void TestInit()
