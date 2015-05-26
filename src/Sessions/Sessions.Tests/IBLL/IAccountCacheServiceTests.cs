@@ -14,7 +14,6 @@ namespace X3Platform.Sessions.Tests.Sessions
     [TestMethod]
     public void TestInsert()
     {
-      /*
       AccountCacheInfo param = new AccountCacheInfo();
 
       param.AccountIdentity = "test_" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
@@ -24,19 +23,19 @@ namespace X3Platform.Sessions.Tests.Sessions
       param.AccountObject = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<accountObject><id>fbe67a6e-4c6c-439e-b54b-f62af23d30ba</id><loginName>jiqiliang</loginName><name>¼ªÆäÁÁ</name><ip>127.0.0.1</ip></accountObject>";
 
       param.AccountObjectType = "X3Platform.Membership.Model.AccountInfo,X3Platform.Membership";
-            
+
       param.IP = "255.255.255.255";
 
       param.BeginDate = param.EndDate = DateTime.Now;
 
       param.UpdateDate = DateTime.Now;
 
-      AccountCacheContext.Instance.AccountCacheService.Insert(param);
+      SessionContext.Instance.AccountCacheService.Insert(param);
 
-      AccountCacheInfo result = AccountCacheContext.Instance.AccountCacheService.FindByAccountIdentity(param.AccountIdentity);
+      AccountCacheInfo result = SessionContext.Instance.AccountCacheService.FindByAccountIdentity(param.AccountIdentity);
 
       Assert.IsTrue(param.AccountIdentity == result.AccountIdentity);
-  */
+
     }
 
     [TestMethod]

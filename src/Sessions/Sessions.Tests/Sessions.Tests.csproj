@@ -86,9 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\SessionsConfigurationViewTests.cs" />
-    <Compile Include="IBLL\IStorageNodeServiceTests.cs" />
+    <Compile Include="IBLL\IAccountCacheServiceTests.cs" />
     <Compile Include="SessionContextTests.cs" />
-    <Compile Include="Sessions\IAccountCacheServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

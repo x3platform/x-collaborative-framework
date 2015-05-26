@@ -1,129 +1,120 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Entities.DAL.IBatis.EntityLifeHistoryProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="EntityLifeHistoryInfo" type="X3Platform.Entities.Model.EntityLifeHistoryInfo, X3Platform.Entities" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_Entity_LifeHistory_FindOne_Result" class="EntityLifeHistoryInfo">
-            <result property="Id" column="Id" />
-            <result property="EntityId" column="EntityId" />
-            <result property="EntityClassName" column="EntityClassName" />
-            <result property="AccountId" column="AccountId" />
-            <result property="MethodName" column="MethodName" />
-            <result property="ContextDiffLog" column="ContextDiffLog" />
-            <result property="Date" column="Date" />
-        </resultMap>
-        <resultMap id="proc_Entity_LifeHistory_FindAll_Result" class="EntityLifeHistoryInfo">
-            <result property="Id" column="Id" />
-            <result property="EntityId" column="EntityId" />
-            <result property="EntityClassName" column="EntityClassName" />
-            <result property="AccountId" column="AccountId" />
-            <result property="MethodName" column="MethodName" />
-            <result property="ContextDiffLog" column="ContextDiffLog" />
-            <result property="Date" column="Date" />
-        </resultMap>
-    </resultMaps>
-    <statements>
+  <alias>
+    <typeAlias alias="EntityLifeHistoryInfo" type="X3Platform.Entities.Model.EntityLifeHistoryInfo, X3Platform.Entities" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Entity_LifeHistory_FindOne_Result" class="EntityLifeHistoryInfo">
+      <result property="Id" column="Id" />
+      <result property="EntityId" column="EntityId" />
+      <result property="EntityClassName" column="EntityClassName" />
+      <result property="AccountId" column="AccountId" />
+      <result property="MethodName" column="MethodName" />
+      <result property="ContextDiffLog" column="ContextDiffLog" />
+      <result property="Date" column="Date" />
+    </resultMap>
+    <resultMap id="proc_Entity_LifeHistory_FindAll_Result" class="EntityLifeHistoryInfo">
+      <result property="Id" column="Id" />
+      <result property="EntityId" column="EntityId" />
+      <result property="EntityClassName" column="EntityClassName" />
+      <result property="AccountId" column="AccountId" />
+      <result property="MethodName" column="MethodName" />
+      <result property="ContextDiffLog" column="ContextDiffLog" />
+      <result property="Date" column="Date" />
+    </resultMap>
+  </resultMaps>
+  <statements>
 
-        <insert id="proc_Entity_LifeHistory_Insert" parameterClass="EntityLifeHistoryInfo">
-            INSERT INTO tb_Entity_LifeHistory (
-                Id,
-                EntityId,
-                EntityClassName,
-                AccountId,
-                MethodName,
-                ContextDiffLog,
-                Date
-            )
-            VALUES
-            (
-                #Id#,
-                #EntityId#,
-                #EntityClassName#,
-                #AccountId#,
-                #MethodName#,
-                #ContextDiffLog#,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+    <insert id="proc_Entity_LifeHistory_Insert" parameterClass="EntityLifeHistoryInfo">
+      INSERT INTO tb_Entity_LifeHistory
+      (
+      Id,
+      EntityId,
+      EntityClassName,
+      AccountId,
+      MethodName,
+      ContextDiffLog,
+      Date
+      )
+      VALUES
+      (
+      #Id#,
+      #EntityId#,
+      #EntityClassName#,
+      #AccountId#,
+      #MethodName#,
+      #ContextDiffLog#,
+      CURRENT_TIMESTAMP
+      )
+    </insert>
 
-        <update id="proc_Entity_LifeHistory_Update" parameterClass="EntityLifeHistoryInfo">
-            UPDATE tb_Entity_LifeHistory SET
+    <update id="proc_Entity_LifeHistory_Update" parameterClass="EntityLifeHistoryInfo">
+      UPDATE tb_Entity_LifeHistory SET
 
-            EntityId = #EntityId#,
-            EntityClassName = #EntityClassName#,
-            AccountId = #AccountId#,
-            MethodName = #MethodName#,
-            ContextDiffLog = #ContextDiffLog#,
-            Date = CURRENT_TIMESTAMP
+        EntityId = #EntityId#,
+        EntityClassName = #EntityClassName#,
+        AccountId = #AccountId#,
+        MethodName = #MethodName#,
+        ContextDiffLog = #ContextDiffLog#,
+        Date = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id#
-        </update>
+      WHERE Id = #Id#
+    </update>
+    <delete id="proc_Entity_LifeHistory_Delete" >
+      DELETE FROM tb_Entity_LifeHistory WHERE $WhereClause$
+    </delete>
+    <select id="proc_Entity_LifeHistory_FindOne" resultMap="proc_Entity_LifeHistory_FindOne_Result" >
+      SELECT * FROM tb_Entity_LifeHistory WHERE Id = #Id#
+    </select>
+    <select id="proc_Entity_LifeHistory_FindAll" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
+      SELECT
 
-        <delete id="proc_Entity_LifeHistory_Delete" >
-            DELETE FROM tb_Entity_LifeHistory WHERE $WhereClause$
-        </delete>
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-        <select id="proc_Entity_LifeHistory_FindOne" resultMap="proc_Entity_LifeHistory_FindOne_Result" >
-            SELECT * FROM tb_Entity_LifeHistory T
-            WHERE Id = #Id#
-        </select>
+      * FROM tb_Entity_LifeHistory T
 
-        <select id="proc_Entity_LifeHistory_FindAll" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
-            SELECT
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Entity_LifeHistory_GetPages" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
+      SELECT *
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            * FROM tb_Entity_LifeHistory T
+      FROM tb_Entity_LifeHistory T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-        <select id="proc_Entity_LifeHistory_GetPages" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
-            SELECT *
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Entity_LifeHistory_GetRowCount" >
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_LifeHistory T
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-            FROM tb_Entity_LifeHistory T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
-
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
-        </select>
-
-        <select id="proc_Entity_LifeHistory_GetRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_LifeHistory T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-
-        <select id="proc_Entity_LifeHistory_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Entity_LifeHistory T WHERE $WhereClause$
-        </select>
-
-    </statements>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Entity_LifeHistory_IsExist" >
+      SELECT COUNT(0) AS 'Count' FROM tb_Entity_LifeHistory T WHERE $WhereClause$
+    </select>
+  </statements>
 </sqlMap>

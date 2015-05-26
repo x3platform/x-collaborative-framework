@@ -11,7 +11,7 @@
 
     <database>
         <provider name="${DatabaseSettings.Provider}" />
-        <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512" />
+        <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512;connection timeout=30;" />
     </database>
 
     <typeHandlers>

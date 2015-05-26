@@ -121,6 +121,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="db\Init_Script_MySQL.sql" />
+    <Content Include="db\Init_Script_SQLServer.sql" />
     <EmbeddedResource Include="DAL\IBatis\AccountCacheProvider.xml" />
     <Content Include="DAL\MySQL\AccountCacheProvider.xml" />
     <EmbeddedResource Include="defaults\Objects.xml" />
