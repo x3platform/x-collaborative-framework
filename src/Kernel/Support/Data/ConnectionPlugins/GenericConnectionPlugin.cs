@@ -56,7 +56,7 @@ namespace X3Platform.Data.ConnectionPlugins
                         ";database=", Database,
                         ";user id=", LoginName,
                         ";password=", Password,
-                        ";connection reset=false;connection lifetime=10;min pool size=1;max pool size=100");
+                        ";connection reset=false;connection lifetime=10;min pool size=1;max pool size=100;connection timeout=30;");
                 }
                 else if (Provider == "Oracle")
                 {

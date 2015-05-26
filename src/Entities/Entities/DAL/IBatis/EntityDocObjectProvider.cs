@@ -14,7 +14,7 @@
     using X3Platform.Entities.Model;
     using X3Platform.Entities;
 
-    /// <summary></summary>
+    /// <summary>实体文档对象</summary>
     [DataObject]
     public class EntityDocObjectProvider : IEntityDocObjectProvider
     {

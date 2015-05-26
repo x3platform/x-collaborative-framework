@@ -117,18 +117,19 @@ namespace X3Platform.Sessions
             // -------------------------------------------------------
             // 设置定时器
             // -------------------------------------------------------
+            
+            // 由数据库来定时任务来清理过期会话 
+            // timer.Enabled = true;
 
-            timer.Enabled = true;
+            // timer.Interval = SessionsConfigurationView.Instance.SessionTimerInterval * 60 * 1000;
 
-            timer.Interval = SessionsConfigurationView.Instance.SessionTimerInterval * 60 * 1000;
-
-            timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
-            {
+            // timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
+            // {
 
                 // SessionContext.Instance.AccountCacheService.Clear(DateTime.Now.AddHours(-SessionsConfigurationView.Instance.SessionTimeLimit));
-            };
+            // };
 
-            timer.Start();
+            // timer.Start();
         }
         #endregion
 
