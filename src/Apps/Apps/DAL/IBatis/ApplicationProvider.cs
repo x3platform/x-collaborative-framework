@@ -253,7 +253,9 @@
       }
       else if (query.Variables["scence"] == "QueryByParentId")
       {
-        args.Add("WhereClause", query.GetWhereSql());
+        string parentId = StringHelper.ToSafeSQL(query.Where["ParentId"].ToString());
+
+        args.Add("WhereClause", " ParentId = '" + parentId + "' ");
       }
       else
       {

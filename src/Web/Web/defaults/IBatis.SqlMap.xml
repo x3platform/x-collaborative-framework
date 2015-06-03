@@ -19,8 +19,8 @@
     </typeHandlers>
 
     <sqlMaps>
-        <sqlMap embedded="X3Platform.Web.Customize.DAL.IBatis.PageProvider.xml" />
-        <sqlMap embedded="X3Platform.Web.Customize.DAL.IBatis.WidgetProvider.xml" />
-        <sqlMap embedded="X3Platform.Web.Customize.DAL.IBatis.WidgetInstanceProvider.xml" />
+        <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.PageProvider.xml" />
+        <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.WidgetProvider.xml" />
+        <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.WidgetInstanceProvider.xml" />
     </sqlMaps>
 </sqlMapConfig>

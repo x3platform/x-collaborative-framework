@@ -1,35 +1,18 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-<title>X3 Project</title>
-<meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<link rel="apple-touch-icon-precomposed" href="/resources/images/apple/apple-touch-icon-48x48.png" />
-<link rel="apple-touch-icon-precomposed" sizes="48x48" href="/resources/images/apple/apple-touch-icon-48x48.png" />
-<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/resources/images/apple/apple-touch-icon-57x57.png" /> 
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/resources/images/apple/apple-touch-icon-72x72.png" /> 
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/resources/images/apple/apple-touch-icon-114x114.png" /> 
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/resources/images/apple/apple-touch-icon-144x144.png" />
-<link rel="apple-touch-startup-image" href="/resources/images/apple/apple-touch-startup-image.png" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="format-detection" content="telephone=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Language" content="utf-8" />
-<style type="text/css" >
-    body {
-        width: 20em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
-</head>
-<body>
-<h1>欢迎来到 X3Platform!</h1>
-<p>如果您看到这个页面，表示 X3Platform 程序已成功安装至 Web 服务器并正常工作。需要进一步配置。</p>
-
-<p>更多在线文档支持, 请参考<a href="http://github.x3platform.com/projects/x-collaborative-framework/doc/">github.x3platform.com</a>.<br/></p>
-<p>项目 GitHub 主页 <a href="http://github.com/x3platform/x-collaborative-framework">x3platform.com</a>.</p>
-
-<p><em>非常您使用 X3Platform.</em></p>
-</body>
-</html>
+﻿@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+<script id="x-main" type="text/javascript" >
+  x.require({
+    files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
+        { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' },
+        { fileType: 'script', id: 'main-applications-home-script', path: '/views/main/applications/default.js' }
+    ]});
+</script>
+<div id="window-container" class="window-container">
+    home
+</div>

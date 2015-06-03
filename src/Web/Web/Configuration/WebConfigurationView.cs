@@ -122,24 +122,24 @@ namespace X3Platform.Web.Configuration
         }
         #endregion
 
-        #region 属性:SiteThemeName
-        private string m_SiteThemeName = null;
+        #region 属性:ThemeName
+        private string m_ThemeName = null;
 
         /// <summary>网站页面的主题名称 default | dynamic </summary>
-        public string SiteThemeName
+        public string ThemeName
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_SiteThemeName))
+                if (string.IsNullOrEmpty(this.m_ThemeName))
                 {
                     // 读取配置信息
-                    this.m_SiteThemeName = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "SiteThemeName", this.Configuration.Keys);
+                    this.m_ThemeName = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "ThemeName", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_SiteThemeName = StringHelper.NullOrEmptyTo(this.m_SiteThemeName, "default");
+                    this.m_ThemeName = StringHelper.NullOrEmptyTo(this.m_ThemeName, "default");
                 }
 
-                return this.m_SiteThemeName;
+                return this.m_ThemeName;
             }
         }
         #endregion

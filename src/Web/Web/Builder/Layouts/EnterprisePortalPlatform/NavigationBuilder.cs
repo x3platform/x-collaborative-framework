@@ -173,7 +173,7 @@ namespace X3Platform.Web.Builder.Layouts.EnterprisePortalPlatform
 
             context.Put("navigationPortalMenu", GetNavigationPortalMenu());
 
-            return VelocityManager.Instance.Merge(context, "web/builder/themes/enterprise-portal/NavigationBuilder.GetTopMenu.vm");
+            return VelocityManager.Instance.Merge(context, "web/builder/themes/enterprise-portal/navigation-top-menu.vm");
         }
         #endregion
 
