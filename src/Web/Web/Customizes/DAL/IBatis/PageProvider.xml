@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Web.Customizes.DAL.IBatis.PageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="PageInfo" type="X3Platform.Web.Customizes.Model.PageInfo,X3Platform.Web" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Customize_Page_FindOne_Result" class="PageInfo">
+            <result property="Id" column="Id" />
+            <result property="AuthorizationObjectType" column="AuthorizationObjectType" />
+            <result property="AuthorizationObjectId" column="AuthorizationObjectId" />
+            <result property="AuthorizationObjectName" column="AuthorizationObjectName" />
+            <result property="Name" column="Name" />
+            <result property="Title" column="Title" />
+            <result property="Html" column="Html" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Customize_Page_FindAll_Result" class="PageInfo">
+            <result property="Id" column="Id" />
+            <result property="AuthorizationObjectType" column="AuthorizationObjectType" />
+            <result property="AuthorizationObjectId" column="AuthorizationObjectId" />
+            <result property="AuthorizationObjectName" column="AuthorizationObjectName" />
+            <result property="Name" column="Name" />
+            <result property="Title" column="Title" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Customize_Page_Insert" parameterClass="PageInfo" >
+            INSERT INTO [tb_Customize_Page]
+            (
+                Id,
+                AuthorizationObjectType,
+                AuthorizationObjectId,
+                AuthorizationObjectName,
+                Name,
+                Title,
+                Html,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #AuthorizationObjectType#,
+                #AuthorizationObjectId#,
+                #AuthorizationObjectName#,
+                #Name#,
+                #Title#,
+                #Html#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <update id="proc_Customize_Page_Update" parameterClass="PageInfo" >
+            UPDATE [tb_Customize_Page] SET
+
+            Title = #Title#,
+            Html = #Html#,
+            UpdateDate = CURRENT_TIMESTAMP
+
+            WHERE AuthorizationObjectType = #AuthorizationObjectType# AND AuthorizationObjectId = #AuthorizationObjectId# AND Name = #Name#
+        </update>
+
+        <delete id="proc_Customize_Page_Delete">
+            DELETE FROM [tb_Customize_Page] WHERE Id IN($Ids$)
+        </delete>
+
+        <select id="proc_Customize_Page_FindOne" parameterClass="PageInfo" resultMap="proc_Customize_Page_FindOne_Result" >
+            SELECT * FROM [tb_Customize_Page] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Customize_Page_FindOneByName" parameterClass="PageInfo" resultMap="proc_Customize_Page_FindOne_Result" >
+            SELECT * FROM [tb_Customize_Page] WHERE AuthorizationObjectType = #AuthorizationObjectType# AND [AuthorizationObjectId] = #AuthorizationObjectId# AND [Name] = #Name#
+        </select>
+
+        <select id="proc_Customize_Page_FindAll" resultMap="proc_Customize_Page_FindAll_Result" parameterClass="PageInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Customize_Page]
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Customize_Page_GetPages" parameterClass="PageInfo" resultMap="proc_Customize_Page_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Customize_Page] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+
+        <select id="proc_Customize_Page_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Customize_Page] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Customize_Page_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Customize_Page] T WHERE $WhereClause$
+        </select>
+
+        <select id="proc_Customize_Page_TryParseHtml" resultMap="proc_Customize_Page_FindOne_Result" >
+            SELECT * FROM [tb_Customize_Page] WHERE AuthorizationObjectType = #AuthorizationObjectType# AND [AuthorizationObjectId] = #AuthorizationObjectId# AND [Name] = #Name#
+        </select>
+
+    </statements>
+</sqlMap>

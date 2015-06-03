@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Web.Customizes.DAL.IBatis.WidgetInstanceProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="WidgetInstanceInfo" type="X3Platform.Web.Customizes.Model.WidgetInstanceInfo,X3Platform.Web" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Customize_WidgetInstance_FindOne_Result" class="WidgetInstanceInfo">
+            <result property="Id" column="Id" />
+            <result property="PageId" column="PageId" />
+            <result property="PageName" column="PageName" />
+            <result property="WidgetId" column="WidgetId" />
+            <result property="WidgetName" column="WidgetName" />
+            <result property="Title" column="Title" />
+            <result property="Height" column="Height" />
+            <result property="Width" column="Width" />
+            <result property="Options" column="Options" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Customize_WidgetInstance_FindAll_Result" class="WidgetInstanceInfo">
+            <result property="Id" column="Id" />
+            <result property="PageId" column="PageId" />
+            <result property="PageName" column="PageName" />
+            <result property="WidgetId" column="WidgetId" />
+            <result property="WidgetName" column="WidgetName" />
+            <result property="Title" column="Title" />
+            <result property="Height" column="Height" />
+            <result property="Width" column="Width" />
+            <result property="Options" column="Options" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Customize_WidgetInstance_Insert" parameterClass="WidgetInstanceInfo" >
+            INSERT INTO [tb_Customize_WidgetInstance]
+            (
+                Id,
+                PageId,
+                PageName,
+                WidgetId,
+                WidgetName,
+                Title,
+                Height,
+                Width,
+                Options,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #PageId#,
+                #PageName#,
+                #WidgetId#,
+                #WidgetName#,
+                #Title#,
+                #Height#,
+                #Width#,
+                #Options#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <update id="proc_Customize_WidgetInstance_Update" parameterClass="WidgetInstanceInfo" >
+            UPDATE [tb_Customize_WidgetInstance] SET
+
+                PageId = #PageId#,
+                PageName = #PageName#,
+                WidgetId = #WidgetId#,
+                WidgetName = #WidgetName#,
+                Title = #Title#,
+                Height = #Height#,
+                Width = #Width#,
+                Options = #Options#,
+                UpdateDate = CURRENT_TIMESTAMP
+
+            WHERE Id = #Id#
+        </update>
+
+        <delete id="proc_Customize_WidgetInstance_Delete">
+            DELETE FROM [tb_Customize_WidgetInstance] WHERE $WhereClause$
+        </delete>
+
+        <select id="proc_Customize_WidgetInstance_FindOne" parameterClass="WidgetInstanceInfo" resultMap="proc_Customize_WidgetInstance_FindOne_Result" >
+            SELECT * FROM [tb_Customize_WidgetInstance] WHERE [Id] = #Id#
+        </select>
+
+        <select id="proc_Customize_WidgetInstance_FindAll" resultMap="proc_Customize_WidgetInstance_FindAll_Result" parameterClass="WidgetInstanceInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM [tb_Customize_WidgetInstance]
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Customize_WidgetInstance_GetPages" parameterClass="WidgetInstanceInfo" resultMap="proc_Customize_WidgetInstance_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM [tb_Customize_WidgetInstance] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $pageSize$
+
+        </select>
+
+        <select id="proc_Customize_WidgetInstance_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM [tb_Customize_WidgetInstance] T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Customize_WidgetInstance_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM [tb_Customize_WidgetInstance] T WHERE $WhereClause$
+        </select>
+
+    </statements>
+</sqlMap>
