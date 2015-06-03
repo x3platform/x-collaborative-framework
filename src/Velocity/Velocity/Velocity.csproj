@@ -587,11 +587,7 @@
     <EmbeddedResource Include="Runtime\Defaults\nvelocity.properties" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Velocity.config" />
-    <None Include="default.build">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -618,6 +614,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

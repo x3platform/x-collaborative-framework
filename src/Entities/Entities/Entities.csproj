@@ -220,7 +220,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Entities.config" />
     <None Include="config\X3Platform.Entities.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Entities.Spring.config">
@@ -268,6 +267,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -27,6 +27,8 @@ namespace X3Platform.WebSiteV10
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // 配置内置的路由 包括: /customizes/ | /account/
+            routes.Add("inner-route", new X3Platform.Web.Mvc.RequestRoute());
             // 配置 /api/ 路由
             routes.Add("api-methods", new X3Platform.Web.APIs.Mvc.APIRoute());
 
@@ -40,6 +42,14 @@ namespace X3Platform.WebSiteV10
                 new { controller = "Home", action = "Index" },
                 // Namespaces
                 new string[] { "X3Platform.Admins.Controllers" }
+            );
+
+            // 帐号基本操作
+            routes.MapRoute(
+                "帐号基本操作", // Route name
+                "account/{action}/{id}", // URL with parameters
+                new { controller = "Account", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
+                new string[] { "X3Platform.Web.Mvc.Controllers" }
             );
 
             // 默认地址

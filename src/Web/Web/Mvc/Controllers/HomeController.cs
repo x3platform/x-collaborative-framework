@@ -1,24 +1,25 @@
 ﻿using System.Web.Mvc;
-using X3Platform.Apps;
+using System.Reflection;
+
+using Common.Logging;
+
 using X3Platform.Json;
 using X3Platform.Configuration;
-using Common.Logging;
-using System.Reflection;
+using X3Platform.Web.Mvc.Attributes;
 
 namespace X3Platform.Web.Mvc.Controllers
 {
-    public sealed class HomeController : CustomController
+  [LoginFilter]
+  public sealed class HomeController : CustomController
+  {
+    public ActionResult Index()
     {
-        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
+      if (KernelConfigurationView.Instance.ApplicationHomePage != "/")
+      {
+        return Redirect(KernelConfigurationView.Instance.ApplicationHomePage);
+      }
 
-        public ActionResult Index()
-        {
-            if (KernelConfigurationView.Instance.ApplicationHomePage != "/")
-            {
-                return Redirect(KernelConfigurationView.Instance.ApplicationHomePage);
-            }
-
-            return View("~/views/main/default.cshtml");
-        }
+      return View("~/views/main/default.cshtml");
     }
+  }
 }

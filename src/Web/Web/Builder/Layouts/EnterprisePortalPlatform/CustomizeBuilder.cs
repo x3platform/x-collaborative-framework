@@ -20,7 +20,7 @@ namespace X3Platform.Web.Builder.Layouts.EnterprisePortalPlatform
     using System;
 
     using X3Platform.Membership;
-    using X3Platform.Web.Customize;
+    using X3Platform.Web.Customizes;
     using X3Platform.Web.Builder.ILayouts;
     #endregion
 

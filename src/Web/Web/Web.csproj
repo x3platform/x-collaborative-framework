@@ -117,42 +117,46 @@
     <Compile Include="Component\StyleWidget.cs" />
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="Configuration\WebConfigurationView.cs" />
-    <Compile Include="Customize\Widgets\IPLocationWidget.cs" />
-    <Compile Include="Customize\Widgets\MobileLocationWidget.cs" />
-    <Compile Include="Customize\Widgets\StaticHtmlWidget.cs" />
+    <Compile Include="Customizes\AbstractWidget.cs" />
+    <Compile Include="Customizes\Ajax\CustomizePageWrapper.cs" />
+    <Compile Include="Customizes\Ajax\CustomizeWidgetInstanceWrapper.cs" />
+    <Compile Include="Customizes\Ajax\CustomizeWidgetWrapper.cs" />
+    <Compile Include="Customizes\BLL\PageService.cs" />
+    <Compile Include="Customizes\BLL\WidgetInstanceService.cs" />
+    <Compile Include="Customizes\BLL\WidgetService.cs" />
+    <Compile Include="Customizes\CustomizeContext.cs" />
+    <Compile Include="Customizes\DAL\IBatis\PageProvider.cs" />
+    <Compile Include="Customizes\DAL\IBatis\WidgetInstanceProvider.cs" />
+    <Compile Include="Customizes\DAL\IBatis\WidgetProvider.cs" />
+    <Compile Include="Customizes\IBLL\IPageService.cs" />
+    <Compile Include="Customizes\IBLL\IWidgetInstanceService.cs" />
+    <Compile Include="Customizes\IBLL\IWidgetService.cs" />
+    <Compile Include="Customizes\IDAL\IPageProvider.cs" />
+    <Compile Include="Customizes\IDAL\IWidgetInstanceProvider.cs" />
+    <Compile Include="Customizes\IDAL\IWidgetProvider.cs" />
+    <Compile Include="Customizes\IWidget.cs" />
+    <Compile Include="Customizes\Model\PageInfo.cs" />
+    <Compile Include="Customizes\Model\SettingInfo.cs" />
+    <Compile Include="Customizes\Model\WidgetInfo.cs" />
+    <Compile Include="Customizes\Model\WidgetInstanceInfo.cs" />
+    <Compile Include="Customizes\Mvc\ContentController.cs" />
+    <Compile Include="Customizes\Mvc\WidgetController.cs" />
+    <Compile Include="Customizes\Mvc\PageController.cs" />
+    <Compile Include="Customizes\Widgets\FavoriteWidget.cs" />
+    <Compile Include="Customizes\Widgets\GeneralWidget.cs" />
+    <Compile Include="Customizes\Widgets\IPLocationWidget.cs" />
+    <Compile Include="Customizes\Widgets\MobileLocationWidget.cs" />
+    <Compile Include="Customizes\Widgets\StaticHtmlWidget.cs" />
+    <Compile Include="Customizes\Widgets\TodayWidget.cs" />
+    <Compile Include="Customizes\Widgets\WeatherWidget.cs" />
     <Compile Include="Mvc\Attributes\HandleExceptionAttribute.cs" />
     <Compile Include="Mvc\Attributes\LoginFilterAttribute.cs" />
     <Compile Include="Mvc\Controllers\CustomController.cs" />
     <Compile Include="Mvc\Controllers\HomeController.cs" />
-    <Compile Include="Customize\AbstractWidget.cs" />
-    <Compile Include="Customize\Ajax\PageWrapper.cs" />
-    <Compile Include="Customize\Ajax\WidgetInstanceWrapper.cs" />
-    <Compile Include="Customize\Ajax\WidgetWrapper.cs" />
-    <Compile Include="Customize\BLL\PageService.cs" />
-    <Compile Include="Customize\BLL\WidgetInstanceService.cs" />
-    <Compile Include="Customize\BLL\WidgetService.cs" />
-    <Compile Include="Customize\CustomizeContext.cs" />
-    <Compile Include="Customize\DAL\IBatis\PageProvider.cs" />
-    <Compile Include="Customize\DAL\IBatis\WidgetInstanceProvider.cs" />
-    <Compile Include="Customize\DAL\IBatis\WidgetProvider.cs" />
-    <Compile Include="Customize\IBLL\IPageService.cs" />
-    <Compile Include="Customize\IBLL\IWidgetInstanceService.cs" />
-    <Compile Include="Customize\IBLL\IWidgetService.cs" />
-    <Compile Include="Customize\IDAL\IPageProvider.cs" />
-    <Compile Include="Customize\IDAL\IWidgetInstanceProvider.cs" />
-    <Compile Include="Customize\IDAL\IWidgetProvider.cs" />
-    <Compile Include="Customize\IWidget.cs" />
-    <Compile Include="Customize\Model\PageInfo.cs" />
-    <Compile Include="Customize\Model\SettingInfo.cs" />
-    <Compile Include="Customize\Model\WidgetInfo.cs" />
-    <Compile Include="Customize\Model\WidgetInstanceInfo.cs" />
-    <Compile Include="Customize\Widgets\FavoriteWidget.cs" />
-    <Compile Include="Customize\Widgets\GeneralWidget.cs" />
-    <Compile Include="Customize\Widgets\TodayWidget.cs" />
-    <Compile Include="Customize\Widgets\WeatherWidget.cs" />
     <Compile Include="Mvc\Controllers\PlatformController.cs" />
     <Compile Include="Mvc\Controllers\AccountController.cs" />
     <Compile Include="Mvc\Controllers\SharedController.cs" />
+    <Compile Include="Mvc\RequestRoute.cs" />
     <Compile Include="Pages\CustomPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -202,15 +206,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\X3Platform.Web.config" />
-    <EmbeddedResource Include="Customize\DAL\IBatis\PageProvider.xml" />
-    <EmbeddedResource Include="Customize\DAL\IBatis\WidgetInstanceProvider.xml" />
-    <EmbeddedResource Include="Customize\DAL\IBatis\WidgetProvider.xml" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
     <EmbeddedResource Include="defaults\Objects.xml" />
+    <Content Include="Customizes\DAL\IBatis\PageProvider.xml" />
+    <Content Include="Customizes\DAL\IBatis\WidgetInstanceProvider.xml" />
+    <Content Include="Customizes\DAL\IBatis\WidgetProvider.xml" />
     <Content Include="UserAgents\change-marks.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Web.IBatis.SqlMap.config" />
     <None Include="config\X3Platform.Web.Spring.config">
       <SubType>Designer</SubType>
@@ -220,7 +223,7 @@
     <None Include="UserAgents\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Customize\db\" />
+    <Folder Include="Customizes\db\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -231,6 +234,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

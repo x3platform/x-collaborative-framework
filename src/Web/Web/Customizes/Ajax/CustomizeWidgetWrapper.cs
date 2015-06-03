@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Web.Customizes.Ajax
+﻿namespace X3Platform.Web.Customizes.Ajax
 {
     #region Using Libraries
     using System;
@@ -30,7 +14,7 @@ namespace X3Platform.Web.Customizes.Ajax
     #endregion
 
     /// <summary>部件实例</summary>
-    public sealed class WidgetWrapper : ContextWrapper
+  public sealed class CustomizeWidgetWrapper : ContextWrapper
     {
         private IWidgetService service = CustomizeContext.Instance.WidgetService; // 数据服务
 

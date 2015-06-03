@@ -82,7 +82,7 @@ namespace X3Platform.Velocity.Configuration
 
                     // 如果配置文件里未设置则设置一个默认值
                     this.m_TemplatePath = StringHelper.NullOrEmptyTo(this.m_TemplatePath,
-                        KernelConfigurationView.Instance.ApplicationPathRoot + "apps\templates");
+                        KernelConfigurationView.Instance.ApplicationPathRoot + "views\\templates");
 
                     if (Environment.OSVersion.Platform == PlatformID.Unix)
                     {

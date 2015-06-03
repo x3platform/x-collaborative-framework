@@ -2,7 +2,7 @@
 // Name     : x-client-api 
 // Version  : 1.0.0 
 // Author   : ruanyu@live.com
-// Date     : 2014-11-15
+// Date     : 2015-05-25
 (function(global, factory) 
 {
     if (typeof module === "object" && typeof module.exports === "object") 
@@ -20,9 +20,7 @@
     {
         factory(global);
     }
-} (typeof window !== "undefined" ? window : this, function(window, noGlobal) {
-
-    // -------------------------------------------------------
+} (typeof window !== "undefined" ? window : this, function(window, noGlobal) {    // -------------------------------------------------------
     // 扩展 Function 对象方法
     // -------------------------------------------------------
     
@@ -58,16 +56,12 @@
     // -------------------------------------------------------
     // 扩展 String 对象方法
     // -------------------------------------------------------
-    
-    /*#region 类:String*/
-    /**
+        /**
     * 创建 String 对象
     * @class String 扩展 Javascript 的 String 对象的方法
     * @constructor String
     */
-    
-    /*#region 函数:trim()*/
-    if (!String.prototype.trim)
+        if (!String.prototype.trim)
     {
         /**
         * 去除字符串两侧空白
@@ -79,11 +73,7 @@
         {
             return this.replace(/(^\s*)|(\s*$)/g, '');
         }
-    };
-    /*#endregion*/
-    
-    /*#region 函数:ltrim()*/
-    if (!String.prototype.ltrim)
+    };        if (!String.prototype.ltrim)
     {
         /**
         * 去除字符串左侧空白
@@ -95,11 +85,7 @@
         {
             return this.replace(/(^\s*)/g, '');
         }
-    };
-    /*#endregion*/
-    
-    /*#region 函数:rtrim()*/
-    if (!String.prototype.rtrim)
+    };        if (!String.prototype.rtrim)
     {
         /**
         * 去除字符串右侧空白
@@ -111,11 +97,7 @@
         {
             return this.replace(/(\s*$)/g, '');
         }
-    };
-    /*#endregion*/
-    
-    /*#region 函数:exists()*/
-    if (!String.prototype.exists)
+    };        if (!String.prototype.exists)
     {
         /**
         * 利用正则表达式验证字符串规则
@@ -128,11 +110,7 @@
         {
             return this.match(regexp) !== null;
         }
-    };
-    /*#endregion*/
-    
-    /*#region 函数:format()*/
-    if (!String.prototype.format)
+    };        if (!String.prototype.format)
     {
         String.prototype.format = function()
         {
@@ -143,11 +121,7 @@
                 return args[i];
             });
         }
-    }
-    /*#endregion*/
-    
-    /*#endregion*/
-    /*!
+    }        /*!
      * Sizzle CSS Selector Engine v2.0.1-pre
      * http://sizzlejs.com/
      *
@@ -2185,6 +2159,11 @@
     
         i18n = init(i18n, {
             /* 常用 */
+            msg: {
+                // Are you sure you want to delete these items.
+                ARE_YOU_SURE_YOU_WANT_TO_DELETE: '确定删除?'
+            },
+            /* 常用 */
             generic: {
                 filter: '查询',
                 query: '查询',
@@ -2219,8 +2198,11 @@
                 },
     
                 waiting: {
+                    loadingTipText: '正在加载数据，请稍后......',
+                    loadingWorkflowTemplateTipText: '正在加载工作流模板，请稍后......',
                     queryTipText: '正在查询数据，请稍后......',
                     commitTipText: '正在提交数据，请稍候......',
+                    holdTipText: '正在暂存数据，请稍候......',
                     saveTipText: '正在保存数据，请稍候......',
                     deleteTipText: '正在删除数据，请稍候......'
                 }
@@ -2241,18 +2223,12 @@
         // 默认设置
         defaults: {
             // 默认消息提示方式
-            msg: function(text) { if (alert) { alert(text); } else { console.log(text); } }
+            msg: function(text) { if(alert) { alert(text); } else { console.log(text); } }
         },
     
         // 缓存
         cache: {},
-    
-        /*#region 函数:msg(text)*/
-        msg: function(text) { x.defaults.msg(text); },
-        /*#endregion*/
-    
-        /*#region 函数:type(object)*/
-        /**
+            msg: function(text) { x.defaults.msg(text); },            /**
         * 检查对象类型
         * @method type
         * @memberof x
@@ -2261,22 +2237,18 @@
         {
             try
             {
-                if (typeof (object) === 'undefined') { return 'undefined'; }
-                if (object === null) { return 'null'; }
+                if(typeof (object) === 'undefined') { return 'undefined'; }
+                if(object === null) { return 'null'; }
     
                 return /\[object ([A-Za-z]+)\]/.exec(Object.prototype.toString.call(object))[1].toLowerCase();
             }
-            catch (ex)
+            catch(ex)
             {
-                if (ex instanceof RangeError) { return '...'; }
+                if(ex instanceof RangeError) { return '...'; }
     
                 throw ex;
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isArray(object)*/
-        /**
+        },            /**
         * 判断对象是否是 Array 类型
         * @method isArray
         * @memberof x
@@ -2284,11 +2256,7 @@
         isArray: function(object)
         {
             return x.type(object) === 'array';
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isFunction(object)*/
-        /**
+        },            /**
         * 判断对象是否是 Function 类型
         * @method isFunction
         * @memberof x
@@ -2296,11 +2264,7 @@
         isFunction: function(object)
         {
             return x.type(object) === 'function';
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isString(object)*/
-        /**
+        },            /**
         * 判断对象是否是 String 类型
         * @method isString
         * @memberof x
@@ -2308,11 +2272,7 @@
         isString: function(object)
         {
             return x.type(object) === 'string';
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isNumber(object)*/
-        /**
+        },            /**
         * 判断对象是否是 Number 类型
         * @method inspect
         * @memberof Object
@@ -2320,11 +2280,7 @@
         isNumber: function(object)
         {
             return x.type(object) === 'number';
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isUndefined(value, replacementValue)*/
-        /**
+        },            /**
         * 判断是否是 undefined 类型, 如果设置了替换的值, 则当第一个参数为 undefined, 则使用替换的值
         * @method isUndefined
         * @memberof x
@@ -2339,7 +2295,7 @@
         */
         isUndefined: function(object, replacementValue)
         {
-            if (arguments.length == 2)
+            if(arguments.length == 2)
             {
                 // 如果设置了 replacementValue 值, 则当对象是 undefined 值时, 返回替换值信息
                 return (x.type(object) === 'undefined') ? replacementValue : object;
@@ -2348,9 +2304,7 @@
             {
                 return x.type(object) === 'undefined';
             }
-        },
-        /*#endregion*/
-    
+        },    
         // 脚本代码片段
         scriptFragment: '<script[^>]*>([\\S\\s]*?)<\/script>',
     
@@ -2362,16 +2316,10 @@
     
         // Is it a simple selector
         isSimple: /^.[^:#\[\.,]*$/,
-    
-        /*#region 函数:noop()*/
-        /**
+            /**
         * 空操作
         */
-        noop: function() { },
-        /*#endregion*/
-    
-        /*#region 函数:register(value)*/
-        /**
+        noop: function() { },            /**
         * 注册对象信息
         * @method register
         * @memberof x3platform
@@ -2382,9 +2330,9 @@
     
             var root = window;
     
-            for (var i = 0; i < parts.length; i++)
+            for(var i = 0;i < parts.length;i++)
             {
-                if (x.isUndefined(root[parts[i]]))
+                if(x.isUndefined(root[parts[i]]))
                 {
                     root[parts[i]] = {};
                 }
@@ -2393,11 +2341,7 @@
             }
     
             return root;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:ext(destination, source)*/
-        /**
+        },            /**
         * 将原始对象的属性和方法扩展至目标对象
         * @method ext
         * @memberof x
@@ -2417,11 +2361,11 @@
     
             var result = arguments[0] || {};
     
-            if (arguments.length > 1)
+            if(arguments.length > 1)
             {
-                for (var i = 1; i < arguments.length; i++)
+                for(var i = 1;i < arguments.length;i++)
                 {
-                    for (var property in arguments[i])
+                    for(var property in arguments[i])
                     {
                         result[property] = arguments[i][property];
                     }
@@ -2429,11 +2373,7 @@
             }
     
             return result;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:clone(object)*/
-        /**
+        },            /**
         * 克隆对象
         * @method clone
         * @memberof x
@@ -2442,11 +2382,7 @@
         clone: function(object)
         {
             return x.ext({}, object);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:invoke(object, fn)*/
-        /**
+        },            /**
         * 执行对象方法
         * @method invoke
         * @memberof x
@@ -2457,42 +2393,34 @@
             var args = Array.prototype.slice.call(arguments).slice(2);
     
             return fn.apply(object, args);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:call(anything)*/
-        /*
+        },            /*
         * 调用方法或者代码文本
         * @method call
         * @memberof x
         */
         call: function(anything)
         {
-            if (!x.isUndefined(anything))
+            if(!x.isUndefined(anything))
             {
                 try
                 {
-                    if (x.isFunction(anything))
+                    if(x.isFunction(anything))
                     {
                         var args = Array.prototype.slice.call(arguments).slice(1);
     
                         return anything.apply(this, args);
                     }
-                    else if (x.type(anything) === 'string')
+                    else if(x.type(anything) === 'string')
                     {
-                        if (anything !== '') { return eval(anything); }
+                        if(anything !== '') { return eval(anything); }
                     }
                 }
-                catch (ex)
+                catch(ex)
                 {
                     x.debug.error(ex);
                 }
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:query(selector)*/
-        /**
+        },            /**
         * 精确查询单个表单元素。
         * @method query
         * @memberof x
@@ -2500,22 +2428,18 @@
         */
         query: function(selector)
         {
-            if (x.type(selector).indexOf('html') == 0)
+            if(x.type(selector).indexOf('html') == 0)
             {
                 // Html 元素类型 直接返回
                 return selector;
             }
-            else if (x.type(selector) == 'string')
+            else if(x.type(selector) == 'string')
             {
                 var results = Sizzle.apply(window, Array.prototype.slice.call(arguments, 0));
     
                 return (results.length == 0) ? null : results[0];
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:queryAll(selector)*/
-        /**
+        },            /**
         * 精确查询单个表单元素。
         * @method query
         * @memberof x
@@ -2523,7 +2447,7 @@
         */
         queryAll: function(selector)
         {
-            if (x.type(selector).indexOf('html') == 0)
+            if(x.type(selector).indexOf('html') == 0)
             {
                 // Html 元素类型 直接返回
                 var results = [];
@@ -2531,15 +2455,11 @@
     
                 return results;
             }
-            else if (x.type(selector) == 'string')
+            else if(x.type(selector) == 'string')
             {
                 return Sizzle.apply(window, Array.prototype.slice.call(arguments, 0));
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:serialize(data)*/
-        /**
+        },            /**
         * 返回数据串行化后的字符串  
         * @method serialize
         * @memberof x
@@ -2549,28 +2469,24 @@
         {
             var buffer = [], length = data.length;
     
-            if (x.isArray(data))
+            if(x.isArray(data))
             {
                 // 数组对象
-                for (var i = 0; i < length; i++)
+                for(var i = 0;i < length;i++)
                 {
                     buffer.push(data[i].name + '=' + encodeURIComponent(data[i].value));
                 }
             }
             else
             {
-                for (var name in data)
+                for(var name in data)
                 {
                     buffer.push(name + '=' + encodeURIComponent(data[name]));
                 }
             }
     
             return buffer.join('&');
-        },
-        /*#endregion*/
-    
-        /*#region 函数:each(data, callback)*/
-        /**
+        },            /**
         * 遍历元素对象, 如果需要退出返回 false
         * @method query
         * @memberof x
@@ -2581,26 +2497,22 @@
         {
             var name, i = 0, length = data.length;
     
-            if (x.isArray(data))
+            if(x.isArray(data))
             {
                 // 数组对象
-                for (var value = data[0]; i < length && callback.call(value, i, value) != false; value = data[++i]) { }
+                for(var value = data[0];i < length && callback.call(value, i, value) != false;value = data[++i]) { }
             }
             else
             {
                 // 键/值对的散列表
-                for (name in data)
+                for(name in data)
                 {
-                    if (callback.call(data[name], name, data[name]) === false) { break; }
+                    if(callback.call(data[name], name, data[name]) === false) { break; }
                 }
             }
     
             return data;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:toXML(text)*/
-        /**
+        },            /**
         * 将字符串转换为XML对象
         * @method toXML
         * @memberof x
@@ -2608,10 +2520,10 @@
         */
         toXML: function(text)
         {
-            if (x.type(text) === 'xmldocument') { return text; }
+            if(x.type(text) === 'xmldocument') { return text; }
     
             // 类型为 undefined 时或者字符串内容为空时, 返回 undefined 值.
-            if (x.isUndefined(text) || text === '') { return undefined; }
+            if(x.isUndefined(text) || text === '') { return undefined; }
     
             var hideError = !!arguments[1];
     
@@ -2620,37 +2532,33 @@
             // Firefox, Mozilla, Opera, etc.
             try
             {
-                if (window.DOMParser)
+                if(window.DOMParser)
                 {
                     var parser = new DOMParser();
                     doc = parser.parseFromString(text, "text/xml");
                 }
-                else if (window.ActiveXObject)
+                else if(window.ActiveXObject)
                 {
                     doc = new ActiveXObject("Microsoft.XMLDOM");
                     doc.async = "false";
                     doc.loadXML(text);
                 }
             }
-            catch (ex)
+            catch(ex)
             {
                 doc = undefined;
     
-                if (!hideError) x.debug.error('{"method":"x.toXML(text)", "arguments":{"text":"' + text + '"}');
+                if(!hideError) x.debug.error('{"method":"x.toXML(text)", "arguments":{"text":"' + text + '"}');
             }
     
-            if (!doc || doc.getElementsByTagName("parsererror").length)
+            if(!doc || doc.getElementsByTagName("parsererror").length)
             {
                 doc = undefined;
-                if (!hideError) x.debug.error('{"method":"x.toXML(text)", "arguments":{"text":"' + text + '"}');
+                if(!hideError) x.debug.error('{"method":"x.toXML(text)", "arguments":{"text":"' + text + '"}');
             }
     
             return doc;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:toJSON(text)*/
-        /**
+        },            /**
         * 将字符串转换为JSON对象
         * @method toJSON
         * @memberof x
@@ -2658,10 +2566,10 @@
         */
         toJSON: function(text)
         {
-            if (x.type(text) === 'object') { return text; }
+            if(x.type(text) === 'object') { return text; }
     
             // 类型为 undefined 时或者字符串内容为空时, 返回 undefined 值.
-            if (x.isUndefined(text) || text === '') { return undefined; }
+            if(x.isUndefined(text) || text === '') { return undefined; }
     
             var hideError = arguments[1];
     
@@ -2670,23 +2578,19 @@
                 // eval('(' + text + ')')
                 return (JSON) ? JSON.parse(text) : (Function("return " + text))();
             }
-            catch (ex)
+            catch(ex)
             {
                 try
                 {
                     return (Function("return " + text))();
                 }
-                catch (ex1)
+                catch(ex1)
                 {
-                    if (!hideError) x.debug.error('{"method":"x.toJSON(text)", "arguments":{"text":"' + text + '"}');
+                    if(!hideError) x.debug.error('{"method":"x.toJSON(text)", "arguments":{"text":"' + text + '"}');
                     return undefined;
                 }
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:toSafeJSON(text)*/
-        /**
+        },            /**
         * 将普通文本信息转换为安全的符合JSON格式规范的文本信息
         * @method toSafeJSON
         * @memberof x
@@ -2696,32 +2600,32 @@
         {
             var outString = '';
     
-            for (var i = 0; i < text.length; i++)
+            for(var i = 0;i < text.length;i++)
             {
                 var ch = text.substr(i, 1);
     
-                if (ch === '"' || ch === '\'' || ch === '\\')
+                if(ch === '"' || ch === '\'' || ch === '\\')
                 {
                     outString += '\\';
                     outString += ch;
                 }
-                else if (ch === '\b')
+                else if(ch === '\b')
                 {
                     outString += '\\b';
                 }
-                else if (ch === '\f')
+                else if(ch === '\f')
                 {
                     outString += '\\f';
                 }
-                else if (ch === '\n')
+                else if(ch === '\n')
                 {
                     outString += '\\n';
                 }
-                else if (ch === '\t')
+                else if(ch === '\t')
                 {
                     outString += '\\t';
                 }
-                else if (ch === '\r')
+                else if(ch === '\r')
                 {
                     outString += '\\r';
                 }
@@ -2732,11 +2636,7 @@
             }
     
             return outString;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:toSafeLike(text)*/
-        /**
+        },            /**
         * 将字符串中特殊字符([%_)转换为可识别的Like内容.
         * @method toSafeLike
         * @memberof x
@@ -2745,11 +2645,7 @@
         toSafeLike: function(text)
         {
             return text.replace(/\[/g, '[[]').replace(/%/g, '[%]').replace(/_/g, '[_]');
-        },
-        /*#endregion*/
-    
-        /*#region 函数:cdata(text)*/
-        /**
+        },            /**
         * 将普通文本信息转为为Xml不解析的文本信息
         * @method cdata
         * @memberof x
@@ -2758,11 +2654,7 @@
         cdata: function(text)
         {
             return '<![CDATA[' + text + ']]>';
-        },
-        /*#endregion*/
-    
-        /*#region 函数:camelCase(text)*/
-        /**
+        },            /**
         * 将短划线文字转换至驼峰格式
         * @method camelCase
         * @memberof x
@@ -2781,11 +2673,7 @@
             {
                 return letter.toUpperCase();
             });
-        },
-        /*#endregion*/
-    
-        /*#region 函数:paddingZero(number, length)*/
-        /**
+        },            /**
         * 数字补零
         * @method paddingZero
         * @memberof x
@@ -2795,11 +2683,7 @@
         paddingZero: function(number, length)
         {
             return (Array(length).join('0') + number).slice(-length);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:formatNature(text)*/
-        /**
+        },            /**
         * 将字符串统一转换为本地标识标识
         * @method formatNature
         * @memberof x
@@ -2807,7 +2691,7 @@
         */
         formatNature: function(text)
         {
-            switch (text.toLowerCase())
+            switch(text.toLowerCase())
             {
                 case 'en-us':
                     text = 'en-us';
@@ -2821,11 +2705,7 @@
             }
     
             return text;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:getFriendlyName(name)*/
-        /**
+        },            /**
         * 将不规范的标识名称转换为友好的名称.
         * @method getFriendlyName
         * @memberof x
@@ -2837,11 +2717,7 @@
         getFriendlyName: function(name)
         {
             return x.camelCase(('x-' + name).replace(/[\#\$\.\/\\]/g, '-').replace(/[-]+/g, '-'));
-        },
-        /*#endregion*/
-    
-        /*#region 类:newHashTable()*/
-        /**
+        },            /**
         * 哈希表
         * @class HashTable 哈希表
         * @constructor newHashTable
@@ -2856,9 +2732,7 @@
     
                 // 内部数组对象
                 innerArray: [],
-    
-                /*#region 函数:clear()*/
-                /**
+                    /**
                 * 清空哈希表
                 * @method clear
                 * @memberof x.newHashTable#
@@ -2866,11 +2740,7 @@
                 clear: function()
                 {
                     this.innerArray = [];
-                },
-                /*#endregion*/
-    
-                /*#region 函数:exist(key)*/
-                /**
+                },                    /**
                 * 判断是否已存在相同键的对象
                 * @method exist
                 * @memberof x.newHashTable#
@@ -2878,41 +2748,33 @@
                 */
                 exist: function(key)
                 {
-                    for (var i = 0; i < this.innerArray.length; i++)
+                    for(var i = 0;i < this.innerArray.length;i++)
                     {
-                        if (this.innerArray[i].name === key)
+                        if(this.innerArray[i].name === key)
                         {
                             return true;
                         }
                     }
     
                     return false;
-                },
-                /*#endregion*/
-    
-                /*#region 函数:get(index)*/
-                /**
+                },                    /**
                 * @method get
                 * @memberof x.newHashTable#
                 */
                 get: function(index)
                 {
                     return this.innerArray[index];
-                },
-                /*#endregion*/
-    
-                /*#region 函数:add(key, value)*/
-                /**
+                },                    /**
                 * @method add
                 * @memberof x.newHashTable#
                 */
                 add: function(key, value)
                 {
-                    if (arguments.length === 1)
+                    if(arguments.length === 1)
                     {
                         var keyArr = key.split(';');
     
-                        for (var i = 0; i < keyArr.length; i++)
+                        for(var i = 0;i < keyArr.length;i++)
                         {
                             var valueArr = keyArr[i].split('#');
     
@@ -2922,7 +2784,7 @@
                     }
                     else
                     {
-                        if (this.exist(key))
+                        if(this.exist(key))
                         {
                             throw 'hashtable aleardy exist same key[' + key + ']';
                         }
@@ -2931,30 +2793,22 @@
                             this.innerArray.push(x.types.newListItem(key, value));
                         }
                     }
-                },
-                /*#endregion*/
-    
-                /*#region 函数:find(key)*/
-                /**
+                },                    /**
                 * @method find
                 * @memberof x.newHashTable#
                 */
                 find: function(key)
                 {
-                    for (var i = 0; i < this.innerArray.length; i++)
+                    for(var i = 0;i < this.innerArray.length;i++)
                     {
-                        if (this.innerArray[i].name === key)
+                        if(this.innerArray[i].name === key)
                         {
                             return this.innerArray[i].value;
                         }
                     }
     
                     return null;
-                },
-                /*#endregion*/
-    
-                /*#region 函数:size()*/
-                /**
+                },                    /**
                 * 获取哈希表的当前大小
                 * @method size
                 * @memberof x.newHashTable#
@@ -2962,16 +2816,10 @@
                 size: function()
                 {
                     return this.innerArray.length;
-                }
-                /*#endregion*/
-            };
+                }            };
     
             return hashTable;
-        },
-        /*#endregion*/
-    
-        /*#region 类:newQueue()*/
-        /**
+        },            /**
         * 队列
         * @description Queue 对象
         * @class Queue 队列
@@ -2993,9 +2841,7 @@
                 push: function(targetObject)
                 {
                     this.innerArray.push(targetObject);
-                },
-                /*#endregion*/
-    
+                },    
                 /**
                 * 弹出队列顶部元素
                 * @method pop
@@ -3003,7 +2849,7 @@
                 */
                 pop: function()
                 {
-                    if (this.innerArray.length === 0)
+                    if(this.innerArray.length === 0)
                     {
                         return null;
                     }
@@ -3012,7 +2858,7 @@
                         var targetObject = this.innerArray[0];
     
                         // 将队列元素往前移动一个单位
-                        for (var i = 0; i < this.innerArray.length - 1; i++)
+                        for(var i = 0;i < this.innerArray.length - 1;i++)
                         {
                             this.innerArray[i] = this.innerArray[i + 1];
                         }
@@ -3021,25 +2867,19 @@
     
                         return targetObject;
                     }
-                },
-                /*#endregion*/
-    
+                },    
                 /**
                 * 取出队列底部元素(并不删除队列底部元素)
                 */
                 peek: function()
                 {
-                    if (this.innerArray.length === 0)
+                    if(this.innerArray.length === 0)
                     {
                         return null;
                     }
     
                     return this.innerArray[0];
-                },
-                /*#endregion*/
-    
-                /*#region 函数:clear()*/
-                /**
+                },                    /**
                 * 清空堆栈
                 <<<<<<< HEAD
                 * @method clear
@@ -3051,11 +2891,7 @@
                 clear: function()
                 {
                     this.innerArray.length = 0; //将元素的个数清零即可
-                },
-                /*#endregion*/
-    
-                /*#region 函数:size()*/
-                /**
+                },                    /**
                 * 获得线性队列当前大小
                 * @method size
                 * @memberof x.newQueue#
@@ -3063,11 +2899,7 @@
                 size: function()
                 {
                     return this.innerArray.length;
-                },
-                /*#endregion*/
-    
-                /*#region 函数:isEmpty()*/
-                /*
+                },                    /*
                 * 判断一个线性队列是否为空
                 * @method isEmpty
                 * @memberof x.newQueue#
@@ -3075,16 +2907,10 @@
                 isEmpty: function()
                 {
                     return (this.innerArray.length === 0) ? true : false;
-                }
-                /*#endregion*/
-            };
+                }            };
     
             return queue;
-        },
-        /*#endregion*/
-    
-        /*#region 类:newStack()*/
-        /**
+        },            /**
         * 栈
         * @description 创建 Stack 对象
         * @class Stack
@@ -3104,15 +2930,13 @@
                 push: function(targetObject)
                 {
                     this.innerArray[this.innerArray.length] = targetObject;
-                },
-                /*#endregion*/
-    
+                },    
                 /*
                 * 弹出栈顶元素(并删除栈顶元素)
                 */
                 pop: function()
                 {
-                    if (this.innerArray.length === 0)
+                    if(this.innerArray.length === 0)
                     {
                         return null;
                     }
@@ -3124,34 +2948,26 @@
     
                         return targetObject;
                     }
-                },
-                /*#endregion*/
-    
+                },    
                 /*
                 * 取出栈顶元素(并不删除栈顶元素)
                 */
                 peek: function()
                 {
-                    if (this.innerArray.length === 0)
+                    if(this.innerArray.length === 0)
                     {
                         return null;
                     }
     
                     return this.innerArray[this.innerArray.length - 1];
-                },
-                /*#endregion*/
-    
+                },    
                 /*
                 * 清空堆栈
                 */
                 clear: function()
                 {
                     this.innerArray.length = 0; //将元素的个数清零即可
-                },
-                /*#endregion*/
-    
-                /*#region 函数:size()*/
-                /**
+                },                    /**
                 * 获得线性堆栈的当前大小
                 * @method size
                 * @memberof x.newStack#
@@ -3159,25 +2975,17 @@
                 size: function()
                 {
                     return this.innerArray.length;
-                },
-                /*#endregion*/
-    
+                },    
                 /*
                 * 判断一个线性堆栈是否为空
                 */
                 isEmpty: function()
                 {
                     return (this.innerArray.length === 0) ? true : false;
-                }
-                /*#endregion*/
-            };
+                }            };
     
             return stack;
-        },
-        /*#endregion*/
-    
-        /*#region 类:newStringBuilder()*/
-        /**
+        },            /**
         * 高效字符串构建器<br />
         * 注: 现在的主流浏览器都针对字符串连接作了优化，所以性能要好于StringBuilder类，不推荐使用，仅作字符串算法研究。
         * @class StringBuilder
@@ -3190,9 +2998,7 @@
     
                 // 内部数组对象
                 innerArray: [],
-    
-                /*#region 函数:append(text)*/
-                /**
+                    /**
                 * 附加文本信息
                 * @method append
                 * @memberof x.newStringBuilder#
@@ -3201,11 +3007,7 @@
                 append: function(text)
                 {
                     this.innerArray[this.innerArray.length] = text;
-                },
-                /*#endregion*/
-    
-                /*#region 函数:toString()*/
-                /**
+                },                    /**
                 * 转换为字符串
                 * @method toString
                 * @memberof x.newStringBuilder#
@@ -3214,16 +3016,10 @@
                 toString: function()
                 {
                     return this.innerArray.join('');
-                }
-                /*#endregion*/
-            };
+                }            };
     
             return stringBuilder;
-        },
-        /*#endregion*/
-    
-        /*#region 类:newTimer(interval, callback)*/
-        /**
+        },            /**
         * 计时器
         * @class Timer 计时器
         * @constructor newTimer
@@ -3250,9 +3046,7 @@
                 interval: interval * 1000,
                 // 回调函数
                 callback: callback,
-    
-                /*#region 函数:run()*/
-                /**
+                    /**
                 * 执行回调函数
                 * @private
                 * @method run
@@ -3261,11 +3055,7 @@
                 run: function()
                 {
                     this.callback(this);
-                },
-                /*#endregion*/
-    
-                /*#region 函数:start()*/
-                /**
+                },                    /**
                 * 启动计时器
                 * @method start
                 * @memberof x.newTimer#
@@ -3275,11 +3065,7 @@
                     eval(this.name + ' = this;');
     
                     this.timerId = setInterval(this.name + '.run()', this.interval);
-                },
-                /*#endregion*/
-    
-                /*#region 函数:stop()*/
-                /**
+                },                    /**
                 * 停止计时器
                 * @method stop
                 * @memberof x.newTimer#
@@ -3287,22 +3073,16 @@
                 stop: function()
                 {
                     clearInterval(this.timerId);
-                }
-                /*#endregion*/
-            };
+                }            };
     
             return timer;
-        },
-        /*#endregion*/
-    
+        },    
         /**
         * 事件
         * @namespace event
         * @memberof x
         */
-        event: {
-            /*#region 函数:getEvent(event)*/
-            /**
+        event: {            /**
             * 获取事件对象
             * @method getEvent
             * @memberof x.event
@@ -3311,11 +3091,7 @@
             getEvent: function(event)
             {
                 return window.event ? window.event : event;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:getTarget(event)*/
-            /**
+            },                /**
             * 获取事件的目标对象
             * @method getTarget
             * @memberof x.event
@@ -3324,11 +3100,7 @@
             getTarget: function(event)
             {
                 return window.event ? window.event.srcElement : (event ? event.target : null);
-            },
-            /*#endregion*/
-    
-            /*#region 函数:getPosition(event)*/
-            /**
+            },                /**
             * 获取事件的光标坐标
             * @method getPosition
             * @memberof x.event
@@ -3344,11 +3116,7 @@
                     x: event.pageX || (event.clientX + (docElement.scrollLeft || body.scrollLeft) - (docElement.clientLeft || 0)),
                     y: event.pageY || (event.clientY + (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0))
                 };
-            },
-            /*#endregion*/
-    
-            /*#region 函数:preventDefault(event)*/
-            /**
+            },                /**
             * 停止事件传播
             * @method preventDefault
             * @memberof x.event
@@ -3357,7 +3125,7 @@
             preventDefault: function(event)
             {
                 // 如果提供了事件对象，则这是一个非IE浏览器 
-                if (event && event.preventDefault)
+                if(event && event.preventDefault)
                 {
                     //阻止默认浏览器动作(W3C) 
                     event.preventDefault();
@@ -3367,11 +3135,7 @@
                     //IE中阻止函数器默认动作的方式   
                     window.event.returnValue = false;
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:stopPropagation(event)*/
-            /**
+            },                /**
             * 停止事件传播
             * @method stopPropagation
             * @memberof x.event
@@ -3393,7 +3157,7 @@
                 //            {
     
                 //如果提供了事件对象，则这是一个非IE浏览器  
-                if (event && event.stopPropagation)
+                if(event && event.stopPropagation)
                 {
                     //因此它支持W3C的stopPropagation()方法  
                     event.stopPropagation();
@@ -3404,11 +3168,7 @@
                     window.event.cancelBubble = true;
                 }
                 return false;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:add(target, type, listener, useCapture)*/
-            /**
+            },                /**
             * 添加事件监听器
             * @method add
             * @memberof x.event
@@ -3419,13 +3179,13 @@
             */
             add: function(target, type, listener, useCapture)
             {
-                if (target == null) return;
+                if(target == null) return;
     
-                if (target.addEventListener)
+                if(target.addEventListener)
                 {
                     target.addEventListener(type, listener, useCapture);
                 }
-                else if (target.attachEvent)
+                else if(target.attachEvent)
                 {
                     target.attachEvent('on' + type, listener);
                 }
@@ -3433,11 +3193,7 @@
                 {
                     target['on' + type] = listener;
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:remove(target, type, listener, useCapture)*/
-            /**
+            },                /**
             * 移除事件监听器
             * @method remove
             * @memberof x.event
@@ -3448,13 +3204,13 @@
             */
             remove: function(target, type, listener, useCapture)
             {
-                if (target == null) return;
+                if(target == null) return;
     
-                if (target.removeEventListener)
+                if(target.removeEventListener)
                 {
                     target.removeEventListener(type, listener, useCapture);
                 }
-                else if (target.detachEvent)
+                else if(target.detachEvent)
                 {
                     target.detachEvent('on' + type, listener);
                 }
@@ -3462,18 +3218,14 @@
                 {
                     target['on' + type] = null;
                 }
-            }
-            /*#endregion*/
-        },
+            }        },
     
         /**
         * Guid 格式文本
         * @namespace guid
         * @memberof x
         */
-        guid: {
-            /*#region 函数:create(format, isUpperCase)*/
-            /**
+        guid: {            /**
             * 创建 Guid 格式文本
             * @method create
             * @memberof x.guid
@@ -3496,13 +3248,13 @@
                 // 格式限制
                 format = x.isUndefined(format, '-').toLowerCase();
     
-                for (var i = 0; i < 8; i++)
+                for(var i = 0;i < 8;i++)
                 {
                     text += (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     
-                    if (i > 0 && i < 5)
+                    if(i > 0 && i < 5)
                     {
-                        if (format === '-')
+                        if(format === '-')
                         {
                             text += '-';
                         }
@@ -3512,18 +3264,14 @@
                 text = isUpperCase ? text.toUpperCase() : text.toLowerCase();
     
                 return text;
-            }
-            /*#endregion*/
-        },
+            }        },
     
         /**
         * 随机文本
         * @namespace randomText
         * @memberof x
         */
-        randomText: {
-            /*#region 函数:create(length)*/
-            /**
+        randomText: {            /**
             * 创建随机文本信息
             * @method create
             * @memberof x.randomText
@@ -3538,15 +3286,13 @@
     
                 var buffer = x.type(buffer) == 'string' ? buffer : "0123456789abcdefghijklmnopqrstuvwyzx";
     
-                for (var i = 0; i < length; i++)
+                for(var i = 0;i < length;i++)
                 {
                     result += buffer.charAt(Math.ceil(Math.random() * 100000000) % buffer.length);
                 }
     
                 return result;
-            }
-            /*#endregion*/
-        },
+            }        },
     
         /**
         * 字符串
@@ -3554,9 +3300,7 @@
         * @memberof x
         */
         string: {
-    
-            /*#region 函数:stringify(value)*/
-            /**
+                /**
             * 将其他类型的值转换成字符串
             * @method stringify
             * @memberof x.string
@@ -3566,13 +3310,13 @@
             {
                 var type = x.type(value);
     
-                if (type !== 'string')
+                if(type !== 'string')
                 {
-                    if (type === 'number')
+                    if(type === 'number')
                     {
                         value += '';
                     }
-                    else if (type === 'function')
+                    else if(type === 'function')
                     {
                         value = x.string.stringify(value.call(value));
                     }
@@ -3583,11 +3327,7 @@
                 }
     
                 return value;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:trim(text, trimText)*/
-            /**
+            },                /**
             * 去除字符串两端空白或其他文本信息
             * @method trim
             * @memberof x.string
@@ -3596,7 +3336,7 @@
             */
             trim: function(text, trimText)
             {
-                if (x.isUndefined(trimText))
+                if(x.isUndefined(trimText))
                 {
                     return text.replace(x.expressions.rules['trim'], '');
                 }
@@ -3604,12 +3344,8 @@
                 {
                     return x.string.rtrim(x.string.ltrim(text, trimText), trimText);
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:ltrim(text, trimText)*/
-            /**
-            * 去除字符串左侧空白.
+            },                /**
+            * 去除字符串左侧空白
             * @method ltrim
             * @memberof x.string
             * @param {string} text 文本信息.
@@ -3617,7 +3353,7 @@
             */
             ltrim: function(text, trimText)
             {
-                if (x.isUndefined(trimText))
+                if(x.isUndefined(trimText))
                 {
                     return text.replace(/(^[\s\uFEFF\xA0]+)/g, '');
                 }
@@ -3625,12 +3361,8 @@
                 {
                     return text.replace(RegExp('(^' + trimText + ')', 'gi'), '');
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:rtrim(text, trimText)*/
-            /**
-            * 去除字符串右侧空白.
+            },                /**
+            * 去除字符串右侧空白
             * @method rtrim
             * @memberof x.string
             * @param {string} text 文本信息.
@@ -3638,7 +3370,7 @@
             */
             rtrim: function(text, trimText)
             {
-                if (x.isUndefined(trimText))
+                if(x.isUndefined(trimText))
                 {
                     return text.replace(/([\s\uFEFF\xA0]+$)/g, '');
                 }
@@ -3647,35 +3379,27 @@
                     return text.replace(RegExp('(' + trimText + '$)', 'gi'), '');
                     // return (text.substr(text.length - trimText.length, trimText.length) === trimText) ? text.substr(0, text.length - trimText.length) : text;
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:format(text, args)*/
-            /**
-            * 去除字符串右侧空白.
-            * @method rtrim
+            },                /**
+            * 字符串格式化
+            * @method format
             * @memberof x.string
             * @param {string} text 文本信息.
-            * @param {number} [trimText] 需要去除的文本信息(默认为空白).
+            * @param {number} [args] 参数.
             */
             format: function()
             {
-                if (arguments.length == 0) { return null; }
+                if(arguments.length == 0) { return null; }
     
                 var text = arguments[0];
     
-                for (var i = 1; i < arguments.length; i++)
+                for(var i = 1;i < arguments.length;i++)
                 {
                     var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
                     text = text.replace(re, arguments[i]);
                 }
     
                 return text;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:left(text, length, hasEllipsis)*/
-            /**
+            },                /**
             * 字符串长度超长时, 截取左侧字符
             * @method left
             * @memberof x.string
@@ -3691,9 +3415,9 @@
             */
             left: function(text, length, hasEllipsis)
             {
-                if (text.length === 0) { return text; }
+                if(text.length === 0) { return text; }
     
-                if (text.length > length)
+                if(text.length > length)
                 {
                     return text.substr(0, length) + (x.isUndefined(hasEllipsis, true) ? '...' : '');
                 }
@@ -3701,9 +3425,7 @@
                 {
                     return text;
                 }
-            }
-            /*#endregion*/
-        },
+            }        },
     
         /**
         * 颜色编码
@@ -3720,15 +3442,15 @@
             */
             hex: function(colorRgbCode)
             {
-                if (/^(rgb|RGB)/.test(colorRgbCode))
+                if(/^(rgb|RGB)/.test(colorRgbCode))
                 {
                     var colorBuffer = colorRgbCode.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
                     var strHex = "#";
-                    for (var i = 0; i < colorBuffer.length; i++)
+                    for(var i = 0;i < colorBuffer.length;i++)
                     {
                         var hex = Number(colorBuffer[i]).toString(16);
     
-                        if (hex === "0")
+                        if(hex === "0")
                         {
                             hex += hex;
                         }
@@ -3736,26 +3458,26 @@
                         strHex += hex;
                     }
     
-                    if (strHex.length !== 7)
+                    if(strHex.length !== 7)
                     {
                         strHex = colorRgbCode;
                     }
     
                     return strHex;
                 }
-                else if (/^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.test(colorRgbCode))
+                else if(/^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.test(colorRgbCode))
                 {
                     var colorBuffer = colorRgbCode.replace(/#/, "").split("");
     
-                    if (colorBuffer.length === 6)
+                    if(colorBuffer.length === 6)
                     {
                         return colorRgbCode;
                     }
-                    else if (colorBuffer.length === 3)
+                    else if(colorBuffer.length === 3)
                     {
                         var numHex = "#";
     
-                        for (var i = 0; i < colorBuffer.length; i += 1)
+                        for(var i = 0;i < colorBuffer.length;i += 1)
                         {
                             numHex += (colorBuffer[i] + colorBuffer[i]);
                         }
@@ -3776,14 +3498,14 @@
             {
                 var color = colorHexCode.toLowerCase();
     
-                if (color && /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.test(color))
+                if(color && /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/.test(color))
                 {
                     // 处理简写的颜色
-                    if (color.length === 4)
+                    if(color.length === 4)
                     {
                         var originalColor = "#";
     
-                        for (var i = 1; i < 4; i += 1)
+                        for(var i = 1;i < 4;i += 1)
                         {
                             originalColor += color.slice(i, i + 1).concat(color.slice(i, i + 1));
                         }
@@ -3794,7 +3516,7 @@
                     // 处理六位的颜色值
                     var colorBuffer = [];
     
-                    for (var i = 1; i < 7; i += 2)
+                    for(var i = 1;i < 7;i += 2)
                     {
                         colorBuffer.push(parseInt("0x" + color.slice(i, i + 2)));
                     }
@@ -3818,7 +3540,7 @@
     
     x.dir = function()
     {
-        if (scriptFilePath.length > 0)
+        if(scriptFilePath.length > 0)
         {
             return scriptFilePath.substring(0, scriptFilePath.lastIndexOf("/") + 1);
         }
@@ -3828,7 +3550,7 @@
         }
     };
     
-    if (document)
+    if(document)
     {
         try
         {
@@ -3839,7 +3561,7 @@
     
             scriptFilePath = scripts[scripts.length - 1].src.replace(location.origin, '');
         }
-        catch (ex)
+        catch(ex)
         {
             scriptFilePath = '';
         }
@@ -3853,29 +3575,31 @@
     */
     var require = x.require = function(options)
     {
-        if (x.isArray(options.files))
+        if(x.isArray(options.files))
         {
             var file, files = options.files;
     
-            if (files.length > 0)
+            if(files.length > 0)
             {
                 file = files.shift();
     
-                if (files.length == 0)
+                if(files.length == 0)
                 {
                     require.newRequire({
                         fileType: file.fileType,
                         id: file.id,
+                        async: file.async,
                         path: file.path,
                         data: options.data,
                         callback: options.callback
                     });
                 }
-                else if (files.length > 0)
+                else if(files.length > 0)
                 {
                     require.newRequire({
                         fileType: file.fileType,
                         id: file.id,
+                        async: file.async,
                         path: file.path,
                         data: options.data,
                         next: { files: files, callback: options.callback },
@@ -3896,6 +3620,7 @@
             require.newRequire({
                 fileType: options.fileType,
                 id: options.id,
+                async: options.async,
                 path: options.path,
                 data: options.data,
                 callback: options.callback
@@ -3911,9 +3636,9 @@
             path: ''
         }, options || {});
     
-        if (context.fileType == 'template')
+        if(context.fileType == 'template')
         {
-            if (context.next)
+            if(context.next)
             {
                 x.net.require({
                     fileType: context.fileType,
@@ -3953,7 +3678,7 @@
             //Note the test for "[native code" with no closing brace, see:
             //https://github.com/jrburke/requirejs/issues/273
     
-            if (node.attachEvent
+            if(node.attachEvent
                     && !(node.attachEvent.toString && node.attachEvent.toString().indexOf('[native code') < 0)
                     && !x.browser.opera)
             {
@@ -3966,16 +3691,14 @@
         };
     
         var onScriptLoad = function(event)
-        {
-            x.debug.log('require file {"id":"{0}", path:"{1}"} finished.'.format(context.id, context.path));
-    
+        {    
             var node = x.event.getTarget(event);
     
-            if (event.type === 'load' || /^(complete|loaded)$/.test(node.readyState))
+            if(event.type === 'load' || /^(complete|loaded)$/.test(node.readyState))
             {
                 node.ready = true;
-    
-                if (x.isFunction(context.callback))
+                
+                if(x.isFunction(context.callback))
                 {
                     context.callback(context);
                 }
@@ -3985,11 +3708,11 @@
         var head = document.getElementsByTagName('head')[0];
     
         var node = document.getElementById(context.id);
-    
-        if (node == null)
+        
+        if(node == null)
         {
             // 未找到相关依赖资源文件
-            if (context.fileType == 'css')
+            if(context.fileType == 'css')
             {
                 var node = document.createElement("link");
     
@@ -3997,6 +3720,7 @@
                 node.type = "text/css";
                 node.rel = "stylesheet";
                 node.href = context.path;
+                node.ready = false;
             }
             else
             {
@@ -4004,20 +3728,20 @@
     
                 node.id = context.id;
                 node.type = "text/javascript";
-                node.async = true;
+                node.async = options.async == false ? false : true;
                 node.src = context.path;
+                node.ready = false;
             }
     
             load(node, onScriptLoad);
     
             head.appendChild(node);
-    
-            x.debug.log('require file {"id":"{0}", path:"{1}"} loading.'.format(context.id, context.path));
-        }
+            }
         else
         {
             // 存在相关依赖文件
-            if (x.isFunction(context.callback))
+            // if(x.isFunction(context.callback))
+            if(node.ready)
             {
                 context.callback(context);
             }
@@ -4025,9 +3749,7 @@
             {
                 load(node, onScriptLoad);
             }
-    
-            x.debug.log('require file {"id":"{0}", path:"{1}"} exist.'.format(options.id, options.path));
-        }
+            }
     
         return context;
     };
@@ -4044,7 +3766,7 @@
             fileType: 'javascipt',
             id: 'JSONP' + Number(new Date()),
             jsonp: 'callback',
-            jsonpCallback: 'jsonpCallbackCallback'
+            jsonpCallback: 'jsonpCallback'
         }, options);
     
         options.path = options.url + ((options.url.indexOf('?') == -1) ? '?' : '&') + options.jsonp + '=' + options.jsonpCallback;
@@ -4113,9 +3835,7 @@
         * x.browser.mobilesafari;
         */
         mobilesafari: !!navigator.userAgent.match(/Apple.*Mobile.*Safari/),
-    
-        /*#region 函数:current()*/
-        /** 
+            /** 
         * 获取当前浏览器的名称和版本
         * @method current 
         * @memberof x.browser
@@ -4125,11 +3845,7 @@
         current: function()
         {
             return { name: x.browser.getName(), version: x.browser.getVersion() };
-        },
-        /*#endregion*/
-    
-        /*#region 函数:getName()*/
-        /** 
+        },            /** 
         * 获取当前浏览器的名称
         * @method getName 
         * @memberof x.browser
@@ -4138,27 +3854,23 @@
         */
         getName: function()
         {
-            if (navigator.userAgent.indexOf("MSIE") > 0)
+            if(navigator.userAgent.indexOf("MSIE") > 0)
                 return "Internet Explorer";
-            if (navigator.userAgent.indexOf("Chrome") >= 0)
+            if(navigator.userAgent.indexOf("Chrome") >= 0)
                 return "Chrome";
-            if (navigator.userAgent.indexOf("Firefox") >= 0)
+            if(navigator.userAgent.indexOf("Firefox") >= 0)
                 return "Firefox";
-            if (navigator.userAgent.indexOf("Opera") >= 0)
+            if(navigator.userAgent.indexOf("Opera") >= 0)
                 return "Opera";
-            if (navigator.userAgent.indexOf("Safari") > 0)
+            if(navigator.userAgent.indexOf("Safari") > 0)
                 return "Safari";
-            if (navigator.userAgent.indexOf("Camino") > 0)
+            if(navigator.userAgent.indexOf("Camino") > 0)
                 return "Camino";
-            if (navigator.userAgent.indexOf("Gecko") > 0)
+            if(navigator.userAgent.indexOf("Gecko") > 0)
                 return "Gecko";
     
             return "unknown";
-        },
-        /*#endregion*/
-    
-        /*#region 函数:getVersion()*/
-        /** 
+        },            /** 
         * 获取当前浏览器的版本
         * @method getVersion 
         * @memberof x.browser
@@ -4174,7 +3886,7 @@
             var startValue;
             var lengthValue;
     
-            switch (browserName)
+            switch(browserName)
             {
                 case "Internet Explorer":
                     startValue = version.indexOf("MSIE") + 5;
@@ -4202,9 +3914,7 @@
             }
     
             return version;
-        },
-        /*#endregion*/
-    
+        },    
         /**
         * 浏览器特性
         * @namespace features
@@ -4262,6 +3972,13 @@
         packagesPathPrefix: null,
     
         /**
+        * 组件包根目录
+        * @method dir
+        * @memberof x.ui.pkg
+        */
+        dir: function() { return x.dir() + 'ui/'; },
+    
+        /**
         * 通用 组件包默认名称空间
         * @namespace pkg
         * @memberof x.ui
@@ -4291,9 +4008,7 @@
         styles: {
             dir: function() { return x.ui.stylesheetPathPrefix; }
         }
-    };
-
-    
+    };    
     /**
     * @namespace debug
     * @memberof x
@@ -4304,9 +4019,7 @@
         // 相关链接
         // http://getfirebug.com/wiki/index.php/Console_API
         // https://developers.google.com/chrome-developer-tools/docs/console?hl=zh-CN#using_the_console_api
-    
-        /*#region 函数:log(object)*/
-        /**
+            /**
         * 记录普通的日志消息
         * @method log
         * @memberof x.debug
@@ -4319,11 +4032,7 @@
             {
                 console.log(object);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:warn(object)*/
-        /**
+        },            /**
         * 记录警告的日志消息
         * @method warn
         * @memberof x.debug
@@ -4336,11 +4045,7 @@
             {
                 console.warn(object);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:error(object)*/
-        /**
+        },            /**
         * 记录错误的日志消息
         * @method error
         * @memberof x.debug
@@ -4353,11 +4058,7 @@
             {
                 console.error(object);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:assert(expression)*/
-        /**
+        },            /**
         * 断言
         * @method assert
         * @memberof x.debug
@@ -4370,11 +4071,7 @@
             {
                 console.assert(expression);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:time(name)*/
-        /**
+        },            /**
         * 计时器
         * @method time
         * @memberof x.debug
@@ -4387,11 +4084,7 @@
             {
                 console.time(name);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:timeEnd(name)*/
-        /**
+        },            /**
         * 停止计时器
         * @method timeEnd
         * @memberof x.debug
@@ -4404,11 +4097,7 @@
             {
                 console.timeEnd(name);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:timestamp()*/
-        /**
+        },            /**
         * 获取当前时间信息
         * @method timestamp
         * @memberof x.debug
@@ -4427,11 +4116,7 @@
                          .replace(/mm/, timestamp.getMinutes() > 9 ? timestamp.getMinutes() : '0' + timestamp.getMinutes())
                          .replace(/ss|SS/, timestamp.getSeconds() > 9 ? timestamp.getSeconds() : '0' + timestamp.getSeconds())
                          .replace(/fff/g, ((timestamp.getMilliseconds() > 99) ? timestamp.getMilliseconds() : (timestamp.getMilliseconds() > 9) ? '0' + timestamp.getMilliseconds() : '00' + timestamp.getMilliseconds()));
-        }
-        /*#endregion*/
-    };
-
-    
+        }    };    
     /**
     * @namespace encoding
     * @memberof x
@@ -4453,9 +4138,7 @@
                 '"': '&#34;',
                 '\'': '&#39;'
             },
-    
-            /*#region 函数:encode(text)*/
-            /**
+                /**
             * html 编码
             * @method encode
             * @memberof x.encoding.html
@@ -4485,11 +4168,7 @@
                 //            outString = outString.replace(/\"/g, '&quot;');
     
                 //            return outString;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:decode(text)*/
-            /**
+            },                /**
             * html 解码
             * @method decode
             * @memberof x.encoding.html
@@ -4513,9 +4192,7 @@
                 outString = outString.replace(/&quot;/g, "\"");
     
                 return outString;
-            }
-            /*#endregion*/
-        },
+            }        },
     
         /**
         * @namespace unicode
@@ -4526,9 +4203,7 @@
     
             // 注意
             // html 的 unicode 编码格式是&#888888;, javascript 的 unicode 编码格式\u000000
-    
-            /*#region 函数:encode(text)*/
-            /**
+                /**
             * unicode 编码
             * @method encode
             * @memberof x.encoding.unicode
@@ -4563,11 +4238,7 @@
                 }
     
                 return outString.toLowerCase();
-            },
-            /*#endregion*/
-    
-            /*#region 函数:decode(text)*/
-            /**
+            },                /**
             * unicode 解码
             * @method decode
             * @memberof x.encoding.unicode
@@ -4601,141 +4272,122 @@
                 }
     
                 return outString;
-            }
-            /*#endregion*/
-        }
-    };
-
-    
+            }        }
+    };    
     /**
     * @namespace cookies
     * @memberof x
     * @description Cookies 管理
     */
     x.cookies = {
+          /**
+      * 根据 Cookie 名称查找相关的值
+      * @method query
+      * @memberof x.cookies
+      * @param {string} name 名称
+      */
+      query: function(name)
+      {
+        var value = '';
+        var search = name + '=';
     
-        /*#region 函数:query(name)*/
-        /**
-        * 根据 Cookie 名称查找相关的值
-        * @method query
-        * @memberof x.cookies
-        * @param {string} name 名称
-        */
-        query: function(name)
+        if(document.cookie.length > 0)
         {
-            var value = '';
-            var search = name + '=';
+          var offset = document.cookie.indexOf(search);
     
-            if (document.cookie.length > 0)
-            {
-                var offset = document.cookie.indexOf(search);
+          if(offset != -1)
+          {
+            offset += search.length;
     
-                if (offset != -1)
-                {
-                    offset += search.length;
+            var end = document.cookie.indexOf(';', offset);
     
-                    var end = document.cookie.indexOf(';', offset);
+            if(end == -1) { end = document.cookie.length; }
     
-                    if (end == -1)
-                        end = document.cookie.length;
-    
-                    value = unescape(document.cookie.substring(offset, end));
-                }
-            }
-    
-            return value;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:add(name, value, options)*/
-        /**
-        * 新增 Cookie 的值
-        * @method add
-        * @memberof x.cookies
-        * @param {string} name 名称
-        * @param {string} value 值
-        * @param {object} [options] 选项<br />
-        * 可选键值范围: 
-        * <table class="param-options" >
-        * <thead>
-        * <tr><th>名称</th><th>类型</th><th class="last" >描述</th></tr>
-        * </thead>
-        * <tbody>
-        * <tr><td class="name" >expire</td><td>string</td><td>过期时间</td></tr> 
-        * <tr><td class="name" >path</td><td>string</td><td>所属的路径</td></tr>
-        * <tr><td class="name" >domain</td><td>string</td><td>所属的域</td></tr>
-        * </tbody>
-        * </table>
-        * @example
-        * // 新增一条 Cookie 记录, 
-        * // 名称为 CookieName1, 值为 CookieValue1
-        * x.cookie.add('CookieName1', 'CookieValue1');
-        * @example
-        * // 新增一条 Cookie 记录, 
-        * // 名称为 CookieName2, 值为 CookieValue2, 
-        * // 过期时间为 2050-1-1 10:30:00 
-        * x.cookie.add('cookieName2', 'cookieValue2', {'expire': new (2050, 1, 1, 10, 30, 00)});
-        * @example
-        * // 新增一条 Cookie 记录, 
-        * // 名称为 CookieName3, 值为 CookieValue3, 
-        * // 过期时间为 2050-1-1 10:30:00 , 所属路径为 /help/
-        * x.cookies.add('cookieName3', 'cookieValue3', {'expire': new (2050,1,1,10,30,00), path: '/help/'});
-        * @example
-        * // 新增一条 Cookie 记录, 
-        * // 名称为 CookieName4, 值为 CookieValue4, 
-        * // 过期时间为 2050-1-1 10:30:00, 所属的域为 github.com
-        * x.cookies.add('cookieName4', 'cookieValue4', {'expire': new (2050,1,1,10,30,00), path: '/', domain: 'github.com');
-        */
-        add: function(name, value, options)
-        {
-            options = x.ext({ path: '/' }, options || {});
-    
-            document.cookie = escape(name) + '=' + escape(value)
-                + ((!options.expire) ? '' : ('; expires=' + options.expire.toGMTString()))
-                + '; path=' + options.path
-                + ((!options.domain) ? '' : ('; domain=' + options.domain));
-        },
-        /*#endregion*/
-    
-        /*#region 函数:remove(name, options)*/
-        /**
-        * 移除 Cookie 的值
-        * @method remove
-        * @memberof x.cookies
-        * @param {string} name 名称
-        * @param {object} [options] 选项<br />
-        * 可选键值范围: 
-        * <table class="param-options" >
-        * <thead>
-        * <tr><th>名称</th><th>类型</th><th class="last" >描述</th></tr>
-        * </thead>
-        * <tbody>
-        * <tr><td class="name" >path</td><td>string</td><td>所属的路径</td></tr>
-        * <tr><td class="name" >domain</td><td>string</td><td>所属的域</td></tr>
-        * </tbody>
-        * </table>
-        * @example
-        * // 移除一条 Cookie 记录, 名称为 CookieName1
-        * x.cookies.remove('CookieName1');
-        * @example
-        * // 移除一条 Cookie 记录, 名称为 CookieName2
-        * x.cookies.remove('CookieName2', {path: '/help/'});
-        */
-        remove: function(name, options)
-        {
-            options = x.ext({ path: '/' }, options || {});
-    
-            if (!!x.cookies.query(name))
-            {
-                document.cookie = escape(name) + '=; path=' + options.path
-                    + '; expires=' + new Date(0).toGMTString()
-                    + ((!options.domain) ? '' : ('; domain=' + options.domain));
-            }
+            value = unescape(document.cookie.substring(offset, end));
+          }
         }
-        /*#endregion*/
-    };
-
     
+        return value;
+      },          /**
+      * 新增 Cookie 的值
+      * @method add
+      * @memberof x.cookies
+      * @param {string} name 名称
+      * @param {string} value 值
+      * @param {object} [options] 选项<br />
+      * 可选键值范围: 
+      * <table class="param-options" >
+      * <thead>
+      * <tr><th>名称</th><th>类型</th><th class="last" >描述</th></tr>
+      * </thead>
+      * <tbody>
+      * <tr><td class="name" >expire</td><td>string</td><td>过期时间</td></tr> 
+      * <tr><td class="name" >path</td><td>string</td><td>所属的路径</td></tr>
+      * <tr><td class="name" >domain</td><td>string</td><td>所属的域</td></tr>
+      * </tbody>
+      * </table>
+      * @example
+      * // 新增一条 Cookie 记录, 
+      * // 名称为 CookieName1, 值为 CookieValue1
+      * x.cookie.add('CookieName1', 'CookieValue1');
+      * @example
+      * // 新增一条 Cookie 记录, 
+      * // 名称为 CookieName2, 值为 CookieValue2, 
+      * // 过期时间为 2050-1-1 10:30:00 
+      * x.cookie.add('cookieName2', 'cookieValue2', {'expire': new (2050, 1, 1, 10, 30, 00)});
+      * @example
+      * // 新增一条 Cookie 记录, 
+      * // 名称为 CookieName3, 值为 CookieValue3, 
+      * // 过期时间为 2050-1-1 10:30:00 , 所属路径为 /help/
+      * x.cookies.add('cookieName3', 'cookieValue3', {'expire': new (2050,1,1,10,30,00), path: '/help/'});
+      * @example
+      * // 新增一条 Cookie 记录, 
+      * // 名称为 CookieName4, 值为 CookieValue4, 
+      * // 过期时间为 2050-1-1 10:30:00, 所属的域为 github.com
+      * x.cookies.add('cookieName4', 'cookieValue4', {'expire': new (2050,1,1,10,30,00), path: '/', domain: 'github.com');
+      */
+      add: function(name, value, options)
+      {
+        options = x.ext({ path: '/' }, options || {});
+    
+        document.cookie = escape(name) + '=' + escape(value)
+            + ((!options.expire) ? '' : ('; expires=' + options.expire.toGMTString()))
+            + '; path=' + options.path
+            + ((!options.domain) ? '' : ('; domain=' + options.domain));
+      },          /**
+      * 移除 Cookie 的值
+      * @method remove
+      * @memberof x.cookies
+      * @param {string} name 名称
+      * @param {object} [options] 选项<br />
+      * 可选键值范围: 
+      * <table class="param-options" >
+      * <thead>
+      * <tr><th>名称</th><th>类型</th><th class="last" >描述</th></tr>
+      * </thead>
+      * <tbody>
+      * <tr><td class="name" >path</td><td>string</td><td>所属的路径</td></tr>
+      * <tr><td class="name" >domain</td><td>string</td><td>所属的域</td></tr>
+      * </tbody>
+      * </table>
+      * @example
+      * // 移除一条 Cookie 记录, 名称为 CookieName1
+      * x.cookies.remove('CookieName1');
+      * @example
+      * // 移除一条 Cookie 记录, 名称为 CookieName2
+      * x.cookies.remove('CookieName2', {path: '/help/'});
+      */
+      remove: function(name, options)
+      {
+        options = x.ext({ path: '/' }, options || {});
+    
+        if(!!x.cookies.query(name))
+        {
+          document.cookie = escape(name) + '=; path=' + options.path
+              + '; expires=' + new Date(0).toGMTString()
+              + ((!options.domain) ? '' : ('; domain=' + options.domain));
+        }
+      }    };    
     /**
     * @namespace css
     * @memberof x
@@ -4747,9 +4399,7 @@
         * @private
         */
         dict: {},
-    
-        /*#region 函数:style(selector)*/
-        /**
+            /**
         * 获取或设置元素对象的样式信息
         * @method style
         * @memberof x.css
@@ -4783,11 +4433,7 @@
                     element.style[arguments[1]] = arguments[2];
                 }
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:check(selector, className)*/
-        /**
+        },            /**
         * 检测元素对象的 className 是否存在
         * @method check
         * @memberof x.css
@@ -4814,11 +4460,7 @@
             var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
     
             return element.className.match(reg) == null ? false : true;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:swap(selector, classNameA, classNameB)*/
-        /**
+        },            /**
         * 替换元素对象的 className
         * @method swap
         * @memberof x.css
@@ -4843,11 +4485,7 @@
     
                 element.className = buffer.join(' ');
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:add(selector, className)*/
-        /**
+        },            /**
         * 添加元素对象的 className
         * @method add
         * @memberof x.css
@@ -4865,11 +4503,7 @@
                 element.className += ' ' + className;
                 element.className = element.className.trim();
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:remove(selector, className)*/
-        /**
+        },            /**
         * 移除元素对象的 className
         * @method remove
         * @memberof x.css
@@ -4889,9 +4523,7 @@
                 element.className = element.className.replace(reg, '');
                 element.className = element.className.trim();
             }
-        }
-        /*#endregion*/
-    };// -*- ecoding=utf-8 -*-
+        }    };// -*- ecoding=utf-8 -*-
     
     /**
     * @namespace date
@@ -5470,9 +5102,7 @@
     
             return timeSpan;
         }
-    };
-
-    
+    };    
     /**
     * @namespace expressions
     * @memberof x
@@ -5595,9 +5225,7 @@
                 'zipcode': /^\d{6}$/g
             }
         },
-    
-        /*#region 函数:match(options)*/
-        /**
+            /**
         * 匹配
         */
         match: function(options)
@@ -5623,11 +5251,7 @@
             }
     
             return text.match(regexp);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:exists(options)*/
-        /**
+        },            /**
         * 利用正则表达式验证字符串规则
         * @method exists
         * @memberof x.expressions
@@ -5669,12 +5293,8 @@
                 regexp = x.expressions.rules[regexpName];
             }
     
-            return text.exists(regexp);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isFileExt(path, allowFileExt)*/
-        /**
+            return text.match(regexp) !== null;
+        },            /**
         * 验证文件的扩展名.
         * @method isFileExt
         * @memberof x.expressions
@@ -5713,11 +5333,7 @@
             }
     
             return result;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isUrl(text)*/
-        /**
+        },            /**
         * 验证URL地址格式
         * @method isUrl
         * @memberof x.expressions
@@ -5726,11 +5342,7 @@
         isUrl: function(text)
         {
             return text.toLowerCase().exists(x.expressions.rules['url']);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isEmail(text)*/
-        /*
+        },            /*
         * 验证Email地址格式
         * @method isEmail
         * @memberof x.expressions
@@ -5739,11 +5351,7 @@
         isEmail: function(text)
         {
             return text.toLowerCase().exists(x.expressions.rules['email']);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isZipcode(text, nature))*/
-        /*
+        },            /*
         * 验证邮编
         * @method isZipcode
         * @memberof x.expressions
@@ -5755,11 +5363,7 @@
             nature = x.formatNature(nature);
     
             return text.exists(x.expressions.rules[nature]['zipcode']);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:isSafeText(text)*/
-        /**
+        },            /**
         * 验证输入的字符串是否为安全字符, 即只允许字母、数字、下滑线。
         * @method isSafeText
         * @memberof x.expressions
@@ -5768,11 +5372,7 @@
         isSafeText: function(text)
         {
             return text.exists(x.expressions.rules['safeText']);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:formatTelephone(text)*/
-        /**
+        },            /**
         * 格式化输入的输入的文本为电话号码.
         * @method formatTelephone
         * @memberof x.expressions
@@ -5781,11 +5381,7 @@
         formatTelephone: function(text)
         {
             return text.replace(x.expressions.rules['non-telephone'], '');
-        },
-        /*#endregion*/
-    
-        /*#region 函数:formatInteger(value, removePaddingZero)*/
-        /**
+        },            /**
         * 格式化输入的输入的文本为整数.
         * @method formatInteger
         * @memberof x.expressions
@@ -5817,11 +5413,7 @@
             }
     
             return value;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:formatNumber(value, removePaddingZero)*/
-        /**
+        },            /**
         * 格式化输入的输入的文本为数字.
         * @method formatInteger
         * @memberof x.expressions
@@ -5850,11 +5442,7 @@
             }
     
             return value;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:formatNumberRound2(value, removePaddingZero)*/
-        /**
+        },            /**
         * 格式化输入的文本统一为保留小数点后面两位的数字。
         * @method formatNumberRound2
         * @memberof x.expressions
@@ -5895,11 +5483,7 @@
             }
     
             return value;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:formatSafeText(text)*/
-        /**
+        },            /**
         * 格式化输入的文本为安全字符(常用于登录名和拼音字母的检测)
         * @method formatSafeText
         * @memberof x.expressions
@@ -5912,11 +5496,7 @@
         formatSafeText: function(text)
         {
             return text.replace(x.expressions.rules['non-safeText'], '');
-        }
-        /*#endregion*/
-    };
-
-    
+        }    };    
     /**
     * @namespace dom
     * @memberof x
@@ -5947,9 +5527,7 @@
     
     // 扩展对象的方法
     dom = x.ext(dom, {
-    
-        /*#region 函数:query(selector)*/
-        /**
+            /**
         * 精确查询单个表单元素，返回一个jQuery对象。
         * @method query
         * @memberof dom
@@ -5958,15 +5536,13 @@
         query: function(selector)
         {
             // 默认根据id查找元素
-            if (selector.indexOf('#') == -1 && selector.indexOf('.') == -1 && selector.indexOf(' ') == -1) { selector = '[id="' + selector + '"]'; }
+            if(selector.indexOf('#') == -1 && selector.indexOf('.') == -1 && selector.indexOf(' ') == -1) { selector = '[id="' + selector + '"]'; }
     
             var result = x.query(selector);
     
             // $(null) 会返回 整个文档对象，所以定义一个特殊 __null__ 变量替代空值。
             return result === null ? $('#__null__') : $(result);
-        },
-        /*#endregion*/
-    
+        },    
         nodes: function(html)
         {
             var list = [];
@@ -5975,16 +5551,14 @@
     
             tmp.innerHTML = html;
     
-            for (var i = 0; i < tmp.childNodes.length; i++)
+            for(var i = 0;i < tmp.childNodes.length;i++)
             {
                 list[list.length] = tmp.childNodes[i].cloneNode(true);
             }
     
             return list;
         },
-    
-        /*#region 函数:on(target, type, listener, useCapture)*/
-        /**
+            /**
         * 添加事件监听器 x.event.add 的别名
         * @method add
         * @memberof x
@@ -5996,11 +5570,7 @@
         on: function(target, type, listener, useCapture)
         {
             return x.event.add(target, type, listener, useCapture);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:off(target, type, listener, useCapture)*/
-        /**
+        },            /**
         * 移除事件监听器 x.event.remove 的别名
         * @method add
         * @memberof x
@@ -6012,11 +5582,7 @@
         off: function(target, type, listener, useCapture)
         {
             return x.event.add(target, type, listener, useCapture);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:attr(id, name, value)*/
-        /**
+        },            /**
         * 获取或设置元素的属性信息
         * @method attr
         * @memberof dom
@@ -6026,19 +5592,19 @@
         {
             var node = null;
     
-            if (x.type(arguments[0]).indexOf('html') == 0)
+            if(x.type(arguments[0]).indexOf('html') == 0)
             {
                 // Html 元素类型 直接返回
                 node = arguments[0];
             }
-            else if (x.type(arguments[0]) == 'string')
+            else if(x.type(arguments[0]) == 'string')
             {
                 node = document.getElementById(id);
             }
     
-            if (node == null) { return null; }
+            if(node == null) { return null; }
     
-            if (x.isUndefined(value))
+            if(x.isUndefined(value))
             {
                 return node.getAttribute(name);
             }
@@ -6046,11 +5612,7 @@
             {
                 node.setAttribute(name, value);
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:options(id)*/
-        /**
+        },            /**
         * 获取元素的选项配置信息
         * @method options
         * @memberof dom
@@ -6061,15 +5623,13 @@
             var value = dom.attr(id, 'x-dom-options');
     
             return (x.isUndefined(value) || value == null || value == '') ? {} : x.toJSON(value);
-        },
-        /*#endregion*/
-    
+        },    
         // 追加 html 标记
         append: function(element, html)
         {
             var nodes = dom.nodes(html);
     
-            for (var i = 0; i < nodes.length; i++)
+            for(var i = 0;i < nodes.length;i++)
             {
                 element.appendChild(nodes[i]);
             }
@@ -6097,7 +5657,7 @@
         {
             var nodes = dom.nodes(html);
     
-            for (var i = 0; i < nodes.length; i++)
+            for(var i = 0;i < nodes.length;i++)
             {
                 element.parentNode.insertBefore(nodes[i], element);
             }
@@ -6109,16 +5669,14 @@
         {
             var nodes = dom.nodes(html);
     
-            for (var i = 0; i < nodes.length; i++)
+            for(var i = 0;i < nodes.length;i++)
             {
                 element.parentNode.insertBefore(nodes[i], element.nextSibling);
             }
     
             return element;
         },
-    
-        /*#region 函数:swap(options)*/
-        /**
+            /**
         * 交换控件的数据
         * @method swap
         * @memberof dom
@@ -6131,18 +5689,14 @@
     
             x.each(options.attributes, function(index, node)
             {
-                if (fromInput.attr(node))
+                if(fromInput.attr(node))
                 {
                     toInput.attr(node, fromInput.attr(node));
     
                     fromInput.removeAttr(node);
                 }
             });
-        },
-        /*#endregion*/
-    
-        /*#region 函数:fixed(selector, pointX, pointY)*/
-        /**
+        },            /**
         * 设置元素的位置
         * @method fixed
         * @memberof dom
@@ -6152,16 +5706,12 @@
         */
         fixed: function(selector, pointX, pointY)
         {
-            dom.css(selector, {
+            x.css.style(selector, {
                 'position': 'fixed',
                 'left': pointX + 'px',
                 'top': pointY + 'px'
             });
-        },
-        /*#endregion*/
-    
-        /*#region 函数:setOpacity(selector, value)*/
-        /**
+        },            /**
         * 设置容器的透明度
         * @method setOpacity
         * @memberof dom
@@ -6172,7 +5722,7 @@
         {
             var element = x.query(selector);
     
-            if (x.browser.ie && element.style.filter)
+            if(x.browser.ie && element.style.filter)
             {
                 // IE
                 element.style.filter = 'alpha(opacity:' + value + ')';
@@ -6182,10 +5732,8 @@
                 //其他浏览器
                 element.style.opacity = value / 100;
             }
-        },
-        /*#endregion*/
-    
-        utils: {},
+        },    
+        util: {},
     
         hooks: {},
     
@@ -6211,7 +5759,7 @@
             {
                 options = x.ext(dom.features.defaults, options || {});
     
-                if (x.isUndefined || options.featureScriptPath == '')
+                if(x.isUndefined || options.featureScriptPath == '')
                 {
                     options.featureScriptPath = x.dir() + 'dom/features/';
                 }
@@ -6222,9 +5770,9 @@
                 {
                     var list = document.getElementsByTagName(node);
     
-                    for (var i = 0; i < list.length; i++)
+                    for(var i = 0;i < list.length;i++)
                     {
-                        if (x.isFunction(options.listen))
+                        if(x.isFunction(options.listen))
                         {
                             options.listen(list[i]);
                         }
@@ -6247,30 +5795,29 @@
                         */
                         try
                         {
-                            if (x.isUndefined(list[i].id) || list[i].id === '')
+                            if(x.isUndefined(list[i].id) || list[i].id === '')
                             {
                                 continue;
                             }
     
                             var feature = dom('#' + list[i].id).attr(options.featureAttributeName);
     
-                            if (feature != null && dom('#' + list[i].id).attr(options.featureLoadedAttributeName) != '1')
+                            if(feature != null && dom('#' + list[i].id).attr(options.featureLoadedAttributeName) != '1')
                             {
                                 feature = x.camelCase(feature);
     
                                 x.require({
                                     id: 'x-dom-feature-' + feature + '-script',
+                                    async: false,
                                     path: options.featureScriptPath + 'x.dom.features.' + feature + '.js',
                                     data: { target: list[i], feature: feature },
                                     callback: function(context)
-                                    {
-                                        // x.debug.log('feature:' + feature + ',' + response.data.feature);
-                                        var data = context.data;
+                                    {                                        var data = context.data;
     
                                         // 加载完毕后, 加个 featureLoaded 标识, 避免重复加载效果.
                                         dom('#' + data.target.id).attr(options.featureLoadedAttributeName, '1');
     
-                                        if (x.isUndefined(dom.features[data.feature]))
+                                        if(x.isUndefined(dom.features[data.feature]))
                                         {
                                             x.debug.error('x.dom.features.bind() 异常:系统加载表单元素特性【' + data.feature + '】失败，请检查相关配置。');
                                         }
@@ -6293,7 +5840,7 @@
                                 */
                             }
                         }
-                        catch (ex)
+                        catch(ex)
                         {
                             x.debug.error(ex)
                         }
@@ -6308,7 +5855,7 @@
     {
         dom.fn[name] = function()
         {
-            for (var i = 0; i < this.results.length; i++)
+            for(var i = 0;i < this.results.length;i++)
             {
                 var args = Array.prototype.slice.call(arguments).slice(0);
     
@@ -6326,7 +5873,7 @@
     {
         dom.fn[name] = function()
         {
-            if (this.results.length > 0)
+            if(this.results.length > 0)
             {
                 var args = Array.prototype.slice.call(arguments).slice(0);
     
@@ -6350,13 +5897,13 @@
         ready: function()
         {
             // 简化调用方法 x.dom(document).ready(fn) => x.dom.ready(fn)
-            if (x.isFunction(arguments[0]))
+            if(x.isFunction(arguments[0]))
             {
                 return dom(document).ready(arguments[0]);
             }
     
             // Abort if there are pending holds or we're already ready
-            if (dom.isReady)
+            if(dom.isReady)
             {
                 return;
             }
@@ -6365,7 +5912,7 @@
             dom.isReady = true;
     
             // If there are functions bound, to execute
-            if (dom.readyList)
+            if(dom.readyList)
             {
                 // Execute all of them
                 x.each(dom.readyList, function()
@@ -6384,7 +5931,7 @@
         // Attach the listeners
         bindReady();
     
-        if (dom.isReady)
+        if(dom.isReady)
         {
             // If the DOM is already ready
             // Execute the function immediately
@@ -6404,9 +5951,9 @@
     function completed()
     {
         // 支持旧版的 IE : readyState === "complete"
-        if (document.addEventListener || event.type === "load" || document.readyState === "complete")
+        if(document.addEventListener || event.type === "load" || document.readyState === "complete")
         {
-            if (document.addEventListener)
+            if(document.addEventListener)
             {
                 document.removeEventListener("DOMContentLoaded", completed, false);
                 window.removeEventListener("load", completed, false);
@@ -6426,16 +5973,16 @@
     
     function bindReady()
     {
-        if (readyBound) return;
+        if(readyBound) return;
     
         readyBound = true;
     
-        if (document.readyState === "complete")
+        if(document.readyState === "complete")
         {
             // 处理异步的文档加载情况, 允许直接执行函数
             setTimeout(dom.ready);
         }
-        else if (document.addEventListener)
+        else if(document.addEventListener)
         {
             // 支持 DOMContentLoaded 的标准浏览器
     
@@ -6445,7 +5992,7 @@
             // A fallback to window.onload, that will always work
             window.addEventListener("load", completed, false);
         }
-        else if (document.attachEvent)
+        else if(document.attachEvent)
         {
             // If IE event model is used
     
@@ -6458,9 +6005,9 @@
     
             // If IE and not an iframe
             // continually check to see if the document is ready
-            if (document.documentElement.doScroll && window == window.top) (function()
+            if(document.documentElement.doScroll && window == window.top) (function()
             {
-                if (dom.isReady) return;
+                if(dom.isReady) return;
     
                 try
                 {
@@ -6468,7 +6015,7 @@
                     // http://javascript.nwbox.com/IEContentLoaded/
                     document.documentElement.doScroll("left");
                 }
-                catch (error)
+                catch(error)
                 {
                     setTimeout(arguments.callee, 0);
                     return;
@@ -6503,9 +6050,7 @@
             // 数据正则表达式规则验证失败提示信息证属性名称
             dataRegexpWarningAttributeName: 'x-dom-data-regexp-warning'
         },
-    
-        /*#region 函数:bindInputData(options)*/
-        /*
+            /*
         * 绊定控件的数据
         */
         bindInputData: function(options)
@@ -6551,11 +6096,7 @@
                     input.attr('selectedText', selectedText);
                 }
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:check(options)*/
-        /*
+        },            /*
         * 验证客户端数据
         */
         check: function(options)
@@ -6576,9 +6117,11 @@
             {
                 try
                 {
-                    if (x.dom(node).attr('custom-forms-data-required') || x.dom(node).attr('custom-forms-data-regexp'))
+                    if(x.type(node) == 'array' || x.type(node) == 'function') return;
+    
+                    if(x.dom(node).attr('x-dom-data-required') || x.dom(node).attr('x-dom-data-regexp'))
                     {
-                        warning += x.ui.form.checkDataInput(node, options.tooltip);
+                        warning += x.dom.data.checkDataInput(node, options.tooltip);
                     }
                 }
                 catch (ex)
@@ -6596,11 +6139,7 @@
                 alert(warning);
                 return true;
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:checkDataInput(node, warnTooltip)*/
-        /*
+        },            /*
         * 验证客户端数据
         */
         checkDataInput: function(node, warnTooltip)
@@ -6615,15 +6154,13 @@
                 x.tooltip.newWarnTooltip({ element: node.id, hide: 1 });
             }
     
-            if ($(node).hasClass('custom-forms-data-required'))
+            if($(node).attr('x-dom-data-required'))
             {
                 // 数据必填项验证
                 if ($(node).val().trim() === '')
                 {
-                    var dataVerifyWarning = $(node).attr('dataVerifyWarning');
-    
-                    // x.debug.log('x:' + x.page.getElementLeft(node) + ' y:' + x.page.getElementTop(node));
-    
+                    var dataVerifyWarning = $(node).attr('x-dom-data-required-warning');
+        
                     if (dataVerifyWarning)
                     {
                         if (warnTooltip == 1)
@@ -6635,18 +6172,16 @@
                     }
                 }
             }
-            // x-dom
-            if ($(node).hasClass('x-dom-data-regexp'))
+           
+            if($(node).attr('x-dom-data-regexp'))
             {
                 // 数据规则验证
                 if ($(node).val().trim() !== '')
                 {
-                    if (!x.expressions.exists({ text: $(node).val(), ignoreCase: $(node).attr('dataIgnoreCase'), regexpName: $(node).attr('dataRegExpName'), regexp: $(node).attr('dataRegExp') }))
+                    if(!x.expressions.exists({ text: $(node).val(), ignoreCase: $(node).attr('x-dom-data-regexp-ignoreCase'), regexpName: $(node).attr('x-dom-data-regexp-name'), regexp: $(node).attr('x-dom-data-regexp') }))
                     {
-                        var dataRegExpWarning = $(node).attr('dataRegExpWarning');
-    
-                        // x.debug.log(x.page.getElementTop(node));
-    
+                        var dataRegExpWarning = $(node).attr('x-dom-data-regexp-warning');
+        
                         if (dataRegExpWarning)
                         {
                             if (warnTooltip == 1)
@@ -6661,11 +6196,7 @@
             }
     
             return warning;
-        },
-        /*#endregion*/
-    
-        /*#region 函数:serialize(options)*/
-        /**
+        },            /**
         * 序列化数据
         */
         serialize: function(options)
@@ -6678,14 +6209,10 @@
             if (x.isUndefined(serializeHooks[options.storageType])) { x.debug.error('Not supported serialize[{"storageType":"' + options.storageType + '"}].'); }
     
             return serializeHooks[options.storageType](options);
-        }
-        /*#endregion*/
-    };
+        }    };
     
     var serializeHooks = [];
-    
-    /*#region 函数:serializeHooks['NORMAL'](options)*/
-    /**
+        /**
     * 将表单数据序列化为普通格式数据
     * @private
     */
@@ -6728,11 +6255,7 @@
         outString = x.string.rtrim(outString, '&');
     
         return outString;
-    };
-    /*#endregion*/
-    
-    /*#region 函数:serializeHooks['JSON'](options)*/
-    /**
+    };        /**
     * 将表单数据序列化为JSON格式数据
     * @private
     */
@@ -6740,9 +6263,9 @@
     {
         var outString = '';
     
-        if (options.includeAjaxStorageNode)
+        if (options.includeRequestNode)
         {
-            outString = '{"ajaxStorage":{'
+            outString = '{"request":{'
         }
     
         var list = x.dom('*');
@@ -6885,29 +6408,25 @@
         // 移除最后一个逗号
         outString = x.string.rtrim(outString, ',');
     
-        if (options.includeAjaxStorageNode)
+        if (options.includeRequestNode)
         {
             outString += '}}';
         }
     
         return outString;
-    };
-    /*#endregion*/
-    
-    /*#region 函数:serializeHooks['XML'](options)*/
-    serializeHooks['XML'] = function(options)
+    };        serializeHooks['XML'] = function(options)
     {
         var outString = '';
     
         if (typeof (options) == 'undefined')
         {
-            options = { includeAjaxStorageNode: false };
+            options = { includeRequestNode: false };
         }
     
-        if (options.includeAjaxStorageNode)
+        if (options.includeRequestNode)
         {
             outString += '<?xml version="1.0" encoding="utf-8" ?>';
-            outString += '<ajaxStorage>';
+            outString += '<request>';
         }
     
         var list = x.dom('*');
@@ -6984,15 +6503,13 @@
             }
         });
     
-        if (options.includeAjaxStorageNode)
+        if (options.includeRequestNode)
         {
-            outString += '</ajaxStorage>';
+            outString += '</request>';
         }
     
         return outString;
-    }
-    /*#endregion*//*#region 函数:val()*/
-    /**
+    }    /**
      * 获取对象的值
      * @method val
      * @memberof x.dom
@@ -7017,11 +6534,7 @@
     };
     
     var valHooks = [];
-    
-    /*#endregion*/
-    
-    /*#region 函数:html()*/
-    dom.fn.html = function(value)
+            dom.fn.html = function(value)
     {
         if (x.isUndefined(value))
         {
@@ -7038,11 +6551,7 @@
         }
     
         return this;
-    };
-    /*#endregion*/
-    
-    /*#region 函数:size()*/
-    /**
+    };        /**
      * 查看结果集记录数
      * @method size
      * @memberof x.dom
@@ -7050,11 +6559,7 @@
     dom.fn.size = function()
     {
         return this.results.length;
-    };
-    /*#endregion*/
-    
-    /*#region 函数:css()*/
-    /**
+    };        /**
      * 设置样式
      * @method css
      * @memberof x.dom
@@ -7088,9 +6593,7 @@
         }
     
         return this;
-    };
-    /*#endregion*/// -*- ecoding=utf-8 -*-
-    
+    };    
     /**
     * @namespace net
     * @memberof x
@@ -7098,893 +6601,816 @@
     */
     x.net = {
     
-        /**
-        * 默认配置信息
-        */
-        defaults: {
-            // 异步请求的数据键值
-            xhrDataKey: 'xhr-xml',
-            // 获取客户端标识信息        
-            getClientId: function () 
-            {
-                var element = x.query('#session-client-id');
-    
-                // 根据页面存放的 session-client-id 元素，获取客户端标识信息, 如果页面不存在 session-client-id 元素，则返回空值。
-                return element == null ? '' : x.isUndefined(element.value, '');
-            },
-            // 获取客户端签名信息
-            getClientSignature: function()
-            {
-                var element = x.query('#session-client-signature');
-    
-                // 根据页面存放的 session-client-signature 元素，获取签名信息, 如果页面不存在 session-client-signature 元素，则返回空值。
-                return element == null ? '' : x.isUndefined(element.value, '');
-            }, 
-            // 获取时间信息
-            getTimestamp: function () {
-                var element = x.query('#session-timestamp');
-    
-                // 根据页面存放的 session-timestamp 元素，获取时间戳信息, 如果页面不存在 session-timestamp 元素，则返回空值。
-                return element == null ? '' : x.isUndefined(element.value, '');
-            }, 
-            // 获取随机数信息
-            getNonce: function () {
-                var element = x.query('#session-nonce');
-    
-                // 根据页面存放的 session-nonce 元素，获取签名信息, 如果页面不存在 session-nonce 元素，则返回空值。
-                return element == null ? '' : x.isUndefined(element.value, '');
-            },
-            // 获取等待窗口
-            getWaitingWindow: function(options)
-            {
-                // 设置默认选项参数
-                options = x.ext({
-                    type: 'default',                        // 窗口类型
-                    text: i18n.net.waiting.commitTipText    // 提示信息
-                }, options || {});
-    
-                if (x.isUndefined(options.name))
-                {
-                    options.name = x.getFriendlyName(location.pathname + '$' + options.type + '$waiting$window');
-                }
-    
-                var name = options.name;
-    
-                if (x.isUndefined(window[name]))
-                {
-                    if (options.type == 'mini')
-                    {
-                        window[name] = {
-                            // 名称
-                            name: name,
-                            // 选项
-                            options: options,
-                            // 容器
-                            container: null,
-                            // 消息框
-                            message: null,
-    
-                            /*#region 函数:create(text)*/
-                            create: function(text)
-                            {
-                                if (document.getElementById(this.name + '-text') == null)
-                                {
-                                    $(document.body).append('<div id="' + this.name + '-container" class="x-ui-dialog-waiting-mini-window-container" ><div id="' + this.name + '-text" class="x-ui-dialog-waiting-mini-window-text" >' + text + '</div></div>');
-                                }
-                                else
-                                {
-                                    x.query('[id="' + this.name + '-text"]').innerHTML = text;
-                                }
-    
-                                if (this.container === null)
-                                {
-                                    this.container = document.getElementById(this.name + '-container');
-                                }
-                            },
-                            /*#endregion*/
-    
-                            /*#region 函数:show(text)*/
-                            /*
-                            * 显示
-                            */
-                            show: function()
-                            {
-                                if (!x.isUndefined(arguments[0]))
-                                {
-                                    this.options.text = arguments[0];
-                                }
-    
-                                this.create(this.options.text);
-    
-                                // 设置弹出窗口的位置
-                                x.css.style(this.container, {
-                                    display: '',
-                                    position: 'fixed',
-                                    left: '4px',
-                                    bottom: '4px'
-                                });
-                            },
-                            /*#endregion*/
-    
-                            /*#region 函数:hide()*/
-                            /*
-                            * 隐藏
-                            */
-                            hide: function()
-                            {
-                                if (this.container != null)
-                                {
-                                    x.css.style(this.container, { display: 'none' });
-    
-                                    // this.container.style.display = 'none';
-                                    // $(this.container).css({ display: '', opacity: this.maxOpacity });
-                                    // (this.container).fadeOut((this.maxDuration * 2000), function()
-                                    // {
-                                    //    $(this.container).css({ display: 'none' });
-                                    // });
-                                }
-                            }
-                            /*#endregion*/
-                        };
-                    }
-                    else
-                    {
-                        window[name] = {
-                            // 实例名称
-                            name: name,
-    
-                            // 配置信息
-                            options: options,
-    
-                            // 遮罩
-                            maskWrapper: null,
-    
-                            // 容器
-                            container: null,
-    
-                            // 消息框
-                            message: null,
-    
-                            // 等待窗口的锁
-                            lock: 0,
-    
-                            // 延迟显示等待窗口
-                            lazy: options.lazy ? options.lazy : 0,
-    
-                            maxOpacity: options.maxOpacity ? options.maxOpacity : 0.4,
-    
-                            maxDuration: options.maxDuration ? options.maxDuration : 0.2,
-    
-                            height: options.height ? options.height : 50,
-    
-                            width: options.width ? options.width : 200,
-    
-                            /*#region 函数:setPosition()*/
-                            setPosition: function()
-                            {
-                                // 弹出窗口的位置
-                                var range = x.page.getRange();
-    
-                                var pointX = (range.width - this.width) / 2;
-                                var pointY = (range.height - this.height) / 3;
-    
-                                x.util.setLocation(this.container, pointX, pointY);
-                            },
-                            /*#endregion*/
-    
-                            /*#region 函数:createMaskWrapper()*/
-                            createMaskWrapper: function()
-                            {
-                                var wrapper = document.getElementById(this.name + '$maskWrapper');
-    
-                                if (wrapper === null)
-                                {
-                                    $(document.body).append('<div id="' + this.name + '$maskWrapper" style="display:none;" ></div>');
-    
-                                    wrapper = document.getElementById(this.name + '$maskWrapper');
-                                }
-    
-                                wrapper.className = 'x-ui-dialog-mask-wrapper';
-    
-                                wrapper.style.height = x.page.getRange().height + 'px';
-                                wrapper.style.width = x.page.getRange().width + 'px';
-    
-                                if (wrapper.style.display === 'none')
-                                {
-                                    $(document.getElementById(this.name + '$maskWrapper')).css({ display: '', opacity: 0.1 });
-                                    $(document.getElementById(this.name + '$maskWrapper')).fadeTo((this.maxDuration * 1000), this.maxOpacity, function()
-                                    {
-                                        // var mask = window[this.id];
-    
-                                        // $(document.getElementById(mask.popupWindowName)).css({ display: '' });
-                                    });
-                                }
-                            },
-                            /*#endregion*/
-    
-                            /*#region 函数:create(text)*/
-                            create: function(text)
-                            {
-                                if (document.getElementById(this.name + '$text') == null)
-                                {
-                                    $(document.body).append('<div id="' + this.name + '$container" class="x-ui-dialog-waiting-window-container" ><div id="' + this.name + '$text" class="x-ui-dialog-waiting-window-text" >' + text + '</div></div>');
-    
-                                    this.createMaskWrapper();
-                                }
-                                else
-                                {
-                                    document.getElementById(this.name + '$text').innerHTML = text;
-                                }
-    
-                                if (this.container === null)
-                                {
-                                    this.container = document.getElementById(this.name + '$container');
-                                    this.maskWrapper = document.getElementById(this.name + '$maskWrapper');
-                                }
-                            },
-                            /*#endregion*/
-    
-                            /*#region 函数:show(text)*/
-                            /*
-                            * 显示
-                            */
-                            show: function(text)
-                            {
-                                this.lock++;
-    
-                                var that = this;
-    
-                                var timer = x.newTimer(this.lazy, function(timer)
-                                {
-                                    if (that.lock > 0)
-                                    {
-                                        // x.debug.log('x.net.waitingWindow.lock:【' + that.lock + '】');
-    
-                                        if (that.maskWrapper === null)
-                                        {
-                                            that.maskWrapper = x.mask.newMaskWrapper(that.name + '$maskWrapper');
-                                        }
-    
-                                        if (typeof (text) !== 'undefined')
-                                        {
-                                            that.options.text = text;
-                                        }
-    
-                                        that.create(that.options.text);
-    
-                                        // 设置弹出窗口的位置
-                                        var range = x.page.getRange();
-    
-                                        var pointX = (range.width - that.width) / 2;
-                                        //var pointY = (range.height - this.height) / 3;
-                                        var pointY = 120;
-    
-                                        x.util.setLocation(that.container, pointX, pointY);
-    
-                                        // 设置弹出窗口的位置
-                                        that.container.style.display = '';
-                                        that.maskWrapper.style.display = '';
-                                    }
-    
-                                    timer.stop();
-                                });
-    
-                                timer.start();
-                            },
-                            /*#endregion*/
-    
-                            /*#region 函数:hide()*/
-                            /*
-                            * 隐藏
-                            */
-                            hide: function()
-                            {
-                                this.lock--;
-    
-                                x.debug.log('x.net.waitingWindow.lock:【' + this.lock + '】');
-    
-                                if (this.lock === 0)
-                                {
-                                    if (this.container != null)
-                                    {
-                                        this.container.style.display = 'none';
-                                    }
-    
-                                    if (this.maskWrapper != null && $(document.getElementById(this.name + '$maskWrapper')).css('display') !== 'none')
-                                    {
-                                        var that = this;
-    
-                                        $(document.getElementById(this.name + '$maskWrapper')).css({ display: '', opacity: this.maxOpacity });
-                                        $(document.getElementById(this.name + '$maskWrapper')).fadeOut((this.maxDuration * 2000), function()
-                                        {
-                                            $(document.getElementById(that.name + '$maskWrapper')).css({ display: 'none' });
-                                        });
-                                    }
-                                }
-                            }
-                            /*#endregion*/
-                        };
-                    }
-                }
-                else
-                {
-                    window[name].options = options;
-                }
-    
-                return window[name];
-            },
-            /*#endregion*/
-    
-            // 捕获异常
-            catchException: function(response, outputType)
-            {
-                try
-                {
-                    var result = x.toJSON(response);
-    
-                    if (!x.isUndefined(result) && !x.isUndefined(result.message) && !x.isUndefined(result.message.category) && result.message.category === 'exception')
-                    {
-                        if (outputType == 'console')
-                        {
-                            x.debug.error(result.message.description);
-                        }
-                        else
-                        {
-                            x.msg(result.message.description);
-                        }
-                    }
-                }
-                catch (ex)
-                {
-                    x.debug.error(ex);
-                }
-            }
-        },
-        /*#endregion*/
-    
-        /**
-        * 发起网络请求
-        * @method xhr
-        * @memberof x.net
-        * @param {object} [options] 选项<br /> 
-        * 可选值范围: 
-        * <table class="param-options" >
-        * <thead>
-        * <tr><th>名称</th><th>类型</th><th class="last" >描述</th></tr>
-        * </thead>
-        * <tbody>
-        * <tr><td class="name" >type</td><td>string</td><td>HTTP请求类型(GET|POST)</td></tr>
-        * <tr><td class="name" >url</td><td>string</td><td>地址</td></tr>
-        * <tr><td class="name" >data</td><td>object</td><td>数据</td></tr>
-        * <tr><td class="name" >async</td><td>boolean</td><td>是否是异步请求</td></tr>
-        * </tbody>
-        * </table>
-        */
-        xhr: function()
+      /**
+      * 默认配置信息
+      */
+      defaults: {
+        // 返回类型
+        returnType: 'json',
+        // 异步请求的数据键值
+        xhrDataKey: 'xhr-xml',
+        // 获取客户端标识信息        
+        getClientId: function()
         {
-            // -------------------------------------------------------
-            // 可选择参数
-            // waitingMessage   等待窗口显示的文本信息。
-            // popResultValue   弹出回调结果。
-            // callback         回调函数。
-            // -------------------------------------------------------
+          var element = x.query('#session-client-id');
     
-            var url, xhrDataValue, options;
+          // 根据页面存放的 session-client-id 元素，获取客户端标识信息, 如果页面不存在 session-client-id 元素，则返回空值。
+          return element == null ? '' : x.isUndefined(element.value, '');
+        },
+        // 获取客户端签名信息
+        getClientSignature: function()
+        {
+          var element = x.query('#session-client-signature');
     
-            if (arguments.length == 2 && x.type(arguments[1]) === 'object')
+          // 根据页面存放的 session-client-signature 元素，获取签名信息, 如果页面不存在 session-client-signature 元素，则返回空值。
+          return element == null ? '' : x.isUndefined(element.value, '');
+        },
+        // 获取时间信息
+        getTimestamp: function()
+        {
+          var element = x.query('#session-timestamp');
+    
+          // 根据页面存放的 session-timestamp 元素，获取时间戳信息, 如果页面不存在 session-timestamp 元素，则返回空值。
+          return element == null ? '' : x.isUndefined(element.value, '');
+        },
+        // 获取随机数信息
+        getNonce: function()
+        {
+          var element = x.query('#session-nonce');
+    
+          // 根据页面存放的 session-nonce 元素，获取签名信息, 如果页面不存在 session-nonce 元素，则返回空值。
+          return element == null ? '' : x.isUndefined(element.value, '');
+        },
+        // 获取等待窗口
+        getWaitingWindow: function(options)
+        {
+          // 设置默认选项参数
+          options = x.ext({
+            type: 'default',                        // 窗口类型
+            text: i18n.net.waiting.commitTipText    // 提示信息
+          }, options || {});
+    
+          if(x.isUndefined(options.name))
+          {
+            options.name = x.getFriendlyName(location.pathname + '$' + options.type + '$waiting$window');
+          }
+    
+          var name = options.name;
+    
+          if(x.isUndefined(window[name]))
+          {
+            if(options.type == 'mini')
             {
-                // 支持没有Xml数据，只有地址和回调函数的调用。
+              window[name] = {
+                // 名称
+                name: name,
+                // 选项
+                options: options,
+                // 容器
+                container: null,
+                // 消息框
+                message: null,
+                    create: function(text)
+                {
+                  if(document.getElementById(this.name + '-text') == null)
+                  {
+                    $(document.body).append('<div id="' + this.name + '-container" class="x-ui-dialog-waiting-mini-window-container" ><div id="' + this.name + '-text" class="x-ui-dialog-waiting-mini-window-text" >' + text + '</div></div>');
+                  }
+                  else
+                  {
+                    x.query('[id="' + this.name + '-text"]').innerHTML = text;
+                  }
     
-                url = arguments[0];
-                options = arguments[1];
-                xhrDataValue = '';
-            }
-            else if (arguments.length == 2 && x.type(arguments[1]) === 'string')
-            {
-                // 支持没有回调函数，只有地址和Xml数据的调用。
+                  if(this.container === null)
+                  {
+                    this.container = document.getElementById(this.name + '-container');
+                  }
+                },                    /*
+                * 显示
+                */
+                show: function()
+                {
+                  if(!x.isUndefined(arguments[0]))
+                  {
+                    this.options.text = arguments[0];
+                  }
     
-                url = arguments[0];
-                options = {};
-                xhrDataValue = arguments[1];
-            }
-            else if (arguments.length == 3 && x.type(arguments[1]) === 'string' && x.isFunction(arguments[2]))
-            {
-                // 支持没有回调函数，只有地址和Xml数据的调用。
+                  this.create(this.options.text);
     
-                url = arguments[0];
-                options = { callback: arguments[2] };
-                xhrDataValue = arguments[1];
+                  // 设置弹出窗口的位置
+                  x.css.style(this.container, {
+                    display: '',
+                    position: 'fixed',
+                    left: '4px',
+                    bottom: '4px'
+                  });
+                },                    /*
+                * 隐藏
+                */
+                hide: function()
+                {
+                  if(this.container != null)
+                  {
+                    x.css.style(this.container, { display: 'none' });
+    
+                    // this.container.style.display = 'none';
+                    // $(this.container).css({ display: '', opacity: this.maxOpacity });
+                    // (this.container).fadeOut((this.maxDuration * 2000), function()
+                    // {
+                    //    $(this.container).css({ display: 'none' });
+                    // });
+                  }
+                }              };
             }
             else
             {
-                url = arguments[0];
-                xhrDataValue = arguments[1];
-                options = arguments[2];
-            }
+              window[name] = {
+                // 实例名称
+                name: name,
     
-            options = x.ext(x.net.defaults, options);
+                // 配置信息
+                options: options,
     
-            // 判断是否启用等待窗口
-            var enableWaitingWindow = x.isFunction(options.getWaitingWindow)
-                                        && !x.isUndefined(options.waitingMessage)
-                                        && options.waitingMessage !== '';
+                // 遮罩
+                maskWrapper: null,
     
-            if (enableWaitingWindow)
-            {
-                // 开启等待窗口
-                options.getWaitingWindow({ text: options.waitingMessage, type: x.isUndefined(options.waitingType, 'default') }).show();
-            }
+                // 容器
+                container: null,
     
-            var type = x.isUndefined(options.type, 'POST');
+                // 消息框
+                message: null,
     
-            var async = x.isUndefined(options.async, false);
+                // 等待窗口的锁
+                lock: 0,
     
-            // 设置 data 值
-            var data = x.ext({}, options.data || {});
+                // 延迟显示等待窗口
+                // lazy: options.lazy ? options.lazy : 0,
     
-            var xml = x.toXML(xhrDataValue, 1);
+                maxOpacity: options.maxOpacity ? options.maxOpacity : 0.4,
     
-            if (xhrDataValue != '' && xml)
-            {
-                data[options.xhrDataKey] = xhrDataValue;
-            }
-            else if (!xml && xhrDataValue.indexOf('=') > 0)
-            {
-                // 非Xml字符格式, 普通的POST数据
-                var list = xhrDataValue.split('&');
+                maxDuration: options.maxDuration ? options.maxDuration : 0.2,
     
-                x.each(list, function(index, node)
+                height: options.height ? options.height : 50,
+    
+                width: options.width ? options.width : 200,
+                    setPosition: function()
                 {
-                    var items = node.split('=');
+                  // 弹出窗口的位置
+                  var range = x.page.getRange();
     
-                    if (items.length == 2)
+                  var pointX = (range.width - this.width) / 2;
+                  var pointY = (range.height - this.height) / 3;
+    
+                  x.dom.fixed(this.container, pointX, pointY);
+                },                    createMaskWrapper: function()
+                {
+                  var wrapper = document.getElementById(this.name + '-maskWrapper');
+    
+                  if(wrapper === null)
+                  {
+                    $(document.body).append('<div id="' + this.name + '-maskWrapper" style="display:none;" ></div>');
+    
+                    wrapper = document.getElementById(this.name + '-maskWrapper');
+                  }
+    
+                  wrapper.className = 'x-ui-dialog-mask-wrapper';
+    
+                  wrapper.style.height = x.page.getRange().height + 'px';
+                  wrapper.style.width = x.page.getRange().width + 'px';
+    
+                  if(wrapper.style.display === 'none')
+                  {
+                    $('#' + this.name + '-maskWrapper').css({ display: '', opacity: 0.1 });
+                    $('#' + this.name + '-maskWrapper').fadeTo((this.maxDuration * 1000), this.maxOpacity, function()
                     {
-                        data[items[0]] = decodeURIComponent(items[1]);
+                      // var mask = window[this.id];
+    
+                      // $(document.getElementById(mask.popupWindowName)).css({ display: '' });
+                    });
+                  }
+                },                    create: function(text)
+                {
+                  if(document.getElementById(this.name + '-text') == null)
+                  {
+                    $(document.body).append('<div id="' + this.name + '-container" class="x-ui-dialog-waiting-window-container" ><div id="' + this.name + '-text" class="x-ui-dialog-waiting-window-text" >' + text + '</div></div>');
+    
+                    this.createMaskWrapper();
+                  }
+                  else
+                  {
+                    document.getElementById(this.name + '-text').innerHTML = text;
+                  }
+    
+                  if(this.container === null)
+                  {
+                    this.container = document.getElementById(this.name + '-container');
+                    this.maskWrapper = document.getElementById(this.name + '-maskWrapper');
+                  }
+                },                    /*
+                * 显示
+                */
+                show: function(text)
+                {
+                  this.lock++;
+    
+                  var that = this;
+    
+                  //var timer = x.newTimer(this.lazy, function(timer)
+                  //{
+                  if(that.lock > 0)
+                  {    
+                    if(that.maskWrapper === null)
+                    {
+                      that.maskWrapper = x.ui.mask.newMaskWrapper(that.name + '-maskWrapper');
                     }
-                });
+    
+                    if(typeof (text) !== 'undefined')
+                    {
+                      that.options.text = text;
+                    }
+    
+                    that.create(that.options.text);
+    
+                    // 设置弹出窗口的位置
+                    var range = x.page.getRange();
+    
+                    var pointX = (range.width - that.width) / 2;
+                    //var pointY = (range.height - this.height) / 3;
+                    var pointY = 120;
+    
+                    x.dom.fixed(that.container, pointX, pointY);
+    
+                    // 设置弹出窗口的位置
+                    that.container.style.display = '';
+                    that.maskWrapper.style.display = '';
+                  }
+    
+                  //timer.stop();
+                  //});
+    
+                  //timer.start();
+                },                    /*
+                * 隐藏
+                */
+                hide: function()
+                {
+                  this.lock--;
+        
+                  if(this.lock === 0)
+                  {
+                    if(this.container != null)
+                    {
+                      this.container.style.display = 'none';
+                    }
+    
+                    if(this.maskWrapper != null && $(document.getElementById(this.name + '-maskWrapper')).css('display') !== 'none')
+                    {
+                      var that = this;
+    
+                      $(document.getElementById(this.name + '-maskWrapper')).css({ display: '', opacity: this.maxOpacity });
+                      $(document.getElementById(this.name + '-maskWrapper')).fadeOut((this.maxDuration * 2000), function()
+                      {
+                        $(document.getElementById(that.name + '-maskWrapper')).css({ display: 'none' });
+                      });
+                    }
+                  }
+                }              };
             }
+          }
+          else
+          {
+            window[name].options = options;
+          }
     
-            if (x.isFunction(options.getClientId) && options.getClientId() != '')
-            {
-                data.clientId = options.getClientId();
-    
-                if (x.isFunction(options.getClientId) && options.getClientSignature() != '')
-                {
-                    data.clientSignature = options.getClientSignature();
-                    data.timestamp = options.getTimestamp();
-                    data.nonce = options.getNonce();
-                }
-            }
-    
-            // $.ajax 
-            x.net.ajax({
-                type: type,
-                url: url,
-                data: data,
-                async: async,
-                success: function(response)
-                {
-                    if (enableWaitingWindow)
-                    {
-                        // 关闭等待窗口
-                        options.getWaitingWindow({ type: options.waitingType }).hide();
-                    }
-    
-                    if (options.returnType == 'json')
-                    {
-                        // 捕获处理异常
-                        options.catchException(response, options.outputException);
-    
-                        var result = x.toJSON(response).message;
-    
-                        switch (Number(result.returnCode))
-                        {
-                            case 0:
-                                // 0:正确操作
-                                if (!!options.popResultValue)
-                                {
-                                    x.msg(result.value);
-                                }
-    
-                                x.call(options.callback, response);
-                                break;
-    
-                            case -1:
-                            case 1:
-                                // -1:异常信息 | 1:错误信息
-                                x.msg(result.value);
-                                break;
-                            default:
-                                // 其他信息
-                                x.msg(result.value);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        x.call(options.callback, response);
-                    }
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    x.debug.log(XMLHttpRequest.responseText);
-    
-                    if (x.isFunction(options.error))
-                    {
-                        options.error(XMLHttpRequest, textStatus, errorThrown);
-                    }
-                    else
-                    {
-                        if (XMLHttpRequest.status == 401)
-                        {
-                            x.msg(i18n.net.errors['401']);
-                        }
-                        else if (XMLHttpRequest.status == 404)
-                        {
-                            x.msg(i18n.net.errors['404']);
-                        }
-                        else if (XMLHttpRequest.status == 500)
-                        {
-                            x.msg(i18n.net.errors['500']);
-                        }
-                        else if (XMLHttpRequest.status != 0)
-                        {
-                            x.debug.error(i18n.net.errors['unkown'].format(XMLHttpRequest.status + (XMLHttpRequest.statusText != '' ? (' ' + XMLHttpRequest.statusText) : '')));
-                        }
-                    }
-                }
-            });
-        },
-        /*#endregion*/
-    
-        // 已加载的文件标识
-        requireLoaded: {},
-    
-        /**
-        * 通过Ajax方式加载样式和脚本
-        */
-        require: function(options)
+          return window[name];
+        },    
+        // 捕获异常
+        catchException: function(response, outputType)
         {
+          try
+          {
+            var result = x.toJSON(response);
+    
+            if(!x.isUndefined(result) && !x.isUndefined(result.message) && !x.isUndefined(result.message.category) && result.message.category === 'exception')
+            {
+              if(outputType == 'console')
+              {
+                x.debug.error(result.message.description);
+              }
+              else
+              {
+                x.msg(result.message.description);
+              }
+            }
+          }
+          catch(ex)
+          {
+            x.debug.error(ex);
+          }
+        }
+      },    
+      /**
+      * 发起网络请求
+      * @method xhr
+      * @memberof x.net
+      * @param {object} [options] 选项<br /> 
+      * 可选值范围: 
+      * <table class="param-options" >
+      * <thead>
+      * <tr><th>名称</th><th>类型</th><th class="last" >描述</th></tr>
+      * </thead>
+      * <tbody>
+      * <tr><td class="name" >type</td><td>string</td><td>HTTP请求类型(GET|POST)</td></tr>
+      * <tr><td class="name" >url</td><td>string</td><td>地址</td></tr>
+      * <tr><td class="name" >data</td><td>object</td><td>数据</td></tr>
+      * <tr><td class="name" >async</td><td>boolean</td><td>是否是异步请求</td></tr>
+      * </tbody>
+      * </table>
+      */
+      xhr: function()
+      {
+        // -------------------------------------------------------
+        // 可选择参数
+        // waitingMessage   等待窗口显示的文本信息。
+        // popResultValue   弹出回调结果。
+        // callback         回调函数。
+        // -------------------------------------------------------
+    
+        var url, xhrDataValue, options;
+    
+        if(arguments.length == 2 && x.type(arguments[1]) === 'object')
+        {
+          // 支持没有Xml数据，只有地址和回调函数的调用。
+    
+          url = arguments[0];
+          options = arguments[1];
+          xhrDataValue = '';
+        }
+        else if(arguments.length == 2 && x.type(arguments[1]) === 'string')
+        {
+          // 支持没有回调函数，只有地址和Xml数据的调用。
+    
+          url = arguments[0];
+          options = {};
+          xhrDataValue = arguments[1];
+        }
+        else if(arguments.length == 3 && x.type(arguments[1]) === 'string' && x.isFunction(arguments[2]))
+        {
+          // 支持没有回调函数，只有地址和Xml数据的调用。
+    
+          url = arguments[0];
+          options = { callback: arguments[2] };
+          xhrDataValue = arguments[1];
+        }
+        else
+        {
+          url = arguments[0];
+          xhrDataValue = arguments[1];
+          options = arguments[2];
+        }
+    
+        options = x.ext({}, x.net.defaults, options);
+    
+        // 判断是否启用等待窗口
+        var enableWaitingWindow = x.isFunction(options.getWaitingWindow)
+                                    && !x.isUndefined(options.waitingMessage)
+                                    && options.waitingMessage !== '';
+    
+        if(enableWaitingWindow)
+        {
+          // 开启等待窗口
+          options.getWaitingWindow({ text: options.waitingMessage, type: x.isUndefined(options.waitingType, 'default') }).show();
+        }
+    
+        var type = x.isUndefined(options.type, 'POST');
+    
+        var async = x.isUndefined(options.async, true);
+    
+        // 设置 data 值
+        var data = x.ext({}, options.data || {});
+    
+        var xml = x.toXML(xhrDataValue, 1);
+    
+        if(xhrDataValue != '' && xml)
+        {
+          data[options.xhrDataKey] = xhrDataValue;
+        }
+        else if(!xml && xhrDataValue.indexOf('=') > 0)
+        {
+          // 非Xml字符格式, 普通的POST数据
+          var list = xhrDataValue.split('&');
+    
+          x.each(list, function(index, node)
+          {
+            var items = node.split('=');
+    
+            if(items.length == 2)
+            {
+              data[items[0]] = decodeURIComponent(items[1]);
+            }
+          });
+        }
+    
+        if(x.isFunction(options.getClientId) && options.getClientId() != '')
+        {
+          data.clientId = options.getClientId();
+    
+          if(x.isFunction(options.getClientId) && options.getClientSignature() != '')
+          {
+            data.clientSignature = options.getClientSignature();
+            data.timestamp = options.getTimestamp();
+            data.nonce = options.getNonce();
+          }
+        }
+    
+        // $.ajax 
+        x.net.ajax({
+          type: type,
+          url: url,
+          data: data,
+          async: async,
+          success: function(response)
+          {
+            if(enableWaitingWindow)
+            {
+              // 关闭等待窗口
+              options.getWaitingWindow({ type: x.isUndefined(options.waitingType, 'default') }).hide();
+            }
+    
+            if(options.returnType == 'json')
+            {
+              // 捕获处理异常
+              options.catchException(response, options.outputException);
+    
+              var result = x.toJSON(response).message;
+    
+              switch(Number(result.returnCode))
+              {
+                case 0:
+                  // 0:正确操作
+                  if(!!options.popResultValue)
+                  {
+                    x.msg(result.value);
+                  }
+    
+                  x.call(options.callback, response);
+                  break;
+    
+                case -1:
+                case 1:
+                  // -1:异常信息 | 1:错误信息
+                  x.msg(result.value);
+                  break;
+                default:
+                  // 其他信息
+                  x.msg(result.value);
+                  break;
+              }
+            }
+            else
+            {
+              x.call(options.callback, response);
+            }
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown)
+          {    
+            if(x.isFunction(options.error))
+            {
+              options.error(XMLHttpRequest, textStatus, errorThrown);
+            }
+            else
+            {
+              if(XMLHttpRequest.status == 401)
+              {
+                x.msg(i18n.net.errors['401']);
+              }
+              else if(XMLHttpRequest.status == 404)
+              {
+                x.msg(i18n.net.errors['404']);
+              }
+              else if(XMLHttpRequest.status == 500)
+              {
+                x.msg(i18n.net.errors['500']);
+              }
+              else if(XMLHttpRequest.status != 0)
+              {
+                x.debug.error(i18n.net.errors['unkown'].format(XMLHttpRequest.status + (XMLHttpRequest.statusText != '' ? (' ' + XMLHttpRequest.statusText) : '')));
+              }
+            }
+          }
+        });
+      },    
+      // 已加载的文件标识
+      requireLoaded: {},
+    
+      /**
+      * 通过Ajax方式加载样式和脚本
+      */
+      require: function(options)
+      {
+        options = x.ext({
+          fileType: 'script',
+          id: '',
+          path: '',
+          type: 'GET',
+          async: true
+        }, options || {});
+    
+        if(options.id != '' && x.net.requireLoaded[options.id])
+        {    
+          x.call(options.callback);
+    
+          return true;
+        }
+        
+        x.net.ajax(
+        {
+          type: options.type,
+          url: options.path,
+          async: options.async,
+          success: function(responseText)
+          {    
+            var head = document.getElementsByTagName("HEAD").item(0);
+    
+            if(options.fileType == 'template')
+            {
+              var node = document.createElement("script");
+              node.type = "text/template";
+              node.src = options.path;
+            }
+            else if(options.fileType == 'css')
+            {
+              var node = document.createElement("style");
+              node.type = "text/css";
+              node.href = options.path;
+            }
+            else
+            {
+              var node = document.createElement("script");
+    
+              node.language = "javascript";
+              node.type = "text/javascript";
+              node.src = options.path;
+            }
+    
+            try
+            {
+              // IE8以及以下不支持这种方式，需要通过text属性来设置
+              node.appendChild(document.createTextNode(responseText));
+            }
+            catch(ex)
+            {
+              node.text = responseText;
+            }
+    
+            if(options.id != '')
+            {
+              node.id = options.id;
+              x.net.requireLoaded[options.id] = true;
+            }
+    
+            head.appendChild(node);
+    
+            x.call(options.callback);
+          }
+        });
+      },
+    
+      ajax: function(options)
+      {
+        var request = x.net.newHttpRequest(options);
+    
+        request.send();
+      },    
+      newHttpRequest: function(options)
+      {
+        var request = {
+          xhr: null,
+          // 数据
+          data: null,
+          // 超时设置
+          timeout: 90,
+          // 是否已完成
+          done: false,
+    
+          // 发送
+          send: function()
+          {
+            if(this.xhr == null)
+            {
+              this.xhr = x.net.newXmlHttpRequest();
+    
+              if(!this.xhr)
+              {
+                x.debug.error('create xhr failed'); return false;
+              }
+            }
+    
+            this.xhr.open(this.type, this.url, this.async);
+    
+            var me = this;
+    
+            x.event.add(this.xhr, "readystatechange", function()
+            {
+              var xhr = me.xhr;
+    
+              // 监听状态    
+              // 保持等待，直到数据完全加载，并保证请求未超时  
+              if(xhr.readyState == 4 && !me.done)
+              {
+                // 0 为访问的本地，200 到 300 代表访问服务器成功，304 代表没做修改访问的是缓存
+                if(xhr.status == 0 || (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)
+                {
+                  // 成功则调用回调函数，并传入xhr对象  
+                  x.call(me.success, xhr.responseText);
+                }
+                else
+                {
+                  // 失败则调用error回调函数  
+                  x.call(me.error, xhr, xhr.status);
+                }
+    
+                // 避免内存泄漏，清理文档  
+                xhr = null;
+              }
+            });
+    
+            // 如果请求超过 timeout 设置的时间没有响应, 则取消请求（如果尚未完成的话）  
+            setTimeout(function() { me.done = true; }, me.timeout * 1000);
+    
+            if(this.type == 'POST')
+            {
+              this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              this.xhr.send(x.serialize(this.data));
+            }
+            else
+            {
+              // 发送同步请求，如果浏览器为Chrome或Opera，必须发布后才能运行，不然会报错
+              this.xhr.send(null);
+            }
+          },
+    
+          create: function(options)
+          {
             options = x.ext({
-                fileType: 'script',
-                id: '',
-                path: '',
-                type: 'GET',
-                async: true
+              type: 'GET',
+              url: '',
+              data: {},
+              async: true,
+              timeout: 90
             }, options || {});
     
-            if (options.id != '' && x.net.requireLoaded[options.id])
-            {
-                x.debug.log('require file {"id":"{0}", path:"{1}"} exist. [ajax]'.format(options.id, options.path));
+            this.type = options.type.toUpperCase();
+            this.url = options.url;
+            this.data = options.data;
+            this.async = options.async;
+            this.timeout = options.timeout;
     
-                x.call(options.callback);
+            this.success = options.success;
+            this.error = options.error;
+          }
+        };
     
-                return true;
-            }
+        // 初始化对象
+        request.create(options);
     
-            x.debug.log('require file {"id":"{0}", path:"{1}"} loading. [ajax]'.format(options.id, options.path));
+        return request;
+      },
+          /**
+      * 创建 XMLHttpRequest 对象
+      * @private
+      */
+      newXmlHttpRequest: function()
+      {
+        var xhr = null;
     
-            x.net.ajax(
-            {
-                type: options.type,
-                url: options.path,
-                async: options.async,
-                success: function(responseText)
-                {
-                    x.debug.log('require file {"id":"{0}", path:"{1}"} finished. [ajax]'.format(options.id, options.path));
-    
-                    var head = document.getElementsByTagName("HEAD").item(0);
-    
-                    if (options.fileType == 'template')
-                    {
-                        var node = document.createElement("script");
-                        node.type = "text/template";
-                        node.src = options.path;
-                    }
-                    else if (options.fileType == 'css')
-                    {
-                        var node = document.createElement("style");
-                        node.type = "text/css";
-                        node.href = options.path;
-                    }
-                    else
-                    {
-                        var node = document.createElement("script");
-    
-                        node.language = "javascript";
-                        node.type = "text/javascript";
-                        node.src = options.path;
-                    }
-    
-                    try
-                    {
-                        // IE8以及以下不支持这种方式，需要通过text属性来设置
-                        node.appendChild(document.createTextNode(responseText));
-                    }
-                    catch (ex)
-                    {
-                        node.text = responseText;
-                    }
-    
-                    if (options.id != '')
-                    {
-                        node.id = options.id;
-                        x.net.requireLoaded[options.id] = true;
-                    }
-    
-                    head.appendChild(node);
-    
-                    x.call(options.callback);
-                }
-            });
-        },
-    
-        ajax: function(options)
+        if(window.ActiveXObject) // IE
         {
-            var request = x.net.newHttpRequest(options);
-    
-            request.send();
-        },
-        /*#endregion*/
-    
-        newHttpRequest: function(options)
-        {
-            var request = {
-                xhr: null,
-                // 数据
-                data: null,
-                // 超时设置
-                timeout: 90,
-                // 是否已完成
-                done: false,
-    
-                // 发送
-                send: function()
-                {
-                    if (this.xhr == null)
-                    {
-                        this.xhr = x.net.newXmlHttpRequest();
-    
-                        if (!this.xhr)
-                        {
-                            x.debug.error('create xhr failed'); return false;
-                        }
-                    }
-    
-                    this.xhr.open(this.type, this.url, this.async);
-    
-                    var me = this;
-    
-                    x.event.add(this.xhr, "readystatechange", function()
-                    {
-                        var xhr = me.xhr;
-    
-                        // 监听状态
-                        // x.debug.log('{0} readyState:{1} status:{2} done:{3}'.format(x.debug.timestamp(), xhr.readyState, xhr.status, me.done));
-    
-                        // 保持等待，直到数据完全加载，并保证请求未超时  
-                        if (xhr.readyState == 4 && !me.done)
-                        {
-                            // 0 为访问的本地，200 到 300 代表访问服务器成功，304 代表没做修改访问的是缓存
-                            if (xhr.status == 0 || (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304)
-                            {
-                                // 成功则调用回调函数，并传入xhr对象  
-                                x.call(me.success, xhr.responseText);
-                            }
-                            else
-                            {
-                                // 失败则调用error回调函数  
-                                x.call(me.error, xhr, xhr.status);
-                            }
-    
-                            // 避免内存泄漏，清理文档  
-                            xhr = null;
-                        }
-                    });
-    
-                    // 如果请求超过 timeout 设置的时间没有响应, 则取消请求（如果尚未完成的话）  
-                    setTimeout(function() { me.done = true; }, me.timeout * 1000);
-    
-                    if (this.type == 'POST')
-                    {
-                        this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        this.xhr.send(x.serialize(this.data));
-                    }
-                    else
-                    {
-                        // 发送同步请求，如果浏览器为Chrome或Opera，必须发布后才能运行，不然会报错
-                        this.xhr.send(null);
-                    }
-                },
-    
-                create: function(options)
-                {
-                    options = x.ext({
-                        type: 'GET',
-                        url: '',
-                        data: {},
-                        async: true,
-                        timeout: 90
-                    }, options || {});
-    
-                    this.type = options.type;
-                    this.url = options.url;
-                    this.data = options.data;
-                    this.async = options.async;
-                    this.timeout = options.timeout;
-    
-                    this.success = options.success;
-                    this.error = options.error;
-                }
-            };
-    
-            // 初始化对象
-            request.create(options);
-    
-            return request;
-        },
-    
-        /*#region 函数:newXmlHttpRequest()*/
-        /**
-        * 创建 XMLHttpRequest 对象
-        * @private
-        */
-        newXmlHttpRequest: function()
-        {
-            var xhr = null;
-    
-            if (window.ActiveXObject) // IE
-            {
-                try
-                {
-                    // IE6 以及以后版本中可以使用
-                    xhr = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                catch (ex)
-                {
-                    //IE5.5 以及以后版本可以使用
-                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-            }
-            else if (window.XMLHttpRequest)
-            {
-                //Firefox，Opera 8.0+，Safari，Chrome
-                xhr = new XMLHttpRequest();
-            }
-    
-            return xhr;
-        },
-        /*#endregion*/
-    
-        /**
-        * 请求信息
-        * @namespace request
-        * @memberof x.net
-        */
-        request: {
-    
-            /*#region 函数:find(key)*/
-            /**
-            * 获取请求地址中某个参数的值
-            * @method find
-            * @memberof x.net.request
-            * @param {string} 参数的键
-            * @returns {string} 参数的值
-            */
-            find: function(key)
-            {
-                var resultValue = '';
-                var list = location.search.substr(1).split('&');
-    
-                for (var i = 0; i < list.length; i++)
-                {
-                    if (list[i].indexOf(key) === 0)
-                    {
-                        resultValue = decodeURIComponent(list[i].replace(key + '=', ''));
-                        break;
-                    }
-                }
-    
-                return resultValue;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:findAll()*/
-            /**
-            * 查找请求的全部信息, 返回的值是个JSON格式.
-            * 获取请求地址中所有参数的值
-            * @method findAll
-            * @memberof x.net.request
-            * @returns {object} JSON格式的对象
-            */
-            findAll: function()
-            {
-                var outString = '';
-    
-                var list = location.search.substr(1).split('&');
-    
-                var temp;
-    
-                outString = '{';
-    
-                if (list === '') { return; }
-    
-                for (var i = 0; i < list.length; i++)
-                {
-                    temp = list[i].split('=');
-    
-                    outString += '"' + temp[0] + '":"' + decodeURIComponent(temp[1]) + '"';
-    
-                    if (i < list.length - 1)
-                        outString += ',';
-                }
-    
-                outString += '}';
-    
-                return x.evalJSON(outString);
-            },
-            /*#endregion*/
-    
-            /*#region 函数:getRawUrl()*/
-            /**
-            * 获取附加了查询字符串的 URL 路径
-            */
-            getRawUrl: function()
-            {
-                return location.href.replace(location.origin, '');
-            },
-            /*#endregion*/
-    
-            /*#region 函数:hash(key)*/
-            /*
-            * 判断锚点
-            */
-            hash: function(key)
-            {
-                return location.hash === ('#' + key) ? true : false;
-            }
-            /*#endregion*/
+          try
+          {
+            // IE6 以及以后版本中可以使用
+            xhr = new ActiveXObject("Msxml2.XMLHTTP");
+          }
+          catch(ex)
+          {
+            //IE5.5 以及以后版本可以使用
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+          }
         }
-    };
+        else if(window.XMLHttpRequest)
+        {
+          //Firefox，Opera 8.0+，Safari，Chrome
+          xhr = new XMLHttpRequest();
+        }
     
-    /*#region 私有函数:request_callback(response)*/
-    /**
+        return xhr;
+      },    
+      /**
+      * 请求信息
+      * @namespace request
+      * @memberof x.net
+      */
+      request: {
+            /**
+        * 获取请求地址中某个参数的值
+        * @method find
+        * @memberof x.net.request
+        * @param {string} 参数的键
+        * @returns {string} 参数的值
+        */
+        find: function(key)
+        {
+          var resultValue = '';
+          var list = location.search.substr(1).split('&');
+    
+          for(var i = 0;i < list.length;i++)
+          {
+            if(list[i].indexOf(key) === 0)
+            {
+              resultValue = decodeURIComponent(list[i].replace(key + '=', ''));
+              break;
+            }
+          }
+    
+          return resultValue;
+        },            /**
+        * 查找请求的全部信息, 返回的值是个JSON格式.
+        * 获取请求地址中所有参数的值
+        * @method findAll
+        * @memberof x.net.request
+        * @returns {object} JSON格式的对象
+        */
+        findAll: function()
+        {
+          var outString = '';
+    
+          var list = location.search.substr(1).split('&');
+    
+          var temp;
+    
+          outString = '{';
+    
+          if(list === '') { return; }
+    
+          for(var i = 0;i < list.length;i++)
+          {
+            temp = list[i].split('=');
+    
+            outString += '"' + temp[0] + '":"' + decodeURIComponent(temp[1]) + '"';
+    
+            if(i < list.length - 1)
+              outString += ',';
+          }
+    
+          outString += '}';
+    
+          return x.evalJSON(outString);
+        },            /**
+        * 获取附加了查询字符串的 URL 路径
+        */
+        getRawUrl: function()
+        {
+          return location.href.replace(location.origin, '');
+        },            /*
+        * 判断锚点
+        */
+        hash: function(key)
+        {
+          return location.hash === ('#' + key) ? true : false;
+        }      }
+    };
+        /**
     * 网络请求的默认回调函数
     * @private
     */
     x.net.request_callback = function(response)
     {
-        var result = x.toJSON(response).message;
+      var result = x.toJSON(response).message;
     
-        switch (Number(result.returnCode))
-        {
-            case 0:
-                // 0:正确操作
-                // alert(result.value);
-                break;
-            case -1:
-            case 1:
-                // -1:异常信息 | 1:错误信息
-                x.msg(result.value);
-                break;
-            default:
-                // 其他信息
-                x.msg(result.value);
-                break;
-        }
-    };
-    /*#endregion*/
-
-    
+      switch(Number(result.returnCode))
+      {
+        case 0:
+          // 0:正确操作
+          // alert(result.value);
+          break;
+        case -1:
+        case 1:
+          // -1:异常信息 | 1:错误信息
+          x.msg(result.value);
+          break;
+        default:
+          // 其他信息
+          x.msg(result.value);
+          break;
+      }
+    };    
     /**
     * @namespace page
     * @memberof x
     * @description 页面管理
     */
     x.page = {
-    
-        /*#region 函数:back()*/
-        /**
+            /**
         * 返回上一个页面. window.history.back() 函数的别名
         * @method back
         * @memberof x.page
@@ -7992,11 +7418,7 @@
         back: function()
         {
             window.history.back(arguments);
-        },
-        /*#endregion*/
-    
-        /*#region 函数:close()*/
-        /**
+        },            /**
         * 关闭窗口<br />
         * 注: 由于浏览器安全限制, 此方法只支持关闭以 _blank 方式打开的窗口.
         * @method close
@@ -8010,38 +7432,32 @@
                 window.open('', '_self');
                 window.close();
             }
-            catch (ex)
+            catch(ex)
             {
                 window.close();
             }
-        },
-        /*#endregion*/
-    
-        /*#region 函数:refreshParentWindow()*/
-        /**
+        },            /**
         * 刷新父级窗口
         * @method refreshParentWindow
         * @memberof x.page
         */
         refreshParentWindow: function()
         {
-            if (typeof (window.opener) == 'object')
+            if(window.opener == null)
             {
-                x.debug.error('未定义父级窗口。');
+                x.debug.warn('未定义父级窗口。');
             }
     
             // 如果有父级窗口，调用父级窗口刷新函数
-            if (x.type(window.opener) == 'object' && x.isFunction(window.opener.window$refresh$callback))
+            // Firefox 显示 Window 为 [object window]
+            // Chrome 显示 Window 为 [object global]
+            if((x.type(window.opener) == 'window' || x.type(window.opener) == 'global') && x.isFunction(window.opener.window$refresh$callback))
             {
                 window.opener.window$refresh$callback();
             }
             else
-            {
-                x.debug.log('父级窗口未定义 window$refresh$callback() 函数。');
-            }
-        },
-        /*#endregion*/
-    
+            {            }
+        },    
         /**
         * 获取页面范围信息
         * @method getRange
@@ -8053,12 +7469,12 @@
     
             var xScroll, yScroll;
     
-            if (window.innerHeight && window.scrollMaxY)
+            if(window.innerHeight && window.scrollMaxY)
             {
                 xScroll = window.innerWidth + window.scrollMaxX;
                 yScroll = window.innerHeight + window.scrollMaxY;
             }
-            else if (document.body.scrollHeight > document.body.offsetHeight)
+            else if(document.body.scrollHeight > document.body.offsetHeight)
             {
                 // all but Explorer Mac
                 xScroll = document.body.scrollWidth;
@@ -8074,10 +7490,10 @@
             //console.log('self.innerWidth:' + self.innerWidth);
             //console.log('document.documentElement.clientWidth:' + document.documentElement.clientWidth);
     
-            if (window.innerHeight)
+            if(window.innerHeight)
             {
                 // all except Explorer
-                if (document.documentElement.clientWidth)
+                if(document.documentElement.clientWidth)
                 {
                     windowWidth = document.documentElement.clientWidth;
                 }
@@ -8088,13 +7504,13 @@
     
                 windowHeight = window.innerHeight;
             }
-            else if (document.documentElement && document.documentElement.clientHeight)
+            else if(document.documentElement && document.documentElement.clientHeight)
             {
                 // IE
                 windowWidth = document.documentElement.clientWidth;
                 windowHeight = document.documentElement.clientHeight;
             }
-            else if (document.body)
+            else if(document.body)
             {
                 // other Explorers
                 windowWidth = document.body.clientWidth;
@@ -8102,7 +7518,7 @@
             }
     
             // for small pages with total height less then height of the viewport
-            if (yScroll < windowHeight)
+            if(yScroll < windowHeight)
             {
                 pageHeight = windowHeight;
             }
@@ -8115,7 +7531,7 @@
             //console.log("windowWidth " + windowWidth)
     
             // for small pages with total width less then width of the viewport
-            if (xScroll < windowWidth)
+            if(xScroll < windowWidth)
             {
                 pageWidth = xScroll;
             }
@@ -8157,16 +7573,14 @@
         */
         getViewHeight: function()
         {
-            // return document.documentElement.clientHeight;
             return x.page.getRange().windowHeight;
         },
     
-        /*
+        /**
         * 获取页面可视区域宽度
         */
         getViewWidth: function()
         {
-            // return document.documentElement.clientWidth;
             return x.page.getRange().windowWidth;
         },
     
@@ -8264,11 +7678,11 @@
     
             var parents = $(element).parents();
     
-            for (var i = 0; i < parents.length; i++)
+            for(var i = 0;i < parents.length;i++)
             {
                 var parent = $(parents[i]);
     
-                if (parent.css('position') === 'absolute' && parent.css('top') !== 'auto')
+                if(parent.css('position') === 'absolute' && parent.css('top') !== 'auto')
                 {
                     top = top - Number(parent.css('top').replace('px', ''));
                 }
@@ -8287,7 +7701,7 @@
             var display = $(element).css('display');
     
             // Safari bug
-            if (display != 'none' && display != null)
+            if(display != 'none' && display != null)
             {
                 return { width: element.offsetWidth, height: element.offsetHeight };
             }
@@ -8312,6 +7726,39 @@
             style.visibility = originalVisibility;
     
             return { width: originalWidth, height: originalHeight };
+        },
+    
+        scrollBarWidth: null,
+    
+        /**
+        * 获取滚动条宽度
+        */
+        getScrollBarWidth: function()
+        {
+            // 利用元素的 overflow:scroll; 样式, 显示滚动条  
+            // 然后获取 offsetHeight 和 clientHeight 的差值
+    
+            if(this.scrollBarWidth) return this.scrollBarWidth;
+    
+            var helper = document.createElement("div");
+            // if MSIE
+            // 如此设置的话，scroll bar的最大宽度不能大于50px（通常不会）。
+            helper.style.cssText = "overflow:scroll;width:50px;height:50px;";
+            // else OTHER Browsers:
+            // scrollBarHelper.style.cssText = "overflow:scroll;";
+            document.body.appendChild(helper);
+    
+            if(helper)
+            {
+                this.scrollBarWidth = {
+                    horizontal: helper.offsetHeight - helper.clientHeight,
+                    vertical: helper.offsetWidth - helper.clientWidth
+                };
+            }
+    
+            document.body.removeChild(helper);
+    
+            return this.scrollBarWidth;
         },
     
         /**
@@ -8369,7 +7816,7 @@
         */
         printXml: function(text)
         {
-            if (text == null) { return ''; }
+            if(text == null) { return ''; }
     
             return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         },
@@ -8387,25 +7834,19 @@
             hotkeys: [67],
     
             message: '当前页面【禁止拷贝】信息。',
-    
-            /*#region 函数:listen()*/
-    
+        
             listen: function()
             {
-                if ($(document.getElementById('forbidCopy$activate')).val() === '1')
+                if($(document.getElementById('forbidCopy$activate')).val() === '1')
                 {
                     // 禁止拷贝
                     x.page.forbidCopy.activate();
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:activate(e)*/
-            activate: function(e)
+            },                activate: function(e)
             {
                 var event = window.event ? window.event : e;
     
-                if (document.layers)
+                if(document.layers)
                 {
                     document.captureEvents(event.MOUSEDOWN);
     
@@ -8428,34 +7869,26 @@
     
                 // 键盘
                 document.onkeydown = x.page.forbidCopy.keyboard;
-            },
-            /*#endregion*/
-    
-            /*#region 函数:mouse(e)*/
-            mouse: function(e)
+            },                mouse: function(e)
             {
                 var event = window.event ? window.event : e;
     
-                if (document.all)
+                if(document.all)
                 {
-                    if (event.button == 1 || event.button == 2 || event.button == 3)
+                    if(event.button == 1 || event.button == 2 || event.button == 3)
                     {
                         window.document.oncontextmenu = function() { return false; }
                     }
                 }
     
-                if (document.layers)
+                if(document.layers)
                 {
-                    if (event.which == 3)
+                    if(event.which == 3)
                     {
                         window.document.oncontextmenu = function() { return false; }
                     }
                 }
-            },
-            /*#endregion*/
-    
-            /*#region 函数:keyboard(e)*/
-            keyboard: function(e)
+            },                keyboard: function(e)
             {
                 var event = window.event ? window.event : e;
     
@@ -8463,9 +7896,9 @@
     
                 var result = false;
     
-                for (var i = 0; i < hotkeys.length; i++)
+                for(var i = 0;i < hotkeys.length;i++)
                 {
-                    if (hotkeys[i] == event.keyCode)
+                    if(hotkeys[i] == event.keyCode)
                     {
                         result = true;
                         break;
@@ -8473,24 +7906,20 @@
                 }
     
                 // event.shiftKey | event.altKey | event.ctrlKey
-                if (event.ctrlKey || result)
+                if(event.ctrlKey || result)
                 {
                     alert(x.page.forbidCopy.message);
-    
-                    x.debug.log(x.page.forbidCopy.message);
-    
+        
                     return false;
                 }
-            }
-            /*#endregion*/
-        },
+            }        },
     
         /*
         * 创建分页对象
         */
         newPagingHelper: function(pageSize)
         {
-            if (pageSize === undefined || pageSize === '') { pageSize = 10; }
+            if(pageSize === undefined || pageSize === '') { pageSize = 10; }
     
             var helper = {
     
@@ -8513,7 +7942,7 @@
                 lastPage: 0,
     
                 query: {
-                    table: '', fields: '', where: {}, orders: ''
+                    scence: '', table: '', fields: '', where: {}, orders: ''
                 },
     
                 /*
@@ -8521,19 +7950,19 @@
                 */
                 load: function(paging)
                 {
-                    if (!x.isUndefined(paging.pageSize)) { this.pagingize = Number(paging.pageSize); }
+                    if(!x.isUndefined(paging.pageSize)) { this.pagingize = Number(paging.pageSize); }
     
-                    if (!x.isUndefined(paging.rowCount)) { this.rowCount = Number(paging.rowCount); }
+                    if(!x.isUndefined(paging.rowCount)) { this.rowCount = Number(paging.rowCount); }
     
-                    if (!x.isUndefined(paging.rowIndex)) { this.rowIndex = Number(paging.rowIndex); }
+                    if(!x.isUndefined(paging.rowIndex)) { this.rowIndex = Number(paging.rowIndex); }
     
-                    if (!x.isUndefined(paging.firstPage)) { this.firstPage = Number(paging.firstPage); }
+                    if(!x.isUndefined(paging.firstPage)) { this.firstPage = Number(paging.firstPage); }
     
-                    if (!x.isUndefined(paging.previousPage)) { this.previousPage = Number(paging.previousPage); }
+                    if(!x.isUndefined(paging.previousPage)) { this.previousPage = Number(paging.previousPage); }
     
-                    if (!x.isUndefined(paging.nextPage)) { this.nextPage = Number(paging.nextPage); }
+                    if(!x.isUndefined(paging.nextPage)) { this.nextPage = Number(paging.nextPage); }
     
-                    if (!x.isUndefined(paging.lastPage)) { this.lastPage = Number(paging.lastPage); }
+                    if(!x.isUndefined(paging.lastPage)) { this.lastPage = Number(paging.lastPage); }
                 },
     
                 /*
@@ -8543,7 +7972,7 @@
                 {
                     this.previousPage = value - 1;
     
-                    if (this.previousPage < 1)
+                    if(this.previousPage < 1)
                     {
                         this.previousPage = 1;
                     }
@@ -8556,7 +7985,7 @@
                 {
                     this.nextPage = value + 1;
     
-                    if (this.nextPage > this.lastPage)
+                    if(this.nextPage > this.lastPage)
                     {
                         this.nextPage = this.lastPage;
                     }
@@ -8567,18 +7996,13 @@
                 */
                 getPagesNumber: function(format, value, length)
                 {
-                    // may be overwrite here. ^_^
-                    //
-                    // x.page.newPagesHelper.prototype.getPagesNumber
-                    //
-    
                     var outString = '';
     
                     var page = value;
     
                     var counter;
     
-                    if (value - length > 0)
+                    if(value - length > 0)
                     {
                         value -= length;
                     }
@@ -8589,28 +8013,20 @@
     
                     counter = value + (length * 2) + 1;
     
-                    if (counter > this.lastPage)
+                    if(counter > this.lastPage)
                     {
                         value = this.lastPage - (length * 2);
                     }
     
-                    for (var i = value; i < counter; i++)
+                    for(var i = value;i < counter;i++)
                     {
-                        if (i < 1) { continue; }
+                        if(i < 1) { continue; }
     
-                        if (i > this.lastPage) { break; }
+                        if(i > this.lastPage) { break; }
     
-                        if (format.indexOf('{0}') > -1)
-                        {
-                            outString += '<a href="' + format.replace('{0}', i) + '" >';
-                        }
-                        else
-                        {
-                            outString += '<a href="javascript:' + format + '(' + i + ');" >';
-                        }
-    
+                        outString += '<li ' + ((page == i) ? ('class="active"') : '') + ' ><a href="' + format.replace('{0}', i) + '" >';
                         outString += ((page == i) ? ('<strong>' + i + '</strong>') : i);
-                        outString += '</a> ';
+                        outString += '</a></li>';
                     }
     
                     return outString;
@@ -8622,30 +8038,26 @@
                 tryParseMenu: function(format)
                 {
                     var outString = '';
+                    // 
+                    // message //.format("{rowCount}条信息")
     
-                    outString += '<div class="nav-pager" >';
-                    outString += '<div class="nav-pager-1" >';
+                    outString += '<div class="form-inline text-right">';
+                    outString += '<div class="form-group" style="padding:0 10px 0 0;" >';
                     outString += '共有' + this.rowCount + '条信息 当前' + (this.rowIndex + 1) + '-' + (this.rowIndex + this.pageSize) + '信息 ';
-    
-                    if (format.indexOf('{0}') > -1)
-                    {
-                        outString += '<a href="' + format.replace('{0}', this.firstPage) + '">首页</a> ';
-                        outString += '<a href="' + format.replace('{0}', this.previousPage) + '">上一页</a> ';
-                        outString += this.getPagesNumber(format, this.currentPage, 2)
-                        outString += '<a href="' + format.replace('{0}', this.nextPage) + '">下一页</a> ';
-                        outString += '<a href="' + format.replace('{0}', this.lastPage) + '">末页</a> ';
-                    }
-                    else
-                    {
-                        outString += '<a href="javascript:' + format + '(' + this.firstPage + ');">首页</a> ';
-                        outString += '<a href="javascript:' + format + '(' + this.previousPage + ');">上一页</a> ';
-                        outString += this.getPagesNumber(format, this.currentPage, 2)
-                        outString += '<a href="javascript:' + format + '(' + this.nextPage + ');">下一页</a> ';
-                        outString += '<a href="javascript:' + format + '(' + this.lastPage + ');">末页</a> ';
-                    }
-    
                     outString += '</div>';
-                    outString += '<div class="clear" ></div>';
+                    outString += '<div class="form-group">';
+                    outString += '<nav>';
+                    outString += '<ul class="pagination pagination-sm">';
+    
+                    outString += '<li><a href="' + format.replace('{0}', this.firstPage) + '" aria-label="首页"><span class="glyphicon glyphicon-step-backward"></span></a></li>';
+                    outString += '<li><a href="' + format.replace('{0}', this.previousPage) + '" aria-label="上一页"><span class="glyphicon glyphicon-triangle-left"></span></a></li>';
+                    outString += this.getPagesNumber(format, this.currentPage, 2)
+                    outString += '<li><a href="' + format.replace('{0}', this.nextPage) + '" aria-label="下一页"><span class="glyphicon glyphicon-triangle-right"></span></a></li> ';
+                    outString += '<li><a href="' + format.replace('{0}', this.lastPage) + '" aria-label="末页"><span class="glyphicon glyphicon-step-forward"></span></a></li> ';
+    
+                    outString += '</ul>';
+                    outString += '</nav>';
+                    outString += '</div>';
                     outString += '</div>';
     
                     return outString;
@@ -8658,8 +8070,9 @@
     
                     outString += '<query>';
     
-                    if (this.query.table.length > 0) outString += '<table><![CDATA[' + this.query.table + ']]></table>';
-                    if (this.query.fields.length > 0) outString += '<fields><![CDATA[' + this.query.fields + ']]></fields>';
+                    if(this.query.scence.length > 0) outString += '<scence><![CDATA[' + this.query.scence + ']]></scence>';
+                    if(this.query.table.length > 0) outString += '<table><![CDATA[' + this.query.table + ']]></table>';
+                    if(this.query.fields.length > 0) outString += '<fields><![CDATA[' + this.query.fields + ']]></fields>';
     
                     var where = '<where>';
                     x.each(this.query.where, function(name, value)
@@ -8667,14 +8080,14 @@
                         where += '<key name="' + name + '" ><![CDATA[' + value + ']]></key>';
                     });
                     where += '</where>';
-                    if (where != '<where></where>') outString += where;
+                    if(where != '<where></where>') outString += where;
     
-                    if (this.query.orders.length > 0) outString += '<orders><![CDATA[' + this.query.orders + ']]></orders>';
+                    if(this.query.orders.length > 0) outString += '<orders><![CDATA[' + this.query.orders + ']]></orders>';
     
                     outString += '</query>';
     
-                    if (outString == '<query></query>') outString += '';
-                    
+                    if(outString == '<query></query>') outString += '';
+    
                     return outString;
                 },
     
@@ -8695,7 +8108,7 @@
                     outString += '<lastPage>' + this.lastPage + '</lastPage>';
                     outString += '</paging>';
                     outString += this.toQueryXml();
-                    
+    
                     return outString;
                 }
             };

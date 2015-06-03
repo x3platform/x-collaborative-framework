@@ -97,7 +97,7 @@
                 // 设置域为相关的IP或者机器名
                 KernelConfigurationView.Instance.Configuration.Keys["Domain"].Value = serverNameView;
             }
-            else if (WebConfigurationView.Instance.SiteThemeName == "dynamic")
+            else if (WebConfigurationView.Instance.ThemeName == "dynamic")
             {
                 // 如果将页面的主题设置为 dynamic, 则根据域名信息自动匹配相关的模板
 

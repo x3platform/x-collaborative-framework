@@ -35,7 +35,10 @@ namespace X3Platform.Web.Builder.Management
             {
                 builder = (IMenuBuilder)KernelContext.CreateObject(element.Value);
 
-                list.Add(builder);
+                if (builder != null)
+                {
+                  list.Add(builder);
+                }
             }
         }
 
