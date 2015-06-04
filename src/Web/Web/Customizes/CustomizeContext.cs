@@ -1,120 +1,133 @@
 ﻿namespace X3Platform.Web.Customizes
 {
-    using System;
+  using System;
 
-    using X3Platform.Plugins;
-    using X3Platform.Spring;
-    using X3Platform.Web.Customizes.IBLL;
-    using X3Platform.Web.Configuration;
+  using X3Platform.Plugins;
+  using X3Platform.Spring;
+  using X3Platform.Web.Customizes.IBLL;
+  using X3Platform.Web.Configuration;
 
-    /// <summary>页面自定义</summary>
-    public sealed class CustomizeContext : CustomPlugin
+  /// <summary>页面自定义</summary>
+  public sealed class CustomizeContext : CustomPlugin
+  {
+    #region 属性:Name
+    public override string Name
     {
-        #region 属性:Name
-        public override string Name
-        {
-            get { return "页面自定义"; }
-        }
-        #endregion
-
-        #region 属性:Instance
-        private static volatile CustomizeContext instance = null;
-
-        private static object lockObject = new object();
-
-        public static CustomizeContext Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (lockObject)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new CustomizeContext();
-                        }
-                    }
-                }
-
-                return instance;
-            }
-        }
-        #endregion
-
-        #region 属性:Configuration
-        private WebConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public WebConfiguration Configuration
-        {
-            get { return configuration; }
-        }
-        #endregion
-
-        #region 属性:PageService
-        private IPageService m_PageService = null;
-
-        public IPageService PageService
-        {
-            get { return m_PageService; }
-        }
-        #endregion
-
-        #region 属性:WidgetService
-        private IWidgetService m_WidgetService = null;
-
-        public IWidgetService WidgetService
-        {
-            get { return m_WidgetService; }
-        }
-        #endregion
-
-        #region 属性:WidgetInstanceService
-        private IWidgetInstanceService m_WidgetInstanceService = null;
-
-        public IWidgetInstanceService WidgetInstanceService
-        {
-            get { return m_WidgetInstanceService; }
-        }
-        #endregion
-
-        #region 构造函数:CustomizeContext()
-        /// <summary>构造函数</summary>
-        private CustomizeContext()
-        {
-            this.Restart();
-        }
-        #endregion
-
-        #region 函数:Restart()
-        /// <summary>重启插件</summary>
-        /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
-        public override int Restart()
-        {
-            try
-            {
-                Reload();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return 0;
-        }
-        #endregion
-
-        #region 函数:Reload()
-        /// <summary>重新加载</summary>
-        private void Reload()
-        {
-            configuration = WebConfigurationView.Instance.Configuration;
-
-            m_PageService = SpringContext.Instance.GetObject<IPageService>(typeof(IPageService));
-            m_WidgetService = SpringContext.Instance.GetObject<IWidgetService>(typeof(IWidgetService));
-            m_WidgetInstanceService = SpringContext.Instance.GetObject<IWidgetInstanceService>(typeof(IWidgetInstanceService));
-        }
-        #endregion
+      get { return "页面自定义"; }
     }
+    #endregion
+
+    #region 属性:Instance
+    private static volatile CustomizeContext instance = null;
+
+    private static object lockObject = new object();
+
+    public static CustomizeContext Instance
+    {
+      get
+      {
+        if (instance == null)
+        {
+          lock (lockObject)
+          {
+            if (instance == null)
+            {
+              instance = new CustomizeContext();
+            }
+          }
+        }
+
+        return instance;
+      }
+    }
+    #endregion
+
+    #region 属性:Configuration
+    private WebConfiguration configuration = null;
+
+    /// <summary>配置</summary>
+    public WebConfiguration Configuration
+    {
+      get { return configuration; }
+    }
+    #endregion
+
+    #region 属性:CustomizePageService
+    private ICustomizePageService m_CustomizePageService = null;
+
+    public ICustomizePageService CustomizePageService
+    {
+      get { return m_CustomizePageService; }
+    }
+    #endregion
+
+    #region 属性:CustomizeWidgetZoneService
+    private ICustomizeWidgetZoneService m_CustomizeWidgetZoneService = null;
+
+    public ICustomizeWidgetZoneService CustomizeWidgetZoneService
+    {
+      get { return this.m_CustomizeWidgetZoneService; }
+    }
+    #endregion
+
+    #region 属性:CustomizeWidgetService
+    private ICustomizeWidgetService m_CustomizeWidgetService = null;
+
+    public ICustomizeWidgetService CustomizeWidgetService
+    {
+      get { return m_CustomizeWidgetService; }
+    }
+    #endregion
+
+    #region 属性:CustomizeWidgetInstanceService
+    private ICustomizeWidgetInstanceService m_CustomizeWidgetInstanceService = null;
+
+    public ICustomizeWidgetInstanceService CustomizeWidgetInstanceService
+    {
+      get { return m_CustomizeWidgetInstanceService; }
+    }
+    #endregion
+
+    #region 构造函数:CustomizeContext()
+    /// <summary>构造函数</summary>
+    private CustomizeContext()
+    {
+      this.Restart();
+    }
+    #endregion
+
+    #region 函数:Restart()
+    /// <summary>重启插件</summary>
+    /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
+    public override int Restart()
+    {
+      try
+      {
+        Reload();
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
+
+      return 0;
+    }
+    #endregion
+
+    #region 函数:Reload()
+    /// <summary>重新加载</summary>
+    private void Reload()
+    {
+      // 创建对象构建器(Spring.NET)
+      string springObjectFile = WebConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
+
+      SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(WebConfiguration.APP_NAME_CUSTOMIZES, springObjectFile);
+
+      this.m_CustomizePageService = objectBuilder.GetObject<ICustomizePageService>(typeof(ICustomizePageService));
+      this.m_CustomizeWidgetZoneService = objectBuilder.GetObject<ICustomizeWidgetZoneService>(typeof(ICustomizeWidgetZoneService));
+      this.m_CustomizeWidgetService = objectBuilder.GetObject<ICustomizeWidgetService>(typeof(ICustomizeWidgetService));
+      this.m_CustomizeWidgetInstanceService = objectBuilder.GetObject<ICustomizeWidgetInstanceService>(typeof(ICustomizeWidgetInstanceService));
+    }
+    #endregion
+  }
 }

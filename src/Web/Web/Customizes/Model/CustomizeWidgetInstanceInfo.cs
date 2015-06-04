@@ -1,28 +1,12 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Web.Customizes.Model
+﻿namespace X3Platform.Web.Customizes.Model
 {
     using System;
 
     /// <summary>页面信息</summary>
     [Serializable]
-    public class WidgetInstanceInfo : EntityClass
+    public class CustomizeWidgetInstanceInfo : EntityClass
     {
-        public WidgetInstanceInfo()
+        public CustomizeWidgetInstanceInfo()
         {
         }
 
@@ -38,16 +22,16 @@ namespace X3Platform.Web.Customizes.Model
         #endregion
 
         #region 属性:Page
-        private PageInfo m_Page = null;
+        private CustomizePageInfo m_Page = null;
 
         /// <summary>部件</summary>
-        public PageInfo Page
+        public CustomizePageInfo Page
         {
             get
             {
                 if (!string.IsNullOrEmpty(this.PageId))
                 {
-                    m_Page = CustomizeContext.Instance.PageService[this.PageId];
+                    m_Page = CustomizeContext.Instance.CustomizePageService[this.PageId];
                 }
 
                 return m_Page;
@@ -78,16 +62,16 @@ namespace X3Platform.Web.Customizes.Model
         #endregion
 
         #region 属性:Widget
-        private WidgetInfo m_Widget = null;
+        private CustomizeWidgetInfo m_Widget = null;
 
         /// <summary>部件</summary>
-        public WidgetInfo Widget
+        public CustomizeWidgetInfo Widget
         {
             get
             {
                 if (!string.IsNullOrEmpty(this.WidgetId))
                 {
-                    m_Widget = CustomizeContext.Instance.WidgetService[this.WidgetId];
+                    m_Widget = CustomizeContext.Instance.CustomizeWidgetService[this.WidgetId];
                 }
 
                 return m_Widget;

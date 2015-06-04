@@ -144,7 +144,6 @@
 
       LIMIT $StartIndex$, $PageSize$
     </select>
-
     <select id="proc_Application_Event_GetPaging#SqlServer" parameterClass="ApplicationEventInfo" resultMap="proc_Application_Event_FindAll_Result" >
       SELECT *
 

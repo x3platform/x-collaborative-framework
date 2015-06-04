@@ -15,7 +15,7 @@ namespace X3Platform.Web.Customizes.Ajax
   /// <summary>页面</summary>
   public sealed class CustomizePageWrapper : ContextWrapper
   {
-    private IPageService service = CustomizeContext.Instance.PageService; // ���ݷ���
+    private ICustomizePageService service = CustomizeContext.Instance.CustomizePageService; // 数据服务
 
     // -------------------------------------------------------
     // 保存 删除
@@ -27,9 +27,9 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <returns>返回操作结果</returns>
     public string Save(XmlDocument doc)
     {
-      PageInfo param = new PageInfo();
+      CustomizePageInfo param = new CustomizePageInfo();
 
-      param = (PageInfo)AjaxUtil.Deserialize(param, doc);
+      param = (CustomizePageInfo)AjaxUtil.Deserialize(param, doc);
 
       service.Save(param);
 
@@ -65,9 +65,9 @@ namespace X3Platform.Web.Customizes.Ajax
 
       string id = XmlHelper.Fetch("id", doc);
 
-      PageInfo param = service.FindOne(id);
+      CustomizePageInfo param = service.FindOne(id);
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<PageInfo>(param) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizePageInfo>(param) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -79,27 +79,29 @@ namespace X3Platform.Web.Customizes.Ajax
     // 自定义功能
     // -------------------------------------------------------
 
-    #region 函数:GetPages(XmlDocument doc)
+    #region 函数:GetPaging(XmlDocument doc)
     /// <summary>获取分页内容</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    public string GetPages(XmlDocument doc)
+    public string GetPaging(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
 
-      PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+      PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
       int rowCount = -1;
 
-      IList<PageInfo> list = service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+      IList<CustomizePageInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-      pages.RowCount = rowCount;
+      paging.RowCount = rowCount;
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<PageInfo>(list) + ",");
-
-      outString.Append("\"pages\":" + pages + ",");
-
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizePageInfo>(list) + ",");
+      outString.Append("\"paging\":" + paging + ",");
+      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+      outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+      outString.Append("\"total\":" + paging.RowCount + ",");
+      outString.Append("\"success\":1,");
+      outString.Append("\"msg\":\"success\"}");
 
       return outString.ToString();
     }
@@ -112,11 +114,11 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <returns>返回操作结果</returns> 
     public string Reset(XmlDocument doc)
     {
-      PageInfo param = new PageInfo();
+      CustomizePageInfo param = new CustomizePageInfo();
 
-      param = (PageInfo)AjaxUtil.Deserialize(param, doc);
+      param = (CustomizePageInfo)AjaxUtil.Deserialize(param, doc);
 
-      param.Html = CustomizeContext.Instance.WidgetZoneService.GetHtml(param.Name);
+      param.Html = CustomizeContext.Instance.CustomizeWidgetZoneService.GetHtml(param.Name);
 
       this.service.Save(param);
 
