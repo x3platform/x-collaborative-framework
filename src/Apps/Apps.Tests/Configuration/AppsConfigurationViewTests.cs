@@ -16,42 +16,42 @@ using NMock;
 
 namespace X3Platform.Apps.Tests.Configuration
 {
-    using System;
+  using System;
 
-    using X3Platform.IBatis.DataMapper;
+  using X3Platform.IBatis.DataMapper;
 
-    using X3Platform.Apps.Configuration;
+  using X3Platform.Apps.Configuration;
 
-    [TestClass]
-    public class AppsConfigurationViewTests
+  [TestClass]
+  public class AppsConfigurationViewTests
+  {
+    //-------------------------------------------------------
+    // ≤‚ ‘ƒ⁄»›
+    //-------------------------------------------------------
+
+    [TestMethod]
+    public void TestInit()
     {
-        //-------------------------------------------------------
-        // ≤‚ ‘ƒ⁄»›
-        //-------------------------------------------------------
+      var configuration = AppsConfigurationView.Instance.Configuration;
 
-        [TestMethod]
-        public void TestInit()
-        {
-            AppsConfiguration configuration = AppsConfigurationView.Instance.Configuration;
+      Assert.IsNotNull(configuration);
 
-            Assert.IsNotNull(configuration);
-
-            Assert.IsNotNull(configuration.Keys["SpringObjectFile"]);
-            Assert.IsNotNull(configuration.Keys["IBatisMapping"]);
-        }
-
-        [TestMethod]
-        public void TestCreateMapper()
-        {
-            AppsConfiguration configuration = AppsConfigurationView.Instance.Configuration;
-
-            ISqlMapper ibatisMapper = null;
-
-            string ibatisMapping = configuration.Keys["IBatisMapping"].Value;
-
-            ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
-
-            Assert.IsNotNull(ibatisMapper);
-        }
+      Assert.IsNotNull(configuration.Keys["SpringObjectFile"]);
+      Assert.IsNotNull(configuration.Keys["IBatisMapping"]);
     }
+
+    [TestMethod]
+    public void TestCreateMapper()
+    {
+      AppsConfiguration configuration = AppsConfigurationView.Instance.Configuration;
+
+      ISqlMapper ibatisMapper = null;
+
+      string ibatisMapping = configuration.Keys["IBatisMapping"].Value;
+
+      ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
+
+      Assert.IsNotNull(ibatisMapper);
+    }
+  }
 }

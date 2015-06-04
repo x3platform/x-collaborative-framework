@@ -1,10 +1,10 @@
 ---
 # 键值信息配置
-keys: 
+keys:   
   # Spring.NET : 配置文件
-  SpringObjectFile: config\X3Platform.Web.Spring.config
+  SpringObjectFile: assembly://X3Platform.Web/X3Platform.Web/defaults.Objects.xml
   # IBatis : 配置映射文件
-  IBatisMapping: config\X3Platform.Web.IBatis.SqlMap.config
+  IBatisMapping: embedded:defaults.IBatis.SqlMap.xml,X3Platform.Web
   # 服务器名称: 当服务器不以域名方式访问时, 必须需要指定服务器IP地址.
   ServerName: 127.0.0.1;192.168.10.100
   # 网站页面的布局: CollaborationPlatform | EnterprisePortalPlatform | Genius

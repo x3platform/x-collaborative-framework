@@ -16,7 +16,7 @@ namespace X3Platform.Web.Customizes.Ajax
   /// <summary>部件实例</summary>
   public sealed class CustomizeWidgetInstanceWrapper : ContextWrapper
   {
-    private IWidgetInstanceService service = CustomizeContext.Instance.WidgetInstanceService; // ���ݷ���
+    private ICustomizeWidgetInstanceService service = CustomizeContext.Instance.CustomizeWidgetInstanceService; // 数据服务
 
     // -------------------------------------------------------
     // 保存 删除
@@ -29,9 +29,9 @@ namespace X3Platform.Web.Customizes.Ajax
     [AjaxMethod("save")]
     public string Save(XmlDocument doc)
     {
-      WidgetInstanceInfo param = new WidgetInstanceInfo();
+      CustomizeWidgetInstanceInfo param = new CustomizeWidgetInstanceInfo();
 
-      param = (WidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
+      param = (CustomizeWidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
 
       service.Save(param);
 
@@ -69,9 +69,9 @@ namespace X3Platform.Web.Customizes.Ajax
 
       string id = XmlHelper.Fetch("id", doc);
 
-      WidgetInstanceInfo param = service.FindOne(id);
+      CustomizeWidgetInstanceInfo param = service.FindOne(id);
 
-      outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<WidgetInstanceInfo>(param) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInstanceInfo>(param) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
 
@@ -83,28 +83,30 @@ namespace X3Platform.Web.Customizes.Ajax
     // 自定义功能
     // -------------------------------------------------------
 
-    #region 函数:GetPages(XmlDocument doc)
+    #region 函数:GetPaging(XmlDocument doc)
     /// <summary>获取分页内容</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns> 
     [AjaxMethod("getPages")]
-    public string GetPages(XmlDocument doc)
+    public string GetPaging(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
 
-      PagingHelper pages = PagingHelper.Create(XmlHelper.Fetch("pages", doc, "xml"));
+      PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
       int rowCount = -1;
 
-      IList<WidgetInstanceInfo> list = service.GetPages(pages.RowIndex, pages.PageSize, pages.WhereClause, pages.OrderBy, out rowCount);
+      IList<CustomizeWidgetInstanceInfo> list = service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
-      pages.RowCount = rowCount;
+      paging.RowCount = rowCount;
 
-      outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<WidgetInstanceInfo>(list) + ",");
-
-      outString.Append("\"pages\":" + pages + ",");
-
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInstanceInfo>(list) + ",");
+      outString.Append("\"paging\":" + paging + ",");
+      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+      outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+      outString.Append("\"total\":" + paging.RowCount + ",");
+      outString.Append("\"success\":1,");
+      outString.Append("\"msg\":\"success\"}");
 
       return outString.ToString();
     }
@@ -129,18 +131,18 @@ namespace X3Platform.Web.Customizes.Ajax
 
       string widgetName = XmlHelper.Fetch("widgetName", doc);
 
-      WidgetInstanceInfo param = service.FindOne(id);
+      CustomizeWidgetInstanceInfo param = service.FindOne(id);
 
       if (param == null)
       {
-        param = new WidgetInstanceInfo();
+        param = new CustomizeWidgetInstanceInfo();
 
-        param = (WidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
+        param = (CustomizeWidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
 
         this.service.SetPageAndWidget(param, authorizationObjectType, authorizationObjectId, pageName, widgetName);
 
         // 设置部件默认选项
-        WidgetInfo widget = CustomizeContext.Instance.WidgetService.FindOneByName(widgetName);
+        CustomizeWidgetInfo widget = CustomizeContext.Instance.CustomizeWidgetService.FindOneByName(widgetName);
 
         param.Height = widget.Height;
         param.Width = widget.Width;
@@ -149,7 +151,7 @@ namespace X3Platform.Web.Customizes.Ajax
         this.service.Save(param);
       }
 
-      outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<WidgetInstanceInfo>(param) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInstanceInfo>(param) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
 
@@ -170,7 +172,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
       string id = XmlHelper.Fetch("id", doc);
 
-      WidgetInstanceInfo param = this.service.FindOne(id);
+      CustomizeWidgetInstanceInfo param = this.service.FindOne(id);
 
       if (param == null)
       {
@@ -196,7 +198,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
       string id = XmlHelper.Fetch("id", doc);
 
-      WidgetInstanceInfo param = this.service.FindOne(id);
+      CustomizeWidgetInstanceInfo param = this.service.FindOne(id);
 
       if (param == null)
       {
@@ -207,7 +209,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
       optionHtml = ParseHtml(optionHtml, param.Options);
 
-      outString.Append("{\"ajaxStorage\":\"" + StringHelper.ToSafeJson(optionHtml) + "\",");
+      outString.Append("{\"data\":\"" + StringHelper.ToSafeJson(optionHtml) + "\",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 

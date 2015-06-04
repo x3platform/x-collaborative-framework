@@ -61,10 +61,14 @@
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data">
+      <HintPath>E:\Workspace\X3Platform\lib\MySQL\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Core">
       <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web" />
@@ -88,12 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIs\Configuration\APIsConfigurationTests.cs" />
-    <Compile Include="Auth\APIsConfigurationTests.cs" />
     <Compile Include="Component\Combobox\ComboboxBuilderTests.cs" />
     <Compile Include="Component\HtmlHelperTests.cs" />
     <Compile Include="Configuration\WebConfigurationTests.cs" />
-    <Compile Include="Customize\CustomizeContextTests.cs" />
-    <Compile Include="Customize\Widgets\WidgetTests.cs" />
+    <Compile Include="Customizes\CustomizeContextTests.cs" />
+    <Compile Include="Customizes\Widgets\WidgetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserAgents\UserAgentParserTests.cs" />
   </ItemGroup>
@@ -120,8 +123,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.config" />
+    <None Include="App.example.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(ProjectDir)App.config" copy "$(ProjectDir)App.example.config" "$(ProjectDir)App.config" /y
+copy "$(ProjectDir)App.config" "$(TargetDir)$(TargetFileName).config" /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

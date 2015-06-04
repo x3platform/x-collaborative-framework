@@ -6,9 +6,9 @@
 
     /// <summary>页面信息</summary>
     [Serializable]
-    public class PageInfo
+    public class CustomizePageInfo
     {
-        public PageInfo()
+        public CustomizePageInfo()
         {
             this.Id = StringHelper.ToGuid();
         }

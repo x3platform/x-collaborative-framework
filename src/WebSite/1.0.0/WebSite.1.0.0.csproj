@@ -174,7 +174,7 @@
     <Content Include="views\main\account\settings\profile.js" />
     <Content Include="views\main\account\sign-in.js" />
     <Content Include="views\main\account\sign-up.js" />
-    <Content Include="views\main\customizes\page-list.js" />
+    <Content Include="views\main\customizes\customize-page-list.js" />
     <Content Include="views\templates\internal\sdk\styles\style.css" />
     <Content Include="views\templates\internal\sdk\styles\style.min.css" />
   </ItemGroup>
@@ -221,7 +221,7 @@
     <Content Include="views\main\account\sign-in.cshtml" />
     <Content Include="views\main\account\sign-out.cshtml" />
     <Content Include="views\main\account\sign-up.cshtml" />
-    <Content Include="views\main\customizes\page-list.cshtml">
+    <Content Include="views\main\customizes\customize-page-list.cshtml">
       <SubType>Code</SubType>
     </Content>
     <None Include="views\templates\internal\sdk\styles\style.less" />

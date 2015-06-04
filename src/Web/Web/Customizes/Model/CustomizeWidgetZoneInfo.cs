@@ -1,26 +1,12 @@
-﻿// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :RuanYu
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace Elane.X.Web.Customize.Model
+﻿namespace X3Platform.Web.Customizes.Model
 {
     using System;
 
     /// <summary>页面信息</summary>
     [Serializable]
-    public class WidgetZoneInfo : EntityClass
+    public class CustomizeWidgetZoneInfo : EntityClass
     {
-        public WidgetZoneInfo()
+        public CustomizeWidgetZoneInfo()
         {
         }
 

@@ -36,7 +36,7 @@ namespace X3Platform.Web.Builder.Layouts.EnterprisePortalPlatform
         {
             try
             {
-                return CustomizeContext.Instance.PageService.TryParseHtml(authorizationObjectType, authorizationObjectId, pageName);
+                return CustomizeContext.Instance.CustomizePageService.TryParseHtml(authorizationObjectType, authorizationObjectId, pageName);
             }
             catch (Exception ex)
             {

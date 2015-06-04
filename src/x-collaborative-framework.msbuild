@@ -20,7 +20,9 @@
         <ProjectToBuild Include="Membership\Membership\Membership.csproj" />
         <ProjectToBuild Include="Apps\Apps\Apps.csproj" />
         <ProjectToBuild Include="Entities\Entities\Entities.csproj" />
+        <!-- 附件管理 -->
         <ProjectToBuild Include="AttachmentStorage\AttachmentStorage\AttachmentStorage.csproj" />
+        <!-- 02.PortalPlatform -->
         <ProjectToBuild Include="Navigation\Navigation\Navigation.csproj" />
         <ProjectToBuild Include="Web\Web\Web.csproj" />
         <ProjectToBuild Include="Web\Web.APIs\Web.APIs.csproj" />
@@ -31,6 +33,7 @@
         <!-- Tests -->
         <ProjectToBuild Include="Sessions\Sessions.Tests\Sessions.Tests.csproj" />
         <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" />
+        <ProjectToBuild Include="Web\Web.Tests\Web.Tests.csproj" />
     </ItemGroup>
     <Target Name="Build">
         <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release;WarningLevel=0" />

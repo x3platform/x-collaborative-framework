@@ -1,26 +1,12 @@
-﻿// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Web.Customizes.Model
+﻿namespace X3Platform.Web.Customizes.Model
 {
     using System;
 
     /// <summary>页面信息</summary>
     [Serializable]
-    public class WidgetInfo : EntityClass
+    public class CustomizeWidgetInfo : EntityClass
     {
-        public WidgetInfo()
+        public CustomizeWidgetInfo()
         {
         }
 

@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <settings>
-        <setting useStatementNamespaces="false"/>
-        <setting cacheModelsEnabled="true"/>
-        <setting validateSqlMap="false"/>
-        <setting useReflectionOptimizer="true"/>
-    </settings>
+  <settings>
+    <setting useStatementNamespaces="false"/>
+    <setting cacheModelsEnabled="true"/>
+    <setting validateSqlMap="false"/>
+    <setting useReflectionOptimizer="true"/>
+  </settings>
 
-    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support"/>
+  <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support"/>
 
-    <database>
-        <provider name="${DatabaseSettings.Provider}" />
-        <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512" />
-    </database>
+  <database>
+    <provider name="${DatabaseSettings.Provider}" />
+    <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512" />
+  </database>
 
-    <typeHandlers>
-        <typeHandler type="string" callback="AnsiStringTypeHandler"/>
-    </typeHandlers>
+  <typeHandlers>
+    <typeHandler type="string" callback="AnsiStringTypeHandler"/>
+  </typeHandlers>
 
-    <sqlMaps>
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationErrorProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureDateLimitProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingGroupProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider.xml,X3Platform.Apps" />
-        <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationOptionProvider.xml,X3Platform.Apps" />
-    </sqlMaps>
+  <sqlMaps>
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationErrorProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationEventProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationFeatureDateLimitProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingGroupProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationSettingProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMenuProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider.xml,X3Platform.Apps" />
+    <sqlMap embedded="X3Platform.Apps.DAL.IBatis.ApplicationOptionProvider.xml,X3Platform.Apps" />
+  </sqlMaps>
 </sqlMapConfig>
