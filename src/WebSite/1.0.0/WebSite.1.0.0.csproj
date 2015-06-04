@@ -175,6 +175,7 @@
     <Content Include="views\main\account\sign-in.js" />
     <Content Include="views\main\account\sign-up.js" />
     <Content Include="views\main\customizes\customize-page-list.js" />
+    <Content Include="views\main\customizes\customize-widget-list.js" />
     <Content Include="views\templates\internal\sdk\styles\style.css" />
     <Content Include="views\templates\internal\sdk\styles\style.min.css" />
   </ItemGroup>
@@ -182,7 +183,9 @@
     <Content Include="views\main\sdk\sha1.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="views\web.config" />
+    <Content Include="views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="views\main\sdk\useragent.cshtml" />
@@ -224,13 +227,13 @@
     <Content Include="views\main\customizes\customize-page-list.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\main\customizes\customize-widget-list.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="views\admins\" />
     <Folder Include="views\main\applications\" />
-    <Folder Include="views\main\auth\" />
     <Folder Include="views\main\membership\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>

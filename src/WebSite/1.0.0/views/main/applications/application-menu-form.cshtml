@@ -1,0 +1,155 @@
+﻿@{
+  Layout = "~/views/templates/themes/genius/single-render.cshtml";
+}
+<script id="x-main" type="text/javascript">
+  x.require({
+    files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
+        { fileType: 'script', id: 'shared-wizards-application-wizard-script', path: '/views/shared/wizards/application-wizard.js' },
+        { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' },
+        { fileType: 'script', id: 'main-applications-application-menu-script', path: '/views/main/applications/application-menu-form.js' }
+    ]
+  });
+</script>
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table-style" style="width:960px;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        <a href="javascript:main.applications.application.menu.form.save()" class="btn btn-default"><i class="fa fa-floppy-o" title="保存"></i> 保存</a>
+        <a href="javascript:x.page.close();" class="btn btn-default"><i class="fa fa-ban" title="关闭"></i> 关闭</a>
+      </div>
+      <span>应用菜单信息</span>
+      <div class="clear"></div>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <div class="x-ui-pkg-tabs-wrapper">
+          <div class="x-ui-pkg-tabs-container">
+            <table class="table-style" style="width:100%">
+              <tr class="table-row-normal-transparent" @if (ViewBag.param.MenuType == "StartMenu" || ViewBag.param.MenuType == "TopMenu" || ViewBag.param.MenuType == "ShortcutMenu") { <text> style="display:none" </text>     }>
+                <td class="table-body-text" style="width:120px"><span class="required-text">所属应用</span></td>
+                <td class="table-body-input form-inline">
+                  <div class="input-group">
+                    <input id="applicationDisplayName" name="applicationDisplayName" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationDisplayName" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【应用名称】。" style="width:200px;" />
+                    <input id="applicationId" name="applicationId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationId" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【应用名称】。" style="width:200px;" />
+                    <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+                    <input id="menuType" name="menuType" type="hidden" x-dom-data-type="value" value="@ViewBag.param.MenuType" />
+                    <input id="hasChild" name="hasChild" type="hidden" x-dom-data-type="value" value="@ViewBag.param.HasChild" />
+                    <input id="contextObject" name="contextObject" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ContextObject" />
+                    <input id="fullPath" name="fullPath" type="hidden" x-dom-data-type="value" value="@ViewBag.param.FullPath" />
+                    <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.UpdateDate.ToString("yyyy-MM-dd HH:mm:ss.fff")" />
+                    <a href="javascript:x.ui.wizards.getApplicationWizard({targetViewName:'applicationDisplayName',targetValueName:'applicationId'});" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
+                  </div>
+                </td>
+              </tr>
+
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;"><span class="required-text">所属父级菜单</span></td>
+                <td class="table-body-input">
+                  <input id="parentId" name="parentId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ParentId" />
+                  <input id="parentName" name="parentName" type="text" x-dom-data-type="value" class="form-control" x-dom-data-required="1" style="width:420px;" x-dom-data-required-warning="必须填写【所属父级菜单】。" value="@ViewBag.param.ParentName" />
+                  <input id="originalApplicationName" name="originalApplicationName" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationName" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text"><span class="required-text">菜单代码</span></td>
+                <td class="table-body-input">
+                  @if (ViewBag.param.Code == "")
+                  {
+                    <span class="gray-text">自动生成</span>
+                    <input id="code" name="code" type="hidden" x-dom-data-type="value" value="" />
+                  }
+                  else
+                  {
+                    <input id="code" name="code" type="text" x-dom-data-type="value" value="@ViewBag.param.Code" class="form-control" style="width:680px;" />
+                  }
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;"><span class="required-text">菜单名称</span></td>
+                <td class="table-body-input">
+                  <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+                  <input id="name" name="name" type="text" x-dom-data-type="value" value="@ViewBag.param.Name" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【菜单名称】。" style="width:680px;" />
+                  <input id="originalName" name="originalName" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Name" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text"><span class="required-text">菜单描述</span></td>
+                <td class="table-body-input">
+                  <textarea id="description" name="description" type="text" x-dom-data-type="value" class="form-control" x-dom-data-required="1" rows="2" x-dom-data-required-warning="必须填写【菜单描述】。" style="width:680px;">@ViewBag.param.Description</textarea>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text"><span class="required-text">链接地址</span></td>
+                <td class="table-body-input">
+                  <input id="url" name="url" type="text" x-dom-data-type="value" value="@ViewBag.param.Url" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【链接地址】。" style="width:680px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">打开方式</td>
+                <td class="table-body-input">
+                  <div class="float-left"><input id="target" name="target" type="text" x-dom-data-type="value" x-dom-feature="combobox" value="@ViewBag.param.Target" selectedtext="@ViewBag.param.TargetView" topoffset="-1" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_应用链接打开方式\#\# ) " class="form-control" style="width:200px;" /></div>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">小图标路径</td>
+                <td class="table-body-input">
+                  <input id="iconPath" name="iconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.IconPath" class="form-control" style="width:680px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">大图标路径</td>
+                <td class="table-body-input">
+                  <input id="bigIconPath" name="bigIconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.BigIconPath" class="form-control" style="width:680px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">展现类型</td>
+                <td class="table-body-input">
+                  <div class="float-left"><input id="displayType" name="displayType" type="text" x-dom-data-type="value" x-dom-feature="combobox" value="@ViewBag.param.DisplayType" selectedtext="@ViewBag.param.DisplayTypeView" topoffset="-1" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_应用菜单展现方式\#\# ) " class="form-control" style="width:200px;" /></div>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">可访问成员</td>
+                <td class="table-body-input">
+                  <div class="panel panel-default" style="width:680px;">
+                    <div class="panel-body">
+                      <textarea id="authorizationReadScopeObjectView" name="authorizationReadScopeObjectView" type="text" x-dom-data-type="value" class="form-control" style="height:60px;">@ViewBag.param.AuthorizationReadScopeObjectView</textarea>
+                      <input id="authorizationReadScopeObjectText" name="authorizationReadScopeObjectText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AuthorizationReadScopeObjectText" />
+                    </div>
+                    <div class="panel-footer text-right">
+                      <a id="btnEditAuthorizationReadScopeObjectAsEveryone" href="javascript:void(0);" style="margin-right:16px;"><i class="fa fa-users"></i> 设置为所有人</a>
+                      <a id="btnEditAuthorizationReadScopeObject" href="javascript:void(0);"><i class="fa fa-pencil-square-o"></i> 编辑</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">排序</td>
+                <td class="table-body-input">
+                  <input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:200px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">备注</td>
+                <td class="table-body-input">
+                  <textarea id="remark" name="remark" type="text" x-dom-data-type="value" class="form-control" style="height:60px;width:680px;">@ViewBag.param.Remark</textarea>
+                </td>
+              </tr>
+              <tr class="table-row-normal">
+                <td class="table-body-text">启用</td>
+                <td class="table-body-input">
+                  <input id="status" name="status" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Status" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
