@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+<script id="x-main" type="text/javascript" >
+    x.require({ files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+        { fileType: 'script', id: 'x-ui-pkg-treeTable-script', path: x.ui.pkg.dir() + 'x.ui.pkg.treeTable.js' },
+        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
+        { fileType: 'script', id: 'shared-wizards-application-wizard-script', path: '/views/shared/wizards/application-wizard.js' },
+        { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' },
+        { fileType: 'script', id: 'main-applications-home-script', path: '/views/main/applications/application-feature-setting.js' }
+    ]});
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用功能授权" } }))
+<div id="window-container" class="window-container">
+    <div id="window-main-table" class="table-style" style="width:100%;">
+        <div id="window-main-table-header" class="table-header">
+            <div id="toolbar" class="table-toolbar">
+                <a href="javascript:main.applications.application.feature.setting.getTreeTableView()" class="btn btn-default" >刷新</a> 
+                <a href="javascript:main.applications.application.feature.setting.setTreeTableView()" class="btn btn-default" >设置</a> 
+            </div>
+            <span>应用功能授权</span>
+            <div class="clear"></div>
+        </div>
+        <div id="window-main-table-body" class="table-body">
+            <div class="table-row-filter form-inline text-right x-freeze-height">
+              <label>当前授权对象</label> 
+              <input id="authorizationObjectType" name="authorizationObjectType" type="hidden" value="" /> 
+              <input id="authorizationObjectId" name="authorizationObjectId" type="hidden" value="" /> 
+              <input id="authorizationObjectName" name="authorizationObjectName" type="text" value="" class="form-control input-sm" style="width:280px;" /> 
+              <button id="btnContactsWizard" class="btn btn-default btn-sm">编辑</button>
+              <label>当前应用系统</label> 
+              <input id="applicationId" name="applicationId" type="hidden" value="" /> 
+              <input id="applicationDisplayName" name="applicationDisplayName" type="text" value="" class="form-control input-sm" /> 
+              <button id="btnApplicationWizard" class="btn btn-default btn-sm">编辑</button>
+            </div>
+            <table class="table-style" style="width:100%;">
+                <tr>
+                    <td>
+                        <div id="window-main-table-container">
+                          <div id="window-application-feature-setting" style="padding:10px;">
+	                          <div id="window-application-feature-setting-message" style="text-align:right; padding: 0 10px 10px 0 ;" >请选择标准角色名称和应用名称。</div>
+                            <div id="window-application-feature-setting-container" ></div>
+	                        </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

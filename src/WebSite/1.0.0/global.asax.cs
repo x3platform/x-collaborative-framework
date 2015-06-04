@@ -40,7 +40,7 @@ namespace X3Platform.WebSiteV10
                 "",
                 // Parameter defaults
                 new { controller = "Home", action = "Index" },
-                // Namespaces
+                // NamespacesD:\github\x-collaborative-framework\src\WebSite\1.0.0\views\main\applications\
                 new string[] { "X3Platform.Admins.Controllers" }
             );
 
