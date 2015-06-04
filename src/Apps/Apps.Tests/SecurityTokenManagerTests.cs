@@ -21,6 +21,7 @@ namespace X3Platform.Apps.Tests
     using X3Platform.Membership;
 
     using X3Platform.Apps.Configuration;
+  using X3Platform.Apps.Model;
 
     /// <summary></summary>
     [TestClass]
@@ -68,20 +69,12 @@ namespace X3Platform.Apps.Tests
             Assert.AreEqual(administrator.Id, "00000000-0000-0000-0000-000000001001");
             Assert.AreEqual(administrator.LoginName, "admin");
 
-            result = AppsSecurity.IsAdministrator(administrator, "Meeting");
+            ApplicationInfo application = AppsContext.Instance.ApplicationService.FindOne(ConfigurationManager.AppSettings["appKey"]);
+
+            result = AppsSecurity.IsAdministrator(administrator, application.ApplicationName);
             Assert.IsTrue(result);
 
-            result = AppsSecurity.IsAdministrator(member, "Meeting");
-            Assert.IsFalse(result);
-
-            //
-            // 测试工作联系
-            //
-
-            result = AppsSecurity.IsAdministrator(administrator, "WorkRelation");
-            Assert.IsTrue(result);
-
-            result = AppsSecurity.IsAdministrator(member, "WorkRelation");
+            result = AppsSecurity.IsAdministrator(member, application.ApplicationName);
             Assert.IsFalse(result);
         }
     }
