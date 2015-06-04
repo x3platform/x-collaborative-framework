@@ -63,10 +63,10 @@ namespace X3Platform.Apps.Tests
             IAccountInfo member = memberMock.MockObject;
 
             Assert.AreEqual(administrator.Id, "00000000-0000-0000-0000-000000001001");
-            Assert.AreEqual(administrator.LoginName, "mossadmin");
+            Assert.AreEqual(administrator.LoginName, "admin");
 
             Assert.AreEqual(administrator.Id, "00000000-0000-0000-0000-000000001001");
-            Assert.AreEqual(administrator.LoginName, "mossadmin");
+            Assert.AreEqual(administrator.LoginName, "admin");
 
             result = AppsSecurity.IsAdministrator(administrator, "Meeting");
             Assert.IsTrue(result);
