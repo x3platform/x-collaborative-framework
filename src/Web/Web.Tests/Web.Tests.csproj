@@ -124,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.example.config" />
+    <Content Include="config\X3Platform.Web.APIs.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
