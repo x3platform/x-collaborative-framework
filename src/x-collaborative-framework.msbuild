@@ -5,6 +5,7 @@
             <Properties>Configuration=Debug</Properties>
         </ProjectToBuild>
         -->
+        <!-- 附件管理 -->
         <ProjectToBuild Include="Kernel\Support\Support.csproj" />
         <ProjectToBuild Include="Kernel\Abstractions\Abstractions.csproj" />
         <ProjectToBuild Include="Velocity\Velocity\Velocity.csproj" />
@@ -20,7 +21,6 @@
         <ProjectToBuild Include="Membership\Membership\Membership.csproj" />
         <ProjectToBuild Include="Apps\Apps\Apps.csproj" />
         <ProjectToBuild Include="Entities\Entities\Entities.csproj" />
-        <!-- 附件管理 -->
         <ProjectToBuild Include="AttachmentStorage\AttachmentStorage\AttachmentStorage.csproj" />
         <!-- 02.PortalPlatform -->
         <ProjectToBuild Include="Navigation\Navigation\Navigation.csproj" />
@@ -33,6 +33,7 @@
         <!-- Tests -->
         <ProjectToBuild Include="Sessions\Sessions.Tests\Sessions.Tests.csproj" />
         <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" />
+        <ProjectToBuild Include="Apps\Apps.Tests\Apps.Tests.csproj" />
         <ProjectToBuild Include="Web\Web.Tests\Web.Tests.csproj" />
     </ItemGroup>
     <Target Name="Build">
