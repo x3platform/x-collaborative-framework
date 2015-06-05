@@ -4,7 +4,7 @@ set SolutionDir=..\..\..\..\..\
 
 set BinDir=%SolutionDir%bin\
 
-set SrcDir=%SolutionDir%trunk\
+set SrcDir=%SolutionDir%src\
 
 set TargetWebSiteDir=%SrcDir%WebSite\1.0.0\
 

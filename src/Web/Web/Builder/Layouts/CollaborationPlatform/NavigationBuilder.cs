@@ -381,13 +381,26 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
         }
         else
         {
+          if (string.IsNullOrEmpty(item.IconPath))
+          {
+            // item.IconPath = "/resources/images/icon/icon-menu-default.gif";
+            item.IconPath = "fa fa-bars";
+          }
+
+          string icon = "<img src=\"/resources/images/transparent.gif\" style=\"background: #fff url(" + item.IconPath + ") no-repeat right; width:16px; height:16px;\" />";
+
+          if (item.IconPath.IndexOf("fa ") == 0 || item.IconPath.IndexOf("glyphicon ") == 0)
+          {
+            icon = "<i class=\"" + item.IconPath + "\" ></i> ";
+          }
+
           if (currentMenuId == item.Id || currentMenuFullPath == item.FullPath)
           {
-            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" class=\"current\" >{3}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, item.Name);
+            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" class=\"current\" >{3} {4}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, icon, item.Name);
           }
           else
           {
-            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" >{3}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, item.Name);
+            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" >{3} {4}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, icon, item.Name);
           }
         }
       }

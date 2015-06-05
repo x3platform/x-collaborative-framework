@@ -20,7 +20,8 @@
 
   <sqlMaps>
     <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.CustomizePageProvider.xml" />
-    <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.CustomizeWidgetZoneProvider.xml" />
+    <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.CustomizeContentProvider.xml" />
+    <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.CustomizeLayoutProvider.xml" />
     <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.CustomizeWidgetProvider.xml" />
     <sqlMap embedded="X3Platform.Web.Customizes.DAL.IBatis.CustomizeWidgetInstanceProvider.xml" />
   </sqlMaps>

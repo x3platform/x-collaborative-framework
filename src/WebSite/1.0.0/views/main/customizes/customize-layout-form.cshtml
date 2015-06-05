@@ -1,0 +1,51 @@
+﻿@{
+  Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml";
+}
+@section scripts{
+<script type="text/javascript" src="/resources/javascript/jquery-ui-1.11.4.min.js"></script>
+<script type="text/javascript" src="/resources/javascript/ui/pkg/x.ui.pkg.tabs.js"></script>
+<script type="text/javascript" src="/resources/javascript/ui/pkg/x.ui.pkg.customizes.js"></script>
+<script type="text/javascript" src="/views/main/customizes/customize-page-form.js"></script>
+}
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table-style" style="width:960px;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        <button id="btnEdit" href="javascript:main.customizes.customize.page.form.save()" class="btn btn-default"><i class="fa fa-floppy-o" title="保存"></i> 保存</button>
+        <button href="javascript:x.page.close();" class="btn btn-default"><i class="fa fa-ban" title="关闭"></i> 关闭</button>
+      </div>
+      <span>自定义页面</span>
+      <div class="clear"></div>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <input id="customize-page-id" value="@ViewBag.customizePage.Id" type="hidden" />
+        <input id="customize-page-name" value="@ViewBag.customizePage.Name" type="hidden" />
+        <input id="customize-page-authorizationObjectType" value="@ViewBag.customizePage.AuthorizationObjectType" type="hidden" />
+        <input id="customize-page-authorizationObjectId" value="@ViewBag.customizePage.AuthorizationObjectId" type="hidden" />
+        <div class="x-ui-pkg-tabs-wrapper">
+          <div class="x-ui-pkg-tabs-menu-wrapper">
+            <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
+              <li><a href="#tab-1">部件</a></li>
+              <li><a href="#tab-2">布局</a></li>
+            </ul>
+          </div>
+
+          <div class="x-ui-pkg-tabs-container">
+            <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-1" name="tab-1">基本信息</a></h2>
+            <div class="x-ui-pkg-customize-menu-widget-wrapper" style="padding:10px;" ></div>
+          </div>
+
+          <div class="x-ui-pkg-tabs-container">
+            <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-2" name="tab-2">基本信息</a></h2>
+            <div class="x-ui-pkg-customize-menu-widgetZone-wrapper" style="padding:10px;" ></div>
+          </div>
+        </div>
+        
+        <div class="x-ui-pkg-customize-wrapper">
+          @Html.Raw(ViewBag.customizePage.Html)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

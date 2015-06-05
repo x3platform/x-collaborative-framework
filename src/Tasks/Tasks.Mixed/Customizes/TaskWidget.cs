@@ -3,13 +3,12 @@ namespace X3Platform.Tasks.Customize
     #region Using Libraries
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Web;
 
     using X3Platform.Membership;
     using X3Platform.Velocity;
     using X3Platform.Util;
-    using X3Platform.Web.Customize;
+    using X3Platform.Web.Customizes;
 
     using X3Platform.Ajax.Json;
     using X3Platform.Configuration;

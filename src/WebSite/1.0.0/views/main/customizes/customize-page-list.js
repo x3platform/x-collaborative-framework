@@ -1,6 +1,6 @@
-﻿x.register('main.customizes.page.list');
+﻿x.register('main.customizes.customize.page.list');
 
-main.customizes.page.list = {
+main.customizes.customize.page.list = {
 
   paging: x.page.newPagingHelper(50),
 
@@ -10,10 +10,10 @@ main.customizes.page.list = {
    */
   filter: function()
   {
-    main.customizes.page.list.paging.query.scence = 'Query';
-    main.customizes.page.list.paging.query.where.SearchText = $('#searchText').val().trim();
-    main.customizes.page.list.paging.query.orders = ' UpdateDate DESC ';
-    main.customizes.page.list.getPaging(1);
+    main.customizes.customize.page.list.paging.query.scence = 'Query';
+    main.customizes.customize.page.list.paging.query.where.SearchText = $('#searchText').val().trim();
+    main.customizes.customize.page.list.paging.query.orders = ' UpdateDate DESC ';
+    main.customizes.customize.page.list.getPaging(1);
   },
   /*#endregion*/
 
@@ -33,10 +33,9 @@ main.customizes.page.list = {
     outString += '<table class="table" >';
     outString += '<thead>';
     outString += '<tr>';
-    outString += '<th style="width:80px">应用代码</th>';
-    outString += '<th >应用名称(应用显示名称)</th>';
+    outString += '<th >名称</th>';
     outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
-    outString += '<th style="width:100px">修改日期</th>';
+    outString += '<th style="width:100px">更新日期</th>';
     outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
     outString += '<th class="table-freeze-head-padding" ></th>';
     outString += '</tr>';
@@ -47,7 +46,6 @@ main.customizes.page.list = {
     outString += '<div class="table-freeze-body">';
     outString += '<table class="table table-striped">';
     outString += '<colgroup>';
-    outString += '<col style="width:80px" />';
     outString += '<col />';
     outString += '<col style="width:40px" />';
     outString += '<col style="width:100px" />';
@@ -58,13 +56,12 @@ main.customizes.page.list = {
     x.each(list, function(index, node)
     {
       outString += '<tr>';
-      outString += '<td>' + node.code + '</td>';
-      outString += '<td><a href="/applications/application/form?id=' + node.id + '" target="_blank" >' + node.applicationName + '(' + node.applicationDisplayName + ')</a></td>';
+      outString += '<td><a href="/customizes/customize-page/form?id=' + node.id + '" target="_blank" >' + node.name + '</a></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.updateDateView + '</td>';
       if(node.locking == 1)
       {
-        outString += '<td><a href="javascript:main.customizes.page.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
+        outString += '<td><a href="javascript:main.customizes.customize.page.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
       }
       else
       {
@@ -100,7 +97,7 @@ main.customizes.page.list = {
   */
   getPaging: function(currentPage)
   {
-    var paging = main.customizes.page.list.paging;
+    var paging = main.customizes.customize.page.list.paging;
 
     paging.currentPage = currentPage;
 
@@ -110,28 +107,28 @@ main.customizes.page.list = {
     outString += paging.toXml();
     outString += '</request>';
 
-    x.net.xhr('/api/web.customizes.page.query.aspx', outString, {
+    x.net.xhr('/api/web.customizes.customizePage.query.aspx', outString, {
       waitingType: 'mini',
       waitingMessage: i18n.net.waiting.queryTipText,
       callback: function(response)
       {
         var result = x.toJSON(response);
 
-        var paging = main.customizes.page.list.paging;
+        var paging = main.customizes.customize.page.list.paging;
 
         var list = result.data;
 
         paging.load(result.paging);
 
-        var containerHtml = main.customizes.page.list.getObjectsView(list, paging.pageSize);
+        var containerHtml = main.customizes.customize.page.list.getObjectsView(list, paging.pageSize);
 
         $('#window-main-table-container').html(containerHtml);
 
-        var footerHtml = paging.tryParseMenu('javascript:main.customizes.page.list.getPaging({0});');
+        var footerHtml = paging.tryParseMenu('javascript:main.customizes.customize.page.list.getPaging({0});');
 
         $('#window-main-table-footer').html(footerHtml);
 
-        main.customizes.page.list.resize();
+        masterpage.resize();
       }
     });
   },
@@ -157,7 +154,7 @@ main.customizes.page.list = {
         xml: outString
       };
 
-      $.post(main.customizes.page.list.url, options, main.customizes.page.list.confirmDelete_callback);
+      $.post(main.customizes.customize.page.list.url, options, main.customizes.customize.page.list.confirmDelete_callback);
     }
   },
 
@@ -170,7 +167,7 @@ main.customizes.page.list = {
     {
       case 0:
         alert(result.value);
-        main.customizes.page.list.getPaging(1);
+        main.customizes.customize.page.list.getPaging(1);
         break;
 
       case 1:
@@ -193,7 +190,7 @@ main.customizes.page.list = {
     var treeViewId = '00000000-0000-0000-0000-000000000001';
     var treeViewName = '应用管理';
     var treeViewRootTreeNodeId = value; // 默认值:'00000000-0000-0000-0000-000000000001'
-    var treeViewUrl = 'javascript:main.customizes.page.list.setTreeViewNode(\'{treeNodeId}\')';
+    var treeViewUrl = 'javascript:main.customizes.customize.page.list.setTreeViewNode(\'{treeNodeId}\')';
 
     var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
@@ -207,7 +204,7 @@ main.customizes.page.list = {
     outString += '<url><![CDATA[' + treeViewUrl + ']]></url>';
     outString += '</ajaxStorage>';
 
-    var tree = x.ui.pkg.tree.newTreeView({ name: 'main.customizes.page.list.tree' });
+    var tree = x.ui.pkg.tree.newTreeView({ name: 'main.customizes.customize.page.list.tree' });
 
     tree.setAjaxMode(true);
 
@@ -223,9 +220,9 @@ main.customizes.page.list = {
       icon: '/resources/images/tree/tree_icon.gif'
     });
 
-    tree.load('/api/web.customizes.page.getDynamicTreeView.aspx', false, outString);
+    tree.load('/api/web.customizes.customizePage.getDynamicTreeView.aspx', false, outString);
 
-    main.customizes.page.list.tree = tree;
+    main.customizes.customize.page.list.tree = tree;
 
     $('#treeViewContainer')[0].innerHTML = tree;
   },
@@ -234,11 +231,11 @@ main.customizes.page.list = {
   /*#region 函数:setTreeViewNode(value)*/
   setTreeViewNode: function(value)
   {
-    main.customizes.page.list.paging.query.scence = 'QueryByParentId';
-    main.customizes.page.list.paging.query.where.ParentId = value;
-    main.customizes.page.list.paging.query.orders = ' OrderId ';
+    main.customizes.customize.page.list.paging.query.scence = 'QueryByParentId';
+    main.customizes.customize.page.list.paging.query.where.ParentId = value;
+    main.customizes.customize.page.list.paging.query.orders = ' OrderId ';
 
-    main.customizes.page.list.getPaging(1);
+    main.customizes.customize.page.list.getPaging(1);
   },
   /*#endregion*/
 
@@ -248,7 +245,7 @@ main.customizes.page.list = {
    */
   load: function()
   {
-    main.customizes.page.list.filter();
+    main.customizes.customize.page.list.filter();
 
     // -------------------------------------------------------
     // 绑定事件
@@ -256,23 +253,23 @@ main.customizes.page.list = {
 
     $('#searchText').bind('keyup', function()
     {
-      main.customizes.page.list.filter();
+      main.customizes.customize.page.list.filter();
     });
 
     $('#btnFilter').bind('click', function()
     {
-      main.customizes.page.list.filter();
+      main.customizes.customize.page.list.filter();
     });
   }
   /*#endregion*/
 };
 
-$(document).ready(main.customizes.page.list.load);
+$(document).ready(main.customizes.customize.page.list.load);
 
 /**
  * [默认]私有回调函数, 供子窗口回调
  */
 function window$refresh$callback()
 {
-  main.customizes.page.list.getPaging(1);
+  main.customizes.customize.page.list.getPaging(1);
 }

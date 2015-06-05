@@ -19,7 +19,8 @@
       CustomizeContext.Instance.Restart();
 
       Assert.IsNotNull(CustomizeContext.Instance.CustomizePageService);
-      Assert.IsNotNull(CustomizeContext.Instance.CustomizeWidgetZoneService);
+      Assert.IsNotNull(CustomizeContext.Instance.CustomizeContentService);
+      Assert.IsNotNull(CustomizeContext.Instance.CustomizeLayoutService);
       Assert.IsNotNull(CustomizeContext.Instance.CustomizeWidgetService);
       Assert.IsNotNull(CustomizeContext.Instance.CustomizeWidgetInstanceService);
     }

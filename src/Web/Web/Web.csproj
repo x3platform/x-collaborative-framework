@@ -120,30 +120,37 @@
     <Compile Include="Customizes\AbstractWidget.cs" />
     <Compile Include="Customizes\Ajax\CustomizePageWrapper.cs" />
     <Compile Include="Customizes\Ajax\CustomizeWidgetInstanceWrapper.cs" />
+    <Compile Include="Customizes\Ajax\CustomizeContentWrapper.cs" />
     <Compile Include="Customizes\Ajax\CustomizeWidgetWrapper.cs" />
     <Compile Include="Customizes\BLL\CustomizePageService.cs" />
     <Compile Include="Customizes\BLL\CustomizeWidgetInstanceService.cs" />
     <Compile Include="Customizes\BLL\CustomizeWidgetService.cs" />
-    <Compile Include="Customizes\BLL\CustomizeWidgetZoneService.cs" />
+    <Compile Include="Customizes\BLL\CustomizeContentService.cs" />
+    <Compile Include="Customizes\BLL\CustomizeLayoutService.cs" />
     <Compile Include="Customizes\CustomizeContext.cs" />
     <Compile Include="Customizes\DAL\IBatis\CustomizePageProvider.cs" />
     <Compile Include="Customizes\DAL\IBatis\CustomizeWidgetInstanceProvider.cs" />
     <Compile Include="Customizes\DAL\IBatis\CustomizeWidgetProvider.cs" />
-    <Compile Include="Customizes\DAL\IBatis\CustomizeWidgetZoneProvider.cs" />
+    <Compile Include="Customizes\DAL\IBatis\CustomizeContentProvider.cs" />
+    <Compile Include="Customizes\DAL\IBatis\CustomizeLayoutProvider.cs" />
     <Compile Include="Customizes\IBLL\ICustomizePageService.cs" />
     <Compile Include="Customizes\IBLL\ICustomizeWidgetInstanceService.cs" />
     <Compile Include="Customizes\IBLL\ICustomizeWidgetService.cs" />
-    <Compile Include="Customizes\IBLL\ICustomizeWidgetZoneService.cs" />
+    <Compile Include="Customizes\IBLL\ICustomizeContentService.cs" />
+    <Compile Include="Customizes\IBLL\ICustomizeLayoutService.cs" />
     <Compile Include="Customizes\IDAL\ICustomizePageProvider.cs" />
     <Compile Include="Customizes\IDAL\ICustomizeWidgetInstanceProvider.cs" />
     <Compile Include="Customizes\IDAL\ICustomizeWidgetProvider.cs" />
-    <Compile Include="Customizes\IDAL\ICustomizeWidgetZoneProvider.cs" />
+    <Compile Include="Customizes\IDAL\ICustomizeContentProvider.cs" />
+    <Compile Include="Customizes\IDAL\ICustomizeLayoutProvider.cs" />
     <Compile Include="Customizes\IWidget.cs" />
+    <Compile Include="Customizes\Model\CustomizeContentInfo.cs" />
+    <Compile Include="Customizes\Model\CustomizeLayoutInfo.cs" />
     <Compile Include="Customizes\Model\CustomizePageInfo.cs" />
     <Compile Include="Customizes\Model\CustomizeWidgetInfo.cs" />
     <Compile Include="Customizes\Model\CustomizeWidgetInstanceInfo.cs" />
-    <Compile Include="Customizes\Model\CustomizeWidgetZoneInfo.cs" />
     <Compile Include="Customizes\Mvc\CustomizeContentController.cs" />
+    <Compile Include="Customizes\Mvc\CustomizeLayoutController.cs" />
     <Compile Include="Customizes\Mvc\CustomizePageController.cs" />
     <Compile Include="Customizes\Mvc\CustomizeWidgetController.cs" />
     <Compile Include="Customizes\Widgets\FavoriteWidget.cs" />
@@ -217,7 +224,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customizes\DAL\IBatis\CustomizeWidgetInstanceProvider.xml" />
     <EmbeddedResource Include="Customizes\DAL\IBatis\CustomizeWidgetProvider.xml" />
-    <EmbeddedResource Include="Customizes\DAL\IBatis\CustomizeWidgetZoneProvider.xml" />
+    <EmbeddedResource Include="Customizes\DAL\IBatis\CustomizeLayoutProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customizes\DAL\IBatis\CustomizeContentProvider.xml" />
+    <Content Include="Customizes\db\Init_Script_MySQL.sql" />
     <Content Include="Customizes\db\Init_Widgets.sql" />
     <Content Include="UserAgents\change-marks.js" />
   </ItemGroup>
