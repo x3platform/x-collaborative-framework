@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<title>退出 - @X3Platform.Configuration.KernelConfigurationView.Instance.SystemName</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" media="all" href="/resources/styles/default/style.css" type="text/css" />
+<link rel="shortcut icon" href="/favorite.ico" />
+<script type="text/javascript" src="/resources/javascript/jquery-1.3.2.min.js" ></script>
+@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
+{
+<script type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.js" ></script>
+}
+else
+{ 
+<script type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.min.js" ></script>
+}
+<script type="text/javascript" src="/views/main/accoount/sign-in.js" ></script>
+</head>
+
+<body>
+<div class="window-login-main-wrapper" >
+<div class="window-login-main-logo" ><img src="/resources/images/corporation/x3platform/x3platform.login.image.png" /></div>
+<div class="window-login-main-application-wall" >
+<img src="/resources/images/corporation/x3platform/x3platform.login.application.wall.png" />
+</div>
+<div class="window-login-form-wrapper" >
+    <div class="window-login-form-container" >
+        <div class="window-login-form-input">
+            <span>帐号</span> 
+            <input id="loginName" maxlength="20" name="loginName" type="text" class="window-login-input-style" value="" />
+        </div>
+	    <div class="window-login-form-input">
+            <span>密码</span> 
+            <input id="password" maxlength="20" name="password" type="password" class="window-login-input-style" value="" />
+        </div>
+        <div class="window-login-form-remember-me">        
+        <a href="/public/forgot-password.aspx" target="_blank" >忘记登录密码？</a>
+        <input id="remember" name="remember" type="checkbox"> <span>记住登录状态</span>
+        </div>
+        <div class="window-login-button-wrapper">
+            <div class="window-login-button-submit"><a id="btnSubmit" href="#">登录</a></div>
+            <div class="window-login-loading" style="display:none;"><img src="/resources/images/loading.gif" alt="登录中" /></div>
+        </div>
+        <div class="window-login-form-bottom" >
+        <a href="#">注册新帐号</a>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+</div>
+<input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
+<input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
+<input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
+<input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
+</body>
+</html>

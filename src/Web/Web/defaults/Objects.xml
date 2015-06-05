@@ -11,13 +11,22 @@
           type="X3Platform.Web.Customizes.DAL.IBatis.CustomizePageProvider,X3Platform.Web"
           lazy-init="true" />
 
-  <!-- 部件区域 -->
-  <object id="X3Platform.Web.Customizes.IBLL.ICustomizeWidgetZoneService"
-          type="X3Platform.Web.Customizes.BLL.CustomizeWidgetZoneService,X3Platform.Web"
+  <!-- 内容 -->
+  <object id="X3Platform.Web.Customizes.IBLL.ICustomizeContentService"
+          type="X3Platform.Web.Customizes.BLL.CustomizeContentService,X3Platform.Web"
           lazy-init="true" />
 
-  <object id="X3Platform.Web.Customizes.IDAL.ICustomizeWidgetZoneProvider"
-          type="X3Platform.Web.Customizes.DAL.IBatis.CustomizeWidgetZoneProvider,X3Platform.Web"
+  <object id="X3Platform.Web.Customizes.IDAL.ICustomizeContentProvider"
+          type="X3Platform.Web.Customizes.DAL.IBatis.CustomizeContentProvider,X3Platform.Web"
+          lazy-init="true" />
+
+  <!-- 布局 -->
+  <object id="X3Platform.Web.Customizes.IBLL.ICustomizeLayoutService"
+          type="X3Platform.Web.Customizes.BLL.CustomizeLayoutService,X3Platform.Web"
+          lazy-init="true" />
+
+  <object id="X3Platform.Web.Customizes.IDAL.ICustomizeLayoutProvider"
+          type="X3Platform.Web.Customizes.DAL.IBatis.CustomizeLayoutProvider,X3Platform.Web"
           lazy-init="true" />
 
   <!-- 部件 -->

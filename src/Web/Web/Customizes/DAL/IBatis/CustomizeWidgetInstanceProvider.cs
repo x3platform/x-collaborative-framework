@@ -135,11 +135,6 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     #endregion
 
     // -------------------------------------------------------
-    // 分页
-    // -------------------------------------------------------
-
-
-    // -------------------------------------------------------
     // 自定义功能
     // -------------------------------------------------------
 
@@ -162,7 +157,7 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
 
       IList<CustomizeWidgetInstanceInfo> list = this.ibatisMapper.QueryForList<CustomizeWidgetInstanceInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
-      rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+      rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
       return list;
     }
@@ -174,16 +169,13 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     /// <returns>布尔值</returns>
     public bool IsExist(string id)
     {
-      if (string.IsNullOrEmpty(id))
-      {
-        throw new Exception("实例标识不能为空。");
-      }
+      if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", string.Format(" Id = '{0}' ", id));
 
-      return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
+      return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
     }
     #endregion
 

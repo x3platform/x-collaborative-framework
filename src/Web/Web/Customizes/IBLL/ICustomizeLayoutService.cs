@@ -8,25 +8,25 @@ namespace X3Platform.Web.Customizes.IBLL
   #endregion
 
   /// <summary></summary>
-  [SpringObject("X3Platform.Web.Customizes.IBLL.ICustomizeWidgetZoneService")]
-  public interface ICustomizeWidgetZoneService
+  [SpringObject("X3Platform.Web.Customizes.IBLL.ICustomizeLayoutService")]
+  public interface ICustomizeLayoutService
   {
     #region 索引:this[string index]
     /// <summary>索引</summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    CustomizeWidgetInfo this[string index] { get; }
+    CustomizeLayoutInfo this[string index] { get; }
     #endregion
 
     // -------------------------------------------------------
     // 保存 删除
     // -------------------------------------------------------
 
-    #region 函数:Save(CustomizeWidgetInfo param)
+    #region 函数:Save(CustomizeLayoutInfo param)
     /// <summary>保存记录</summary>
-    /// <param name="param">CustomizeWidgetInfo 实例详细信息</param>
-    /// <returns>CustomizeWidgetInfo 实例详细信息</returns>
-    CustomizeWidgetInfo Save(CustomizeWidgetInfo param);
+    /// <param name="param">CustomizeLayoutInfo 实例详细信息</param>
+    /// <returns>CustomizeLayoutInfo 实例详细信息</returns>
+    CustomizeLayoutInfo Save(CustomizeLayoutInfo param);
     #endregion
 
     #region 函数:Delete(string id)
@@ -41,37 +41,37 @@ namespace X3Platform.Web.Customizes.IBLL
 
     #region 函数:FindOne(string id)
     /// <summary>查询某条记录</summary>
-    /// <param name="id">CustomizeWidgetInfo Id号</param>
-    /// <returns>返回一个 CustomizeWidgetInfo 实例的详细信息</returns>
-    CustomizeWidgetInfo FindOne(string id);
+    /// <param name="id">CustomizeLayoutInfo Id号</param>
+    /// <returns>返回一个 CustomizeLayoutInfo 实例的详细信息</returns>
+    CustomizeLayoutInfo FindOne(string id);
     #endregion
 
     #region 函数:FindOneByName(string name)
     /// <summary>查询某条记录</summary>
     /// <param name="name">页面名称</param>
-    /// <returns>返回一个 CustomizeWidgetInfo 实例的详细信息</returns>
-    CustomizeWidgetInfo FindOneByName(string name);
+    /// <returns>返回一个 CustomizeLayoutInfo 实例的详细信息</returns>
+    CustomizeLayoutInfo FindOneByName(string name);
     #endregion
 
     #region 函数:FindAll()
     /// <summary>查询所有相关记录</summary>
-    /// <returns>返回所有 CustomizeWidgetInfo 实例的详细信息</returns>
-    IList<CustomizeWidgetInfo> FindAll();
+    /// <returns>返回所有 CustomizeLayoutInfo 实例的详细信息</returns>
+    IList<CustomizeLayoutInfo> FindAll();
     #endregion
 
     #region 函数:FindAll(string whereClause)
     /// <summary>查询所有相关记录</summary>
     /// <param name="whereClause">SQL 查询条件</param>
-    /// <returns>返回所有 CustomizeWidgetInfo 实例的详细信息</returns>
-    IList<CustomizeWidgetInfo> FindAll(string whereClause);
+    /// <returns>返回所有 CustomizeLayoutInfo 实例的详细信息</returns>
+    IList<CustomizeLayoutInfo> FindAll(string whereClause);
     #endregion
 
     #region 函数:FindAll(string whereClause,int length)
     /// <summary>查询所有相关记录</summary>
     /// <param name="whereClause">SQL 查询条件</param>
     /// <param name="length">条数</param>
-    /// <returns>返回所有 CustomizeWidgetInfo 实例的详细信息</returns>
-    IList<CustomizeWidgetInfo> FindAll(string whereClause, int length);
+    /// <returns>返回所有 CustomizeLayoutInfo 实例的详细信息</returns>
+    IList<CustomizeLayoutInfo> FindAll(string whereClause, int length);
     #endregion
 
     // -------------------------------------------------------
@@ -85,12 +85,12 @@ namespace X3Platform.Web.Customizes.IBLL
     /// <param name="query">数据查询参数</param>
     /// <param name="rowCount">行数</param>
     /// <returns>返回一个列表实例</returns> 
-    IList<CustomizeWidgetInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+    IList<CustomizeLayoutInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
     #endregion
 
     #region 函数:IsExist(string id)
     /// <summary>查询是否存在相关的记录</summary>
-    /// <param name="id">CustomizeWidgetInfo 实例详细信息</param>
+    /// <param name="id">CustomizeLayoutInfo 实例详细信息</param>
     /// <returns>布尔值</returns>
     bool IsExist(string id);
     #endregion

@@ -12,13 +12,13 @@ namespace X3Platform.Web.Customizes.BLL
 
   /// <summary>页面</summary>
   [SecurityClass]
-  public class CustomizeWidgetZoneService : SecurityObject, ICustomizeWidgetZoneService
+  public class CustomizeContentService : SecurityObject, ICustomizeContentService
   {
-    private ICustomizeWidgetZoneProvider provider = null;
+    private ICustomizeContentProvider provider = null;
 
-    #region 构造函数:CustomizeWidgetZoneService()
+    #region 构造函数:CustomizeContentService()
     /// <summary>构造函数</summary>
-    public CustomizeWidgetZoneService()
+    public CustomizeContentService()
     {
       // 创建对象构建器(Spring.NET)
       string springObjectFile = WebConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
@@ -26,7 +26,7 @@ namespace X3Platform.Web.Customizes.BLL
       SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(WebConfiguration.APP_NAME_CUSTOMIZES, springObjectFile);
 
       // 创建数据提供器
-      this.provider = objectBuilder.GetObject<ICustomizeWidgetZoneProvider>(typeof(ICustomizeWidgetZoneProvider));
+      this.provider = objectBuilder.GetObject<ICustomizeContentProvider>(typeof(ICustomizeContentProvider));
     }
     #endregion
 
@@ -34,7 +34,7 @@ namespace X3Platform.Web.Customizes.BLL
     /// <summary>索引</summary>
     /// <param name="index"></param>
     /// <returns></returns>
-    public CustomizeWidgetInfo this[string index]
+    public CustomizeContentInfo this[string index]
     {
       get { return this.FindOne(index); }
     }
@@ -44,11 +44,11 @@ namespace X3Platform.Web.Customizes.BLL
     // 保存 删除
     // -------------------------------------------------------
 
-    #region 函数:Save(CustomizeWidgetInfo param)
+    #region 函数:Save(CustomizeContentInfo param)
     /// <summary>保存记录</summary>
-    /// <param name="param">CustomizeWidgetInfo 实例详细信息</param>
-    /// <returns>CustomizeWidgetInfo 实例详细信息</returns>
-    public CustomizeWidgetInfo Save(CustomizeWidgetInfo param)
+    /// <param name="param">CustomizeContentInfo 实例详细信息</param>
+    /// <returns>CustomizeContentInfo 实例详细信息</returns>
+    public CustomizeContentInfo Save(CustomizeContentInfo param)
     {
       return this.provider.Save(param);
     }
@@ -69,9 +69,9 @@ namespace X3Platform.Web.Customizes.BLL
 
     #region 函数:FindOne(string id)
     /// <summary>查询某条记录</summary>
-    /// <param name="id">CustomizeWidgetInfo Id号</param>
-    /// <returns>返回一个 CustomizeWidgetInfo 实例的详细信息</returns>
-    public CustomizeWidgetInfo FindOne(string id)
+    /// <param name="id">CustomizeContentInfo Id号</param>
+    /// <returns>返回一个 CustomizeContentInfo 实例的详细信息</returns>
+    public CustomizeContentInfo FindOne(string id)
     {
       return this.provider.FindOne(id);
     }
@@ -80,8 +80,8 @@ namespace X3Platform.Web.Customizes.BLL
     #region 函数:FindOneByName(string name)
     /// <summary>查询某条记录</summary>
     /// <param name="name">页面名称</param>
-    /// <returns>返回一个 CustomizeWidgetInfo 实例的详细信息</returns>
-    public CustomizeWidgetInfo FindOneByName(string name)
+    /// <returns>返回一个 CustomizeContentInfo 实例的详细信息</returns>
+    public CustomizeContentInfo FindOneByName(string name)
     {
       return this.provider.FindOneByName(name);
     }
@@ -89,8 +89,8 @@ namespace X3Platform.Web.Customizes.BLL
 
     #region 函数:FindAll()
     /// <summary>查询所有相关记录</summary>
-    /// <returns>返回所有 CustomizeWidgetInfo 实例的详细信息</returns>
-    public IList<CustomizeWidgetInfo> FindAll()
+    /// <returns>返回所有 CustomizeContentInfo 实例的详细信息</returns>
+    public IList<CustomizeContentInfo> FindAll()
     {
       return this.provider.FindAll(string.Empty, 0);
     }
@@ -99,8 +99,8 @@ namespace X3Platform.Web.Customizes.BLL
     #region 函数:FindAll(string whereClause)
     /// <summary>查询所有相关记录</summary>
     /// <param name="whereClause">SQL 查询条件</param>
-    /// <returns>返回所有 CustomizeWidgetInfo 实例的详细信息</returns>
-    public IList<CustomizeWidgetInfo> FindAll(string whereClause)
+    /// <returns>返回所有 CustomizeContentInfo 实例的详细信息</returns>
+    public IList<CustomizeContentInfo> FindAll(string whereClause)
     {
       return this.provider.FindAll(whereClause, 0);
     }
@@ -110,8 +110,8 @@ namespace X3Platform.Web.Customizes.BLL
     /// <summary>查询所有相关记录</summary>
     /// <param name="whereClause">SQL 查询条件</param>
     /// <param name="length">条数</param>
-    /// <returns>返回所有 CustomizeWidgetInfo 实例的详细信息</returns>
-    public IList<CustomizeWidgetInfo> FindAll(string whereClause, int length)
+    /// <returns>返回所有 CustomizeContentInfo 实例的详细信息</returns>
+    public IList<CustomizeContentInfo> FindAll(string whereClause, int length)
     {
       return this.provider.FindAll(whereClause, length);
     }
@@ -128,7 +128,7 @@ namespace X3Platform.Web.Customizes.BLL
     /// <param name="query">数据查询参数</param>
     /// <param name="rowCount">记录行数</param>
     /// <returns>返回一个 WorkflowCollectorInfo 列表实例</returns>
-    public IList<CustomizeWidgetInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+    public IList<CustomizeContentInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
     {
       return this.provider.GetPaging(startIndex, pageSize, query, out  rowCount);
     }

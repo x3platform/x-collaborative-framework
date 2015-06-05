@@ -118,7 +118,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
       param = (CustomizePageInfo)AjaxUtil.Deserialize(param, doc);
 
-      param.Html = CustomizeContext.Instance.CustomizeWidgetZoneService.GetHtml(param.Name);
+      param.Html = CustomizeContext.Instance.CustomizeLayoutService.GetHtml(param.Name);
 
       this.service.Save(param);
 

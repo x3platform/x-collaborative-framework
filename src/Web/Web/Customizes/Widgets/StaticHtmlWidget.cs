@@ -5,6 +5,7 @@ namespace X3Platform.Web.Customizes.Widgets
 
     using X3Platform.Util;
     using X3Platform.Velocity;
+  using X3Platform.Web.Configuration;
     #endregion
 
     /// <summary>静态Html代码的窗口部件</summary>
@@ -33,7 +34,7 @@ namespace X3Platform.Web.Customizes.Widgets
                     context.Put("widgetHtml", this.options["widgetHtml"]);
                 }
 
-                return VelocityManager.Instance.Merge(context, "web/customize/widgets/static-html.vm");
+                return VelocityManager.Instance.Merge(context, "themes/" + WebConfigurationView.Instance.ThemeName + "/widgets/static-html.vm");
             }
             catch (Exception ex)
             {

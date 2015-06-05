@@ -26,7 +26,6 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <summary>保存记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("save")]
     public string Save(XmlDocument doc)
     {
       CustomizeWidgetInstanceInfo param = new CustomizeWidgetInstanceInfo();
@@ -43,12 +42,11 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <summary>删除记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("delete")]
     public string Delete(XmlDocument doc)
     {
-      string ids = XmlHelper.Fetch("ids", doc);
+      string id = XmlHelper.Fetch("id", doc);
 
-      service.Delete(ids);
+      service.Delete(id);
 
       return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
     }
@@ -62,7 +60,6 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <summary>获取详细信息</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("findOne")]
     public string FindOne(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -73,7 +70,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInstanceInfo>(param) + ",");
 
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"��ѯ�ɹ���\"}}");
+      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
       return outString.ToString();
     }
@@ -86,8 +83,7 @@ namespace X3Platform.Web.Customizes.Ajax
     #region 函数:GetPaging(XmlDocument doc)
     /// <summary>获取分页内容</summary>
     /// <param name="doc">Xml 文档对象</param>
-    /// <returns>返回操作结果</returns> 
-    [AjaxMethod("getPages")]
+    /// <returns>返回操作结果</returns>
     public string GetPaging(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -116,7 +112,6 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <summary>创建部件实例</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("create")]
     public string Create(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -163,7 +158,6 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <summary>设置选项信息</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("setOptions")]
     public string SetOptions(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -191,7 +185,6 @@ namespace X3Platform.Web.Customizes.Ajax
     /// <summary>获取属性编辑框HTML代码</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("getOptionHtml")]
     public string GetOptionHtml(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();

@@ -90,7 +90,7 @@ namespace X3Platform.Web.Customizes.BLL
       this.provider.Save(param);
 
       // 当用户编辑页面，但是没有保存页面，在下一次保存页面内容时需要检查正确的部件实例，然后删除多余的部件。
-      // <ul id="column1" class="ajax-customize-column" ><li id="aa9eef91-ae84-8025-2d1b-73baf86d0ce5" class="ajax-customize-widget" widget="news" ><div class="ajax-customize-widget-head"><h3>重庆新闻</h3></div><div class="ajax-customize-widget-content" ></div></li><li id="cfa9fa79-2466-1f00-bd35-373573916537" class="ajax-customize-widget" widget="weather" ><div class="ajax-customize-widget-head"><h3>天气预报</h3></div><div class="ajax-customize-widget-content" ></div></li></ul><ul id="column2" class="ajax-customize-column" ><li id="a79651a7-7f22-adaf-8d11-101631cf987b" class="ajax-customize-widget" widget="news" ><div class="ajax-customize-widget-head"><h3>北京新闻</h3></div><div class="ajax-customize-widget-content" ></div></li></ul><ul id="column3" class="ajax-customize-column" ><li id="f69dc940-7bc2-8a42-cb8f-6eabefec266d" class="ajax-customize-widget" widget="tasks" ><div class="ajax-customize-widget-head"><h3>123</h3></div><div class="ajax-customize-widget-content" ></div></li></ul>
+      // <ul id="column1" class="x-ui-pkg-customize-column" ><li id="aa9eef91-ae84-8025-2d1b-73baf86d0ce5" class="x-ui-pkg-customize-widget" widget="news" ><div class="x-ui-pkg-customize-widget-head"><h3>重庆新闻</h3></div><div class="x-ui-pkg-customize-widget-content" ></div></li><li id="cfa9fa79-2466-1f00-bd35-373573916537" class="x-ui-pkg-customize-widget" widget="weather" ><div class="x-ui-pkg-customize-widget-head"><h3>天气预报</h3></div><div class="x-ui-pkg-customize-widget-content" ></div></li></ul><ul id="column2" class="x-ui-pkg-customize-column" ><li id="a79651a7-7f22-adaf-8d11-101631cf987b" class="x-ui-pkg-customize-widget" widget="news" ><div class="x-ui-pkg-customize-widget-head"><h3>北京新闻</h3></div><div class="x-ui-pkg-customize-widget-content" ></div></li></ul><ul id="column3" class="x-ui-pkg-customize-column" ><li id="f69dc940-7bc2-8a42-cb8f-6eabefec266d" class="x-ui-pkg-customize-widget" widget="tasks" ><div class="x-ui-pkg-customize-widget-head"><h3>123</h3></div><div class="x-ui-pkg-customize-widget-content" ></div></li></ul>
 
       // 由于每次保存页面是根据授权对象的标识和类型来判断页面唯一性，所以页面标识可能会被修改，
       // 所以获取数据库中的自定义页面标识需要用以下方法。
@@ -108,7 +108,7 @@ namespace X3Platform.Web.Customizes.BLL
 
       foreach (XmlNode node in nodes)
       {
-        if (((XmlElement)node).GetAttribute("class") == "ajax-customize-widget")
+        if (((XmlElement)node).GetAttribute("class") == "x-ui-pkg-customize-widget")
         {
           bindingWidgetInstanceIds += node.Attributes["id"].Value + ",";
         }
@@ -239,13 +239,13 @@ namespace X3Platform.Web.Customizes.BLL
 
       if (string.IsNullOrEmpty(xml))
       {
-        xml = CustomizeContext.Instance.CustomizeWidgetZoneService.GetHtml(name);
+        xml = CustomizeContext.Instance.CustomizeLayoutService.GetHtml(name);
 
         CustomizePageInfo param = new CustomizePageInfo();
 
         param.AuthorizationObjectType = authorizationObjectType;
         param.AuthorizationObjectId = authorizationObjectId;
-        param.AuthorizationObjectName = MembershipManagement.Instance.AuthorizationObjectService.FindOne(authorizationObjectType, authorizationObjectId).Name;
+        // param.AuthorizationObjectName = MembershipManagement.Instance.AuthorizationObjectService.FindOne(authorizationObjectType, authorizationObjectId).Name;
 
         param.Name = name;
         param.Title = name;
@@ -272,7 +272,7 @@ namespace X3Platform.Web.Customizes.BLL
       {
         element = (XmlElement)nodes[i];
 
-        if (element.GetAttribute("class") == "ajax-customize-widget")
+        if (element.GetAttribute("class") == "x-ui-pkg-customize-widget")
         {
           widgetInstance = CustomizeContext.Instance.CustomizeWidgetInstanceService[element.GetAttribute("id")];
 
@@ -284,7 +284,7 @@ namespace X3Platform.Web.Customizes.BLL
             {
               childElement = (XmlElement)childNode;
 
-              if (childElement.GetAttribute("class") == "ajax-customize-widget-head")
+              if (childElement.GetAttribute("class") == "x-ui-pkg-customize-widget-head")
               {
                 if (widgetInstance.Widget != null && !string.IsNullOrEmpty(widgetInstance.Widget.Url))
                 {
@@ -293,7 +293,7 @@ namespace X3Platform.Web.Customizes.BLL
                 }
               }
 
-              if (childElement.GetAttribute("class") == "ajax-customize-widget-content")
+              if (childElement.GetAttribute("class") == "x-ui-pkg-customize-widget-content")
               {
                 childNode.InnerXml = widgetInstance.Html;
               }

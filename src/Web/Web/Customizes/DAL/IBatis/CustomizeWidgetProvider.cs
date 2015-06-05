@@ -194,7 +194,24 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     {
       Dictionary<string, object> args = new Dictionary<string, object>();
 
-      args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+      if (query.Variables["scence"] == "Query")
+      {
+        string searhText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+        if (string.IsNullOrEmpty(searhText))
+        {
+          args.Add("WhereClause", string.Empty);
+        }
+        else
+        {
+          args.Add("WhereClause", " Name LIKE '%" + searhText + "%' OR Title LIKE '%" + searhText + "%' ");
+        }
+      }
+      else
+      {
+        args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+      }
+
       args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
 
       args.Add("StartIndex", startIndex);
@@ -202,7 +219,7 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
 
       IList<CustomizeWidgetInfo> list = this.ibatisMapper.QueryForList<CustomizeWidgetInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
-      rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
+      rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
       return list;
     }
@@ -214,20 +231,13 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     /// <returns>布尔值</returns>
     public bool IsExist(string id)
     {
-      if (string.IsNullOrEmpty(id))
-      {
-        throw new Exception("实例标识不能为空。");
-      }
-
-      bool isExist = true;
+      if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
 
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", string.Format(" Id = '{0}' ", id));
 
-      isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-      return isExist;
+      return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
     }
     #endregion
 
@@ -237,15 +247,13 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     /// <returns>布尔值</returns>
     public bool IsExistName(string name)
     {
-      bool isExist = true;
-
+      if (string.IsNullOrEmpty(name)) { throw new Exception("名称不能为空。"); }
+      
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", string.Format(" Name = '{1}' ", StringHelper.ToSafeSQL(name)));
 
-      isExist = ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args) == 0) ? false : true;
-
-      return isExist;
+      return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
     }
     #endregion
 

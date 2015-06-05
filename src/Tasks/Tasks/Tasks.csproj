@@ -191,7 +191,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <Content Include="config\MySQL\X3Platform.Tasks.IBatis.SqlMap.config" />
     <None Include="config\MySQL\X3Platform.Tasks.Spring.config" />
     <Content Include="config\SQLServer\X3Platform.Tasks.IBatis.SqlMap.config" />
@@ -208,6 +207,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>

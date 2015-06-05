@@ -61,12 +61,21 @@
     }
     #endregion
 
-    #region 属性:CustomizeWidgetZoneService
-    private ICustomizeWidgetZoneService m_CustomizeWidgetZoneService = null;
+    #region 属性:CustomizeContentService
+    private ICustomizeContentService m_CustomizeContentService = null;
 
-    public ICustomizeWidgetZoneService CustomizeWidgetZoneService
+    public ICustomizeContentService CustomizeContentService
     {
-      get { return this.m_CustomizeWidgetZoneService; }
+      get { return m_CustomizeContentService; }
+    }
+    #endregion
+
+    #region 属性:CustomizeLayoutService
+    private ICustomizeLayoutService m_CustomizeLayoutService = null;
+
+    public ICustomizeLayoutService CustomizeLayoutService
+    {
+      get { return this.m_CustomizeLayoutService; }
     }
     #endregion
 
@@ -124,7 +133,8 @@
       SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(WebConfiguration.APP_NAME_CUSTOMIZES, springObjectFile);
 
       this.m_CustomizePageService = objectBuilder.GetObject<ICustomizePageService>(typeof(ICustomizePageService));
-      this.m_CustomizeWidgetZoneService = objectBuilder.GetObject<ICustomizeWidgetZoneService>(typeof(ICustomizeWidgetZoneService));
+      this.m_CustomizeContentService = objectBuilder.GetObject<ICustomizeContentService>(typeof(ICustomizeContentService));
+      this.m_CustomizeLayoutService = objectBuilder.GetObject<ICustomizeLayoutService>(typeof(ICustomizeLayoutService));
       this.m_CustomizeWidgetService = objectBuilder.GetObject<ICustomizeWidgetService>(typeof(ICustomizeWidgetService));
       this.m_CustomizeWidgetInstanceService = objectBuilder.GetObject<ICustomizeWidgetInstanceService>(typeof(ICustomizeWidgetInstanceService));
     }

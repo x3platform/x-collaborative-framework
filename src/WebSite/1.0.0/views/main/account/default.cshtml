@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "主页-"+ X3Platform.Configuration.KernelConfigurationView.Instance.SystemName ;
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+
+<div id="window-container" class="window-container" >
+<div class="window-container-padding" >
+
+<input id="customize\$page\$isAdminToken" type="hidden" value="#if(${isAdminToken})1#else(0)#end" />
+<input id="customize\$page$authorizationObjectType" type="hidden" value="${page.AuthorizationObjectType}" />
+<input id="customize\$page$authorizationObjectId" type="hidden" value="${page.AuthorizationObjectId}" />
+<input id="customize\$page$authorizationObjectName" type="hidden" value="${page.AuthorizationObjectName}" />
+<input id="customize\$page$name" type="hidden" value="${page.Name}" />
+</div>
+</div>

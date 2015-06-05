@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Web.Customizes
 {
     #region Using Libraries
@@ -24,15 +8,15 @@ namespace X3Platform.Web.Customizes
     using X3Platform.Ajax.Json;
     #endregion
 
-    /// <summary>����������</summary>
+    /// <summary>部件抽象类</summary>
     public abstract class AbstractWidget : IWidget
     {
-        /// <summary>��������ѡ����Ϣ</summary>
+        /// <summary>部件配置选项信息</summary>
         protected Dictionary<string, string> options = new Dictionary<string, string>();
 
         private int m_Height = 0;
 
-        /// <summary>�߶�</summary>
+        /// <summary>高度</summary>
         public int Height
         {
             get { return this.m_Height; }
@@ -40,13 +24,13 @@ namespace X3Platform.Web.Customizes
 
         private int m_Width = 0;
 
-        /// <summary>����</summary>
+        /// <summary>宽度</summary>
         public int Width
         {
             get { return this.m_Width; }
         }
 
-        /// <summary>����ѡ����Ϣ</summary>
+        /// <summary>加载选项信息</summary>
         public void Load(string options)
         {
             JsonObject optionObjects = JsonObjectConverter.Deserialize(options);
@@ -58,9 +42,9 @@ namespace X3Platform.Web.Customizes
 
             try
             {
-                // ���ò����ĸ߶�
+                // 设置部件的高度
                 int.TryParse(this.options["height"], out  this.m_Height);
-                // ���ò����Ŀ���
+                // 设置部件的宽度
                 int.TryParse(this.options["width"], out  this.m_Width);
             }
             catch

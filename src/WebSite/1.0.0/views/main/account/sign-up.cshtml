@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+<title>注册 - @X3Platform.Configuration.KernelConfigurationView.Instance.SystemName</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" media="all" href="/resources/styles/normalize.css" type="text/css" />
+<link rel="stylesheet" media="all" href="/resources/styles/default/style.css" type="text/css" />
+<link rel="shortcut icon" href="/favorite.ico" />
+@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
+{
+<script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.js" ></script>
+<script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js" ></script>
+}
+else
+{ 
+<script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.min.js" ></script>
+<script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js" ></script>
+}
+<script type="text/javascript" src="/views/main/account/sign-up.js" ></script>
+</head>
+
+<body>
+QQQ
+<div class="window-sign-up-form-wrapper" >
+    <div class="window-sign-up-form" >
+        <dl class="form">
+            <dt class="input-label">电子邮箱</dt> 
+            <dd>
+                <input id="email" name="email" type="text" x-dom-data-type="value" x-dom-feature="email" class="window-sign-up-input-style" maxlength="100" value="" />
+            </dd>
+        </dl>
+	    <dl class="form">
+            <dt class="input-label">密码</dt>
+            <dd>
+                <input id="originalPassword" name="originalPassword" type="password" class="window-sign-up-input-style" maxlength="20" value="" />
+                <p class="note">密码强度要求：密码长度必须大于等于八位，并且至少包含一个小写字母和一个数字。<p>
+            </dd>
+        </dl>
+	    <dl class="form">
+            <dt class="input-label">确认密码</dt>
+            <dd>
+                <input id="confirmPassword" name="confirmPassword" type="password" class="window-sign-up-input-style" maxlength="20" value="" />
+            </dd>
+        </dl>
+	    <dl class="form">
+            <dt class="input-label">验证码</dt> 
+            <dd>
+                <input id="validatecode" name="validatecode" type="text" x-dom-data-type="value" class="window-sign-up-input-style" maxlength="6"  value="" />
+            </dd>
+        </dl>
+        <p class="window-sign-up-form-terms-of-service">
+            单击“创建帐户”的，即表示您同意服务条款和隐私权政策。 
+        </p>
+        <input id="registerType" name="registerType" type="hidden" x-dom-data-type="value" value="email" />
+        <input id="password" name="password" type="hidden" x-dom-data-type="value" value="" />
+        <div class="form-actions">
+            <div class="button-submit button primary" ><a id="btnSubmit" href="javascript:void(0);">创建帐户</a></div>
+            <div class="loading" style="display:none;"><img src="/resources/images/loading.gif" alt="正在创建帐号..." /></div>
+        </div>
+    </div>
+    <div class="window-sign-up-form-bottom" >
+        <a href="/">已经有帐号</a>
+    </div>
+</div>
+<input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
+<input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
+<input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
+<input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
+</body>
+</html>

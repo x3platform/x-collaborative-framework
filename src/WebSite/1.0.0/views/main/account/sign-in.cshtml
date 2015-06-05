@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+  <title>登录 - @X3Platform.Configuration.KernelConfigurationView.Instance.SystemName</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" media="all" href="/resources/bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" media="all" href="/resources/styles/default/style.css" type="text/css" />
+  <link rel="shortcut icon" href="/favorite.ico" />
+  <script type="text/javascript" src="/resources/javascript/jquery-1.11.2.min.js"></script>
+  <script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.min.js"></script>
+  <script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
+  <script type="text/javascript" src="/views/main/account/sign-in.js"></script>
+</head>
+
+<body>
+  <div class="window-sign-in-main-wrapper">
+    <div class="window-sign-in-main-logo"><img src="/resources/images/corporation/x3platform/x3platform.login.image.png" /></div>
+    <div class="window-sign-in-main-application-wall">
+      <img src="/resources/images/corporation/x3platform/x3platform.login.application.wall.png" />
+    </div>
+    <div class="window-sign-in-form-wrapper">
+      <div class="window-sign-in-form-container">
+        <div class="window-sign-in-form-input input-group">
+          <input id="loginName" maxlength="50" name="loginName" type="text" autocomplete="off" class="form-control" value="" />
+          <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+        </div>
+        <div class="window-sign-in-form-input input-group">
+          <input id="password" maxlength="50" name="password" type="password" class="form-control" value="" />
+          <div class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></div>
+        </div>
+        <div class="window-sign-in-form-remember-me">
+          <a href="/account/forgot-password" target="_blank">忘记登录密码？</a>
+          <input id="remember" name="remember" type="checkbox"> <span>记住登录名</span>
+        </div>
+        <div class="window-sign-in-button-wrapper">
+          <div class="window-sign-in-button-submit"><button id="btnSubmit" class="btn btn-success">登录</button></div>
+          <div class="window-sign-in-loading" style="display:none;"><img src="/resources/images/loading.gif" alt="登录中" /></div>
+        </div>
+        <div class="window-sign-in-form-bottom">
+          <a href="/account/signup">注册新帐号</a>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  @*
+    <!--
+    <div class="window-sign-in-bottom-wrapper">
+    <div class="window-sign-in-bottom-container" >
+        <div style="padding-top:10px;" >
+        <div style="float:right;padding-top:10px;width:300px;" >
+            <div style="float:left;" ><strong>公告</strong></div>
+            <div style="float:left;" >
+                <div style="padding-left:10px; color:#000; font-weight:bold;" ><a href="http://x3platform.com" target="_blank" >钓鱼岛是中国的!</a></div>
+                <div style="padding-left:10px; padding-top:10px;" ><a href="/public/changelog.aspx" target="_blank" >2012-01-01 系统更新</a></div>
+            </div>
+        </div>
+        <div class="window-sign-in-bottom-friendly-links" style="padding-top:10px;" >
+            <a href="/help/" >开放平台</a>
+            <a href="/forum/default.aspx" >技术论坛</a>
+            <a href="http://blog.x3platform.com" >官方博客</a>
+        </div>
+        <div class="window-sign-in-bottom-friendly-links" style="padding:10px 0 20px 0;" >
+            <!-- <a href="http://i.bendi3g.com" target="_blank" >本地分类信息</a>
+            <a href="http://babaofan.bendi3g.com" target="_blank" >温州八宝饭</a>
+            <a href="http://jiazhao.bendi3g.com" target="_blank" >驾照理论模拟考试</a>
+            <a href="http://wenzhou.kanf.cn" target="_blank" >租房网</a> -- >
+        </div>
+        </div>
+
+        <div class="window-sign-in-bottom-links" >
+            <span>Copyright © @DateTime.Now.Year x3platform.com All rights reserved.</span> |
+            <a href="/public/about-us.aspx" >联系我们</a> |
+            <a href="/public/privacy.aspx" >隐私声明</a> |
+            <a href="/public/terms.aspx" >使用条款</a> |
+            <a href="/public/help.aspx" >帮助</a> |
+            <a href="/public/feedback.aspx" >反馈</a>
+        </div>
+    </div>
+    </div>
+    -->
+  *@
+  <input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
+  <input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
+  <input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
+  <input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
+</body>
+</html>
