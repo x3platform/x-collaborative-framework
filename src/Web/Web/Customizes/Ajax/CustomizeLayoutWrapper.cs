@@ -14,9 +14,9 @@
   #endregion
 
   /// <summary>部件实例</summary>
-  public sealed class CustomizeContentWrapper : ContextWrapper
+  public sealed class CustomizeLayoutWrapper : ContextWrapper
   {
-    private ICustomizeContentService service = CustomizeContext.Instance.CustomizeContentService; // 数据服务
+    private ICustomizeLayoutService service = CustomizeContext.Instance.CustomizeLayoutService; // 数据服务
 
     // -------------------------------------------------------
     // 保存 删除
@@ -26,12 +26,11 @@
     /// <summary>保存记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("save")]
     public string Save(XmlDocument doc)
     {
-      CustomizeContentInfo param = new CustomizeContentInfo();
+      CustomizeLayoutInfo param = new CustomizeLayoutInfo();
 
-      param = (CustomizeContentInfo)AjaxUtil.Deserialize(param, doc);
+      param = (CustomizeLayoutInfo)AjaxUtil.Deserialize(param, doc);
 
       service.Save(param);
 
@@ -43,12 +42,11 @@
     /// <summary>删除记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("delete")]
     public string Delete(XmlDocument doc)
     {
-      string ids = XmlHelper.Fetch("ids", doc);
+      string id = XmlHelper.Fetch("id", doc);
 
-      service.Delete(ids);
+      service.Delete(id);
 
       return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
     }
@@ -62,16 +60,15 @@
     /// <summary>获取详细信息</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("findOne")]
     public string FindOne(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
 
       string id = XmlHelper.Fetch("id", doc);
 
-      CustomizeContentInfo param = service.FindOne(id);
+      CustomizeLayoutInfo param = service.FindOne(id);
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeContentInfo>(param) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeLayoutInfo>(param) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -83,7 +80,6 @@
     /// <summary>获取列表信息</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("findAll")]
     public string FindAll(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -92,9 +88,9 @@
 
       int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-      IList<CustomizeContentInfo> list = this.service.FindAll(whereClause, length);
+      IList<CustomizeLayoutInfo> list = this.service.FindAll(whereClause, length);
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeContentInfo>(list) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeLayoutInfo>(list) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -110,7 +106,6 @@
     /// <summary>获取分页内容</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns> 
-    [AjaxMethod("getPages")]
     public string GetPaging(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -119,11 +114,11 @@
 
       int rowCount = -1;
 
-      IList<CustomizeContentInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+      IList<CustomizeLayoutInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
       paging.RowCount = rowCount;
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeContentInfo>(list) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeLayoutInfo>(list) + ",");
       outString.Append("\"paging\":" + paging + ",");
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
       outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");

@@ -56,7 +56,7 @@ main.customizes.customize.widget.list = {
     x.each(list, function(index, node)
     {
       outString += '<tr>';
-      outString += '<td><a href="/customizes/customize-widget-zone/form?id=' + node.id + '" target="_blank" >' + node.name + '</a> <span class="label label-default">' + node.description + '<span></td>';
+      outString += '<td><a href="/customizes/customize-layout/form?id=' + node.id + '" target="_blank" >' + node.name + '</a> <span class="label label-default">' + node.description + '<span></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.updateDateView + '</td>';
       if(node.locking == 1)
@@ -107,7 +107,7 @@ main.customizes.customize.widget.list = {
     outString += paging.toXml();
     outString += '</request>';
 
-    x.net.xhr('/api/web.customizes.customizeWidgetZone.query.aspx', outString, {
+    x.net.xhr('/api/web.customizes.customizeLayout.query.aspx', outString, {
       waitingType: 'mini',
       waitingMessage: i18n.net.waiting.queryTipText,
       callback: function(response)
@@ -134,49 +134,21 @@ main.customizes.customize.widget.list = {
   },
   /*#endregion*/
 
-  /*#region 函数:confirmDelete(ids)*/
+  /*#region 函数:confirmDelete(id)*/
   /*
   * 删除对象
   */
-  confirmDelete: function(ids)
+  confirmDelete: function(id)
   {
-    if(confirm('确定删除?'))
+    if(confirm(i18n.msg.ARE_YOU_SURE_YOU_WANT_TO_DELETE))
     {
-      var outString = '<?xml version="1.0" encoding="utf-8" ?>';
-
-      outString += '<ajaxStorage>';
-      outString += '<action><![CDATA[delete]]></action>';
-      outString += '<ids><![CDATA[' + ids + ']]></ids>';
-      outString += '</ajaxStorage>';
-
-      var options = {
-        resultType: 'json',
-        xml: outString
-      };
-
-      $.post(main.customizes.customize.widget.list.url, options, main.customizes.customize.widget.list.confirmDelete_callback);
-    }
-  },
-
-  confirmDelete_callback: function(response)
-  {
-
-    var result = x.toJSON(response).message;
-
-    switch(Number(result.returnCode))
-    {
-      case 0:
-        alert(result.value);
-        main.customizes.customize.widget.list.getPaging(1);
-        break;
-
-      case 1:
-      case -1:
-        alert(result.value);
-        break;
-
-      default:
-        break;
+      x.net.xhr('/api/web.customizes.customizeLayout.delete.aspx?id=' + id, {
+        waitingMessage: i18n.net.waiting.deleteTipText,
+        callback: function(response)
+        {
+          main.customizes.customize.widget.list.getPaging(main.customizes.customize.widget.list.paging.currentPage);
+        }
+      });
     }
   },
   /*#endregion*/
@@ -213,5 +185,5 @@ $(document).ready(main.customizes.customize.widget.list.load);
  */
 function window$refresh$callback()
 {
-  main.customizes.customize.widget.list.getPaging(1);
+  main.customizes.customize.widget.list.getPaging(main.customizes.customize.widget.list.paging.currentPage);
 }

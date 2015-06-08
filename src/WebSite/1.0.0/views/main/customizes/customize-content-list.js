@@ -100,7 +100,7 @@ main.customizes.customize.page.list = {
     outString += paging.toXml();
     outString += '</request>';
 
-    x.net.xhr('/api/web.customizes.customizePage.query.aspx', outString, {
+    x.net.xhr('/api/web.customizes.customizeContent.query.aspx', outString, {
       waitingType: 'mini',
       waitingMessage: i18n.net.waiting.queryTipText,
       callback: function(response)
@@ -213,7 +213,7 @@ main.customizes.customize.page.list = {
       icon: '/resources/images/tree/tree_icon.gif'
     });
 
-    tree.load('/api/web.customizes.customizePage.getDynamicTreeView.aspx', false, outString);
+    tree.load('/api/web.customizes.customizeContent.getDynamicTreeView.aspx', false, outString);
 
     main.customizes.customize.page.list.tree = tree;
 

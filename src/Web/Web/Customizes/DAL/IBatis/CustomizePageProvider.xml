@@ -12,6 +12,7 @@
       <result property="Name" column="Name" />
       <result property="Title" column="Title" />
       <result property="Html" column="Html" />
+      <result property="Status" column="Status" />
       <result property="UpdateDate" column="UpdateDate" />
       <result property="CreateDate" column="CreateDate" />
     </resultMap>
@@ -22,6 +23,7 @@
       <result property="AuthorizationObjectName" column="AuthorizationObjectName" />
       <result property="Name" column="Name" />
       <result property="Title" column="Title" />
+      <result property="Status" column="Status" />
       <result property="UpdateDate" column="UpdateDate" />
       <result property="CreateDate" column="CreateDate" />
     </resultMap>
@@ -37,6 +39,7 @@
         Name,
         Title,
         Html,
+        Status,
         UpdateDate,
         CreateDate
       )
@@ -49,18 +52,23 @@
         #Name#,
         #Title#,
         #Html#,
+        #Status#,
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
       )
     </insert>
     <update id="proc_Customize_Page_Update" parameterClass="CustomizePageInfo" >
       UPDATE tb_Customize_Page SET
-
+        
+        AuthorizationObjectType = #AuthorizationObjectType#,
+        AuthorizationObjectId = #AuthorizationObjectId#, 
+        Name = #Name#,
         Title = #Title#,
         Html = #Html#,
+        Status = #Status#,
         UpdateDate = CURRENT_TIMESTAMP
 
-      WHERE AuthorizationObjectType = #AuthorizationObjectType# AND AuthorizationObjectId = #AuthorizationObjectId# AND Name = #Name#
+      WHERE Id = #Id#
     </update>
     <delete id="proc_Customize_Page_Delete">
       DELETE FROM tb_Customize_Page WHERE $WhereClause$

@@ -1,10 +1,13 @@
 ﻿namespace X3Platform.Web.Customizes.Mvc.Controllers
 {
+  using System;
   using System.Web.Mvc;
   using X3Platform.Apps;
   using X3Platform.Apps.Model;
+  using X3Platform.DigitalNumber;
   using X3Platform.Json;
   using X3Platform.Web.Configuration;
+  using X3Platform.Web.Customizes.Model;
   using X3Platform.Web.Mvc.Attributes;
   using X3Platform.Web.Mvc.Controllers;
 
@@ -29,7 +32,7 @@
         ApplicationError.Write(401);
       }
 
-      return View("/views/main/customizes/customize-widget-zone-list.cshtml");
+      return View("/views/main/customizes/customize-layout-list.cshtml");
     }
     #endregion
 
@@ -61,9 +64,24 @@
       // 实体数据标识
       string id = !request.Keys.Contains("id") ? string.Empty : request["id"].ToString();
 
-      ViewBag.param = CustomizeContext.Instance.CustomizePageService.FindOne(id);
+      CustomizeLayoutInfo param = null;
 
-      return View("/views/main/customizes/customize-widget-zone-form.cshtml");
+      if (string.IsNullOrEmpty(id))
+      {
+        param = new CustomizeLayoutInfo();
+
+        param.Id = DigitalNumberContext.Generate("Key_Guid");
+
+        param.CreateDate = param.UpdateDate = DateTime.Now;
+      }
+      else
+      {
+        param = CustomizeContext.Instance.CustomizeLayoutService.FindOne(id);
+      }
+
+      ViewBag.param = param;
+
+      return View("/views/main/customizes/customize-layout-form.cshtml");
     }
     #endregion
   }

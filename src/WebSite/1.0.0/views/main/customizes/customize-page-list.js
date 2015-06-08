@@ -56,7 +56,7 @@ main.customizes.customize.page.list = {
     x.each(list, function(index, node)
     {
       outString += '<tr>';
-      outString += '<td><a href="/customizes/customize-page/form?id=' + node.id + '" target="_blank" >' + node.name + '</a></td>';
+      outString += '<td><a href="/customizes/customize-page/form?id=' + node.id + '" target="_blank" >' + node.name + '</a> <span class="label label-default">' + node.title + '</span></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.updateDateView + '</td>';
       if(node.locking == 1)

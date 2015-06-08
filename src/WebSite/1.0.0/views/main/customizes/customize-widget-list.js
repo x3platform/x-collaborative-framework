@@ -33,8 +33,7 @@ main.customizes.customize.widget.list = {
     outString += '<table class="table" >';
     outString += '<thead>';
     outString += '<tr>';
-    outString += '<th style="width:120px">名称</th>';
-    outString += '<th >描述</th>';
+    outString += '<th >名称</th>';
     outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
     outString += '<th style="width:100px">更新日期</th>';
     outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
@@ -47,7 +46,6 @@ main.customizes.customize.widget.list = {
     outString += '<div class="table-freeze-body">';
     outString += '<table class="table table-striped">';
     outString += '<colgroup>';
-    outString += '<col style="width:120px" />';
     outString += '<col />';
     outString += '<col style="width:40px" />';
     outString += '<col style="width:100px" />';
@@ -58,8 +56,7 @@ main.customizes.customize.widget.list = {
     x.each(list, function(index, node)
     {
       outString += '<tr>';
-      outString += '<td><a href="/customizes/customize-widget/form?id=' + node.id + '" target="_blank" >' + node.name + '</a></td>';
-      outString += '<td>' + node.description + '</td>';
+      outString += '<td><a href="/customizes/customize-widget/form?id=' + node.id + '" target="_blank" >' + node.name + '</a> <span class="label label-default">' + node.description + '</span></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.updateDateView + '</td>';
       outString += '<td><a href="javascript:main.customizes.customize.widget.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
