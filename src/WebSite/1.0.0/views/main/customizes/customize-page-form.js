@@ -48,24 +48,14 @@ main.customizes.customize.page.form = {
     });
 
     var page = x.ui.pkg.customizes.newPage($('#customize-page-name').val(), {
-      authorizationObjectType: $('#customize-page-authorizationObjectType').val(),
-      authorizationObjectId: $('#customize-page-authorizationObjectId').val(),
-      name: $('#customize-page-name').val()
-      // pageUrl: '/services/Elane/X/Web/Customize/Ajax.PageWrapper.aspx',
-      // widgetZoneUrl: '/services/Elane/X/Web/Customize/Ajax.WidgetZoneWrapper.aspx',
-      // widgetUrl: '/services/Elane/X/Web/Customize/Ajax.WidgetWrapper.aspx',
-      // widgetInstanceUrl: '/services/Elane/X/Web/Customize/Ajax.WidgetInstanceWrapper.aspx'
+      id: $('#id').val(),
+      authorizationObjectType: $('#authorizationObjectType').val(),
+      authorizationObjectId: $('#authorizationObjectId').val(),
+      name: $('#name').val(),
+      title: $('#title').val()
     });
 
     main.customizes.customize.page.form.page = page;
-
-    var menu = '<a href="javascript:main.customizes.customize.page.form.toggle(\'widget\');">页面部件</a> | '
-        + '<a href="javascript:main.customizes.customize.page.form.toggle(\'widgetZone\');">页面框架</a> | '
-        + '<a href="javascript:main.customizes.customize.page.form.save();">保存页面</a>';
-
-    main.customizes.customize.page.form.setMenu(menu);
-
-    main.customizes.customize.page.form.toggle('widget');
   },
 
   toggle: function(type)
@@ -91,11 +81,11 @@ main.customizes.customize.page.form = {
     {
       if(currentDialogType != type || display == 'none')
       {
-        x.ui.pkg.customizes.widgetZone.openDialog();
+        x.ui.pkg.customizes.layout.openDialog();
       }
       else
       {
-        x.ui.pkg.customizes.widgetZone.closeDialog();
+        x.ui.pkg.customizes.layout.closeDialog();
       }
     }
 
@@ -111,7 +101,13 @@ main.customizes.customize.page.form = {
 
     if(typeof (page) !== 'undefined')
     {
-      page.save();
+      page.save({
+        id: $('#id').val(),
+        authorizationObjectType: $('#authorizationObjectType').val(),
+        authorizationObjectId: $('#authorizationObjectId').val(),
+        name: $('#name').val(),
+        title: $('#title').val()
+      });
     }
 
     $('#btnEdit').unbind('click');

@@ -1,12 +1,15 @@
 ﻿namespace X3Platform.Web.Mvc.Controllers
 {
+  using System;
   using System.Web.Mvc;
-using X3Platform.Apps;
-using X3Platform.Apps.Model;
-using X3Platform.Json;
-using X3Platform.Web.Configuration;
-using X3Platform.Web.Customizes;
-using X3Platform.Web.Mvc.Attributes;
+  using X3Platform.Apps;
+  using X3Platform.Apps.Model;
+  using X3Platform.DigitalNumber;
+  using X3Platform.Json;
+  using X3Platform.Web.Configuration;
+  using X3Platform.Web.Customizes;
+  using X3Platform.Web.Customizes.Model;
+  using X3Platform.Web.Mvc.Attributes;
 
   /// <summary>部件信息</summary>
   public sealed class CustomizeWidgetController : CustomController
@@ -60,8 +63,23 @@ using X3Platform.Web.Mvc.Attributes;
 
       // 实体数据标识
       string id = !request.Keys.Contains("id") ? string.Empty : request["id"].ToString();
+      
+      CustomizeWidgetInfo param = null;
 
-      ViewBag.customizeLayout = CustomizeContext.Instance.CustomizeLayoutService.FindOne(id);
+      if (string.IsNullOrEmpty(id))
+      {
+        param = new CustomizeWidgetInfo();
+
+        param.Id = DigitalNumberContext.Generate("Key_Guid");
+
+        param.CreateDate = param.UpdateDate = DateTime.Now;
+      }
+      else
+      {
+        param = CustomizeContext.Instance.CustomizeWidgetService.FindOne(id);
+      }
+
+      ViewBag.param = param;
 
       return View("/views/main/customizes/customize-widget-form.cshtml");
     }

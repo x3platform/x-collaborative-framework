@@ -54,11 +54,33 @@
     }
     #endregion
 
+    #region 属性:OrderId
+    private string m_OrderId;
+
+    /// <summary>排序</summary>
+    public string OrderId
+    {
+      get { return m_OrderId; }
+      set { m_OrderId = value; }
+    }
+    #endregion
+
+    #region 属性:Status
+    private int m_Status;
+
+    /// <summary>状态</summary>
+    public int Status
+    {
+      get { return m_Status; }
+      set { m_Status = value; }
+    }
+    #endregion
+
     #region 属性:UpdateDate
-    private string m_UpdateDate;
+    private DateTime m_UpdateDate;
 
     /// <summary>修改时间</summary>
-    public string UpdateDate
+    public DateTime UpdateDate
     {
       get { return m_UpdateDate; }
       set { m_UpdateDate = value; }
@@ -66,10 +88,10 @@
     #endregion
 
     #region 属性:CreateDate
-    private string m_CreateDate;
+    private DateTime m_CreateDate;
 
     /// <summary>创建时间</summary>
-    public string CreateDate
+    public DateTime CreateDate
     {
       get { return m_CreateDate; }
       set { m_CreateDate = value; }

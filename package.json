@@ -1,0 +1,31 @@
+{
+  "name": "x-collaborative-framework",
+  "version": "1.0.0",
+  "description": "x collaborative framework",
+  "author":"ruanyu@live.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x3platform/x-collaborative-framework.git"
+  },
+  "bugs": {
+    "url" : "http://github.com/x3platform/x-collaborative-framework/issues"
+  },
+  "dependencies": {
+    "chalk": "~0.4.0",
+    "mocha": "~1.20.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.10.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-jsdoc": "~0.4.0",
+    "load-grunt-tasks": "0.3.0",
+    "requirejs": "2.1.10"
+  }
+}

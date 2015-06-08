@@ -121,6 +121,7 @@
     <Compile Include="Customizes\Ajax\CustomizePageWrapper.cs" />
     <Compile Include="Customizes\Ajax\CustomizeWidgetInstanceWrapper.cs" />
     <Compile Include="Customizes\Ajax\CustomizeContentWrapper.cs" />
+    <Compile Include="Customizes\Ajax\CustomizeLayoutWrapper.cs" />
     <Compile Include="Customizes\Ajax\CustomizeWidgetWrapper.cs" />
     <Compile Include="Customizes\BLL\CustomizePageService.cs" />
     <Compile Include="Customizes\BLL\CustomizeWidgetInstanceService.cs" />

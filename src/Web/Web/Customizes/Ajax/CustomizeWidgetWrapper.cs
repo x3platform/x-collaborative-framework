@@ -14,9 +14,9 @@
   #endregion
 
   /// <summary>部件实例</summary>
-  public sealed class CustomizeLayoutWrapper : ContextWrapper
+  public sealed class CustomizeWidgetWrapper : ContextWrapper
   {
-    private ICustomizeLayoutService service = CustomizeContext.Instance.CustomizeLayoutService; // 数据服务
+    private ICustomizeWidgetService service = CustomizeContext.Instance.CustomizeWidgetService; // 数据服务
 
     // -------------------------------------------------------
     // 保存 删除
@@ -28,9 +28,9 @@
     /// <returns>返回操作结果</returns>
     public string Save(XmlDocument doc)
     {
-      CustomizeLayoutInfo param = new CustomizeLayoutInfo();
+      CustomizeWidgetInfo param = new CustomizeWidgetInfo();
 
-      param = (CustomizeLayoutInfo)AjaxUtil.Deserialize(param, doc);
+      param = (CustomizeWidgetInfo)AjaxUtil.Deserialize(param, doc);
 
       service.Save(param);
 
@@ -66,9 +66,9 @@
 
       string id = XmlHelper.Fetch("id", doc);
 
-      CustomizeLayoutInfo param = service.FindOne(id);
+      CustomizeWidgetInfo param = service.FindOne(id);
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeLayoutInfo>(param) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInfo>(param) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -88,9 +88,9 @@
 
       int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-      IList<CustomizeLayoutInfo> list = this.service.FindAll(whereClause, length);
+      IList<CustomizeWidgetInfo> list = this.service.FindAll(whereClause, length);
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeLayoutInfo>(list) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInfo>(list) + ",");
 
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -114,11 +114,11 @@
 
       int rowCount = -1;
 
-      IList<CustomizeLayoutInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+      IList<CustomizeWidgetInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
       paging.RowCount = rowCount;
 
-      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeLayoutInfo>(list) + ",");
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInfo>(list) + ",");
       outString.Append("\"paging\":" + paging + ",");
       outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
       outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
