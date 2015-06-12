@@ -75,12 +75,12 @@
           routeData.Values.Add("action", "Form");
           routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?id=([\w+\-]+)$").Groups[2].Value + "\"}");
         }
-        else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/list$"))
+        else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/detail\?id=([\w+\-]+)$"))
         {
-          // 映射设置
-          routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/setting$").Groups[1].Value));
-          routeData.Values.Add("action", "Setting");
-          //routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^article\/([\w+\-]+)$").Groups[1].Value + "\"}");
+          // 详细信息
+          routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/detail\?id=([\w+\-]+)$").Groups[1].Value));
+          routeData.Values.Add("action", "Detail");
+          routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^([\w+\-]+)/detail\?id=([\w+\-]+)$").Groups[2].Value + "\"}");
         }
         else
         {

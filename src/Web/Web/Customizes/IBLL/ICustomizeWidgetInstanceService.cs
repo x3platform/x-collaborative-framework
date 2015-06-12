@@ -95,15 +95,13 @@ namespace X3Platform.Web.Customizes.IBLL
         string GetOptionHtml(string id);
         #endregion
 
-        #region 函数:SetPageAndWidget(CustomizeWidgetInstanceInfo param, string authorizationObjectType, string authorizationObjectId, string pageName, string widgetName)
+        #region 函数:SetPageAndWidget(CustomizeWidgetInstanceInfo param, string pageId, string widgetName)
         /// <summary>设置实例所在的页面和部件类型</summary>
         /// <param name="param">CustomizeWidgetInstanceInfo 实例详细信息</param>
-        /// <param name="authorizationObjectType">授权对象类别</param>
-        /// <param name="authorizationObjectId">授权对象标识</param>
-        /// <param name="pageName">页面名称</param>
+        /// <param name="pageId">页面标识</param>
         /// <param name="widgetName">部件名称</param>
-        /// <returns>布尔值</returns>
-        CustomizeWidgetInstanceInfo SetPageAndWidget(CustomizeWidgetInstanceInfo param, string authorizationObjectType, string authorizationObjectId, string pageName, string widgetName);
+        /// <returns>部件实例信息</returns>
+        CustomizeWidgetInstanceInfo SetPageAndWidget(CustomizeWidgetInstanceInfo param, string pageId, string widgetName);
         #endregion
 
         #region 函数:RemoveUnbound(string pageId, string bindingWidgetInstanceIds)

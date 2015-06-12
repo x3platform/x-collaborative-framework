@@ -118,11 +118,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
       string id = XmlHelper.Fetch("id", doc);
 
-      string authorizationObjectType = XmlHelper.Fetch("authorizationObjectType", doc);
-
-      string authorizationObjectId = XmlHelper.Fetch("authorizationObjectId", doc);
-
-      string pageName = XmlHelper.Fetch("pageName", doc);
+      string pageId = XmlHelper.Fetch("pageId", doc);
 
       string widgetName = XmlHelper.Fetch("widgetName", doc);
 
@@ -134,7 +130,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
         param = (CustomizeWidgetInstanceInfo)AjaxUtil.Deserialize(param, doc);
 
-        this.service.SetPageAndWidget(param, authorizationObjectType, authorizationObjectId, pageName, widgetName);
+        this.service.SetPageAndWidget(param, pageId, widgetName);
 
         // 设置部件默认选项
         CustomizeWidgetInfo widget = CustomizeContext.Instance.CustomizeWidgetService.FindOneByName(widgetName);

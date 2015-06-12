@@ -26,7 +26,6 @@
     /// <summary>保存记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("save")]
     public string Save(XmlDocument doc)
     {
       CustomizeContentInfo param = new CustomizeContentInfo();
@@ -43,12 +42,11 @@
     /// <summary>删除记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("delete")]
     public string Delete(XmlDocument doc)
     {
-      string ids = XmlHelper.Fetch("ids", doc);
+      string id = XmlHelper.Fetch("id", doc);
 
-      service.Delete(ids);
+      service.Delete(id);
 
       return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
     }
@@ -62,7 +60,6 @@
     /// <summary>获取详细信息</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("findOne")]
     public string FindOne(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -79,11 +76,30 @@
     }
     #endregion
 
+    #region 函数:FindOneByName(XmlDocument doc)
+    /// <summary>获取详细信息</summary>
+    /// <param name="doc">Xml 文档对象</param>
+    /// <returns>返回操作结果</returns>
+    public string FindOneByName(XmlDocument doc)
+    {
+      StringBuilder outString = new StringBuilder();
+
+      string name = XmlHelper.Fetch("name", doc);
+
+      CustomizeContentInfo param = service.FindOneByName(name);
+
+      outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeContentInfo>(param) + ",");
+
+      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+
+      return outString.ToString();
+    }
+    #endregion
+
     #region 函数:FindAll(XmlDocument doc)
     /// <summary>获取列表信息</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("findAll")]
     public string FindAll(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
@@ -109,8 +125,7 @@
     #region 函数:GetPaging(XmlDocument doc)
     /// <summary>获取分页内容</summary>
     /// <param name="doc">Xml 文档对象</param>
-    /// <returns>返回操作结果</returns> 
-    [AjaxMethod("getPages")]
+    /// <returns>返回操作结果</returns>
     public string GetPaging(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();

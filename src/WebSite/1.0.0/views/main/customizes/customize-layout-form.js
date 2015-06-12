@@ -73,7 +73,7 @@ main.customizes.customize.layout.form = {
     // 设置事件
     editor.getSession().on('change', function()
     {
-      textarea.val(editor.getSession().getValue());
+      textarea.val(editor.getSession().getValue().replace(/\n/g, ''));
     });
 
     // -------------------------------------------------------

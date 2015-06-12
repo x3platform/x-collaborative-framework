@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
+{
+<script id="x-main" type="text/javascript" >
+    x.require({ files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
+        { fileType: 'script', id: 'x-dom-features-combobox-script', path: x.dir() + 'dom/features/x.dom.features.combobox.js' },
+        { fileType: 'css', id: 'x-ui-pkg-combobox-css', path: x.ui.styles.dir() + 'x.ui.pkg.combobox.css' },
+        { fileType: 'script', id: 'x-ui-pkg-combobox-script', path: x.ui.pkg.dir() + 'x.ui.pkg.combobox.js' },
+        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'css', id: 'x-ui-pkg-tree-css', path: x.ui.styles.dir() + 'x.ui.pkg.tree.css' },
+        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+        { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/standard-organization-list.js' }
+    ]});
+</script>
+}
+else
+{
+<script id="x-main" type="text/javascript" >
+    x.require({ files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.min.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.min.js' },
+        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
+        { fileType: 'script', id: 'x-dom-features-combobox-script', path: x.dir() + 'dom/features/x.dom.features.combobox.js' },
+        { fileType: 'css', id: 'x-ui-pkg-combobox-css', path: x.ui.styles.dir() + 'x.ui.pkg.combobox.css' },
+        { fileType: 'script', id: 'x-ui-pkg-combobox-script', path: x.ui.pkg.dir() + 'x.ui.pkg.combobox.js' },
+        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'css', id: 'x-ui-pkg-tree-css', path: x.ui.styles.dir() + 'x.ui.pkg.tree.css' },
+        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+        { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/standard-organization-list.js' }
+    ]});
+</script>
+}
+<script id="template-list" type="text/template">
+<div class="window-organization-table">
+{{foreach index node in list}}
+{{if index % 5 == 0}}
+<ul class="window-project-row">
+{{/if}}
+    {{if node.isEmpty}}
+    {{else}}
+    <li><a href="/projects/article/{{node.id}}" title="{{node.code}} {{node.name}}" >{{node.name}}</a></li>
+    {{/if}}
+{{if index % 5 == 4}}
+</ul>
+{{/if}}
+{{/foreach}}
+<div>
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"人员及权限管理\组织管理" } }))
+<div id="window-container" class="window-container" >
+<div id="window-main-table" class="table-style" style="width:100%;">
+    <div id="window-main-table-header" class="table-header">
+        <span>组织管理</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+        <table class="table-style" style="width:100%;">
+            <tr>
+                <td class="table-sidebar">
+                    <div id="window-main-table-sidebar">
+                        <div class="table-sidebar-search"><input id="searchText" type="text" value="" class="table-sidebar-search-text" /> <button id="btnFilter" class="table-sidebar-search-button">查询</button></div>
+                        <div id="treeViewContainer" class="table-sidebar-tree-view"></div>
+                        <input id="treeViewId" name="treeViewId" type="hidden" value="00000000-0000-0000-0000-000000000001" />
+                        <input id="treeViewName" name="treeViewName" type="hidden" value="标准组织架构" />
+                        <input id="treeViewRootTreeNodeId" name="treeViewRootTreeNodeId" type="hidden" value="00000000-0000-0000-0000-000000000001" />
+                    </div>
+                </td>
+                <td>
+                    <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="window-main-table-footer" class="table-footer"></div>
+</div>
+</div>

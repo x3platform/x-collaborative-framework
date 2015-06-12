@@ -146,22 +146,20 @@ namespace X3Platform.Web.Customizes.BLL
     }
     #endregion
 
-    #region 函数:SetPageAndWidget(CustomizeWidgetInstanceInfo param, string authorizationObjectType, string authorizationObjectId, string pageName, string widgetName)
+    #region 函数:SetPageAndWidget(CustomizeWidgetInstanceInfo param, string pageId, string widgetName)
     /// <summary>设置实例所在的页面和部件类型</summary>
     /// <param name="param">CustomizeWidgetInstanceInfo 实例详细信息</param>
-    /// <param name="authorizationObjectType">授权对象类别</param>
-    /// <param name="authorizationObjectId">授权对象标识</param>
-    /// <param name="pageName">页面名称</param>
+    /// <param name="pageId">页面标识</param>
     /// <param name="widgetName">部件名称</param>
-    /// <returns>布尔值</returns>
-    public CustomizeWidgetInstanceInfo SetPageAndWidget(CustomizeWidgetInstanceInfo param, string authorizationObjectType, string authorizationObjectId, string pageName, string widgetName)
+    /// <returns>部件实例信息</returns>
+    public CustomizeWidgetInstanceInfo SetPageAndWidget(CustomizeWidgetInstanceInfo param, string pageId, string widgetName)
     {
-      CustomizePageInfo page = CustomizeContext.Instance.CustomizePageService.FindOneByName(authorizationObjectType, authorizationObjectId, pageName);
+      CustomizePageInfo page = CustomizeContext.Instance.CustomizePageService.FindOne(pageId);
 
       CustomizeWidgetInfo widget = CustomizeContext.Instance.CustomizeWidgetService.FindOneByName(widgetName);
 
       param.PageId = (page == null) ? string.Empty : page.Id;
-      param.PageName = pageName;
+      // param.PageName = pageId;
 
       param.WidgetId = (widget == null) ? string.Empty : widget.Id;
       param.WidgetName = widgetName;

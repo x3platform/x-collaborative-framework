@@ -10,6 +10,10 @@
     $('.window-sign-in-main-wrapper').css({ 'margin-top': (windowHeight - height) + 'px' });
   }
 
+  // 移除访问令牌信息
+  localStorage.removeItem('session-access-refresh-token');
+  localStorage.removeItem('session-access-token');
+
   // 设置登录帐号
   var account = localStorage['cache-account'] || '{}';
 
@@ -39,13 +43,16 @@
 
     $('.window-sign-in-loading').show();
 
-    x.net.xhr('/api/membership.member.auth.aspx', outString, function(response)
+    x.net.xhr('/api/connect.auth.authorize.aspx?responseType=json', outString, function(response)
     {
       var result = x.toJSON(response).message;
 
       switch(Number(result.returnCode))
       {
         case 0:
+
+          var data = x.toJSON(response).data;
+
           if($('#remember')[0].checked)
           {
             // 记住当前用户登录信息
@@ -56,6 +63,10 @@
           {
             localStorage.removeItem('cache-account');
           }
+
+          localStorage['session-access-token'] = data.id;
+          localStorage['session-access-refresh-token'] = data.refreshToken;
+          localStorage['session-expireDate'] = data.expireDateTimestampView;
 
           var returnUrl = decodeURIComponent(x.net.request.find("returnUrl"));
 

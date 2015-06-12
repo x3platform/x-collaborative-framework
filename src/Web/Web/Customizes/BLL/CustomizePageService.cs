@@ -108,7 +108,7 @@ namespace X3Platform.Web.Customizes.BLL
 
       foreach (XmlNode node in nodes)
       {
-        if (((XmlElement)node).GetAttribute("class") == "x-ui-pkg-customize-widget")
+        if (((XmlElement)node).GetAttribute("class").IndexOf("x-ui-pkg-customize-widget") > -1)
         {
           bindingWidgetInstanceIds += node.Attributes["id"].Value + ",";
         }
@@ -227,15 +227,29 @@ namespace X3Platform.Web.Customizes.BLL
     }
     #endregion
 
-    #region 函数:TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
-    /// <summary>查询某条记录</summary>
+    #region 函数:GetHtml(string name)
+    /// <summary>获取Html文本</summary>
+    /// <param name="name">页面名称</param>
+    /// <returns>Html文本</returns>
+    public string GetHtml(string name)
+    {
+      string xml = this.provider.GetHtml(name);
+
+      if (string.IsNullOrEmpty(xml)) { return string.Empty; }
+
+      return RenderHtml(xml);
+    }
+    #endregion
+
+    #region 函数:GetHtml(string name, string authorizationObjectType, string authorizationObjectId)
+    /// <summary>获取Html文本</summary>
+    /// <param name="name">页面名称</param>
     /// <param name="authorizationObjectType">授权对象类别</param>
     /// <param name="authorizationObjectId">授权对象标识</param>
-    /// <param name="name">页面名称</param>
     /// <returns>返回一个实例<see cref="CustomizePageInfo"/>的详细信息</returns>
-    public string TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
+    public string GetHtml(string name, string authorizationObjectType, string authorizationObjectId)
     {
-      string xml = this.provider.TryParseHtml(authorizationObjectType, authorizationObjectId, name);
+      string xml = this.provider.GetHtml(name, authorizationObjectType, authorizationObjectId);
 
       if (string.IsNullOrEmpty(xml))
       {
@@ -245,15 +259,25 @@ namespace X3Platform.Web.Customizes.BLL
 
         param.AuthorizationObjectType = authorizationObjectType;
         param.AuthorizationObjectId = authorizationObjectId;
-        // param.AuthorizationObjectName = MembershipManagement.Instance.AuthorizationObjectService.FindOne(authorizationObjectType, authorizationObjectId).Name;
 
         param.Name = name;
         param.Title = name;
         param.Html = xml;
 
         this.provider.Save(param);
-      }
 
+        return string.Empty;
+      }
+      else
+      {
+        return RenderHtml(xml);
+      }
+    }
+    #endregion
+
+    #region 私有函数:RenderHtml(string xml)
+    private string RenderHtml(string xml)
+    {
       XmlDocument doc = new XmlDocument();
 
       doc.LoadXml(xml);
@@ -272,7 +296,7 @@ namespace X3Platform.Web.Customizes.BLL
       {
         element = (XmlElement)nodes[i];
 
-        if (element.GetAttribute("class") == "x-ui-pkg-customize-widget")
+        if (element.GetAttribute("class").IndexOf("x-ui-pkg-customize-widget") > -1)
         {
           widgetInstance = CustomizeContext.Instance.CustomizeWidgetInstanceService[element.GetAttribute("id")];
 
@@ -284,16 +308,15 @@ namespace X3Platform.Web.Customizes.BLL
             {
               childElement = (XmlElement)childNode;
 
-              if (childElement.GetAttribute("class") == "x-ui-pkg-customize-widget-head")
+              if (childElement.GetAttribute("class").IndexOf("x-ui-pkg-customize-widget-head") > -1)
               {
                 if (widgetInstance.Widget != null && !string.IsNullOrEmpty(widgetInstance.Widget.Url))
                 {
                   childElement.SetAttribute("style", "cursor:pointer;");
-                  // childElement.SetAttribute("onclick", "x.customize.widget.redirct('" + widgetInstance.Widget.RedirctUrl + "');");
                 }
               }
 
-              if (childElement.GetAttribute("class") == "x-ui-pkg-customize-widget-content")
+              if (childElement.GetAttribute("class").IndexOf("x-ui-pkg-customize-widget-content") > -1)
               {
                 childNode.InnerXml = widgetInstance.Html;
               }

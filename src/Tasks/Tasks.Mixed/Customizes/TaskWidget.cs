@@ -1,4 +1,4 @@
-namespace X3Platform.Tasks.Customize
+namespace X3Platform.Tasks.Customizes
 {
     #region Using Libraries
     using System;
@@ -15,6 +15,7 @@ namespace X3Platform.Tasks.Customize
     using X3Platform.Tasks.Model;
     using X3Platform.Apps;
     using X3Platform.Tasks.Configuration;
+  using X3Platform.Web.Configuration;
     #endregion
 
     /// <summary>任务管理窗口部件</summary>
@@ -34,7 +35,7 @@ namespace X3Platform.Tasks.Customize
             context.Put("height", (this.Height == 0 ? "height:auto;" : "height:" + this.Height + "px;"));
             context.Put("width", (this.Width == 0 ? "width:auto;" : "width:" + this.Width + "px;"));
 
-            return VelocityManager.Instance.Merge(context, "web/customize/widgets/tasks.vm");
+            return VelocityManager.Instance.Merge(context, "themes/" + WebConfigurationView.Instance.ThemeName + "/widgets/tasks.vm");
         }
     }
 }

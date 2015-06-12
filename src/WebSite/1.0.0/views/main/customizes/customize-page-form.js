@@ -47,7 +47,7 @@ main.customizes.customize.page.form = {
       main.customizes.customize.page.form.save();
     });
 
-    var page = x.ui.pkg.customizes.newPage($('#customize-page-name').val(), {
+    var page = x.ui.pkg.customizes.newPage($('#name').val(), {
       id: $('#id').val(),
       authorizationObjectType: $('#authorizationObjectType').val(),
       authorizationObjectId: $('#authorizationObjectId').val(),
@@ -108,16 +108,18 @@ main.customizes.customize.page.form = {
         name: $('#name').val(),
         title: $('#title').val()
       });
+
+      main.customizes.customize.page.form.edit();
     }
 
-    $('#btnEdit').unbind('click');
+    //$('#btnEdit').unbind('click');
 
-    $('#btnEdit').html('<i class="fa fa-edit" title="编辑"></i> 编辑');
+    //$('#btnEdit').html('<i class="fa fa-edit" title="编辑"></i> 编辑');
 
-    $('#btnEdit').on('click', function()
-    {
-      main.customizes.customize.page.form.edit();
-    });
+    //$('#btnEdit').on('click', function()
+    //{
+    //  main.customizes.customize.page.form.edit();
+    //});
 
     // main.customizes.customize.page.form.setMenu('<a href="javascript:main.customizes.customize.page.form.edit();">编辑页面</a>');
   },

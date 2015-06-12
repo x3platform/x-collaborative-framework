@@ -22,6 +22,7 @@
             <td class="table-body-text" style="width:120px;"><span class="required-text">名称</span></td>
             <td class="table-body-input">
               <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+              <input id="url" name="url" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Url" />
               <input id="name" name="name" type="text" x-dom-data-type="value" value="@ViewBag.param.Name" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【名称】。" style="width:680px;" />
               <input id="originalName" name="originalName" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Name" />
             </td>
@@ -30,6 +31,12 @@
             <td class="table-body-text"><span class="required-text">类名称</span></td>
             <td class="table-body-input">
               <input id="className" name="className" type="text" x-dom-data-type="value" value="@ViewBag.param.ClassName" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【类名称】。" style="width:680px;" />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-body-text"><span class="required-text">默认标题</span></td>
+            <td class="table-body-input">
+              <input id="title" name="title" type="text" x-dom-data-type="value" value="@ViewBag.param.Title" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【默认标题】。" style="width:680px;" />
             </td>
           </tr>
           <tr>

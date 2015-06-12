@@ -8,7 +8,7 @@
   <link rel="stylesheet" media="all" href="/resources/styles/default/style.css" type="text/css" />
   <link rel="shortcut icon" href="/favorite.ico" />
   <script type="text/javascript" src="/resources/javascript/jquery-1.11.2.min.js"></script>
-  <script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.min.js"></script>
+  <script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.js"></script>
   <script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
   <script type="text/javascript" src="/views/main/account/sign-in.js"></script>
 </head>
@@ -80,10 +80,10 @@
     </div>
     </div>
     -->
-  *@
-  <input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
   <input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
   <input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
   <input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
+  *@
+  <input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
 </body>
 </html>
