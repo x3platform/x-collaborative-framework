@@ -2,7 +2,7 @@
 // Name     : x-client-api 
 // Version  : 1.0.0 
 // Author   : ruanyu@live.com
-// Date     : 2015-05-25
+// Date     : 2015-06-10
 (function(global, factory) 
 {
     if (typeof module === "object" && typeof module.exports === "object") 
@@ -6609,37 +6609,30 @@
         returnType: 'json',
         // 异步请求的数据键值
         xhrDataKey: 'xhr-xml',
+        // 获取访问令牌信息        
+        getAccessToken: function()
+        {
+          return localStorage['session-access-token'] || $('#session-access-token').val() || '';
+        },
         // 获取客户端标识信息        
         getClientId: function()
         {
-          var element = x.query('#session-client-id');
-    
-          // 根据页面存放的 session-client-id 元素，获取客户端标识信息, 如果页面不存在 session-client-id 元素，则返回空值。
-          return element == null ? '' : x.isUndefined(element.value, '');
+          return localStorage['session-client-id'] || $('#session-client-id').val() || '';
         },
         // 获取客户端签名信息
         getClientSignature: function()
         {
-          var element = x.query('#session-client-signature');
-    
-          // 根据页面存放的 session-client-signature 元素，获取签名信息, 如果页面不存在 session-client-signature 元素，则返回空值。
-          return element == null ? '' : x.isUndefined(element.value, '');
+          return localStorage['session-client-signature'] || $('#session-client-signature').val() || '';
         },
         // 获取时间信息
         getTimestamp: function()
         {
-          var element = x.query('#session-timestamp');
-    
-          // 根据页面存放的 session-timestamp 元素，获取时间戳信息, 如果页面不存在 session-timestamp 元素，则返回空值。
-          return element == null ? '' : x.isUndefined(element.value, '');
+          return localStorage['session-timestamp'] || $('#session-timestamp').val() || '';
         },
         // 获取随机数信息
         getNonce: function()
         {
-          var element = x.query('#session-nonce');
-    
-          // 根据页面存放的 session-nonce 元素，获取签名信息, 如果页面不存在 session-nonce 元素，则返回空值。
-          return element == null ? '' : x.isUndefined(element.value, '');
+          return localStorage['session-nonce'] || $('#session-nonce').val() || '';
         },
         // 获取等待窗口
         getWaitingWindow: function(options)
@@ -7010,8 +7003,12 @@
             }
           });
         }
-    
-        if(x.isFunction(options.getClientId) && options.getClientId() != '')
+        
+        if(x.isFunction(options.getAccessToken) && options.getAccessToken() != '')
+        {
+          data.accessToken = options.getAccessToken();
+        }
+        else if(x.isFunction(options.getClientId) && options.getClientId() != '')
         {
           data.clientId = options.getClientId();
     

@@ -85,6 +85,12 @@
 
       */
 
+      // -------------------------------------------------------
+      // 数据加载
+      // -------------------------------------------------------
+
+      ViewBag.Title = "首页-" + KernelConfigurationView.Instance.SystemName;
+
       ViewBag.customizePageHtml = GetContainerHtml();
 
       return View("~/views/main/default.cshtml");

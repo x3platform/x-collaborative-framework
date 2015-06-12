@@ -144,8 +144,8 @@
     <select id="proc_Customize_Page_IsExist" >
       SELECT COUNT(*) AS 'Count' FROM tb_Customize_Page T WHERE $WhereClause$
     </select>
-    <select id="proc_Customize_Page_TryParseHtml" resultMap="proc_Customize_Page_FindOne_Result" >
-      SELECT * FROM tb_Customize_Page WHERE AuthorizationObjectType = #AuthorizationObjectType# AND AuthorizationObjectId = #AuthorizationObjectId# AND Name = #Name#
+    <select id="proc_Customize_Page_GetHtml" resultMap="proc_Customize_Page_FindOne_Result" >
+      SELECT * FROM tb_Customize_Page WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>

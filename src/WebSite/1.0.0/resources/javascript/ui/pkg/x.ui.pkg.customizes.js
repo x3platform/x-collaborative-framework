@@ -102,6 +102,7 @@ x.ui.pkg.customizes = {
           x.each(list, function(index, node)
           {
             outString += '<button onclick="x.ui.pkg.customizes.widget.create(\'' + node.name + '\',{';
+            outString += 'pageId:\'' + options.id + '\',';
             outString += 'url:\'' + node.url + '\',';
             outString += 'name:\'' + node.name + '\',';
             outString += 'title:\'' + node.title + '\',';
@@ -171,9 +172,8 @@ x.ui.pkg.customizes = {
 
           outString += '<request>';
           outString += '<id><![CDATA[' + x.guid.create() + ']]></id>';
-          outString += '<authorizationObjectType><![CDATA[' + document.getElementById('customize-page-authorizationObjectType').value + ']]></authorizationObjectType>';
-          outString += '<authorizationObjectId><![CDATA[' + document.getElementById('customize-page-authorizationObjectId').value + ']]></authorizationObjectId>';
-          outString += '<pageName><![CDATA[' + document.getElementById('customize-page-name').value + ']]></pageName>';
+          outString += '<pageId><![CDATA[' + options.pageId + ']]></pageId>';
+          outString += '<pageName><![CDATA[' + options.pageName + ']]></pageName>';
           outString += '<widgetName><![CDATA[' + name + ']]></widgetName>';
           outString += '<title><![CDATA[' + options.title + ']]></title>';
           outString += '</request>';
@@ -188,12 +188,13 @@ x.ui.pkg.customizes = {
                     + '<div class="x-ui-pkg-customize-widget-head panel-heading">'
                     + '<h3>' + param.title + '</h3>'
                     + '</div>'
-                    + '<div class="x-ui-pkg-customize-widget-content panel-body" >' + param.html + '</div>'
+                    // + '<div class="x-ui-pkg-customize-widget-content panel-body" >' + param.html + '</div>'
+                    + '<div class="x-ui-pkg-customize-widget-content panel-body" ></div>'
                     + '</li>';
 
               $(outString).prependTo($(x.ui.pkg.customizes.settings.columnSelector)[0]);
 
-              x.ui.pkg.customizes.pageInstance[param.pageName].reload();
+              x.ui.pkg.customizes.pageInstance[param.pageId].reload();
             }
           }
 
@@ -285,11 +286,12 @@ x.ui.pkg.customizes = {
 
     create: function(name, options)
     {
-      var settings = x.ui.pkg.customizes.settings;
+      if(confirm('重新设置页面布局将删除当前页面的所有部件数据, 是否需要重新设置页面布局?'))
+      {
+        var settings = x.ui.pkg.customizes.settings;
 
-      x.debug.log(name);
-      x.debug.log(options);
-      $(settings.wrapperSelector).html(options.html);
+        $(settings.wrapperSelector).html(options.html);
+      }
     },
 
     load: function(html)
@@ -732,10 +734,6 @@ x.ui.pkg.customizes = {
       {
         var settings = x.ui.pkg.customizes.settings;
 
-        var dialogSelector = x.ui.pkg.customizes.settings.dialogSelector;
-
-        $(dialogSelector).parent().hide();
-
         $(settings.wrapperSelector).html(x.ui.pkg.customizes.layout.html());
 
         $(settings.handleSelector).css({ cursor: 'default' });
@@ -853,7 +851,6 @@ x.ui.pkg.customizes = {
           var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
           outString += '<request>';
-          outString += '<action><![CDATA[create]]></action>';
           outString += '<id><![CDATA[' + id + ']]></id>';
           outString += '<pageName><![CDATA[' + this.name + ']]></pageName>';
           outString += '<widgetName><![CDATA[' + name + ']]></widgetName>';
@@ -911,7 +908,7 @@ x.ui.pkg.customizes = {
 
     page.load(options);
 
-    x.ui.pkg.customizes.pageInstance[name] = page;
+    x.ui.pkg.customizes.pageInstance[options.id] = page;
 
     return page;
   }

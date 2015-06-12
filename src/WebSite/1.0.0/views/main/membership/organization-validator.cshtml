@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
+{
+<script id="x-main" type="text/javascript" >
+    x.require({ files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/organization-list.js' }
+    ]});
+</script>
+}
+else
+{
+<script id="x-main" type="text/javascript" >
+    x.require({ files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.min.js' },
+        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.min.js' },
+        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
+        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
+        { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/organization-list.js' }
+    ]});
+</script>
+}
+<style type="text/css">
+.window-project-table { margin:10px 0 10px 0; }
+.window-project-row { display:table; clear:both; margin:0 0 0 20px; }
+.window-project-row li { display:table-cell; }
+.window-project-row li * { vertical-align:middle; }
+.window-project-row li a, .window-project-list li span { display:block; margin:10px; width:160px; line-height:50px; text-align:center; vertical-align:middle; border:1px solid #ccc; border-radius:5px; }
+</style>
+<script id="template-list" type="text/template">
+<div class="window-project-table">
+{{foreach index node in list}}
+{{if index % 5 == 0}}
+<ul class="window-project-row">
+{{/if}}
+    {{if node.isEmpty}}
+    {{else}}
+    <li><a href="/projects/article/{{node.id}}" title="{{node.code}} {{node.name}}" >{{node.name}}</a></li>
+    {{/if}}
+{{if index % 5 == 4}}
+</ul>
+{{/if}}
+{{/foreach}}
+<div>
+</script>
+<div id="window-container" class="window-container" >
+<div class="window-container-padding" >
+<div id="window-main-table" class="table-style border-4" style="width:100%;">
+    <div id="window-main-table-header" class="table-header border-4">
+        <span>组织管理</span>
+    </div>
+    <div class="table-body">
+        <table class="table-style" style="width:100%;" >
+            <tr>
+                <td class="table-sidebar">
+                    <div class="table-sidebar-search"><input id="searchText" type="text" value="" class="table-sidebar-search-text" /> <button id="btnFilter" class="table-sidebar-search-button">查询</button></div>
+                    <div id="treeViewContainer" class="table-sidebar-tree-view"></div>
+                </td>
+                <td id="window-main-table-container">
+                    <span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="window-main-table-footer" class="table-footer">
+        <img src="/resources/images/transparent.gif" style="height:18px" />
+    </div>
+</div>
+</div>
+</div>

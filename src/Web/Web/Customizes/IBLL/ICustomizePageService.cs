@@ -105,14 +105,21 @@ namespace X3Platform.Web.Customizes.IBLL
         /// <returns>布尔值</returns>
         bool IsExistName(string authorizationObjectType, string authorizationObjectId, string name);
         #endregion
-        
-        #region 函数:TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
-        /// <summary>查询某条记录</summary>
+
+        #region 函数:GetHtml(string name)
+        /// <summary>获取Html文本</summary>
+        /// <param name="name">页面名称</param>
+        /// <returns>Html文本</returns>
+        string GetHtml(string name);
+        #endregion
+
+        #region 函数:GetHtml(string name, string authorizationObjectType, string authorizationObjectId)
+        /// <summary>获取Html文本</summary>
+        /// <param name="name">页面名称</param>
         /// <param name="authorizationObjectType">授权对象类别</param>
         /// <param name="authorizationObjectId">授权对象标识</param>
-        /// <param name="name">页面名称</param>
         /// <returns>返回一个实例<see cref="CustomizePageInfo"/>的详细信息</returns>
-        string TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name);
+        string GetHtml(string name, string authorizationObjectType, string authorizationObjectId);
         #endregion
     }
 }

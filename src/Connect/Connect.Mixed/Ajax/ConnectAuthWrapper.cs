@@ -18,6 +18,7 @@
     using X3Platform.Connect.Model;
     using X3Platform.Connect.Configuration;
     using System.IO;
+  using X3Platform.Membership.Authentication;
     #endregion
 
     /// <summary></summary>
@@ -99,6 +100,8 @@
                     string sessionId = token.AccountId + "-" + token.Id;
 
                     KernelContext.Current.AuthenticationManagement.AddSession(clientId, sessionId, account);
+
+                    HttpAuthenticationCookieSetter.SetUserCookies(sessionId);
 
                     string code = ConnectContext.Instance.ConnectAuthorizationCodeService.GetAuthorizationCode(clientId, account);
 

@@ -156,7 +156,7 @@ namespace X3Platform.Web.Customizes.BLL
 
     #region 函数:GetHtml(string name)
     /// <summary>获取Html文本</summary>
-    /// <param name="name">区域划分模板名称</param>
+    /// <param name="name">布局模板名称</param>
     /// <returns>Html文本</returns>
     public string GetHtml(string name)
     {

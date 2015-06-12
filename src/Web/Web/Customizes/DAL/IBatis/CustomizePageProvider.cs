@@ -49,7 +49,7 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     /// <returns>CustomizePageInfo 实例详细信息</returns>
     public CustomizePageInfo Save(CustomizePageInfo param)
     {
-      if (!IsExistName(param.AuthorizationObjectType, param.AuthorizationObjectId, param.Name))
+      if (!IsExist(param.Id))
       {
         Insert(param);
       }
@@ -228,21 +228,36 @@ namespace X3Platform.Web.Customizes.DAL.IBatis
     }
     #endregion
 
-    #region 函数:TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
-    /// <summary>查询某条记录</summary>
-    /// <param name="authorizationObjectType">授权对象类别</param>
-    /// <param name="authorizationObjectId">授权对象标识</param>
+    #region 函数:GetHtml(string name)
+    /// <summary>获取Html文本</summary>
     /// <param name="name">页面名称</param>
-    /// <returns>返回一个 CustomizePageInfo 实例的详细信息</returns>
-    public string TryParseHtml(string authorizationObjectType, string authorizationObjectId, string name)
+    /// <returns>Html文本</returns>
+    public string GetHtml(string name)
     {
       Dictionary<string, object> args = new Dictionary<string, object>();
 
-      args.Add("AuthorizationObjectType", StringHelper.ToSafeSQL(authorizationObjectType));
-      args.Add("AuthorizationObjectId", StringHelper.ToSafeSQL(authorizationObjectId));
-      args.Add("Name", name);
+      args.Add("WhereClause", string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name, true)));
 
-      CustomizePageInfo param = this.ibatisMapper.QueryForObject<CustomizePageInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_TryParseHtml", tableName)), args);
+      CustomizePageInfo param = this.ibatisMapper.QueryForObject<CustomizePageInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetHtml", tableName)), args);
+
+      return param == null ? string.Empty : param.Html;
+    }
+    #endregion
+
+    #region 函数:GetHtml(string name, string authorizationObjectType, string authorizationObjectId)
+    /// <summary>获取Html文本</summary>
+    /// <param name="name">页面名称</param>
+    /// <param name="authorizationObjectType">授权对象类别</param>
+    /// <param name="authorizationObjectId">授权对象标识</param>
+    /// <returns>Html文本</returns>
+    public string GetHtml(string name, string authorizationObjectType, string authorizationObjectId)
+    {
+      Dictionary<string, object> args = new Dictionary<string, object>();
+
+      args.Add("WhereClause", string.Format(" Name = '{0}' AND AuthorizationObjectType = '{1}' AND AuthorizationObjectId = '{2}' ",
+        StringHelper.ToSafeSQL(name, true), StringHelper.ToSafeSQL(authorizationObjectType, true), StringHelper.ToSafeSQL(authorizationObjectId, true)));
+
+      CustomizePageInfo param = this.ibatisMapper.QueryForObject<CustomizePageInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetHtml", tableName)), args);
 
       return param == null ? string.Empty : param.Html;
     }

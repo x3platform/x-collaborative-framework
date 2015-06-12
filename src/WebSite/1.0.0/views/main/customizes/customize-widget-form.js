@@ -73,7 +73,7 @@ main.customizes.customize.widget.form = {
     // 设置事件
     editor.getSession().on('change', function()
     {
-      textarea.val(editor.getSession().getValue());
+      textarea.val(editor.getSession().getValue().replace(/\n/g, ''));
     });
 
     var optionsTextarea = $('textarea[id="options"]');
@@ -92,7 +92,7 @@ main.customizes.customize.widget.form = {
     // 设置事件
     optionsEditor.getSession().on('change', function()
     {
-      optionsTextarea.val(optionsEditor.getSession().getValue());
+      optionsTextarea.val(optionsEditor.getSession().getValue().replace(/\n/g, ''));
     });
 
     // -------------------------------------------------------

@@ -158,6 +158,7 @@
     <Compile Include="Customizes\Widgets\GeneralWidget.cs" />
     <Compile Include="Customizes\Widgets\IPLocationWidget.cs" />
     <Compile Include="Customizes\Widgets\MobileLocationWidget.cs" />
+    <Compile Include="Customizes\Widgets\CustomizeContentWidget.cs" />
     <Compile Include="Customizes\Widgets\StaticHtmlWidget.cs" />
     <Compile Include="Customizes\Widgets\TodayWidget.cs" />
     <Compile Include="Customizes\Widgets\WeatherWidget.cs" />
