@@ -285,6 +285,7 @@
     <EmbeddedResource Include="DAL\IBatis\StandardGeneralRoleProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\StandardOrganizationProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\StandardRoleProvider.xml" />
+    <Content Include="db\Functions_MySQL\func_PaddingLeft.sql" />
     <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentLevelByOrganizationId.sql" />

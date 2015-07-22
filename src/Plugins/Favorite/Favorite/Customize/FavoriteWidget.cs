@@ -9,7 +9,7 @@
     using X3Platform.Spring;
     using X3Platform.Util;
     using X3Platform.Velocity;
-    using X3Platform.Web.Customize;
+    using X3Platform.Web.Customizes;
     using X3Platform.Plugins.Favorite.Model;
 
     /// <summary>收藏夹部件</summary>

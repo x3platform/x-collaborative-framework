@@ -168,10 +168,10 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(DataQuery query)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="query">���ݲ�ѯ����</param>
-        /// <returns>��������ʵ��<see cref="AuthorityInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">查询参数</param>
+        /// <returns>返回所有<see cref="AuthorityInfo"/>实例的详细信息</returns>
         public IList<AuthorityInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -187,13 +187,13 @@ namespace X3Platform.Security.Authority.DAL.IBatis
         // 自定义功能
         //-------------------------------------------------------
 
-        #region 属性:Query(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        /// <summary>��ҳ����</summary>
-        /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
-        /// <param name="pageSize">ҳ����С</param>
-        /// <param name="query">���ݲ�ѯ����</param>
-        /// <param name="rowCount">����</param>
-        /// <returns>����һ���б�ʵ��<see cref="AuthorityInfo"/></returns> 
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表<see cref="AuthorityInfo"/>实例</returns> 
         public IList<AuthorityInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

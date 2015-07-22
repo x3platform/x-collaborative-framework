@@ -158,7 +158,9 @@
           }
         }
 
-        return this.m_Html.Replace("\n", string.Empty).Replace("\r", string.Empty);
+        return this.m_Html;
+        // return this.m_Html.Replace("\n", string.Empty).Replace("\r", string.Empty)
+        //                  .Replace("//<![CDATA[", "\r\n//<![CDATA[\r\n").Replace("//]]>", "\r\n//]]>\r\n");
       }
     }
     #endregion

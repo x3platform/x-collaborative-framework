@@ -118,10 +118,9 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <param name="length">条数</param>
+        /// <param name="query">查询参数</param>
         /// <returns>返回所有<see cref="DigitalNumberInfo"/> 实例的详细信息</returns>
         public IList<DigitalNumberInfo> FindAll(DataQuery query)
         {
