@@ -554,7 +554,7 @@ x.ui.pkg.customizes = {
 
                         $('.widget-option-item', parent).each(function(index, node)
                         {
-                          widgetOptions += node.id.replace(parent[0].id + '$', '') + ':\'' + node.value + '\',';
+                          widgetOptions += node.id.replace(parent[0].id + '$', '') + ':\'' + node.value.replace('\\','\\\\') + '\',';
                         });
 
                         if(widgetOptions.substr(widgetOptions.length - 1, 1) == ',')

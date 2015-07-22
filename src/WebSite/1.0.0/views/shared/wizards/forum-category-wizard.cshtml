@@ -1,0 +1,25 @@
+﻿<!-- /shared?path=wizards/forum-category-wizard -->
+@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/views/shared/wizards/forum-category-wizard.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\项目选择向导" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table-style" style="width:100%;">
+    <div id="window-main-table-header" class="table-header">
+      <span>论坛版块选择向导</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <div style="padding:10px 10px 20px 10px;">
+          <div>
+            <label>版块名称</label>
+            <div class="input-group">
+              <input id="categoryName" name="categoryName" type="text" class="form-control" />
+              <input id="categoryId" name="categoryId" type="hidden" />
+              <a href="javascript:x.ui.wizards.getForumCategoryWizard({targetViewName:'categoryName',targetValueName:'categoryId'});" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

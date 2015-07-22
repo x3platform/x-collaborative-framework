@@ -31,6 +31,10 @@ namespace X3Platform.WebSiteV10
             routes.Add("inner-route", new X3Platform.Web.Mvc.RequestRoute());
             // 配置 /api/ 路由
             routes.Add("api-methods", new X3Platform.Web.APIs.Mvc.APIRoute());
+            // 配置 /applications/ 路由
+            routes.Add("applications-route", new X3Platform.Apps.Mvc.RequestRoute());
+            // 配置内置的路由 包括: /forum/
+            routes.Add("forum-route", new X3Platform.Plugins.Forum.Mvc.RequestRoute());
 
             // 管理界面
             routes.MapRoute(
@@ -41,7 +45,7 @@ namespace X3Platform.WebSiteV10
                 // Parameter defaults
                 new { controller = "Home", action = "Index" },
                 // NamespacesD:\github\x-collaborative-framework\src\WebSite\1.0.0\views\main\applications\
-                new string[] { "X3Platform.Admins.Controllers" }
+                new string[] { "X3Platform.Web.Mvc.Controllers" }
             );
 
             // 帐号基本操作

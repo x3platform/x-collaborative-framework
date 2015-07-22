@@ -1,0 +1,46 @@
+﻿<!-- /shared?path=wizards/application-wizard -->
+@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+@section scripts {
+<script id="x-client-api-template-script" type="text/javascript" src="/resources/javascript/x-client-api-template.zh-cn.js"></script>
+<script id="x-client-api-ui-script" type="text/javascript" src="/resources/javascript/x-client-api-ui.zh-cn.js"></script>
+}
+<script id="x-main" type="text/javascript">
+    x.require({
+        files: [
+            { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+            { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+            { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+            { fileType: 'script', id: 'shared-wizards-application-wizard-script', path: '/views/shared/wizards/application-wizard.js' },
+            { fileType: 'script', id: 'shared-wizards-application-feature-wizard-script', path: '/views/shared/wizards/application-feature-wizard.js' }
+        ]
+    });
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\应用参数分组向导" } }))
+<div id="window-container" class="window-container">
+    <div id="window-main-table" class="table-style" style="width:100%;">
+        <div id="window-main-table-header" class="table-header">
+            <span>应用功能选择向导</span>
+        </div>
+        <div id="window-main-table-body" class="table-body">
+            <div id="window-main-table-container">
+                <div class="form-inline" style="padding:10px 10px 20px 10px;">
+                    <label>应用名称</label>
+                    <div class="input-group">
+                        <input id="applicationDisplayName" name="applicationDisplayName" type="text" class="form-control" />
+                        <input id="applicationId" name="applicationId" type="hidden" />
+                        <a href="javascript:x.ui.wizards.getApplicationWizard({targetViewName:'applicationDisplayName',targetValueName:'applicationId'});" class="input-group-addon" title="编辑" ><i class="glyphicon glyphicon-modal-window"></i></a>
+                    </div>
+                   
+                    <label>应用功能名称</label>
+                    <div class="input-group">
+                        <input id="applicationFeatureName" name="applicationFeatureName" type="text" class="form-control" />
+                        <input id="applicationFeatureId" name="applicationFeatureId" type="hidden" />
+                        <a href="javascript:x.ui.wizards.getApplicationFeatureWizard({applicationId:$('#applicationId').val(),applicationDisplayName:$('#applicationDisplayName').val(),targetViewName:'applicationFeatureName',targetValueName:'applicationFeatureId'});" class="input-group-addon" title="编辑" ><i class="glyphicon glyphicon-modal-window"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

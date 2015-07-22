@@ -1,0 +1,81 @@
+﻿<!-- /shared?path=wizards/contacts-wizard -->
+@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+<script id="x-main" type="text/javascript">
+x.require({ files: [
+    { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+    { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+    { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+    { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' }
+]
+});
+
+x.register('main.wizards.contacts.wizard');
+
+main.wizards.contacts.wizard = {
+
+    /*
+    * 打开人员选择向导(地址簿)窗口
+    */
+    getContactsWindow: function(targetViewName, targetValueName, contactTypeText)
+    {
+        x.ui.wizards.getContactsWizard({
+            targetViewName: targetViewName,
+            targetValueName: targetValueName,
+            contactTypeText: contactTypeText
+        });
+    },
+
+    /*
+    * 页面加载事件
+    */
+    load: function()
+    {
+        $('#resultValue').val('');
+    }
+}
+
+$(document).ready(main.wizards.contacts.wizard.load);
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\人员选择向导" } }))
+<div id="window-container" class="window-container">
+    <div id="window-main-table" class="table-style" style="width:100%;">
+        <div id="window-main-table-header" class="table-header">
+            <span>人员选择向导</span>
+        </div>
+        <div id="window-main-table-body" class="table-body">
+            <div id="window-main-table-container">
+                <div style="padding:10px 10px 20px 10px;">
+
+                    <div>
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','default');">选择人员\组织\角色(默认)</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','account');">选择人员</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','role');">选择角色</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','organization');">选择组织</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','general-role');">选择通用角色</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','standard-organization');">选择标准组织</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','standard-role');">选择标准角色</a> |
+
+                        <a href="javascript:main.wizards.contacts.wizard.getContactsWindow('resultView','resultValue','all');">选择全部</a>
+
+                    </div>
+
+                    <div>
+                        <div style="font-size:14px; font-weight:bold; padding:14px 4px 4px 4px; ">显示的信息</div>
+                        <div id="resultView" style="height:100px; font-size:12px; line-height:200%; border:1px solid #ccc; padding:4px;width:95%; overflow: auto;"><span class="gray-text">请选择人员信息...</span></div>
+                        <div style="font-size:14px; font-weight:bold; padding:14px 4px 4px 4px; ">隐藏的信息</div>
+                        <div><textarea id="resultValue" name="resultValue" rows="8" style="font-size:12px; border:1px solid #ccc; width:95%; height:100px; padding:4px; overflow: auto; "></textarea></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

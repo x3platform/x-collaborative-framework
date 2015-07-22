@@ -1,19 +1,7 @@
-﻿@{
-  Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml";
-}
-<script id="x-main" type="text/javascript">
-  x.require({
-    files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
-        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
-        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
-        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
-        { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' },
-        { fileType: 'script', id: 'main-applications-home-script', path: '/views/main/applications/application-menu-list.js' }
-    ]
-  });
-</script>
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/shared/wizards/contacts-wizard.js"></script>
+<script type="text/javascript" src="/views/main/applications/application-menu-list.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用菜单管理" } }))
 <div id="window-container" class="window-container">
   <div id="window-main-table" class="table">
