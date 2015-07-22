@@ -1,30 +1,9 @@
-﻿@{
-    Layout = "~/views/templates/themes/genius/render.cshtml";
-}
-@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
-{
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
 <script id="x-main" type="text/javascript" >
     x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
-        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
-        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
         { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/organization-list.js' }
     ]});
 </script>
-}
-else
-{
-<script id="x-main" type="text/javascript" >
-    x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.min.js' },
-        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.min.js' },
-        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
-        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
-        { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/organization-list.js' }
-    ]});
-</script>
-}
 <style type="text/css">
 .window-project-table { margin:10px 0 10px 0; }
 .window-project-row { display:table; clear:both; margin:0 0 0 20px; }

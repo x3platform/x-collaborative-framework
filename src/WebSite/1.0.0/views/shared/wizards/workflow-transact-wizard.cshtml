@@ -1,0 +1,42 @@
+﻿<!-- /shared?path=wizards/project-wizard -->
+@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+<script id="x-main" type="text/javascript">
+x.require({ files: [
+    { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+    { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+    { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+    { fileType: 'script', id: 'shared-wizards-project-wizard-script', path: '/views/shared/wizards/related-link-wizard.js' }
+], callback: function(context) { x.wizards.setRelatedLinkView('linksView', $('#linksValue').val()); }
+});
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\相关链接设置向导" } }))
+<div id="window-container" class="window-container">
+    <div id="window-main-table" class="table-style" style="width:100%;">
+        <div id="window-main-table-header" class="table-header">
+            <span>相关链接设置向导</span>
+        </div>
+        <div id="window-main-table-body" class="table-body">
+            <div id="window-main-table-container">
+                <div style="padding:10px 10px 20px 10px;">
+                    <div>
+                        相关链接
+
+                        <input id="linksValue" name="linksValue" type="hidden" value="{'list':[{'text':'演示数据1','value':'http:\/\/演示数据地址1'},{'text':'演示数据2','value':'http:\/\/演示数据地址2?xde=1&amp;param2=2'},{'text':'演示数据2','value':'http:\/\/演示数据地址2?xde=1&amp;param2=2'}]}" />
+                        <div id="linksView" style="height:40px; font-size:12px; border:1px solid #ccc; padding:4px; width:400px; overflow: auto;"></div>
+                        
+                        <div class="text-right" style="width:400px;"><a href="javascript:x.wizards.getRelatedLinkWizard({ targetViewName: 'linksView', targetValueName: 'linksValue' });">编辑</a></div>
+                    </div>
+
+                    <div>
+                        <div style="font-size:14px; font-weight:bold; padding:14px 4px 4px 4px; ">显示的信息</div>
+                        <div id="resultView" style="height:40px; font-size:12px; line-height:200%; border:1px solid #ccc; padding:4px;width:95%; overflow: auto;"><span class="gray-text">请编辑相关链接信息...</span></div>
+                        <div style="font-size:14px; font-weight:bold; padding:14px 4px 4px 4px; ">隐藏的信息</div>
+                        <div><textarea id="resultValue" name="resultValue" rows="8" style="font-size:12px; border:1px solid #ccc; width:95%; height:40px; padding:4px; overflow: auto; "></textarea></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

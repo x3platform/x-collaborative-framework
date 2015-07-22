@@ -1,0 +1,34 @@
+﻿<!-- /shared?path=wizards/recommend-wizard -->
+@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+<script id="x-main" type="text/javascript">
+    x.require({
+        files: [
+            { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+            { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+            { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+            { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' },
+            { fileType: 'script', id: 'shared-wizards-recommend-wizard-script', path: '/views/shared/wizards/recommend-wizard.js' }
+        ], callback: function(context) { }
+    });
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\推荐设置向导" } }))
+<div id="window-container" class="window-container">
+    <div id="window-main-table" class="table-style" style="width:100%;">
+        <div id="window-main-table-header" class="table-header">
+            <div class="table-toolbar" id="toolbar">
+                <a href="javascript:x.ui.wizards.getRecommendWizard({url:'/api/news.recommend.aspx', customTableName:'tb_News_OperationLog', entityId:'test_12345', entityTitle:'测试推荐信息', entityViewUrlFormat:'/news/detail/{0}'});" class="table-toolbar-button">推荐</a>
+            </div>
+            <span>推荐设置向导</span>
+        </div>
+        <div id="window-main-table-body" class="table-body">
+            <div id="window-main-table-container">
+                <div style="padding:10px 10px 20px 10px;">
+                    选择右上角【推荐】按钮，查看演示效果。
+                    <input id="workflow-uploadFileWizard" type="hidden" value="${uploadFileWizard}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

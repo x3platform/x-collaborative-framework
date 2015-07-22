@@ -1,0 +1,77 @@
+﻿<!-- /shared?path=wizards/project-wizard -->
+@{
+    Layout = "~/views/templates/themes/genius/render.cshtml";
+}
+<script id="x-main" type="text/javascript">
+    x.require({
+        files: [
+            { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
+            { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
+            { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
+            { fileType: 'script', id: 'shared-wizards-project-wizard-script', path: '/views/shared/wizards/project-wizard.js' }
+        ]
+    });
+
+    x.register('main.wizards.project.wizard');
+
+    main.wizards.project.wizard = {
+
+        /*
+        * 打开项目选择向导窗口
+        */
+        getProjectWizardWindow: function()
+        {
+            x.wizards.getProjectWizard({ targetViewName: 'projectView', targetValueName: 'projectValue' });
+            // x.wizards.getProjectWizardSingleton('projectView', 'projectValue');
+        },
+
+        /*
+        * 同步组织架构数据
+        */
+        synchronize: function(fetchAll)
+        {
+            var url = '/services/X3Platform/Projects/Ajax.ProjectWrapper.aspx';
+
+            var outString = '<?xml version="1.0" encoding="utf-8" ?>';
+
+            outString += '<ajaxStorage>';
+            outString += '<action><![CDATA[synchronize]]></action>';
+            outString += '<fetchAll><![CDATA[' + fetchAll + ']]></fetchAll>';
+            outString += '</ajaxStorage>';
+
+            x.net.xhr(url, outString, {
+                popResultValue: 1,
+                callback: function(response)
+                {
+                    // main.projects.home.getPages(1);
+                }
+            });
+        },
+
+        /*
+        * 页面加载事件
+        */
+        load: function()
+        {
+            $('#resultValue').val('');
+        }
+    }
+
+    $(document).ready(main.wizards.project.wizard.load);
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\项目选择向导" } }))
+<div id="window-container" class="window-container">
+    <div id="window-main-table" class="table-style" style="width:100%;">
+        <div id="window-main-table-header" class="table-header">
+            <span>项目选择向导</span>
+        </div>
+        <div id="window-main-table-body" class="table-body">
+            <div id="window-main-table-container">
+                <div style="padding:10px 10px 20px 10px;">
+                    选择右上角【修改提交人】按钮，查看演示效果。
+                    <input id="workflow\$uploadFileWizard" type="hidden" value="${uploadFileWizard}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

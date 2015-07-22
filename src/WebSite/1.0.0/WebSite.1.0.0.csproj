@@ -55,6 +55,8 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\lib\MySQL\MySql.Data.dll</HintPath>
     </Reference>
@@ -62,6 +64,7 @@
       <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -110,6 +113,9 @@
     <Reference Include="X3Platform.Apps, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
       <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Apps.Mvc">
+      <HintPath>..\..\..\bin\X3Platform.Apps.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.AttachmentStorage">
       <HintPath>..\..\..\bin\X3Platform.AttachmentStorage.dll</HintPath>
     </Reference>
@@ -125,8 +131,20 @@
     <Reference Include="X3Platform.Membership, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Membership.HumanResources">
+      <HintPath>..\..\..\bin\X3Platform.Membership.HumanResources.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Membership.Mvc">
+      <HintPath>..\..\..\bin\X3Platform.Membership.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Plugins.Contacts">
       <HintPath>..\..\..\bin\X3Platform.Plugins.Contacts.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Plugins.Forum">
+      <HintPath>..\..\..\bin\X3Platform.Plugins.Forum.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Plugins.Forum.Mvc">
+      <HintPath>..\..\..\bin\X3Platform.Plugins.Forum.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Sessions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
       <HintPath>..\..\..\bin\X3Platform.Sessions.dll</HintPath>
@@ -203,6 +221,34 @@
     <Content Include="views\main\customizes\customize-page-list.js" />
     <Content Include="views\main\customizes\customize-widget-form.js" />
     <Content Include="views\main\customizes\customize-widget-list.js" />
+    <Content Include="views\main\forum\forum-category-form.js" />
+    <Content Include="views\main\forum\forum-category-list.js" />
+    <Content Include="views\main\forum\default.js" />
+    <Content Include="views\main\forum\forum-essential-thread-list.js" />
+    <Content Include="views\main\forum\forum-setting-list.js" />
+    <Content Include="views\main\forum\forum-thread-detail.js" />
+    <Content Include="views\main\forum\forum-thread-form.js" />
+    <Content Include="views\main\forum\forum-thread-list.js" />
+    <Content Include="views\main\forum\assets-styles.css" />
+    <Content Include="views\main\forum\assets-util.js" />
+    <Content Include="views\main\forum\my-forum-thread-list.js" />
+    <Content Include="views\main\membership\account-grant-list.js" />
+    <Content Include="views\main\membership\account-list.js" />
+    <Content Include="views\main\membership\default.js" />
+    <Content Include="views\main\membership\general-role-list.js" />
+    <Content Include="views\main\membership\group-list.js" />
+    <Content Include="views\main\membership\group-tree-list.js" />
+    <Content Include="views\main\membership\group-tree-node-list.js" />
+    <Content Include="views\main\membership\organization-list.js" />
+    <Content Include="views\main\membership\organization-validator.js" />
+    <Content Include="views\main\membership\role-list.js" />
+    <Content Include="views\main\membership\role-report.js" />
+    <Content Include="views\main\membership\setting-list.js" />
+    <Content Include="views\main\membership\standard-general-role-list.js" />
+    <Content Include="views\main\membership\standard-general-role-setting.js" />
+    <Content Include="views\main\membership\standard-organization-list.js" />
+    <Content Include="views\main\membership\standard-role-list.js" />
+    <Content Include="views\shared\wizards\forum-category-wizard.js" />
     <Content Include="views\templates\internal\sdk\styles\style.css" />
     <Content Include="views\templates\internal\sdk\styles\style.min.css" />
   </ItemGroup>
@@ -275,12 +321,40 @@
     <Content Include="views\main\customizes\customize-layout-form.cshtml" />
     <Content Include="views\main\customizes\customize-layout-list.cshtml" />
     <Content Include="views\main\customizes\customize-page-detail.cshtml" />
+    <Content Include="views\main\membership\account-grant-list.cshtml" />
+    <Content Include="views\main\membership\account-list.cshtml" />
+    <Content Include="views\main\membership\default.cshtml" />
+    <Content Include="views\main\membership\general-role-list.cshtml" />
+    <Content Include="views\main\membership\group-list.cshtml" />
+    <Content Include="views\main\membership\group-tree-list.cshtml" />
+    <Content Include="views\main\membership\group-tree-node-list.cshtml" />
+    <Content Include="views\main\membership\organization-list.cshtml" />
+    <Content Include="views\main\membership\organization-validator.cshtml" />
+    <Content Include="views\main\membership\role-list.cshtml" />
+    <Content Include="views\main\membership\role-report.cshtml" />
+    <Content Include="views\main\membership\setting-list.cshtml" />
+    <Content Include="views\main\membership\standard-general-role-list.cshtml" />
+    <Content Include="views\main\membership\standard-general-role-setting.cshtml" />
+    <Content Include="views\main\membership\standard-organization-list.cshtml" />
+    <Content Include="views\main\membership\standard-role-list.cshtml" />
+    <Content Include="views\main\forum\default.cshtml" />
+    <Content Include="views\main\forum\forum-category-list.cshtml" />
+    <Content Include="views\main\forum\forum-category-form.cshtml" />
+    <Content Include="views\main\forum\forum-thread-form.cshtml" />
+    <Content Include="views\main\forum\forum-thread-list.cshtml" />
+    <Content Include="views\main\forum\forum-setting-list.cshtml" />
+    <Content Include="views\main\forum\forum-thread-detail.cshtml" />
+    <Content Include="views\main\forum\forum-essential-thread-list.cshtml" />
+    <Content Include="views\main\forum\my-forum-thread-list.cshtml" />
+    <Content Include="views\shared\wizards\forum-category-wizard.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="views\admins\" />
-    <Folder Include="views\main\membership\" />
+    <Folder Include="views\main\entities\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>
   <PropertyGroup>

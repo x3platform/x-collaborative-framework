@@ -73,6 +73,7 @@ main.applications.application.event.list = {
 
     return outString;
   },
+  /*#endregion*/
 
   /*#region 函数:getPaging(currentPage)*/
   /**
@@ -111,42 +112,9 @@ main.applications.application.event.list = {
 
         $('#window-main-table-footer').html(footerHtml);
 
-        main.applications.application.event.list.resize();
+        masterpage.resize();
       }
     });
-  },
-  /*#endregion*/
-
-  /*#region 函数:resize()*/
-  /*
-  * 页面大小调整
-  */
-  resize: function()
-  {
-    var height = x.page.getViewHeight();
-
-    var freezeHeight = 0;
-
-    $('.x-freeze-height').each(function(index, node)
-    {
-      freezeHeight += $(node).outerHeight();
-    });
-
-    var freezeTableHeadHeight = $('#window-main-table-body .table-freeze-head').outerHeight();
-    var freezeTableSidebarSearchHeight = $('#window-main-table-body .table-sidebar-search').outerHeight();
-
-    $('#treeViewContainer').css({
-      'height': (height - freezeHeight - freezeTableSidebarSearchHeight) + 'px',
-      'overflow': 'auto'
-    });
-
-    $('#window-main-table-body .table-freeze-body').css(
-    {
-      'height': (height - freezeHeight - freezeTableHeadHeight) + 'px',
-      'overflow-y': 'scroll'
-    });
-
-    $('.table-freeze-head-padding').css({ width: x.page.getScrollBarWidth().vertical, display: (x.page.getScrollBarWidth().vertical == 0 ? 'none' : '') });
   },
   /*#endregion*/
 
@@ -156,9 +124,6 @@ main.applications.application.event.list = {
    */
   load: function()
   {
-    // 调整页面结构尺寸
-    main.applications.application.event.list.resize();
-
     main.applications.application.event.list.filter();
 
     // -------------------------------------------------------
@@ -174,7 +139,3 @@ main.applications.application.event.list = {
 }
 
 $(document).ready(main.applications.application.event.list.load);
-// 重新调整页面大小
-$(window).resize(main.applications.application.event.list.resize);
-// 重新调整页面大小
-$(document.body).resize(main.applications.application.event.list.resize);

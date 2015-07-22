@@ -1,20 +1,9 @@
-﻿@{
-    Layout = "~/views/templates/themes/genius/render.cshtml";
-}
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
 @if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
 {
 <script id="x-main" type="text/javascript" >
     x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
         { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
-        { fileType: 'script', id: 'x-dom-features-combobox-script', path: x.dir() + 'dom/features/x.dom.features.combobox.js' },
-        { fileType: 'css', id: 'x-ui-pkg-combobox-css', path: x.ui.styles.dir() + 'x.ui.pkg.combobox.css' },
-        { fileType: 'script', id: 'x-ui-pkg-combobox-script', path: x.ui.pkg.dir() + 'x.ui.pkg.combobox.js' },
-        { fileType: 'css', id: 'x-ui-pkg-tabs-css', path: x.ui.styles.dir() + 'x.ui.pkg.tabs.css' },
-        { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
-        { fileType: 'css', id: 'x-ui-pkg-tree-css', path: x.ui.styles.dir() + 'x.ui.pkg.tree.css' },
-        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
         { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/standard-general-role-list.js' }
     ]});
 </script>

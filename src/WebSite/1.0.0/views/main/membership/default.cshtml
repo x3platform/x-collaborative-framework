@@ -1,23 +1,6 @@
-﻿@{
-    Layout = "~/views/templates/themes/genius/render.cshtml";
-}
-@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
-{
-<script id="x-main" type="text/javascript" >
-    x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.js' },
-        { fileType: 'script', id: 'main-membership-home-script', path: '/views/main/membership/default.js' }
-    ]});
-</script>
-}
-else
-{
-<script id="x-main" type="text/javascript" >
-    x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.min.js' },
-        { fileType: 'script', id: 'main-membership-home-script', path: '/views/main/membership/default.js' }
-    ]});
-</script>
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+@section scripts { 
+  <script type="text/javascript" src="/views/main/membership/default.js"></script>
 }
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
 <div id="window-container" class="window-container" >

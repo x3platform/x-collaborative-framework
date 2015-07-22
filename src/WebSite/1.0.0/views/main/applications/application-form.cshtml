@@ -1,230 +1,218 @@
-﻿@{
-  Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml";
-}
-<script id="x-main" type="text/javascript">
-    x.require({
-      files: [
-      { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-            { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
-            { fileType: 'script', id: 'x-ui-pkg-tabs-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tabs.js' },
-            { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
-            { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
-            { fileType: 'script', id: 'shared-wizards-application-wizard-script', path: '/views/shared/wizards/application-wizard.js' },
-            { fileType: 'script', id: 'shared-wizards-contacts-wizard-script', path: '/views/shared/wizards/contacts-wizard.js' },
-            { fileType: 'script', id: 'main-applications-home-script', path: '/views/main/applications/application-form.js' }
-        ]
-    });
-</script>
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/shared/wizards/application-wizard.js"></script>
+<script type="text/javascript" src="/views/shared/wizards/contacts-wizard.js"></script>
+<script type="text/javascript" src="/views/main/applications/application-form.js"></script>
 <div id="window-container" class="window-container">
-    <div id="window-main-table" class="table-style" style="width:960px;">
-        <div id="window-main-table-header" class="table-header">
-            <div id="toolbar" class="table-toolbar">
-                <a href="javascript:main.applications.application.form.save()" class="btn btn-default"><i class="fa fa-floppy-o" title="保存"></i> 保存</a>
-                <a href="javascript:x.page.close();" class="btn btn-default"><i class="fa fa-ban" title="关闭"></i> 关闭</a>
-            </div>
-            <span>应用配置信息</span>
-            <div class="clear"></div>
-        </div>
-        <div id="window-main-table-body" class="table-body">
-            <div id="window-main-table-container">
-                <div class="x-ui-pkg-tabs-wrapper">
-                    <div class="x-ui-pkg-tabs-menu-wrapper">
-                        <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
-                            <li><a href="#tab-1">基本信息</a></li>
-                            <li><a href="#tab-2">应用授权</a></li>
-                            <li><a href="#tab-3">权限设置</a></li>
-                            <li><a href="#tab-4">备注</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="x-ui-pkg-tabs-container">
-                        <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-1" name="tab-1">基本信息</a></h2>
-
-                        <table class="table-style" style="width:100%">
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px"><span class="required-text">应用代码</span></td>
-                                <td class="table-body-input" style="width:160px">
-                                    <input id="applicationKey" name="applicationKey" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationKey" />
-                                    <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.UpdateDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
-                                    @if (ViewBag.param.Code == "")
-                                    {
-                                        <span class="gray-text">自动生成</span>
-                                        <input id="code" name="code" type="hidden" x-dom-data-type="value" value="" />
-                                    }
-                                    else
-                                    {
-                                        <input id="code" name="code" type="text" x-dom-data-type="value" value="@ViewBag.param.Code" class="form-control" style="width:120px;" />
-                                    }
-                                </td>
-                                <td class="table-body-text" style="width:120px"><span class="required-text">所属父级应用</span></td>
-                                <td class="table-body-input form-inline">
-                                    <div class="input-group">
-                                        <input id="parentName" name="parentName" type="text" x-dom-data-type="value" class="form-control" x-dom-data-required="1" style="width:120px;" x-dom-data-required-warning="必须填写【所属父级应用】。" value="@ViewBag.param.ParentDisplayName" />
-                                        <input id="parentId" name="parentId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ParentId" />
-                                        <a href="javascript:x.ui.wizards.getApplicationWizard({targetViewName:'parentName',targetValueName:'parentId'});" class="input-group-addon" title="编辑" ><i class="glyphicon glyphicon-modal-window"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;"><span class="required-text">应用名称</span></td>
-                                <td class="table-body-input">
-                                    <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
-                                    <input id="applicationName" name="applicationName" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationName" x-dom-data-required="1" x-dom-data-required-warning="必须填写【应用名称】。" class="form-control" style="width:120px;" />
-                                    <input id="originalApplicationName" name="originalApplicationName" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationName" />
-                                </td>
-                                <td class="table-body-text"><span class="required-text">应用显示名称</span></td>
-                                <td class="table-body-input">
-                                    <input id="applicationDisplayName" name="applicationDisplayName" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationDisplayName" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【应用显示名称】。" style="width:120px;" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text">拼音</td>
-                                <td class="table-body-input">
-                                    <input id="pinyin" name="pinyin" type="text" x-dom-data-type="value" value="@ViewBag.param.PinYin" class="form-control" style="width:120px;" />
-                                </td>
-                                <td class="table-body-text">授权状态</td>
-                                <td class="table-body-input">
-                                    <input id="licenseStatus" name="licenseStatus" type="text" x-dom-data-type="value" value="@ViewBag.param.LicenseStatus" class="form-control" style="width:120px;" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;">描述</td>
-                                <td class="table-body-input" colspan="3">
-                                    <textarea id="description" name="description" type="text" x-dom-data-type="value" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.Description</textarea>
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text">帮助地址</td>
-                                <td class="table-body-input" colspan="3">
-                                    <input id="helpUrl" name="helpUrl" type="text" x-dom-data-type="value" value="@ViewBag.param.HelpUrl" class="form-control" style="width:460px;" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;">图标路径(48x48)</td>
-                                <td class="table-body-input" style="width:160px">
-                                    <input id="iconPath" name="iconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.IconPath" class="form-control" style="width:120px;" />
-                                </td>
-                                <td class="table-body-text" style="width:120px;">大图标路径(48x48)</td>
-                                <td class="table-body-input">
-                                    <input id="bigIconPath" name="bigIconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.BigIconPath" class="form-control" style="width:120px;" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text">管理员邮箱</td>
-                                <td class="table-body-input">
-                                    <input id="administratorEmail" name="administratorEmail" type="text" x-dom-data-type="value" value="@ViewBag.param.AdministratorEmail" class="form-control" style="width:120px;" />
-                                </td>
-                                <td class="table-body-text">隐藏此应用</td>
-                                <td class="table-body-input">
-                                    <input id="hidden" name="hidden" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@(ViewBag.param.Hidden?1:0)" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text">访问权限</td>
-                                <td class="table-body-input">
-                                    @*    <input id="authority" name="authority" type="text" value="@ViewBag.param.Authority" selectedtext="@ViewBag.param.AuthorityName" feature="combobox" topoffset="-1" url="/services/X3Platform/Apps/Ajax.ApplicationSettingWrapper.aspx" comboboxwhereclause=" Text LIKE \#\#%{0}%\#\# AND ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_应用访问权限\#\# ) " class="form-control" style="width:120px;" />
-                                    *@
-                                </td>
-                                <td class="table-body-text">排序</td>
-                                <td class="table-body-input">
-                                    <input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:120px;" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal">
-                                <td class="table-body-text">启用</td>
-                                <td class="table-body-input">
-                                    <input id="status" name="status" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Status" />
-                                </td>
-                                <td class="table-body-text">防止意外删除</td>
-                                <td class="table-body-input">
-                                    <input id="locking" name="lock" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Locking" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="x-ui-pkg-tabs-container">
-                        <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-2" name="tab-2">应用授权</a></h2>
-
-                        <table class="table-style" style="width:100%">
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;">应用标识</td>
-                                <td class="table-body-input">
-                                    <input id="applicationKey" name="applicationKey" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationKey" class="form-control" readonly="readonly" style="width:300px;" />
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;">应用密钥</td>
-                                <td class="table-body-input">
-                                    <input id="applicationSecret" name="applicationSecret" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationSecret" class="form-control" style="width:200px;" />
-                                </td>
-                            </tr>
-                            @*<tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;">同步地址</td>
-                                <td class="table-body-input">
-                                    <input id="reciveUrl" name="reciveUrl" type="text" value="@ViewBag.param.ReciveUrl" class="form-control" style="width:460px;" />
-                                                </td>
-                                                </tr>
-                                                <tr class="table-row-normal-transparent">
-                                                    <td class="table-body-text">同步过滤条件</td>
-                                                    <td class="table-body-input">
-                                                        <textarea id="reciveFilter" name="reciveFilter" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.ReciveFilter}</textarea>
-                                                    </td>
-                                                </tr>
-                                                <tr class="table-row-normal">
-                                                    <td class="table-body-text">启用同步服务</td>
-                                                    <td class="table-body-input">
-                                                        <input id="isSync" name="isSync" type="checkbox" #if(@ViewBag.param.issync}= ="True" ) checked="checked" #end />
-                                                    </td>
-                                                </tr>*@
-                        </table>
-                    </div>
-
-                    <div class="x-ui-pkg-tabs-container">
-                        <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-3" name="tab-3">权限设置</a></h2>
-
-                        <table class="table-style" style="width:100%">
-
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text" style="width:120px;">管理员</td>
-                                <td class="table-body-input">
-                                    <textarea id="administratorScopeView" name="administratorScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.AdministratorScopeView</textarea>
-                                    <input id="administratorScopeText" name="administratorScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AdministratorScopeText" />
-                                    <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('administratorScopeView','administratorScopeText','default');">编辑</a></div>
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal-transparent">
-                                <td class="table-body-text">审查员</td>
-                                <td class="table-body-input">
-                                    <textarea id="reviewerScopeView" name="reviewerScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.ReviewerScopeView</textarea>
-                                    <input id="reviewerScopeText" name="reviewerScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ReviewerScopeText" />
-                                    <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('reviewerScopeView','reviewerScopeText','default');">编辑</a></div>
-                                </td>
-                            </tr>
-                            <tr class="table-row-normal">
-                                <td class="table-body-text">可访问成员</td>
-                                <td class="table-body-input">
-                                    <textarea id="memberScopeView" name="memberScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.MemberScopeView</textarea>
-                                    <input id="memberScopeText" name="memberScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.MemberScopeText" />
-                                    <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('memberScopeView','memberScopeText','default');">编辑</a></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="x-ui-pkg-tabs-container">
-                        <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-4" name="tab-4">备注</a></h2>
-                        <table class="table-style" style="width:100%;">
-                            <tr class="table-row-normal">
-                                <td class="table-body-text" style="width:120px;">备注</td>
-                                <td class="table-body-input">
-                                    <textarea id="remark" name="remark" type="text" x-dom-data-type="value" class="textarea-normal" style="height:80px;width:460px;margin-bottom:20px;">@ViewBag.param.Remark</textarea>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div id="window-main-table" class="table" style="width:960px;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        <a href="javascript:main.applications.application.form.save()" class="btn btn-default"><i class="fa fa-floppy-o" title="保存"></i> 保存</a>
+        <a href="javascript:x.page.close();" class="btn btn-default"><i class="fa fa-ban" title="关闭"></i> 关闭</a>
+      </div>
+      <span>应用配置信息</span>
+      <div class="clear"></div>
     </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <div class="x-ui-pkg-tabs-wrapper">
+          <div class="x-ui-pkg-tabs-menu-wrapper">
+            <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
+              <li><a href="#tab-1">基本信息</a></li>
+              <li><a href="#tab-2">应用授权</a></li>
+              <li><a href="#tab-3">权限设置</a></li>
+              <li><a href="#tab-4">备注</a></li>
+            </ul>
+          </div>
+
+          <div class="x-ui-pkg-tabs-container">
+            <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-1" name="tab-1">基本信息</a></h2>
+
+            <table class="table-style" style="width:100%">
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px"><span class="required-text">应用代码</span></td>
+                <td class="table-body-input" style="width:160px">
+                  <input id="applicationKey" name="applicationKey" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationKey" />
+                  <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.UpdateDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
+                  @if (ViewBag.param.Code == "")
+                  {
+                    <span class="gray-text">自动生成</span>
+                    <input id="code" name="code" type="hidden" x-dom-data-type="value" value="" />
+                  }
+                  else
+                  {
+                    <input id="code" name="code" type="text" x-dom-data-type="value" value="@ViewBag.param.Code" class="form-control" style="width:120px;" />
+                  }
+                </td>
+                <td class="table-body-text" style="width:120px"><span class="required-text">所属父级应用</span></td>
+                <td class="table-body-input form-inline">
+                  <div class="input-group">
+                    <input id="parentName" name="parentName" type="text" x-dom-data-type="value" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【所属父级应用】。" value="@ViewBag.param.ParentDisplayName" style="width:120px;" />
+                    <input id="parentId" name="parentId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ParentId" />
+                    <a href="javascript:x.ui.wizards.getApplicationWizard({targetViewName:'parentName',targetValueName:'parentId'});" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
+                  </div>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;"><span class="required-text">应用名称</span></td>
+                <td class="table-body-input">
+                  <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+                  <input id="applicationName" name="applicationName" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationName" x-dom-data-required="1" x-dom-data-required-warning="必须填写【应用名称】。" class="form-control" style="width:120px;" />
+                  <input id="originalApplicationName" name="originalApplicationName" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationName" />
+                </td>
+                <td class="table-body-text"><span class="required-text">应用显示名称</span></td>
+                <td class="table-body-input">
+                  <input id="applicationDisplayName" name="applicationDisplayName" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationDisplayName" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【应用显示名称】。" style="width:120px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">拼音</td>
+                <td class="table-body-input">
+                  <input id="pinyin" name="pinyin" type="text" x-dom-data-type="value" value="@ViewBag.param.PinYin" class="form-control" style="width:120px;" />
+                </td>
+                <td class="table-body-text">授权状态</td>
+                <td class="table-body-input">
+                  <input id="licenseStatus" name="licenseStatus" type="text" x-dom-data-type="value" value="@ViewBag.param.LicenseStatus" class="form-control" style="width:120px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;">描述</td>
+                <td class="table-body-input" colspan="3">
+                  <textarea id="description" name="description" type="text" x-dom-data-type="value" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.Description</textarea>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">帮助地址</td>
+                <td class="table-body-input" colspan="3">
+                  <input id="helpUrl" name="helpUrl" type="text" x-dom-data-type="value" value="@ViewBag.param.HelpUrl" class="form-control" style="width:460px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;">图标路径(48x48)</td>
+                <td class="table-body-input" style="width:160px">
+                  <input id="iconPath" name="iconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.IconPath" class="form-control" style="width:120px;" />
+                </td>
+                <td class="table-body-text" style="width:120px;">大图标路径(48x48)</td>
+                <td class="table-body-input">
+                  <input id="bigIconPath" name="bigIconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.BigIconPath" class="form-control" style="width:120px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">管理员邮箱</td>
+                <td class="table-body-input">
+                  <input id="administratorEmail" name="administratorEmail" type="text" x-dom-data-type="value" value="@ViewBag.param.AdministratorEmail" class="form-control" style="width:120px;" />
+                </td>
+                <td class="table-body-text">隐藏此应用</td>
+                <td class="table-body-input">
+                  <input id="hidden" name="hidden" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@(ViewBag.param.Hidden?1:0)" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">访问权限</td>
+                <td class="table-body-input">
+                  @*    <input id="authority" name="authority" type="text" value="@ViewBag.param.Authority" selectedtext="@ViewBag.param.AuthorityName" feature="combobox" topoffset="-1" url="/services/X3Platform/Apps/Ajax.ApplicationSettingWrapper.aspx" comboboxwhereclause=" Text LIKE \#\#%{0}%\#\# AND ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_应用访问权限\#\# ) " class="form-control" style="width:120px;" />
+                  *@
+                </td>
+                <td class="table-body-text">排序</td>
+                <td class="table-body-input">
+                  <input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:120px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal">
+                <td class="table-body-text">启用</td>
+                <td class="table-body-input">
+                  <input id="status" name="status" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Status" />
+                </td>
+                <td class="table-body-text">防止意外删除</td>
+                <td class="table-body-input">
+                  <input id="locking" name="lock" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Locking" />
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="x-ui-pkg-tabs-container">
+            <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-2" name="tab-2">应用授权</a></h2>
+
+            <table class="table-style" style="width:100%">
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;">应用标识</td>
+                <td class="table-body-input">
+                  <input id="applicationKey" name="applicationKey" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationKey" class="form-control" readonly="readonly" style="width:300px;" />
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;">应用密钥</td>
+                <td class="table-body-input">
+                  <input id="applicationSecret" name="applicationSecret" type="text" x-dom-data-type="value" value="@ViewBag.param.ApplicationSecret" class="form-control" style="width:200px;" />
+                </td>
+              </tr>
+              @*<tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;">同步地址</td>
+                <td class="table-body-input">
+                    <input id="reciveUrl" name="reciveUrl" type="text" value="@ViewBag.param.ReciveUrl" class="form-control" style="width:460px;" />
+                                </td>
+                                </tr>
+                                <tr class="table-row-normal-transparent">
+                                    <td class="table-body-text">同步过滤条件</td>
+                                    <td class="table-body-input">
+                                        <textarea id="reciveFilter" name="reciveFilter" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.ReciveFilter}</textarea>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-normal">
+                                    <td class="table-body-text">启用同步服务</td>
+                                    <td class="table-body-input">
+                                        <input id="isSync" name="isSync" type="checkbox" #if(@ViewBag.param.issync}= ="True" ) checked="checked" #end />
+                                    </td>
+                                </tr>*@
+            </table>
+          </div>
+
+          <div class="x-ui-pkg-tabs-container">
+            <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-3" name="tab-3">权限设置</a></h2>
+
+            <table class="table-style" style="width:100%">
+
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text" style="width:120px;">管理员</td>
+                <td class="table-body-input">
+                  <textarea id="administratorScopeView" name="administratorScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.AdministratorScopeView</textarea>
+                  <input id="administratorScopeText" name="administratorScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AdministratorScopeText" />
+                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('administratorScopeView','administratorScopeText','default');">编辑</a></div>
+                </td>
+              </tr>
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-text">审查员</td>
+                <td class="table-body-input">
+                  <textarea id="reviewerScopeView" name="reviewerScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.ReviewerScopeView</textarea>
+                  <input id="reviewerScopeText" name="reviewerScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ReviewerScopeText" />
+                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('reviewerScopeView','reviewerScopeText','default');">编辑</a></div>
+                </td>
+              </tr>
+              <tr class="table-row-normal">
+                <td class="table-body-text">可访问成员</td>
+                <td class="table-body-input">
+                  <textarea id="memberScopeView" name="memberScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.MemberScopeView</textarea>
+                  <input id="memberScopeText" name="memberScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.MemberScopeText" />
+                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('memberScopeView','memberScopeText','default');">编辑</a></div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="x-ui-pkg-tabs-container">
+            <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-4" name="tab-4">备注</a></h2>
+            <table class="table-style" style="width:100%;">
+              <tr class="table-row-normal">
+                <td class="table-body-text" style="width:120px;">备注</td>
+                <td class="table-body-input">
+                  <textarea id="remark" name="remark" type="text" x-dom-data-type="value" class="textarea-normal" style="height:80px;width:460px;margin-bottom:20px;">@ViewBag.param.Remark</textarea>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
