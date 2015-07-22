@@ -1,148 +1,145 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="VerificationCodeInfo" type="X3Platform.Security.VerificationCode.VerificationCodeInfo,X3Platform.Abstractions" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_VerificationCode_FindOne_Result" class="VerificationCodeInfo">
-            <result property="Id" column="Id" />
-            <result property="ObjectType" column="ObjectType" />
-            <result property="ObjectValue" column="ObjectValue" />
-            <result property="Code" column="Code" />
-            <result property="ValidationType" column="ValidationType" />
-            <result property="CreateDate" column="CreateDate" />
-        </resultMap>
-        <resultMap id="proc_VerificationCode_FindAll_Result" class="VerificationCodeInfo">
-            <result property="Id" column="Id" />
-            <result property="ObjectType" column="ObjectType" />
-            <result property="ObjectValue" column="ObjectValue" />
-            <result property="Code" column="Code" />
-            <result property="ValidationType" column="ValidationType" />
-            <result property="CreateDate" column="CreateDate" />
-        </resultMap>
-    </resultMaps>
-    <statements>
-        <insert id="proc_VerificationCode_Insert" parameterClass="VerificationCodeInfo">
-            INSERT INTO tb_VerificationCode 
-            (
-                Id,
-                ObjectType,
-                ObjectValue,
-                Code,
-                ValidationType,
-                CreateDate
-            )
-            VALUES
-            (
-                #Id#,
-                #ObjectType#,
-                #ObjectValue#,
-                #Code#,
-                #ValidationType#,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
-        <delete id="proc_VerificationCode_Delete" >
-            DELETE FROM tb_VerificationCode WHERE $WhereClause$
-        </delete>
-        <select id="proc_VerificationCode_FindOne" resultMap="proc_VerificationCode_FindOne_Result" >
-            SELECT * FROM tb_VerificationCode WHERE Id = #Id#
-        </select>
-        <select id="proc_VerificationCode_FindOneByObjectType" resultMap="proc_VerificationCode_FindOne_Result" >
-            SELECT * FROM tb_VerificationCode WHERE ObjectType = #ObjectType# AND ObjectValue = #ObjectValue# ORDER BY CreateDate DESC;
-        </select>
-        <select id="proc_VerificationCode_FindAll#MySql" resultMap="proc_VerificationCode_FindAll_Result" >
-            SELECT * FROM tb_VerificationCode
+  <alias>
+    <typeAlias alias="VerificationCodeInfo" type="X3Platform.Security.VerificationCode.VerificationCodeInfo,X3Platform.Abstractions" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_VerificationCode_FindOne_Result" class="VerificationCodeInfo">
+      <result property="Id" column="Id" />
+      <result property="ObjectType" column="ObjectType" />
+      <result property="ObjectValue" column="ObjectValue" />
+      <result property="Code" column="Code" />
+      <result property="ValidationType" column="ValidationType" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+    <resultMap id="proc_VerificationCode_FindAll_Result" class="VerificationCodeInfo">
+      <result property="Id" column="Id" />
+      <result property="ObjectType" column="ObjectType" />
+      <result property="ObjectValue" column="ObjectValue" />
+      <result property="Code" column="Code" />
+      <result property="ValidationType" column="ValidationType" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_VerificationCode_Insert" parameterClass="VerificationCodeInfo">
+      INSERT INTO tb_VerificationCode
+      (
+      Id,
+      ObjectType,
+      ObjectValue,
+      Code,
+      ValidationType,
+      CreateDate
+      )
+      VALUES
+      (
+      #Id#,
+      #ObjectType#,
+      #ObjectValue#,
+      #Code#,
+      #ValidationType#,
+      CURRENT_TIMESTAMP
+      )
+    </insert>
+    <delete id="proc_VerificationCode_Delete" >
+      DELETE FROM tb_VerificationCode WHERE $WhereClause$
+    </delete>
+    <select id="proc_VerificationCode_FindOne" resultMap="proc_VerificationCode_FindOne_Result" >
+      SELECT * FROM tb_VerificationCode WHERE Id = #Id#
+    </select>
+    <select id="proc_VerificationCode_FindOneByObjectType" resultMap="proc_VerificationCode_FindOne_Result" >
+      SELECT * FROM tb_VerificationCode WHERE ObjectType = #ObjectType# AND ObjectValue = #ObjectValue# ORDER BY CreateDate DESC;
+    </select>
+    <select id="proc_VerificationCode_FindAll#MySql" resultMap="proc_VerificationCode_FindAll_Result" >
+      SELECT * FROM tb_VerificationCode
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            <dynamic prepend="ORDER BY">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="OrderBy" >
-                        $OrderBy$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            <dynamic prepend="LIMIT">
-                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
-                    0, $Length$
-                </isNotEqual>
-            </dynamic>
-        </select>
-        <select id="proc_VerificationCode_FindAll" resultMap="proc_VerificationCode_FindAll_Result" >
-            SELECT
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      <dynamic prepend="ORDER BY">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="OrderBy" >
+            $OrderBy$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            * FROM tb_VerificationCode T
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0, $Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_VerificationCode_FindAll" resultMap="proc_VerificationCode_FindAll_Result" >
+      SELECT
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_VerificationCode_GetPaging#MySql"  resultMap="proc_VerificationCode_FindAll_Result" >
-            SELECT * FROM tb_VerificationCode T
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            ORDER BY $OrderBy$
-            
-            LIMIT $StartIndex$, $PageSize$
-        </select>
-        <select id="proc_VerificationCode_GetPaging#SqlServer" resultMap="proc_VerificationCode_FindAll_Result" >
-            SELECT *
+      * FROM tb_VerificationCode T
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_VerificationCode_GetPaging#MySql"  resultMap="proc_VerificationCode_FindAll_Result" >
+      SELECT * FROM tb_VerificationCode T
 
-            FROM tb_VerificationCode T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+      ORDER BY $OrderBy$
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
-        <select id="proc_VerificationCode_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_VerificationCode T
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_VerificationCode_GetPaging#SqlServer" resultMap="proc_VerificationCode_FindAll_Result" >
+      SELECT *
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_VerificationCode_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_VerificationCode WHERE $WhereClause$
-        </select>
-        <select id="proc_VerificationCode_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_VerificationCode WHERE $WhereClause$
-        </select>
-    </statements>
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_VerificationCode T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_VerificationCode_GetRowCount" >
+      SELECT COUNT(*) AS 'RowCount' FROM tb_VerificationCode T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_VerificationCode_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_VerificationCode WHERE $WhereClause$
+    </select>
+  </statements>
 </sqlMap>

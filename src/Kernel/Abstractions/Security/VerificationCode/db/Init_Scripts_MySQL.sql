@@ -2,15 +2,12 @@
 -- 验证码管理初始化脚本 MySQL 版 (2010-01-01)
 -- ================================================
 
--- 创建数据库: sys_config
--- CREATE DATABASE sys_config
-
 -- 创建表: tb_VerificationCode
 CREATE TABLE tb_VerificationCode (
 	Id varchar(36) NOT NULL ,
 	ObjectType  varchar(20) NULL ,
-	ObjectValue  varchar(36) NULL ,
-	Code  varchar(6) NULL ,
+	ObjectValue  varchar(30) NULL ,
+	Code  varchar(8) NULL ,
 	ValidationType  varchar(20) NULL ,
 	CreateDate  datetime NULL
 );

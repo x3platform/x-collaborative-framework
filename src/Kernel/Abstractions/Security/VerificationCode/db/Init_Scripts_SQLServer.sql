@@ -1,26 +1,16 @@
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE dbo.tb_VerificationCode(
-	Id nvarchar(36) NOT NULL,
-	Name nvarchar(400) NULL,
-	Description nvarchar(800) NULL,
-	Locking int NULL,
-	Tags nvarchar(50) NULL,
-	OrderId nvarchar(20) NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL,
- CONSTRAINT PK_tb_VerificationCode PRIMARY KEY CLUSTERED 
+-- 创建表: tb_VerificationCode
+CREATE TABLE dbo.tb_VerificationCode
 (
-	Id ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON PRIMARY
-) ON PRIMARY
-
+	Id nvarchar(36) NOT NULL,
+	ObjectType nvarchar(20) NULL,
+	ObjectValue nvarchar(30) NULL,
+	Code nvarchar(8) NULL,
+	ValidationType nvarchar(20) NULL,
+	CreateDate datetime NULL
+)
 GO
 
-ALTER TABLE dbo.tb_VerificationCode ADD  CONSTRAINT DF_tb_VerificationCode_OrderId  DEFAULT ((0)) FOR OrderId
+-- 设置主键: Id
+ALTER TABLE tb_VerificationCode ADD CONSTRAINT PK_tb_VerificationCode PRIMARY KEY CLUSTERED (Id)
 GO
 
