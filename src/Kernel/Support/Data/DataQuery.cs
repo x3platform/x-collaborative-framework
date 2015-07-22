@@ -68,9 +68,9 @@ namespace X3Platform.Data
     #endregion
 
     #region 属性:Length
-    private int m_Length = 200;
+    private int m_Length = 1000;
 
-    /// <summary>查询记录最大函数限制 (默认值:200)</summary>
+    /// <summary>查询记录最大函数限制 (默认值:1000)</summary>
     public int Length
     {
       get { return this.m_Length; }
@@ -137,25 +137,33 @@ namespace X3Platform.Data
             outString.AppendFormat("{0} {1} '{2}'", item.Key, op, Convert.ToDateTime(item.Value).ToString("yyyy-MM-dd HH:mm:ss"));
             break;
           case "System.String":
+
+            string value = item.Value.ToString();
+
+            if (!string.IsNullOrEmpty(value))
+            {
+              value = value.Replace("\\", "\\\\");
+            }
+
             if (op == "LIKE")
             {
               // 字符串 LIKE 查询内容必须不为空
-              if (!string.IsNullOrEmpty(item.Value.ToString()))
+              if (!string.IsNullOrEmpty(value))
               {
-                outString.AppendFormat("{0} LIKE '%{1}%'", item.Key, StringHelper.ToSafeSQL(item.Value.ToString()));
+                outString.AppendFormat("{0} LIKE '%{1}%'", item.Key, StringHelper.ToSafeSQL(value));
               }
             }
             else if (op == "IN")
             {
               // 字符串 LIKE 查询内容必须不为空
-              if (!string.IsNullOrEmpty(item.Value.ToString()))
+              if (!string.IsNullOrEmpty(value))
               {
-                outString.AppendFormat("{0} IN ({1})", item.Key, string.Concat("'", StringHelper.ToSafeSQL(item.Value.ToString()).Replace(",", "','"), "'"));
+                outString.AppendFormat("{0} IN ({1})", item.Key, string.Concat("'", StringHelper.ToSafeSQL(value).Replace(",", "','"), "'"));
               }
             }
             else
             {
-              outString.AppendFormat("{0} {1} '{2}'", item.Key, op, StringHelper.ToSafeSQL(item.Value.ToString()));
+              outString.AppendFormat("{0} {1} '{2}'", item.Key, op, StringHelper.ToSafeSQL(value));
             }
             break;
           case "System.Array":
@@ -274,6 +282,12 @@ namespace X3Platform.Data
 
       outString.AppendFormat("<orders><![CDATA[{0}]]></orders>", innerText);
 
+      // length
+      if (this.Length > 0)
+      {
+        outString.AppendFormat("<length><![CDATA[{0}]]></length>", this.Length);
+      }
+
       outString.Append("</query>");
 
       return outString.ToString();
@@ -354,6 +368,14 @@ namespace X3Platform.Data
         {
           this.Orders.Add(order);
         }
+      }
+
+      // Length
+      node = element.SelectSingleNode("length");
+
+      if (node != null)
+      {
+        this.Length = Convert.ToInt32(node.InnerText);
       }
     }
     #endregion

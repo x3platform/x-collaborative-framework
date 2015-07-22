@@ -64,48 +64,45 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Spring.Core">
-      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\ASP.NET MVC 4\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\lib\ASP.NET MVC 3\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="X3Platform.Abstractions">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Abstractions.dll</HintPath>
+    <Reference Include="X3Platform.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Apps">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Apps.dll</HintPath>
+    <Reference Include="X3Platform.Apps, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.AttachmentStorage">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.AttachmentStorage.dll</HintPath>
+    <Reference Include="X3Platform.AttachmentStorage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.AttachmentStorage.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Membership">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Membership.dll</HintPath>
+    <Reference Include="X3Platform.Membership, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Sessions">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Sessions.dll</HintPath>
+    <Reference Include="X3Platform.Sessions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Sessions.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Support">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Support.dll</HintPath>
+    <Reference Include="X3Platform.Support, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Web">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Web.dll</HintPath>
+    <Reference Include="X3Platform.Web, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

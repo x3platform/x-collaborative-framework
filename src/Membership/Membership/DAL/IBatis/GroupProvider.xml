@@ -229,14 +229,14 @@
             )
             VALUES
             (
-                #AccountId#,
-                #GroupId#,
-                #BeginDate#,
-                #EndDate#
+                '$AccountId$',
+                '$GroupId$',
+                '$BeginDate$',
+                '$EndDate$'
             ) 
             ON DUPLICATE KEY UPDATE 
-                BeginDate = #BeginDate#,
-                EndDate = #EndDate#
+                BeginDate = '$BeginDate$',
+                EndDate = '$EndDate$'
         </insert>
         <insert id="proc_Group_AddRelation#SqlServer" parameterClass="AccountGroupRelationInfo" >
             IF EXISTS ( SELECT 0 FROM tb_Account_Group WHERE AccountId = '$AccountId$' AND GroupId = '$GroupId$' )

@@ -30,11 +30,16 @@
         <!-- Mixed -->
         <ProjectToBuild Include="Connect\Connect.Mixed\Connect.Mixed.csproj" />
         <ProjectToBuild Include="Web\Web.Mixed\Web.Mixed.csproj" />
+        <!-- MVC -->
+        <ProjectToBuild Include="Membership\Membership.Mvc\Membership.Mvc.csproj" />
+        <ProjectToBuild Include="Apps\Apps.Mvc\Apps.Mvc.csproj" />
         <!-- Tests -->
         <ProjectToBuild Include="Sessions\Sessions.Tests\Sessions.Tests.csproj" />
         <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" />
         <ProjectToBuild Include="Apps\Apps.Tests\Apps.Tests.csproj" />
         <ProjectToBuild Include="Web\Web.Tests\Web.Tests.csproj" />
+        <!-- Forum -->
+        <ProjectToBuild Include="Plugins\Forum\Forum\Forum.csproj" />
     </ItemGroup>
     <Target Name="Build">
         <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release;WarningLevel=0" />

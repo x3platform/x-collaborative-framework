@@ -22,6 +22,13 @@
     /// <summary>初始化时间，主要用于计算页面加载速度</summary>
     protected DateTime initializedTime;
 
+    #region 属性:SystemName
+    private string m_SystemName = null;
+
+    /// <summary>系统信息</summary>
+    public string SystemName { get { return this.m_SystemName; } }
+    #endregion
+
     #region 属性:Account
     private IAccountInfo m_Account = null;
 
@@ -103,7 +110,7 @@
     protected override void OnActionExecuted(ActionExecutedContext filterContext)
     {
       // 系统名称
-      ViewData["systemName"] = KernelConfigurationView.Instance.SystemName;
+      ViewData["systemName"] = this.m_SystemName = KernelConfigurationView.Instance.SystemName;
       // 系统状态
       ViewData["systemStatus"] = KernelConfigurationView.Instance.SystemStatus;
       // 版本

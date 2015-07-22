@@ -534,8 +534,8 @@ Id IN (
             args.Add("AccountId", accountId);
             args.Add("OrganizationId", organizationId);
             args.Add("IsDefault", isDefault);
-            args.Add("BeginDate", beginDate);
-            args.Add("EndDate", endDate);
+            args.Add("BeginDate", beginDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            args.Add("EndDate", endDate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_AddRelation", tableName)), args);
 
@@ -554,7 +554,7 @@ Id IN (
 
             args.Add("AccountId", accountId);
             args.Add("OrganizationId", organizationId);
-            args.Add("EndDate", endDate);
+            args.Add("EndDate", endDate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_ExtendRelation", tableName)), args);
 

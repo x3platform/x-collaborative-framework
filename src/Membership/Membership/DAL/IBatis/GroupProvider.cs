@@ -399,8 +399,8 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("AccountId", accountId);
             args.Add("GroupId", groupId);
-            args.Add("BeginDate", beginDate);
-            args.Add("EndDate", endDate);
+            args.Add("BeginDate", beginDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            args.Add("EndDate", endDate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_AddRelation", tableName)), args);
 
@@ -419,7 +419,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("AccountId", accountId);
             args.Add("GroupId", groupId);
-            args.Add("EndDate", endDate);
+            args.Add("EndDate", endDate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_ExtendRelation", tableName)), args);
 

@@ -16,7 +16,7 @@ BEGIN
 
     -- 组织类型等于零, 则为公司类型, 循环结束.
     WHILE (OrganizationType != '0') DO
-        SET BackwardCount  = BackwardCount + 1;
+        SET BackwardCount = BackwardCount + 1;
 
         SELECT Id, Type INTO OrganizationId, OrganizationType
         FROM tb_Organization

@@ -321,16 +321,16 @@
             )
             VALUES
             (
-                #AccountId#,
-                #RoleId#,
-                #IsDefault#,
-                #BeginDate#,
-                #EndDate#
+                '$AccountId$',
+                '$RoleId$',
+                $IsDefault$,
+                '$BeginDate$',
+                '$EndDate$'
             ) 
             ON DUPLICATE KEY UPDATE 
-                IsDefault = #IsDefault#,
-                BeginDate = #BeginDate#,
-                EndDate = #EndDate#
+                IsDefault = $IsDefault$,
+                BeginDate = '$BeginDate$',
+                EndDate = '$EndDate$'
         </insert>
         <insert id="proc_Role_AddRelation#SqlServer" parameterClass="AccountRoleRelationInfo" >
             IF EXISTS ( SELECT 0 FROM tb_Account_Role WHERE AccountId = '$AccountId$' AND RoleId = '$RoleId$' )
