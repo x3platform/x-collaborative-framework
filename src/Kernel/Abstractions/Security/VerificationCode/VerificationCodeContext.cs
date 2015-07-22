@@ -50,16 +50,6 @@ namespace X3Platform.Security.VerificationCode
         }
         #endregion
 
-        #region 属性:Configuration
-        private VerificationCodeConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public VerificationCodeConfiguration Configuration
-        {
-            get { return configuration; }
-        }
-        #endregion
-
         #region 属性:VerificationCodeService
         private IVerificationCodeService m_VerificationCodeService = null;
 
@@ -101,10 +91,8 @@ namespace X3Platform.Security.VerificationCode
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            this.configuration = VerificationCodeConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = VerificationCodeConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(VerificationCodeConfiguration.ApplicationName, springObjectFile);
 

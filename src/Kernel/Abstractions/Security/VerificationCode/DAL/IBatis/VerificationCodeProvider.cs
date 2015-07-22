@@ -103,17 +103,17 @@ namespace X3Platform.Security.VerificationCode.DAL.IBatis
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="param">VerificationCodeInfo 实例的标识信息,多个以逗号隔开</param>
-        public void Delete(string ids)
+        /// <param name="id">实例的标识</param>
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids))
+            if (string.IsNullOrEmpty(id))
                 return;
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(ids).Replace(",", "','")));
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }
@@ -141,10 +141,10 @@ namespace X3Platform.Security.VerificationCode.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(DataQuery query)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="query">���ݲ�ѯ����</param>
-        /// <returns>��������ʵ��<see cref="VerificationCodeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">查询参数</param>
+        /// <returns>返回所有<see cref="VerificationCodeInfo"/> 实例的详细信息</returns>
         public IList<VerificationCodeInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -176,7 +176,7 @@ namespace X3Platform.Security.VerificationCode.DAL.IBatis
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { 
                 { "Name", "LIKE" }, { "Value", "LIKE" } 
             }));
-            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" CreateDate DESC "));
 
             args.Add("RowCount", 0);
 
