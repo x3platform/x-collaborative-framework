@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <settings>
+    <setting useStatementNamespaces="false"/>
+    <setting cacheModelsEnabled="true"/>
+    <setting validateSqlMap="false"/>
+    <setting useReflectionOptimizer="true"/>
+  </settings>
+
+  <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support"/>
+
+  <database>
+    <provider name="${DatabaseSettings.Provider}" />
+    <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512;allow user variables=true;" />
+  </database>
+
+  <typeHandlers>
+    <typeHandler type="string" callback="AnsiStringTypeHandler"/>
+  </typeHandlers>
+
+  <sqlMaps>
+    <sqlMap embedded="X3Platform.Plugins.Forum.DAL.IBatis.ForumThreadProvider.xml,X3Platform.Plugins.Forum" />
+    <sqlMap embedded="X3Platform.Plugins.Forum.DAL.IBatis.ForumCategoryProvider.xml,X3Platform.Plugins.Forum" />
+    <sqlMap embedded="X3Platform.Plugins.Forum.DAL.IBatis.ForumCommentProvider.xml,X3Platform.Plugins.Forum" />
+    <sqlMap embedded="X3Platform.Plugins.Forum.DAL.IBatis.ForumMemberProvider.xml,X3Platform.Plugins.Forum" />
+    <sqlMap embedded="X3Platform.Plugins.Forum.DAL.IBatis.ForumFollowProvider.xml,X3Platform.Plugins.Forum" />
+  </sqlMaps>
+</sqlMapConfig>

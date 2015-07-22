@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Forum.DAL.IBatis.ForumThreadProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ForumThreadInfo" type="X3Platform.Plugins.Forum.Model.ForumThreadInfo,X3Platform.Plugins.Forum" />
+    <typeAlias alias="ForumThreadQueryInfo" type="X3Platform.Plugins.Forum.Model.ForumThreadQueryInfo,X3Platform.Plugins.Forum" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Forum_Thread_FindOne_Result" class="ForumThreadInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="CategoryId" column="CategoryId" />
+      <result property="CategoryIndex" column="CategoryIndex" />
+      <result property="Code" column="Code" />
+      <result property="Title" column="Title" />
+      <result property="Content" column="Content" />
+      <result property="Click" column="Click" />
+      <result property="LatestCommentAccountId" column="LatestCommentAccountId" />
+      <result property="LatestCommentAccountName" column="LatestCommentAccountName" />
+      <result property="CommentCount" column="CommentCount" />
+      <result property="IsTop" column="IsTop" />
+      <result property="TopExpiryDate" column="TopExpiryDate" />
+      <result property="IsHot" column="IsHot" />
+      <result property="HotExpiryDate" column="HotExpiryDate" />
+      <result property="IsEssential" column="IsEssential" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="AttachmentFileCount" column="AttachmentFileCount" />
+      <result property="IP" column="IP" />
+      <result property="Status" column="Status" />
+      <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+    <resultMap id="proc_Forum_Thread_FindAll_Result" class="ForumThreadInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="CategoryId" column="CategoryId" />
+      <result property="CategoryIndex" column="CategoryIndex" />
+      <result property="Code" column="Code" />
+      <result property="Title" column="Title" />
+      <result property="Content" column="Content" />
+      <result property="Click" column="Click" />
+      <result property="LatestCommentAccountId" column="LatestCommentAccountId" />
+      <result property="LatestCommentAccountName" column="LatestCommentAccountName" />
+      <result property="CommentCount" column="CommentCount" />
+      <result property="IsTop" column="IsTop" />
+      <result property="TopExpiryDate" column="TopExpiryDate" />
+      <result property="IsHot" column="IsHot" />
+      <result property="HotExpiryDate" column="HotExpiryDate" />
+      <result property="IsEssential" column="IsEssential" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="AttachmentFileCount" column="AttachmentFileCount" />
+      <result property="IP" column="IP" />
+      <result property="Status" column="Status" />
+      <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+    <resultMap id="proc_Forum_Thread_FindAllQueryObject_Result" class="ForumThreadQueryInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="CategoryId" column="CategoryId" />
+      <result property="CategoryIndex" column="CategoryIndex" />
+      <result property="Code" column="Code" />
+      <result property="Title" column="Title" />
+      <result property="Click" column="Click" />
+      <result property="LatestCommentAccountId" column="LatestCommentAccountId" />
+      <result property="LatestCommentAccountName" column="LatestCommentAccountName" />
+      <result property="CommentCount" column="CommentCount" />
+      <result property="IsTop" column="IsTop" />
+      <result property="TopExpiryDate" column="TopExpiryDate" />
+      <result property="IsHot" column="IsHot" />
+      <result property="HotExpiryDate" column="HotExpiryDate" />
+      <result property="IsEssential" column="IsEssential" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="IP" column="IP" />
+      <result property="Status" column="Status" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Forum_Thread_Insert" parameterClass="ForumThreadInfo">
+      INSERT INTO tb_Forum_Thread
+      (
+        Id,
+        AccountId,
+        AccountName,
+        CategoryId,
+        CategoryIndex,
+        Title,
+        Content,
+        Click,
+        LatestCommentAccountId,
+        LatestCommentAccountName,
+        CommentCount,
+        IsTop,
+        TopExpiryDate,
+        IsHot,
+        HotExpiryDate,
+        IsEssential,
+        Anonymous,
+        AttachmentFileCount,
+        IP,
+        Status,
+        UpdateHistoryLog,
+        UpdateDate,
+        CreateDate
+      )
+      VALUES
+      (
+        #Id#,
+        #AccountId#,
+        #AccountName#,
+        #CategoryId#,
+        #CategoryIndex#,
+        #Title#,
+        #Content#,
+        #Click#,
+        #LatestCommentAccountId#,
+        #LatestCommentAccountName#,
+        #CommentCount#,
+        #IsTop#,
+        #TopExpiryDate#,
+        #IsHot#,
+        #HotExpiryDate#,
+        #IsEssential#,
+        #Anonymous#,
+        #AttachmentFileCount#,
+        #IP#,
+        #Status#,
+        #UpdateHistoryLog#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_Forum_Thread_Update" parameterClass="ForumThreadInfo">
+      UPDATE tb_Forum_Thread SET
+
+        AccountName = #AccountName#,
+        CategoryId = #CategoryId#,
+        CategoryIndex = #CategoryIndex#,
+        Title = #Title#,
+        Content = #Content#,
+        LatestCommentAccountId = #LatestCommentAccountId#,
+        LatestCommentAccountName = #LatestCommentAccountName#,
+        CommentCount = #CommentCount#,
+        Anonymous = #Anonymous#,
+        AttachmentFileCount = #AttachmentFileCount#,
+        IP = #IP#,
+        Status=#Status#,
+        UpdateHistoryLog = #UpdateHistoryLog#,
+        UpdateDate = CURRENT_TIMESTAMP
+
+      WHERE Id = #Id#
+    </update>
+    <update id="proc_Forum_Thread_Delete" >
+      UPDATE tb_Forum_Thread SET Status = 0 WHERE $WhereClause$
+    </update>
+    <delete id="proc_Forum_Thread_Delete(PhysicallyRemoved)" >
+      DELETE FROM tb_Forum_Thread WHERE $WhereClause$
+    </delete>
+    <update id="proc_Forum_Thread_Delete(VirtualRemoved)" >
+      UPDATE tb_Forum_Thread SET Status = 0 WHERE $WhereClause$
+    </update>
+    <select id="proc_Forum_Thread_QueryCount" resultClass="int">
+      SELECT COUNT(ID) FROM dbo.tb_Forum_Thread WHERE AccountId=#AccountId# AND Status = 1
+    </select>
+    <select id="proc_Forum_Thread_FindOne" resultMap="proc_Forum_Thread_FindOne_Result" >
+      SELECT * FROM tb_Forum_Thread T WHERE Id = #Id#
+    </select>
+    <select id="proc_Forum_Thread_FindOneByCode" resultMap="proc_Forum_Thread_FindOne_Result" >
+      SELECT * FROM tb_Forum_Thread T WHERE Code = #Code#
+    </select>
+    <select id="proc_Forum_Thread_FindOneByNew" resultMap="proc_Forum_Thread_FindOne_Result" >
+      SELECT TOP (1) * FROM tb_Forum_Thread WHERE AccountId=#AccountId# ORDER BY CreateDate DESC
+    </select>
+    <select id="proc_Forum_Thread_FindAll#MySql" resultMap="proc_Forum_Thread_FindAll_Result" >
+      SELECT * FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Thread_FindAll#SqlServer" resultMap="proc_Forum_Thread_FindAll_Result" >
+      SELECT
+
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
+
+      * FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Thread_FindAllQueryObject#MySql" resultMap="proc_Forum_Thread_FindAllQueryObject_Result" >
+      SELECT * FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      <dynamic prepend="ORDER BY">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="OrderBy" >
+            $OrderBy$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Thread_FindAllQueryObject" resultMap="proc_Forum_Thread_FindAllQueryObject_Result" >
+      SELECT
+
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
+
+      * FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Thread_GetPaging#MySql" resultMap="proc_Forum_Thread_FindAll_Result" >
+      SELECT * FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Forum_Thread_GetPaging#SqlServer" resultMap="proc_Forum_Thread_FindAll_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Forum_Thread_GetQueryObjectPaging#MySql" resultMap="proc_Forum_Thread_FindAllQueryObject_Result" >
+      SELECT * FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Forum_Thread_GetQueryObjectPaging" resultMap="proc_Forum_Thread_FindAllQueryObject_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Forum_Thread_GetRowCount" >
+
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Thread T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Thread_IsExist" >
+      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Thread T WHERE $WhereClause$
+    </select>
+    <select id="proc_Forum_Thread_IsExistByCategory" >
+      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Thread T WHERE $WhereClause$
+    </select>
+    <update id="proc_Forum_Thread_SetEssential" >
+      UPDATE tb_Forum_Thread SET IsEssential = #IsEssential# WHERE Id = #Id#
+    </update>
+    <update id="proc_Forum_Thread_SetTop" >
+      UPDATE tb_Forum_Thread SET IsTop = #IsTop# WHERE Id = #Id#
+    </update>
+    <update id="proc_Forum_Thread_SetClick" >
+      UPDATE tb_Forum_Thread SET Click = Click+1 WHERE Id = #Id#
+    </update>
+    <update id="proc_Forum_Thread_GenerateCode#MySql" >
+      UPDATE tb_Forum_Thread 
+             INNER JOIN (
+              SELECT @ROWNUM:=@ROWNUM+1,
+                     Id,
+                     CONCAT(CAST(YEAR(CreateDate) AS CHAR)
+                            ,func_PaddingLeft(CAST(MONTH(CreateDate) AS CHAR), '0', 2)
+                            ,func_PaddingLeft(CAST(@ROWNUM AS CHAR), '0', 3)
+                     ) AS RowIndex
+                FROM tb_Forum_Thread JOIN (SELECT @ROWNUM:=0) R 
+               WHERE CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
+             ) AS TableIndex
+             
+         SET Code = TableIndex.RowIndex
+        
+       WHERE TableIndex.Id = tb_Forum_Thread.Id
+             AND tb_Forum_Thread.CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
+    </update>
+    <update id="proc_Forum_Thread_GenerateCode#SqlServer" >
+      UPDATE tb_Forum_Thread SET
+        Code = TableIndex.RowIndex
+      FROM
+        (SELECT
+            Id,
+            CONVERT(NVARCHAR,YEAR(CreateDate))
+             + dbo.func_PaddingLeft(CONVERT(NVARCHAR,MONTH(CreateDate)), '0', 2)
+             + dbo.func_PaddingLeft(CONVERT(NVARCHAR,ROW_NUMBER() OVER(ORDER BY CreateDate)), '0', 3) AS RowIndex
+            FROM tb_Forum_Thread
+            WHERE
+            CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997') TableIndex
+
+      WHERE
+        TableIndex.Id = tb_Forum_Thread.Id
+        AND tb_Forum_Thread.CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
+    </update>
+    <procedure id="proc_Forum_Thread_RebuildCode" >
+      proc_Util_RebuildCode 'tb_Forum_Thread', 'Code', 'CreateDate', 3
+    </procedure>
+  </statements>
+</sqlMap>

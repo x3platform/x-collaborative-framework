@@ -1,0 +1,7 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Plugins.Forum/X3Platform.Plugins.Forum/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.Plugins.Forum.defaults.IBatis.SqlMap.xml
+...

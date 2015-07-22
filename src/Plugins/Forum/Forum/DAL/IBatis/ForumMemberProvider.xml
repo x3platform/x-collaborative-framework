@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Forum.DAL.IBatis.ForumMemberProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="ForumMemberInfo" type="X3Platform.Plugins.Forum.Model.ForumMemberInfo,X3Platform.Plugins.Forum" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Forum_Member_FindOne_Result" class="ForumMemberInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="OrganizationPath" column="OrganizationPath" />
+            <result property="Headship" column="Headship" />
+            <result property="Signature" column="Signature" />
+            <result property="IconPath" column="IconPath" />
+            <result property="Point" column="Point" />
+            <result property="PublishThreadCount" column="PublishThreadCount" />
+            <result property="PublishCommentCount" column="PublishCommentCount" />
+            <result property="FollowCount" column="FollowCount" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Forum_Member_FindAll_Result" class="ForumMemberInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="OrganizationPath" column="OrganizationPath" />
+            <result property="Headship" column="Headship" />
+            <result property="Signature" column="Signature" />
+            <result property="IconPath" column="IconPath" />
+            <result property="Point" column="Point" />
+            <result property="PublishThreadCount" column="PublishThreadCount" />
+            <result property="PublishCommentCount" column="PublishCommentCount" />
+            <result property="FollowCount" column="FollowCount" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+
+        <insert id="proc_Forum_Member_Insert" parameterClass="ForumMemberInfo">
+            INSERT INTO tb_Forum_Member 
+            (
+                Id,
+                AccountId,
+                AccountName,
+                OrganizationPath,
+                Headship,
+                Signature,
+                IconPath,
+                Point,
+                PublishThreadCount,
+                PublishCommentCount,
+                FollowCount,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #AccountName#,
+                #OrganizationPath#,
+                #Headship#,
+                #Signature#,
+                #IconPath#,
+                #Point#,
+                #PublishThreadCount#,
+                #PublishCommentCount#,
+                #FollowCount#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <update id="proc_Forum_Member_Update" parameterClass="ForumMemberInfo">
+            UPDATE tb_Forum_Member SET Signature = #Signature#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Forum_Member_SetIconPath" parameterClass="ForumMemberInfo">
+            UPDATE tb_Forum_Member SET IconPath = #IconPath#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Forum_Member_SetPoint" >
+            UPDATE tb_Forum_Member SET Point = Point + #Point# WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Forum_Member_SetThreadCount" >
+            UPDATE tb_Forum_Member SET PublishThreadCount = PublishThreadCount + 1 WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Forum_Member_SetFollowCount" >
+            UPDATE tb_Forum_Member SET FollowCount = FollowCount + #Value# WHERE AccountId = #AccountId#
+        </update>
+
+        <update id="proc_Forum_Member_Delete" >
+            UPDATE tb_Forum_Member SET Status = 0 WHERE $WhereClause$
+        </update>
+
+        <delete id="proc_Forum_Member_Delete(PhysicallyRemoved)" >
+            DELETE FROM tb_Forum_Member WHERE $WhereClause$
+        </delete>
+
+        <update id="proc_Forum_Member_Delete(VirtualRemoved)" >
+            UPDATE tb_Forum_Member SET Status = 0 WHERE $WhereClause$
+        </update>
+
+        <select id="proc_Forum_Member_FindOne" resultMap="proc_Forum_Member_FindOne_Result" >
+            SELECT * FROM tb_Forum_Member T WHERE Id = #Id#
+        </select>
+
+        <select id="proc_Forum_Member_FindOneByAccountId" resultMap="proc_Forum_Member_FindOne_Result" >
+            SELECT * FROM tb_Forum_Member T WHERE AccountId = #AccountId#
+        </select>
+
+        <select id="proc_Forum_Member_FindAll" resultMap="proc_Forum_Member_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM tb_Forum_Member T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Forum_Member_GetPaging" resultMap="proc_Forum_Member_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM tb_Forum_Member T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Forum_Member_GetRowCount" >
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Member T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+
+        <select id="proc_Forum_Member_IsExist" >
+            SELECT COUNT(0) AS 'Count' FROM tb_Forum_Member T WHERE $WhereClause$
+        </select>
+
+        <update id="proc_Forum_Member_UpdateMemberInfo" >
+            UPDATE tb_Forum_Member SET
+                tb_Forum_Member.AccountName = Temp.UserName,
+                tb_Forum_Member.OrganizationPath = Temp.OrganizationPath,
+                tb_Forum_Member.Headship = Temp.Headship
+            FROM
+                ( SELECT 
+                    AccountId,
+                    (CASE WHEN UserName != '' THEN UserName ELSE UserNameAlias END) UserName,
+                    dbo.func_GetOrganizationPathByAccountId(tb_Account.UserId) OrganizationPath,Headship 
+                    FROM tb_Member
+                ) Temp
+            WHERE
+                tb_Forum_Member.AccountId = Temp.AccountId
+
+            UPDATE tb_Forum_Thread SET
+                tb_Forum_Thread.AccountName = tb_Forum_Member.AccountName
+            FROM
+                tb_Forum_Member
+            WHERE
+                tb_Forum_Thread.AccountId = tb_Forum_Member.AccountId AND tb_Forum_Thread.Anonymous = 0
+
+            UPDATE tb_Forum_Comment SET
+                tb_Forum_Comment.AccountName = tb_Forum_Member.AccountName
+            FROM
+                tb_Forum_Member
+            WHERE
+                tb_Forum_Comment.AccountId = tb_Forum_Member.AccountId AND tb_Forum_Comment.Anonymous = 0
+        </update>
+    </statements>
+</sqlMap>

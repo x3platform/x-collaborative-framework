@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Forum.DAL.IBatis.ForumCategoryProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ForumCategoryInfo" type="X3Platform.Plugins.Forum.Model.ForumCategoryInfo,X3Platform.Plugins.Forum" />
+    <typeAlias alias="ForumCategoryQueryInfo" type="X3Platform.Plugins.Forum.Model.ForumCategoryQueryInfo,X3Platform.Plugins.Forum" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Forum_Category_FindOne_Result" class="ForumCategoryInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="CategoryIndex" column="CategoryIndex" />
+      <result property="Description" column="Description" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="PublishThreadPoint" column="PublishThreadPoint" />
+      <result property="PublishCommentPoint" column="PublishCommentPoint" />
+      <result property="TodayCount" column="TodayCount" />
+      <result property="WeekCount" column="WeekCount" />
+      <result property="MonthCount" column="MonthCount" />
+      <result property="TotalCount" column="TotalCount" />
+      <result property="Hidden" column="Hidden" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+    <resultMap id="proc_Forum_Category_FindAll_Result" class="ForumCategoryInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="CategoryIndex" column="CategoryIndex" />
+      <result property="Description" column="Description" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="PublishThreadPoint" column="PublishThreadPoint" />
+      <result property="PublishCommentPoint" column="PublishCommentPoint" />
+      <result property="TodayCount" column="TodayCount" />
+      <result property="WeekCount" column="WeekCount" />
+      <result property="MonthCount" column="MonthCount" />
+      <result property="TotalCount" column="TotalCount" />
+      <result property="Hidden" column="Hidden" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+    <resultMap id="proc_Forum_Category_FindAllQueryObject_Result" class="ForumCategoryQueryInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="CategoryIndex" column="CategoryIndex" />
+      <result property="Status" column="Status" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Forum_Category_Insert" parameterClass="ForumCategoryInfo">
+      INSERT INTO tb_Forum_Category
+      (
+        Id,
+        AccountId,
+        AccountName,
+        CategoryIndex,
+        Description,
+        Anonymous,
+        PublishThreadPoint,
+        PublishCommentPoint,
+        TodayCount,
+        WeekCount,
+        MonthCount,
+        TotalCount,
+        Hidden,
+        OrderId,
+        Status,
+        Remark,
+        UpdateDate,
+        CreateDate
+      )
+      VALUES
+      (
+        #Id#,
+        #AccountId#,
+        #AccountName#,
+        #CategoryIndex#,
+        #Description#,
+        #Anonymous#,
+        #PublishThreadPoint#,
+        #PublishCommentPoint#,
+        #TodayCount#,
+        #WeekCount#,
+        #MonthCount#,
+        #TotalCount#,
+        #Hidden#,
+        #OrderId#,
+        #Status#,
+        #Remark#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_Forum_Category_Update" parameterClass="ForumCategoryInfo">
+      UPDATE tb_Forum_Category SET
+
+        CategoryIndex = #CategoryIndex#,
+        Description = #Description#,
+        Anonymous = #Anonymous#,
+        PublishThreadPoint = #PublishThreadPoint#,
+        PublishCommentPoint = #PublishCommentPoint#,
+        Status = #Status#,
+        Remark = #Remark#,
+        UpdateDate = CURRENT_TIMESTAMP
+
+      WHERE Id = #Id#
+    </update>
+    <update id="proc_Forum_Category_UpdateThread" parameterClass="ForumCategoryInfo">
+      UPDATE tb_Forum_Thread SET
+             tb_Forum_Thread.CategoryIndex = tb_Forum_Category.CategoryIndex
+        FROM tb_Forum_Thread,tb_Forum_Category
+       WHERE tb_Forum_Thread.CategoryId = tb_Forum_Category.Id
+    </update>
+    <update id="proc_Forum_Category_Delete" >
+      UPDATE tb_Forum_Category SET Status = 0 WHERE $WhereClause$
+    </update>
+    <delete id="proc_Forum_Category_Delete(PhysicallyRemoved)" >
+      DELETE FROM tb_Forum_Category WHERE $WhereClause$
+    </delete>
+    <update id="proc_Forum_Category_Delete(VirtualRemoved)" >
+      UPDATE tb_Forum_Category SET Status = 0 WHERE $WhereClause$
+    </update>
+    <select id="proc_Forum_Category_FindOne" resultMap="proc_Forum_Category_FindOne_Result" >
+      SELECT * FROM tb_Forum_Category T WHERE Id = #Id#
+    </select>
+    <select id="proc_Forum_Category_FindOneByCategoryIndex" resultMap="proc_Forum_Category_FindOne_Result" >
+      SELECT * FROM tb_Forum_Category T WHERE CategoryIndex = #CategoryIndex#
+    </select>
+    <select id="proc_Forum_Category_FindAll" resultMap="proc_Forum_Category_FindAll_Result" >
+      SELECT
+
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
+
+      * FROM tb_Forum_Category T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Category_GetPaging#MySql" resultMap="proc_Forum_Category_FindAll_Result" >
+      SELECT * FROM tb_Forum_Category T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Forum_Category_GetPaging#SqlServer" resultMap="proc_Forum_Category_FindAll_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Category T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Forum_Category_GetQueryObjectPaging#MySql" resultMap="proc_Forum_Category_FindAllQueryObject_Result" >
+      SELECT * FROM tb_Forum_Category T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Forum_Category_GetQueryObjectPaging#SqlServer" resultMap="proc_Forum_Category_FindAllQueryObject_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Category T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Forum_Category_GetRowCount" >
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Category T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Category_IsExist" >
+      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Category T WHERE $WhereClause$
+    </select>
+    <select id="proc_Forum_Category_IsCategoryAdministrator" >
+      SELECT Count(distinct EntityId) AS Count
+      FROM tb_Forum_Category_Scope s,view_AuthorizationObject_Account a
+      WHERE s.AuthorizationObjectId=a.AuthorizationObjectId
+      AND s.AuthorizationObjectType = a.AuthorizationObjectType
+      AND a.AccountId = #AccountId#
+      AND s.AuthorityId= #AuthorityId#
+      AND s.EntityId= #CategoryId#
+    </select>
+    <select id="proc_Forum_Category_IsCategoryAuthority" >
+      SELECT Count(distinct EntityId) AS Count
+      FROM tb_Forum_Category_Scope s,view_AuthorizationObject_Account a
+      WHERE s.AuthorizationObjectId=a.AuthorizationObjectId
+      AND s.AuthorizationObjectType = a.AuthorizationObjectType
+      AND a.AccountId = #AccountId#
+      AND s.EntityId= #CategoryId#
+    </select>
+    <select id="proc_Forum_Category_FetchCategoryIndex" >
+      SELECT CategoryIndex FROM tb_Forum_Category T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+  </statements>
+</sqlMap>
