@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+
+    <!-- 论坛版块 -->
+    <object name="X3Platform.Plugins.Forum.IBLL.IForumCategoryService"
+            type="X3Platform.Plugins.Forum.BLL.ForumCategoryService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Plugins.Forum.IDAL.IForumCategoryProvider"
+            type="X3Platform.Plugins.Forum.DAL.IBatis.ForumCategoryProvider"
+            lazy-init="true" />
+
+    <!-- 论坛版主 -->
+    <object name="X3Platform.Plugins.Forum.IBLL.IForumAdministratorService"
+            type="X3Platform.Plugins.Forum.BLL.ForumAdministratorService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Plugins.Forum.IDAL.IForumAdministratorProvider"
+            type="X3Platform.Plugins.Forum.DAL.IBatis.ForumAdministratorProvider"
+            lazy-init="true" />
+
+    <!-- 论坛主题 -->
+    <object name="X3Platform.Plugins.Forum.IBLL.IForumThreadService"
+            type="X3Platform.Plugins.Forum.BLL.ForumThreadService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Plugins.Forum.IDAL.IForumThreadProvider"
+            type="X3Platform.Plugins.Forum.DAL.IBatis.ForumThreadProvider"
+            lazy-init="true" />
+
+    <!-- 主题回复 -->
+    <object name="X3Platform.Plugins.Forum.IBLL.IForumCommentService"
+            type="X3Platform.Plugins.Forum.BLL.ForumCommentService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Plugins.Forum.IDAL.IForumCommentProvider"
+            type="X3Platform.Plugins.Forum.DAL.IBatis.ForumCommentProvider"
+            lazy-init="true" />
+
+    <!-- 个人中心 -->
+    <object name="X3Platform.Plugins.Forum.IBLL.IForumMemberService"
+            type="X3Platform.Plugins.Forum.BLL.ForumMemberService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Plugins.Forum.IDAL.IForumMemberProvider"
+            type="X3Platform.Plugins.Forum.DAL.IBatis.ForumMemberProvider"
+            lazy-init="true" />
+
+    <!-- 用户关注 -->
+    <object name="X3Platform.Plugins.Forum.IBLL.IForumFollowService"
+            type="X3Platform.Plugins.Forum.BLL.ForumFollowService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Plugins.Forum.IDAL.IForumFollowProvider"
+            type="X3Platform.Plugins.Forum.DAL.IBatis.ForumFollowProvider"
+            lazy-init="true" />
+
+</objects>

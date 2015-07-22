@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Forum.DAL.IBatis.ForumCommentProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ForumCommentInfo" type="X3Platform.Plugins.Forum.Model.ForumCommentInfo,X3Platform.Plugins.Forum" />
+    <typeAlias alias="ForumCommentQueryInfo" type="X3Platform.Plugins.Forum.Model.ForumCommentQueryInfo,X3Platform.Plugins.Forum" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Forum_Comment_FindOne_Result" class="ForumCommentInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="ThreadId" column="ThreadId" />
+      <result property="ReplyCommentId" column="ReplyCommentId" />
+      <result property="Content" column="Content" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="AttachmentFileCount" column="AttachmentFileCount" />
+      <result property="IP" column="IP" />
+      <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+    </resultMap>
+    <resultMap id="proc_Forum_Comment_FindAll_Result" class="ForumCommentInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="ThreadId" column="ThreadId" />
+      <result property="ReplyCommentId" column="ReplyCommentId" />
+      <result property="Content" column="Content" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="AttachmentFileCount" column="AttachmentFileCount" />
+      <result property="IP" column="IP" />
+      <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="RowIndex" column="RowIndex" />
+    </resultMap>
+    <resultMap id="proc_Forum_Comment_FindAllQueryObject_Result" class="ForumCommentQueryInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountName" column="AccountName" />
+      <result property="ThreadId" column="ThreadId" />
+      <result property="MemberSignature" column="Signature" />
+      <!-- <result property="MemberIconPath" column="IconPath" />-->
+      <result property="MemberScore" column="Point" />
+      <result property="MemberThreadCount" column="PublishThreadCount" />
+      <result property="MemberFollowCount" column="FollowCount" />
+      <result property="MemberOrganizationPath" column="OrganizationPath" />
+      <result property="MemberHeadship" column="Headship" />
+      <result property="ReplyCommentId" column="ReplyCommentId" />
+      <result property="Content" column="Content" />
+      <result property="Anonymous" column="Anonymous" />
+      <result property="AttachmentFileCount" column="AttachmentFileCount" />
+      <result property="IP" column="IP" />
+      <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="RowIndex" column="RowIndex" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+    <insert id="proc_Forum_Comment_Insert" parameterClass="ForumCommentInfo">
+      INSERT INTO tb_Forum_Comment
+      (
+        Id,
+        AccountId,
+        AccountName,
+        ThreadId,
+        ReplyCommentId,
+        Content,
+        Anonymous,
+        AttachmentFileCount,
+        IP,
+        UpdateHistoryLog,
+        UpdateDate,
+        CreateDate
+      )
+      VALUES
+      (
+        #Id#,
+        #AccountId#,
+        #AccountName#,
+        #ThreadId#,
+        #ReplyCommentId#,
+        #Content#,
+        #Anonymous#,
+        #AttachmentFileCount#,
+        #IP#,
+        #UpdateHistoryLog#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+
+    <update id="proc_Forum_Comment_Update" parameterClass="ForumCommentInfo">
+      UPDATE tb_Forum_Comment SET
+
+        Content = #Content#,
+        UpdateHistoryLog = #UpdateHistoryLog#,
+        IP = #IP#,
+        UpdateDate = CURRENT_TIMESTAMP
+
+      WHERE Id = #Id#
+    </update>
+    <update id="proc_Forum_Comment_Delete" >
+      UPDATE tb_Forum_Comment SET Status = 0 WHERE $WhereClause$
+    </update>
+    <delete id="proc_Forum_Comment_Delete(PhysicallyRemoved)" >
+      DELETE FROM tb_Forum_Comment WHERE $WhereClause$
+    </delete>
+    <update id="proc_Forum_Comment_Delete(VirtualRemoved)" >
+      UPDATE tb_Forum_Comment SET Status = 0 WHERE $WhereClause$
+    </update>
+    <update id="proc_Forum_Comment_Delete(BackInfo)" >
+      UPDATE tb_Forum_Comment SET ReplyCommentId = '' WHERE $WhereClause$
+    </update>
+    <select id="proc_Forum_Comment_FindOne" resultMap="proc_Forum_Comment_FindOne_Result" >
+      SELECT *,ROW_NUMBER() OVER(ORDER BY CreateDate ASC) AS RowIndex FROM tb_Forum_Comment T WHERE Id = #Id#
+    </select>
+    <select id="proc_Forum_Comment_FindOneByTheadId" resultMap="proc_Forum_Comment_FindOne_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY CreateDate ASC) AS RowIndex
+
+      FROM tb_Forum_Comment T WHERE THREADID=#ThreadId#) TableIndex WHERE Id = #Id#
+    </select>
+    <select id="proc_Forum_Comment_GetLastComment#MySql" resultMap="proc_Forum_Comment_FindOne_Result" >
+      SELECT * FROM (SELECT T1.*,@ROWNUM:=@ROWNUM+1 AS RowIndex FROM tb_Forum_Comment T1 JOIN (SELECT @ROWNUM:=0) R WHERE ThreadId = #ThreadId# ORDER BY CreateDate DESC) T limit 0,1
+    </select>
+    <select id="proc_Forum_Comment_GetLastComment#SqlServer" resultMap="proc_Forum_Comment_FindOne_Result" >
+      SELECT TOP (1) *,ROW_NUMBER() OVER(ORDER BY  CreateDate DESC) AS RowIndex FROM tb_Forum_Comment WHERE ThreadId = #ThreadId#
+    </select>
+    <select id="proc_Forum_Comment_QueryCount" resultClass="int">
+      SELECT COUNT(0) FROM tb_Forum_Comment WHERE ThreadId = #TheadId#
+    </select>
+    <select id="proc_Forum_Comment_FindAll" resultMap="proc_Forum_Comment_FindAll_Result" >
+      SELECT
+
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
+
+      * FROM tb_Forum_Comment T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="TheadId" >
+            WHERE THREADID=''
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Forum_Comment_GetPaging#MySql" resultMap="proc_Forum_Comment_FindAll_Result" >
+      SELECT * FROM tb_Forum_Comment T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Forum_Comment_GetPaging#SqlServer" resultMap="proc_Forum_Comment_FindAll_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Comment T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Forum_Comment_GetQueryObjectPaging#MySql" resultMap="proc_Forum_Comment_FindAllQueryObject_Result" >
+      SELECT FC.*
+             , FM.OrganizationPath, FM.Headship, FM.Signature, FM.IconPath, FM.Point, FM.PublishThreadCount, FM.FollowCount
+             , @ROWNUM:=@ROWNUM+1 AS RowIndex
+       FROM tb_Forum_Comment FC
+            LEFT JOIN tb_Forum_Member FM ON FC.AccountId = FM.AccountId
+            JOIN (SELECT @ROWNUM:=0) R 
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Forum_Comment_GetQueryObjectPaging#SqlServer" resultMap="proc_Forum_Comment_FindAllQueryObject_Result" >
+      SELECT
+
+      TableIndex.*,
+      Temp.OrganizationPath, Temp.Headship, Temp.Signature, Temp.IconPath, Temp.Point, Temp.PublishThreadCount, Temp.FollowCount
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Comment T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      LEFT JOIN tb_Forum_Member Temp ON TableIndex.AccountId = Temp.AccountId
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+      ORDER BY RowIndex
+    </select>
+
+    <!-- SQL Server 2000 -->
+    <select id="proc_Forum_Comment_GetPaging(SQLServer2000)" resultMap="proc_Forum_Comment_FindAll_Result" >
+      SELECT TOP $PageSize$ *
+
+      FROM tb_Forum_Comment T
+
+      WHERE Id NOT IN (
+      SELECT TOP $StartIndex$ Id FROM tb_Forum_Comment T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic> ORDER BY $OrderBy$ )
+
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      ORDER BY $OrderBy$
+    </select>
+
+    <!-- SQL Server 2005 / SQL Server 2008 (默认) -->
+    <select id="proc_Forum_Comment_GetPaging(SQLServer2008)" resultMap="proc_Forum_Comment_FindAll_Result" >
+      SELECT *
+
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+      FROM tb_Forum_Comment T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+
+    <select id="proc_Forum_Comment_GetRowCount" >
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Comment T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="proc_Forum_Comment_IsExist" >
+      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Comment T WHERE $WhereClause$
+    </select>
+  </statements>
+</sqlMap>

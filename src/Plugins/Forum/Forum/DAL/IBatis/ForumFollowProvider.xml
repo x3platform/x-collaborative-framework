@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Forum.DAL.IBatis.ForumMemberProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ForumFollowInfo" type="X3Platform.Plugins.Forum.Model.ForumFollowInfo,X3Platform.Plugins.Forum" />
+    <typeAlias alias="ForumFollowQueryInfo" type="X3Platform.Plugins.Forum.Model.ForumFollowQueryInfo,X3Platform.Plugins.Forum" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Forum_Follow_Account_FindOne_Result" class="ForumFollowInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="ThreadId" column="ThreadId" />
+      <result property="Title" column="Title" />
+      <result property="Content" column="Content" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="Sign" column="Sign" />
+      <result property="ApplicationTag" column="ApplicationTag" />
+    </resultMap>
+    <resultMap id="proc_Forum_Follow_Account_FindAll_Result" class="ForumFollowInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="ThreadId" column="ThreadId" />
+      <result property="Title" column="Title" />
+      <result property="Content" column="Content" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="Sign" column="Sign" />
+      <result property="ApplicationTag" column="ApplicationTag" />
+    </resultMap>
+    <resultMap id="proc_Forum_Follow_Account_FindAllQueryObject_Result" class="ForumFollowQueryInfo">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="MemberDisplayName" column="AccountName" />
+      <result property="MemberIconPath" column="IconPath" />
+      <result property="ThreadId" column="ThreadId" />
+      <result property="Title" column="Title" />
+      <result property="Content" column="Content" />
+      <result property="UpdateDate" column="UpdateDate" />
+      <result property="Sign" column="Sign" />
+      <result property="ApplicationTag" column="ApplicationTag" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <insert id="proc_Forum_Follow_Account_Insert" >
+      INSERT INTO $ApplicationStore$_Follow_Account (
+      Id,
+      AccountId,
+      FollowAccountId,
+      CreateDate
+      )
+      VALUES
+      (
+      #Id#,
+      #AccountId#,
+      #FollowAccountId#,
+      CURRENT_TIMESTAMP
+      )
+    </insert>
+
+    <select id="proc_Forum_Follow_Account_GetPaging" resultMap="proc_Forum_Follow_Account_FindAll_Result" >
+      SELECT *,substring('$ApplicationStore$',11,len('$ApplicationStore$')-10) AS ApplicationTag FROM (
+      SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex FROM (
+      SELECT * FROM (
+      SELECT Id,AccountId,Id as ThreadId,Title,Content,UpdateDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
+      AccountId $WhereClause$ AND Anonymous = 0 AND Status = 1
+      UNION ALL
+      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.UpdateDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
+      LEFT JOIN $ApplicationStore$_Thread AS T ON C.ThreadId=T.Id WHERE C.AccountId $WhereClause$ AND C.Anonymous = 0
+      ) AS Temp1
+      ) AS Temp2
+      ) AS TableIndex
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+
+    <select id="proc_Forum_Follow_Account_GetQueryObjectPaging" resultMap="proc_Forum_Follow_Account_FindAllQueryObject_Result" >
+      SELECT TableIndex.*,Temp.AccountName,Temp.IconPath,substring('$ApplicationStore$',11,len('$ApplicationStore$')-10) AS ApplicationTag FROM (
+      SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex FROM (
+      SELECT * FROM (
+      SELECT Id,AccountId,Id as ThreadId,Title,Content,UpdateDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
+      AccountId $WhereClause$ AND Anonymous = 0 AND Status = 1
+      UNION ALL
+      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.UpdateDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
+      LEFT JOIN $ApplicationStore$_Thread AS T ON C.ThreadId=T.Id WHERE C.AccountId $WhereClause$ AND C.Anonymous = 0
+      ) AS Temp1
+      ) AS Temp2
+      ) AS TableIndex
+      LEFT JOIN $ApplicationStore$_Member Temp ON TableIndex.AccountId=Temp.AccountId
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+
+    <select id="proc_Forum_Follow_Account_GetRowCount" >
+      SELECT COUNT(Id) AS 'RowCount' FROM (
+      SELECT Id,AccountId,Id as ThreadId,Title,Content,UpdateDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
+      AccountId $WhereClause$ AND Anonymous = 0 AND Status = 1
+      UNION ALL
+      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.UpdateDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
+      LEFT JOIN $ApplicationStore$_Thread AS T ON C.ThreadId=T.Id WHERE C.AccountId $WhereClause$ AND C.Anonymous = 0
+      ) AS Temp
+    </select>
+
+    <select id="proc_Forum_Follow_Account_IsExist" >
+      SELECT COUNT(Id) AS 'Count' FROM $ApplicationStore$_Follow_Account T WHERE $WhereClause$
+    </select>
+
+    <select id="proc_Forum_Follow_Account_IsMutual" >
+      SELECT COUNT(Id) FROM (
+      SELECT * FROM dbo.$ApplicationStore$_Follow_Account where AccountId = #AccountId# AND FollowAccountId = #FollowAccountId#
+      UNION ALL
+      SELECT * FROM dbo.$ApplicationStore$_Follow_Account where FollowAccountId = #AccountId# AND AccountId = #FollowAccountId#) Temp
+    </select>
+
+    <delete id="proc_Forum_Follow_Account_Delete(PhysicallyRemoved)" >
+      DELETE FROM $ApplicationStore$_Follow_Account WHERE $WhereClause$
+    </delete>
+
+    <select id="proc_Forum_Follow_Account_GetFollowCount" resultClass="int">
+      SELECT COUNT(Id) FROM $ApplicationStore$_Follow_Account WHERE FollowAccountId=#AccountId#
+    </select>
+
+  </statements>
+</sqlMap>
