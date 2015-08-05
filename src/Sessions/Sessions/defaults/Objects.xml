@@ -3,11 +3,11 @@
     <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
     <!-- 帐号缓存 -->
-    <object name="X3Platform.Sessions.IBLL.IAccountCacheService"
+    <object id="X3Platform.Sessions.IBLL.IAccountCacheService"
             type="X3Platform.Sessions.BLL.AccountCacheService,X3Platform.Sessions"
             lazy-init="true" />
 
-    <object name="X3Platform.Sessions.IDAL.IAccountCacheProvider"
+    <object id="X3Platform.Sessions.IDAL.IAccountCacheProvider"
             type="X3Platform.Sessions.DAL.IBatis.AccountCacheProvider,X3Platform.Sessions"
             lazy-init="true" />
 </objects>
