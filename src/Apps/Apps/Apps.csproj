@@ -199,7 +199,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
+    <None Include="build.publish.cmd" />
     <None Include="config\X3Platform.Apps.config" />
     <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />
@@ -217,6 +217,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
