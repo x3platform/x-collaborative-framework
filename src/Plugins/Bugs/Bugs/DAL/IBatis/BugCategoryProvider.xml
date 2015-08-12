@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Bugs.DAL.IBatis.BugCateogryProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<alias>
+		<typeAlias alias="BugCategoryInfo" type="X3Platform.Plugins.Bugs.Model.BugCategoryInfo,X3Platform.Plugins.Bugs" />
+		<typeAlias alias="BugCategoryQueryInfo" type="X3Platform.Plugins.Bugs.Model.BugCategoryQueryInfo,X3Platform.Plugins.Bugs" />
+	</alias>
+	<resultMaps>
+		<resultMap id="proc_Bug_Category_FindOne_Result" class="BugCategoryInfo">
+			<result property="Id" column="Id" />
+			<result property="AccountId" column="AccountId" />
+			<result property="AccountName" column="AccountName" />
+			<result property="CategoryIndex" column="CategoryIndex" />
+			<result property="Description" column="Description" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Bug_Category_FindAll_Result" class="BugCategoryInfo">
+			<result property="Id" column="Id" />
+			<result property="AccountId" column="AccountId" />
+			<result property="AccountName" column="AccountName" />
+			<result property="CategoryIndex" column="CategoryIndex" />
+			<result property="Description" column="Description" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+		<resultMap id="proc_Bug_Category_FindAllQueryObject_Result" class="BugCategoryQueryInfo">
+			<result property="Id" column="Id" />
+			<result property="AccountId" column="AccountId" />
+			<result property="AccountName" column="AccountName" />
+			<result property="CategoryIndex" column="CategoryIndex" />
+			<result property="Description" column="Description" />
+			<result property="OrderId" column="OrderId" />
+			<result property="Status" column="Status" />
+			<result property="UpdateDate" column="UpdateDate" />
+			<result property="CreateDate" column="CreateDate" />
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<insert id="proc_Bug_Category_Insert" parameterClass="BugCategoryInfo">
+			INSERT INTO tb_Bug_Category 
+            (
+			    Id,
+                AccountId,
+                AccountName,
+                CategoryIndex,
+                Description,
+                OrderId,
+                Status,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #AccountName#,
+                #CategoryIndex#,
+                #Description#,
+                #OrderId#,
+                #Status#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+			)
+		</insert>
+
+		<update id="proc_Bug_Category_Update" parameterClass="BugCategoryInfo">
+			UPDATE tb_Bug_Category SET
+			
+                CategoryIndex = #CategoryIndex#,
+                Description = #Description#,
+                OrderId = #OrderId#,
+                Status = #Status#,
+			    UpdateDate = CURRENT_TIMESTAMP
+			
+			WHERE Id = #Id#
+		</update>
+
+		<insert id="proc_Bug_Category_Save" parameterClass="BugCategoryInfo">
+			IF EXISTS(SELECT 0 FROM tb_Bug_Category WHERE Id = #Id#)
+			BEGIN
+			    UPDATE tb_Bug_Category SET
+			
+                    AccountId = #AccountId#,
+                    AccountName = #AccountName#,
+                    CategoryIndex = #CategoryIndex#,
+                    Description = #Description#,
+                    OrderId = #OrderId#,
+                    Status = #Status#,
+			        UpdateDate = CURRENT_TIMESTAMP
+			
+			    WHERE Id = #Id#
+			END
+			ELSE
+			BEGIN
+			    INSERT INTO tb_Bug_Category 
+                (
+			        Id,
+                    AccountId,
+                    AccountName,
+                    CategoryIndex,
+                    Description,
+                    OrderId,
+                    Status,
+                    UpdateDate,
+                    CreateDate
+                )
+                VALUES
+                (
+                    #Id#,
+                    #AccountId#,
+                    #AccountName#,
+                    #CategoryIndex#,
+                    #Description#,
+                    #OrderId#,
+                    #Status#,
+                    CURRENT_TIMESTAMP,
+                    CURRENT_TIMESTAMP
+			    )
+			END
+		</insert>
+
+		<delete id="proc_Bug_Category_Delete" >
+			UPDATE tb_Bug_Category SET Status = 2, UpdateDate = CURRENT_TIMESTAMP WHERE $WhereClause$ 
+		</delete>
+
+		<select id="proc_Bug_Category_CanDelete" >
+			SELECT COUNT(1) AS 'RowCount' FROM tb_Bug WHERE CategoryId = #Id#
+		</select>
+
+        <delete id="proc_Bug_Category_Scope_RemoveAll" >
+            DELETE FROM tb_Bug_Category_Scope WHERE EntityId = #Id#
+        </delete>
+
+        <delete id="proc_Bug_Category_Remove" >
+            DELETE FROM tb_Bug_Category WHERE Id = #Id# 
+        </delete>
+        
+        <select id="proc_Bug_Category_FindOne" resultMap="proc_Bug_Category_FindOne_Result" >
+			SELECT * FROM tb_Bug_Category WHERE Id = #Id#
+		</select>
+
+		<select id="proc_Bug_Category_FindAll#MySql" resultMap="proc_Bug_Category_FindAll_Result" >
+			SELECT * 
+            
+            FROM tb_Bug_Category
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+		</select>
+
+		<select id="proc_Bug_Category_FindAll#SqlServer" resultMap="proc_Bug_Category_FindAll_Result" >
+			SELECT
+
+			<dynamic prepend="TOP">
+				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
+					$Length$
+				</isNotEqual>
+			</dynamic>
+
+			* FROM tb_Bug_Category
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Bug_Category_GetPaging#MySql" resultMap="proc_Bug_Category_FindAll_Result" >
+			SELECT *
+            
+			FROM tb_Bug_Category T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+		</select>
+
+		<select id="proc_Bug_Category_GetPaging" resultMap="proc_Bug_Category_FindAll_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+			FROM tb_Bug_Category T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>) TableIndex
+
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+		</select>
+
+		<select id="proc_Bug_Category_GetQueryObjectPaging#MySql" resultMap="proc_Bug_Category_FindAllQueryObject_Result" >
+			SELECT *
+            
+			FROM tb_Bug_Category T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+		</select>
+
+		<select id="proc_Bug_Category_GetQueryObjectPaging" resultMap="proc_Bug_Category_FindAllQueryObject_Result" >
+			SELECT *
+
+			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+			FROM tb_Bug_Category T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>) TableIndex
+			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+		</select>
+
+		<select id="proc_Bug_Category_GetRowCount" >
+			SELECT COUNT(1) AS 'RowCount' FROM tb_Bug_Category T
+
+			<dynamic prepend="WHERE">
+				<isParameterPresent>
+					<isNotEmpty prepend="AND" property="WhereClause" >
+						$WhereClause$
+					</isNotEmpty>
+				</isParameterPresent>
+			</dynamic>
+		</select>
+
+		<select id="proc_Bug_Category_IsExist" >
+			SELECT COUNT(0) AS 'Count' FROM tb_Bug_Category T WHERE $WhereClause$
+		</select>
+
+		<update id="proc_Bug_Category_SetStatus">
+			UPDATE tb_Bug_Category SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+		</update>
+       
+        <select id="proc_Bug_Category_GetDynamicTreeView#MySql"  >
+            SELECT Id AS Token, func_GetCategoryIndexTreeNodeName(CategoryIndex, #SearchPath#) AS Name, CategoryIndex FROM tb_Bug_Category T 
+            
+            WHERE Status = 1 AND CategoryIndex LIKE '$SearchPath$%' 
+            
+            <dynamic prepend="AND">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY OrderId, CategoryIndex
+        </select>
+    <select id="proc_Bug_Category_GetDynamicTreeView#SqlServer"  >
+        SELECT Id AS Token, dbo.func_GetCategoryIndexTreeNodeName(CategoryIndex, #SearchPath#) AS Name, CategoryIndex FROM tb_Bug_Category T 
+            
+        WHERE Status = 1 AND CategoryIndex LIKE '$SearchPath$%' 
+            
+        <dynamic prepend="AND">
+            <isParameterPresent>
+                <isNotEmpty prepend="AND" property="WhereClause" >
+                    $WhereClause$
+                </isNotEmpty>
+            </isParameterPresent>
+        </dynamic>
+          
+        ORDER BY OrderId, CategoryIndex
+    </select>
+	</statements>
+</sqlMap>

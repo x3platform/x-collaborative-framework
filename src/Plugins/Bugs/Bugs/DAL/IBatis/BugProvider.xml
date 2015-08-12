@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Bugs.DAL.IBatis.BugProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="BugInfo" type="X3Platform.Plugins.Bugs.Model.BugInfo, X3Platform.Plugins.Bugs" />
+        <typeAlias alias="BugQueryInfo" type="X3Platform.Plugins.Bugs.Model.BugQueryInfo, X3Platform.Plugins.Bugs" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Bug_FindOne_Result" class="BugInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="ProjectId" column="ProjectId" />
+            <result property="CategoryId" column="CategoryId" />
+            <result property="CategoryIndex" column="CategoryIndex" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="AssignToAccountId" column="AssignToAccountId" />
+            <result property="AssignToAccountName" column="AssignToAccountName" />
+            <result property="SimilarBugIds" column="SimilarBugIds" />
+            <result property="Priority" column="Priority" />
+            <result property="Status" column="Status" />
+            <result property="OrderId" column="OrderId" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Bug_FindAll_Result" class="BugInfo">
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="ProjectId" column="ProjectId" />
+            <result property="CategoryId" column="CategoryId" />
+            <result property="CategoryIndex" column="CategoryIndex" />
+            <result property="Title" column="Title" />
+            <result property="Content" column="Content" />
+            <result property="Tags" column="Tags" />
+            <result property="AssignToAccountId" column="AssignToAccountId" />
+            <result property="AssignToAccountName" column="AssignToAccountName" />
+            <result property="SimilarBugIds" column="SimilarBugIds" />
+            <result property="Priority" column="Priority" />
+            <result property="Status" column="Status" />
+            <result property="OrderId" column="OrderId" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_BugQueryInfo_FindAll_Result" class="BugQueryInfo">      
+            <result property="Id" column="Id" />
+            <result property="Code" column="Code" />
+            <result property="AccountId" column="AccountId" />
+            <result property="AccountName" column="AccountName" />
+            <result property="CategoryIndex" column="CategoryIndex" />  
+            <result property="Title" column="Title" />
+            <result property="Tags" column="Tags" />
+            <result property="AssignToAccountId" column="AssignToAccountId" />
+            <result property="AssignToAccountName" column="AssignToAccountName" />
+            <result property="Priority" column="Priority" />
+            <result property="Status" column="Status" />
+            <result property="UpdateDate" column="UpdateDate" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Bug_Insert" parameterClass="BugInfo" >
+            INSERT INTO tb_Bug
+            (
+                Id,
+                Code,
+                AccountId,
+                AccountName,
+                ProjectId,
+                CategoryId,
+                CategoryIndex,
+                Title,
+                Content,
+                Tags,
+                AssignToAccountId,
+                AssignToAccountName,
+                SimilarBugIds,
+                Priority,
+                Status,
+                OrderId,
+                UpdateDate,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #Code#,
+                #AccountId#,
+                #AccountName#,
+                #ProjectId#,
+                #CategoryId#,
+                #CategoryIndex#,
+                #Title#,
+                #Content#,
+                #Tags#,
+                #AssignToAccountId#,
+                #AssignToAccountName#,
+                #SimilarBugIds#,
+                #Priority#,
+                #Status#,
+                #OrderId#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <update id="proc_Bug_Update" parameterClass="BugInfo" >
+            UPDATE tb_Bug SET
+
+                Code = #Code#,
+                ProjectId = #ProjectId#,
+                CategoryId = #CategoryId#,
+                CategoryIndex = #CategoryIndex#,
+                Title = #Title#,
+                Content = #Content#,
+                Tags = #Tags#,
+                AssignToAccountId = #AssignToAccountId#,
+                AssignToAccountName = #AssignToAccountName#,
+                SimilarBugIds = #SimilarBugIds#,
+                Priority = #Priority#,
+                Status = #Status#,
+                OrderId = #OrderId#,
+                UpdateDate = CURRENT_TIMESTAMP
+
+            WHERE Id = #Id#
+        </update>
+
+        <delete id="proc_Bug_Delete">
+            DELETE FROM tb_Bug WHERE Id = #Id#
+        </delete>
+
+        <select id="proc_Bug_FindOne" parameterClass="BugInfo" resultMap="proc_Bug_FindOne_Result" >
+            SELECT * FROM tb_Bug WHERE Id = #Id#
+        </select>
+
+        <select id="proc_Bug_FindOneByCode#MySql" parameterClass="BugInfo" resultMap="proc_Bug_FindOne_Result" >
+            SELECT * FROM tb_Bug WHERE Code = #Code# LIMIT 0,1
+        </select>
+      
+        <select id="proc_Bug_FindOneByCode#SqlServer" parameterClass="BugInfo" resultMap="proc_Bug_FindOne_Result" >
+            SELECT Top 1 * FROM tb_Bug WHERE Code = #Code#
+        </select>
+        <select id="proc_Bug_FindAll#MySql" resultMap="proc_Bug_FindAll_Result" parameterClass="BugInfo" >
+            SELECT * 
+            
+            FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Bug_FindAll#SqlServer" resultMap="proc_Bug_FindAll_Result" parameterClass="BugInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Bug_GetPaging#MySql" parameterClass="BugInfo" resultMap="proc_Bug_FindAll_Result" >
+            SELECT *
+
+            FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Bug_GetPaging#SqlServer" parameterClass="BugInfo" resultMap="proc_Bug_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+        <select id="proc_Bug_GetQueryObjectPaging#MySql" resultMap="proc_BugQueryInfo_FindAll_Result" >      
+            SELECT *
+
+            FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                    $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Bug_GetQueryObjectPaging#SqlServer" resultMap="proc_BugQueryInfo_FindAll_Result" >      
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                    $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+
+        <select id="proc_Bug_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Bug T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        
+        <select id="proc_Bug_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM tb_Bug T WHERE Id = #Id#
+        </select>
+        
+        <select id="proc_Bug_GetAuthorizationScope" >
+            SELECT AuthorizationObjectId, AuthorizationObjectType
+
+            FROM (
+
+                SELECT AccountId AS AuthorizationObjectId, N'Account' AS AuthorizationObjectType
+                FROM tb_Bug
+                WHERE Id = #Id#
+
+                UNION
+                SELECT AssignToAccountId AS AuthorizationObjectId, N'Account' AS AuthorizationObjectType
+                FROM tb_Bug
+                WHERE Id = #Id#
+
+                UNION
+                SELECT AuthorizationObjectId, AuthorizationObjectType FROM tb_Project_Scope
+                WHERE EntityId IN (SELECT ProjectId FROM tb_Bug WHERE Id = #Id#)
+
+            ) AS T
+        </select>
+    </statements>
+</sqlMap>

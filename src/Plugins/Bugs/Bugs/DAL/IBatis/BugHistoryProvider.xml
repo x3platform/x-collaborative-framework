@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Plugins.Bugs.DAL.IBatis.BugHistoryProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="BugHistoryInfo" type="X3Platform.Plugins.Bugs.Model.BugHistoryInfo, X3Platform.Plugins.Bugs" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Bug_History_FindOne_Result" class="BugHistoryInfo">
+            <result property="Id" column="Id" />
+            <result property="BugId" column="BugId" />
+            <result property="AccountId" column="AccountId" />
+            <result property="FromStatus" column="FromStatus" />
+            <result property="ToStatus" column="ToStatus" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+        <resultMap id="proc_Bug_History_FindAll_Result" class="BugHistoryInfo">
+            <result property="Id" column="Id" />
+            <result property="BugId" column="BugId" />
+            <result property="AccountId" column="AccountId" />
+            <result property="FromStatus" column="FromStatus" />
+            <result property="ToStatus" column="ToStatus" />
+            <result property="CreateDate" column="CreateDate" />
+        </resultMap>
+    </resultMaps>
+
+    <statements>
+        <insert id="proc_Bug_History_Save" parameterClass="BugHistoryInfo" >
+            INSERT INTO tb_Bug_History
+            (
+                Id,
+                BugId,
+                AccountId,
+                FromStatus,
+                ToStatus,
+                CreateDate
+            )
+            VALUES
+            (
+                #Id#,
+                #BugId#,
+                #AccountId#,
+                #FromStatus#,
+                #ToStatus#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+
+        <delete id="proc_Bug_History_Delete">
+            DELETE FROM tb_Bug_History WHERE Id IN ($Ids$)
+        </delete>
+
+        <delete id="proc_Bug_History_DeleteByBugId">
+            DELETE FROM tb_Bug_History WHERE BugId = #BugId#
+        </delete>
+
+        <select id="proc_Bug_History_FindOne" parameterClass="BugHistoryInfo" resultMap="proc_Bug_History_FindOne_Result" >
+            SELECT * FROM tb_Bug_History WHERE Id = #Id#
+        </select>
+        <select id="proc_Bug_History_FindAll#MySql" resultMap="proc_Bug_History_FindAll_Result" parameterClass="BugHistoryInfo" >
+            SELECT * 
+            
+            FROM tb_Bug_History T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+                    0,$Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Bug_History_FindAll#SqlServer" resultMap="proc_Bug_History_FindAll_Result" parameterClass="BugHistoryInfo" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM tb_Bug_History T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Bug_History_GetPaging#MySql" parameterClass="BugHistoryInfo" resultMap="proc_Bug_History_FindAll_Result" >
+            SELECT *
+
+            FROM tb_Bug_History T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            ORDER BY $OrderBy$
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Bug_History_GetPaging#SqlServer" parameterClass="BugHistoryInfo" resultMap="proc_Bug_History_FindAll_Result" >
+            SELECT *
+
+            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+
+            FROM tb_Bug_History T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>) TableIndex
+
+            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+
+        </select>
+        <select id="proc_Bug_History_GetRowCount" >
+
+            SELECT COUNT(*) AS 'RowCount' FROM tb_Bug_History T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Bug_History_IsExist" >
+            SELECT COUNT(*) AS 'Count' FROM tb_Bug_History T WHERE Id = #Id#
+        </select>
+    </statements>
+</sqlMap>

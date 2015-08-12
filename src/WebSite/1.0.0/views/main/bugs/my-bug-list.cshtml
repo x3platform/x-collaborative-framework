@@ -1,0 +1,33 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/main/bugs/assets-scripts.js"></script>
+<script type="text/javascript" src="/views/main/bugs/my-bug-list.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <input id="session-accountId" name="session-accountId" type="hidden" value="@ViewBag.account.Id" />
+      <input id="containerId" name="containerId" type="hidden" value="tab-1-container" />
+      <input id="status" name="status" type="hidden" value="0,1,3" />
+      <span>我的问题列表</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="x-ui-pkg-tabs-menu-wrapper x-freeze-height">
+        <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
+          <li id="li-tab-1" class="active"><a href="#tab-1" onclick="javascript:main.bugs.my.list.getTab('0');">待解决</a></li>
+          <li id="li-tab-2"><a href="#tab-2" onclick="javascript:main.bugs.my.list.getTab('1');">已解决</a></li>
+          <li id="li-tab-3"><a href="#tab-3" onclick="javascript:main.bugs.my.list.getTab('2');">无法修复</a></li>
+          <li id="li-tab-4"><a href="#tab-4" onclick="javascript:main.bugs.my.list.getTab('3');">已关闭</a></li>
+          <li id="li-tab-5"><a href="#tab-5" onclick="javascript:main.bugs.my.list.getTab('4');">被打回</a></li>
+        </ul>
+        <div class="x-ui-pkg-tabs-menu-filter form-inline text-right">
+          <!-- 此文本输入的模糊查询条件是：标题或者发起人 -->
+          <input id="searchText" type="text" class="form-control input-sm" />
+          <button id="btnFilter" class="btn btn-default btn-sm" title="查询"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
+      <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+    </div>
+    <div id="window-main-table-footer" class="table-footer x-freeze-height"></div>
+  </div>
+</div>
