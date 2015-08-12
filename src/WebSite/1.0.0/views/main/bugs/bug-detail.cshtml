@@ -1,0 +1,133 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/jquery-file-upload/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/resources/javascript/jquery-file-upload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/resources/javascript/app/x.app.files.js"></script>
+<script type="text/javascript" src="/views/main/bugs/assets-scripts.js"></script>
+<script type="text/javascript" src="/views/main/bugs/bug-detail.js"></script>
+<div id="window-container" class="container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        <a href="/bugs/form?id=@ViewBag.param.Id&returnUrl=/bugs/detail/@ViewBag.param.Id" class="btn btn-default">编辑</a>
+        <a href="javascript:x.page.close();" class="btn btn-default">关闭</a>
+      </div>
+      <span>问题跟踪</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="x-ui-pkg-tabs-wrapper">
+        <div class="x-ui-pkg-tabs-menu-wrapper">
+          <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
+            <li><a href="#tab-1">问题</a></li>
+            <li><a href="#tab-2">反馈(@ViewBag.param.Comments.Count)</a></li>
+            <li><a href="#tab-3">状态(@ViewBag.param.Histories.Count)</a></li>
+          </ul>
+        </div>
+
+        <div class="x-ui-pkg-tabs-container">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-1" name="tab-1">问题</a></h2>
+          <table class="table" style="width:100%">
+            <tr class="table-row-normal">
+              <td class="table-body-text">编号</td>
+              <td colspan="3" class="table-body-input">
+                <input id="entityClassName" type="hidden" value="@ViewBag.entityClassName" />
+                <input id="id" name="id" type="hidden" value="@ViewBag.param.Id" />
+                <input id="accountId" name="accountId" type="hidden" value="@ViewBag.param.AccountId" />
+                <input id="assignToAccountId" name="assignToAccountId" type="hidden" value="@ViewBag.param.AssignToAccountId" />
+                <input id="orderId" name="orderId" type="hidden" value="@ViewBag.param.OrderId" />
+                <input id="fromStatus" name="fromStatus" type="hidden" value="@ViewBag.param.Status" />
+                @ViewBag.param.Code
+              </td>
+            </tr>
+
+            <tr class="table-row-normal">
+              <td class="table-body-text">标题</td>
+              <td colspan="3" class="table-body-input">@ViewBag.param.Title</td>
+            </tr>
+
+            <tr class="table-row-normal">
+              <td class="table-body-text">所属类别</td>
+              <td colspan="3" class="table-body-input">@ViewBag.param.CategoryIndex</td>
+            </tr>
+
+            <tr class="table-row-normal">
+              <td class="table-body-text">内容</td>
+              <td colspan="3" class="table-body-input">
+                <div id="contentWrapper" style="height:200px;">@ViewBag.param.Content.Replace("\n", "<br />")</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text" style="width:120px">所属项目</td>
+              <td class="table-body-input" style="width:200px">@ViewBag.param.ProjectName</td>
+              <td class="table-body-text" style="width:120px">状态</td>
+              <td class="table-body-input">
+                <script type="text/javascript">document.write(main.bugs.util.setColorStatusView('@ViewBag.param.StatusView'))</script>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">负责人</td>
+              <td class="table-body-input">@ViewBag.param.AssignToAccountName</td>
+              <td class="table-body-text">重要性</td>
+              <td class="table-body-input">@ViewBag.param.PriorityView</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">标签</td>
+              <td class="table-body-input">@ViewBag.param.Tags</td>
+              <td class="table-body-text">相似问题</td>
+              <td class="table-body-input">@ViewBag.param.SimilarBugIds</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">附件</td>
+              <td class="table-body-input" colspan="3"><div id="window-attachment-wrapper" class="window-attachment-wrapper"></div></td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">提交人</td>
+              <td class="table-body-input">@ViewBag.param.AccountName</td>
+              <td class="table-body-text">提交时间</td>
+              <td class="table-body-input">@ViewBag.param.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            </tr>
+          </table>
+
+        </div>
+
+        <div class="x-ui-pkg-tabs-container">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a name="tab-2" id="tab-2">反馈</a></h2>
+          <div id="window-bug-comment-container"></div>
+        </div>
+
+        <div class="x-ui-pkg-tabs-container">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a name="tab-3" id="tab-3">状态</a></h2>
+          <table class="table">
+            <tr class="table-row-title">
+              <td style="width:120px">执行人</td>
+              <td >状态</td>
+              <td style="width:160px">修改日期</td>
+            </tr>
+            @foreach (var item in ViewBag.param.Histories)
+            {
+              <tr>
+                <td>@item.AccountName</td>
+                @if(item.FromStatusView == item.ToStatusView)
+                {
+                  <td>提交</td>
+                }
+                else
+                {
+                  <td>
+                  <script type="text/javascript">document.write(main.bugs.util.setColorStatusView('@item.FromStatusView') + ' <i class="fa fa-random"></i> ' + main.bugs.util.setColorStatusView('@item.ToStatusView'))</script>
+                  </td>
+                }
+                <td>@item.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+              </tr>
+            }
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

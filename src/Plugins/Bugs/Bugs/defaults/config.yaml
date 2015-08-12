@@ -1,0 +1,19 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Plugins.Bugs/X3Platform.Plugins.Bugs/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.Plugins.Bugs.defaults.IBatis.SqlMap.xml
+  # 数据表前缀
+  DataTablePrefix: Empty 
+  # 编号的相关实体数据表
+  DigitalNumberEntityTableName: tb_Bug
+  # 编号的前缀编码规则 : {ApplicationPinYin} 应用拼音
+  DigitalNumberPrefixCodeRule: "{ApplicationPinYin}"
+  # 编号的自增流水号长度
+  DigitalNumberIncrementCodeLength: 3
+  # 发送邮件提醒 : On | Off(默认)
+  SendMailAlert: Off
+  # 项目信息的数据表前缀
+  ProjectDataTablePrefix: Empty
+...

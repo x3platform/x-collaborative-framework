@@ -1,0 +1,118 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" id="shared-wizards-contacts-wizard-script" src="/views/shared/wizards/contacts-wizard.js"></script>
+<script type="text/javascript" src="/views/main/bugs/assets-scripts.js"></script>
+<script type="text/javascript" src="/views/main/bugs/bug-category-form.js"></script>
+<div id="window-container" class="container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header">
+      <div class="table-toolbar" id="toolbar">
+        <a href="javascript:main.bugs.bug.category.form.save()" class="btn btn-default">保存</a>
+        <a href="javascript:x.page.close();" class="btn btn-default">关闭</a>
+      </div>
+      类别设置
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="x-ui-pkg-tabs-wrapper" style="width:100%">
+
+        <div class="x-ui-pkg-tabs-menu-wrapper">
+          <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
+            <li><a href="#tab-1">基本信息</a></li>
+            <li><a href="#tab-2">权限设置</a></li>
+          </ul>
+        </div>
+
+        <div class="x-ui-pkg-tabs-container">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-1" name="tab-1">基本信息</a></h2>
+
+          <table class="table-style" style="width:100%">
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text" style="width:120px;">
+                <span class="required-text">类别索引</span>
+              </td>
+              <td class="table-body-input">
+                <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+                <input id="categoryIndex" name="categoryIndex" type="text" x-dom-data-type="value" x-dom-data-required="1" x-dom-data-required-warning="必须填写【类别索引】。" value="@ViewBag.param.CategoryIndex" class="form-control" style="width:200px;" />
+              </td>
+            </tr>
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">办理说明</td>
+              <td class="table-body-input">
+                <textarea id="description" name="description" x-dom-data-type="value" class="textarea-normal" style="width:460px; height:80px;">@ViewBag.param.Description</textarea>
+              </td>
+            </tr>
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">排序</td>
+              <td class="table-body-input">
+                <input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:120px;" />
+              </td>
+            </tr>
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">启用</td>
+              <td class="table-body-input">
+                <input id="status" name="status" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Status" />
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="x-ui-pkg-tabs-container">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-2" name="tab-2">权限设置</a></h2>
+          <table class="table-style" style="width:100%">
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text" style="width:15%;">可起草人员</td>
+              <td>
+                <textarea id="authorizationAddScopeObjectView" name="txtReadScopeView" x-dom-data-type="value" class="textarea-normal" style="width:460px; height:60px;" readonly="readonly">@ViewBag.param.AuthorizationAddScopeObjectView</textarea>
+                <input id="authorizationAddScopeObjectText" name="authorizationAddScopeObjectText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AuthorizationAddScopeObjectText" />
+                <div class="text-right" style="width:460px;">
+                  <a href="javascript:x.ui.wizards.getContactsWizard({targetViewName:'authorizationAddScopeObjectView',targetValueName:'authorizationAddScopeObjectText',contactTypeText:'default'});">编辑</a>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">重置数据权限</td>
+              <td class="table-body-input vertical-middle">
+                <input id="resetEntities" name="resetEntities" type="checkbox" x-dom-data-type="value" />
+                <span class="green-text">将此类别下的相关业务数据授权关系根据默认可阅读人员重新设置</span>
+              </td>
+            </tr>
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">授权实例化</td>
+              <td class="table-body-input vertical-middle">
+                <input id="authorizedRoleInstantiated" name="authorizedRoleInstantiated" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" />
+                <span class="green-text">新建时是否对默认可阅读权限进行实例化操作</span>
+              </td>
+            </tr>
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">默认可阅读人员</td>
+              <td>
+                <textarea id="authorizationReadScopeObjectView" name="txtDefaultReaderView" x-dom-data-type="value" class="textarea-normal" style="width:460px; height:60px;" readonly="readonly">@ViewBag.param.AuthorizationReadScopeObjectView</textarea>
+                <input id="authorizationReadScopeObjectText" name="authorizationReadScopeObjectText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AuthorizationReadScopeObjectText" />
+                <div class="text-right" style="width:460px;">
+                  <a href="javascript:x.ui.wizards.getContactsWizard({targetViewName:'authorizationReadScopeObjectView',targetValueName:'authorizationReadScopeObjectText',contactTypeText:'default'});">编辑</a>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="table-row-normal-transparent">
+              <td class="table-body-text">可维护人员</td>
+              <td>
+                <textarea id="authorizationEditScopeObjectView" name="authorizationEditScopeObjectView" x-dom-data-type="value" class="textarea-normal" style="width:460px; height:60px;" readonly="readonly">@ViewBag.param.AuthorizationEditScopeObjectView</textarea>
+                <input id="authorizationEditScopeObjectText" name="authorizationEditScopeObjectText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AuthorizationEditScopeObjectText" />
+                <div class="text-right" style="width:460px;">
+                  <a href="javascript:x.ui.wizards.getContactsWizard({targetViewName:'authorizationEditScopeObjectView',targetValueName:'authorizationEditScopeObjectText',contactTypeText:'default'});">编辑</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
