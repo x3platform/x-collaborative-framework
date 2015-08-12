@@ -988,11 +988,47 @@ namespace X3Platform.Util
             return Convert.ToBase64String(buffer);
         }
 
+        public static string ToBase64(string text, string codepage)
+        {
+          string encode = string.Empty;
+
+          byte[] bytes = Encoding.GetEncoding(codepage).GetBytes(text);
+
+          try
+          {
+            encode = Convert.ToBase64String(bytes);
+          }
+          catch
+          {
+            encode = text;
+          }
+
+          return encode;
+        }
+
         public static string FromBase64(string base64Text)
         {
             byte[] buffer = Convert.FromBase64String(base64Text);
-
+        
             return Encoding.Default.GetString(buffer);
+        }
+
+        public static string FromBase64(string base64Text, string codepage)
+        {
+          string decode = "";
+
+          byte[] bytes = Convert.FromBase64String(base64Text);
+
+          try
+          {
+            decode = Encoding.GetEncoding(codepage).GetString(bytes);
+          }
+          catch
+          {
+            decode = base64Text;
+          }
+
+          return decode;
         }
 
         //-------------------------------------------------------

@@ -18,11 +18,11 @@
 
         public string Upload(XmlDocument doc)
         {
-            this.ProcessRequest(HttpContext.Current);
-            
-            HttpContext.Current.Response.End();
-            
-            return string.Empty;
+          this.ProcessRequest(HttpContext.Current);
+
+          HttpContext.Current.Response.End();
+
+          return string.Empty;
         }
 
         public override void ProcessRequest(HttpContext context)

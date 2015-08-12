@@ -1,6 +1,4 @@
-﻿@{
-  Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml";
-}
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
 <div id="window-container" class="window-container">
   @Html.Raw(ViewBag.customizePageHtml)
 </div>

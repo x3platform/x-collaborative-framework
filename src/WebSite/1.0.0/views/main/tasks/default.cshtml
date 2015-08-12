@@ -1,0 +1,62 @@
+﻿@{
+  Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml";
+}
+<script id="x-main" type="text/javascript">
+  x.require({
+    files: [
+        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.js' },
+        { fileType: 'script', id: 'main-tasks-home-script', path: '/views/main/tasks/default.js' }
+    ]
+  });
+</script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"任务管理管理\我的待办事宜" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <div id="toolbar" class="table-toolbar">
+        <a href="javascript:main.tasks.home.page.selectAll(true);" class="btn btn-default">全选</a>
+        <a href="javascript:main.tasks.home.page.selectInverse();" class="btn btn-default">反选</a>
+        <a href="javascript:main.tasks.home.page.setFinished();" class="btn btn-default">打钩待办设置为已完成</a>
+        <a href="javascript:main.tasks.home.page.setAllFinished();" class="btn btn-default">所有待办设置为已完成</a>
+      </div>
+      <input id="session-accountId" name="session-accountId" type="hidden" value="@ViewBag.account.Id" />
+      <input id="typeList" name="typeList" type="hidden" value="@ViewBag.type" />
+      <input id="statusList" name="statusList" type="hidden" value="@ViewBag.status" />
+      <input id="containerId" name="containerId" type="hidden" value="tab-1-container" />
+      <span>我的待办事宜</span>
+    </div>
+    <div class="table-row-filter form-inline text-right x-freeze-height">
+      <input id="searchText" type="text" value="" class="form-control input-sm" placeholder="标题" />
+      <button id="btnFilter" class="btn btn-default btn-sm" title="查询"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="x-ui-pkg-tabs-wrapper">
+        <div class="x-ui-pkg-tabs-menu-wrapper x-freeze-height">
+          <ul class="x-ui-pkg-tabs-menu nav nav-tabs">
+            <li id="li-tab-1" class="active"><a href="#tab-1" onclick="javascript:main.tasks.home.getTab('1');">催办</a></li>
+            <li id="li-tab-2"><a href="#tab-2" onclick="javascript:main.tasks.home.getTab('2');">审批</a></li>
+            <li id="li-tab-3"><a href="#tab-3" onclick="javascript:main.tasks.home.getTab('3');">通知</a></li>
+            <li id="li-tab-4"><a href="#tab-4" onclick="javascript:main.tasks.home.getTab('4');">已完成审批</a></li>
+          </ul>
+        </div>
+        <div id="tab-1-div" class="x-ui-pkg-tabs-container" style="display:block">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-1" name="tab-1">审批中</a></h2>
+          <div id="tab-1-container"><span class="tooltip-loading-text"><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+        </div>
+        <div id="tab-2-div" class="x-ui-pkg-tabs-container" style="display:none">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-2" name="tab-2">已发布</a></h2>
+          <div id="tab-2-container"><span class="tooltip-loading-text"><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+        </div>
+        <div id="tab-3-div" class="x-ui-pkg-tabs-container" style="display:none">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-3" name="tab-3">被驳回</a></h2>
+          <div id="tab-3-container"><span class="tooltip-loading-text"><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+        </div>
+        <div id="tab-4-div" class="x-ui-pkg-tabs-container" style="display:none">
+          <h2 class="x-ui-pkg-tabs-container-head-hidden"><a id="tab-4" name="tab-4">草稿箱</a></h2>
+          <div id="tab-4-container"><span class="tooltip-loading-text"><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+        </div>
+      </div>
+    </div>
+    <div id="window-main-table-footer" class="table-footer x-freeze-height"></div>
+  </div>
+</div>

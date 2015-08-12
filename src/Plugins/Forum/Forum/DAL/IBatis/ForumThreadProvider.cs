@@ -109,6 +109,7 @@
         AccountName = param.AccountName,
         ThreadId = param.Id,
         Content = param.Content,
+        AttachmentFileCount = param.AttachmentFileCount,
         Anonymous = param.Anonymous,
         IP = param.IP
       });

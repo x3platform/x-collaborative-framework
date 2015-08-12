@@ -189,12 +189,11 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Forum_Comment_GetQueryObjectPaging#MySql" resultMap="proc_Forum_Comment_FindAllQueryObject_Result" >
-      SELECT FC.*
+      SELECT * FROM (SELECT *, @ROWNUM :=@ROWNUM + 1 AS RowIndex FROM (SELECT FC.*
              , FM.OrganizationPath, FM.Headship, FM.Signature, FM.IconPath, FM.Point, FM.PublishThreadCount, FM.FollowCount
-             , @ROWNUM:=@ROWNUM+1 AS RowIndex
        FROM tb_Forum_Comment FC
             LEFT JOIN tb_Forum_Member FM ON FC.AccountId = FM.AccountId
-            JOIN (SELECT @ROWNUM:=0) R 
+            
       <dynamic prepend="WHERE">
         <isParameterPresent>
           <isNotEmpty prepend="AND" property="WhereClause" >
@@ -207,8 +206,9 @@
         <isNotEmpty prepend="AND" property="OrderBy" >
           $OrderBy$
         </isNotEmpty>
-      </dynamic>
-
+      </dynamic> 
+      ) T1 JOIN (SELECT @ROWNUM:=0) R ) T
+      
       LIMIT $StartIndex$, $PageSize$
     </select>
     <select id="proc_Forum_Comment_GetQueryObjectPaging#SqlServer" resultMap="proc_Forum_Comment_FindAllQueryObject_Result" >

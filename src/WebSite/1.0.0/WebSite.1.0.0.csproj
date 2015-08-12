@@ -141,6 +141,12 @@
     <Reference Include="X3Platform.Membership.Mvc">
       <HintPath>..\..\..\bin\X3Platform.Membership.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Plugins.Bugs">
+      <HintPath>..\..\..\bin\X3Platform.Plugins.Bugs.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Plugins.Bugs.Mvc">
+      <HintPath>..\..\..\bin\X3Platform.Plugins.Bugs.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Plugins.Contacts">
       <HintPath>..\..\..\bin\X3Platform.Plugins.Contacts.dll</HintPath>
     </Reference>
@@ -220,6 +226,14 @@
     <Content Include="views\main\applications\application-setting-group-list.js" />
     <Content Include="views\main\applications\application-setting-list.js" />
     <Content Include="views\main\applications\default.js" />
+    <Content Include="views\main\bugs\assets-scripts.js" />
+    <Content Include="views\main\bugs\bug-category-form.js" />
+    <Content Include="views\main\bugs\bug-category-list.js" />
+    <Content Include="views\main\bugs\bug-detail.js" />
+    <Content Include="views\main\bugs\bug-form.js" />
+    <Content Include="views\main\bugs\bug-list.js" />
+    <Content Include="views\main\bugs\bug-setting-list.js" />
+    <Content Include="views\main\bugs\my-bug-list.js" />
     <Content Include="views\main\customizes\customize-content-form.js" />
     <Content Include="views\main\customizes\customize-content-list.js" />
     <Content Include="views\main\customizes\customize-layout-form.js" />
@@ -228,6 +242,7 @@
     <Content Include="views\main\customizes\customize-page-list.js" />
     <Content Include="views\main\customizes\customize-widget-form.js" />
     <Content Include="views\main\customizes\customize-widget-list.js" />
+    <Content Include="views\main\forum\assets-scripts.js" />
     <Content Include="views\main\forum\forum-category-form.js" />
     <Content Include="views\main\forum\forum-category-list.js" />
     <Content Include="views\main\forum\default.js" />
@@ -237,7 +252,6 @@
     <Content Include="views\main\forum\forum-thread-form.js" />
     <Content Include="views\main\forum\forum-thread-list.js" />
     <Content Include="views\main\forum\assets-styles.css" />
-    <Content Include="views\main\forum\assets-util.js" />
     <Content Include="views\main\forum\my-forum-thread-list.js" />
     <Content Include="views\main\membership\account-grant-list.js" />
     <Content Include="views\main\membership\account-list.js" />
@@ -255,6 +269,9 @@
     <Content Include="views\main\membership\standard-general-role-setting.js" />
     <Content Include="views\main\membership\standard-organization-list.js" />
     <Content Include="views\main\membership\standard-role-list.js" />
+    <Content Include="views\main\tasks\default.js" />
+    <Content Include="views\main\tasks\task-category-list.js" />
+    <Content Include="views\main\tasks\task-setting-list.js" />
     <Content Include="views\shared\wizards\forum-category-wizard.js" />
     <Content Include="views\templates\internal\sdk\styles\style.css" />
     <Content Include="views\templates\internal\sdk\styles\style.min.css" />
@@ -356,6 +373,16 @@
     <Content Include="views\shared\wizards\forum-category-wizard.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\main\tasks\default.cshtml" />
+    <Content Include="views\main\tasks\task-category-list.cshtml" />
+    <Content Include="views\main\tasks\task-setting-list.cshtml" />
+    <Content Include="views\main\bugs\bug-category-form.cshtml" />
+    <Content Include="views\main\bugs\bug-category-list.cshtml" />
+    <Content Include="views\main\bugs\bug-detail.cshtml" />
+    <Content Include="views\main\bugs\bug-form.cshtml" />
+    <Content Include="views\main\bugs\bug-list.cshtml" />
+    <Content Include="views\main\bugs\bug-setting-list.cshtml" />
+    <Content Include="views\main\bugs\my-bug-list.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
