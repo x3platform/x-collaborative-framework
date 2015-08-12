@@ -33,13 +33,18 @@
         <!-- MVC -->
         <ProjectToBuild Include="Membership\Membership.Mvc\Membership.Mvc.csproj" />
         <ProjectToBuild Include="Apps\Apps.Mvc\Apps.Mvc.csproj" />
+        <ProjectToBuild Include="AttachmentStorage\AttachmentStorage.Mvc\AttachmentStorage.Mvc.csproj" />
         <!-- Tests -->
         <ProjectToBuild Include="Sessions\Sessions.Tests\Sessions.Tests.csproj" />
         <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" />
         <ProjectToBuild Include="Apps\Apps.Tests\Apps.Tests.csproj" />
         <ProjectToBuild Include="Web\Web.Tests\Web.Tests.csproj" />
+        <!-- Bugs -->
+        <ProjectToBuild Include="Plugins\Bugs\Bugs\Bugs.csproj" />
+        <ProjectToBuild Include="Plugins\Bugs\Bugs.Mvc\Bugs.Mvc.csproj" />
         <!-- Forum -->
         <ProjectToBuild Include="Plugins\Forum\Forum\Forum.csproj" />
+        <ProjectToBuild Include="Plugins\Forum\Forum.Mvc\Forum.Mvc.csproj" />
     </ItemGroup>
     <Target Name="Build">
         <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release;WarningLevel=0" />
