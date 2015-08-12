@@ -49,10 +49,11 @@
       }
 
       param.Id = param.Id == "" ? Guid.NewGuid().ToString() : param.Id;
+
       param.CommentCount = ForumContext.Instance.ForumCommentService.GetCommentCount(param.Id);
 
       // 是否有附件
-      param.AttachmentFileCount = AttachmentStorageContext.Instance.AttachmentFileService.FindAllByEntityId(KernelContext.ParseObjectType(typeof(ForumCommentInfo)), param.Id).Count;
+      param.AttachmentFileCount = AttachmentStorageContext.Instance.AttachmentFileService.FindAllByEntityId(KernelContext.ParseObjectType(typeof(ForumThreadInfo)), param.Id).Count;
 
       // 查询最后回帖信息
       string lastCommentInfo = ForumContext.Instance.ForumCommentService.GetLastComment(param.Id);

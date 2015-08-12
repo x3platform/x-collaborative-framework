@@ -39,9 +39,11 @@ namespace X3Platform.WebSiteV10
       routes.Add("attachment-storage-request-route", new X3Platform.AttachmentStorage.Mvc.RequestRoute());
       // 配置 /tasks/ 路由
       routes.Add("tasks-request-route", new X3Platform.Tasks.Mvc.RequestRoute());
+      // 配置 /bugs/ 路由
+      routes.Add("bugs-request-route", new X3Platform.Plugins.Bugs.Mvc.RequestRoute());
       // 配置 /forum/ 路由
       routes.Add("forum-request-route", new X3Platform.Plugins.Forum.Mvc.RequestRoute());
-
+      
       // 管理界面
       routes.MapRoute(
         // Route name

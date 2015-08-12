@@ -1,0 +1,236 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<link rel="stylesheet" media="all" href="/views/main/forum/assets-styles.css" type="text/css" />
+<script type="text/javascript" src="/resources/editors/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/resources/javascript/app/x.app.files.js"></script>
+<script type="text/javascript" src="/views/main/forum/assets-scripts.js"></script>
+<script type="text/javascript" src="/views/main/forum/forum-thread-detail.js"></script>
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table" style="width:920px;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        @if (ViewBag.isAdminToken || ViewBag.categoryAdministrator)
+        {
+          <a href="javascript:main.forum.thread.detail.setTop('@ViewBag.param.Id');" class="btn btn-default"><span id="isTopTip">设置置顶</span></a>
+          <a href="javascript:main.forum.thread.detail.setEssential('@ViewBag.param.Id}');" class="btn btn-default"><span id="isEssentialTip">设置精华</span></a>
+        }
+        <a href="javascript:x.wizards.getRecommendWizard({url:'/services/Elane/X/Forum/Ajax.ForumThreadWrapper.aspx',customTableName:'', entityId:'@ViewBag.param.Id}', entityTitle:'@ViewBag.param.Title}', entityViewUrlFormat:'@ViewBag.url}'});" class="btn btn-default">推荐</a>
+        <a href="javascript:x.page.close();" class="btn btn-default"> 关闭</a>
+      </div>
+      <span>@ViewBag.param.CategoryIndex 【版主：@ViewBag.categoryAdminName】</span>
+    </div>
+    <div style="padding:8px 8px 3px 8px;">
+      <div class="pull-left">
+        <a href="javascript:main.forum.thread.detail.useBack('','楼主','@ViewBag.param.AccountName}','@ViewBag.CreateDate}');" class="btn btn-default btn-sm">回帖</a>
+        <a href="forum-thread-form.aspx" class="btn btn-default btn-sm">发帖</a>
+      </div>
+      <div class="forum-thread-view-enterprise-paging pull-right"></div>
+      <div class="clearfix"></div>
+    </div>
+    <table id="window-main-table" class="table table-nopadding">
+      <tr>
+        <td>
+          <table style="width: 100%;">
+            <tr>
+              <td class="forum-thread-detail-layout-left">
+                <div class="forum-thread-view-enterprise-click">
+                  浏览：<strong>@ViewBag.param.Click</strong><span class="forum-thread-view-enterprise-line">
+                    |
+                  </span>回复：<strong>@ViewBag.param.CommentCount</strong>
+                </div>
+              </td>
+              <td class="forum-thread-detail-layout-right">
+                <div class="forum-thread-view-enterprise-title">
+                  @ViewBag.param.Title
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="forum-thread-view-enterprise-sign-left"></td>
+              <td class="forum-thread-view-enterprise-sign-right"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-body">
+          <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+        </td>
+      </tr>
+    </table>
+
+    <div style="padding:8px 8px 3px 8px;">
+      <div class="forum-thread-view-enterprise-paging"></div>
+    </div>
+    <div style="border-top:1px solid #ccc;">
+      <table style="width: 100%;">
+        <tr>
+          <td class="forum-thread-detail-layout-left">
+            <div class="forum-thread-view-enterprise-iconPath">
+              <img src="/uploads/avatar/@ViewBag.member.IconPath" alt="" />
+            </div>
+          </td>
+          <td class="forum-thread-detail-layout-right">
+            <div class="useInfoTip" id="useInfoTip">
+            </div>
+            <table class="table-style" style="width: 100%">
+              <tr class="table-row-normal-transparent">
+                <td class="table-body-input">
+                  <textarea name="content" id="content" style="display: none;"></textarea>
+                </td>
+              </tr>
+            </table>
+            <div style="border: 1px solid #CCCCCC; width: 718px; margin: 0px 0px 5px 8px;">
+              <div class="showToolContent" title="展开">
+                展开
+              </div>
+              <table style="display: none;" class="toolContent">
+                <tr class="table-row-normal-transparent">
+                  <td class="table-body-text" style="text-align: left;" colspan="2">
+                    当前心情
+                  </td>
+                </tr>
+                <tr class="table-row-normal-transparent">
+                  <td class="table-body-input" colspan="2">
+                    @*心情选择*@
+                    @*<table>
+                        <tr>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion001.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion002.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion003.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion004.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion005.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion006.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion007.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion008.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion009.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion010.gif" class="heart" alt="" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion011.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion012.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion013.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion014.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion015.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion016.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion017.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion018.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion019.gif" class="heart" alt="" />
+                          </td>
+                          <td style="border-style: none;">
+                            <img src="/resources/images/forum/heart/onion020.gif" class="heart" alt="" />
+                          </td>
+                        </tr>
+                      </table>
+                    *@<input type="hidden" name="heart" id="heart" value="" />
+                  </td>
+                </tr>
+              </table>
+              <table style="display: none;" class="toolContent">
+                <tr class="table-row-normal-transparent">
+                  <td class="table-body-text" style="text-align: left; width: 90px;">
+                    附件
+                  </td>
+                  <td class="table-body-input" style="text-align: left; width: 610px;">
+                    <div id="windowAttachmentContainer" class="window-attachment-wrapper">
+                    </div>
+                    @*<iframe id="uploadFileWizard" name="uploadFileWizard" style="height: 20px; width: 100%"
+                      frameborder="0" src="@ViewBag.uploadFileWizard}?entityId=@ViewBag.CommentId}&amp;entityClassName=Elane.X.Forum.Model.ForumCommentInfo,
+                      elane.x.forum&amp;attachmentfolder=Forum&amp;fileUploadLimit =10&amp;fileSizeLimit =20&amp;fileTypes =*.*;"></iframe>
+                    *@
+                  </td>
+                </tr>
+              </table>
+            </div>
+            @if (ViewBag.param.IP.IndexOf("x") != -1)
+            {
+              <div style="font-size:20px">此贴子回帖功能已禁止</div>
+            }
+            else
+            {
+              <div><input type="checkbox" name="anonymous" id="anonymous" style="vertical-align: middle; margin-left: 10px;" /> 匿名回复</div>
+              <div style="padding:8px 0 10px 10px;"><a href="javascript:main.forum.thread.detail.save()" class="btn btn-default">回复本贴</a></div>
+            }
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="forum-thread-view-enterprise-tool-top">
+      <a href="javascript:main.forum.thread.detail.pagePosition('min');" class="forum-thread-view-enterprise-tool-top-main">
+        <span>返回顶部</span>
+      </a>
+    </div>
+  </div>
+
+  @*帖子相关信息*@
+  <input id="threadId" name="threadId" type="hidden" value="@ViewBag.param.Id" />
+  <input id="accountId" name="accountId" type="hidden" value="@ViewBag.param.AccountId" />
+  <input id="categoryId" name="categoryId" type="hidden" value="@ViewBag.param.CategoryId" />
+  @*<input id="sign" name="sign" type="hidden" value="@ViewBag.param.Sign" />*@
+  <input id="pageSize" name="pageSize" type="hidden" value="@ViewBag.pageSize" />
+  @*论坛电梯功能*@
+  <input id="currentPage" name="currentPage" type="hidden" value="@ViewBag.currentPage" />
+  <input id="showFloor" name="showFloor" type="hidden" value="@ViewBag.showFloor" />
+  @*当前登录人信息*@
+  <input id="userId" name="userId" type="hidden" value="@ViewBag.member.AccountId" />
+  <input id="userDisplayName" name="userDisplayName" type="hidden" value="@ViewBag.member.AccountName" />
+  @*回复的信息标识*@
+  <input id="useShow" name="useShow" type="hidden" value="" />
+  @*是否是管理员*@
+  <input id="isAdminToken" name="isAdminToken" type="hidden" value="@ViewBag.isAdminToken" />
+  @*是否是版主*@
+  <input id="categoryAdministrator" name="isDelete" type="hidden" value="@ViewBag.categoryAdministrator" />
+  @*置顶、精华*@
+  <input id="isTop" name="isTop" type="hidden" value="@ViewBag.param.IsTop" />
+  <input id="isEssential" name="isEssential" type="hidden" value="@ViewBag.param.IsEssential" />
+  @*当前系统时间*@
+  <input id="nowDate" name="nowDate" type="hidden" value="@ViewBag.nowDate" />
+  @*编辑有效天数*@
+  <input id="dayCountStr" name="dayCountStr" type="hidden" value="@ViewBag.dayCountStr" />
+  @*推荐*@
+  <input id="threadTitle" name="threadTitle" type="hidden" value="@ViewBag.param.Title" />
+  <input id="threadCategory" name="threadCategory" type="hidden" value="@ViewBag.param.CategoryIndex" />
+  @*回帖编号*@
+  <input id="commentId" name="commentId" type="hidden" value="@ViewBag.CommentId" />
+  @*禁用右键菜单、复制*@
+  <input id="forbidCopy-activate" type="hidden" value="@ViewBag.forbidCopy" />
+  @*程序标记*@
+  <input id="applicationTag" name="applicationTag" type="hidden" value="@ViewBag.applicationTag" />
+</div>

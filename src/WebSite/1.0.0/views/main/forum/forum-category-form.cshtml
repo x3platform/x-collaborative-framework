@@ -1,0 +1,102 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/app/x.app.js"></script>
+<script type="text/javascript" src="/views/main/forum/forum-category-form.js"></script>
+<div id="window-container" class="window-container">
+    <table id="window-main-table" class="table" style="width: 920px;">
+      <tr>
+        <td id="window-main-table-header" class="table-header">
+          <div id="toolbar" class="table-toolbar">
+            <a href="javascript:main.forum.category.form.save()" class="table-toolbar-button-single-2font">保存</a> 
+            <a href="javascript:x.page.close();" class="table-toolbar-button-single-2font">关闭</a>
+          </div>
+          版块设置
+        </td>
+      </tr>
+      <tr>
+        <td id="window-main-table-container" class="table-body">
+          <table class="table">
+            <tr class="table-row-normal">
+              <td class="table-body-text" style="width: 140px;">
+                <span class="required-text">版块名称</span>
+              </td>
+              <td class="table-body-input" colspan="3">
+                <input id="categoryIndex" name="categoryIndex" type="text" style="width: 600px;"
+                       value="@ViewBag.param.CategoryIndex" class="form-control custom-forms-data-required"
+                       dataverifywarning="必须填写【版块名称】" />
+              </td>
+            </tr>
+            <tr class="table-row-normal">
+              <td class="table-body-text">可阅读人员</td>
+              <td colspan="3">
+                <textarea style="width:600px; height:60px;" class="form-control" readonly="readonly" name="authorizationReadScopeObjectView" id="authorizationReadScopeObjectView">@ViewBag.param.AuthorizationReadScopeObjectView</textarea>
+                <input id="authorizationReadScopeObjectText" type="hidden" value="@ViewBag.param.AuthorizationReadScopeObjectText" />
+                <div style="width: 612px; text-align: right;">
+                  <a href="javascript:main.forum.util.getContactsWindow('authorizationReadScopeObjectView','authorizationReadScopeObjectText','default');">编辑</a>
+                </div>
+              </td>
+            </tr>
+            <tr class="table-row-normal">
+              <td class="table-body-text">版主</td>
+              <td colspan="3">
+                <textarea style="width: 600px; height: 60px;" class="form-control" readonly="readonly" name="authorizationEditScopeObjectView" id="authorizationEditScopeObjectView">@ViewBag.param.AuthorizationEditScopeObjectView</textarea>
+                <input id="authorizationEditScopeObjectText" type="hidden" value="@ViewBag.param.AuthorizationEditScopeObjectText" />
+                <div style="width: 612px; text-align: right;">
+                  <a href="javascript:main.forum.util.getContactsWindow('authorizationEditScopeObjectView','authorizationEditScopeObjectText','default');">编辑</a>
+                </div>
+              </td>
+            </tr>
+            <tr class="table-row-normal">
+              <td class="table-body-text">
+                版块描述
+              </td>
+              <td class="table-body-input" colspan="3">
+                <textarea id="description" name="description" class="textarea-normal" style="width: 600px;height: 60px;">@ViewBag.param.Description</textarea>
+              </td>
+            </tr>
+            <tr class="table-row-normal">
+              <td class="table-body-text">
+                发帖加分
+              </td>
+              <td class="table-body-input">
+                <input type="text" name="publishThreadPoint" id="publishThreadPoint" value="@ViewBag.param.PublishThreadPoint"
+                       feature="number" class="form-control" />
+              </td>
+              <td class="table-body-text">
+                回帖加分
+              </td>
+              <td class="table-body-input">
+                <input type="text" name="publishCommentPoint" id="publishCommentPoint" value="@ViewBag.param.PublishCommentPoint"
+                       feature="number" class="form-control" />
+              </td>
+            </tr>
+            <tr class="table-row-normal">
+              <td class="table-body-text">启用</td>
+              <td class="table-body-input">
+                <input id="status" name="status" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Status" />
+              </td>
+              <td class="table-body-text">
+                允许匿名发贴
+              </td>
+              <td class="table-body-input">
+                @if(ViewBag.param.Anonymous == 1)
+                {
+                  <input type="checkbox" name="anonymous" id="anonymous" checked="checked" />
+                }
+                else
+                {
+                  <input type="checkbox" name="anonymous" id="anonymous" />
+                }
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td id="windowMainTableFooter" class="table-footer"><img src="/resources/images/transparent.gif" style="height: 18px" /></td>
+      </tr>
+    </table>
+    <input id="id" name="id" type="hidden" value="@ViewBag.param.Id" />
+    <input id="accountId" name="accountId" type="hidden" value="@ViewBag.param.AccountId" />
+    <input id="accountName" name="accountName" type="hidden" value="@ViewBag.param.AccountName" />
+    <input id="applicationTag" name="applicationTag" type="hidden" value="@ViewBag.applicationTag" />
+</div>

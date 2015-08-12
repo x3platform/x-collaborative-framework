@@ -1,0 +1,96 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/editors/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/resources/javascript/jquery-file-upload/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/resources/javascript/jquery-file-upload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/resources/javascript/app/x.app.files.js"></script>
+<script type="text/javascript" src="/views/shared/wizards/forum-category-wizard.js"></script>
+<script type="text/javascript" src="/views/main/forum/forum-thread-form.js"></script>
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table" style="width:920px;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        @if(ViewBag.Status == -1)
+        {
+          <a href="javascript:main.forum.thread.form.save(-1)" class="btn btn-default">暂存</a> 
+        }
+        <a href="javascript:main.forum.thread.form.save(1)" class="btn btn-default">发帖</a>
+        <a href="javascript:x.page.close();" class="btn btn-default">关闭</a>
+      </div>
+      <span>发布帖子</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+
+      <table class="table-style" style="width:100%">
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text" style="width:120px;"><span class="required-text">主题</span></td>
+          <td class="table-body-input">
+            <input id="entityClassName" type="hidden" value="@ViewBag.entityClassName" />
+            <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+            <input id="accountId" name="accountId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AccountId" />
+            <input id="categoryId" name="categoryId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.CategoryId" />
+            <input id="isTop" name="isTop" type="hidden" x-dom-data-type="value" value="@ViewBag.param.IsTop" />
+            <input id="topExpiryDate" name="topExpiryDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.TopExpiryDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
+            <input id="isHot" name="isHot" type="hidden" x-dom-data-type="value" value="@ViewBag.param.IsHot" />
+            <input id="hotExpiryDate" name="hotExpiryDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.HotExpiryDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
+            <input id="status" name="status" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Status" />
+            <input id="storageNodeIndex" name="storageNodeIndex" type="hidden" x-dom-data-type="value" value="" />
+            <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.UpdateDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
+            <input id="title" name="title" type="text" x-dom-data-type="value" value="@ViewBag.param.Title" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【主题】。" style="width:460px;" />
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text" style="width:120px"><span class="required-text">所属版块<span></td>
+          <td class="table-body-input form-inline">
+            
+            <div class="input-group">
+              <input id="categoryIndex" name="categoryIndex" type="text" x-dom-data-type="value" value="@ViewBag.param.CategoryIndex" class="form-control" x-dom-data-required="1" x-dom-data-required-warning="必须填写【所属论坛版块】。" style="width:420px;" />
+              <input id="categoryId" name="categoryId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.CategoryId" />
+              <a href="javascript:x.ui.wizards.getForumCategoryWizard({targetViewName:'categoryIndex',targetValueName:'categoryId'});" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
+            </div>
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text"><span class="required-text">作者</span></td>
+          <td class="table-body-input">
+            <input id="accountName" name="accountName" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AccountName" />
+            <span id="authorView" style="width:120px;">
+            @if(ViewBag.param.Anonymous == 1)
+            { 
+              @:匿名 
+            }
+            else
+            {
+              @ViewBag.param.AccountName
+            }
+            </span>
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">匿名发布</td>
+          <td class="table-body-input">
+            <input id="anonymous" name="anonymous" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" x-dom-callback="main.forum.thread.form.setAuthorView();"  value="@ViewBag.param.Anonymous" />
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text"><span class="required-text">内容</span></td>
+          <td class="table-body-input">
+            <textarea id="content" name="content" type="text" x-dom-data-type="value" @* x-dom-feature="richTextBox" *@ class="form-control" style="height:300px;width:580px;">@ViewBag.param.Content</textarea>
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">附件</td>
+          <td class="table-body-input">
+          <div id="files" x-dom-data-type="list" >
+              <div id="window-attachment-wrapper" class="window-attachment-wrapper"></div>
+          </div>
+          <span class="x-ui-upload-button">
+              <span>上传文件</span>
+              <input id="fileupload" type="file" name="fileData" multiple>
+          </span>
+          <input id="upload" name="upload" type="hidden" @* x-dom-feature="uploads" *@ uploadurl="${uploadFileWizard" uploadentityid="0000000000000" uploadentityclassname="X3Platform.Plugins.Test.Model.TestInfo, X3Platform.Plugins.Test" uploadattachmentfolder="test" uploadfilesizelimit="20" uploadfiletypes="*.*" uploadfileuploadlimit="0" style="height:18px; width:100%" /></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
