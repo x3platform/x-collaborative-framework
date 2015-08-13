@@ -174,7 +174,7 @@ namespace X3Platform.Tasks.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             foreach (TaskWorkItemInfo item in list)
             {
@@ -270,7 +270,7 @@ namespace X3Platform.Tasks.Ajax
 
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{\"ajaxStorage\":{\"list\":[");
+            outString.Append("{\"data\":{\"list\":[");
 
             foreach (string item in list)
             {

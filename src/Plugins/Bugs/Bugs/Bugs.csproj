@@ -196,10 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="build.publish.cmd" />
-    <None Include="config\X3Platform.Bugzilla.config" />
-    <Content Include="config\X3Platform.Bugzilla.IBatis.SqlMap.config" />
-    <Content Include="config\X3Platform.Bugzilla.Spring.config" />
     <EmbeddedResource Include="defaults\config.yaml" />
+    <None Include="config\X3Platform.Plugins.Bugs.config" />
+    <None Include="config\X3Platform.Plugins.Bugs.IBatis.SqlMap.config" />
+    <None Include="config\X3Platform.Plugins.Bugs.Spring.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DAL\IBatis\BugCategoryProvider.xml" />

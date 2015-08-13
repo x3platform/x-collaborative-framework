@@ -3,8 +3,8 @@
   using System;
   using System.Web.Mvc;
   using System.Web.Security;
-
   using X3Platform.Apps;
+  using X3Platform.Apps.Model;
   using X3Platform.Configuration;
   using X3Platform.Json;
   using X3Platform.Location.IPQuery;
@@ -15,26 +15,6 @@
   /// <summary>帐号基本信息</summary>
   public sealed class AccountController : CustomController
   {
-    #region 函数:Index()
-    /// <summary>主页</summary>
-    /// <returns></returns>
-    [LoginFilter]
-    public ActionResult Index()
-    {
-      return View("/views/" + LocateFolder("main") + "/account/default.cshtml");
-    }
-    #endregion
-
-    #region 函数:Settings()
-    /// <summary>设置</summary>
-    /// <returns></returns>
-    [LoginFilter]
-    public ActionResult Settings()
-    {
-      return View("/views/" + LocateFolder("main") + "/account/settings.cshtml");
-    }
-    #endregion
-
     #region 函数:SignUp()
     /// <summary>注册</summary>
     public ActionResult SignUp()
@@ -93,7 +73,7 @@
     /// <summary>忘记密码</summary>
     public ActionResult ForgotPassword()
     {
-      return View("/views/main/account/forgot-password.cshtml");
+      return View("/views/" + LocateFolder("main") + "/account/forgot-password.cshtml");
     }
     #endregion
   }

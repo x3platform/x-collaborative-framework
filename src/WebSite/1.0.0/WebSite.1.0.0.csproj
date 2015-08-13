@@ -208,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\javascript\ui\pkg\x.ui.pkg.customizes.js" />
+    <Content Include="views\main\account\forgot-password.js" />
     <Content Include="views\main\account\settings\admin.js" />
     <Content Include="views\main\account\settings\applications.js" />
     <Content Include="views\main\account\settings\avatar.js" />
@@ -312,7 +313,6 @@
     <Content Include="views\main\sys\caches.cshtml" />
     <Content Include="views\main\sdk\xhr.cshtml" />
     <Content Include="views\main\sdk\jsonp.cshtml" />
-    <Content Include="views\main\account\default.cshtml" />
     <Content Include="views\main\account\settings\admin.cshtml" />
     <Content Include="views\main\account\settings\applications.cshtml" />
     <Content Include="views\main\account\settings\avatar.cshtml" />
@@ -383,6 +383,7 @@
     <Content Include="views\main\bugs\bug-list.cshtml" />
     <Content Include="views\main\bugs\bug-setting-list.cshtml" />
     <Content Include="views\main\bugs\my-bug-list.cshtml" />
+    <Content Include="views\main\account\forgot-password.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
