@@ -1,103 +1,78 @@
-﻿@{
-    Layout = "~/views/templates/themes/genius/render.cshtml";
-}
-@if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
-{
-<script id="x-main" type="text/javascript" >
-    x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.js' },
-        { fileType: 'script', id: 'main-account-settings-profile-script', path: '/views/main/account/settings/profile.js' }
-    ]
-    });
-</script>
-}
-else
-{
-<script id="x-main" type="text/javascript" >
-    x.require({ files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: '/resources/javascript/x-client-api-template.zh-cn.min.js' },
-        { fileType: 'script', id: 'main-account-settings-profile-script', path: '/views/main/account/settings/profile.js' }
-    ]
-    });
-</script>
-}
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" id="main-account-settings-profile-script" src="/views/main/account/settings/profile.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
-<!-- original: /apps/pages/account/identity.aspx -->
-<div id="window-container" class="window-container" >
-<div class="window-container-padding" >
-<div id="window-main-table" class="table-style border-4" style="width:100%;">
-    <div id="window-main-table-header" class="table-header border-4">
-        <div id="toolbar" class="table-toolbar" >
-            <a href="javascript:main.account.identity.setMemberCard();" >保存</a> 
-            <a href="javascript:x.page.close();" >关闭</a> 
-        </div>
-        <span>基本信息</span>
-	</div>
-    <div id="window-main-table-container" class="table-body">
-    <div class="ajax-tabs-wrapper">
-			<table class="table-style" style="width:100%;">
-        
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px">姓名</td>
-			<td class="table-body-input" style="width:160px"><input id="name" name="name" type="text" x-data-type="value" value="@(ViewBag.member.Account.Name)" class="input-normal" style="width:120px;"/></td>
-			<td class="table-body-text" rowspan="4" style="width:120px">照片</td>
-			<td class="table-body-input" rowspan="4" ><img id="avatar" src="@ViewBag.avatar_120x120" style="margin:2px 0 0 0px; border: 4px solid #666;" /></td>
-			</tr>
-
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px" >拼音/英文名</td>
-			<td class="table-body-input"><input id="pinyin" name="pinyin" type="text" x-data-type="value" value="@(ViewBag.member.Account.PinYin)" class="input-normal" style="width:120px;"/></td>
-			</tr>
-
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px" >性别</td>
-			<td class="table-body-input"><input id="sex" name="sex" type="text" x-data-type="value" value="@(ViewBag.member.Sex)" class="input-normal" style="width:120px;"/></td>
-			</tr>
-
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px" >联系电话</td>
-			<td class="table-body-input"><input id="telephone" name="telephone" type="text" x-data-type="value" value="@(ViewBag.member.Telephone)" class="input-normal" style="width:120px;"/></td>
-			</tr>
-        
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px" >民族</td>
-			<td class="table-body-input"><input id="national" name="national" type="text" x-data-type="value" value="@(ViewBag.member.ExtensionInformation.National)" class="input-normal" style="width:120px;"/></td>
-			<td class="table-body-text" style="width:120px" >籍贯</td>
-			<td class="table-body-input"><input id="hometown" name="hometown" type="text" x-data-type="value" value="@(ViewBag.member.Hometown)" class="input-normal" style="width:120px;"/></td>
-			</tr>
-        
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px" >出生年月</td>
-			<td class="table-body-input">
-            <input id="birthday" name="birthday" type="text" x-data-type="value" value="@(ViewBag.member.Birthday.ToString("yyyy-MM-dd"))" #if(${isHumanResourceOfficer}) feature="date" #end class="input-normal" style="width:120px;"/>
-			</td>
-            <td class="table-body-text" style="width:120px" >婚姻状况</td>
-			<td class="table-body-input"><input id="maritalStatus" name="maritalStatus" type="text" x-data-type="value" value="@(ViewBag.member.ExtensionInformation.MaritalStatus)" class="input-normal" style="width:120px;"/></td>
-			</tr>
-        
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px" >邮编</td>
-			<td class="table-body-input"><input id="postCode" name="postCode" type="text" x-data-type="value" value="@(ViewBag.member.PostCode)" feature="integer" class="input-normal" style="width:120px;"/></td>
-			<td class="table-body-text" style="width:120px" >Email</td>
-			<td class="table-body-input"><input id="email" name="email" type="text" x-data-type="value" value="@(ViewBag.member.Email)" feature="email" class="input-normal" style="width:120px;"/></td>
-			</tr>
-        
-			<tr class="table-row-normal-transparent">
-			<td class="table-body-text" style="width:120px;" >联系地址</td>
-			<td class="table-body-input" colspan="3" style="padding-bottom:20px;" ><textarea id="address" name="address" x-data-type="value" class="textarea-normal" style="width:432px;; height: 40px;" >@(ViewBag.member.Address)</textarea></td>
-			</tr>
-        
-			</table>
-
-		<input id="accountId" name="accountId" type="hidden" x-data-type="value" value="@(ViewBag.member.AccountId)" />
-		<input id="country" name="country" type="hidden" x-data-type="value" value="" />
-		<input id="city" name="city" type="hidden" x-data-type="value" value="" />
-		<input id="url" name="url" type="hidden" x-data-type="value" value="@(ViewBag.member.Url)" />
-		<input id="mobile" name="mobile" type="hidden" x-data-type="value" value="@(ViewBag.member.Mobile)" />
-		<input id="qq" name="qq" type="hidden" x-data-type="value" value="@(ViewBag.member.QQ)" />
-		<input id="msn" name="msn" type="hidden" x-data-type="value" value="@(ViewBag.member.MSN)" />
-	</div>
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table" style="width:100%;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        <a href="javascript:main.account.profile.setMemberCard();" class="btn btn-default"><i class="fa fa-floppy-o" title="保存"></i> 保存</a>
+      </div>
+      <span>基本信息</span>
     </div>
-</div>
-</div>
+    <div id="window-main-table-container" class="table-body">
+      <div class="ajax-tabs-wrapper">
+        <table class="table table-borderless" style="width:100%;">
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">姓名</td>
+            <td class="table-body-input" style="width:160px"><input id="name" name="name" type="text" x-dom-data-type="value" x-dom-data-required="1" x-dom-data-required-warning="必须填写【姓名】。" value="@(ViewBag.member.Account.Name)" class="form-control" style="width:160px;" /></td>
+            <td class="table-body-text" rowspan="4" style="width:120px">照片</td>
+            <td class="table-body-input" rowspan="4"><img id="avatar" src="@ViewBag.avatar_120x120" style="margin:2px 0 0 0px; border: 4px solid #666;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">拼音/英文名</td>
+            <td class="table-body-input"><input id="pinyin" name="pinyin" type="text" x-dom-data-type="value" value="@(ViewBag.member.Account.PinYin)" class="form-control" style="width:160px;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">性别</td>
+            <td class="table-body-input"><input id="sex" name="sex" type="text" x-dom-data-type="value" value="@(ViewBag.member.Sex)" class="form-control" style="width:160px;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">联系电话</td>
+            <td class="table-body-input"><input id="telephone" name="telephone" type="text" x-dom-data-type="value" value="@(ViewBag.member.Telephone)" class="form-control" style="width:160px;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">民族</td>
+            <td class="table-body-input"><input id="national" name="national" type="text" x-dom-data-type="value" value="@(ViewBag.member.ExtensionInformation.National)" class="form-control" style="width:160px;" /></td>
+            <td class="table-body-text" style="width:120px">籍贯</td>
+            <td class="table-body-input"><input id="hometown" name="hometown" type="text" x-dom-data-type="value" value="@(ViewBag.member.Hometown)" class="form-control" style="width:160px;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">出生年月</td>
+            <td class="table-body-input">
+              <input id="birthday" name="birthday" type="text" x-dom-data-type="value" x-dom-feature="date" value="@(ViewBag.member.Birthday.ToString("yyyy-MM-dd"))" class="form-control" style="width:120px;" />
+            </td>
+            <td class="table-body-text" style="width:120px">婚姻状况</td>
+            <td class="table-body-input"><input id="maritalStatus" name="maritalStatus" type="text" x-dom-data-type="value" value="@(ViewBag.member.ExtensionInformation.MaritalStatus)" class="form-control" style="width:160px;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:120px">邮编</td>
+            <td class="table-body-input"><input id="postCode" name="postCode" type="text" x-dom-data-type="value" value="@(ViewBag.member.PostCode)" feature="integer" class="form-control" style="width:160px;" /></td>
+            <td class="table-body-text" style="width:120px">Email</td>
+            <td class="table-body-input"><input id="email" name="email" type="text" x-dom-data-type="value" value="@(ViewBag.member.Email)" feature="email" class="form-control" style="width:160px;" /></td>
+          </tr>
+
+          <tr class="table-row-normal-transparent">
+            <td class="table-body-text" style="width:160px;">联系地址</td>
+            <td class="table-body-input" colspan="3" style="padding-bottom:20px;"><textarea id="address" name="address" x-dom-data-type="value" class="textarea-normal" style="width:432px;; height: 60px;">@(ViewBag.member.Address)</textarea></td>
+          </tr>
+
+        </table>
+
+        <input id="accountId" name="accountId" type="hidden" x-dom-data-type="value" x-dom-data-required="1" x-dom-data-required-warning="必须填写【帐号唯一标识】。" value="@(ViewBag.member.AccountId)" />
+        <input id="country" name="country" type="hidden" x-dom-data-type="value" value="" />
+        <input id="city" name="city" type="hidden" x-dom-data-type="value" value="" />
+        <input id="url" name="url" type="hidden" x-dom-data-type="value" value="@(ViewBag.member.Url)" />
+        <input id="mobile" name="mobile" type="hidden" x-dom-data-type="value" value="@(ViewBag.member.Mobile)" />
+        <input id="qq" name="qq" type="hidden" x-dom-data-type="value" value="@(ViewBag.member.QQ)" />
+        <input id="msn" name="msn" type="hidden" x-dom-data-type="value" value="@(ViewBag.member.MSN)" />
+      </div>
+    </div>
+  </div>
 </div>

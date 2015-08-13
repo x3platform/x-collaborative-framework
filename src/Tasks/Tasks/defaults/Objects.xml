@@ -3,56 +3,56 @@
     <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
     <!-- 任务 -->
-    <object name="X3Platform.Tasks.IBLL.ITaskWorkService"
+    <object id="X3Platform.Tasks.IBLL.ITaskWorkService"
             type="X3Platform.Tasks.BLL.TaskWorkService"
             lazy-init="true"></object>
 
-    <object name="X3Platform.Tasks.IDAL.ITaskWorkProvider"
+    <object id="X3Platform.Tasks.IDAL.ITaskWorkProvider"
             type="X3Platform.Tasks.DAL.IBatis.TaskWorkProvider"
             lazy-init="true"></object>
 
     <!-- 任务接收者 -->
-    <object name="X3Platform.Tasks.IBLL.ITaskWorkReceiverService"
+    <object id="X3Platform.Tasks.IBLL.ITaskWorkReceiverService"
             type="X3Platform.Tasks.BLL.TaskWorkReceiverService"
             lazy-init="true"></object>
 
-    <object name="X3Platform.Tasks.IDAL.ITaskWorkReceiverProvider"
+    <object id="X3Platform.Tasks.IDAL.ITaskWorkReceiverProvider"
             type="X3Platform.Tasks.DAL.IBatis.TaskWorkReceiverProvider"
             lazy-init="true"></object>
 
     <!-- 任务类别 -->
-    <object name="X3Platform.Tasks.IBLL.ITaskCategoryService"
+    <object id="X3Platform.Tasks.IBLL.ITaskCategoryService"
             type="X3Platform.Tasks.BLL.TaskCategoryService"
             lazy-init="true"></object>
 
-    <object name="X3Platform.Tasks.IDAL.ITaskCategoryProvider"
+    <object id="X3Platform.Tasks.IDAL.ITaskCategoryProvider"
             type="X3Platform.Tasks.DAL.IBatis.TaskCategoryProvider"
             lazy-init="true"></object>
 
     <!-- 历史记录 -->
-    <object name="X3Platform.Tasks.IBLL.ITaskHistoryService"
+    <object id="X3Platform.Tasks.IBLL.ITaskHistoryService"
             type="X3Platform.Tasks.BLL.TaskHistoryService"
             lazy-init="true"></object>
 
-    <object name="X3Platform.Tasks.IDAL.ITaskHistoryProvider"
+    <object id="X3Platform.Tasks.IDAL.ITaskHistoryProvider"
             type="X3Platform.Tasks.DAL.IBatis.TaskHistoryProvider"
             lazy-init="true"></object>
 
     <!-- 定时任务 -->
-    <object name="X3Platform.Tasks.IBLL.ITaskWaitingService"
+    <object id="X3Platform.Tasks.IBLL.ITaskWaitingService"
             type="X3Platform.Tasks.BLL.TaskWaitingService"
             lazy-init="true"></object>
 
-    <object name="X3Platform.Tasks.IDAL.ITaskWaitingProvider"
+    <object id="X3Platform.Tasks.IDAL.ITaskWaitingProvider"
             type="X3Platform.Tasks.DAL.IBatis.TaskWaitingProvider"
             lazy-init="true"></object>
 
     <!-- 定时任务接收者 -->
-    <object name="X3Platform.Tasks.IBLL.ITaskWaitingReceiverService"
+    <object id="X3Platform.Tasks.IBLL.ITaskWaitingReceiverService"
             type="X3Platform.Tasks.BLL.TaskWaitingReceiverService"
             lazy-init="true"></object>
 
-    <object name="X3Platform.Tasks.IDAL.ITaskWaitingReceiverProvider"
+    <object id="X3Platform.Tasks.IDAL.ITaskWaitingReceiverProvider"
             type="X3Platform.Tasks.DAL.IBatis.TaskWaitingReceiverProvider"
             lazy-init="true"></object>
 </objects>

@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using X3Platform.Plugins.Bugs.Configuration;
 using X3Platform.Plugins.Bugs.Model;
+using X3Platform.Data;
 
 namespace X3Platform.Plugins.Bugs.Tests.IBLL
 {
@@ -18,8 +19,10 @@ namespace X3Platform.Plugins.Bugs.Tests.IBLL
     public void TestGetPaging()
     {
       int rowCount = -1;
+      
+      DataQuery query = new DataQuery();
 
-      IList<BugInfo> list = BugContext.Instance.BugService.GetPaging(0, 10, null, out rowCount);
+      IList<BugInfo> list = BugContext.Instance.BugService.GetPaging(0, 10, query, out rowCount);
 
       Assert.IsNotNull(list);
     }

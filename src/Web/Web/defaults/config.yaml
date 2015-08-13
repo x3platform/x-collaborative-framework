@@ -5,8 +5,8 @@ keys:
   SpringObjectFile: assembly://X3Platform.Web/X3Platform.Web/defaults.Objects.xml
   # IBatis : 配置映射文件
   IBatisMapping: embedded:defaults.IBatis.SqlMap.xml,X3Platform.Web
-  # 服务器名称: 当服务器不以域名方式访问时, 必须需要指定服务器IP地址.
-  ServerName: 127.0.0.1;192.168.10.100
+  # 服务器名称: 当服务器不以域名方式访问时, 必须需要指定服务器IP地址, 多个 IP 以半角分号隔开.
+  ServerName: 127.0.0.1;
   # 网站页面的布局: CollaborationPlatform | EnterprisePortalPlatform | Genius
   Layout: Genius
   # 网站页面的主题名称 default | dynamic
@@ -18,7 +18,7 @@ keys:
   # 网站页面的主体模板
   RenderBodyTemplatePath: sites/default/body.vm
   # 登录页面地址
-  SignInUrl: /account/signin?returnUrl={0}
+  SignInUrl: /account/sign-in?returnUrl={0}
 # 导航生成器
 navigation:
   x3platform.com: "X3Platform.Web.Builder.Layouts.Genius.NavigationBuilder,X3Platform.Web.Builder.Layouts.Genius"

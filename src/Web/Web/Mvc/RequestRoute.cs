@@ -89,10 +89,69 @@
 
         return routeData;
       }
-      else
+
+      // 请求地址的前缀
+      prefixUrl = "/account/";
+
+      // 判断是否是我们需要处理的URL，不是则返回null，匹配将会继续进行。
+      if (virtualPath.IndexOf(prefixUrl) == 0)
       {
-        return null;
+        // 请求地址的前缀长度
+        int prefixUrlLength = prefixUrl.Length;
+
+        // 符合规定的地址规则 {prefixUrl}{friendlyUrl}，截取后面的friendlyUrl
+        string friendlyUrl = virtualPath.Substring(prefixUrlLength).Trim('/');
+
+        if (friendlyUrl.LastIndexOf(".aspx") == (friendlyUrl.Length - prefixUrlLength))
+        {
+          friendlyUrl = friendlyUrl.Substring(0, friendlyUrl.Length - prefixUrlLength);
+        }
+
+        // 声明一个RouteData，添加相应的路由值
+        var routeData = new RouteData(this, new MvcRouteHandler());
+
+        // 限制名称空间
+        routeData.DataTokens["Namespaces"] = new string[] { "X3Platform.Web.Mvc.Controllers" };
+
+        if (Regex.IsMatch(friendlyUrl, @"^sign-up$"))
+        {
+          // 注册
+          routeData.Values.Add("controller", "Account");
+          routeData.Values.Add("action", "SignUp");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^sign-in$"))
+        {
+          // 登录
+          routeData.Values.Add("controller", "Account");
+          routeData.Values.Add("action", "SignIn");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^sign-in\?returnUrl=([\w+\-\.\%]+)$"))
+        {
+          // 登录 ?returnUrl=http%3a%2f%2flocal.kernel.x3platform.com%2f
+          routeData.Values.Add("controller", "Account");
+          routeData.Values.Add("action", "SignIn");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^sign-out$"))
+        {
+          // 注销
+          routeData.Values.Add("controller", "Account");
+          routeData.Values.Add("action", "SignOut");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^forgot-password$"))
+        {
+          // 忘记密码
+          routeData.Values.Add("controller", "Account");
+          routeData.Values.Add("action", "ForgotPassword");
+        }
+        else
+        {
+          return null;
+        }
+
+        return routeData;
       }
+
+      return null;
     }
 
     /// <summary></summary>
@@ -104,6 +163,9 @@
       return null;
     }
 
+    /// <summary></summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
     private string FriendlyControllerName(string text)
     {
       return text.Replace("-", string.Empty);

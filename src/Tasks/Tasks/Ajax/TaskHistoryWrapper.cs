@@ -34,7 +34,7 @@ namespace X3Platform.Tasks.Ajax
 
             pages.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<TaskHistoryItemInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<TaskHistoryItemInfo>(list) + ",");
 
             outString.Append("\"pages\":" + pages + ",");
 

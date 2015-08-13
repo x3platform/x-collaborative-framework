@@ -22,9 +22,9 @@ echo Deploy project files - %TargetName%
 
 call :CopyTargetFiles
 
-if exist "%TargetWebSiteDir%config\" call:CopyConfigFiles
+@rem if exist "%TargetWebSiteDir%config\" call:CopyConfigFiles
 
-if exist "%TargetIBatisResourceDir%" call:CopyIBatisFiles
+@rem if exist "%TargetIBatisResourceDir%" call:CopyIBatisFiles
 
 @rem =========================================================
 @rem Build Project Function

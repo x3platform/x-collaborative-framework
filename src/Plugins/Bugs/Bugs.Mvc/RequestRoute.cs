@@ -86,6 +86,13 @@
                     routeData.Values.Add("action", "Detail");
                     routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^detail\/([\w+\-]+)$").Groups[1].Value + "\"}");
                 }
+                else if (Regex.IsMatch(friendlyUrl, @"^archive\/([\w+\-]+)$"))
+                {
+                  // 根据编号查询详情
+                  routeData.Values.Add("controller", "Home");
+                  routeData.Values.Add("action", "Detail");
+                  routeData.Values.Add("options", "{\"code\":\"" + Regex.Match(friendlyUrl, @"^archive\/([\w+\-]+)$").Groups[1].Value + "\"}");
+                }
                 else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/list$"))
                 {
                     // 列表信息

@@ -81,31 +81,31 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\ASP.NET MVC 4\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\lib\ASP.NET MVC 3\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="X3Platform.Abstractions">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Abstractions.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Apps">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Apps.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Apps.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.AttachmentStorage">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.AttachmentStorage.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.AttachmentStorage.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Membership">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Membership.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Sessions">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Sessions.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Sessions.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Support">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Support.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Web">
-      <HintPath>..\..\..\lib\X3Platform\X3Platform.Web.dll</HintPath>
+      <HintPath>..\..\..\bin\X3Platform.Web.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +147,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.cmd" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />

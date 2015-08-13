@@ -186,11 +186,13 @@ main.forum.thread.detail = {
       var repley = '';
       if(node.rowIndex == 1)
       {
-        repley = '<a href="javascript:main.forum.thread.detail.useBack(\'\',\'' + showFloor + '\',\'' + displayName + '\',\'' + time + '\')"><img src="/resources/images/forum/back.png" alt="" class="forum-thread-enterprise-view-img" />回复</a>';
+        // repley = '<a href="javascript:main.forum.thread.detail.useBack(\'\',\'' + showFloor + '\',\'' + displayName + '\',\'' + time + '\')"><img src="/resources/images/forum/back.png" alt="" class="forum-thread-enterprise-view-img" />回复</a>';
+        repley = '<a href="javascript:main.forum.thread.detail.useBack(\'\',\'' + showFloor + '\',\'' + displayName + '\',\'' + time + '\')"><i class="fa fa-reply"></i> 回复</a>';
       }
       else
       {
-        repley = '<a href="javascript:main.forum.thread.detail.useBack(\'' + node.id + '\',\'' + showFloor + '\',\'' + displayName + '\',\'' + time + '\')"><img src="/resources/images/forum/back.png" alt="" class="forum-thread-enterprise-view-img" />回复</a>';
+        // repley = '<a href="javascript:main.forum.thread.detail.useBack(\'' + node.id + '\',\'' + showFloor + '\',\'' + displayName + '\',\'' + time + '\')"><img src="/resources/images/forum/back.png" alt="" class="forum-thread-enterprise-view-img" />回复</a>';
+        repley = '<a href="javascript:main.forum.thread.detail.useBack(\'' + node.id + '\',\'' + showFloor + '\',\'' + displayName + '\',\'' + time + '\')"><i class="fa fa-reply"></i> 回复</a>';
       }
 
       // 编辑功能
@@ -228,15 +230,18 @@ main.forum.thread.detail = {
           }
         }
       }
+
       if(isEdit)
       {
         if(node.rowIndex == 1)
         {
-          edit = '<a href="forum-thread-form.aspx?id=' + node.id + '"><img src="/resources/images/forum/edit.png" alt="" class="forum-thread-enterprise-view-img" />编辑</a>';
+          // edit = '<a href="forum-thread-form.aspx?id=' + node.id + '"><img src="/resources/images/forum/edit.png" alt="" class="forum-thread-enterprise-view-img" />编辑</a>';
+          edit = '<a href="forum/form?id=' + node.id + '" ><i class="fa fa-pencil"></i> 编辑</a>';
         }
         else
         {
-          edit = '<a href="javascript:main.forum.thread.detail.updateContent(\'' + node.id + '\')"><img src="/resources/images/forum/edit.png" alt="" class="forum-thread-enterprise-view-img" />编辑</a>';
+          // edit = '<a href="javascript:main.forum.thread.detail.updateContent(\'' + node.id + '\')"><img src="/resources/images/forum/edit.png" alt="" class="forum-thread-enterprise-view-img" />编辑</a>';
+          edit = '<a href="javascript:main.forum.thread.detail.updateContent(\'' + node.id + '\')"><i class="fa fa-pencil"></i> 编辑</a>';
         }
       }
 
@@ -246,11 +251,14 @@ main.forum.thread.detail = {
       {
         if(node.rowIndex == 1)
         {
-          remove = '<a href="javascript:main.forum.thread.detail.confirmDelete(\'\')"><img src="/resources/images/forum/delete.png" alt="" class="forum-thread-enterprise-view-img" />删除</a>';
+          // <i class="fa fa-times"></i>
+          // remove = '<a href="javascript:main.forum.thread.detail.confirmDelete(\'\')"><img src="/resources/images/forum/delete.png" alt="" class="forum-thread-enterprise-view-img" />删除</a>';
+          remove = '<a href="javascript:main.forum.thread.detail.confirmDelete(\'\')"><i class="fa fa-times"></i> 删除</a>';
         }
         else
         {
-          remove = '<a href="javascript:main.forum.thread.detail.confirmDelete(\'' + node.id + '\')"><img src="/resources/images/forum/delete.png" alt="" class="forum-thread-enterprise-view-img" />删除</a>';
+          // remove = '<a href="javascript:main.forum.thread.detail.confirmDelete(\'' + node.id + '\')"><img src="/resources/images/forum/delete.png" alt="" class="forum-thread-enterprise-view-img" />删除</a>';
+          remove = '<a href="javascript:main.forum.thread.detail.confirmDelete(\'' + node.id + '\')"><i class="fa fa-times"></i> 删除</a>';
         }
       }
 
@@ -370,7 +378,7 @@ main.forum.thread.detail = {
       outString += '<tr>';
       outString += '<td class="forum-thread-detail-layout-left"></td>';
       outString += '<td class="forum-thread-detail-layout-right">';
-      outString += '<div class="forum-thread-detail-layout-footer" >' + repley + edit + remove + '</div>';
+      outString += '<div class="forum-thread-detail-layout-footer" >' + repley + '<span style="margin-left:10px">' + edit + '</span><span style="margin-left:10px">' + remove + '</span>' + '</div>';
       outString += '</td>';
       outString += '</tr>';
 
