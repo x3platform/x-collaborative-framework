@@ -19,7 +19,6 @@
   using X3Platform.Navigation;
   using X3Platform.Web.Builder;
 
-
   [LoginFilter]
   public sealed class HomeController : CustomController
   {

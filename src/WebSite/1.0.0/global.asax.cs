@@ -57,12 +57,12 @@ namespace X3Platform.WebSiteV10
       );
 
       // 帐号基本操作
-      routes.MapRoute(
-          "帐号基本操作", // Route name
-          "account/{action}/{id}", // URL with parameters
-          new { controller = "Account", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
-          new string[] { "X3Platform.Web.Mvc.Controllers" }
-      );
+      //routes.MapRoute(
+      //    "帐号基本操作", // Route name
+      //    "account/{action}/{id}", // URL with parameters
+      //    new { controller = "Account", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
+      //    new string[] { "X3Platform.Web.Mvc.Controllers" }
+      //);
 
       // 默认地址
       routes.MapRoute(
