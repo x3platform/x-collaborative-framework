@@ -4,7 +4,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5F14E379-8BF6-4363-85F8-5081386FD5D7}</ProjectGuid>
+    <ProjectGuid>{190476C1-4FE2-4DA1-904E-B060A4D9B7D3}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <RootNamespace>X3Platform.Tasks.Mixed</RootNamespace>

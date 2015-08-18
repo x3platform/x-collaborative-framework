@@ -165,7 +165,6 @@
     <Compile Include="Mvc\Attributes\LoginFilterAttribute.cs" />
     <Compile Include="Mvc\Controllers\CustomController.cs" />
     <Compile Include="Mvc\Controllers\HomeController.cs" />
-    <Compile Include="Mvc\Controllers\PlatformController.cs" />
     <Compile Include="Mvc\Controllers\AccountController.cs" />
     <Compile Include="Mvc\Controllers\SharedController.cs" />
     <Compile Include="Mvc\RequestRoute.cs" />

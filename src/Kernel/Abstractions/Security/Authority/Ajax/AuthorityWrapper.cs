@@ -120,11 +120,11 @@ namespace X3Platform.Security.Authority.Ajax
         // 自定义功能
         //-------------------------------------------------------
 
-        #region 属性:Query(XmlDocument doc)
+        #region 属性:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        public string Query(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 

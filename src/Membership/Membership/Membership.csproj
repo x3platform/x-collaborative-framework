@@ -255,7 +255,6 @@
     <Compile Include="Ajax\GroupWrapper.cs" />
     <Compile Include="Ajax\GeneralRoleWrapper.cs" />
     <Compile Include="Authentication\SSOAuthenticationManagement.cs" />
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Membership.config">
       <SubType>Designer</SubType>
     </None>
@@ -338,6 +337,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>
