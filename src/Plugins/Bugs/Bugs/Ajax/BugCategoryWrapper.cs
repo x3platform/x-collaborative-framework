@@ -1,20 +1,4 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :BugCategoryWrapper.cs
-//
-// Description  :
-//
-// Author       :RuanYu
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
-namespace X3Platform.Plugins.Bugs.Ajax
+﻿namespace X3Platform.Plugins.Bugs.Ajax
 {
   #region Using Libraries
   using System;

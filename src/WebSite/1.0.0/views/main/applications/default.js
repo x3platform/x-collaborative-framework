@@ -147,10 +147,10 @@ main.applications.home = {
     {
       var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
-      outString += '<ajaxStorage>';
+      outString += '<request>';
       outString += '<action><![CDATA[delete]]></action>';
       outString += '<ids><![CDATA[' + ids + ']]></ids>';
-      outString += '</ajaxStorage>';
+      outString += '</request>';
 
       var options = {
         resultType: 'json',

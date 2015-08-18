@@ -98,7 +98,6 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.Email.Client.config">
       <SubType>Designer</SubType>
     </None>
@@ -130,6 +129,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

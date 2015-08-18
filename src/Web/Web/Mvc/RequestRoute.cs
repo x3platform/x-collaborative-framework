@@ -151,6 +151,55 @@
         return routeData;
       }
 
+      // 请求地址的前缀
+      prefixUrl = "/sys/";
+
+      // 判断是否是我们需要处理的URL，不是则返回null，匹配将会继续进行。
+      if (virtualPath.IndexOf(prefixUrl) == 0)
+      {
+        // 请求地址的前缀长度
+        int prefixUrlLength = prefixUrl.Length;
+
+        // 符合规定的地址规则 {prefixUrl}{friendlyUrl}，截取后面的friendlyUrl
+        string friendlyUrl = virtualPath.Substring(prefixUrlLength).Trim('/');
+
+        if (friendlyUrl.LastIndexOf(".aspx") == (friendlyUrl.Length - prefixUrlLength))
+        {
+          friendlyUrl = friendlyUrl.Substring(0, friendlyUrl.Length - prefixUrlLength);
+        }
+
+        // 声明一个RouteData，添加相应的路由值
+        var routeData = new RouteData(this, new MvcRouteHandler());
+
+        // 限制名称空间
+        routeData.DataTokens["Namespaces"] = new string[] { "X3Platform.Web.Mvc.Controllers" };
+
+        if (string.IsNullOrEmpty(friendlyUrl))
+        {
+          // 系统环境
+          routeData.Values.Add("controller", "Sys");
+          routeData.Values.Add("action", "Environment");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^digital-number$"))
+        {
+          // 流水号设置
+          routeData.Values.Add("controller", "Sys");
+          routeData.Values.Add("action", "DigitalNumber");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^email-client$"))
+        {
+          // 邮箱设置
+          routeData.Values.Add("controller", "Sys");
+          routeData.Values.Add("action", "EmailClient");
+        }
+        else
+        {
+          return null;
+        }
+
+        return routeData;
+      }
+
       return null;
     }
 

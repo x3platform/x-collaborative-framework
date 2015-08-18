@@ -158,7 +158,6 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <Content Include="config\X3Platform.Plugins.Contacts.config">
       <SubType>Designer</SubType>
     </Content>
@@ -200,6 +199,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
