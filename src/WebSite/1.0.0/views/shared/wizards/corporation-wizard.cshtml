@@ -1,20 +1,11 @@
 ﻿<!-- /shared?path=wizards/project-wizard -->
-@{
-  Layout = "~/views/templates/themes/genius/render.cshtml";
+@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+@section scripts {
+<script type="text/javascript" id="shared-wizards-corporation-wizard-script" src="/views/shared/wizards/corporation-wizard.js"></script>
 }
-<script id="x-main" type="text/javascript">
-  x.require({
-    files: [
-        { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-        { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
-        { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
-        { fileType: 'script', id: 'shared-wizards-project-wizard-script', path: '/views/shared/wizards/corporation-wizard.js' }
-    ]
-  });
-</script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\公司选择向导" } }))
 <div id="window-container" class="window-container">
-  <div id="window-main-table" class="table-style" style="width:100%;">
+  <div id="window-main-table" class="table">
     <div id="window-main-table-header" class="table-header">
       <span>公司选择向导</span>
     </div>

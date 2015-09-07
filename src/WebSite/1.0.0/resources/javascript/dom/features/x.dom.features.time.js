@@ -178,8 +178,8 @@ x.dom.features.time = {
 
   setValue: function(inputName)
   {
-    var calendarValue = x.dom.query(inputName + '-calendarValue').val();
-    var timeValue = x.dom.query(inputName + '-timeValue').val();
+    var calendarValue = $('#' + inputName + '-calendar-value').val();
+    var timeValue = $('#' + inputName + '-time-value').val();
 
     var value = calendarValue + ' ' + timeValue;
 

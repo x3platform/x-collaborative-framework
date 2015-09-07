@@ -303,7 +303,7 @@ main.applications.application.option.list = {
     */
     confirmDelete: function(id)
     {
-        if(confirm(i18n.msg.ARE_YOU_SURE_YOU_WANT_TO_DELETE))
+        if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
         {
             x.net.xhr('/api/application.option.delete.aspx?id=' + id, {
                 waitingMessage: i18n.net.waiting.deleteTipText,

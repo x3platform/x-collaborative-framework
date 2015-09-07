@@ -87,10 +87,10 @@ namespace X3Platform.Web.Mvc.Controllers
         }
         #endregion
 
-        #region 函数:words()
+        #region 函数:Words()
         /// <summary>关键字</summary>
         /// <returns></returns>
-        public ActionResult words()
+        public ActionResult Words()
         {
             Captcha captcha = new Captcha(new
             {

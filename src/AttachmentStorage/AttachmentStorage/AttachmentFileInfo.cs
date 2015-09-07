@@ -185,14 +185,15 @@ namespace X3Platform.AttachmentStorage
             set { m_OrderId = value; }
         }
         #endregion
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary>创建日期</summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -216,7 +217,7 @@ namespace X3Platform.AttachmentStorage
             this.FileData = null;
             this.FileStatus = temp.FileStatus;
 
-            this.CreateDate = temp.CreateDate;
+            this.CreatedDate = temp.CreatedDate;
         }
 
         /// <summary>保存附件信息</summary>

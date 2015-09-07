@@ -30,12 +30,9 @@
     /// <summary>保存记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("save")]
     public string Save(XmlDocument doc)
     {
       AttachmentFileInfo param = new AttachmentFileInfo();
-
-      string sendEmail = XmlHelper.Fetch("sendEmail", doc);
 
       param = (AttachmentFileInfo)AjaxUtil.Deserialize(param, doc);
 
@@ -49,12 +46,11 @@
     /// <summary>删除记录</summary>
     /// <param name="doc">Xml 文档对象</param>
     /// <returns>返回操作结果</returns>
-    [AjaxMethod("delete")]
     public string Delete(XmlDocument doc)
     {
-      string ids = XmlHelper.Fetch("ids", doc);
+      string id = XmlHelper.Fetch("id", doc);
 
-      this.service.Delete(ids);
+      this.service.Delete(id);
 
       return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
     }

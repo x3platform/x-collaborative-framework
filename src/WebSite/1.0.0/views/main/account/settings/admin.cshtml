@@ -1,8 +1,85 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
 <script type="text/javascript" id="main-account-settings-admin-script" src="/views/main/account/settings/admin.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
 <div id="window-container" class="window-container">
-  <div id="window-main-table" class="table" style="width:100%;">
-  
+  <div id="window-main-table" class="table">
+    <div class="table-header" style="border-bottom: 1px solid #ccc;height: 36px;">
+      <span style="font-size:16px; height:36px;">修改密码</span>
+    </div>
+    <div class="table-body">
+      <div class="alert alert-warning alert-dismissible" style="width:400px; margin:10px 10px 0 10px;" >
+          <i class="fa fa-warning"></i> <strong>密码复杂度指引</strong><br />
+          1.长度大于等于6位;<br />
+          2.至少包含一个小写字母(a～z);<br />
+          3.至少包含一个大写字母(A～Z);<br />
+          4.至少包含一个数字(0～9);<br />
+          5.至少包含一个特殊符号(# $ !);<br />
+      </div>
+      <table class="table table-borderless" style="width:100%;">
+        <tr>
+          <td colspan="2">
+            <div style="width: 460px; color:#a15300; background-color:#fcffca; padding: 0 0 0 10px; border-top:1px solid #c75400; border-bottom:1px solid #c75400; line-height:200%; font-size:12px; margin:20px 0 10px 80px;">
+            </div>
+            <div id="passwordStrengthMessage" style="display:none; font-weight:bold; width: 460px; color:#fff; background-color:#f00; padding: 0 0 0 10px; border-top:1px solid #c75400; border-bottom:1px solid #c75400; line-height:200%; font-size:12px; margin:0 0 10px 80px;"></div>
+            <input id="passwordPolicyRules" name="passwordPolicyRules" type="hidden" value="${passwordPolicyRules}" />
+            <input id="passwordPolicyMinimumLength" name="passwordPolicyMinimumLength" type="hidden" value="${passwordPolicyMinimumLength}" />
+            <input id="passwordPolicyCharacterRepeatedTimes" name="passwordPolicyRules" type="hidden" value="${passwordPolicyCharacterRepeatedTimes}" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text" style="width:120px">旧密码</td>
+          <td class="table-body-input"><input id="originalPassword" name="originalPassword" type="password" x-dom-data-type="value" x-dom-data-required="1" x-dom-data-required-warning="必须填写【旧密码】。" value="" class="form-control" style="width:200px;" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-body-text">新密码</td>
+          <td class="table-body-input"><input id="newPassword" name="newPassword" type="password" x-dom-data-type="value" value="" class="form-control" style="width:200px;" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-body-text">确认密码</td>
+          <td class="table-body-input"><input id="confirmPassword" name="confirmPassword" type="password" x-dom-data-type="value" value="" class="form-control" style="width:200px;" /></td>
+        </tr>
+        <tr>
+          <td class="table-body-text"></td>
+          <td class="table-body-input">
+            <button onclick="main.account.admin.changePassword();" class="btn btn-default">修改密码</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-header" style="border-bottom:1px solid #ccc;height: 48px;">
+      <span style="font-size:16px; height:36px;">修改登录名</span>
+    </div>
+    <div class="table-body">
+      <div class="alert alert-warning alert-dismissible" style="width:400px; margin:10px 10px 0 10px;" ><i class="fa fa-warning"></i> 修改登录名可能会产生不可预知的错误.</div>
+      <table class="table table-borderless">
+        <tr>
+          <td class="table-body-text" style="width:120px">新的登录名</td>
+          <td class="table-body-input"><input id="newLoginName" name="newLoginName" type="text" value="" class="form-control" style="width:200px;" /></td>
+        </tr>
+        <tr>
+          <td class="table-body-text"></td>
+          <td class="table-body-input">
+            <button onclick="main.account.admin.changeLoginName();" disabled="disabled" class="btn btn-default">修改登录名</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table-header" style="border-bottom:1px solid #ccc;height: 36px;">
+      <span style="font-size:16px; height:36px;">关闭帐号</span>
+    </div>
+    <div class="table-body">
+      <div class="alert alert-warning alert-dismissible" style="width:400px; margin:10px 10px 0 10px;" ><i class="fa fa-warning"></i> 关闭帐号后, 用户将无法登陆.</div>
+      <table class="table table-borderless">
+        <tr>
+          <td class="table-body-text" style="width:120px" ></td>
+          <td class="table-body-input">
+            <button onclick="main.account.admin.disableAccount();" disabled="disabled" class="btn btn-default">关闭帐号</button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>

@@ -62,6 +62,20 @@
         IAccountInfo FindOneByLoginName(string loginName);
         #endregion
 
+        #region 函数:FindOneByCertifiedTelephone(string certifiedTelephone)
+        /// <summary>根据已验证的手机号查询某条记录</summary>
+        /// <param name="certifiedTelephone">已验证的手机号</param>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
+        IAccountInfo FindOneByCertifiedTelephone(string certifiedTelephone);
+        #endregion
+
+        #region 函数:FindOneByCertifiedEmail(string certifiedEmail)
+        /// <summary>根据已验证的邮箱地址查询某条记录</summary>
+        /// <param name="certifiedEmail">已验证的邮箱地址</param>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
+        IAccountInfo FindOneByCertifiedEmail(string certifiedEmail);
+        #endregion
+
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
@@ -86,7 +100,7 @@
         #region 函数:FindAllByOrganizationId(string organizationId)
         /// <summary>查询某个组织下的所有相关帐号</summary>
         /// <param name="organizationId">组织标识</param>
-        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindAllByOrganizationId(string organizationId);
         #endregion
 
@@ -94,14 +108,14 @@
         /// <summary>查询某个组织下的所有相关帐号</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="defaultOrganizationRelation">默认组织关系</param>
-        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation);
         #endregion
 
         #region 函数:FindAllByRoleId(string roleId)
         /// <summary>查询某个角色下的所有相关帐号</summary>
         /// <param name="roleId">角色标识</param>
-        /// <returns>返回一个 IAccountInfo 实例的详细信息</returns>
+        /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
         IList<IAccountInfo> FindAllByRoleId(string roleId);
         #endregion
 
@@ -197,6 +211,20 @@
         /// <param name="globalName">组织单位全局名称</param>
         /// <returns>布尔值</returns>
         bool IsExistGlobalName(string globalName);
+        #endregion
+
+        #region 函数:IsExistCertifiedTelephone(string certifiedTelephone)
+        /// <summary>检测是否存在相关的手机号</summary>
+        /// <param name="certifiedTelephone">已验证的手机号</param>
+        /// <returns>布尔值</returns>
+        bool IsExistCertifiedTelephone(string certifiedTelephone);
+        #endregion
+
+        #region 函数:IsExistCertifiedEmail(string certifiedEmail)
+        /// <summary>检测是否存在相关的邮箱</summary>
+        /// <param name="certifiedEmail">已验证的邮箱</param>
+        /// <returns>布尔值</returns>
+        bool IsExistCertifiedEmail(string certifiedEmail);
         #endregion
 
         #region 函数:Rename(string id, string name)

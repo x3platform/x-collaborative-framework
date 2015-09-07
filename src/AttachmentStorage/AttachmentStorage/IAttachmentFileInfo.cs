@@ -43,7 +43,7 @@
         byte[] FileData { get; set; }
 
         /// <summary>创建时间</summary>
-        DateTime CreateDate { get; set; }
+        DateTime CreatedDate { get; set; }
 
         /// <summary>还原</summary>
         void Restore(string id);

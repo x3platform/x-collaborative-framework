@@ -60,12 +60,12 @@ main.bugs.bug.list = {
     outString += '<table class="table" >';
     outString += '<thead>';
     outString += '<tr>';
-    outString += '<th >标题</td>';
-    outString += '<th style="width:100px">提交人</th>';
-    outString += '<th style="width:100px">负责人</th>';
-    outString += '<th style="width:80px" >状态</th>';
-    outString += '<th style="width:100px" >更新日期</th>';
-    outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
+    outString += '<th >' + i18n.translates['Name'] + '</td>';
+    outString += '<th style="width:100px">' + i18n.translates['SubmittedBy'] + '</th>';
+    outString += '<th style="width:100px">' + i18n.translates['Bugs']['AssignTo'] + '</th>';
+    outString += '<th style="width:80px" >' + i18n.translates['Status'] + '</th>';
+    outString += '<th style="width:100px" >' + i18n.translates['ModifiedDate'] + '</th>';
+    outString += '<th style="width:30px" title="' + i18n.strings['btn_remove'] + '" ><i class="fa fa-trash" ></i></th>';
     outString += '<th class="table-freeze-head-padding" ></th>';
     outString += '</tr>';
     outString += '</thead>';

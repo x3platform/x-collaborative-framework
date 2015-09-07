@@ -1,49 +1,34 @@
 ﻿<!-- /shared?path=wizards/project-wizard -->
-@{
-    Layout = "~/views/templates/themes/genius/render.cshtml";
+@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+@section scripts {
+  <script type="text/javascript" id="shared-wizards-project-wizard-script" src="/views/shared/wizards/project-wizard.js"></script>
 }
 <script id="x-main" type="text/javascript">
-x.require({ files: [
-    { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-    { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
-    { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
-    { fileType: 'script', id: 'shared-wizards-project-wizard-script', path: '/views/shared/wizards/project-wizard.js' }
-]});
+  x.register('main.wizards.project.wizard');
 
-x.register('main.wizards.project.wizard');
-
-main.wizards.project.wizard = {
-
-    /*
-    * 打开项目选择向导窗口
-    */
-    getProjectWizardWindow: function()
-    {
-        x.wizards.getProjectWizard({ targetViewName: 'projectView', targetValueName: 'projectValue' });
-        // x.wizards.getProjectWizardSingleton('projectView', 'projectValue');
-    },
+  main.wizards.project.wizard = {
 
     /*
     * 同步组织架构数据
     */
     synchronize: function(fetchAll)
     {
-        var url = '/services/X3Platform/Projects/Ajax.ProjectWrapper.aspx';
+      var url = '/services/X3Platform/Projects/Ajax.ProjectWrapper.aspx';
 
-        var outString = '<?xml version="1.0" encoding="utf-8" ?>';
+      var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
-        outString += '<ajaxStorage>';
-        outString += '<action><![CDATA[synchronize]]></action>';
-        outString += '<fetchAll><![CDATA[' + fetchAll + ']]></fetchAll>';
-        outString += '</ajaxStorage>';
+      outString += '<request>';
+      outString += '<action><![CDATA[synchronize]]></action>';
+      outString += '<fetchAll><![CDATA[' + fetchAll + ']]></fetchAll>';
+      outString += '</request>';
 
-        x.net.xhr(url, outString, {
-            popResultValue: 1,
-            callback: function(response)
-            {
-                // main.projects.home.getPages(1);
-            }
-        });
+      x.net.xhr(url, outString, {
+        popResultValue: 1,
+        callback: function(response)
+        {
+          // main.projects.home.getPages(1);
+        }
+      });
     },
 
     /*
@@ -51,41 +36,35 @@ main.wizards.project.wizard = {
     */
     load: function()
     {
-        $('#resultValue').val('');
+      $('#resultValue').val('');
     }
-}
+  }
 
-$(document).ready(main.wizards.project.wizard.load);
+  $(document).ready(main.wizards.project.wizard.load);
 </script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"向导组件管理\项目选择向导" } }))
 <div id="window-container" class="window-container">
-    <div id="window-main-table" class="table-style" style="width:100%;">
-        <div id="window-main-table-header" class="table-header">
-            <span>项目选择向导</span>
-        </div>
-        <div id="window-main-table-body" class="table-body">
-            <div id="window-main-table-container">
-                <div style="padding:10px 10px 20px 10px;">
-                    <div>
-                        项目名称
-                        <input id="projectValue" name="projectValue" type="hidden" class="input-normal" value="project#00000000-0001#测试项目1,project#000000002#测试项目2,project#000000003#测试项目3" />
-                        <input id="projectView" name="projectView" type="text" class="input-normal" style="width:200px;" value="测试项目1;测试项目2;测试项目3" />
-
-                        <a href="javascript:x.wizards.getProjectWizard({targetViewName:'projectView',targetValueName:'projectValue'});">编辑</a>
-
-                        <a href="javascript:main.wizards.project.wizard.synchronize(1);">差异同步组织数据</a>
-
-                    </div>
-
-                    <div>
-                        <div style="font-size:14px; font-weight:bold; padding:14px 4px 4px 4px; ">显示的信息</div>
-                        <div id="resultView" style="height:40px; font-size:12px; line-height:200%; border:1px solid #ccc; padding:4px;width:95%; overflow: auto;"><span class="gray-text">请选择项目信息...</span></div>
-                        <div style="font-size:14px; font-weight:bold; padding:14px 4px 4px 4px; ">隐藏的信息</div>
-                        <div><textarea id="resultValue" name="resultValue" rows="8" style="font-size:12px; border:1px solid #ccc; width:95%; height:40px; padding:4px; overflow: auto; "></textarea></div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header">
+      <span>项目选择向导</span>
     </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <div style="padding:10px 10px 20px 10px;">
+          <div class="form-inline" style="margin-bottom:10px;">
+            <label>项目名称</label>
+            <div class="input-group">
+              <input id="projectView" name="projectView" type="text" class="form-control" style="width:200px;" value="测试项目1;测试项目2;测试项目3" />
+              <input id="projectValue" name="projectValue" type="hidden" value="project#00000000-0001#测试项目1,project#000000002#测试项目2,project#000000003#测试项目3" />
+              <a href="javascript:x.ui.wizards.getProjectWizard({targetViewName:'projectView',targetValueName:'projectValue'});" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
+            </div>
+          </div>
+          <div class="form-inline">
+            <label>项目名称</label>
+            <input id="projectId" name="projectId" type="text" x-dom-data-type="value" x-dom-feature="project" value="44cfce8e-cd78-4e5f-b09d-256acd5b6aab" selectedtext="思晖在线学习系统" class="form-control custom-forms-data-required" style="width:420px;" dataverifywarning="必须填写【所属项目】。" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

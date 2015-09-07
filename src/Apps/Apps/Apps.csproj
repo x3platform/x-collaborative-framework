@@ -199,7 +199,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.cmd" />
     <None Include="config\X3Platform.Apps.config" />
     <EmbeddedResource Include="defaults\config.yaml" />
     <None Include="config\X3Platform.Apps.IBatis.SqlMap.config" />

@@ -235,6 +235,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Runtime\Directive\ParseTemplateVirtualPath.cs" />
+    <Compile Include="Runtime\Directive\I18nLiteral.cs" />
     <Compile Include="Runtime\Directive\Directive.cs">
       <SubType>Code</SubType>
     </Compile>

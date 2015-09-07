@@ -15,6 +15,7 @@
   using X3Platform.DigitalNumber;
   using X3Platform.Util;
   using X3Platform.Web.Configuration;
+  using X3Platform.Globalization;
   #endregion
 
   public class CustomController : Controller
@@ -95,8 +96,9 @@
       this.initializedTime = DateTime.Now;
 
       ViewData["themeName"] = WebConfigurationView.Instance.ThemeName;
+      ViewData["i18nScriptFileName"] = I18nScript.Instance.GetFile();
 
-      ViewData["client"] = this.m_Client = X3Platform.Web.UserAgents.Parser.GetDefault().Parse(Request.UserAgent);
+        ViewData["client"] = this.m_Client = X3Platform.Web.UserAgents.Parser.GetDefault().Parse(Request.UserAgent);
       ViewData["deviceType"] = this.m_DeviceType = DeviceTypeParser.Parse(this.Client);
       ViewData["account"] = this.m_Account = KernelContext.Current.User;
 

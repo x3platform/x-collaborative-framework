@@ -3,9 +3,9 @@
 main.account.profile = {
 
   /*#region 函数:setMemberCard()*/
-  /*
-  * 设置个人信息
-  */
+  /**
+   * 设置个人信息
+   */
   setMemberCard: function()
   {
     if(!x.dom.data.check())
@@ -32,9 +32,9 @@ main.account.profile = {
   /*#endregion*/
 
   /*#region 函数:load()*/
-  /*
-  * 页面加载事件
-  */
+  /**
+   * 页面加载事件
+   */
   load: function()
   {
     x.ui.pkg.tabs.newTabs();

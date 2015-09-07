@@ -192,6 +192,18 @@
           routeData.Values.Add("controller", "Sys");
           routeData.Values.Add("action", "EmailClient");
         }
+        else if (Regex.IsMatch(friendlyUrl, @"^email-history$"))
+        {
+          // 邮件发送日志
+          routeData.Values.Add("controller", "Sys");
+          routeData.Values.Add("action", "EmailHistory");
+        }
+        else if (Regex.IsMatch(friendlyUrl, @"^verification-code-history$"))
+        {
+          // 验证码发送日志
+          routeData.Values.Add("controller", "Sys");
+          routeData.Values.Add("action", "VerificationCodeHistory");
+        }
         else
         {
           return null;

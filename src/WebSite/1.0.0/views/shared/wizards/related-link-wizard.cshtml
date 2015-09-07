@@ -4,9 +4,6 @@
 }
 <script id="x-main" type="text/javascript">
 x.require({ files: [
-    { fileType: 'script', id: 'x-client-api-template-script', path: x.dir() + 'x-client-api-template.zh-cn.js' },
-    { fileType: 'script', id: 'x-client-api-ui-script', path: x.dir() + 'x-client-api-ui.zh-cn.js' },
-    { fileType: 'script', id: 'x-ui-pkg-tree-script', path: x.ui.pkg.dir() + 'x.ui.pkg.tree.js' },
     { fileType: 'script', id: 'shared-wizards-related-link-wizard-script', path: '/views/shared/wizards/related-link-wizard.js' }
 ], callback: function(context) { x.ui.wizards.setRelatedLinkView('linksView', $('#linksValue').val()); }
 });

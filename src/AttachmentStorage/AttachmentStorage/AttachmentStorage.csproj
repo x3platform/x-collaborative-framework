@@ -180,7 +180,6 @@
     <Compile Include="IAttachmentUploader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <None Include="config\X3Platform.AttachmentStorage.config">
       <SubType>Designer</SubType>
     </None>
@@ -222,6 +221,6 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>

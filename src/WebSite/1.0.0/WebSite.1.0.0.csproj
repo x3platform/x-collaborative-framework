@@ -129,6 +129,16 @@
     <Reference Include="X3Platform.Connect.Mixed">
       <HintPath>..\..\..\bin\X3Platform.Connect.Mixed.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Connect.Mvc">
+      <HintPath>..\..\..\bin\X3Platform.Connect.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Entities.Mvc">
+      <HintPath>..\..\..\bin\X3Platform.Entities.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Location.IPQuery, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
       <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
     </Reference>
@@ -235,6 +245,10 @@
     <Content Include="views\main\bugs\bug-list.js" />
     <Content Include="views\main\bugs\bug-setting-list.js" />
     <Content Include="views\main\bugs\my-bug-list.js" />
+    <Content Include="views\main\connect\connect-setting-list.js" />
+    <Content Include="views\main\connect\connect-overview.js" />
+    <Content Include="views\main\connect\connect-form.js" />
+    <Content Include="views\main\connect\connect-list.js" />
     <Content Include="views\main\customizes\customize-content-form.js" />
     <Content Include="views\main\customizes\customize-content-list.js" />
     <Content Include="views\main\customizes\customize-layout-form.js" />
@@ -243,6 +257,11 @@
     <Content Include="views\main\customizes\customize-page-list.js" />
     <Content Include="views\main\customizes\customize-widget-form.js" />
     <Content Include="views\main\customizes\customize-widget-list.js" />
+    <Content Include="views\main\entities\entity-setting-list.js" />
+    <Content Include="views\main\entities\entity-metadata-form.js" />
+    <Content Include="views\main\entities\entity-metadata-list.js" />
+    <Content Include="views\main\entities\entity-schema-form.js" />
+    <Content Include="views\main\entities\entity-schema-list.js" />
     <Content Include="views\main\forum\assets-scripts.js" />
     <Content Include="views\main\forum\forum-category-form.js" />
     <Content Include="views\main\forum\forum-category-list.js" />
@@ -270,6 +289,8 @@
     <Content Include="views\main\membership\standard-general-role-setting.js" />
     <Content Include="views\main\membership\standard-organization-list.js" />
     <Content Include="views\main\membership\standard-role-list.js" />
+    <Content Include="views\main\sys\email-history.js" />
+    <Content Include="views\main\sys\verification-code-history.js" />
     <Content Include="views\main\sys\digital-number.js" />
     <Content Include="views\main\sys\email-client.js" />
     <Content Include="views\main\sys\authorities.js" />
@@ -392,12 +413,24 @@
     <Content Include="views\main\sys\authorities.cshtml" />
     <Content Include="views\main\sys\email-client.cshtml" />
     <Content Include="views\main\sys\digital-number.cshtml" />
+    <Content Include="views\main\connect\connect-form.cshtml" />
+    <Content Include="views\main\connect\connect-list.cshtml" />
+    <Content Include="views\main\connect\connect-overview.cshtml" />
+    <Content Include="views\main\connect\connect-setting-list.cshtml" />
+    <Content Include="views\main\entities\entity-metadata-list.cshtml" />
+    <Content Include="views\main\entities\entity-schema-list.cshtml" />
+    <Content Include="views\main\entities\entity-metadata-form.cshtml" />
+    <Content Include="views\main\entities\entity-schema-form.cshtml" />
+    <Content Include="views\main\entities\entity-setting-list.cshtml" />
+    <Content Include="views\main\sys\verification-code-history.cshtml" />
+    <Content Include="views\main\sys\email-history.cshtml" />
+    <Content Include="views\main\sdk\password.cshtml" />
+    <Content Include="views\main\sdk\uuid.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="views\admins\" />
-    <Folder Include="views\main\entities\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>
   <PropertyGroup>

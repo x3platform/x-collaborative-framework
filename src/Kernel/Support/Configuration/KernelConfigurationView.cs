@@ -325,6 +325,33 @@ namespace X3Platform.Configuration
     }
     #endregion
 
+    #region 属性:CultureName
+    private string m_CultureName = string.Empty;
+
+    /// <summary>默认区域性名称</summary>
+    public string CultureName
+    {
+      get
+      {
+        if (string.IsNullOrEmpty(this.m_CultureName))
+        {
+          if (this.Configuration.Keys["CultureName"] == null)
+          {
+            this.m_CultureName = "zh-CN";
+
+            this.Configuration.Keys.Add(new KernelConfigurationKey("CultureName", this.m_CultureName));
+          }
+          else
+          {
+            this.m_CultureName = this.Configuration.Keys["CultureName"].Value;
+          }
+        }
+
+        return this.m_CultureName;
+      }
+    }
+    #endregion
+
     #region 属性:HostName
     private string m_HostName = string.Empty;
 

@@ -139,6 +139,13 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Ajax\EntityClickWrapper.cs" />
+    <Compile Include="Ajax\EntityDocObjectWrapper.cs" />
+    <Compile Include="Ajax\EntityDraftWrapper.cs" />
+    <Compile Include="Ajax\EntityLifeHistroyWrapper.cs" />
+    <Compile Include="Ajax\EntityMetaDataWrapper.cs" />
+    <Compile Include="Ajax\EntitySchemaWrapper.cs" />
+    <Compile Include="Ajax\EntityScopeWrapper.cs" />
     <Compile Include="BLL\EntityFeedbackService.cs" />
     <Compile Include="BLL\EntityOperationLogService.cs" />
     <Compile Include="BLL\EntitySnapshotService.cs" />

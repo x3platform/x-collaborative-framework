@@ -150,7 +150,7 @@
     #endregion
 
     #region 函数:Caches()
-    /// <summary>主页</summary>
+    /// <summary>缓存设置</summary>
     /// <returns></returns>
     public ActionResult Caches()
     {
@@ -171,7 +171,7 @@
     #endregion
 
     #region 函数:Sessions()
-    /// <summary>主页</summary>
+    /// <summary>会话设置</summary>
     /// <returns></returns>
     public ActionResult Sessions()
     {
@@ -245,7 +245,7 @@
     #endregion
 
     #region 函数:DigitalNumber()
-    /// <summary>权限参数设置</summary>
+    /// <summary>流水号设置</summary>
     /// <returns></returns>
     public ActionResult DigitalNumber()
     {
@@ -270,7 +270,7 @@
     #endregion
 
     #region 函数:EmailClient()
-    /// <summary>权限参数设置</summary>
+    /// <summary>邮箱设置</summary>
     /// <returns></returns>
     public ActionResult EmailClient()
     {
@@ -291,6 +291,56 @@
       // -------------------------------------------------------
 
       return View("/views/main/sys/email-client.cshtml");
+    }
+    #endregion
+
+    #region 函数:EmailHistory()
+    /// <summary>邮件发送日志</summary>
+    /// <returns></returns>
+    public ActionResult EmailHistory()
+    {
+      // 所属应用信息
+      ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
+
+      // -------------------------------------------------------
+      // 身份验证
+      // -------------------------------------------------------
+
+      if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, application.ApplicationName))
+      {
+        ApplicationError.Write(401);
+      }
+
+      // -------------------------------------------------------
+      // 加载数据
+      // -------------------------------------------------------
+
+      return View("/views/main/sys/email-history.cshtml");
+    }
+    #endregion
+
+    #region 函数:VerificationCodeHistory()
+    /// <summary>验证码发送日志</summary>
+    /// <returns></returns>
+    public ActionResult VerificationCodeHistory()
+    {
+      // 所属应用信息
+      ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
+
+      // -------------------------------------------------------
+      // 身份验证
+      // -------------------------------------------------------
+
+      if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, application.ApplicationName))
+      {
+        ApplicationError.Write(401);
+      }
+
+      // -------------------------------------------------------
+      // 加载数据
+      // -------------------------------------------------------
+
+      return View("/views/main/sys/verification-code-history.cshtml");
     }
     #endregion
   }

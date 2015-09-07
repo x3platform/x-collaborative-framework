@@ -17,7 +17,7 @@ _附件信息_
 | FileSize | int(11) |  |  |  |  |  
 | FileStatus | int(11) |  |  |  |  |  
 | OrderId | varchar(40) |  |  |  |  |  
-| CreateDate | datetime |  |  |  |  |  
+| CreatedDate | datetime |  |  |  |  |  
 
 **Table Name: tb_Attachment_DistributedFile**  
 
@@ -26,7 +26,7 @@ _附件信息_
 | Id | varchar(36) |  |  | √ |  |  
 | VirtualPath | varchar(1000) |  |  |  |  |  
 | FileData | blob |  |  |  |  |  
-| CreateDate | datetime |  |  |  |  |  
+| CreatedDate | datetime |  |  |  |  |  
 
 **Table Name: tb_Attachment_Warn**  
 _附件警告信息_
@@ -41,4 +41,4 @@ _附件警告信息_
 | VirtualPath | varchar(1000) |  |  |  |  |  
 | FileType | varchar(20) |  |  |  |  |  
 | FileSize | int(11) |  |  |  |  |  
-| CreateDate | datetime |  |  |  |  |  
+| CreatedDate | datetime |  |  |  |  |  

@@ -88,7 +88,7 @@
 
       ViewBag.Title = string.Format("{0}-{1}-{2}", (string.IsNullOrEmpty(param.Title) ? "新问题" : param.Title), application.ApplicationDisplayName, this.SystemName);
 
-      // 加载当前业务实体数据
+      // 加载当前业务实体类名称
       ViewBag.entityClassName = KernelContext.ParseObjectType(param.GetType());
       // 加载当前业务实体数据
       ViewBag.param = param;
