@@ -88,7 +88,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Ids", string.Format("'{0}'", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", this.tableName)), args);
 
@@ -171,7 +171,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             string whereClause = GetWhereClauseByScenarioName(query);
-            string orderBy = query.GetOrderBySql(" CreateDate DESC ");
+            string orderBy = query.GetOrderBySql(" CreatedDate DESC ");
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);

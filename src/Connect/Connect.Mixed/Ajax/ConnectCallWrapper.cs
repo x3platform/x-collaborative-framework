@@ -70,7 +70,7 @@
 
             ConnectCallInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectCallInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectCallInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -93,7 +93,7 @@
 
             IList<ConnectCallInfo> list = this.service.FindAll(query);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectCallInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectCallInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -105,11 +105,11 @@
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        public string Query(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -121,7 +121,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectCallInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectCallInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 

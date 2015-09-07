@@ -89,6 +89,9 @@
     <Reference Include="X3Platform.AttachmentStorage">
       <HintPath>..\..\..\bin\X3Platform.AttachmentStorage.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Email.Client">
+      <HintPath>..\..\..\bin\X3Platform.Email.Client.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Location.IPQuery">
       <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
     </Reference>

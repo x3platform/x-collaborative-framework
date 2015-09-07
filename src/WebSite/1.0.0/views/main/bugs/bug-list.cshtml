@@ -9,27 +9,27 @@
     <div id="window-main-table-header" class="table-header x-freeze-height">
       <input id="isAdminToken" name="isAdminToken" type="hidden" value="@ViewBag.isAdminToken" />
       <input id="session-accountId" name="session-accountId" type="hidden" value="@ViewBag.account.Id" />
-      <span>问题跟踪</span>
+      <span>@I18n.Translates["Bugs","Bugs", StringCase.FirstUpper]</span>
     </div>
     <div id="window-main-table-body" class="table-body">
       <div class="table-row-filter form-inline text-right x-freeze-height">
         <div class="form-group">
-          <label for="query-searchText">关键字</label>
+          <label for="query-searchText">@I18n.Translates["Keywords"]</label>
           <input id="query-searchText" type="text" class="form-control input-sm" style="width:160px" />
         </div>
         <div class="form-group">
-          <label for="query-categoryName">所属类别</label>
+          <label for="query-categoryName">@I18n.Translates["Bugs", "Category"]</label>
           <div class="input-group">
             <input id="query-categoryName" type="text" x-dom-feature="fastClearInput" fastclearinputhiddenids="query-categoryIndex" class="form-control input-sm" style="width:160px" />
             <input id="query-categoryIndex" type="hidden" />
-            <a href="javascript:main.bugs.bug.list.getCategoryWizard()" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
+            <a href="javascript:main.bugs.bug.list.getCategoryWizard()" class="input-group-addon" title="@I18n.Strings["btn_edit"]"><i class="glyphicon glyphicon-modal-window"></i></a>
           </div>
         </div>
-        <label for="query-status">问题状态</label>
+        <label for="query-status">@I18n.Translates["Bugs", "Status"]</label>
         <div class="form-group">
-          <input id="query-status" type="text" x-dom-feature="combobox" class="form-control input-sm" value="" selectedtext="" url="/api/application.setting.getCombobox.aspx" comboboxemptyitemtext="全部" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_问题跟踪_问题状态\#\# ) " style="width:80px" />
+          <input id="query-status" type="text" x-dom-feature="combobox" class="form-control input-sm" value="" selectedtext="" url="/api/application.setting.getCombobox.aspx" comboboxemptyitemtext="@I18n.Strings["text_all"]" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_问题跟踪_问题状态\#\# ) " style="width:80px" />
         </div>
-        <button id="btnFilter" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search" title="查询"></i></button>
+        <button id="btnFilter" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search" title="@I18n.Strings["btn_query"]"></i></button>
       </div>
       <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
     </div>

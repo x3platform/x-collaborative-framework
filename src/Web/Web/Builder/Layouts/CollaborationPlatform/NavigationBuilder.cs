@@ -5,10 +5,11 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-
   using X3Platform.Apps;
   using X3Platform.Apps.Model;
+  using X3Platform.Globalization;
   using X3Platform.Membership;
+  using X3Platform.Util;
   using X3Platform.Velocity;
   using X3Platform.Web.Builder.ILayouts;
   using X3Platform.Web.Configuration;
@@ -151,7 +152,7 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
         if (item.DisplayType == "MenuItem")
         {
           outString.AppendFormat("<li><a href=\"{2}\" title=\"{1}\" target=\"{3}\">{0}",
-              item.Name,
+              StringHelper.NullOrEmptyTo(I18n.Menu["Top",item.Id], item.Name),
               item.Description,
               item.Url,
               string.IsNullOrEmpty(item.Target) ? "_self" : item.Target);
@@ -284,7 +285,7 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
           string dropdownMenu = GetStartDropdownMenu(item.Id);
 
           outString.AppendFormat("<li><a href=\"{2}\" title=\"{1}\" target=\"{3}\">{0}",
-              item.Name,
+              StringHelper.NullOrEmptyTo(I18n.Menu[item.Id], item.Name),
               item.Description,
               item.Url,
               string.IsNullOrEmpty(item.Target) ? "_self" : item.Target);
@@ -373,7 +374,7 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
         {
           outString.Append("</div>");
           outString.Append("<div class=\"x-ui-pkg-menu-slide-menu-submenu\" >");
-          outString.Append("<span>" + item.Name + "</span>");
+          outString.Append("<span>" + StringHelper.NullOrEmptyTo(I18n.Menu[application.ApplicationName, item.Id], item.Name) + "</span>");
         }
         else if (item.DisplayType == "MenuSplitLine")
         {
@@ -396,11 +397,11 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
 
           if (currentMenuId == item.Id || currentMenuFullPath == item.FullPath)
           {
-            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" class=\"current\" >{3} {4}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, icon, item.Name);
+            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" class=\"current\" >{3} {4}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, icon, StringHelper.NullOrEmptyTo(I18n.Menu[application.ApplicationName, item.Id], item.Name));
           }
           else
           {
-            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" >{3} {4}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, icon, item.Name);
+            outString.AppendFormat("<a id=\"{0}\" href=\"{1}\" target=\"{2}\" >{3} {4}</a>", item.Id, ReplaceOptionValue(options, item.Url), item.Target, icon, StringHelper.NullOrEmptyTo(I18n.Menu[application.ApplicationName, item.Id], item.Name));
           }
         }
       }

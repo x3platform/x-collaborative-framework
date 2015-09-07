@@ -104,7 +104,7 @@ namespace X3Platform.Entities.BLL
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -112,9 +112,9 @@ namespace X3Platform.Entities.BLL
         /// <param name="orderBy">ORDER BY 排序条件</param>
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例<see cref="EntitySnapshotInfo"/></returns>
-        public IList<EntitySnapshotInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        public IList<EntitySnapshotInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         {
-            return this.provider.GetPages(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
         }
         #endregion
 

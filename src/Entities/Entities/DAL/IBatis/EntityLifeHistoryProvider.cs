@@ -178,7 +178,7 @@ namespace X3Platform.Entities.DAL.IBatis
     // �Զ��幦��
     // -------------------------------------------------------
 
-    #region 属性:GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+    #region 属性:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
     /// <summary>��ҳ����</summary>
     /// <param name="startIndex">��ʼ��������,��0��ʼͳ��</param>
     /// <param name="pageSize">ҳ����С</param>
@@ -186,7 +186,7 @@ namespace X3Platform.Entities.DAL.IBatis
     /// <param name="orderBy">ORDER BY ��������</param>
     /// <param name="rowCount">����</param>
     /// <returns>����һ���б�ʵ��<see cref="EntityLifeHistoryInfo"/></returns>
-    public IList<EntityLifeHistoryInfo> GetPages(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+    public IList<EntityLifeHistoryInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
     {
       Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -199,7 +199,7 @@ namespace X3Platform.Entities.DAL.IBatis
 
       args.Add("RowCount", 0);
 
-      IList<EntityLifeHistoryInfo> list = this.ibatisMapper.QueryForList<EntityLifeHistoryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
+      IList<EntityLifeHistoryInfo> list = this.ibatisMapper.QueryForList<EntityLifeHistoryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
       rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args);
 

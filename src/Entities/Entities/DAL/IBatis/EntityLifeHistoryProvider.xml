@@ -85,7 +85,7 @@
         </isParameterPresent>
       </dynamic>
     </select>
-    <select id="proc_Entity_LifeHistory_GetPages" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
+    <select id="proc_Entity_LifeHistory_GetPaging" resultMap="proc_Entity_LifeHistory_FindAll_Result" >
       SELECT *
 
       FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex

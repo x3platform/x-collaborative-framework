@@ -71,7 +71,7 @@
 
             ConnectInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -99,7 +99,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectQueryInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectQueryInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
@@ -109,11 +109,11 @@
         }
         #endregion
 
-        #region 函数:GetMyConnectPages(XmlDocument doc)
+        #region 函数:GetMyListPaging(XmlDocument doc)
         /// <summary>获取我的文档列表数据</summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public string GetMyConnectPages(XmlDocument doc)
+        public string GetMyListPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -129,7 +129,7 @@
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ConnectQueryInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectQueryInfo>(list) + ",");
 
             outString.Append("\"paging\":" + paging + ",");
 
@@ -160,7 +160,7 @@
 
             param = this.service.FindOneByAppKey(appKey);
 
-            return "{\"ajaxStorage\":{\"appSecret\":\"" + param.AppSecret + "\"},\"message\":{\"returnCode\":0,\"value\":\"重置 App Secret 成功。\"}}";
+            return "{\"data\":{\"appSecret\":\"" + param.AppSecret + "\"},\"message\":{\"returnCode\":0,\"value\":\"重置 App Secret 成功。\"}}";
         }
         #endregion
     }

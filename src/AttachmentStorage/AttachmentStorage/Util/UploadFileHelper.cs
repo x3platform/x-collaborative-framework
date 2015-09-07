@@ -122,7 +122,7 @@ namespace X3Platform.AttachmentStorage.Util
             param.FileType = fileType;
             param.FileSize = fileSize;
             param.FileData = fileData;
-            param.CreateDate = DateTime.Now;
+            param.CreatedDate = DateTime.Now;
 
             // 虚拟路径需要创建时间和文件类型参数
             param.VirtualPath = UploadPathHelper.GetVirtualPathFormat(parent.AttachmentFolder, param);

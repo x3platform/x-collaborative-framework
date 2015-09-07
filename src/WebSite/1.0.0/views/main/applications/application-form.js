@@ -2,25 +2,10 @@
 
 main.applications.application.form = {
 
-  /*#region 函数:checkObject()*/
-  /*
-  * 检测对象的必填数据
-  */
-  checkObject: function()
-  {
-    if(x.dom.data.check())
-    {
-      return false;
-    }
-
-    return true;
-  },
-  /*#endregion*/
-
   /*#region 函数:save()*/
   save: function()
   {
-    if(main.applications.application.form.checkObject())
+    if(!x.dom.data.check())
     {
       var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
@@ -63,13 +48,13 @@ main.applications.application.form = {
     // 绑定事件
     // -------------------------------------------------------
 
-    $('#applicationName').bind('keydown', function()
+    $('#applicationName').on('keydown', function()
     {
       // 应用名称只能是英文字符
       this.value = x.expression.formatEnglish(this.value);
     });
 
-    $('#applicationName').bind('keyup', function()
+    $('#applicationName').on('keyup', function()
     {
       // 应用名称只能是英文字符
       this.value = x.expression.formatEnglish(this.value);

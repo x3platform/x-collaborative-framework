@@ -1,9 +1,9 @@
-﻿x.register('x.wizards');
+﻿x.register('x.ui.wizards');
 
 /*
 * 项目选择向导
 */
-x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, options)
+x.ui.wizards.newProjectWizard = function(name, targetViewName, targetValueName, options)
 {
   var wizard = {
 
@@ -44,7 +44,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
     {
       var whereClauseValue = '';
 
-      var key = $(document.getElementById(this.name + '$wizardSearchText')).val();
+      var key = $(document.getElementById(this.name + '-wizardSearchText')).val();
 
       if(key.trim() !== '')
       {
@@ -112,7 +112,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       outString += ']}';
 
-      x.dom.util.select.convert(clientTargetObject + '$wizardOriginalContainer', x.toJSON(outString).list);
+      x.dom.util.select.convert(clientTargetObject + '-wizardOriginalContainer', x.toJSON(outString).list);
     },
 
     /*#region 函数:open()*/
@@ -133,7 +133,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       var outString = '{"list":[';
 
-      var targetContainer = document.getElementById(this.name + '$wizardTargetContainer');
+      var targetContainer = document.getElementById(this.name + '-wizardTargetContainer');
 
       for(var i = 0;i < targetContainer.options.length;i++)
       {
@@ -146,7 +146,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
         }
       }
 
-      var originalContainer = document.getElementById(this.name + '$wizardOriginalContainer');
+      var originalContainer = document.getElementById(this.name + '-wizardOriginalContainer');
 
       for(var index = 0;index < originalContainer.options.length;index++)
       {
@@ -184,7 +184,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       outString += ']}';
 
-      x.dom.util.select.convert(this.name + '$wizardTargetContainer', x.toJSON(outString).list);
+      x.dom.util.select.convert(this.name + '-wizardTargetContainer', x.toJSON(outString).list);
 
       this.returnValue = outString;
     },
@@ -196,11 +196,11 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
     */
     remove: function(isSelectAll)
     {
-      var targetContainer = document.getElementById(this.name + '$wizardTargetContainer');
+      var targetContainer = document.getElementById(this.name + '-wizardTargetContainer');
 
       if(isSelectAll)
       {
-        x.dom.util.select.clear(this.name + '$wizardTargetContainer');
+        x.dom.util.select.clear(this.name + '-wizardTargetContainer');
 
         this.returnValue = '{"list":[]}';
       }
@@ -225,7 +225,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
         outString += ']}';
 
-        x.dom.util.select.convert(this.name + '$wizardTargetContainer', x.toJSON(outString).list);
+        x.dom.util.select.convert(this.name + '-wizardTargetContainer', x.toJSON(outString).list);
 
         // parent window callback
 
@@ -239,7 +239,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
     {
       var outString = '{"list":[';
 
-      var targetContainer = document.getElementById(this.name + '$wizardTargetContainer');
+      var targetContainer = document.getElementById(this.name + '-wizardTargetContainer');
 
       for(var i = 0;i < targetContainer.options.length;i++)
       {
@@ -348,7 +348,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
-      outString += '<ajaxStorage>';
+      outString += '<request>';
       outString += '<action><![CDATA[getCorporationTreeView]]></action>';
       outString += '<treeViewId><![CDATA[' + treeViewId + ']]></treeViewId>';
       outString += '<treeViewName><![CDATA[' + treeViewName + ']]></treeViewName>';
@@ -356,7 +356,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
       outString += '<tree><![CDATA[{tree}]]></tree>';
       outString += '<parentId><![CDATA[{parentId}]]></parentId>';
       outString += '<url><![CDATA[' + treeViewUrl + ']]></url>';
-      outString += '</ajaxStorage>';
+      outString += '</request>';
 
       var tree = x.ui.pkg.tree.newTreeView(this.name + '.tree');
 
@@ -378,7 +378,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       this.tree = tree;
 
-      document.getElementById(this.name + '$wizardTreeViewContainer').innerHTML = tree;
+      document.getElementById(this.name + '-wizardTreeViewContainer').innerHTML = tree;
     },
     /*#endregion*/
 
@@ -412,40 +412,40 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       // 侧栏
       outString += '<div class="winodw-wizard-sidebar" >';
-      outString += '<div class="winodw-wizard-search" ><input id="' + this.name + '$wizardSearchText" name="contactsSearchText" type="text" value="" class="winodw-wizard-search-text" /> <span id="' + this.name + '$wizardBtnFilter" class="winodw-wizard-search-button">查询</span></div>';
-      outString += '<div id="' + this.name + '$wizardTreeViewContainer" class="winodw-wizard-tree-view" ></div>';
+      outString += '<div class="winodw-wizard-search form-inline" ><input id="' + this.name + '-wizardSearchText" name="contactsSearchText" type="text" value="" class="table-sidebar-search-text form-control input-sm" /> <button id="' + this.name + '-wizardBtnFilter" class="btn btn-default btn-sm" title="查询"><i class="glyphicon glyphicon-search"></i></button></div>';
+      outString += '<div id="' + this.name + '-wizardTreeViewContainer" class="winodw-wizard-tree-view" ></div>';
       outString += '</div>';
 
       // 选择框
       outString += '<div class="winodw-wizard-container" >';
-      outString += '<select id="' + this.name + '$wizardOriginalContainer" multiple="multiple" ondblclick="' + this.name + '.add(false)" >';
+      outString += '<select id="' + this.name + '-wizardOriginalContainer" multiple="multiple" ondblclick="' + this.name + '.add(false)" >';
       outString += '</select>';
       outString += '</div>';
 
       outString += '<div class="winodw-wizard-help-toolbar" >';
       // outString += '<div class="winodw-wizard-help-container" ><div class="winodw-wizard-help-text"></div></div>';
-      outString += '<div class="float-left button-2font-wrapper" ><a href="javascript:' + this.name + '.add(false);" class="button-text" >添加</a></div> ';
+      outString += '<div class="float-left button-2font-wrapper" ><a href="javascript:' + this.name + '.add(false);" class="btn btn-default" >添加</a></div> ';
       if(this.multiSelection === 1)
       {
         // 多选处理
-        outString += '<div class="float-left button-4font-wrapper" style="margin-left:10px;" ><a href="javascript:' + this.name + '.add(true);" class="button-text" >全部添加</a></div> ';
+        outString += '<div class="float-left button-4font-wrapper" style="margin-left:10px;" ><a href="javascript:' + this.name + '.add(true);" class="btn btn-default" >全部添加</a></div> ';
       }
       outString += '<div class="clear"></div>';
       outString += '</div>';
 
       outString += '<div class="winodw-wizard-container" >';
-      outString += '<select id="' + this.name + '$wizardTargetContainer" multiple="multiple" ondblclick="' + this.name + '.remove(false)" >';
+      outString += '<select id="' + this.name + '-wizardTargetContainer" multiple="multiple" ondblclick="' + this.name + '.remove(false)" >';
       outString += '</select>';
       outString += '</div>';
 
       outString += '<div class="winodw-wizard-help-toolbar" >';
-      outString += '<div class="float-right button-2font-wrapper" ><a href="javascript:' + this.name + '.cancel();" class="button-text" >取消</a></div> ';
-      outString += '<div class="float-right button-2font-wrapper" style="margin-right:10px;" ><a href="javascript:' + this.name + '.save();" class="button-text" >保存</a></div> ';
-      outString += '<div class="float-left button-2font-wrapper" ><a href="javascript:' + this.name + '.remove(false);" class="button-text" >删除</a></div> ';
+      outString += '<div class="float-right button-2font-wrapper" ><a href="javascript:' + this.name + '.cancel();" class="btn btn-default" >取消</a></div> ';
+      outString += '<div class="float-right button-2font-wrapper" style="margin-right:10px;" ><a href="javascript:' + this.name + '.save();" class="btn btn-default" >保存</a></div> ';
+      outString += '<div class="float-left button-2font-wrapper" ><a href="javascript:' + this.name + '.remove(false);" class="btn btn-default" >删除</a></div> ';
       if(this.multiSelection === 1)
       {
         // 多选处理
-        outString += '<div class="float-left button-4font-wrapper" style="margin-left:10px;" ><a href="javascript:' + this.name + '.remove(true);" class="button-text" >全部删除</a></div> ';
+        outString += '<div class="float-left button-4font-wrapper" style="margin-left:10px;" ><a href="javascript:' + this.name + '.remove(true);" class="btn btn-default" >全部删除</a></div> ';
       }
       outString += '</div>';
       outString += '<div class="clear"></div>';
@@ -510,14 +510,14 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       this.filter();
 
-      $(document.getElementById(this.name + '$wizardSearchText')).bind("keyup", function()
+      $(document.getElementById(this.name + '-wizardSearchText')).bind("keyup", function()
       {
-        window[this.id.replace('$wizardSearchText', '')].filter();
+        window[this.id.replace('-wizardSearchText', '')].filter();
       });
 
-      $(document.getElementById(this.name + '$wizardBtnFilter')).bind("click", function()
+      $(document.getElementById(this.name + '-wizardBtnFilter')).bind("click", function()
       {
-        window[this.id.replace('$wizardBtnFilter', '')].filter();
+        window[this.id.replace('-wizardBtnFilter', '')].filter();
       });
 
       // -------------------------------------------------------
@@ -526,7 +526,7 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
 
       if(this.localStorage !== null)
       {
-        x.dom.util.select.convert(this.name + '$wizardTargetContainer', x.toJSON(this.localStorage).list);
+        x.dom.util.select.convert(this.name + '-wizardTargetContainer', x.toJSON(this.localStorage).list);
 
         this.returnValue = this.localStorage;
       }
@@ -537,13 +537,13 @@ x.wizards.newProjectWizard = function(name, targetViewName, targetValueName, opt
   return wizard;
 };
 
-/*#region 函数:x.wizards.getProjectsWizard(options)*/
+/*#region 函数:x.ui.wizards.getProjectsWizard(options)*/
 /*
 * 快速创建单例
 */
-x.wizards.getProjectsWizard = function(options)
+x.ui.wizards.getProjectsWizard = function(options)
 {
-  var name = x.getFriendlyName(location.pathname + '$' + options.targetViewName + '$' + options.targetValueName + '$projects$wizard');
+  var name = x.getFriendlyName(location.pathname + '$' + options.targetViewName + '$' + options.targetValueName + '$projects-wizard');
 
   if(typeof (window[name]) === 'undefined')
   {
@@ -573,7 +573,7 @@ x.wizards.getProjectsWizard = function(options)
     options.localStorage = storage;
 
     // 初始化向导
-    var wizard = x.wizards.newProjectWizard(name, options.targetViewName, options.targetValueName, options);
+    var wizard = x.ui.wizards.newProjectWizard(name, options.targetViewName, options.targetValueName, options);
 
     // 加载界面、数据、事件
     wizard.load();
@@ -588,13 +588,13 @@ x.wizards.getProjectsWizard = function(options)
 };
 /*#endregion*/
 
-/*#region 函数:x.wizards.getProjectWizard(options)*/
+/*#region 函数:x.ui.wizards.getProjectWizard(options)*/
 /*
 * 快速创建单例
 */
-x.wizards.getProjectWizard = function(options)
+x.ui.wizards.getProjectWizard = function(options)
 {
-  var name = x.getFriendlyName(location.pathname + '$' + options.targetViewName + '$' + options.targetValueName + '$project$wizard');
+  var name = x.getFriendlyName(location.pathname + '$' + options.targetViewName + '$' + options.targetValueName + '$project-wizard');
 
   if(typeof (window[name]) === 'undefined')
   {
@@ -652,7 +652,7 @@ x.wizards.getProjectWizard = function(options)
     };
 
     // 初始化向导
-    var wizard = x.wizards.newProjectWizard(name, options.targetViewName, options.targetValueName, options);
+    var wizard = x.ui.wizards.newProjectWizard(name, options.targetViewName, options.targetValueName, options);
 
     // 加载界面、数据、事件
     wizard.load();
@@ -667,13 +667,13 @@ x.wizards.getProjectWizard = function(options)
 };
 /*#endregion*/
 
-///*#region 函数:x.wizards.getProjectWizardSingleton(targetViewName, targetValueName, multiSelection, save_callback, cancel_callback)*/
+///*#region 函数:x.ui.wizards.getProjectWizardSingleton(targetViewName, targetValueName, multiSelection, save_callback, cancel_callback)*/
 ///*
 //* 快速创建项目选择向导(已过时)
 //*/
-//x.wizards.getProjectWizardSingleton = function(targetViewName, targetValueName, multiSelection, save_callback, cancel_callback)
+//x.ui.wizards.getProjectWizardSingleton = function(targetViewName, targetValueName, multiSelection, save_callback, cancel_callback)
 //{
-//    x.debug.warn('函数【x.wizards.getProjectWizardSingleton】已过时了，可以使用新的函数【x.wizards.getProjectWizard】。');
+//    x.debug.warn('函数【x.ui.wizards.getProjectWizardSingleton】已过时了，可以使用新的函数【x.ui.wizards.getProjectWizard】。');
 
 //    // 配置参数
 //    var options = {
@@ -684,7 +684,7 @@ x.wizards.getProjectWizard = function(options)
 //        cancel_callback: cancel_callback
 //    };
 
-//    x.wizards.getProjectWizard(options);
+//    x.ui.wizards.getProjectWizard(options);
 //};
 ///*#endregion*/
 

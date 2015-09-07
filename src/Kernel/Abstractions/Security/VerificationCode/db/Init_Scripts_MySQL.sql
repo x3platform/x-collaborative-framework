@@ -6,10 +6,10 @@
 CREATE TABLE tb_VerificationCode (
 	Id varchar(36) NOT NULL ,
 	ObjectType  varchar(20) NULL ,
-	ObjectValue  varchar(30) NULL ,
+	ObjectValue  varchar(50) NULL ,
 	Code  varchar(8) NULL ,
 	ValidationType  varchar(20) NULL ,
-	CreateDate  datetime NULL
+	CreatedDate  datetime NULL
 );
 
 -- ÉèÖÃÖ÷¼ü: Id

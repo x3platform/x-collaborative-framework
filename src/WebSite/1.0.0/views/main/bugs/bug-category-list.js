@@ -75,11 +75,7 @@ main.bugs.bug.category.list = {
 
     x.each(list, function(index, node)
     {
-      classNameValue = (counter % 2 === 0) ? 'table-row-normal' : 'table-row-alternating';
-
-      classNameValue = classNameValue + ((counter + 1) === maxCount ? '-transparent' : '');
-
-      outString += '<tr class="' + classNameValue + '" >';
+      outString += '<tr>';
       outString += '<td><a href="/bugs/bug-category/form?id=' + node.id + '" target="_blank">' + node.categoryIndex + '</a></td>';
       outString += '<td>' + node.accountName + '</td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
@@ -93,18 +89,14 @@ main.bugs.bug.category.list = {
     // 补全
     while(counter < maxCount)
     {
-      var classNameValue = (counter % 2 === 0) ? 'table-row-normal' : 'table-row-alternating';
-
-      classNameValue = classNameValue + ((counter + 1) === maxCount ? '-transparent' : '');
-
-      outString += '<tr class="' + classNameValue + '">';
-      outString += '<td colspan="5" ><img src="/resources/images/transparent.gif" alt="" style="height:18px;" /></td>';
-      outString += '</tr>';
+      outString += '<tr><td colspan="5" >&nbsp;</td></tr>';
 
       counter++;
     }
 
+    outString += '</tbody>';
     outString += '</table>';
+    outString += '</div>';
 
     return outString;
   },

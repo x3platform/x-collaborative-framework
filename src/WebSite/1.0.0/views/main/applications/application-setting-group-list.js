@@ -117,7 +117,7 @@ main.applications.application.setting.group.list = {
     outString += '<div class="input-group">';
     outString += '<input id="parentId" name="parentId" type="hidden" x-dom-data-type="value" value="' + (typeof (param.parentId) == 'undefined' ? '' : param.parentId) + '" /> ';
     outString += '<input id="parentName" name="parentName" type="text" x-dom-data-type="value" x-dom-data-required="1" x-dom-data-required-warning="【所属父级分组】必须填写。" class="form-control" style="width:381px;" value="' + (typeof (param.parentName) == 'undefined' ? '' : param.parentName) + '" /> ';
-    outString += '<a href="javascript:x.ui.wizards.getApplicationSettingGroupWizard({\'targetValueName\':\'parentId\',\'targetViewName\':\'parentName\'});" class="input-group-addon" title="编辑" ><i class="glyphicon glyphicon-modal-window"></i></a>';
+    outString += '<a href="javascript:x.ui.wizards.getApplicationSettingGroupWizard({applicationId:\'' + param.applicationId + '\',applicationDisplayName:\'' + param.applicationDisplayName + '\',\'targetValueName\':\'parentId\',\'targetViewName\':\'parentName\'});" class="input-group-addon" title="编辑" ><i class="glyphicon glyphicon-modal-window"></i></a>';
     outString += '</div>';
     outString += '</td>';
     outString += '</tr>';
@@ -366,7 +366,7 @@ main.applications.application.setting.group.list = {
   */
   confirmDelete: function(id)
   {
-    if(confirm(i18n.msg.ARE_YOU_SURE_YOU_WANT_TO_DELETE))
+    if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
     {
       x.net.xhr('/api/application.settingGroup.delete.aspx?id=' + id, {
         waitingMessage: i18n.net.waiting.deleteTipText,

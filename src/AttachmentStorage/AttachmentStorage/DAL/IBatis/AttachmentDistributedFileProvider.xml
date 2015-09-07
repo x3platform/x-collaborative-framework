@@ -1,123 +1,117 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.AttachmentStorage.DAL.IBatis.AttachmentStorageProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="DistributedFileInfo" type="X3Platform.AttachmentStorage.DistributedFileInfo,X3Platform.AttachmentStorage" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_Attachment_DistributedFile_FindOne_Result" class="DistributedFileInfo">
-            <result property="Id" column="Id" />
-            <result property="VirtualPath" column="VirtualPath" />
-            <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
-            <!-- MySql : <result property="FileData" column="FileData" dbType="blob" /> -->
-            <result property="FileData" column="FileData" dbType="blob" />
-            <result property="CreateDate" column="CreateDate" />
-        </resultMap>
-        <resultMap id="proc_Attachment_DistributedFile_FindAll_Result" class="DistributedFileInfo">
-            <result property="Id" column="Id" />
-            <result property="VirtualPath" column="VirtualPath" />
-            <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
-            <!-- MySql : <result property="FileData" column="FileData" dbType="blob" /> -->
-            <result property="FileData" column="FileData" dbType="blob" />
-            <result property="CreateDate" column="CreateDate" />
-        </resultMap>
-    </resultMaps>
+  <alias>
+    <typeAlias alias="DistributedFileInfo" type="X3Platform.AttachmentStorage.DistributedFileInfo,X3Platform.AttachmentStorage" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Attachment_DistributedFile_FindOne_Result" class="DistributedFileInfo">
+      <result property="Id" column="Id" />
+      <result property="VirtualPath" column="VirtualPath" />
+      <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
+      <!-- MySql : <result property="FileData" column="FileData" dbType="blob" /> -->
+      <result property="FileData" column="FileData" dbType="blob" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_Attachment_DistributedFile_FindAll_Result" class="DistributedFileInfo">
+      <result property="Id" column="Id" />
+      <result property="VirtualPath" column="VirtualPath" />
+      <!-- SqlServer : <result property="FileData" column="FileData" dbType="image" /> -->
+      <!-- MySql : <result property="FileData" column="FileData" dbType="blob" /> -->
+      <result property="FileData" column="FileData" dbType="blob" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
 
-    <statements>
-        <!-- 
-        <insert id="proc_Attachment_DistributedFile_Save#SqlServer" parameterClass="DistributedFileInfo" >
-            INSERT INTO tb_Attachment_DistributedFile
-            (
-                Id,
-                VirtualPath,
-                FileData,
-                CreateDate
-            )
-            VALUES
-            (
-                #Id#,
-                #VirtualPath#,
-                #FileData:image#,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
-        -->
-        <insert id="proc_Attachment_DistributedFile_Save#MySql" parameterClass="DistributedFileInfo" >
-            INSERT INTO tb_Attachment_DistributedFile
-            (
-                Id,
-                VirtualPath,
-                FileData,
-                CreateDate
-            )
-            VALUES
-            (
-                #Id#,
-                #VirtualPath#,
-                #FileData:blob#,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+  <statements>
+    <!-- 
+    <insert id="proc_Attachment_DistributedFile_Save#SqlServer" parameterClass="DistributedFileInfo" >
+      INSERT INTO tb_Attachment_DistributedFile
+      (
+        Id,
+        VirtualPath,
+        FileData,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #VirtualPath#,
+        #FileData:image#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    -->
+    <insert id="proc_Attachment_DistributedFile_Save#MySql" parameterClass="DistributedFileInfo" >
+      INSERT INTO tb_Attachment_DistributedFile
+      (
+        Id,
+        VirtualPath,
+        FileData,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #VirtualPath#,
+        #FileData:blob#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <delete id="proc_Attachment_DistributedFile_Delete">
+      DELETE FROM tb_Attachment_DistributedFile WHERE $WhereClause$
+    </delete>
+    <select id="proc_Attachment_DistributedFile_FindOne" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindOne_Result" >
+      SELECT * FROM tb_Attachment_DistributedFile WHERE Id = #Id#
+    </select>
+    <select id="proc_Attachment_DistributedFile_FindAll" resultMap="proc_Attachment_DistributedFile_FindAll_Result" parameterClass="DistributedFileInfo" >
+      SELECT
 
-        <delete id="proc_Attachment_DistributedFile_Delete">
-            DELETE FROM tb_Attachment_DistributedFile WHERE Id IN ($Ids$)
-        </delete>
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-        <select id="proc_Attachment_DistributedFile_FindOne" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindOne_Result" >
-            SELECT * FROM tb_Attachment_DistributedFile WHERE Id = #Id#
-        </select>
+      * FROM tb_Attachment_DistributedFile T
 
-        <select id="proc_Attachment_DistributedFile_FindAll" resultMap="proc_Attachment_DistributedFile_FindAll_Result" parameterClass="DistributedFileInfo" >
-            SELECT
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Attachment_DistributedFile_GetPaging" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindAll_Result" >
+      SELECT *
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            * FROM tb_Attachment_DistributedFile T
+      FROM tb_Attachment_DistributedFile T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-        <select id="proc_Attachment_DistributedFile_GetPaging" parameterClass="DistributedFileInfo" resultMap="proc_Attachment_DistributedFile_FindAll_Result" >
-            SELECT *
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Attachment_DistributedFile_GetRowCount" >
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Attachment_DistributedFile T
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-            FROM tb_Attachment_DistributedFile T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
-
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
-
-        <select id="proc_Attachment_DistributedFile_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Attachment_DistributedFile T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-
-        <select id="proc_Attachment_DistributedFile_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM tb_Attachment_DistributedFile T WHERE $WhereClause$
-        </select>
-    </statements>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Attachment_DistributedFile_IsExist" >
+      SELECT COUNT(*) AS 'Count' FROM tb_Attachment_DistributedFile T WHERE $WhereClause$
+    </select>
+  </statements>
 </sqlMap>

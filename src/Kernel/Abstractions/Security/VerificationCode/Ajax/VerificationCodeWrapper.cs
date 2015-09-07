@@ -100,11 +100,11 @@ namespace X3Platform.Security.VerificationCode.Ajax
         // 自定义功能
         //-------------------------------------------------------
 
-        #region 属性:Query(XmlDocument doc)
+        #region 属性:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        public string Query(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -139,7 +139,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
 
             param.Id = StringHelper.ToGuid();
 
-            param.CreateDate = DateTime.Now;
+            param.CreatedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<VerificationCodeInfo>(param) + ",");
 

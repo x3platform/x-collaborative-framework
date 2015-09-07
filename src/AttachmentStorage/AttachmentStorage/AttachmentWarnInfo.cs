@@ -104,14 +104,14 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return this.m_CreateDate; }
-            set { this.m_CreateDate = value; }
+            get { return this.m_CreatedDate; }
+            set { this.m_CreatedDate = value; }
         }
         #endregion
     }
