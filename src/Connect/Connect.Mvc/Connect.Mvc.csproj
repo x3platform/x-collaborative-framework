@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{33602194-A869-4A3A-BAA4-3BD3259440FE}</ProjectGuid>
+    <ProjectGuid>{F5BB63F0-D515-43EC-AEBD-BA479847933C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>X3Platform.Connect.Mvc</RootNamespace>
