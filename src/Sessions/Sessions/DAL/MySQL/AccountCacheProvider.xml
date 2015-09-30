@@ -11,9 +11,9 @@
             <result property="AccountObject" column="AccountObject" />
             <result property="AccountObjectType" column="AccountObjectType" />
             <result property="IP" column="IP" />
-            <result property="BeginDate" column="BeginDate" />
-            <result property="EndDate" column="EndDate" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ValidFrom" column="ValidFrom" />
+            <result property="ValidTo" column="ValidTo" />
+            <result property="Date" column="Date" />
         </resultMap>
         <resultMap id="proc_AccountCache_FindAll_Result" class="AccountCacheInfo">
             <result property="AccountIdentity" column="AccountIdentity" />
@@ -22,9 +22,9 @@
             <result property="AccountObject" column="AccountObject" />
             <result property="AccountObjectType" column="AccountObjectType" />
             <result property="IP" column="IP" />
-            <result property="BeginDate" column="BeginDate" />
-            <result property="EndDate" column="EndDate" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ValidFrom" column="ValidFrom" />
+            <result property="ValidTo" column="ValidTo" />
+            <result property="Date" column="Date" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -37,9 +37,9 @@
                 AccountObject,
                 AccountObjectType,
                 IP,
-                BeginDate,
-                EndDate,
-                UpdateDate
+                ValidFrom,
+                ValidTo,
+                Date
             )
             VALUES
             (
@@ -49,8 +49,8 @@
                 #AccountObject#,
                 #AccountObjectType#,
                 #IP#,
-                #BeginDate#,
-                #EndDate#,
+                #ValidFrom#,
+                #ValidTo#,
                 CURRENT_TIMESTAMP
             )
         </insert>
@@ -60,8 +60,8 @@
 
                 AccountObject = #AccountObject#,
                 AccountObjectType = #AccountObjectType#,
-                EndDate = #EndDate#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ValidTo = #ValidTo#,
+                Date = CURRENT_TIMESTAMP
 
             WHERE AccountIdentity = #AccountIdentity#
         </update>

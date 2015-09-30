@@ -10,10 +10,14 @@ keys:
   PhysicalUploadFolderRule: folder\year\quarter\month\
   # 上传文件夹虚拟目录根路径
   VirtualUploadFolder: /uploads/
-  # 生成图片名称的格式 : 可选的值 1.guid(默认) 2.yyyyMMddHHmmssfff 3.timestamp
+  # 允许上传的最大文件大小 单位(KB)
+  AllowMaxFileSize: 102400
+  # 允许上传的最小文件大小 单位(KB)
+  AllowMinFileSize: 0
+  # 允许上传的最大文件类型 正则表达式 
+  AllowFileTypes: (\.|\/)(txt|gif|jpe?g|png|docx?|xlsx?|pptx?|zip|rar)$
+  # 生成文件名称的格式 : 可选的值 1.guid(默认) 2.yyyyMMddHHmmssfff 3.timestamp
   IdentityFormat: yyyyMMddHHmmssfff
-  # 匿名上传文件 : 可选的值 1.On 2.Off(默认)
-  AnonymousUpload: Off
   # 分布式文件模式 : 可选的值 1.On 2.Off(默认)
   DistributedFileStorageMode: Off
 ...

@@ -16,16 +16,16 @@ CREATE TABLE IF NOT EXISTS `tb_AccountCache`
     `AccountObject` text,
     `AccountObjectType` varchar(400) default NULL,
     `IP` varchar(30),
-    `BeginDate` datetime NULL,
-    `EndDate` datetime NULL,
-    `UpdateDate` datetime NULL
+    `ValidFrom` datetime NULL,
+    `ValidTo` datetime NULL,
+    `Date` datetime NULL
 );
     
 -- 设置主键: `Id`
 ALTER TABLE `tb_AccountCache` ADD CONSTRAINT `PK_tb_AccountCache` PRIMARY KEY CLUSTERED (`AccountIdentity`);
 
--- 设置索引: `EndDate`
-CREATE INDEX `IX_tb_Account_EndDate` ON `tb_AccountCache` (`EndDate`);
+-- 设置索引: `ValidTo`
+CREATE INDEX `IX_tb_Account_ValidTo` ON `tb_AccountCache` (`ValidTo`);
     
--- 设置索引: `UpdateDate`
-CREATE INDEX `IX_tb_Account_UpdateDate` ON `tb_AccountCache` (`UpdateDate`);
+-- 设置索引: `Date`
+CREATE INDEX `IX_tb_Account_Date` ON `tb_AccountCache` (`Date`);

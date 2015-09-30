@@ -1,0 +1,13 @@
+---
+keys: 
+  # 主机名
+  HostName: localhost
+  # 端口
+  Port: 5672
+  # 用户名
+  Username: guest
+  # 密码
+  Password: guest  
+  # 接收时间间隔(单位:秒)
+  ReceivingInterval: 60
+...

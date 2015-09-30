@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Reflection;
+using System.Threading;
 
 using Common.Logging;
 
-using X3Platform.Data;
-using System.Globalization;
-using System.Threading;
 using X3Platform.Configuration;
+using X3Platform.Data;
 using X3Platform.Globalization;
 
 namespace X3Platform.WebSiteV10
@@ -71,8 +71,11 @@ namespace X3Platform.WebSiteV10
 
     protected void Application_Start()
     {
-      logger.Info(I18n.Strings["application starting"]);
-      
+      if (logger.IsInfoEnabled)
+      {
+        logger.Info(I18n.Strings["application starting"]);
+      }
+
       AreaRegistration.RegisterAllAreas();
 
       RegisterGlobalFilters(GlobalFilters.Filters);
@@ -80,11 +83,6 @@ namespace X3Platform.WebSiteV10
       RegisterRoutes(RouteTable.Routes);
 
       I18nScript.Instance.Init();
-    }
-
-    protected void Application_EndRequest(object sender, EventArgs e)
-    {
-      // logger.Info("application end request");
     }
 
     protected void Application_AcquireRequestState(object sender, EventArgs e)

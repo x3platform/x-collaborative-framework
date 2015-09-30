@@ -38,8 +38,8 @@
 				Code,
 				Title,
 				Description,
-                StatusCode,
-				Lock,
+        StatusCode,
+				Locking,
 				Tags,
 				UpdateDate,
 				CreateDate
@@ -51,8 +51,8 @@
 				#Code#,
 				#Title#,
 				#Description#,
-                #StatusCode#,
-				#Lock#,
+        #StatusCode#,
+				#Locking#,
 				#Tags#,
 				CURRENT_TIMESTAMP,
 				CURRENT_TIMESTAMP

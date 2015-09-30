@@ -128,7 +128,7 @@ namespace X3Platform.Sessions.BLL
 
             AccountCacheInfo param = strategy.Serialize(appKey, accountIdentity, account);
 
-            param.UpdateDate = DateTime.Now;
+            param.Date = DateTime.Now;
 
             // 更新字典信息
             if (cacheStorage.ContainsKey(param.AccountIdentity))
@@ -147,8 +147,8 @@ namespace X3Platform.Sessions.BLL
             }
             else
             {
-                param.BeginDate = DateTime.Now;
-                param.EndDate = DateTime.Now.AddHours(SessionsConfigurationView.Instance.SessionTimeLimit);
+                param.ValidFrom = DateTime.Now;
+                param.ValidTo = DateTime.Now.AddHours(SessionsConfigurationView.Instance.SessionTimeLimit);
 
                 this.Insert(param);
             }

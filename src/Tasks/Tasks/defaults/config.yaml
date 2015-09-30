@@ -5,17 +5,21 @@ keys:
   # IBatis : 配置映射文件
   IBatisMapping: embedded:X3Platform.Tasks.defaults.IBatis.SqlMap.xml
   # 任务的默认前缀地址
-  PrefixTargetUrl: "${HostName}"
-  # 消息队列模式: 可选的值 1.On 2.Off(默认)
-  MessageQueueMode: Off
-  # 消息队列机器名称
-  MessageQueueMachineName: .\private$
-  # 消息队列名称
-  MessageQueueName: tasks$default$queue            
-  # 消息队列接收时间间隔(单位:秒)
-  MessageQueueReceivingInterval: 60
+  PrefixTargetUrl: "${HostName}" 
   # 定时待办项发送时间间隔(单位:秒)
   WaitingItemSendingInterval: 60
   # 客户端刷新间隔(单位:秒)
   ClientRefreshInterval: 120
+  # 消息队列模式: 可选的值 1.On 2.Off(默认)
+  MessageQueueMode: Off
+  # 消息队列机器名称
+  MessageQueueHostName: .\private$
+  # 消息队列用户名
+  MessageQueueUsername: guest
+  # 消息队列密码
+  MessageQueuePassword: guest
+  # 消息队列名称
+  MessageQueueName: tasks-workitem-queue
+  # 消息队列接收时间间隔(单位:秒)
+  MessageQueueReceivingInterval: 60
 ...

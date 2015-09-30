@@ -44,7 +44,7 @@ namespace X3Platform.Web.APIs.Methods
 
             if (param.Status == 0)
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"【" + methodName + "】方法 已被禁用。\"}}";
+                return "{\"message\":{\"returnCode\":1001,\"value\":\"【" + methodName + "】方法 已被禁用。\"}}";
             }
 
             if (param.EffectScope == 1)
@@ -59,22 +59,22 @@ namespace X3Platform.Web.APIs.Methods
                 if (param.EffectScope == 2 && account == null)
                 {
                     // 需要【登录用户】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":2,\"value\":\"【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。\"}}";
+                    return "{\"message\":{\"returnCode\":1002,\"value\":\"【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。\"}}";
                 }
                 else if (param.EffectScope == 4 && !(AppsSecurity.IsMember(account, application.ApplicationName) || AppsSecurity.IsReviewer(account, application.ApplicationName) || AppsSecurity.IsAdministrator(account, application.ApplicationName)))
                 {
                     // 需要【应用可访问成员】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":2,\"value\":\"【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。\"}}";
+                    return "{\"message\":{\"returnCode\":1003,\"value\":\"【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。\"}}";
                 }
                 else if (param.EffectScope == 8 && !(AppsSecurity.IsReviewer(account, application.ApplicationName) || AppsSecurity.IsAdministrator(account, application.ApplicationName)))
                 {
                     // 需要【应用审查员】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":2,\"value\":\"【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。\"}}";
+                    return "{\"message\":{\"returnCode\":1004,\"value\":\"【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。\"}}";
                 }
                 else if (param.EffectScope == 16 && !AppsSecurity.IsAdministrator(account, application.ApplicationName))
                 {
                     // 需要【应用管理员】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":2,\"value\":\"【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。\"}}";
+                    return "{\"message\":{\"returnCode\":1005,\"value\":\"【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。\"}}";
                 }
             }
 

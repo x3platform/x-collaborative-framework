@@ -79,36 +79,36 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        #region 属性:BeginDate
-        private DateTime m_BeginDate;
+        #region 属性:ValidFrom
+        private DateTime m_ValidFrom;
 
         /// <summary>开始时间</summary>
-        public DateTime BeginDate
+        public DateTime ValidFrom
         {
-            get { return m_BeginDate; }
-            set { m_BeginDate = value; }
+            get { return m_ValidFrom; }
+            set { m_ValidFrom = value; }
         }
         #endregion
 
-        #region 属性:EndDate
-        private DateTime m_EndDate;
+        #region 属性:ValidTo
+        private DateTime m_ValidTo;
 
         /// <summary>结束时间</summary>
-        public DateTime EndDate
+        public DateTime ValidTo
         {
-            get { return m_EndDate; }
-            set { m_EndDate = value; }
+            get { return m_ValidTo; }
+            set { m_ValidTo = value; }
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:Date
+        private DateTime m_Date;
 
         /// <summary>更新时间</summary>
-        public DateTime UpdateDate
+        public DateTime Date
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_Date; }
+            set { m_Date = value; }
         }
         #endregion
 

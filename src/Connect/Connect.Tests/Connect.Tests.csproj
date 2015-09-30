@@ -66,6 +66,12 @@
     <Reference Include="NMock3">
       <HintPath>..\..\..\lib\NMock\NMock3.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.ServiceModel">
+      <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.ServiceModel.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Core">
       <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
     </Reference>
@@ -82,6 +88,9 @@
     <Reference Include="X3Platform.Membership">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Messages">
+      <HintPath>..\..\..\bin\X3Platform.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
@@ -89,6 +98,7 @@
   <ItemGroup>
     <Compile Include="Configuration\ConnectConfigurationViewTests.cs" />
     <Compile Include="ConnectContextTests.cs" />
+    <Compile Include="IBLL\IConnectCallServiceTests.cs" />
     <Compile Include="IBLL\IConnectServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

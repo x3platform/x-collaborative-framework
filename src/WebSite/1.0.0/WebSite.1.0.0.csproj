@@ -426,6 +426,7 @@
     <Content Include="views\main\sys\email-history.cshtml" />
     <Content Include="views\main\sdk\password.cshtml" />
     <Content Include="views\main\sdk\uuid.cshtml" />
+    <Content Include="views\main\sdk\xhrsignature.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>

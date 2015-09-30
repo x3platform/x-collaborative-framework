@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
-    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+  <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
-    <!-- 应用连接 -->
-    <object id="X3Platform.Connect.IBLL.IConnectService"
-            type="X3Platform.Connect.BLL.ConnectService,X3Platform.Connect"
-            lazy-init="true" />
+  <!-- 应用连接 -->
+  <object id="X3Platform.Connect.IBLL.IConnectService"
+          type="X3Platform.Connect.BLL.ConnectService,X3Platform.Connect"
+          lazy-init="true" />
 
-    <object name="X3Platform.Connect.IDAL.IConnectProvider"
-            type="X3Platform.Connect.DAL.IBatis.ConnectProvider,X3Platform.Connect"
-            lazy-init="true" />
+  <object name="X3Platform.Connect.IDAL.IConnectProvider"
+          type="X3Platform.Connect.DAL.IBatis.ConnectProvider,X3Platform.Connect"
+          lazy-init="true" />
 
-    <!-- 应用连接授权码 -->
-    <object id="X3Platform.Connect.IBLL.IConnectAuthorizationCodeService"
-            type="X3Platform.Connect.BLL.ConnectAuthorizationCodeService,X3Platform.Connect"
-            lazy-init="true" />
+  <!-- 应用连接授权码 -->
+  <object id="X3Platform.Connect.IBLL.IConnectAuthorizationCodeService"
+          type="X3Platform.Connect.BLL.ConnectAuthorizationCodeService,X3Platform.Connect"
+          lazy-init="true" />
 
-    <object name="X3Platform.Connect.IDAL.IConnectAuthorizationCodeProvider"
-            type="X3Platform.Connect.DAL.IBatis.ConnectAuthorizationCodeProvider,X3Platform.Connect"
-            lazy-init="true" />
+  <object name="X3Platform.Connect.IDAL.IConnectAuthorizationCodeProvider"
+          type="X3Platform.Connect.DAL.IBatis.ConnectAuthorizationCodeProvider,X3Platform.Connect"
+          lazy-init="true" />
 
-    <!-- 应用连接访问令牌 -->
-    <object id="X3Platform.Connect.IBLL.IConnectAccessTokenService"
-            type="X3Platform.Connect.BLL.ConnectAccessTokenService,X3Platform.Connect"
-            lazy-init="true" />
+  <!-- 应用连接访问令牌 -->
+  <object id="X3Platform.Connect.IBLL.IConnectAccessTokenService"
+          type="X3Platform.Connect.BLL.ConnectAccessTokenService,X3Platform.Connect"
+          lazy-init="true" />
 
-    <object id="X3Platform.Connect.IDAL.IConnectAccessTokenProvider"
-            type="X3Platform.Connect.DAL.IBatis.ConnectAccessTokenProvider,X3Platform.Connect"
-            lazy-init="true" />
+  <object id="X3Platform.Connect.IDAL.IConnectAccessTokenProvider"
+          type="X3Platform.Connect.DAL.IBatis.ConnectAccessTokenProvider,X3Platform.Connect"
+          lazy-init="true" />
 
-    <!-- 应用连接调用 -->
-    <object id="X3Platform.Connect.IBLL.IConnectCallService"
-            type="X3Platform.Connect.BLL.ConnectCallService,X3Platform.Connect"
-            lazy-init="true" />
+  <!-- 应用连接调用 -->
+  <object id="X3Platform.Connect.IBLL.IConnectCallService"
+          type="X3Platform.Connect.BLL.ConnectCallService,X3Platform.Connect"
+          lazy-init="true" />
 
-    <object id="X3Platform.Connect.IDAL.IConnectCallProvider"
-            type="X3Platform.Connect.DAL.IBatis.ConnectCallProvider,X3Platform.Connect"
-            lazy-init="true" />
+  <object id="X3Platform.Connect.IDAL.IConnectCallProvider"
+          type="X3Platform.Connect.DAL.IBatis.ConnectCallProvider,X3Platform.Connect"
+          lazy-init="true" />
+
+  <!-- 队列设置 -->
+  <object id="X3Platform.Connect.Queues.ConnectCallQueue"
+          type="X3Platform.Messages.RabbitQueueObject&lt;X3Platform.Connect.Model.ConnectCallInfo&rt;,X3Platform.Messages"
+          lazy-init="true" />
+  
 </objects>
