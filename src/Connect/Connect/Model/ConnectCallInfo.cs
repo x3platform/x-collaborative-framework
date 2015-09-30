@@ -2,12 +2,14 @@ namespace X3Platform.Connect.Model
 {
     #region Using Libraries
     using System;
-
+    using System.Text;
+    using System.Xml;
+    using X3Platform.Messages;
     using X3Platform.Util;
     #endregion
 
     /// <summary>应用连接调用信息</summary>
-    public class ConnectCallInfo : EntityClass
+    public class ConnectCallInfo : IMessageObject, ISerializedObject
     {
         public ConnectCallInfo()
         {
@@ -109,7 +111,7 @@ namespace X3Platform.Connect.Model
             set { m_IP = value; }
         }
         #endregion
-        
+
         #region 属性:ReturnCode
         private int m_ReturnCode = 0;
 
@@ -120,7 +122,7 @@ namespace X3Platform.Connect.Model
             set { this.m_ReturnCode = value; }
         }
         #endregion
-        
+
         #region 属性:Date
         private DateTime m_Date;
 
@@ -129,18 +131,6 @@ namespace X3Platform.Connect.Model
         {
             get { return m_Date; }
             set { m_Date = value; }
-        }
-        #endregion
-
-        // -------------------------------------------------------
-        // 设置 EntityClass 标识
-        // -------------------------------------------------------
-
-        #region 属性:EntityId
-        /// <summary>实体对象标识</summary>
-        public override string EntityId
-        {
-            get { return this.Id; }
         }
         #endregion
 
@@ -165,5 +155,64 @@ namespace X3Platform.Connect.Model
 
             this.TimeSpan = this.timeSpan.Subtract(new TimeSpan(this.FinishTime.Ticks)).Duration().TotalSeconds;
         }
+
+        // -------------------------------------------------------
+        // Xml 元素的导入和导出 
+        // -------------------------------------------------------
+
+        #region 函数:Deserialize(XmlElement element)
+        /// <summary>根据Xml元素加载对象</summary>
+        /// <param name="element">Xml元素</param>
+        public void Deserialize(XmlElement element)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            this.Id = element.SelectSingleNode("id").InnerText;
+            this.AppKey = element.SelectSingleNode("appKey").InnerText;
+            this.RequestUri = element.SelectSingleNode("requestUri").InnerText;
+            this.RequestData = element.SelectSingleNode("requestData").InnerText;
+            this.StartTime = Convert.ToDateTime(element.SelectSingleNode("startTime").InnerText);
+            this.FinishTime = Convert.ToDateTime(element.SelectSingleNode("finishTime").InnerText);
+            this.TimeSpan = Convert.ToDouble(element.SelectSingleNode("timeSpan").InnerText);
+            this.IP = element.SelectSingleNode("ip").InnerText;
+            this.ReturnCode = Convert.ToInt32(element.SelectSingleNode("returnCode").InnerText);
+            this.Date = Convert.ToDateTime(element.SelectSingleNode("date").InnerText);
+        }
+        #endregion
+
+        #region 函数:Serializable()
+        /// <summary>根据对象导出Xml元素</summary>
+        /// <returns></returns>
+        public string Serializable()
+        {
+            return Serializable(false, false);
+        }
+        #endregion
+
+        #region 函数:Serializable(bool displayComment, bool displayFriendlyName)
+        /// <summary>根据对象导出Xml元素</summary>
+        /// <param name="displayComment">显示注释</param>
+        /// <param name="displayFriendlyName">显示友好名称</param>
+        /// <returns></returns>
+        public virtual string Serializable(bool displayComment, bool displayFriendlyName)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            outString.Append("<connectCall>");
+            outString.AppendFormat("<id><![CDATA[{0}]]></id>", this.Id);
+            outString.AppendFormat("<appKey><![CDATA[{0}]]></appKey>", this.AppKey);
+            outString.AppendFormat("<requestUri><![CDATA[{0}]]></requestUri>", this.RequestUri);
+            outString.AppendFormat("<requestData><![CDATA[{0}]]></requestData>", this.RequestData);
+            outString.AppendFormat("<startTime><![CDATA[{0}]]></startTime>", this.StartTime);
+            outString.AppendFormat("<finishTime><![CDATA[{0}]]></finishTime>", this.FinishTime);
+            outString.AppendFormat("<timeSpan><![CDATA[{0}]]></timeSpan>", this.TimeSpan);
+            outString.AppendFormat("<ip><![CDATA[{0}]]></ip>", this.IP);
+            outString.AppendFormat("<returnCode><![CDATA[{0}]]></returnCode>", this.ReturnCode);
+            outString.AppendFormat("<date><![CDATA[{0}]]></date>", this.Date);
+            outString.Append("</connectCall>");
+
+            return outString.ToString();
+        }
+        #endregion
     }
 }

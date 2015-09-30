@@ -3,8 +3,8 @@ namespace X3Platform.Connect.Configuration
     #region Using Libraries
     using System;
     using System.IO;
-
     using X3Platform.Configuration;
+    using X3Platform.MessageQueue.Configuration;
     using X3Platform.Util;
     #endregion
 
@@ -146,6 +146,189 @@ namespace X3Platform.Connect.Configuration
                 }
 
                 return this.m_TrackingCall;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueueMode
+        private string m_MessageQueueMode = string.Empty;
+
+        /// <summary>消息队列模式</summary>
+        public string MessageQueueMode
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_MessageQueueMode))
+                {
+                    // 读取配置信息
+                    this.m_MessageQueueMode = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueueMode",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_MessageQueueMode = StringHelper.NullOrEmptyTo(this.m_MessageQueueMode, "OFF");
+
+                    this.m_MessageQueueMode = this.m_MessageQueueMode.ToUpper();
+                }
+
+                return this.m_MessageQueueMode;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueueHostName
+        private string m_MessageQueueHostName = string.Empty;
+
+        /// <summary>消息队列机器名称</summary>
+        public string MessageQueueHostName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_MessageQueueHostName))
+                {
+                    // 读取配置信息
+                    this.m_MessageQueueHostName = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueueHostName",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_MessageQueueHostName = StringHelper.NullOrEmptyTo(this.m_MessageQueueHostName, MessageQueueConfigurationView.Instance.HostName);
+                }
+
+                return this.m_MessageQueueHostName;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueuePort
+        private int m_MessageQueuePort = 0;
+
+        /// <summary>消息队列端口</summary>
+        public int MessageQueuePort
+        {
+            get
+            {
+                if (this.m_MessageQueuePort == 0)
+                {
+                    // 读取配置信息
+                    this.m_MessageQueuePort = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueuePort",
+                        this.Configuration.Keys));
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (this.m_MessageQueuePort == 0)
+                    {
+                        this.m_MessageQueuePort = MessageQueueConfigurationView.Instance.Port;
+                    }
+                }
+
+                return this.m_MessageQueuePort;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueueUsername
+        private string m_MessageQueueUsername = string.Empty;
+
+        /// <summary>消息队列名称</summary>
+        public string MessageQueueUsername
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_MessageQueueUsername))
+                {
+                    // 读取配置信息
+                    this.m_MessageQueueUsername = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueueUsername",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_MessageQueueUsername = StringHelper.NullOrEmptyTo(this.m_MessageQueueUsername, MessageQueueConfigurationView.Instance.Username);
+                }
+
+                return this.m_MessageQueueUsername;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueuePassword
+        private string m_MessageQueuePassword = string.Empty;
+
+        /// <summary>消息队列名称</summary>
+        public string MessageQueuePassword
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_MessageQueuePassword))
+                {
+                    // 读取配置信息
+                    this.m_MessageQueuePassword = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueuePassword",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_MessageQueuePassword = StringHelper.NullOrEmptyTo(this.m_MessageQueuePassword, MessageQueueConfigurationView.Instance.Password);
+                }
+
+                return this.m_MessageQueuePassword;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueueName
+        private string m_MessageQueueName = string.Empty;
+
+        /// <summary>消息队列名称</summary>
+        public string MessageQueueName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_MessageQueueName))
+                {
+                    // 读取配置信息
+                    this.m_MessageQueueName = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueueName",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_MessageQueueName = StringHelper.NullOrEmptyTo(this.m_MessageQueueName, "connect-call-queue");
+                }
+
+                return this.m_MessageQueueName;
+            }
+        }
+        #endregion
+
+        #region 属性:MessageQueueReceivingInterval
+        private int m_MessageQueueReceivingInterval = 0;
+
+        /// <summary>消息队列接收时间间隔(单位:秒)</summary>
+        public int MessageQueueReceivingInterval
+        {
+            get
+            {
+                if (this.m_MessageQueueReceivingInterval == 0)
+                {
+                    // 读取配置信息
+                    this.m_MessageQueueReceivingInterval = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "MessageQueueReceivingInterval",
+                        this.Configuration.Keys));
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (this.m_MessageQueueReceivingInterval == 0)
+                    {
+                        this.m_MessageQueueReceivingInterval = 120;
+                    }
+                }
+
+                return this.m_MessageQueueReceivingInterval;
             }
         }
         #endregion

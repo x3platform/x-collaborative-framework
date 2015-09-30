@@ -1,0 +1,42 @@
+﻿@{
+  ViewBag.Title = "UUID生成工具";
+  Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<form id="form1" method="post">
+  <div class="form-container">
+    <div class="form-top">
+      <h3>UUID生成工具</h3>
+    </div>
+    <div class="form-main">
+
+      <dl class="form-cell">
+        <dt class="input-label">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</dt>
+        <dd>
+          <input id="originalText" name="originalText" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.UUID.ToString("N")" />
+        </dd>
+      </dl>
+      <dl class="form-cell">
+        <dt class="input-label">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</dt>
+        <dd>
+          <input id="originalText" name="originalText" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.UUID.ToString("D")" />
+        </dd>
+      </dl>
+      <dl class="form-cell">
+        <dt class="input-label">(xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)</dt>
+        <dd>
+          <input id="originalText" name="originalText" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.UUID.ToString("P")" />
+        </dd>
+      </dl>
+      <dl class="form-cell">
+        <dt class="input-label">{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</dt>
+        <dd>
+          <input id="originalText" name="originalText" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.UUID.ToString("B")" />
+        </dd>
+      </dl>
+      <div class="form-actions">
+        <div class="button-submit button primary"><a id="btnSubmit" href="javascript:void(0);" onclick="location.reload();">重新生成</a></div>
+      </div>
+    </div>
+    <div class="form-bottom"><a href="/sdk/">在线软件开发工具集</a></div>
+  </div>
+</form>

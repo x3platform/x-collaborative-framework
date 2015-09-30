@@ -4,11 +4,11 @@ set SolutionDir=..\..\..\..\..\
 
 set BinDir=%SolutionDir%bin\
 
-set TrunkDir=%SolutionDir%trunk\
+set SrcDir=%SolutionDir%src\
 
-set TargetWebSiteDir=%TrunkDir%WebSite\1.0.0\
+set TargetWebSiteDir=%SrcDir%WebSite\1.0.0\
 
-set TargetIBatisResourceDir=%TrunkDir%WebSite\1.0.0\resources\ibatis\Connect\
+set TargetIBatisResourceDir=%SrcDir%WebSite\1.0.0\resources\ibatis\Connect\
 
 set ProjectDir=%1
 

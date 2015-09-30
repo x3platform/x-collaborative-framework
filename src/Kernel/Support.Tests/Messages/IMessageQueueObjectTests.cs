@@ -52,5 +52,29 @@
                 IMessageObject message = messageQueueObject.Receive();
             }
         }
+
+        [TestMethod]
+        public void TestRabbitSend()
+        {
+            IMessageQueueObject queue = new RabbitQueueObject("rabbit.x3platform.com", 5672, "rabbit", "rabbit", "test");
+
+            MessageObject message = new MessageObject();
+
+            message.Result = "测试";
+
+            queue.Send(message);
+        }
+
+        [TestMethod]
+        public void TestRabbitReceive()
+        {
+            IMessageQueueObject queue = new RabbitQueueObject("rabbit.x3platform.com", 5672, "rabbit", "rabbit", "test");
+
+            if (queue.Enabled)
+            {
+                IMessageObject message = queue.Receive();
+            }
+        }
+
     }
 }

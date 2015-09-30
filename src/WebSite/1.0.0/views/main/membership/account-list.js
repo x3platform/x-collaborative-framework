@@ -17,7 +17,7 @@ main.membership.account.list = {
     if(searchText !== '')
     {
       // whereClauseValue = ' ( T.Name LIKE ##%' + x.toSafeLike(key) + '%## OR T.GlobalName LIKE ##%' + x.toSafeLike(key) + '%## OR T.LoginName LIKE ##%' + x.toSafeLike(key) + '%## ) ';
-      main.membership.account.list.paging.query.where.scence = 'Query';
+      main.membership.account.list.paging.query.scence = 'Query';
       main.membership.account.list.paging.query.where.SearchText = x.toSafeLike(searchText);
     }
 
@@ -766,9 +766,7 @@ main.membership.account.list = {
     outString += '<url><![CDATA[' + treeViewUrl + ']]></url>';
     outString += '</request>';
 
-    var tree = x.ui.pkg.tree.newTreeView('main.membership.account.list.tree');
-
-    tree.setAjaxMode(true);
+    var tree = x.ui.pkg.tree.newTreeView({ name: 'main.membership.account.list.tree', ajaxMode: true });
 
     tree.add({
       id: "0",
@@ -795,7 +793,7 @@ main.membership.account.list = {
 
     // main.membership.account.list.paging.whereClause = whereClauseValue;
 
-    main.membership.account.list.paging.query.where.scence = 'QueryByOrganizationId';
+    main.membership.account.list.paging.query.scence = 'QueryByOrganizationId';
     main.membership.account.list.paging.query.where.OrganizationId = value;
     main.membership.account.list.getPaging(1);
   },

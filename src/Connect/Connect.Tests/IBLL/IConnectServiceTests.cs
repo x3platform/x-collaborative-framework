@@ -41,9 +41,8 @@ namespace X3Platform.Connect.Tests.IBLL
 
             ConnectInfo param = new ConnectInfo();
 
-            param.Id = "test_" + DateHelper.GetTimestamp();
+            param.Id = "test-" + DateHelper.GetTimestamp();
 
-            // param.AppKey = DigitalNumberContext.Generate("Key_Guid");
             param.AppKey = Guid.NewGuid().ToString();
 
             param.Description = DateTime.Now.ToString();

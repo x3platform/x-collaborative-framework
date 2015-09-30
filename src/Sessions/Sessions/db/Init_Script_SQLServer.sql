@@ -31,19 +31,19 @@ BEGIN
         [AccountObject] [ntext] COLLATE Chinese_PRC_CI_AS NULL,
         [AccountObjectType] [nvarchar] (400) COLLATE Chinese_PRC_CI_AS NULL,
         [IP] [nvarchar] (30) COLLATE Chinese_PRC_CI_AS NULL,
-        [BeginDate] [datetime] NULL,
-        [EndDate] [datetime] NULL,
-        [UpdateDate] [datetime] NULL
+        [ValidFrom] [datetime] NULL,
+        [ValidTo] [datetime] NULL,
+        [Date] [datetime] NULL
     )
     
     -- 设置主键: [Id]
     ALTER TABLE [dbo].[tb_AccountCache] ADD CONSTRAINT [PK_tb_AccountCache] PRIMARY KEY CLUSTERED ([AccountIdentity])
     
     -- 设置主键: [Id]
-    CREATE NONCLUSTERED INDEX [IX_tb_Account_EndDate] ON [dbo].[tb_AccountCache] ([EndDate])
+    CREATE NONCLUSTERED INDEX [IX_tb_Account_ValidTo] ON [dbo].[tb_AccountCache] ([ValidTo])
     
     -- 设置主键: [Id]
-    CREATE NONCLUSTERED INDEX [IX_tb_Account_UpdateDate] ON [dbo].[tb_AccountCache] ([UpdateDate])
+    CREATE NONCLUSTERED INDEX [IX_tb_Account_Date] ON [dbo].[tb_AccountCache] ([Date])
         
 END
 GO

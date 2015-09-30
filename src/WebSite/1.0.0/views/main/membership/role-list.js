@@ -10,18 +10,15 @@ main.membership.role.list = {
   */
   filter: function()
   {
-    var whereClauseValue = '';
+    var searchText = $('#searchText').val().trim();
 
-    var key = $('#searchText').val().trim();
-
-    if(key !== '')
+    if(searchText !== '')
     {
-      whereClauseValue = ' T.Name LIKE ##%' + x.toSafeLike(key) + '%## OR T.GlobalName LIKE ##%' + x.toSafeLike(key) + '%## ';
+      // whereClauseValue = ' T.Name LIKE ##%' + x.toSafeLike(key) + '%## OR T.GlobalName LIKE ##%' + x.toSafeLike(key) + '%## ';
+      main.membership.role.list.paging.query.scence = 'Query';
+      main.membership.role.list.paging.query.where.SearchText = x.toSafeLike(searchText);
+      main.membership.role.list.paging.query.orders = ' T.Name ';
     }
-
-    main.membership.role.list.paging.whereClause = whereClauseValue;
-
-    main.membership.role.list.paging.orderBy = ' T.Name ';
 
     main.membership.role.list.getPaging(1);
   },
@@ -539,6 +536,8 @@ main.membership.role.list = {
   /*#region 函数:setTreeViewNode(value)*/
   setTreeViewNode: function(value)
   {
+    main.membership.role.list.paging.query.scence = 'QueryByOrganizationId';
+
     main.membership.role.list.paging.query.where.OrganizationId = value;
     main.membership.role.list.paging.query.orders = ' OrderId ';
 

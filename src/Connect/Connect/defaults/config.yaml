@@ -10,4 +10,6 @@ keys:
   SessionTimeLimit: 86400
   # 跟踪调用信息 : On | Off(默认)
   TrackingCall: Off
+  # 消息队列模式: 可选的值 1.On 2.Off(默认)
+  MessageQueueMode: Off
 ...

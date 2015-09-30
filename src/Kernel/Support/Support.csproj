@@ -214,6 +214,8 @@
     <Compile Include="Json\JsonDynamicConverter.cs" />
     <Compile Include="Globalization\I18n.cs" />
     <Compile Include="Globalization\Localization.cs" />
+    <Compile Include="Messages\Configuration\MessageQueueConfiguration.cs" />
+    <Compile Include="Messages\Configuration\MessageQueueConfigurationView.cs" />
     <Compile Include="Security\CiphertextFormat.cs" />
     <Compile Include="Security\Configuration\SecurityConfiguration.cs" />
     <Compile Include="Security\Configuration\SecurityConfigurationView.cs" />
@@ -1266,6 +1268,7 @@
     <Compile Include="Web\Util\HttpUserAgnetHelper.cs" />
     <Compile Include="Web\Util\VirtualPathHelper.cs" />
     <EmbeddedResource Include="Security\defaults\config.yaml" />
+    <EmbeddedResource Include="Messages\defaults\config.yaml" />
     <None Include="Security\config\X3Platform.Security.config" />
     <None Include="Web\UrlRewriter\config\X3Platform.Web.UrlRewriter.config" />
     <None Include="Yaml\README.md" />

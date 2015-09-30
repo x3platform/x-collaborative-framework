@@ -74,7 +74,7 @@ namespace X3Platform.Sessions.Interop
                 outString.Append("\"accountCacheValue\":\"" + param.AccountCacheValue + "\",");
                 outString.Append("\"accountObjectType\":\"" + param.AccountObjectType + "\",");
                 outString.Append("\"accountObject\":\"" + param.AccountObject + "\",");
-                outString.Append("\"updateDate\":\"" + param.UpdateDate + "\" ");
+                outString.Append("\"updateDate\":\"" + param.Date + "\" ");
                 outString.Append("}");
             }
 
@@ -100,7 +100,7 @@ namespace X3Platform.Sessions.Interop
                 outString.Append("{");
                 outString.Append("\"accountIdentity\":\"" + item.AccountIdentity + "\",");
                 outString.Append("\"accountCacheValue\":\"" + item.AccountCacheValue + "\",");
-                outString.Append("\"updateDate\":\"" + item.UpdateDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "\" ");
+                outString.Append("\"updateDate\":\"" + item.Date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "\" ");
                 outString.Append("},");
             }
 

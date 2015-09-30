@@ -22,7 +22,7 @@ namespace X3Platform.Tasks.MSMQ
         #region 构造函数:TaskQueue()
         /// <summary>任务队列</summary>
         public TaskQueue()
-            : base(TasksConfigurationView.Instance.MessageQueueMachineName, TasksConfigurationView.Instance.MessageQueueName)
+            : base(TasksConfigurationView.Instance.MessageQueueHostName, TasksConfigurationView.Instance.MessageQueueName)
         {
         }
         #endregion

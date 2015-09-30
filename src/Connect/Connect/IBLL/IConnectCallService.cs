@@ -14,13 +14,6 @@ namespace X3Platform.Connect.IBLL
     [SpringObject("X3Platform.Connect.IBLL.IConnectCallService")]
     public interface IConnectCallService
     {
-        #region 索引:this[string index]
-        /// <summary>索引</summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        ConnectCallInfo this[string index] { get; }
-        #endregion
-
         // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------

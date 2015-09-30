@@ -378,7 +378,7 @@
 
       taskIds = "'" + StringHelper.ToSafeSQL(taskIds).Replace(",", "','") + "'";
 
-      args.Add("WhereClause", string.Format(" ReceiverId = '{0}' AND TaskId IN ({1}) ", receiverId, taskIds));
+      args.Add("WhereClause", string.Format(" ReceiverId = '{0}' AND Id IN ({1}) ", receiverId, taskIds));
 
       this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetUnfinished", this.tableName)), args);
 

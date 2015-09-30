@@ -218,36 +218,44 @@ namespace X3Platform.IBatis.DataMapper
         /// <param name="connectionString">The connection string</param>
         public void OpenConnection(string connectionString)
         {
-            if (_connection == null)
+            try
             {
-                CreateConnection(connectionString);
-                try
+                if (_connection == null)
                 {
-                    _connection.Open();
-                    if (_logger.IsDebugEnabled)
+                    CreateConnection(connectionString);
+                    try
                     {
-                        _logger.Debug(string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description));
+                        _connection.Open();
+                        if (_logger.IsDebugEnabled)
+                        {
+                            _logger.Debug(string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DataMapperException(string.Format("Unable to open connection to \"{0}\".", _dataSource.DbProvider.Description), ex);
                     }
                 }
-                catch (Exception ex)
+                else if (_connection.State != ConnectionState.Open)
                 {
-                    throw new DataMapperException(string.Format("Unable to open connection to \"{0}\".", _dataSource.DbProvider.Description), ex);
+                    try
+                    {
+                        _connection.Open();
+                        if (_logger.IsDebugEnabled)
+                        {
+                            _logger.Debug(string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DataMapperException(string.Format("Unable to open connection to \"{0}\".", _dataSource.DbProvider.Description), ex);
+                    }
                 }
             }
-            else if (_connection.State != ConnectionState.Open)
+            catch
             {
-                try
-                {
-                    _connection.Open();
-                    if (_logger.IsDebugEnabled)
-                    {
-                        _logger.Debug(string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new DataMapperException(string.Format("Unable to open connection to \"{0}\".", _dataSource.DbProvider.Description), ex);
-                }
+                _logger.Error(string.Format("Open Connection \"{0}\" , DbProvider \"{1}\".", _connection.ConnectionString, _dataSource.DbProvider.Description));
+                throw;
             }
         }
 

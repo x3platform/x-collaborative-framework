@@ -71,6 +71,12 @@
     <Reference Include="NMock3">
       <HintPath>..\..\..\lib\NMock\NMock3.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.ServiceModel">
+      <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.ServiceModel.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -99,12 +105,12 @@
     <Compile Include="Configuration\PropertiesFileTests.cs" />
     <Compile Include="Data\DataQueryExpressionParserTests.cs" />
     <Compile Include="Logging\LoggingTests.cs" />
-    <Compile Include="Messages\IMessageQueueObjectTestSuite.cs" />
     <Compile Include="defaults\I18n.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>I18n.resx</DependentUpon>
     </Compile>
+    <Compile Include="Messages\IMessageQueueObjectTests.cs" />
     <Compile Include="Security\Configuration\SecurityConfigurationViewTests.cs" />
     <Compile Include="Security\EncrypterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

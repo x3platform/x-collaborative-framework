@@ -61,11 +61,11 @@
 
             accountCache.IP = account.IP;
 
-            accountCache.BeginDate = DateTime.Now;
+            accountCache.ValidFrom = DateTime.Now;
 
-            accountCache.EndDate = accountCache.BeginDate.AddMonths(3);
+            accountCache.ValidTo = accountCache.ValidFrom.AddMonths(3);
 
-            accountCache.UpdateDate = DateTime.Now;
+            accountCache.Date = DateTime.Now;
 
             return accountCache;
         }
