@@ -128,7 +128,7 @@ namespace X3Platform.Plugins.Bugs.DAL.IBatis
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", query.GetWhereSql());
-      args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

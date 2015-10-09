@@ -10,8 +10,8 @@
             <result property="AccountId" column="AccountId" />
             <result property="ExpireDate" column="ExpireDate" />
             <result property="RefreshToken" column="RefreshToken" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Connect_AccessToken_FindAll_Result" class="ConnectAccessTokenInfo">
             <result property="Id" column="Id" />
@@ -19,8 +19,8 @@
             <result property="AccountId" column="AccountId" />
             <result property="ExpireDate" column="ExpireDate" />
             <result property="RefreshToken" column="RefreshToken" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
 
@@ -33,8 +33,8 @@
                 AccountId,
                 ExpireDate,
                 RefreshToken,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -52,7 +52,7 @@
             UPDATE tb_Connect_AccessToken SET
 
                 ExpireDate = #ExpireDate#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
@@ -129,7 +129,7 @@
         </select>
         
         <update id="proc_Connect_AccessToken_Refresh" >
-            UPDATE tb_Connect_AccessToken SET ExpireDate = '$ExpireDate$', RefreshToken = '$NextRefreshToken$', UpdateDate = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$'
+            UPDATE tb_Connect_AccessToken SET ExpireDate = '$ExpireDate$', RefreshToken = '$NextRefreshToken$', ModifiedDate = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$'
         </update>
     </statements>
 </sqlMap>

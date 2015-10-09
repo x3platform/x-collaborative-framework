@@ -22,8 +22,8 @@
       <result property="Priority" column="Priority" />
       <result property="Status" column="Status" />
       <result property="OrderId" column="OrderId" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Bug_FindAll_Result" class="BugInfo">
       <result property="Id" column="Id" />
@@ -42,8 +42,8 @@
       <result property="Priority" column="Priority" />
       <result property="Status" column="Status" />
       <result property="OrderId" column="OrderId" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_BugQueryInfo_FindAll_Result" class="BugQueryInfo">
       <result property="Id" column="Id" />
@@ -57,8 +57,8 @@
       <result property="AssignToAccountName" column="AssignToAccountName" />
       <result property="Priority" column="Priority" />
       <result property="Status" column="Status" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
   </resultMaps>
 
@@ -82,8 +82,8 @@
         Priority,
         Status,
         OrderId,
-        UpdateDate,
-        CreateDate
+        ModifiedDate,
+        CreatedDate
       )
       VALUES
       (
@@ -124,7 +124,7 @@
         Priority = #Priority#,
         Status = #Status#,
         OrderId = #OrderId#,
-        UpdateDate = CURRENT_TIMESTAMP
+        ModifiedDate = CURRENT_TIMESTAMP
 
       WHERE Id = #Id#
     </update>

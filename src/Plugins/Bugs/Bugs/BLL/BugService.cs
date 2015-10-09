@@ -141,7 +141,7 @@ namespace X3Platform.Plugins.Bugs.BLL
       // 发送邮件提醒
       // 新问题状态发送给负责人, 已解决状态发送给提交人
       if (BugConfigurationView.Instance.SendMailAlert == "ON"
-        // && isNewObject || (param.UpdateDate.AddHours(2) > originalObject.UpdateDate)
+        // && isNewObject || (param.ModifiedDate.AddHours(2) > originalObject.ModifiedDate)
           && (param.Status == 0 || param.Status == 3))
       {
         if (isNewObject || (param.Status != originalObject.Status || param.AssignToAccountId != originalObject.AssignToAccountId))

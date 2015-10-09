@@ -20,8 +20,8 @@
             <result property="Options" column="Options" />
             <result property="CertifiedCode" column="CertifiedCode" />
             <result property="Status" column="Status" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Connect_FindAll_Result" class="ConnectInfo">
             <result property="Id" column="Id" />
@@ -37,8 +37,8 @@
             <result property="RedirectUri" column="RedirectUri" />
             <result property="CertifiedCode" column="CertifiedCode" />
             <result property="Status" column="Status" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_ConnectQueryInfo_FindAll_Result" class="ConnectQueryInfo">      
             <result property="Id" column="Id" />
@@ -52,8 +52,8 @@
             <result property="Domain" column="Domain" />
             <result property="RedirectUri" column="RedirectUri" />
             <result property="Status" column="Status" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -74,8 +74,8 @@
                 Options,
                 CertifiedCode,
                 Status,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -106,7 +106,7 @@
                 RedirectUri = #RedirectUri#,
                 Options = #Options#,
                 Status = #Status#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
@@ -245,7 +245,7 @@
             SELECT COUNT(*) AS "Count" FROM tb_Connect T WHERE $WhereClause$
         </select>
         <update id="proc_Connect_ResetAppSecret" parameterClass="ConnectInfo" >
-            UPDATE tb_Connect SET AppSecret = #AppSecret#, UpdateDate = CURRENT_TIMESTAMP WHERE AppKey = #AppKey#
+            UPDATE tb_Connect SET AppSecret = #AppSecret#, ModifiedDate = CURRENT_TIMESTAMP WHERE AppKey = #AppKey#
         </update>
     </statements>
 </sqlMap>

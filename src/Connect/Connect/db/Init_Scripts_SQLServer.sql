@@ -42,8 +42,8 @@ BEGIN
         [AuthorizationScope] [ntext],
         [CertifiedCode] [nvarchar] (36),
         [Status] [int] NULL,
-        [UpdateDate] [datetime],
-        [CreateDate] [datetime]
+        [ModifiedDate] [datetime],
+        [CreatedDate] [datetime]
     )
     -- 设置主键: [Id]
     ALTER TABLE [dbo].[tb_Connect] ADD CONSTRAINT [PK_tb_Connect] PRIMARY KEY CLUSTERED ([Id])
@@ -63,8 +63,8 @@ BEGIN
         [AppKey] [nvarchar] (36),
         [AccountId] [nvarchar] (36),
         [AuthorizationScope] [ntext],
-        [UpdateDate] [datetime],
-        [CreateDate] [datetime]
+        [ModifiedDate] [datetime],
+        [CreatedDate] [datetime]
     )
     -- 设置主键: [Id]
     ALTER TABLE [dbo].[tb_Connect_AuthorizationCode] ADD CONSTRAINT [PK_tb_Connect_AuthorizationCode] PRIMARY KEY CLUSTERED ([Id])
@@ -85,8 +85,8 @@ BEGIN
         [AccountId] [nvarchar] (36),
 	    [ExpireDate] [datetime],
         [RefreshToken] [nvarchar](36),
-        [UpdateDate] [datetime],
-        [CreateDate] [datetime]
+        [ModifiedDate] [datetime],
+        [CreatedDate] [datetime]
     )
     -- 设置主键: [Id]
     ALTER TABLE [dbo].[tb_Connect_AccessToken] ADD CONSTRAINT [PK_tb_Connect_AccessToken] PRIMARY KEY CLUSTERED ([Id])

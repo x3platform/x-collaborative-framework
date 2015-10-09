@@ -10,8 +10,8 @@
             <result property="AccountId" column="AccountId" />
             <result property="Title" column="Title" />
             <result property="Content" column="Content" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Bug_Comment_FindAll_Result" class="BugCommentInfo">
             <result property="Id" column="Id" />
@@ -19,8 +19,8 @@
             <result property="AccountId" column="AccountId" />
             <result property="Title" column="Title" />
             <result property="Content" column="Content" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -32,8 +32,8 @@
                 AccountId,
                 Title,
                 Content,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -53,7 +53,7 @@
                 BugId = #BugId#,
                 Title = #Title#,
                 Content = #Content#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id# and AccountId = #AccountId#
         </update>

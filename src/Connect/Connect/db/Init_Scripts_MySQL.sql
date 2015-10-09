@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS `tb_Connect` (
     `AuthorizationScope` text,
     `CertifiedCode` varchar(36),
     `Status` int,
-    `UpdateDate` datetime,
-    `CreateDate` datetime
+    `ModifiedDate` datetime,
+    `CreatedDate` datetime
 );
 
 -- 设置主键: `Id`
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `tb_Connect_AuthorizationCode`
     `AppKey` varchar(36),
     `AccountId` varchar(36),
     `AuthorizationScope` text,
-    `UpdateDate` datetime,
-    `CreateDate` datetime
+    `ModifiedDate` datetime,
+    `CreatedDate` datetime
 );
 
 -- 设置主键: `Id`
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `tb_Connect_AccessToken`
 	`AccountId` varchar(36),
 	`ExpireDate` datetime,
 	`RefreshToken` varchar(36),
-	`UpdateDate` datetime,
-	`CreateDate` datetime
+	`ModifiedDate` datetime,
+	`CreatedDate` datetime
 );
 
 -- 设置主键: `Id`

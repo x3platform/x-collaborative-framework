@@ -201,7 +201,7 @@ namespace X3Platform.Plugins.Bugs.DAL.IBatis
     {
       Dictionary<string, object> args = new Dictionary<string, object>();
 
-      whereClause = (string.IsNullOrEmpty(whereClause)) ? " 1=1 ORDER BY CreateDate " : whereClause;
+      whereClause = (string.IsNullOrEmpty(whereClause)) ? " 1=1 ORDER BY CreatedDate " : whereClause;
 
       args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
       args.Add("Length", length);
@@ -285,7 +285,7 @@ namespace X3Platform.Plugins.Bugs.DAL.IBatis
         args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Title", "LIKE" } }));
       }
 
-      args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);
@@ -369,7 +369,7 @@ namespace X3Platform.Plugins.Bugs.DAL.IBatis
         args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Title", "LIKE" } }));
       }
 
-      args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

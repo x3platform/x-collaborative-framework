@@ -198,25 +198,25 @@ namespace X3Platform.Connect.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary>修改日期</summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary>创建日期</summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 

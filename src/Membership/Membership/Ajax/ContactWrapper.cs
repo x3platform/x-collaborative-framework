@@ -1,30 +1,16 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :ContactWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.Text;
-
-using X3Platform.Ajax;
-using X3Platform.Util;
-
-using X3Platform.Membership.IBLL;
-using X3Platform.Membership.Model;
-
 namespace X3Platform.Membership.Ajax
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Xml;
+    using System.Text;
+
+    using X3Platform.Ajax;
+    using X3Platform.Util;
+
+    using X3Platform.Membership.IBLL;
+    using X3Platform.Membership.Model;
+
     /// <summary></summary>
     public class ContactWrapper : ContextWrapper
     {

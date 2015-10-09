@@ -9,16 +9,16 @@
             <result property="AppKey" column="AppKey" />
             <result property="AccountId" column="AccountId" />
             <result property="AuthorizationScope" column="AuthorizationScope" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Connect_AuthorizationCode_FindAll_Result" class="ConnectAuthorizationCodeInfo">
             <result property="Id" column="Id" />
             <result property="AppKey" column="AppKey" />
             <result property="AccountId" column="AccountId" />
             <result property="AuthorizationScope" column="AuthorizationScope" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
 
@@ -30,8 +30,8 @@
                 AppKey,
                 AccountId,
                 AuthorizationScope,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -48,7 +48,7 @@
             UPDATE tb_Connect_AuthorizationCode SET
 
                 AuthorizationScope = #AuthorizationScope#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE AccountId = #AccountId# AND AppKey = #AppKey#
         </update>
