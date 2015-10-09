@@ -52,7 +52,7 @@
 
         param.Id = DigitalNumberContext.Generate("Key_Guid");
         param.AccountId = account.Id;
-        param.CreateDate = param.UpdateDate = DateTime.Now;
+        param.CreatedDate = param.ModifiedDate = DateTime.Now;
       }
       else
       {

@@ -40,12 +40,16 @@
                 account.GlobalName = doc.SelectSingleNode("accountObject/globalName").InnerText;
             if (doc.SelectSingleNode("accountObject/displayName") != null)
                 account.DisplayName = doc.SelectSingleNode("accountObject/displayName").InnerText;
+            if (doc.SelectSingleNode("accountObject/type") != null)
+                account.Type = Convert.ToInt32(doc.SelectSingleNode("accountObject/type").InnerText);
             if (doc.SelectSingleNode("accountObject/certifiedAvatar") != null)
                 account.CertifiedAvatar = doc.SelectSingleNode("accountObject/certifiedAvatar").InnerText;
             if (doc.SelectSingleNode("accountObject/certifiedEmail") != null)
                 account.CertifiedEmail = doc.SelectSingleNode("accountObject/certifiedEmail").InnerText;
             if (doc.SelectSingleNode("accountObject/certifiedTelephone") != null)
                 account.CertifiedTelephone = doc.SelectSingleNode("accountObject/certifiedTelephone").InnerText;
+            if (doc.SelectSingleNode("accountObject/ip") != null)
+                account.IP = doc.SelectSingleNode("accountObject/ip").InnerText;
 
             return account;
         }

@@ -207,9 +207,10 @@
     <Compile Include="Model\AccountGroupRelationInfo.cs" />
     <Compile Include="Model\AccountInfo.cs" />
     <Compile Include="Model\AccountLogInfo.cs" />
-    <Compile Include="Model\AccountOrganizationRelationInfo.cs" />
+    <Compile Include="Model\AccountOrganizationUnitRelationInfo.cs" />
     <Compile Include="Model\AccountRoleRelationInfo.cs" />
     <Compile Include="Model\JobFamilyInfo.cs" />
+    <Compile Include="Model\OrganizationUnitInfo.cs" />
     <Compile Include="Model\SettingInfo.cs" />
     <Compile Include="Model\AssignedJobInfo.cs" />
     <Compile Include="Model\ContactInfo.cs" />
@@ -221,11 +222,10 @@
     <Compile Include="Model\JobGradeInfo.cs" />
     <Compile Include="Model\JobInfo.cs" />
     <Compile Include="Model\MemberInfo.cs" />
-    <Compile Include="Model\OrganizationInfo.cs" />
     <Compile Include="Model\RoleInfo.cs" />
     <Compile Include="Model\StandardGeneralRoleInfo.cs" />
     <Compile Include="Model\StandardGeneralRoleMappingRelationInfo.cs" />
-    <Compile Include="Model\StandardOrganizationInfo.cs" />
+    <Compile Include="Model\StandardOrganizationUnitInfo.cs" />
     <Compile Include="Model\StandardRoleInfo.cs" />
     <Compile Include="OrganizationCharts\OrganizationChartNode.cs" />
     <Compile Include="OrganizationCharts\OrganizationChartView.cs" />

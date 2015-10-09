@@ -13,8 +13,8 @@
 			<result property="Description" column="Description" />
 			<result property="OrderId" column="OrderId" />
 			<result property="Status" column="Status" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 		<resultMap id="proc_Bug_Category_FindAll_Result" class="BugCategoryInfo">
 			<result property="Id" column="Id" />
@@ -24,8 +24,8 @@
 			<result property="Description" column="Description" />
 			<result property="OrderId" column="OrderId" />
 			<result property="Status" column="Status" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 		<resultMap id="proc_Bug_Category_FindAllQueryObject_Result" class="BugCategoryQueryInfo">
 			<result property="Id" column="Id" />
@@ -35,8 +35,8 @@
 			<result property="Description" column="Description" />
 			<result property="OrderId" column="OrderId" />
 			<result property="Status" column="Status" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 	</resultMaps>
 	<statements>
@@ -50,8 +50,8 @@
                 Description,
                 OrderId,
                 Status,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -74,7 +74,7 @@
                 Description = #Description#,
                 OrderId = #OrderId#,
                 Status = #Status#,
-			    UpdateDate = CURRENT_TIMESTAMP
+			    ModifiedDate = CURRENT_TIMESTAMP
 			
 			WHERE Id = #Id#
 		</update>
@@ -90,7 +90,7 @@
                     Description = #Description#,
                     OrderId = #OrderId#,
                     Status = #Status#,
-			        UpdateDate = CURRENT_TIMESTAMP
+			        ModifiedDate = CURRENT_TIMESTAMP
 			
 			    WHERE Id = #Id#
 			END
@@ -105,8 +105,8 @@
                     Description,
                     OrderId,
                     Status,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (
@@ -124,7 +124,7 @@
 		</insert>
 
 		<delete id="proc_Bug_Category_Delete" >
-			UPDATE tb_Bug_Category SET Status = 2, UpdateDate = CURRENT_TIMESTAMP WHERE $WhereClause$ 
+			UPDATE tb_Bug_Category SET Status = 2, ModifiedDate = CURRENT_TIMESTAMP WHERE $WhereClause$ 
 		</delete>
 
 		<select id="proc_Bug_Category_CanDelete" >
@@ -272,7 +272,7 @@
 		</select>
 
 		<update id="proc_Bug_Category_SetStatus">
-			UPDATE tb_Bug_Category SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+			UPDATE tb_Bug_Category SET Status = #Status#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
 		</update>
        
         <select id="proc_Bug_Category_GetDynamicTreeView#MySql"  >

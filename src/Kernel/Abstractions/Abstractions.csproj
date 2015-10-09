@@ -142,7 +142,7 @@
     <Compile Include="Membership\IAccountGrantInfo.cs" />
     <Compile Include="Membership\IAccountGroupRelationInfo.cs" />
     <Compile Include="Membership\IAccountInfo.cs" />
-    <Compile Include="Membership\IAccountOrganizationRelationInfo.cs" />
+    <Compile Include="Membership\IAccountOrganizationUnitRelationInfo.cs" />
     <Compile Include="Membership\IAccountRoleRelationInfo.cs" />
     <Compile Include="Membership\IAssignedJobInfo.cs" />
     <Compile Include="Membership\IExtensionInformation.cs" />
@@ -151,11 +151,11 @@
     <Compile Include="Membership\IJobGradeInfo.cs" />
     <Compile Include="Membership\IJobInfo.cs" />
     <Compile Include="Membership\IMemberInfo.cs" />
-    <Compile Include="Membership\IOrganizationInfo.cs" />
+    <Compile Include="Membership\IOrganizationUnitInfo.cs" />
     <Compile Include="Membership\IRoleInfo.cs" />
     <Compile Include="Membership\IStandardGeneralRoleInfo.cs" />
     <Compile Include="Membership\IStandardGeneralRoleMappingRelationInfo.cs" />
-    <Compile Include="Membership\IStandardOrganizationInfo.cs" />
+    <Compile Include="Membership\IStandardOrganizationUnitInfo.cs" />
     <Compile Include="Membership\IStandardRoleInfo.cs" />
     <Compile Include="Plugins\CustomPlugin.cs" />
     <Compile Include="Plugins\EmptyPlugin.cs" />

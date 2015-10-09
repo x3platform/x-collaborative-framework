@@ -41,7 +41,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>查询所有数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -139,7 +138,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>预览角色或组织对应的实际人员</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("view")]
         public string View(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -238,7 +236,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>查询所有数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAllByOrganizationUnitId")]
         public string FindAllByOrganizationUnitId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -248,45 +245,52 @@ namespace X3Platform.Membership.Ajax
             // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
 
-            string organizationId = XmlHelper.Fetch("organizationId", doc);
+            string organizationUnitId = XmlHelper.Fetch("organizationUnitId", doc);
 
             // 自动转换到我的公司
-            if (organizationId == "20000000-0000-0000-0000-000000000000")
+            if (organizationUnitId == "20000000-0000-0000-0000-000000000000")
             {
                 IAccountInfo account = KernelContext.Current.User;
 
-                organizationId = MembershipManagement.Instance.MemberService[account.Id].Corporation.Id;
+                // 设置用户所属公司信息
+                // 如果用户没有公司信息则为空值
+                IMemberInfo member = MembershipManagement.Instance.MemberService[account.Id];
+
+                organizationUnitId = (member.Corporation == null) ? string.Empty : member.Corporation.Id;
             }
 
             // 0 全部 1 2 4 8;
 
             outString.Append("{\"data\":[");
-
-            if ((contactType & ContactType.OrganizationUnit) == ContactType.OrganizationUnit)
+            
+            if (!string.IsNullOrEmpty(organizationUnitId))
             {
-                outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService[organizationId]));
+                if ((contactType & ContactType.OrganizationUnit) == ContactType.OrganizationUnit)
+                {
+                    outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService[organizationUnitId]));
 
-                outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(organizationId), includeProhibited));
-            }
+                    outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(organizationUnitId), includeProhibited));
+                }
 
-            if ((contactType & ContactType.AssignedJob) == ContactType.AssignedJob)
-            {
-                outString.Append(FormatAssignedJob(MembershipManagement.Instance.AssignedJobService.FindAllByOrganizationUnitId(organizationId), includeProhibited));
-            }
+                if ((contactType & ContactType.AssignedJob) == ContactType.AssignedJob)
+                {
+                    outString.Append(FormatAssignedJob(MembershipManagement.Instance.AssignedJobService.FindAllByOrganizationUnitId(organizationUnitId), includeProhibited));
+                }
 
-            if ((contactType & ContactType.Role) == ContactType.Role)
-            {
-                outString.Append(FormatRole(MembershipManagement.Instance.RoleService.FindAllByOrganizationUnitId(organizationId), includeProhibited));
-            }
+                if ((contactType & ContactType.Role) == ContactType.Role)
+                {
+                    outString.Append(FormatRole(MembershipManagement.Instance.RoleService.FindAllByOrganizationUnitId(organizationUnitId), includeProhibited));
+                }
 
-            if ((contactType & ContactType.Account) == ContactType.Account)
-            {
-                outString.Append(FormatAccount(MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(organizationId, true), includeProhibited));
-            }
+                if ((contactType & ContactType.Account) == ContactType.Account)
+                {
+                    outString.Append(FormatAccount(MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(organizationUnitId, true), includeProhibited));
+                }
 
-            if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
-            {
-                outString = outString.Remove(outString.Length - 1, 1);
+                if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
+                {
+                    outString = outString.Remove(outString.Length - 1, 1);
+                }
             }
 
             outString.Append("],");
@@ -301,7 +305,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>查询所有数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAllByStandardOrganizationUnitId")]
         public string FindAllByStandardOrganizationUnitId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -346,7 +349,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary>查询所有数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAllByGroupNodeId")]
         public string FindAllByGroupNodeId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -906,7 +908,6 @@ namespace X3Platform.Membership.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("getTreeView")]
         public string GetTreeView(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();

@@ -63,7 +63,7 @@ namespace X3Platform.Plugins.Bugs.Customizes
 
       context.Put("widgetRuntimeId", widgetRuntimeId);
 
-      string whereCaluse = " Status IN (0,1,3) ORDER BY UpdateDate DESC";
+      string whereCaluse = " Status IN (0,1,3) ORDER BY ModifiedDate DESC";
 
       int length = 8;
 

@@ -10,7 +10,7 @@
             <result property="AccountId" column="AccountId" />
             <result property="FromStatus" column="FromStatus" />
             <result property="ToStatus" column="ToStatus" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Bug_History_FindAll_Result" class="BugHistoryInfo">
             <result property="Id" column="Id" />
@@ -18,7 +18,7 @@
             <result property="AccountId" column="AccountId" />
             <result property="FromStatus" column="FromStatus" />
             <result property="ToStatus" column="ToStatus" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
 
@@ -31,7 +31,7 @@
                 AccountId,
                 FromStatus,
                 ToStatus,
-                CreateDate
+                CreatedDate
             )
             VALUES
             (

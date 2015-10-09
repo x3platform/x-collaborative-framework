@@ -85,6 +85,7 @@
             outString.AppendFormat("<loginName><![CDATA[{0}]]></loginName>", account.LoginName);
             outString.AppendFormat("<globalName><![CDATA[{0}]]></globalName>", account.GlobalName);
             outString.AppendFormat("<displayName><![CDATA[{0}]]></displayName>", account.DisplayName);
+            outString.AppendFormat("<type><![CDATA[{0}]]></type>", account.Type);
             outString.AppendFormat("<certifiedAvatar><![CDATA[{0}]]></certifiedAvatar>", account.CertifiedAvatar);
             outString.AppendFormat("<certifiedEmail><![CDATA[{0}]]></certifiedEmail>", account.CertifiedEmail);
             outString.AppendFormat("<certifiedTelephone><![CDATA[{0}]]></certifiedTelephone>", account.CertifiedTelephone);
