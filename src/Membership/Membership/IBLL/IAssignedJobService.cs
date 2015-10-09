@@ -90,19 +90,19 @@ namespace X3Platform.Membership.IBLL
         IList<IAssignedJobInfo> FindAllByAccountId(string accountId);
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下面所有的岗位</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个<see cref="IAssignedJobInfo"/>实例的详细信息</returns>
-        IList<IAssignedJobInfo> FindAllByOrganizationId(string organizationId);
+        IList<IAssignedJobInfo> FindAllByOrganizationUnitId(string organizationId);
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId, int depth)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId, int depth)
         /// <summary>查询某个组织节点下的所有岗位信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="depth">深入获取的层次，0表示只获取本层次，-1表示全部获取</param>
         /// <returns>返回所有实例<see cref="IAssignedJobInfo"/>的详细信息</returns>
-        IList<IAssignedJobInfo> FindAllByOrganizationId(string organizationId, int depth);
+        IList<IAssignedJobInfo> FindAllByOrganizationUnitId(string organizationId, int depth);
         #endregion
 
         #region 函数:FindAllPartTimeJobsByAccountId(string accountId)

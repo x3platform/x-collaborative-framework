@@ -69,7 +69,7 @@ namespace X3Platform.Web.Customizes.BLL
           break;
         case "Organization":
           param.AuthorizationObjectType = "Organization";
-          param.AuthorizationObjectId = MembershipManagement.Instance.MemberService[account.Id].OrganizationId;
+          param.AuthorizationObjectId = MembershipManagement.Instance.MemberService[account.Id].OrganizationUnitId;
           break;
         default:
           param.AuthorizationObjectType = "Account";

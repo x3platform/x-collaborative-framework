@@ -150,7 +150,7 @@ namespace X3Platform.DigitalNumber.BLL
                 {
                     int seed = param.Seed;
 
-                    result = DigitalNumberScript.RunScript(param.Expression, param.UpdateDate, ref seed);
+                    result = DigitalNumberScript.RunScript(param.Expression, param.ModifiedDate, ref seed);
 
                     param.Seed = seed;
 

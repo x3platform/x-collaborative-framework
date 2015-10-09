@@ -198,7 +198,7 @@
         /// <returns>返回所有实例<see cref="EntityFeedbackInfo"/>的详细信息</returns>
         public IList<EntityFeedbackInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName)
         {
-            string whereClause = string.Format(" EntityId = ##{0}## AND EntityClassName = ##{1}## ORDER BY CreateDate ", entityId, entityClassName);
+            string whereClause = string.Format(" EntityId = ##{0}## AND EntityClassName = ##{1}## ORDER BY CreatedDate ", entityId, entityClassName);
 
             return FindAll(customTableName, whereClause, 0);
         }

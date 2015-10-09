@@ -23,7 +23,7 @@ namespace X3Platform.Membership
         string ParentId { get; set; }
 
         /// <summary>标准组织标识</summary>
-        string StandardOrganizationId { get; set; }
+        string StandardOrganizationUnitId { get; set; }
 
         /// <summary>是否是关键角色</summary>
         bool IsKey { get; set; }

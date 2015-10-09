@@ -40,22 +40,22 @@ goto :EOF
 
 :CopyConfigFiles			
 	
-	attrib "%TargetWebSiteDir%config\*.config" -r
+	@REM attrib "%TargetWebSiteDir%config\*.config" -r
 	
 	xcopy "%ProjectDir%config\*.config" "%TargetWebSiteDir%config\" /y
     
     if exist "%ProjectDir%config\%TargetDBProvider%\*.config" xcopy "%ProjectDir%config\%TargetDBProvider%\*.config" "%TargetWebSiteDir%config\" /y
 	
-	attrib "%TargetWebSiteDir%config\*.config" +r
+	@REM attrib "%TargetWebSiteDir%config\*.config" +r
 	    
 goto :EOF       
 
 :CopyIBatisFiles
 	
-	attrib "%TargetIBatisResourceDir%*.xml" -r
+	@REM attrib "%TargetIBatisResourceDir%*.xml" -r
 	
 	xcopy "%ProjectDir%DAL\%TargetDBProvider%\*.xml" "%TargetIBatisResourceDir%" /y
 
-	attrib "%TargetIBatisResourceDir%*.xml" +r
+	@REM attrib "%TargetIBatisResourceDir%*.xml" +r
 
 goto :EOF

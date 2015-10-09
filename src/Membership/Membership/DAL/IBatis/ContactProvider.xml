@@ -13,8 +13,8 @@
             <result property="Telephone" column="Telephone" />
             <result property="Address" column="Address" />
             <result property="Email" column="Email" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Contact_FindAll_Result" class="ContactInfo">
             <result property="Id" column="Id" />
@@ -25,8 +25,8 @@
             <result property="Telephone" column="Telephone" />
             <result property="Address" column="Address" />
             <result property="Email" column="Email" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -41,8 +41,8 @@
             Telephone,
             Address,
             Email,
-            UpdateDate,
-            CreateDate
+            ModifiedDate,
+            CreatedDate
             )
             VALUES
             (
@@ -54,8 +54,8 @@
             #Telephone#,
             #Address#,
             #Email#,
-            #UpdateDate#,
-            #CreateDate#
+            #ModifiedDate#,
+            #CreatedDate#
             )
         </insert>
 
@@ -70,8 +70,8 @@
             Telephone = #Telephone#,
             Address = #Address#,
             Email = #Email#,
-            UpdateDate = #UpdateDate#,
-            CreateDate = #CreateDate#
+            ModifiedDate = #ModifiedDate#,
+            CreatedDate = #CreatedDate#
 
             WHERE Id = #Id#
         </update>

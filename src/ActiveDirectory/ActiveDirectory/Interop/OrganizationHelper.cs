@@ -1,4 +1,4 @@
-namespace X3Platform.ActiveDirectory.Interop
+namespace X3Platform.LDAP.Interop
 {
     #region Using Libraries
     using System;
@@ -6,10 +6,10 @@ namespace X3Platform.ActiveDirectory.Interop
 
     using Common.Logging;
 
-    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.LDAP.Configuration;
     #endregion
 
-    public sealed class OrganizationHelper
+    public sealed class OrganizationUnitHelper
     {
         /// <summary>ÈÕÖ¾¼ÇÂ¼Æ÷</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -23,17 +23,17 @@ namespace X3Platform.ActiveDirectory.Interop
 
         private string directoryName = null;
 
-        public OrganizationHelper()
+        public OrganizationUnitHelper()
         {
             Initialize(
-                ActiveDirectoryConfigurationView.Instance.IntegratedMode,
-                ActiveDirectoryConfigurationView.Instance.LDAPPath,
-                ActiveDirectoryConfigurationView.Instance.LoginName,
-                ActiveDirectoryConfigurationView.Instance.Password,
-                ActiveDirectoryConfigurationView.Instance.CorporationOrganizationFolderRoot);
+                LDAPConfigurationView.Instance.IntegratedMode,
+                LDAPConfigurationView.Instance.LDAPPath,
+                LDAPConfigurationView.Instance.LoginName,
+                LDAPConfigurationView.Instance.Password,
+                LDAPConfigurationView.Instance.CorporationOrganizationUnitFolderRoot);
         }
 
-        public OrganizationHelper(string integratedMode, string path, string username, string password, string directoryName)
+        public OrganizationUnitHelper(string integratedMode, string path, string username, string password, string directoryName)
         {
             Initialize(integratedMode, path, username, password, directoryName);
         }
@@ -65,7 +65,7 @@ namespace X3Platform.ActiveDirectory.Interop
 
                 if (FindChildren(fullName) == null)
                 {
-                    DirectoryEntry param = directoryEntry.Children.Add(fullName, ActiveDirectorySchemaClassType.OrganizationalUnit);
+                    DirectoryEntry param = directoryEntry.Children.Add(fullName, LDAPSchemaClassType.OrganizationUnitalUnit);
 
                     param.CommitChanges();
                 }
@@ -102,7 +102,7 @@ namespace X3Platform.ActiveDirectory.Interop
             {
                 string fullName = string.Format("OU={0}", name + (string.Format(",{0}", (string.IsNullOrEmpty(parentPath) ? string.Format("OU={0}", directoryName) : parentPath))));
 
-                DirectoryEntry param = directoryEntry.Children.Find(fullName, ActiveDirectorySchemaClassType.OrganizationalUnit);
+                DirectoryEntry param = directoryEntry.Children.Find(fullName, LDAPSchemaClassType.OrganizationUnitalUnit);
 
                 return (param == null) ? false : true;
             }
@@ -124,7 +124,7 @@ namespace X3Platform.ActiveDirectory.Interop
             {
                 string fullName = string.Format("OU={0}", name + (string.Format(",{0}", (string.IsNullOrEmpty(parentPath) ? string.Format("OU={0}", directoryName) : parentPath))));
 
-                DirectoryEntry param = directoryEntry.Children.Find(fullName, ActiveDirectorySchemaClassType.OrganizationalUnit);
+                DirectoryEntry param = directoryEntry.Children.Find(fullName, LDAPSchemaClassType.OrganizationUnitalUnit);
 
                 if (param != null)
                 {
@@ -148,7 +148,7 @@ namespace X3Platform.ActiveDirectory.Interop
 
             try
             {
-                DirectoryEntry result = directoryEntry.Children.Find(name, ActiveDirectorySchemaClassType.OrganizationalUnit);
+                DirectoryEntry result = directoryEntry.Children.Find(name, LDAPSchemaClassType.OrganizationUnitalUnit);
 
                 return result;
             }

@@ -214,7 +214,7 @@
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
@@ -239,7 +239,7 @@
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
+            orderBy = string.IsNullOrEmpty(orderBy) ? " ModifiedDate DESC " : orderBy;
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);

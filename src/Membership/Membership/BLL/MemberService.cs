@@ -77,33 +77,33 @@ namespace X3Platform.Membership.BLL
             IAssignedJobInfo defaultAssignedJob = null;
 
             // �����ֶ����� �Զ�������֯��Ϣ
-            // AutoBindingOrganizationByPrimaryKey : None | RoleId | AssignedJobId
-            if (MembershipConfigurationView.Instance.AutoBindingOrganizationByPrimaryKey == "RoleId" && !string.IsNullOrEmpty(param.RoleId))
+            // AutoBindingOrganizationUnitByPrimaryKey : None | RoleId | AssignedJobId
+            if (MembershipConfigurationView.Instance.AutoBindingOrganizationUnitByPrimaryKey == "RoleId" && !string.IsNullOrEmpty(param.RoleId))
             {
                 defaultRole = MembershipManagement.Instance.RoleService[param.RoleId];
 
-                param.OrganizationId = defaultRole.OrganizationId;
+                param.OrganizationUnitId = defaultRole.OrganizationUnitId;
 
-                this.SetDefaultOrganization(param.Account.Id, param.OrganizationId);
-                this.SetDefaultCorporationAndDepartmentsByOrganizationId(param.Account.Id, param.OrganizationId);
+                this.SetDefaultOrganizationUnit(param.Account.Id, param.OrganizationUnitId);
+                this.SetDefaultCorporationAndDepartmentsByOrganizationUnitId(param.Account.Id, param.OrganizationUnitId);
             }
-            else if (MembershipConfigurationView.Instance.AutoBindingOrganizationByPrimaryKey == "AssignedJobId" && !string.IsNullOrEmpty(param.AssignedJobId))
+            else if (MembershipConfigurationView.Instance.AutoBindingOrganizationUnitByPrimaryKey == "AssignedJobId" && !string.IsNullOrEmpty(param.AssignedJobId))
             {
                 defaultAssignedJob = MembershipManagement.Instance.AssignedJobService[param.AssignedJobId];
 
                 if (defaultAssignedJob != null)
                 {
-                    param.OrganizationId = defaultAssignedJob.OrganizationId;
+                    param.OrganizationUnitId = defaultAssignedJob.OrganizationUnitId;
 
-                    this.SetDefaultOrganization(param.Account.Id, param.OrganizationId);
-                    this.SetDefaultCorporationAndDepartmentsByOrganizationId(param.Account.Id, param.OrganizationId);
+                    this.SetDefaultOrganizationUnit(param.Account.Id, param.OrganizationUnitId);
+                    this.SetDefaultCorporationAndDepartmentsByOrganizationUnitId(param.Account.Id, param.OrganizationUnitId);
                 }
             }
-            else if (MembershipConfigurationView.Instance.AutoBindingOrganizationByPrimaryKey == "Self" && !string.IsNullOrEmpty(param.OrganizationId))
+            else if (MembershipConfigurationView.Instance.AutoBindingOrganizationUnitByPrimaryKey == "Self" && !string.IsNullOrEmpty(param.OrganizationUnitId))
             {
                 // �����ֶ��󶨹���������֯��Ϣ
-                this.SetDefaultOrganization(param.Account.Id, param.OrganizationId);
-                this.SetDefaultCorporationAndDepartmentsByOrganizationId(param.Account.Id, param.OrganizationId);
+                this.SetDefaultOrganizationUnit(param.Account.Id, param.OrganizationUnitId);
+                this.SetDefaultCorporationAndDepartmentsByOrganizationUnitId(param.Account.Id, param.OrganizationUnitId);
             }
 
             // ���ݸ�λ���� �Զ�����ְλ��Ϣ
@@ -145,7 +145,7 @@ namespace X3Platform.Membership.BLL
             }
 
             // ������֯ȫ·��
-            param.FullPath = CombineFullPath(param.Account.Name, param.OrganizationId);
+            param.FullPath = CombineFullPath(param.Account.Name, param.OrganizationUnitId);
 
             param = provider.Save(param);
 
@@ -281,13 +281,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllWithoutDefaultOrganization(int length)
+        #region 属性:FindAllWithoutDefaultOrganizationUnit(int length)
         /// <summary>��������û��Ĭ����֯�ĳ�Ա��Ϣ</summary>
         /// <param name="length">����, 0��ʾȫ��</param>
         /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
-        public IList<IMemberInfo> FindAllWithoutDefaultOrganization(int length)
+        public IList<IMemberInfo> FindAllWithoutDefaultOrganizationUnit(int length)
         {
-            return provider.FindAllWithoutDefaultOrganization(length);
+            return provider.FindAllWithoutDefaultOrganizationUnit(length);
         }
         #endregion
 
@@ -360,7 +360,7 @@ namespace X3Platform.Membership.BLL
 
             param.Account = MembershipManagement.Instance.AccountService.CreateEmptyAccount(accountId);
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
             return param;
         }
@@ -374,7 +374,7 @@ namespace X3Platform.Membership.BLL
         public string CombineFullPath(string name, string organizationId)
         {
             // ��֯�ṹ\�����ܲ�\������\��Ϣ����\����
-            string path = MembershipManagement.Instance.OrganizationService.GetOrganizationPathByOrganizationId(organizationId);
+            string path = MembershipManagement.Instance.OrganizationUnitService.GetOrganizationPathByOrganizationUnitId(organizationId);
 
             return string.Format(@"{0}{1}", path, name);
         }
@@ -391,14 +391,14 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetDefaultOrganization(string accountId, string organizationId)
+        #region 属性:SetDefaultOrganizationUnit(string accountId, string organizationId)
         /// <summary>����Ĭ����֯��λ</summary>
         /// <param name="accountId">�ʺű�ʶ</param>
         /// <param name="organizationId">��֯��λ��ʶ</param>
         /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
-        public int SetDefaultOrganization(string accountId, string organizationId)
+        public int SetDefaultOrganizationUnit(string accountId, string organizationId)
         {
-            return provider.SetDefaultOrganization(accountId, organizationId);
+            return provider.SetDefaultOrganizationUnit(accountId, organizationId);
         }
         #endregion
 
@@ -413,16 +413,16 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetDefaultCorporationAndDepartmentsByOrganizationId(string accountId, string organizationId)
+        #region 属性:SetDefaultCorporationAndDepartmentsByOrganizationUnitId(string accountId, string organizationId)
         /// <summary>����Ĭ����֯��λ</summary>
         /// <param name="accountId">�ʺű�ʶ</param>
         /// <param name="organizationId">Ĭ��������ĩ����֯��λ��ʶ</param>
         /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
-        public int SetDefaultCorporationAndDepartmentsByOrganizationId(string accountId, string organizationId)
+        public int SetDefaultCorporationAndDepartmentsByOrganizationUnitId(string accountId, string organizationId)
         {
             string organizationIds = null;
 
-            IOrganizationInfo corporation = MembershipManagement.Instance.OrganizationService.FindCorporationByOrganizationId(organizationId);
+            IOrganizationUnitInfo corporation = MembershipManagement.Instance.OrganizationUnitService.FindCorporationByOrganizationUnitId(organizationId);
 
             if (corporation == null)
             {
@@ -433,19 +433,19 @@ namespace X3Platform.Membership.BLL
                 organizationIds = corporation.Id;
             }
 
-            IOrganizationInfo department1 = MembershipManagement.Instance.OrganizationService.FindDepartmentByOrganizationId(organizationId, 1);
+            IOrganizationUnitInfo department1 = MembershipManagement.Instance.OrganizationUnitService.FindDepartmentByOrganizationUnitId(organizationId, 1);
 
             if (department1 != null)
             {
                 organizationIds = organizationIds + "," + department1.Id;
 
-                IOrganizationInfo department2 = MembershipManagement.Instance.OrganizationService.FindDepartmentByOrganizationId(organizationId, 2);
+                IOrganizationUnitInfo department2 = MembershipManagement.Instance.OrganizationUnitService.FindDepartmentByOrganizationUnitId(organizationId, 2);
 
                 if (department2 != null)
                 {
                     organizationIds = organizationIds + "," + department2.Id;
 
-                    IOrganizationInfo department3 = MembershipManagement.Instance.OrganizationService.FindDepartmentByOrganizationId(organizationId, 3);
+                    IOrganizationUnitInfo department3 = MembershipManagement.Instance.OrganizationUnitService.FindDepartmentByOrganizationUnitId(organizationId, 3);
 
                     if (department3 != null)
                     {
@@ -479,7 +479,7 @@ namespace X3Platform.Membership.BLL
 
             string organizationIds = string.Empty;
 
-            IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService.FindCorporationByOrganizationId(role.OrganizationId);
+            IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService.FindCorporationByOrganizationUnitId(role.OrganizationUnitId);
 
             if (organization == null)
             {
@@ -491,7 +491,7 @@ namespace X3Platform.Membership.BLL
 
             int depth = 1;
 
-            organization = MembershipManagement.Instance.OrganizationService.FindOneByRoleId(roleId, depth);
+            organization = MembershipManagement.Instance.OrganizationUnitService.FindOneByRoleId(roleId, depth);
 
             while (organization != null)
             {
@@ -499,7 +499,7 @@ namespace X3Platform.Membership.BLL
 
                 depth++;
 
-                organization = MembershipManagement.Instance.OrganizationService.FindOneByRoleId(roleId, depth);
+                organization = MembershipManagement.Instance.OrganizationUnitService.FindOneByRoleId(roleId, depth);
             }
 
             MembershipManagement.Instance.MemberService.SetDefaultCorporationAndDepartments(accountId, organizationIds);

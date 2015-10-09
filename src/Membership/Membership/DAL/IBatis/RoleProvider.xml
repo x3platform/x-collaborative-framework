@@ -14,7 +14,7 @@
             <result property="Type" column="Type" />
             <result property="ParentId" column="ParentId" />
             <result property="StandardRoleId" column="StandardRoleId" />
-            <result property="OrganizationId" column="OrganizationId" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
             <result property="GeneralRoleId" column="GeneralRoleId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
             <result property="EffectScope" column="EffectScope" />
@@ -24,8 +24,8 @@
             <result property="Remark" column="Remark" />
             <result property="FullPath" column="FullPath" />
             <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Role_FindAll_Result" class="RoleInfo" >
             <result property="Id" column="Id" />
@@ -36,7 +36,7 @@
             <result property="Type" column="Type" />
             <result property="ParentId" column="ParentId" />
             <result property="StandardRoleId" column="StandardRoleId" />
-            <result property="OrganizationId" column="OrganizationId" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
             <result property="GeneralRoleId" column="GeneralRoleId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
             <result property="EffectScope" column="EffectScope" />
@@ -46,8 +46,8 @@
             <result property="Remark" column="Remark" />
             <result property="FullPath" column="FullPath" />
             <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Role_FindAllRelation_Result" class="AccountRoleRelationInfo" >
             <result property="AccountId" column="AccountId" />
@@ -71,7 +71,7 @@
                 Type,
                 ParentId,
                 StandardRoleId,
-                OrganizationId,
+                OrganizationUnitId,
                 GeneralRoleId,
                 EnableExchangeEmail,
                 EffectScope,
@@ -81,8 +81,8 @@
                 Remark,
                 FullPath,
                 DistinguishedName,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -94,7 +94,7 @@
                 #Type#,
                 #ParentId#,
                 #StandardRoleId#,
-                #OrganizationId#,
+                #OrganizationUnitId#,
                 #GeneralRoleId#,
                 #EnableExchangeEmail#,
                 #EffectScope#,
@@ -118,7 +118,7 @@
                 Type = #Type#,
                 ParentId = #ParentId#,
                 StandardRoleId = #StandardRoleId#,
-                OrganizationId = #OrganizationId#,
+                OrganizationUnitId = #OrganizationUnitId#,
                 GeneralRoleId = #GeneralRoleId#,
                 EnableExchangeEmail = #EnableExchangeEmail#,
                 EffectScope = #EffectScope#,
@@ -128,7 +128,7 @@
                 Remark = #Remark#,
                 FullPath = #FullPath#,
                 DistinguishedName = #DistinguishedName#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -184,7 +184,7 @@
             SELECT * FROM tb_Role WHERE Id IN (SELECT RoleId FROM tb_Account_Role WHERE AccountId = #AccountId#)
         </select>
         <select id="proc_Role_FindAllByCorporationId" resultMap="proc_Role_FindAll_Result" >
-            SELECT * FROM  (SELECT func_GetCorporationIdByOrganizationId(OrganizationId) CorporationId, * from tb_Role ) AS T WHERE $WhereClause$
+            SELECT * FROM  (SELECT func_GetCorporationIdByOrganizationUnitId(OrganizationUnitId) CorporationId, * from tb_Role ) AS T WHERE $WhereClause$
         </select>
         <select id="proc_Role_GetPaging#MySql" parameterClass="RoleInfo" resultMap="proc_Role_FindAll_Result" >
             SELECT * FROM tb_Role T
@@ -233,16 +233,16 @@
             SELECT COUNT(*) AS 'Count' FROM tb_Role T WHERE $WhereClause$
         </select>
         <update id="proc_Role_Rename" parameterClass="RoleInfo" >
-            UPDATE tb_Role SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Role SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         <update id="proc_Role_SetGlobalName" >
-            UPDATE tb_Role SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Role SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         <update id="proc_Role_SetParentId" >
-            UPDATE tb_Role SET ParentId = #ParentId#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Role SET ParentId = #ParentId#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         <update id="proc_Role_SetExchangeStatus" >
-            UPDATE tb_Role SET EnableExchangeEmail = #EnableExchangeEmail#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Role SET EnableExchangeEmail = #EnableExchangeEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         <select id="proc_Role_GetAuthorities" resultClass="string" >
             SELECT AuthorityId FROM tb_Role_Authority WHERE RoleId = #RoleId#
@@ -259,7 +259,7 @@
                     OrderId = #OrderId#,
                     Status = #Status#,
                     Remark = #Remark#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
 
@@ -276,8 +276,8 @@
                     OrderId,
                     Status,
                     Remark,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES 
                 (
@@ -379,10 +379,10 @@
             UPDATE tb_Account_Role SET IsDefault = 1 WHERE AccountId = '$AccountId$' AND RoleId = '$RoleId$'
         </update>
         <update id="proc_Role_SetDefaultRelation" >
-            UPDATE tb_Member SET RoleId = '$RoleId$', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+            UPDATE tb_Member SET RoleId = '$RoleId$', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
         <update id="proc_Role_SetNullDefaultRelation" >
-            UPDATE tb_Member SET RoleId = '', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+            UPDATE tb_Member SET RoleId = '', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
     </statements>
 </sqlMap>

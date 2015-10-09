@@ -14,7 +14,7 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
         </resultMap>
         <resultMap id="proc_Job_FindAll_Result" class="JobInfo">
             <result property="Id" column="Id" />
@@ -26,7 +26,7 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -42,8 +42,8 @@
                 OrderId,
                 Status,
                 Remark,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -70,7 +70,7 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -172,7 +172,7 @@
         </select>
 
         <update id="proc_Job_Rename" parameterClass="JobInfo">
-            UPDATE tb_Job SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Job SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         
         <delete id="proc_Job_StandardRole_DeleteByJobId" >
@@ -194,7 +194,7 @@
                     OrderId = #OrderId#,
                     Status = #Status#,
                     Remark = #Remark#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
             END
@@ -209,8 +209,8 @@
                     OrderId,
                     Status,
                     Remark,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (

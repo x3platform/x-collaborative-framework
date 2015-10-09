@@ -24,12 +24,12 @@
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AccountLogProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AccountGrantProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.MemberProvider.xml,X3Platform.Membership"/>
-        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.OrganizationProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.OrganizationUnitProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.RoleProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GeneralRoleProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardRoleProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardGeneralRoleProvider.xml,X3Platform.Membership"/>
-        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardOrganizationProvider.xml,X3Platform.Membership"/>
+        <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardOrganizationUnitProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupTreeProvider.xml,X3Platform.Membership"/>
         <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupTreeNodeProvider.xml,X3Platform.Membership"/>

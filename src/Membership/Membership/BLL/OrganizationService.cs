@@ -19,8 +19,8 @@ namespace X3Platform.Membership.BLL
     using System.Collections.Generic;
     using System.Data;
     using System.Text;
-    using X3Platform.ActiveDirectory;
-    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.LDAP;
+    using X3Platform.LDAP.Configuration;
     using X3Platform.CacheBuffer;
     using X3Platform.Configuration;
     using X3Platform.Data;
@@ -31,17 +31,17 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Spring;
 
     /// <summary></summary>
-    public class OrganizationService : IOrganizationService
+    public class OrganizationUnitService : IOrganizationUnitService
     {
         private MembershipConfiguration configuration = null;
 
-        private IOrganizationProvider provider = null;
+        private IOrganizationUnitProvider provider = null;
 
-        private Dictionary<string, IOrganizationInfo> dictionary = new Dictionary<string, IOrganizationInfo>();
+        private Dictionary<string, IOrganizationUnitInfo> dictionary = new Dictionary<string, IOrganizationUnitInfo>();
 
-        #region 构造函数:OrganizationService()
+        #region 构造函数:OrganizationUnitService()
         /// <summary>构造函数</summary>
-        public OrganizationService()
+        public OrganizationUnitService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -51,7 +51,7 @@ namespace X3Platform.Membership.BLL
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据提供器
-            this.provider = objectBuilder.GetObject<IOrganizationProvider>(typeof(IOrganizationProvider));
+            this.provider = objectBuilder.GetObject<IOrganizationUnitProvider>(typeof(IOrganizationUnitProvider));
         }
         #endregion
 
@@ -59,7 +59,7 @@ namespace X3Platform.Membership.BLL
         /// <summary>����</summary>
         /// <param name="id">��֯��ʶ</param>
         /// <returns></returns>
-        public IOrganizationInfo this[string id]
+        public IOrganizationUnitInfo this[string id]
         {
             get { return this.provider.FindOne(id); }
         }
@@ -71,20 +71,20 @@ namespace X3Platform.Membership.BLL
 
         #region 属性:Save(AccountInfo param)
         /// <summary>������¼</summary>
-        /// <param name="param">IOrganizationInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>IOrganizationInfo ʵ����ϸ��Ϣ</returns>
-        public IOrganizationInfo Save(IOrganizationInfo param)
+        /// <param name="param">IOrganizationUnitInfo ʵ����ϸ��Ϣ</param>
+        /// <returns>IOrganizationUnitInfo ʵ����ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo Save(IOrganizationUnitInfo param)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
-                IOrganizationInfo originalObject = FindOne(param.Id);
+                IOrganizationUnitInfo originalObject = FindOne(param.Id);
 
                 if (originalObject == null)
                 {
                     originalObject = param;
                 }
 
-                SyncToActiveDirectory(param, originalObject.Name, originalObject.GlobalName, originalObject.ParentId);
+                SyncToLDAP(param, originalObject.Name, originalObject.GlobalName, originalObject.ParentId);
             }
 
             // ������֯ȫ·��
@@ -113,10 +113,10 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindOne(int id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">AccountInfo Id��</param>
-        /// <returns>����һ�� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
-        public IOrganizationInfo FindOne(string id)
+        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo FindOne(string id)
         {
-            IOrganizationInfo param = null;
+            IOrganizationUnitInfo param = null;
 
             if (this.dictionary.ContainsKey(id))
             {
@@ -140,8 +140,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindOneByGlobalName(string globalName)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="globalName">��֯��ȫ������</param>
-        /// <returns>����һ��<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IOrganizationInfo FindOneByGlobalName(string globalName)
+        /// <returns>����һ��<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo FindOneByGlobalName(string globalName)
         {
             return this.provider.FindOneByGlobalName(globalName);
         }
@@ -150,8 +150,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindOneByRoleId(string roleId)
         /// <summary>��ѯĳ����ɫ��������֯��Ϣ</summary>
         /// <param name="roleId">��ɫ��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IOrganizationInfo FindOneByRoleId(string roleId)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo FindOneByRoleId(string roleId)
         {
             return this.provider.FindOneByRoleId(roleId);
         }
@@ -161,38 +161,38 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯĳ����ɫ������ĳһ���ε���֯��Ϣ</summary>
         /// <param name="roleId">��ɫ��ʶ</param>
         /// <param name="level">����</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IOrganizationInfo FindOneByRoleId(string roleId, int level)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo FindOneByRoleId(string roleId, int level)
         {
             return this.provider.FindOneByRoleId(roleId, level);
         }
         #endregion
 
-        #region 属性:FindCorporationByOrganizationId(string id)
+        #region 属性:FindCorporationByOrganizationUnitId(string id)
         /// <summary>��ѯĳ����֯�����Ĺ�˾��Ϣ</summary>
         /// <param name="id">��֯��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IOrganizationInfo FindCorporationByOrganizationId(string id)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo FindCorporationByOrganizationUnitId(string id)
         {
-            return this.provider.FindCorporationByOrganizationId(id);
+            return this.provider.FindCorporationByOrganizationUnitId(id);
         }
         #endregion
 
-        #region 属性:FindDepartmentByOrganizationId(string organizationId, int level)
+        #region 属性:FindDepartmentByOrganizationUnitId(string organizationId, int level)
         /// <summary>��ѯĳ����֯������ĳ���ϼ�������Ϣ</summary>
         /// <param name="organizationId">��֯��ʶ</param>
         /// <param name="level">����</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IOrganizationInfo FindDepartmentByOrganizationId(string organizationId, int level)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IOrganizationUnitInfo FindDepartmentByOrganizationUnitId(string organizationId, int level)
         {
-            return this.provider.FindDepartmentByOrganizationId(organizationId, level);
+            return this.provider.FindDepartmentByOrganizationUnitId(organizationId, level);
         }
         #endregion
 
         #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>�������� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAll()
+        /// <returns>�������� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAll()
         {
             return this.provider.FindAll(string.Empty, 0);
         }
@@ -201,8 +201,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>�������� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAll(string whereClause)
+        /// <returns>�������� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAll(string whereClause)
         {
             return this.provider.FindAll(whereClause, 0);
         }
@@ -212,8 +212,8 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
-        /// <returns>�������� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAll(string whereClause, int length)
+        /// <returns>�������� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
         }
@@ -222,8 +222,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByParentId(string parentId)
         /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
         /// <param name="parentId">���ڱ�ʶ</param>
-        /// <returns>��������ʵ��<see cref="IOrganizationInfo"/>����ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByParentId(string parentId)
+        /// <returns>��������ʵ��<see cref="IOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByParentId(string parentId)
         {
             return FindAllByParentId(parentId, 0);
         }
@@ -233,17 +233,17 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
         /// <param name="parentId">���ڱ�ʶ</param>
         /// <param name="depth">������ȡ�Ĳ��Σ�0��ʾֻ��ȡ�����Σ�-1��ʾȫ����ȡ</param>
-        /// <returns>��������ʵ��<see cref="IOrganizationInfo"/>����ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByParentId(string parentId, int depth)
+        /// <returns>��������ʵ��<see cref="IOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByParentId(string parentId, int depth)
         {
             // �����б�
-            List<IOrganizationInfo> list = new List<IOrganizationInfo>();
+            List<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
             //
             // ������֯�Ӳ�����Ϣ
             //
 
-            IList<IOrganizationInfo> organizations = this.provider.FindAllByParentId(parentId);
+            IList<IOrganizationUnitInfo> organizations = this.provider.FindAllByParentId(parentId);
 
             list.AddRange(organizations);
 
@@ -254,7 +254,7 @@ namespace X3Platform.Membership.BLL
 
             if (organizations.Count > 0 && depth > 0)
             {
-                foreach (IOrganizationInfo organization in organizations)
+                foreach (IOrganizationUnitInfo organization in organizations)
                 {
                     list.AddRange(FindAllByParentId(organization.Id, (depth - 1)));
                 }
@@ -267,13 +267,13 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByAccountId(string accountId)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����һ�� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByAccountId(string accountId)
+        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByAccountId(string accountId)
         {
             // ���� �Ƿ���������Ϣ
             if (string.IsNullOrEmpty(accountId) || accountId == "0")
             {
-                return new List<IOrganizationInfo>();
+                return new List<IOrganizationUnitInfo>();
             }
 
             return this.provider.FindAllByAccountId(accountId);
@@ -283,16 +283,16 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByRoleIds(string roleIds)
         /// <summary>��ѯĳ����ɫ������������֯</summary>
         /// <param name="roleIds">��ɫ��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByRoleIds(string roleIds)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByRoleIds(string roleIds)
         {
-            IList<IOrganizationInfo> list = new List<IOrganizationInfo>();
+            IList<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
             string[] ids = roleIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string id in ids)
             {
-                IOrganizationInfo organization = FindOneByRoleId(id);
+                IOrganizationUnitInfo organization = FindOneByRoleId(id);
 
                 if (organization != null)
                     list.Add(organization);
@@ -306,16 +306,16 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯĳ����ɫ������������֯</summary>
         /// <param name="roleIds">��ɫ��ʶ</param>
         /// <param name="level">����</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByRoleIds(string roleIds, int level)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByRoleIds(string roleIds, int level)
         {
-            IList<IOrganizationInfo> list = new List<IOrganizationInfo>();
+            IList<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
             string[] ids = roleIds.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string id in ids)
             {
-                IOrganizationInfo organization = FindOneByRoleId(id, level);
+                IOrganizationUnitInfo organization = FindOneByRoleId(id, level);
 
                 if (organization != null)
                     list.Add(organization);
@@ -328,18 +328,18 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByCorporationId(string corporationId)
         /// <summary>�ݹ���ѯĳ����˾�������еĽ�ɫ</summary>
         /// <param name="corporationId">��֯��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByCorporationId(string corporationId)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByCorporationId(string corporationId)
         {
             // �����б�
-            List<IOrganizationInfo> list = new List<IOrganizationInfo>();
+            List<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
             //
             // ���Ҳ���(��˾��һ����֯�ܹ�)
             //
-            IList<IOrganizationInfo> organizations = MembershipManagement.Instance.OrganizationService.FindAllByParentId(corporationId);
+            IList<IOrganizationUnitInfo> organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(corporationId);
 
-            foreach (IOrganizationInfo organization in organizations)
+            foreach (IOrganizationUnitInfo organization in organizations)
             {
                 list.Add(organization);
 
@@ -359,8 +359,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByProjectId(string projectId)
         /// <summary>�ݹ���ѯĳ����Ŀ�������еĽ�ɫ</summary>
         /// <param name="projectId">��֯��ʶ</param>
-        /// <returns>����һ��<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindAllByProjectId(string projectId)
+        /// <returns>����һ��<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindAllByProjectId(string projectId)
         {
             // 
             // ��Ŀ�Ŷӵı�ʶ �� ��Ŀ��ʶ ����һ��
@@ -368,7 +368,7 @@ namespace X3Platform.Membership.BLL
 
             string organizationId = projectId;
 
-            IList<IOrganizationInfo> list = FindAllByParentId(organizationId, 1);
+            IList<IOrganizationUnitInfo> list = FindAllByParentId(organizationId, 1);
 
             list.Add(FindOne(organizationId));
 
@@ -379,20 +379,20 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindCorporationsByAccountId(string accountId)
         /// <summary>��ѯĳ���ʻ����������й�˾��Ϣ</summary>
         /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>��������<see cref="IOrganizationInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IList<IOrganizationInfo> FindCorporationsByAccountId(string accountId)
+        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        public IList<IOrganizationUnitInfo> FindCorporationsByAccountId(string accountId)
         {
-            IList<IOrganizationInfo> corporations = new List<IOrganizationInfo>();
+            IList<IOrganizationUnitInfo> corporations = new List<IOrganizationUnitInfo>();
 
             IMemberInfo member = MembershipManagement.Instance.MemberService[accountId];
 
             if (member != null && member.Corporation != null)
             {
-                corporations.Add((OrganizationInfo)member.Corporation);
+                corporations.Add((OrganizationUnitInfo)member.Corporation);
 
-                IList<IOrganizationInfo> list = this.provider.FindCorporationsByAccountId(accountId);
+                IList<IOrganizationUnitInfo> list = this.provider.FindCorporationsByAccountId(accountId);
 
-                foreach (OrganizationInfo item in list)
+                foreach (OrganizationUnitInfo item in list)
                 {
                     if (item.Id != member.Corporation.Id)
                     {
@@ -416,7 +416,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns>
-        public IList<IOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        public IList<IOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
@@ -477,17 +477,17 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineFullPath(string name, string parentId)
         {
-            string path = GetOrganizationPathByOrganizationId(parentId);
+            string path = GetOrganizationPathByOrganizationUnitId(parentId);
 
             return string.Format(@"{0}{1}", path, name);
         }
         #endregion
 
-        #region 属性:GetOrganizationPathByOrganizationId(string organizationId)
+        #region 属性:GetOrganizationPathByOrganizationUnitId(string organizationId)
         /// <summary>������֯��ʶ������֯��ȫ·��</summary>
         /// <param name="organizationId">��֯��ʶ</param>
         /// <returns></returns>
-        public string GetOrganizationPathByOrganizationId(string organizationId)
+        public string GetOrganizationPathByOrganizationUnitId(string organizationId)
         {
             string path = FormatOrganizationPath(organizationId);
 
@@ -507,7 +507,7 @@ namespace X3Platform.Membership.BLL
 
             string name = null;
 
-            IOrganizationInfo param = FindOne(id);
+            IOrganizationUnitInfo param = FindOne(id);
 
             if (param == null)
             {
@@ -546,27 +546,27 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineDistinguishedName(string globalName, string id)
         {
-            string path = this.GetActiveDirectoryOUPathByOrganizationId(id);
+            string path = this.GetLDAPOUPathByOrganizationUnitId(id);
 
-            return string.Format("CN={0},{1}{2}", globalName, path, ActiveDirectoryConfigurationView.Instance.SuffixDistinguishedName);
+            return string.Format("CN={0},{1}{2}", globalName, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
         #endregion
 
-        #region 属性:GetActiveDirectoryOUPathByOrganizationId(string organizationId)
+        #region 属性:GetLDAPOUPathByOrganizationUnitId(string organizationId)
         /// <summary>������֯��ʶ���� Active Directory OU ·��</summary>
         /// <param name="organizationId">��֯��ʶ</param>
         /// <returns></returns>
-        public string GetActiveDirectoryOUPathByOrganizationId(string organizationId)
+        public string GetLDAPOUPathByOrganizationUnitId(string organizationId)
         {
-            return FormatActiveDirectoryPath(organizationId);
+            return FormatLDAPPath(organizationId);
         }
         #endregion
 
-        #region ˽�к���:FormatActiveDirectoryPath(string id)
+        #region ˽�к���:FormatLDAPPath(string id)
         /// <summary>��ʽ�� Active Directory ·��</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private string FormatActiveDirectoryPath(string id)
+        private string FormatLDAPPath(string id)
         {
             string path = string.Empty;
 
@@ -575,7 +575,7 @@ namespace X3Platform.Membership.BLL
             // OU������
             string name = null;
 
-            IOrganizationInfo param = FindOne(id);
+            IOrganizationUnitInfo param = FindOne(id);
 
             if (param == null)
             {
@@ -588,7 +588,7 @@ namespace X3Platform.Membership.BLL
                 // ��֯�ṹ�ĸ��ڵ�OU���⴦�� Ĭ��Ϊ��֯�ṹ
                 if (id == "00000000-0000-0000-0000-000000000001")
                 {
-                    name = ActiveDirectoryConfigurationView.Instance.CorporationOrganizationFolderRoot;
+                    name = LDAPConfigurationView.Instance.CorporationOrganizationUnitFolderRoot;
                 }
 
                 // 1.���Ʋ���Ϊ�� 2.����������ʶ����Ϊ�� 
@@ -597,7 +597,7 @@ namespace X3Platform.Membership.BLL
                 {
                     parentId = param.ParentId;
 
-                    path = FormatActiveDirectoryPath(parentId);
+                    path = FormatLDAPPath(parentId);
 
                     path = string.IsNullOrEmpty(path) ? string.Format("OU={0}", name) : string.Format("OU={0}", name) + "," + path;
 
@@ -634,24 +634,24 @@ namespace X3Platform.Membership.BLL
                 return 3;
             }
 
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
-                IOrganizationInfo originalObject = FindOne(id);
+                IOrganizationUnitInfo originalObject = FindOne(id);
 
                 if (originalObject != null)
                 {
                     // �����ⲿϵͳֱ��ͬ������Ա��Ȩ�޹��������ݿ��У�
                     // ���� Active Directory �ϲ���ֱ�Ӵ������ض�������Ҫ�ֹ�����ȫ�����Ʋ��������ض�����
                     if (!string.IsNullOrEmpty(originalObject.GlobalName)
-                        && ActiveDirectoryManagement.Instance.Group.IsExistName(originalObject.GlobalName))
+                        && LDAPManagement.Instance.Group.IsExistName(originalObject.GlobalName))
                     {
-                        ActiveDirectoryManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
+                        LDAPManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
                     }
                     else
                     {
-                        ActiveDirectoryManagement.Instance.Organization.Add(originalObject.Name, MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(originalObject.ParentId));
+                        LDAPManagement.Instance.OrganizationUnit.Add(originalObject.Name, MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalObject.ParentId));
 
-                        ActiveDirectoryManagement.Instance.Group.Add(globalName, MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(originalObject.Id));
+                        LDAPManagement.Instance.Group.Add(globalName, MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalObject.Id));
                     }
                 }
             }
@@ -689,9 +689,9 @@ namespace X3Platform.Membership.BLL
         {
             IList<IAuthorizationObject> list = new List<IAuthorizationObject>();
 
-            IList<IOrganizationInfo> listA = this.FindAllByParentId(organizationId);
+            IList<IOrganizationUnitInfo> listA = this.FindAllByParentId(organizationId);
 
-            IList<IAccountInfo> listB = MembershipManagement.Instance.AccountService.FindAllByOrganizationId(organizationId);
+            IList<IAccountInfo> listB = MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(organizationId);
 
             foreach (IAuthorizationObject item in listA)
             {
@@ -715,17 +715,17 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAll(whereClause);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAll(whereClause);
 
             outString.AppendFormat("<package packageType=\"organization\" beginDate=\"{0}\" endDate=\"{1}\">", beginDate, endDate);
 
             outString.Append("<organizations>");
 
-            foreach (IOrganizationInfo item in list)
+            foreach (IOrganizationUnitInfo item in list)
             {
-                outString.Append(((OrganizationInfo)item).Serializable());
+                outString.Append(((OrganizationUnitInfo)item).Serializable());
             }
 
             outString.Append("</organizations>");
@@ -736,24 +736,24 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IOrganizationInfo param)
+        #region 属性:SyncToLDAP(IOrganizationUnitInfo param)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">��֯��Ϣ</param>
-        public int SyncToActiveDirectory(IOrganizationInfo param)
+        public int SyncToLDAP(IOrganizationUnitInfo param)
         {
-            return SyncToActiveDirectory(param, param.Name, param.GlobalName, param.ParentId);
+            return SyncToLDAP(param, param.Name, param.GlobalName, param.ParentId);
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IOrganizationInfo param, string originalName, string originalGlobalName, string originalParentId)
+        #region 属性:SyncToLDAP(IOrganizationUnitInfo param, string originalName, string originalGlobalName, string originalParentId)
         /// <summary>ͬ����Ϣ</summary>
         /// <param name="param">��֯��Ϣ</param>
         /// <param name="originalName">ԭʼ����</param>
         /// <param name="originalGlobalName">ԭʼȫ������</param>
         /// <param name="originalParentId">ԭʼ������ʶ</param>
-        public int SyncToActiveDirectory(IOrganizationInfo param, string originalName, string originalGlobalName, string originalParentId)
+        public int SyncToLDAP(IOrganizationUnitInfo param, string originalName, string originalGlobalName, string originalParentId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.GlobalName))
                 {
@@ -770,38 +770,38 @@ namespace X3Platform.Membership.BLL
                     // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
                     // 2.Active Directory �������ض�����
                     if (!string.IsNullOrEmpty(originalGlobalName)
-                        && ActiveDirectoryManagement.Instance.Group.IsExistName(originalGlobalName))
+                        && LDAPManagement.Instance.Group.IsExistName(originalGlobalName))
                     {
                         if (param.Name != originalName)
                         {
                             // ��֯��${GlobalName}�������Ʒ����ı䡣
-                            ActiveDirectoryManagement.Instance.Organization.Rename(
+                            LDAPManagement.Instance.OrganizationUnit.Rename(
                                     originalName,
-                                    MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(originalParentId),
+                                    MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalParentId),
                                     param.Name);
                         }
 
                         if (param.GlobalName != originalGlobalName)
                         {
                             // ��֯��${GlobalName}����ȫ�����Ʒ����ı䡣
-                            ActiveDirectoryManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
+                            LDAPManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
                         }
 
                         if (param.ParentId != originalParentId)
                         {
                             // ��֯��${GlobalName}���ĸ����ڵ㷢���ı䡣
-                            ActiveDirectoryManagement.Instance.Organization.MoveTo(
-                                this.GetActiveDirectoryOUPathByOrganizationId(param.Id),
-                                this.GetActiveDirectoryOUPathByOrganizationId(param.ParentId));
+                            LDAPManagement.Instance.OrganizationUnit.MoveTo(
+                                this.GetLDAPOUPathByOrganizationUnitId(param.Id),
+                                this.GetLDAPOUPathByOrganizationUnitId(param.ParentId));
                         }
 
                         return 0;
                     }
                     else
                     {
-                        ActiveDirectoryManagement.Instance.Organization.Add(param.Name, this.GetActiveDirectoryOUPathByOrganizationId(param.ParentId));
+                        LDAPManagement.Instance.OrganizationUnit.Add(param.Name, this.GetLDAPOUPathByOrganizationUnitId(param.ParentId));
 
-                        ActiveDirectoryManagement.Instance.Group.Add(param.GlobalName, this.GetActiveDirectoryOUPathByOrganizationId(param.Id));
+                        LDAPManagement.Instance.Group.Add(param.GlobalName, this.GetLDAPOUPathByOrganizationUnitId(param.Id));
 
                         // ��֯��${GlobalName}�������ɹ���
                         return 0;
@@ -813,10 +813,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(IOrganizationInfo param)
+        #region 属性:SyncFromPackPage(IOrganizationUnitInfo param)
         /// <summary>ͬ����Ϣ</summary>
         /// <param name="param">��֯��Ϣ</param>
-        public int SyncFromPackPage(IOrganizationInfo param)
+        public int SyncFromPackPage(IOrganizationUnitInfo param)
         {
             return this.provider.SyncFromPackPage(param);
         }
@@ -829,8 +829,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllRelationByAccountId(string accountId)
         /// <summary>�����ʺŲ�ѯ������֯�Ĺ�ϵ</summary>
         /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>Table Columns��AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        public IList<IAccountOrganizationRelationInfo> FindAllRelationByAccountId(string accountId)
+        /// <returns>Table Columns��AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        public IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByAccountId(string accountId)
         {
             return this.provider.FindAllRelationByAccountId(accountId);
         }
@@ -839,8 +839,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllRelationByRoleId(string organizationId)
         /// <summary>������֯��ѯ�����ʺŵĹ�ϵ</summary>
         /// <param name="organizationId">��֯��ʶ</param>
-        /// <returns>Table Columns��AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        public IList<IAccountOrganizationRelationInfo> FindAllRelationByRoleId(string organizationId)
+        /// <returns>Table Columns��AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        public IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByRoleId(string organizationId)
         {
             return this.provider.FindAllRelationByRoleId(organizationId);
         }
@@ -877,17 +877,17 @@ namespace X3Platform.Membership.BLL
                 return 2;
             }
 
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IAccountInfo account = MembershipManagement.Instance.AccountService[accountId];
 
-                IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService[organizationId];
+                IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
                 // �ʺŶ������ʺŵ�ȫ�����ơ��ʺŵĵ�¼������֯��������֯��ȫ�����ƵȲ���Ϊ�ա�
                 if (account != null && !string.IsNullOrEmpty(account.GlobalName) && !string.IsNullOrEmpty(account.LoginName)
                     && organization != null && !string.IsNullOrEmpty(organization.GlobalName))
                 {
-                    ActiveDirectoryManagement.Instance.Group.AddRelation(account.LoginName, ActiveDirectorySchemaClassType.User, organization.GlobalName);
+                    LDAPManagement.Instance.Group.AddRelation(account.LoginName, LDAPSchemaClassType.User, organization.GlobalName);
                 }
             }
 
@@ -918,7 +918,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="organizationId">��֯��ʶ</param>
         public int AddParentRelations(string accountId, string organizationId)
         {
-            IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService[organizationId];
+            IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
             // [�ݴ�]������ɫ��ϢΪ�գ���ֹ������֯����
             if (organization != null && !string.IsNullOrEmpty(organization.ParentId) && organization.Parent != null)
@@ -951,17 +951,17 @@ namespace X3Platform.Membership.BLL
         /// <param name="organizationId">��֯��ʶ</param>
         public int RemoveRelation(string accountId, string organizationId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IAccountInfo account = MembershipManagement.Instance.AccountService[accountId];
 
-                IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService[organizationId];
+                IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
                 // �ʺŶ������ʺŵ�ȫ�����ơ��ʺŵĵ�¼������֯��������֯��ȫ�����ƵȲ���Ϊ�ա�
                 if (account != null && !string.IsNullOrEmpty(account.GlobalName) && !string.IsNullOrEmpty(account.LoginName)
                     && organization != null && !string.IsNullOrEmpty(organization.GlobalName))
                 {
-                    ActiveDirectoryManagement.Instance.Group.RemoveRelation(account.LoginName, ActiveDirectorySchemaClassType.User, organization.GlobalName);
+                    LDAPManagement.Instance.Group.RemoveRelation(account.LoginName, LDAPSchemaClassType.User, organization.GlobalName);
                 }
             }
 
@@ -1001,13 +1001,13 @@ namespace X3Platform.Membership.BLL
         /// <param name="accountId">�ʺű�ʶ</param>
         public int RemoveAllRelation(string accountId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
-                IList<IAccountOrganizationRelationInfo> list = FindAllRelationByAccountId(accountId);
+                IList<IAccountOrganizationUnitRelationInfo> list = FindAllRelationByAccountId(accountId);
 
-                foreach (IAccountOrganizationRelationInfo item in list)
+                foreach (IAccountOrganizationUnitRelationInfo item in list)
                 {
-                    RemoveRelation(item.AccountId, item.OrganizationId);
+                    RemoveRelation(item.AccountId, item.OrganizationUnitId);
                 }
 
                 return 0;
@@ -1034,15 +1034,15 @@ namespace X3Platform.Membership.BLL
         /// <param name="organizationId">��֯��ʶ</param>
         public int SetDefaultRelation(string accountId, string organizationId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IAccountInfo account = MembershipManagement.Instance.AccountService[accountId];
 
-                IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService[organizationId];
+                IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
                 if (account != null && organization != null)
                 {
-                    ActiveDirectoryManagement.Instance.Group.AddRelation(account.GlobalName, ActiveDirectorySchemaClassType.User, organization.Name);
+                    LDAPManagement.Instance.Group.AddRelation(account.GlobalName, LDAPSchemaClassType.User, organization.Name);
                 }
             }
 
@@ -1055,13 +1055,13 @@ namespace X3Platform.Membership.BLL
         /// <param name="organizationId">��֯��ʶ</param>
         public int ClearupRelation(string organizationId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
-                IList<IAccountOrganizationRelationInfo> list = FindAllRelationByRoleId(organizationId);
+                IList<IAccountOrganizationUnitRelationInfo> list = FindAllRelationByRoleId(organizationId);
 
-                foreach (IAccountOrganizationRelationInfo item in list)
+                foreach (IAccountOrganizationUnitRelationInfo item in list)
                 {
-                    RemoveRelation(item.AccountId, item.OrganizationId);
+                    RemoveRelation(item.AccountId, item.OrganizationUnitId);
                 }
 
                 return 0;

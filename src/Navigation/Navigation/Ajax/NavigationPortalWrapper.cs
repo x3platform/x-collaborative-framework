@@ -320,9 +320,9 @@ namespace X3Platform.Navigation.Ajax
 
                 string whereClause = string.Format(" ParentId = ##00000000-0000-0000-0000-000000000000## AND Status  =1 ORDER BY OrderId ");
 
-                IList<IOrganizationInfo> list = Membership.MembershipManagement.Instance.OrganizationService.FindAll(whereClause);
+                IList<IOrganizationUnitInfo> list = Membership.MembershipManagement.Instance.OrganizationUnitService.FindAll(whereClause);
 
-                foreach (IOrganizationInfo item in list)
+                foreach (IOrganizationUnitInfo item in list)
                 {
                     token = "[OrgId]" + item.Id;
                     outString.Append("{");
@@ -339,11 +339,11 @@ namespace X3Platform.Navigation.Ajax
                 //������֯�е��ӽڵ�
                 string orgWhereClause = string.Format(" ParentId = ##{0}## AND Status = 1 ORDER BY OrderId ", parentId.Replace("[OrgId]", ""));
 
-                IList<IOrganizationInfo> orgList = Membership.MembershipManagement.Instance.OrganizationService.FindAll(orgWhereClause);
+                IList<IOrganizationUnitInfo> orgList = Membership.MembershipManagement.Instance.OrganizationUnitService.FindAll(orgWhereClause);
 
                 if (orgList.Count > 0)
                 {
-                    foreach (IOrganizationInfo item in orgList)
+                    foreach (IOrganizationUnitInfo item in orgList)
                     {
                         token = "[OrgId]" + item.Id;
                         outString.Append("{");

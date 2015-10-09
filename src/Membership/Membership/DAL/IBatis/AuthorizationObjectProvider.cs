@@ -505,9 +505,9 @@ namespace X3Platform.Membership.DAL.IBatis
             outString.AppendFormat("UNION SELECT N##Account## AS AuthorizationObjectType, GranteeId AS AuthorizationObjectId FROM {1}tb_Account_Grant WHERE GrantedTimeFrom < CURRENT_TIMESTAMP AND GrantedTimeTo > CURRENT_TIMESTAMP AND GrantorId = ##{0}##\r\n", accountId, dataTablePrefix);
 
             // 组织
-            if ((contactType & ContactType.Organization) == ContactType.Organization)
+            if ((contactType & ContactType.OrganizationUnit) == ContactType.OrganizationUnit)
             {
-                outString.AppendFormat("UNION SELECT N##Organization## AS AuthorizationObjectType, OrganizationId AS AuthorizationObjectId FROM {1}tb_Account_Organization WHERE AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
+                outString.AppendFormat("UNION SELECT N##OrganizationUnit## AS AuthorizationObjectType, OrganizationUnitId AS AuthorizationObjectId FROM {1}tb_Account_OrganizationUnit WHERE AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
             // 角色
@@ -529,9 +529,9 @@ namespace X3Platform.Membership.DAL.IBatis
             }
 
             //  标准组织
-            if ((contactType & ContactType.StandardOrganization) == ContactType.StandardOrganization)
+            if ((contactType & ContactType.StandardOrganizationUnit) == ContactType.StandardOrganizationUnit)
             {
-                outString.AppendFormat("UNION SELECT N##StandardOrganization## AS AuthorizationObjectType, StandardOrganizationId AS AuthorizationObjectId FROM {1}tb_StandardRole INNER JOIN {1}[tb_Role] ON [tb_StandardRole].Id = [tb_Role].StandardRoleId INNER JOIN {1}[tb_Account_Role] ON [tb_Role].Id = [tb_Account_Role].RoleId AND AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
+                outString.AppendFormat("UNION SELECT N##StandardOrganizationUnit## AS AuthorizationObjectType, StandardOrganizationUnitId AS AuthorizationObjectId FROM {1}tb_StandardRole INNER JOIN {1}[tb_Role] ON [tb_StandardRole].Id = [tb_Role].StandardRoleId INNER JOIN {1}[tb_Account_Role] ON [tb_Role].Id = [tb_Account_Role].RoleId AND AccountId = ##{0}##\r\n", accountId, dataTablePrefix);
             }
 
             //  标准角色

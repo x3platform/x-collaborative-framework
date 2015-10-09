@@ -86,15 +86,15 @@ namespace X3Platform.Membership.IBLL
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
         IList<IStandardRoleInfo> FindAllByParentId(string parentId);
         #endregion
 
-        #region 函数:FindAllByStandardOrganizationId(string standardOrganizationId)
+        #region 函数:FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         /// <summary>递归查询某个标准组织下面所有标准角色</summary>
-        /// <param name="standardOrganizationId">组织标识</param>
+        /// <param name="standardOrganizationUnitId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        IList<IStandardRoleInfo> FindAllByStandardOrganizationId(string standardOrganizationId);
+        IList<IStandardRoleInfo> FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId);
         #endregion
 
         #region 函数:FindAllByType(int standardRoleType)

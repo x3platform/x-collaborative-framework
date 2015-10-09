@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :IStandardOrganizationService.cs
+// FileName     :IStandardOrganizationUnitService.cs
 //
 // Description  :
 //
@@ -24,25 +24,25 @@ using X3Platform.Data;
 namespace X3Platform.Membership.IBLL
 {
     /// <summary></summary>
-    [SpringObject("X3Platform.Membership.IBLL.IStandardOrganizationService")]
-    public interface IStandardOrganizationService
+    [SpringObject("X3Platform.Membership.IBLL.IStandardOrganizationUnitService")]
+    public interface IStandardOrganizationUnitService
     {
         #region 索引:this[string id]
         /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        IStandardOrganizationInfo this[string id] { get; }
+        IStandardOrganizationUnitInfo this[string id] { get; }
         #endregion
 
         // -------------------------------------------------------
         // 保存 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(IStandardOrganizationInfo param)
+        #region 函数:Save(IStandardOrganizationUnitInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        /// <returns>实例<see cref="IStandardOrganizationInfo"/>详细信息</returns>
-        IStandardOrganizationInfo Save(IStandardOrganizationInfo param);
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</returns>
+        IStandardOrganizationUnitInfo Save(IStandardOrganizationUnitInfo param);
         #endregion
 
         #region 函数:Delete(string id)
@@ -58,36 +58,36 @@ namespace X3Platform.Membership.IBLL
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        IStandardOrganizationInfo FindOne(string id);
+        /// <returns>返回实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        IStandardOrganizationUnitInfo FindOne(string id);
         #endregion
 
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
-        /// <returns>返回所有实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        IList<IStandardOrganizationInfo> FindAll();
+        /// <returns>返回所有实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        IList<IStandardOrganizationUnitInfo> FindAll();
         #endregion
 
         #region 函数:FindAll(string whereClause)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
-        /// <returns>返回所有实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        IList<IStandardOrganizationInfo> FindAll(string whereClause);
+        /// <returns>返回所有实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        IList<IStandardOrganizationUnitInfo> FindAll(string whereClause);
         #endregion
 
         #region 函数:FindAll(string whereClause, int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        IList<IStandardOrganizationInfo> FindAll(string whereClause, int length);
+        /// <returns>返回所有实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        IList<IStandardOrganizationUnitInfo> FindAll(string whereClause, int length);
         #endregion
 
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        IList<IStandardOrganizationInfo> FindAllByParentId(string parentId);
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        IList<IStandardOrganizationUnitInfo> FindAllByParentId(string parentId);
         #endregion
 
         // -------------------------------------------------------
@@ -100,8 +100,8 @@ namespace X3Platform.Membership.IBLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="IStandardOrganizationInfo"/></returns>
-        IList<IStandardOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        /// <returns>返回一个列表实例<see cref="IStandardOrganizationUnitInfo"/></returns>
+        IList<IStandardOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)
@@ -149,10 +149,10 @@ namespace X3Platform.Membership.IBLL
         int SetParentId(string id, string parentId);
         #endregion
 
-        #region 函数:SyncFromPackPage(IStandardOrganizationInfo param)
+        #region 函数:SyncFromPackPage(IStandardOrganizationUnitInfo param)
         /// <summary>同步信息</summary>
         /// <param name="param">职位信息</param>
-        int SyncFromPackPage(IStandardOrganizationInfo param);
+        int SyncFromPackPage(IStandardOrganizationUnitInfo param);
         #endregion
     }
 }

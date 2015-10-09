@@ -259,64 +259,64 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OrganizationRelations
-        private IList<IAccountOrganizationRelationInfo> m_OrganizationRelations = null;
+        #region 属性:OrganizationUnitRelations
+        private IList<IAccountOrganizationUnitRelationInfo> m_OrganizationUnitRelations = null;
 
         /// <summary>帐号和角色接口集合</summary>
-        public IList<IAccountOrganizationRelationInfo> OrganizationRelations
+        public IList<IAccountOrganizationUnitRelationInfo> OrganizationUnitRelations
         {
             get
             {
-                if (m_OrganizationRelations == null && !string.IsNullOrEmpty(this.Id))
+                if (m_OrganizationUnitRelations == null && !string.IsNullOrEmpty(this.Id))
                 {
-                    m_OrganizationRelations = MembershipManagement.Instance.OrganizationService.FindAllRelationByAccountId(this.Id);
+                    m_OrganizationUnitRelations = MembershipManagement.Instance.OrganizationUnitService.FindAllRelationByAccountId(this.Id);
                 }
 
-                return m_OrganizationRelations;
+                return m_OrganizationUnitRelations;
             }
         }
         #endregion
 
-        #region 属性:OrganizationText
-        private string m_OrganizationText = string.Empty;
+        #region 属性:OrganizationUnitText
+        private string m_OrganizationUnitText = string.Empty;
 
         /// <summary>所属组织视图</summary>
-        public string OrganizationText
+        public string OrganizationUnitText
         {
             get
             {
-                if (string.IsNullOrEmpty(m_OrganizationText) && this.OrganizationRelations.Count > 0)
+                if (string.IsNullOrEmpty(m_OrganizationUnitText) && this.OrganizationUnitRelations.Count > 0)
                 {
-                    foreach (IAccountOrganizationRelationInfo relation in this.OrganizationRelations)
+                    foreach (IAccountOrganizationUnitRelationInfo relation in this.OrganizationUnitRelations)
                     {
-                        m_OrganizationText += string.Format("organization#{0}#{1}#{2}#{3},", relation.OrganizationId, relation.OrganizationGlobalName, relation.EndDate.ToString("yyyy-MM-dd HH:mm:ss.fff"), relation.IsDefault);
+                        m_OrganizationUnitText += string.Format("organization#{0}#{1}#{2}#{3},", relation.OrganizationUnitId, relation.OrganizationUnitGlobalName, relation.EndDate.ToString("yyyy-MM-dd HH:mm:ss.fff"), relation.IsDefault);
                     }
                 }
 
-                return m_OrganizationText;
+                return m_OrganizationUnitText;
             }
         }
         #endregion
 
-        #region 属性:OrganizationView
-        private string m_OrganizationView = string.Empty;
+        #region 属性:OrganizationUnitView
+        private string m_OrganizationUnitView = string.Empty;
 
         /// <summary>所属组织视图</summary>
-        public string OrganizationView
+        public string OrganizationUnitView
         {
             get
             {
-                if (string.IsNullOrEmpty(m_OrganizationView) && this.OrganizationRelations.Count > 0)
+                if (string.IsNullOrEmpty(m_OrganizationUnitView) && this.OrganizationUnitRelations.Count > 0)
                 {
-                    foreach (IAccountOrganizationRelationInfo relation in this.OrganizationRelations)
+                    foreach (IAccountOrganizationUnitRelationInfo relation in this.OrganizationUnitRelations)
                     {
-                        m_OrganizationView += relation.OrganizationGlobalName
+                        m_OrganizationUnitView += relation.OrganizationUnitGlobalName
                             + ((relation.EndDate.ToString("yyyy-MM-dd HH:mm:ss") == DateTime.MaxValue.ToString("yyyy-MM-dd HH:mm:ss")) ? string.Empty : ("(" + StringHelper.ToDate(relation.EndDate) + ")"))
                             + ";";
                     }
                 }
 
-                return m_OrganizationView;
+                return m_OrganizationUnitView;
             }
         }
         #endregion
@@ -543,25 +543,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary>修改时间</summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary>创建时间</summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -577,7 +577,7 @@ namespace X3Platform.Membership.Model
             string[] list = relationText.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (relationType == "organization")
-                this.OrganizationRelations.Clear();
+                this.OrganizationUnitRelations.Clear();
 
             if (relationType == "role")
                 this.RoleRelations.Clear();
@@ -597,7 +597,7 @@ namespace X3Platform.Membership.Model
                     {
                         case "organization":
                             if (relationType == "organization")
-                                this.OrganizationRelations.Add(new AccountOrganizationRelationInfo(this.Id, keys[1]));
+                                this.OrganizationUnitRelations.Add(new AccountOrganizationUnitRelationInfo(this.Id, keys[1]));
                             break;
                         case "role":
                             if (relationType == "role")
@@ -708,7 +708,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<orderId><![CDATA[{0}]]></orderId>", this.OrderId);
             outString.AppendFormat("<status><![CDATA[{0}]]></status>", this.Status);
             outString.AppendFormat("<remark><![CDATA[{0}]]></remark>", this.Remark);
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</account>");
 
             return outString.ToString();
@@ -750,7 +750,7 @@ namespace X3Platform.Membership.Model
             XmlNodeList list = element.SelectNodes("relationObjects/relationObject");
 
             // 由于设置了Id
-            this.m_OrganizationRelations = new List<IAccountOrganizationRelationInfo>();
+            this.m_OrganizationUnitRelations = new List<IAccountOrganizationUnitRelationInfo>();
             this.m_RoleRelations = new List<IAccountRoleRelationInfo>();
             this.m_GroupRelations = new List<IAccountGroupRelationInfo>();
 
@@ -758,8 +758,8 @@ namespace X3Platform.Membership.Model
             {
                 switch (node.Attributes["type"].Value)
                 {
-                    case "Organization":
-                        this.OrganizationRelations.Add(new AccountOrganizationRelationInfo(this.Id, node.Attributes["id"].Value));
+                    case "OrganizationUnit":
+                        this.OrganizationUnitRelations.Add(new AccountOrganizationUnitRelationInfo(this.Id, node.Attributes["id"].Value));
                         break;
 
                     case "Role":

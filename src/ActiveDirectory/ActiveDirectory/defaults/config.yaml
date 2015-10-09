@@ -15,9 +15,9 @@ keys:
   # Active Directory 密码
   Password: X3000000
   # Active Directory 公司组织存放的根目录 (包括角色)
-  CorporationOrganizationFolderRoot: 组织结构
+  CorporationOrganizationUnitFolderRoot: 组织结构
   # Active Directory 公司用户存放的根目录
-  CorporationUserFolderRoot: 组织用户
+  CorporationUserFolderRoot: People
   # Active Directory 公司群组存放的根目录
   CorporationGroupFolderRoot: 常用群组
   # Active Directory 公司角色存放的根目录 (非组织结构中的角色数据)

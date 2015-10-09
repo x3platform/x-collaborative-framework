@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :StandardOrganizationService.cs
+// FileName     :StandardOrganizationUnitService.cs
 //
 // Description  :
 //
@@ -28,17 +28,17 @@ using X3Platform.Data;
 namespace X3Platform.Membership.BLL
 {
     /// <summary></summary>
-    public class StandardOrganizationService : IStandardOrganizationService
+    public class StandardOrganizationUnitService : IStandardOrganizationUnitService
     {
         /// <summary>����</summary>
         private MembershipConfiguration configuration = null;
 
         /// <summary>�����ṩ��</summary>
-        private IStandardOrganizationProvider provider = null;
+        private IStandardOrganizationUnitProvider provider = null;
 
-        #region ���캯��:StandardOrganizationService()
+        #region ���캯��:StandardOrganizationUnitService()
         /// <summary>���캯��</summary>
-        public StandardOrganizationService()
+        public StandardOrganizationUnitService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -48,7 +48,7 @@ namespace X3Platform.Membership.BLL
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
             // ���������ṩ��
-            this.provider = objectBuilder.GetObject<IStandardOrganizationProvider>(typeof(IStandardOrganizationProvider));
+            this.provider = objectBuilder.GetObject<IStandardOrganizationUnitProvider>(typeof(IStandardOrganizationUnitProvider));
         }
         #endregion
 
@@ -56,7 +56,7 @@ namespace X3Platform.Membership.BLL
         /// <summary>����</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IStandardOrganizationInfo this[string id]
+        public IStandardOrganizationUnitInfo this[string id]
         {
             get { return this.FindOne(id); }
         }
@@ -66,11 +66,11 @@ namespace X3Platform.Membership.BLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region 属性:Save(IStandardOrganizationInfo param)
+        #region 属性:Save(IStandardOrganizationUnitInfo param)
         /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IStandardOrganizationInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IStandardOrganizationInfo"/>��ϸ��Ϣ</returns>
-        public IStandardOrganizationInfo Save(IStandardOrganizationInfo param)
+        /// <param name="param">ʵ��<see cref="IStandardOrganizationUnitInfo"/>��ϸ��Ϣ</param>
+        /// <returns>ʵ��<see cref="IStandardOrganizationUnitInfo"/>��ϸ��Ϣ</returns>
+        public IStandardOrganizationUnitInfo Save(IStandardOrganizationUnitInfo param)
         {
             return provider.Save(param);
         }
@@ -92,8 +92,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IStandardOrganizationInfo"/>����ϸ��Ϣ</returns>
-        public IStandardOrganizationInfo FindOne(string id)
+        /// <returns>����ʵ��<see cref="IStandardOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        public IStandardOrganizationUnitInfo FindOne(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -106,8 +106,8 @@ namespace X3Platform.Membership.BLL
 
         #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="IStandardOrganizationInfo"/>����ϸ��Ϣ</returns>
-        public IList<IStandardOrganizationInfo> FindAll()
+        /// <returns>��������ʵ��<see cref="IStandardOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        public IList<IStandardOrganizationUnitInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
@@ -116,8 +116,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="IStandardOrganizationInfo"/>����ϸ��Ϣ</returns>
-        public IList<IStandardOrganizationInfo> FindAll(string whereClause)
+        /// <returns>��������ʵ��<see cref="IStandardOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        public IList<IStandardOrganizationUnitInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
@@ -127,8 +127,8 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IStandardOrganizationInfo"/>����ϸ��Ϣ</returns>
-        public IList<IStandardOrganizationInfo> FindAll(string whereClause, int length)
+        /// <returns>��������ʵ��<see cref="IStandardOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        public IList<IStandardOrganizationUnitInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
         }
@@ -137,8 +137,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByParentId(string parentId)
         /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
         /// <param name="parentId">���ڱ�ʶ</param>
-        /// <returns>����һ�� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
-        public IList<IStandardOrganizationInfo> FindAllByParentId(string parentId)
+        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        public IList<IStandardOrganizationUnitInfo> FindAllByParentId(string parentId)
         {
             return provider.FindAllByParentId(parentId);
         }
@@ -154,8 +154,8 @@ namespace X3Platform.Membership.BLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">记录行数</param>
-        /// <returns>返回一个列表<see cref="IOrganizationInfo"/></returns>
-        public IList<IStandardOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个列表<see cref="IOrganizationUnitInfo"/></returns>
+        public IList<IStandardOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             return provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
@@ -256,10 +256,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(IStandardOrganizationInfo param)
+        #region 属性:SyncFromPackPage(IStandardOrganizationUnitInfo param)
         /// <summary>ͬ����Ϣ</summary>
         /// <param name="param">��λ��Ϣ</param>
-        public int SyncFromPackPage(IStandardOrganizationInfo param)
+        public int SyncFromPackPage(IStandardOrganizationUnitInfo param)
         {
             provider.SyncFromPackPage(param);
 

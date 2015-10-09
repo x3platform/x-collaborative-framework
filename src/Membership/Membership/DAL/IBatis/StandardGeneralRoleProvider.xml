@@ -15,8 +15,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_StandardGeneralRole_FindAll_Result" class="StandardGeneralRoleInfo">
             <result property="Id" column="Id" />
@@ -28,14 +28,14 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_StandardGeneralRole_FindAllMappingRelation_Result" class="StandardGeneralRoleMappingRelationInfo">
             <result property="StandardGeneralRoleId" column="StandardGeneralRoleId" />
             <result property="StandardGeneralRoleName" column="StandardGeneralRoleName" />
-            <result property="OrganizationId" column="OrganizationId" />
-            <result property="OrganizationName" column="OrganizationName" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
+            <result property="OrganizationUnitName" column="OrganizationUnitName" />
             <result property="RoleId" column="RoleId" />
             <result property="RoleName" column="RoleName" />
             <result property="StandardRoleId" column="StandardRoleId" />
@@ -55,8 +55,8 @@
                 [OrderId],
                 [Status],
                 [Remark],
-                [UpdateDate],
-                [CreateDate]
+                [ModifiedDate],
+                [CreatedDate]
             )
             VALUES
             (
@@ -85,7 +85,7 @@
                 [OrderId] = #OrderId#,
                 [Status] = #Status#,
                 [Remark] = #Remark#,
-                [UpdateDate] = CURRENT_TIMESTAMP
+                [ModifiedDate] = CURRENT_TIMESTAMP
 
             WHERE [Id] = #Id#
         </update>
@@ -156,8 +156,8 @@
             SELECT TOP 1     
                 T.StandardGeneralRoleId,
 		        tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
-		        T.OrganizationId,
-		        tb_Organization.Name AS OrganizationName,
+		        T.OrganizationUnitId,
+		        tb_OrganizationUnit.Name AS OrganizationUnitName,
 		        T.RoleId,
 		        tb_Role.Name AS RoleName,
 		        T.StandardRoleId,
@@ -165,11 +165,11 @@
 	        FROM 
                 [tb_StandardGeneralRole_Mapping] T,
 	            [tb_StandardGeneralRole],
-	            [tb_Organization],
+	            [tb_OrganizationUnit],
 	            [tb_Role]          
 	        WHERE
 	            T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
-	            AND T.OrganizationId = [tb_Organization].Id
+	            AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
 	            AND T.RoleId = [tb_Role].Id
             <dynamic prepend="AND">
                 <isParameterPresent>
@@ -186,8 +186,8 @@
             FROM (SELECT 
 		            T.StandardGeneralRoleId,
 		            tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
-		            T.OrganizationId, 
-		            tb_Organization.Name AS OrganizationName, 
+		            T.OrganizationUnitId, 
+		            tb_OrganizationUnit.Name AS OrganizationUnitName, 
 		            T.RoleId, 
 		            tb_Role.Name AS RoleName, 
 		            T.StandardRoleId, 
@@ -195,11 +195,11 @@
 	            FROM 
                     [tb_StandardGeneralRole_Mapping] T,
 	                [tb_StandardGeneralRole],
-	                [tb_Organization],
+	                [tb_OrganizationUnit],
 	                [tb_Role]          
 	            WHERE  
 	                T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
-	                AND T.OrganizationId = [tb_Organization].Id
+	                AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
 	                AND T.RoleId = [tb_Role].Id
             <dynamic prepend="AND">
                 <isParameterPresent>
@@ -225,28 +225,28 @@
         </select>
         
         <insert id="proc_StandardGeneralRole_AddMappingRelation" >
-            IF EXISTS ( SELECT 0 FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationId] = '$OrganizationId$' )
+            IF EXISTS ( SELECT 0 FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' )
             BEGIN
                 UPDATE [tb_StandardGeneralRole_Mapping] SET
 
                     [RoleId] = '$RoleId$',
                     [StandardRoleId] = '$StandardRoleId$'
                     
-                WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationId] = '$OrganizationId$'
+                WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$'
             END
             ELSE
             BEGIN
                 INSERT INTO [tb_StandardGeneralRole_Mapping] 
                 (
                     [StandardGeneralRoleId],
-                    [OrganizationId],
+                    [OrganizationUnitId],
                     [RoleId],
                     [StandardRoleId]
                 )
                 VALUES
                 (
                     '$StandardGeneralRoleId$',
-                    '$OrganizationId$',
+                    '$OrganizationUnitId$',
                     '$RoleId$',
                     '$StandardRoleId$'
                 )
@@ -254,11 +254,11 @@
         </insert>
 
         <delete id="proc_StandardGeneralRole_RemoveMappingRelation" >
-            DELETE FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationId] = '$OrganizationId$'
+            DELETE FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$'
         </delete>
 
         <select id="proc_StandardGeneralRole_HasMappingRelation" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_StandardGeneralRole_Mapping] T WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationId] = '$OrganizationId$' 
+            SELECT COUNT(0) AS 'Count' FROM [tb_StandardGeneralRole_Mapping] T WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' 
         </select>
     </statements>
 </sqlMap>

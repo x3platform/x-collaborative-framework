@@ -42,7 +42,7 @@ goto :EOF
 	
 	xcopy "%ProjectDir%config\*.config" "%TargetWebSiteDir%config\" /y
 
-	attrib "%TargetWebSiteDir%config\*.config" +r
+	@REM attrib "%TargetWebSiteDir%config\*.config" +r
 	    
 goto :EOF       
 
@@ -52,6 +52,6 @@ goto :EOF
 	
 	xcopy "%ProjectDir%DAL\IBatis\*.xml" "%TargetIBatisResourceDir%" /y
 
-	attrib "%TargetIBatisResourceDir%*.xml" +r
+	@REM attrib "%TargetIBatisResourceDir%*.xml" +r
 
 goto :EOF       

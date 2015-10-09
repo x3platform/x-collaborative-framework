@@ -82,14 +82,14 @@
         string Remark { get; set; }
         #endregion
 
-        #region 属性:UpdateDate
+        #region 属性:ModifiedDate
         /// <summary>修改时间</summary>
-        DateTime UpdateDate { get; set; }
+        DateTime ModifiedDate { get; set; }
         #endregion
 
-        #region 属性:CreateDate
+        #region 属性:CreatedDate
         /// <summary>创建时间</summary>
-        DateTime CreateDate { get; set; }
+        DateTime CreatedDate { get; set; }
         #endregion
     }
 }

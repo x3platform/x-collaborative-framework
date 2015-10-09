@@ -10,11 +10,11 @@
 			<result property="Code" column="Code" />
 			<result property="Title" column="Title" />
 			<result property="Description" column="Description" />
-            <result property="StatusCode" column="StatusCode" />
-			<result property="Lock" column="Lock" />
+      <result property="StatusCode" column="StatusCode" />
+			<result property="Locking" column="Locking" />
 			<result property="Tags" column="Tags" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 		<resultMap id="proc_Application_Error_FindAll_Result" class="ApplicationErrorInfo">
 			<result property="Id" column="Id" />
@@ -22,11 +22,11 @@
 			<result property="Code" column="Code" />
 			<result property="Title" column="Title" />
 			<result property="Description" column="Description" />
-            <result property="StatusCode" column="StatusCode" />
-			<result property="Lock" column="Lock" />
+      <result property="StatusCode" column="StatusCode" />
+			<result property="Locking" column="Locking" />
 			<result property="Tags" column="Tags" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 	</resultMaps>
 	<statements>
@@ -41,8 +41,8 @@
         StatusCode,
 				Locking,
 				Tags,
-				UpdateDate,
-				CreateDate
+				ModifiedDate,
+				CreatedDate
 			)
 			VALUES
 			(
@@ -67,10 +67,10 @@
 				Code = #Code#,
 				Title = #Title#,
 				Description = #Description#,
-                StatusCode = #StatusCode#,
-				Lock = #Lock#,
+        StatusCode = #StatusCode#,
+				Locking = #Locking#,
 				Tags = #Tags#,
-				UpdateDate = CURRENT_TIMESTAMP
+				ModifiedDate = CURRENT_TIMESTAMP
 
 			WHERE Id = #Id#
 		</update>

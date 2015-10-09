@@ -8,9 +8,9 @@
         string StandardGeneralRoleId { get; set; }
         #endregion
 
-        #region 属性:OrganizationId
+        #region 属性:OrganizationUnitId
         /// <summary>所属组织标识</summary>
-        string OrganizationId { get; }
+        string OrganizationUnitId { get; }
         #endregion
 
         #region 属性:RoleId
@@ -28,9 +28,9 @@
         IStandardGeneralRoleInfo GetStandardGeneralRole();
         #endregion
 
-        #region 函数:GetOrganization()
+        #region 函数:GetOrganizationUnit()
         /// <summary>获取所属角色信息</summary>
-        IOrganizationInfo GetOrganization();
+        IOrganizationUnitInfo GetOrganizationUnit();
         #endregion
 
         #region 函数:GetGroup()

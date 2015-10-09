@@ -63,11 +63,11 @@ namespace X3Platform.Membership.Ajax
                 outString.Append(FormatAccount(MembershipManagement.Instance.AccountService.FindAll(whereClause), includeProhibited));
             }
 
-            if ((contactType & ContactType.Organization) == ContactType.Organization)
+            if ((contactType & ContactType.OrganizationUnit) == ContactType.OrganizationUnit)
             {
                 whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND Status = 1"));
 
-                outString.Append(FormatOrganization(MembershipManagement.Instance.OrganizationService.FindAll(whereClause), includeProhibited));
+                outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService.FindAll(whereClause), includeProhibited));
             }
 
             if ((contactType & ContactType.Role) == ContactType.Role)
@@ -85,11 +85,11 @@ namespace X3Platform.Membership.Ajax
             }
 
             // 标准组织
-            if ((contactType & ContactType.StandardOrganization) == ContactType.StandardOrganization)
+            if ((contactType & ContactType.StandardOrganizationUnit) == ContactType.StandardOrganizationUnit)
             {
                 whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND Status = 1"));
 
-                outString.Append(FormatStandardOrganization(MembershipManagement.Instance.StandardOrganizationService.FindAll(whereClause)));
+                outString.Append(FormatStandardOrganizationUnit(MembershipManagement.Instance.StandardOrganizationUnitService.FindAll(whereClause)));
             }
 
             if ((contactType & ContactType.StandardRole) == ContactType.StandardRole)
@@ -179,7 +179,7 @@ namespace X3Platform.Membership.Ajax
                         return "{\"message\":{\"returnCode\":0,\"value\":\"\"}}";
 
                     case "organization":
-                        contactType = ContactType.Organization;
+                        contactType = ContactType.OrganizationUnit;
                         break;
 
                     case "role":
@@ -189,9 +189,9 @@ namespace X3Platform.Membership.Ajax
 
                 }
 
-                if (contactType == ContactType.Organization)
+                if (contactType == ContactType.OrganizationUnit)
                 {
-                    list = MembershipManagement.Instance.AccountService.FindAllByOrganizationId(temp[1]);
+                    list = MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(temp[1]);
 
                     foreach (IAccountInfo item in list)
                     {
@@ -234,12 +234,12 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(XmlDocument doc)
+        #region 函数:FindAllByOrganizationUnitId(XmlDocument doc)
         /// <summary>查询所有数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAllByOrganizationId")]
-        public string FindAllByOrganizationId(XmlDocument doc)
+        [AjaxMethod("findAllByOrganizationUnitId")]
+        public string FindAllByOrganizationUnitId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -262,26 +262,26 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":[");
 
-            if ((contactType & ContactType.Organization) == ContactType.Organization)
+            if ((contactType & ContactType.OrganizationUnit) == ContactType.OrganizationUnit)
             {
-                outString.Append(FormatOrganization(MembershipManagement.Instance.OrganizationService[organizationId]));
+                outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService[organizationId]));
 
-                outString.Append(FormatOrganization(MembershipManagement.Instance.OrganizationService.FindAllByParentId(organizationId), includeProhibited));
+                outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(organizationId), includeProhibited));
             }
 
             if ((contactType & ContactType.AssignedJob) == ContactType.AssignedJob)
             {
-                outString.Append(FormatAssignedJob(MembershipManagement.Instance.AssignedJobService.FindAllByOrganizationId(organizationId), includeProhibited));
+                outString.Append(FormatAssignedJob(MembershipManagement.Instance.AssignedJobService.FindAllByOrganizationUnitId(organizationId), includeProhibited));
             }
 
             if ((contactType & ContactType.Role) == ContactType.Role)
             {
-                outString.Append(FormatRole(MembershipManagement.Instance.RoleService.FindAllByOrganizationId(organizationId), includeProhibited));
+                outString.Append(FormatRole(MembershipManagement.Instance.RoleService.FindAllByOrganizationUnitId(organizationId), includeProhibited));
             }
 
             if ((contactType & ContactType.Account) == ContactType.Account)
             {
-                outString.Append(FormatAccount(MembershipManagement.Instance.AccountService.FindAllByOrganizationId(organizationId, true), includeProhibited));
+                outString.Append(FormatAccount(MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(organizationId, true), includeProhibited));
             }
 
             if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
@@ -297,12 +297,12 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 函数:FindAllByStandardOrganizationId(XmlDocument doc)
+        #region 函数:FindAllByStandardOrganizationUnitId(XmlDocument doc)
         /// <summary>查询所有数据</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAllByStandardOrganizationId")]
-        public string FindAllByStandardOrganizationId(XmlDocument doc)
+        [AjaxMethod("findAllByStandardOrganizationUnitId")]
+        public string FindAllByStandardOrganizationUnitId(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -311,22 +311,22 @@ namespace X3Platform.Membership.Ajax
             // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
 
-            string standardOrganizationId = XmlHelper.Fetch("standardOrganizationId", doc);
+            string standardOrganizationUnitId = XmlHelper.Fetch("standardOrganizationUnitId", doc);
 
             // 0 全部 1 2 4 8;
 
             outString.Append("{\"data\":[");
 
-            if ((contactType & ContactType.StandardOrganization) == ContactType.StandardOrganization)
+            if ((contactType & ContactType.StandardOrganizationUnit) == ContactType.StandardOrganizationUnit)
             {
-                outString.Append(FormatStandardOrganization(MembershipManagement.Instance.StandardOrganizationService[standardOrganizationId]));
+                outString.Append(FormatStandardOrganizationUnit(MembershipManagement.Instance.StandardOrganizationUnitService[standardOrganizationUnitId]));
 
-                outString.Append(FormatStandardOrganization(MembershipManagement.Instance.StandardOrganizationService.FindAllByParentId(standardOrganizationId)));
+                outString.Append(FormatStandardOrganizationUnit(MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(standardOrganizationUnitId)));
             }
 
             if ((contactType & ContactType.StandardRole) == ContactType.StandardRole)
             {
-                outString.Append(FormatStandardRole(MembershipManagement.Instance.StandardRoleService.FindAllByStandardOrganizationId(standardOrganizationId)));
+                outString.Append(FormatStandardRole(MembershipManagement.Instance.StandardRoleService.FindAllByStandardOrganizationUnitId(standardOrganizationUnitId)));
             }
 
             if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
@@ -370,20 +370,20 @@ namespace X3Platform.Membership.Ajax
                     outString.Append(FormatGeneralRole(MembershipManagement.Instance.GeneralRoleService.FindAllByGroupTreeNodeId(groupTreeNodeId)));
                     break;
                 case "standard-role":
-                    IList<IStandardOrganizationInfo> standardOrganizations = null;
+                    IList<IStandardOrganizationUnitInfo> standardOrganizationUnits = null;
 
                     if (groupTreeNodeId.IndexOf("[GroupTreeNode]") == 0)
                     {
                         string whereClause = string.Format(" GroupTreeNodeId = ##{0}## AND ( ParentId IS NULL OR ParentId = ##00000000-0000-0000-0000-000000000000## )  ", groupTreeNodeId.Replace("[GroupTreeNode]", ""));
 
-                        standardOrganizations = MembershipManagement.Instance.StandardOrganizationService.FindAll(whereClause);
+                        standardOrganizationUnits = MembershipManagement.Instance.StandardOrganizationUnitService.FindAll(whereClause);
                     }
                     else
                     {
-                        standardOrganizations = MembershipManagement.Instance.StandardOrganizationService.FindAllByParentId(groupTreeNodeId.Replace("[StandardRole]", ""));
+                        standardOrganizationUnits = MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(groupTreeNodeId.Replace("[StandardRole]", ""));
                     }
 
-                    outString.Append(FormatStandardOrganization(standardOrganizations));
+                    outString.Append(FormatStandardOrganizationUnit(standardOrganizationUnits));
 
                     break;
                 case "standard-general-role":
@@ -407,17 +407,17 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 私有函数:FormatOrganization(IList<IOrganizationInfo> list, int includeProhibited)
+        #region 私有函数:FormatOrganizationUnit(IList<IOrganizationUnitInfo> list, int includeProhibited)
         /// <summary>格式化数据</summary>
         /// <param name="list"></param>
         /// <param name="includeProhibited"></param>
         /// <returns>返回操作结果</returns>
-        private string FormatOrganization(IList<IOrganizationInfo> list, int includeProhibited)
+        private string FormatOrganizationUnit(IList<IOrganizationUnitInfo> list, int includeProhibited)
         {
             StringBuilder outString = new StringBuilder();
 
             // 部门
-            foreach (IOrganizationInfo item in list)
+            foreach (IOrganizationUnitInfo item in list)
             {
                 // 过滤禁用的对象
                 if (includeProhibited == 0 && item.Status == 0)
@@ -440,11 +440,11 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 私有函数:FormatOrganization(IOrganizationInfo item)
+        #region 私有函数:FormatOrganizationUnit(IOrganizationUnitInfo item)
         /// <summary>格式化数据</summary>
         /// <param name="item"></param>
         /// <returns>返回操作结果</returns>
-        private string FormatOrganization(IOrganizationInfo item)
+        private string FormatOrganizationUnit(IOrganizationUnitInfo item)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -627,16 +627,16 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 私有函数:FormatStandardOrganization(IList<IStandardOrganizationInfo> list)
+        #region 私有函数:FormatStandardOrganizationUnit(IList<IStandardOrganizationUnitInfo> list)
         /// <summary>格式化数据</summary>
         /// <param name="list"></param>
         /// <returns>返回操作结果</returns>
-        private string FormatStandardOrganization(IList<IStandardOrganizationInfo> list)
+        private string FormatStandardOrganizationUnit(IList<IStandardOrganizationUnitInfo> list)
         {
             StringBuilder outString = new StringBuilder();
 
             // 部门
-            foreach (IStandardOrganizationInfo item in list)
+            foreach (IStandardOrganizationUnitInfo item in list)
             {
                 // 过滤禁用的对象
                 if (item.Status == 0)
@@ -647,7 +647,7 @@ namespace X3Platform.Membership.Ajax
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
                 outString.Append("\"name\":\"[标准部门]" + StringHelper.ToSafeJson(item.Name) + "\",");
-                outString.Append("\"type\":\"standardOrganization\",");
+                outString.Append("\"type\":\"standardOrganizationUnit\",");
                 outString.Append("\"status\":\"" + item.Status + "\" ");
                 outString.Append("},");
             }
@@ -656,11 +656,11 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 私有函数:FormatStandardOrganization(IStandardOrganizationInfo item)
+        #region 私有函数:FormatStandardOrganizationUnit(IStandardOrganizationUnitInfo item)
         /// <summary>格式化数据</summary>
         /// <param name="item"></param>
         /// <returns>返回操作结果</returns>
-        private string FormatStandardOrganization(IStandardOrganizationInfo item)
+        private string FormatStandardOrganizationUnit(IStandardOrganizationUnitInfo item)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -671,7 +671,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("{");
             outString.Append("\"id\":\"" + item.Id + "\",");
             outString.Append("\"name\":\"[标准部门]" + StringHelper.ToSafeJson(item.Name) + "\",");
-            outString.Append("\"type\":\"standardOrganization\" ");
+            outString.Append("\"type\":\"standardOrganizationUnit\" ");
             outString.Append("},");
 
             return outString.ToString();
@@ -934,11 +934,11 @@ namespace X3Platform.Membership.Ajax
 
             string childNodes = string.Empty;
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(organizationId);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(organizationId);
 
             outString.Append("{\"data\":[");
 
-            foreach (IOrganizationInfo item in list)
+            foreach (IOrganizationUnitInfo item in list)
             {
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");
@@ -1016,7 +1016,7 @@ namespace X3Platform.Membership.Ajax
                         parentId = treeViewRootTreeNodeId;
                     }
 
-                    outString.Append(GetTreeViewWithOrganization(parentId, url, treeViewRootTreeNodeId));
+                    outString.Append(GetTreeViewWithOrganizationUnit(parentId, url, treeViewRootTreeNodeId));
                     break;
 
                 case "group":
@@ -1024,10 +1024,10 @@ namespace X3Platform.Membership.Ajax
                     outString.Append(GetTreeViewWithGroupTreeNode(parentId, url, treeViewRootTreeNodeId));
                     break;
                 case "standard-organization":
-                    outString.Append(GetTreeViewWithStandardOrganizationTreeNode(parentId, url, treeViewRootTreeNodeId));
+                    outString.Append(GetTreeViewWithStandardOrganizationUnitTreeNode(parentId, url, treeViewRootTreeNodeId));
                     break;
                 case "standard-role":
-                    outString.Append(GetTreeViewWithStandardOrganizationTreeNode(parentId, url, treeViewRootTreeNodeId));
+                    outString.Append(GetTreeViewWithStandardOrganizationUnitTreeNode(parentId, url, treeViewRootTreeNodeId));
                     break;
                 case "standard-general-role":
                     outString.Append(GetTreeViewWithGroupTreeNode(parentId, url, treeViewRootTreeNodeId));
@@ -1037,7 +1037,7 @@ namespace X3Platform.Membership.Ajax
                     break;
                 case "organization":
                 default:
-                    outString.Append(GetTreeViewWithOrganization(parentId, url, treeViewRootTreeNodeId));
+                    outString.Append(GetTreeViewWithOrganizationUnit(parentId, url, treeViewRootTreeNodeId));
                     break;
             }
 
@@ -1109,13 +1109,13 @@ namespace X3Platform.Membership.Ajax
             return outString.ToString();
         }
 
-        private string GetTreeViewWithOrganization(string parentId, string url, string treeViewRootTreeNodeId)
+        private string GetTreeViewWithOrganizationUnit(string parentId, string url, string treeViewRootTreeNodeId)
         {
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(parentId);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(parentId);
 
             StringBuilder outString = new StringBuilder();
 
-            foreach (IOrganizationInfo item in list)
+            foreach (IOrganizationUnitInfo item in list)
             {
                 if (item.Status == 0) { continue; }
 
@@ -1136,13 +1136,13 @@ namespace X3Platform.Membership.Ajax
             return outString.ToString();
         }
 
-        private string GetTreeViewWithStandardOrganizationTreeNode(string parentId, string url, string treeViewRootTreeNodeId)
+        private string GetTreeViewWithStandardOrganizationUnitTreeNode(string parentId, string url, string treeViewRootTreeNodeId)
         {
             StringBuilder outString = new StringBuilder();
 
-            IList<IStandardOrganizationInfo> list = MembershipManagement.Instance.StandardOrganizationService.FindAllByParentId(parentId);
+            IList<IStandardOrganizationUnitInfo> list = MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(parentId);
 
-            foreach (IStandardOrganizationInfo item in list)
+            foreach (IStandardOrganizationUnitInfo item in list)
             {
                 if (item.Status == 0) { continue; }
 

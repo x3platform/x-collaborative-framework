@@ -1,4 +1,4 @@
-﻿namespace X3Platform.ActiveDirectory
+﻿namespace X3Platform.LDAP
 {
     #region Using Libraries
     using System;
@@ -12,11 +12,11 @@
 
     using X3Platform.Plugins;
 
-    using X3Platform.ActiveDirectory.Configuration;
-    using X3Platform.ActiveDirectory.Interop;
+    using X3Platform.LDAP.Configuration;
+    using X3Platform.LDAP.Interop;
     #endregion
 
-    public sealed class ActiveDirectoryManagement : CustomPlugin
+    public sealed class LDAPManagement : CustomPlugin
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -24,17 +24,17 @@
         #region 属性:Name
         public override string Name
         {
-            get { return "ActiveDirectory 管理"; }
+            get { return "LDAP 管理"; }
         }
         #endregion
 
         #region 属性:Instance
-        private static volatile ActiveDirectoryManagement instance = null;
+        private static volatile LDAPManagement instance = null;
 
         private static object lockObject = new object();
 
         /// <summary>实例</summary>
-        public static ActiveDirectoryManagement Instance
+        public static LDAPManagement Instance
         {
             get
             {
@@ -44,7 +44,7 @@
                     {
                         if (instance == null)
                         {
-                            instance = new ActiveDirectoryManagement();
+                            instance = new LDAPManagement();
                         }
                     }
                 }
@@ -55,22 +55,22 @@
         #endregion
 
         #region 属性:Configuration
-        private ActiveDirectoryConfiguration configuration = null;
+        private LDAPConfiguration configuration = null;
 
         /// <summary>配置</summary>
-        public ActiveDirectoryConfiguration Configuration
+        public LDAPConfiguration Configuration
         {
             get { return configuration; }
         }
         #endregion
 
-        #region 属性:Organization
-        private OrganizationHelper m_Organization = null;
+        #region 属性:OrganizationUnit
+        private OrganizationUnitHelper m_OrganizationUnit = null;
 
         /// <summary>组织</summary>
-        public OrganizationHelper Organization
+        public OrganizationUnitHelper OrganizationUnit
         {
-            get { return m_Organization; }
+            get { return m_OrganizationUnit; }
         }
         #endregion
 
@@ -101,9 +101,9 @@
 
         private DirectorySearcher directorySearcher = null;
 
-        #region 构造函数:ActiveDirectoryManagement()
+        #region 构造函数:LDAPManagement()
         /// <summary>构造函数</summary>
-        private ActiveDirectoryManagement()
+        private LDAPManagement()
         {
             Reload();
         }
@@ -132,13 +132,13 @@
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            configuration = ActiveDirectoryConfigurationView.Instance.Configuration;
+            configuration = LDAPConfigurationView.Instance.Configuration;
 
-            this.integratedMode = ActiveDirectoryConfigurationView.Instance.IntegratedMode;
+            this.integratedMode = LDAPConfigurationView.Instance.IntegratedMode;
 
-            directoryEntry = new DirectoryEntry(ActiveDirectoryConfigurationView.Instance.LDAPPath,
-                ActiveDirectoryConfigurationView.Instance.LoginName,
-                ActiveDirectoryConfigurationView.Instance.Password);
+            directoryEntry = new DirectoryEntry(LDAPConfigurationView.Instance.LDAPPath,
+                LDAPConfigurationView.Instance.LoginName,
+                LDAPConfigurationView.Instance.Password);
 
             directorySearcher = new DirectorySearcher();
 
@@ -152,31 +152,31 @@
         {
             if (this.integratedMode == "ON")
             {
-                string corporationOrganizationFolderRoot = ActiveDirectoryConfigurationView.Instance.CorporationOrganizationFolderRoot;
-                string corporationGroupFolderRoot = ActiveDirectoryConfigurationView.Instance.CorporationGroupFolderRoot;
-                string corporationRoleFolderRoot = ActiveDirectoryConfigurationView.Instance.CorporationRoleFolderRoot;
-                string corporationUserFolderRoot = ActiveDirectoryConfigurationView.Instance.CorporationUserFolderRoot;
+                string corporationOrganizationUnitFolderRoot = LDAPConfigurationView.Instance.CorporationOrganizationUnitFolderRoot;
+                string corporationGroupFolderRoot = LDAPConfigurationView.Instance.CorporationGroupFolderRoot;
+                string corporationRoleFolderRoot = LDAPConfigurationView.Instance.CorporationRoleFolderRoot;
+                string corporationUserFolderRoot = LDAPConfigurationView.Instance.CorporationUserFolderRoot;
 
-                string[] list = new string[] { corporationOrganizationFolderRoot, corporationGroupFolderRoot, corporationRoleFolderRoot, corporationUserFolderRoot };
+                string[] list = new string[] { corporationOrganizationUnitFolderRoot, corporationGroupFolderRoot, corporationRoleFolderRoot, corporationUserFolderRoot };
 
                 for (int i = 0; i < list.Length; i++)
                 {
                     if (Find(list[i], "organizationalUnit") == null)
                     {
-                        DirectoryEntry param = directoryEntry.Children.Add(string.Format("OU={0}", list[i]), "OrganizationalUnit");
+                        DirectoryEntry param = directoryEntry.Children.Add(string.Format("OU={0}", list[i]), "OrganizationUnitalUnit");
 
                         param.CommitChanges();
                     }
                 }
 
-                if (Find(corporationOrganizationFolderRoot, "group") == null)
+                if (Find(corporationOrganizationUnitFolderRoot, "group") == null)
                 {
-                    string fullName = string.Format("CN={0},OU={0}", corporationOrganizationFolderRoot);
+                    string fullName = string.Format("CN={0},OU={0}", corporationOrganizationUnitFolderRoot);
 
                     DirectoryEntry param = directoryEntry.Children.Add(fullName, "group");
 
-                    param.Properties["name"].Add(corporationOrganizationFolderRoot);
-                    param.Properties["samaccountname"].Add(corporationOrganizationFolderRoot);
+                    param.Properties["name"].Add(corporationOrganizationUnitFolderRoot);
+                    param.Properties["samaccountname"].Add(corporationOrganizationUnitFolderRoot);
 
                     param.Properties["grouptype"].Add("-2147483640");
                     param.CommitChanges();
@@ -186,7 +186,7 @@
 
                 if (Find(everyoneGroup, "group") == null)
                 {
-                    string fullName = string.Format("CN={1},OU={0}", corporationOrganizationFolderRoot, everyoneGroup);
+                    string fullName = string.Format("CN={1},OU={0}", corporationOrganizationUnitFolderRoot, everyoneGroup);
 
                     DirectoryEntry param = directoryEntry.Children.Add(fullName, "group");
 
@@ -198,7 +198,7 @@
                 }
             }
 
-            m_Organization = new OrganizationHelper();
+            m_OrganizationUnit = new OrganizationUnitHelper();
 
             m_Group = new GroupHelper();
 

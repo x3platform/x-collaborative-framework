@@ -132,20 +132,20 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByParentId(string parentId)
         /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
         /// <param name="parentId">���ڱ�ʶ</param>
-        /// <returns>����һ�� IOrganizationInfo ʵ������ϸ��Ϣ</returns>
+        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
         public IList<IStandardRoleInfo> FindAllByParentId(string parentId)
         {
             return provider.FindAllByParentId(parentId);
         }
         #endregion
 
-        #region 属性:FindAllByStandardOrganizationId(string standardOrganizationId)
+        #region 属性:FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         /// <summary>�ݹ���ѯĳ����׼��֯�������еı�׼��ɫ</summary>
-        /// <param name="standardOrganizationId">��֯��ʶ</param>
+        /// <param name="standardOrganizationUnitId">��֯��ʶ</param>
         /// <returns>��������<see cref="IRoleInfo"/>ʵ������ϸ��Ϣ</returns>
-        public IList<IStandardRoleInfo> FindAllByStandardOrganizationId(string standardOrganizationId)
+        public IList<IStandardRoleInfo> FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         {
-            return provider.FindAllByStandardOrganizationId(standardOrganizationId);
+            return provider.FindAllByStandardOrganizationUnitId(standardOrganizationUnitId);
         }
         #endregion
 
@@ -253,7 +253,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<IStandardRoleInfo> list = MembershipManagement.Instance.StandardRoleService.FindAll(whereClause);
 

@@ -8,7 +8,7 @@
         <resultMap id="proc_AssignedJob_FindOne_Result" class="AssignedJobInfo">
             <result property="Id" column="Id" />
             <result property="JobId" column="JobId" />
-            <result property="OrganizationId" column="OrganizationId" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
             <result property="ParentId" column="ParentId" />
             <result property="Code" column="Code" />
             <result property="Name" column="Name" />
@@ -18,12 +18,12 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
         </resultMap>
         <resultMap id="proc_AssignedJob_FindAll_Result" class="AssignedJobInfo">
             <result property="Id" column="Id" />
             <result property="JobId" column="JobId" />
-            <result property="OrganizationId" column="OrganizationId" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
             <result property="ParentId" column="ParentId" />
             <result property="Code" column="Code" />
             <result property="Name" column="Name" />
@@ -33,7 +33,7 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
         </resultMap>
         <resultMap id="proc_AssignedJob_FindAllRelation_Result" class="AccountAssignedJobRelationInfo" >
             <result property="AccountId" column="AccountId" />
@@ -52,7 +52,7 @@
             (
                 Id,
                 JobId,
-                OrganizationId,
+                OrganizationUnitId,
                 ParentId,
                 Code,
                 Name,
@@ -61,14 +61,14 @@
                 OrderId,
                 Status,
                 Remark,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
                 #Id#,
                 #JobId#,
-                #OrganizationId#,
+                #OrganizationUnitId#,
                 #ParentId#,
                 #Code#,
                 #Name#,
@@ -86,7 +86,7 @@
             UPDATE tb_AssignedJob SET
 
                 JobId = #JobId#,
-                OrganizationId = #OrganizationId#,
+                OrganizationUnitId = #OrganizationUnitId#,
                 ParentId = #ParentId#,
                 Code = #Code#,
                 Name = #Name#,
@@ -95,7 +95,7 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
 
@@ -198,7 +198,7 @@
         </select>
 
         <update id="proc_AssignedJob_Rename" parameterClass="AssignedJobInfo">
-            UPDATE tb_AssignedJob SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_AssignedJob SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_AssignedJob_SetJobId" >
@@ -212,7 +212,7 @@
                 UPDATE tb_AssignedJob SET
 
                     JobId = #JobId#,
-                    OrganizationId = #OrganizationId#,
+                    OrganizationUnitId = #OrganizationUnitId#,
                     ParentId = #ParentId#,
                     Code = #Code#,
                     Name = #Name#,
@@ -221,7 +221,7 @@
                     OrderId = #OrderId#,
                     Status = #Status#,
                     Remark = #Remark#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
 
@@ -233,7 +233,7 @@
                 (
                     Id,
                     JobId,
-                    OrganizationId,
+                    OrganizationUnitId,
                     ParentId,
                     Code,
                     Name,
@@ -242,14 +242,14 @@
                     OrderId,
                     Status,
                     Remark,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (
                     #Id#,
                     #JobId#,
-                    #OrganizationId#,
+                    #OrganizationUnitId#,
                     #ParentId#,
                     #Code#,
                     #Name#,
@@ -356,11 +356,11 @@
         </update>
         
         <update id="proc_AssignedJob_SetDefaultRelation" >
-            UPDATE tb_Member SET AssignedJobId = '$AssignedJobId$', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+            UPDATE tb_Member SET AssignedJobId = '$AssignedJobId$', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
         
         <update id="proc_AssignedJob_SetNullDefaultRelation" >
-            UPDATE tb_Member SET AssignedJobId = '', UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+            UPDATE tb_Member SET AssignedJobId = '', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
         </update>
     </statements>
 </sqlMap>

@@ -116,17 +116,17 @@ namespace X3Platform.Membership.Ajax
     }
     #endregion
 
-    #region 函数:FindAllWithoutDefaultOrganization(XmlDocument doc)
+    #region 函数:FindAllWithoutDefaultOrganizationUnit(XmlDocument doc)
     /// <summary>查询所有没有默认组织的用户信息</summary>
     /// <returns>返回一个相关的实例列表.</returns> 
-    [AjaxMethod("findAllWithoutDefaultOrganization")]
-    public string FindAllWithoutDefaultOrganization(XmlDocument doc)
+    [AjaxMethod("findAllWithoutDefaultOrganizationUnit")]
+    public string FindAllWithoutDefaultOrganizationUnit(XmlDocument doc)
     {
       StringBuilder outString = new StringBuilder();
 
       int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-      IList<IMemberInfo> list = this.service.FindAllWithoutDefaultOrganization(length);
+      IList<IMemberInfo> list = this.service.FindAllWithoutDefaultOrganizationUnit(length);
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<IMemberInfo>(list) + ",");
 

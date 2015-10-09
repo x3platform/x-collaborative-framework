@@ -241,7 +241,7 @@
         public IList<EntityOperationLogInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName)
         {
             string whereClause = string.Format(
-                " EntityId = ##{0}## AND EntityClassName = ##{1}## ORDER BY CreateDate ",
+                " EntityId = ##{0}## AND EntityClassName = ##{1}## ORDER BY CreatedDate ",
                 entityId,
                 entityClassName);
 
@@ -259,7 +259,7 @@
         public IList<EntityOperationLogInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName, int operationType)
         {
             string whereClause = string.Format(
-                " EntityId = ##{0}## AND EntityClassName = ##{1}## AND OperationType = {2} ORDER BY CreateDate ",
+                " EntityId = ##{0}## AND EntityClassName = ##{1}## AND OperationType = {2} ORDER BY CreatedDate ",
                 entityId,
                 entityClassName,
                 operationType);

@@ -3,7 +3,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :OrganizationWrapper.cs
+// FileName     :OrganizationUnitWrapper.cs
 //
 // Description  :
 //
@@ -52,7 +52,7 @@ namespace X3Platform.Membership.Ajax
             // param.ExtensionInformation["AuthorityValue"] = XmlHelper.Fetch("authorityValue", doc);
 
             param.ExtensionInformation["AccountValue"] = XmlHelper.Fetch("accountValue", doc);
-            param.ExtensionInformation["OrganizationValue"] = XmlHelper.Fetch("organizationValue", doc);
+            param.ExtensionInformation["OrganizationUnitValue"] = XmlHelper.Fetch("organizationValue", doc);
 
             string originalName = XmlHelper.Fetch("originalName", doc);
 
@@ -258,11 +258,11 @@ namespace X3Platform.Membership.Ajax
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
 
-            param.OrganizationId = organizationId;
+            param.OrganizationUnitId = organizationId;
 
             param.Status = 1;
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IRoleInfo>(param) + ",");
 
@@ -363,7 +363,7 @@ namespace X3Platform.Membership.Ajax
             foreach (DataRow row in table.Rows)
             {
                 outString.Append("{");
-                outString.Append("\"fromProjectOrganizationId\":\"" + row["fromProjectOrganizationId"] + "\",");
+                outString.Append("\"fromProjectOrganizationUnitId\":\"" + row["fromProjectOrganizationUnitId"] + "\",");
                 outString.Append("\"fromProjectRoleId\":\"" + row["fromProjectRoleId"] + "\",");
                 outString.Append("\"fromProjectRoleName\":\"" + row["fromProjectRoleName"] + "\",");
                 outString.Append("\"fromProjectRoleAccountValue\":\"" + row["fromProjectRoleAccountValue"] + "\",");
@@ -434,12 +434,12 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 函数:ReportOrganizationTableHtml(XmlDocument doc)
+        #region 函数:ReportOrganizationUnitTableHtml(XmlDocument doc)
         /// <summary>获取组织结构</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        [AjaxMethod("reportOrganizationTableHtml")]
-        public string ReportOrganizationTableHtml(XmlDocument doc)
+        [AjaxMethod("reportOrganizationUnitTableHtml")]
+        public string ReportOrganizationUnitTableHtml(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -447,7 +447,7 @@ namespace X3Platform.Membership.Ajax
 
             string corporationId = XmlHelper.Fetch("corporationId", doc);
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(corporationId);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(corporationId);
 
             outString.Append("<table style=\"width:100%;border:1px solid #ccc;\" cellPadding=\"0\" cellSpacing=\"0\" >");
             outString.Append("<tr style=\"background-color:#F2F4F6\" >");
@@ -459,7 +459,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("<td style=\"font-weight:bold;border:1px solid #ccc;padding:4px 8px 4px 8px;\" >人员</td>");
             outString.Append("</tr>");
 
-            outString.Append(ParseOrganizationViewHtml(list, 0));
+            outString.Append(ParseOrganizationUnitViewHtml(list, 0));
 
             outString.Append("</table>");
 
@@ -514,19 +514,19 @@ outString.Append("\"paging\":" + paging + ",");
         }
         #endregion
 
-        private string ParseOrganizationViewHtml(IList<IOrganizationInfo> list, int level)
+        private string ParseOrganizationUnitViewHtml(IList<IOrganizationUnitInfo> list, int level)
         {
             StringBuilder outString = new StringBuilder();
 
-            IList<IOrganizationInfo> children = null;
+            IList<IOrganizationUnitInfo> children = null;
 
-            foreach (IOrganizationInfo item in list)
+            foreach (IOrganizationUnitInfo item in list)
             {
-                children = MembershipManagement.Instance.OrganizationService.FindAllByParentId(item.Id);
+                children = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(item.Id);
 
                 outString.Append(ParseRoleViewHtml(item.Id, item.Name, level + 1));
 
-                outString.Append(ParseOrganizationViewHtml(children, level + 1));
+                outString.Append(ParseOrganizationUnitViewHtml(children, level + 1));
             }
 
             return outString.ToString();
@@ -541,11 +541,11 @@ outString.Append("\"paging\":" + paging + ",");
 
             StringBuilder outString = new StringBuilder();
 
-            IList<IRoleInfo> list = MembershipManagement.Instance.RoleService.FindAllByOrganizationId(organizationId);
+            IList<IRoleInfo> list = MembershipManagement.Instance.RoleService.FindAllByOrganizationUnitId(organizationId);
 
             string text = null;
 
-            string previousOrganizationName = null;
+            string previousOrganizationUnitName = null;
 
             string[] columns = new string[maxLevel + 2];
 
@@ -577,10 +577,10 @@ outString.Append("\"paging\":" + paging + ",");
 
                     columns[5] = ParseAccountViewHtml(role.Id);
 
-                    if (organizationName != previousOrganizationName)
+                    if (organizationName != previousOrganizationUnitName)
                     {
                         columns[level - 1] = organizationName;
-                        previousOrganizationName = organizationName;
+                        previousOrganizationUnitName = organizationName;
                     }
                     else
                     {

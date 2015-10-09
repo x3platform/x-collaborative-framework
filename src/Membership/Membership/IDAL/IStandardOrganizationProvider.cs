@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :IStandardOrganizationProvider.cs
+// FileName     :IStandardOrganizationUnitProvider.cs
 //
 // Description  :
 //
@@ -24,30 +24,30 @@ using X3Platform.Data;
 namespace X3Platform.Membership.IDAL
 {
     /// <summary></summary>
-    [SpringObject("X3Platform.Membership.IDAL.IStandardOrganizationProvider")]
-    public interface IStandardOrganizationProvider
+    [SpringObject("X3Platform.Membership.IDAL.IStandardOrganizationUnitProvider")]
+    public interface IStandardOrganizationUnitProvider
     {
         // -------------------------------------------------------
         // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(IStandardOrganizationInfo param)
+        #region 函数:Save(IStandardOrganizationUnitInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        /// <returns>实例<see cref="IStandardOrganizationInfo"/>详细信息</returns>
-        IStandardOrganizationInfo Save(IStandardOrganizationInfo param);
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</returns>
+        IStandardOrganizationUnitInfo Save(IStandardOrganizationUnitInfo param);
         #endregion
 
-        #region 函数:Insert(IStandardOrganizationInfo param)
+        #region 函数:Insert(IStandardOrganizationUnitInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        void Insert(IStandardOrganizationInfo param);
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        void Insert(IStandardOrganizationUnitInfo param);
         #endregion
 
-        #region 函数:Update(IStandardOrganizationInfo param)
+        #region 函数:Update(IStandardOrganizationUnitInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        void Update(IStandardOrganizationInfo param);
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        void Update(IStandardOrganizationUnitInfo param);
         #endregion
 
         #region 函数:Delete(string id)
@@ -63,23 +63,23 @@ namespace X3Platform.Membership.IDAL
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        IStandardOrganizationInfo FindOne(string id);
+        /// <returns>返回实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        IStandardOrganizationUnitInfo FindOne(string id);
         #endregion
 
         #region 函数:FindAll(string whereClause, int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        IList<IStandardOrganizationInfo> FindAll(string whereClause, int length);
+        /// <returns>返回所有实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        IList<IStandardOrganizationUnitInfo> FindAll(string whereClause, int length);
         #endregion
 
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        IList<IStandardOrganizationInfo> FindAllByParentId(string parentId);
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        IList<IStandardOrganizationUnitInfo> FindAllByParentId(string parentId);
         #endregion
 
         // -------------------------------------------------------
@@ -92,8 +92,8 @@ namespace X3Platform.Membership.IDAL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="IStandardOrganizationInfo"/></returns>
-        IList<IStandardOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        /// <returns>返回一个列表实例<see cref="IStandardOrganizationUnitInfo"/></returns>
+        IList<IStandardOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)
@@ -141,10 +141,10 @@ namespace X3Platform.Membership.IDAL
         int SetParentId(string id, string parentId);
         #endregion
 
-        #region 函数:SyncFromPackPage(IStandardOrganizationInfo param)
+        #region 函数:SyncFromPackPage(IStandardOrganizationUnitInfo param)
         /// <summary>同步信息</summary>
         /// <param name="param">组织信息</param>
-        int SyncFromPackPage(IStandardOrganizationInfo param);
+        int SyncFromPackPage(IStandardOrganizationUnitInfo param);
         #endregion
     }
 }

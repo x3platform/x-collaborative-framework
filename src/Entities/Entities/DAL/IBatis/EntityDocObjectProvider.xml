@@ -12,8 +12,8 @@
             <result property="DocTitle" column="DocTitle" />
             <result property="DocVersion" column="DocVersion" />
             <result property="DocStatus" column="DocStatus" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Entity_DocObject_FindAll_Result" class="EntityDocObjectInfo">
             <result property="Id" column="Id" />
@@ -23,8 +23,8 @@
             <result property="DocTitle" column="DocTitle" />
             <result property="DocVersion" column="DocVersion" />
             <result property="DocStatus" column="DocStatus" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>

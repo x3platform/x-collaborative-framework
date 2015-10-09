@@ -189,7 +189,7 @@ namespace X3Platform.Apps.Ajax
 
             param.Status = 1;
 
-            param.CreateDate = param.UpdateDate = DateTime.Now;
+            param.CreatedDate = param.ModifiedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMethodInfo>(param) + ",");
 

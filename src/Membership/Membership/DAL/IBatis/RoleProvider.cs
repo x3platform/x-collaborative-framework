@@ -211,7 +211,7 @@ namespace X3Platform.Membership.DAL.IBatis
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
         public IList<IRoleInfo> FindAllByParentId(string parentId)
         {
             string whereClause = string.Format(" ParentId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(parentId));
@@ -232,13 +232,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下面所有的角色</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个 IRoleInfo 实例的详细信息</returns>
-        public IList<IRoleInfo> FindAllByOrganizationId(string organizationId)
+        public IList<IRoleInfo> FindAllByOrganizationUnitId(string organizationId)
         {
-            string whereClause = string.Format(" OrganizationId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(organizationId));
+            string whereClause = string.Format(" OrganizationUnitId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(organizationId));
 
             return this.FindAll(whereClause, 0);
         }
@@ -256,13 +256,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllByStandardOrganizationId(string standardOrganizationId)
+        #region 函数:FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         /// <summary>递归查询某个标准组织下面所有的角色</summary>
-        /// <param name="standardOrganizationId">组织标识</param>
+        /// <param name="standardOrganizationUnitId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindAllByStandardOrganizationId(string standardOrganizationId)
+        public IList<IRoleInfo> FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         {
-            string whereClause = string.Format(" StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE StandardOrganizationId = ##{0}## ) ", standardOrganizationId);
+            string whereClause = string.Format(" StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE StandardOrganizationUnitId = ##{0}## ) ", standardOrganizationUnitId);
 
             return FindAll(whereClause, 0);
         }
@@ -280,15 +280,15 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationIdAndJobId(string organizationId, string jobId)
+        #region 函数:FindAllByOrganizationUnitIdAndJobId(string organizationId, string jobId)
         /// <summary>递归查询某个组织下面相关的职位对应的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="jobId">职位标识</param>
         /// <returns>返回一个<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindAllByOrganizationIdAndJobId(string organizationId, string jobId)
+        public IList<IRoleInfo> FindAllByOrganizationUnitIdAndJobId(string organizationId, string jobId)
         {
             string whereClause = string.Format(@" 
-OrganizationId = ##{0}## AND StandardRoleId IN ( 
+OrganizationUnitId = ##{0}## AND StandardRoleId IN ( 
     SELECT StandardRoleId FROM tb_Job_StandardRole WHERE JobId = ##{1}## ) 
 ", organizationId, jobId);
 
@@ -303,7 +303,7 @@ OrganizationId = ##{0}## AND StandardRoleId IN (
         public IList<IRoleInfo> FindAllByAssignedJobId(string assignedJobId)
         {
             string whereClause = string.Format(@" 
-OrganizationId IN ( SELECT OrganizationId FROM tb_AssignedJob WHERE Id = ##{0}## ) 
+OrganizationUnitId IN ( SELECT OrganizationUnitId FROM tb_AssignedJob WHERE Id = ##{0}## ) 
 AND StandardRoleId IN ( SELECT StandardRoleId FROM tb_Job_StandardRole WHERE JobId IN ( SELECT JobId FROM tb_AssignedJob WHERE Id = ##{0}## ) ) 
 ", assignedJobId);
 
@@ -318,7 +318,7 @@ AND StandardRoleId IN ( SELECT StandardRoleId FROM tb_Job_StandardRole WHERE Job
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
         public IList<IRoleInfo> FindAllByCorporationIdAndStandardRoleIds(string corporationId, string standardRoleIds)
         {
-            string whereClause = string.Format("( dbo.func_GetCorporationIdByOrganizationId(OrganizationId) = ##{0}## AND StandardRoleId IN ({1}) )",
+            string whereClause = string.Format("( dbo.func_GetCorporationIdByOrganizationUnitId(OrganizationUnitId) = ##{0}## AND StandardRoleId IN ({1}) )",
                                     corporationId,
                                     string.Format(" ##{0}## ", standardRoleIds.Replace(",", "## , ##")));
 
@@ -339,7 +339,7 @@ AND StandardRoleId IN ( SELECT StandardRoleId FROM tb_Job_StandardRole WHERE Job
             for (int i = 1; i < 10; i++)
             {
                 whereClause += (i == 1 ? " ( " : " OR ")
-                            + string.Format(" OrganizationId = dbo.func_GetDepartmentIdByOrganizationId( ##{0}## , {1} ) ", organizationId, i)
+                            + string.Format(" OrganizationUnitId = dbo.func_GetDepartmentIdByOrganizationUnitId( ##{0}## , {1} ) ", organizationId, i)
                             + ((i + 1) == 10 ? " ) " : string.Empty);
             }
 
@@ -371,15 +371,15 @@ AND StandardRoleId IN ( SELECT StandardRoleId FROM tb_Job_StandardRole WHERE Job
         }
         #endregion
 
-        #region 函数:FindForwardLeadersByOrganizationId(string organizationId, int level)
+        #region 函数:FindForwardLeadersByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有正向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindForwardLeadersByOrganizationId(string organizationId, int level)
+        public IList<IRoleInfo> FindForwardLeadersByOrganizationUnitId(string organizationId, int level)
         {
             string whereClause = string.Format(@" 
-OrganizationId = dbo.func_GetDepartmentIdByOrganizationId( ##{0}## , {1} ) 
+OrganizationUnitId = dbo.func_GetDepartmentIdByOrganizationUnitId( ##{0}## , {1} ) 
 AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
 ", organizationId, level);
 
@@ -387,15 +387,15 @@ AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
         }
         #endregion
 
-        #region 函数:FindBackwardLeadersByOrganizationId(string organizationId, int level)
+        #region 函数:FindBackwardLeadersByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有反向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindBackwardLeadersByOrganizationId(string organizationId, int level)
+        public IList<IRoleInfo> FindBackwardLeadersByOrganizationUnitId(string organizationId, int level)
         {
             string whereClause = string.Format(@" 
-OrganizationId IN ( dbo.func_GetDepartmentIdByOrganizationId( ##{0}## , ( dbo.func_GetDepartmentLevelByOrganizationId( ##{0}## ) - {1} ) ) )
+OrganizationUnitId IN ( dbo.func_GetDepartmentIdByOrganizationUnitId( ##{0}## , ( dbo.func_GetDepartmentLevelByOrganizationUnitId( ##{0}## ) - {1} ) ) )
 AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
 ", organizationId, level);
 
@@ -403,19 +403,19 @@ AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
         }
         #endregion
 
-        #region 函数:FindStandardGeneralRolesByOrganizationId(string organizationId, string standardGeneralRoleId)
+        #region 函数:FindStandardGeneralRolesByOrganizationUnitId(string organizationId, string standardGeneralRoleId)
         /// <summary>返回所有父级对象为标准通用角色标识【standardGeneralRoleId】的相关角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="standardGeneralRoleId">标准通用角色标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindStandardGeneralRolesByOrganizationId(string organizationId, string standardGeneralRoleId)
+        public IList<IRoleInfo> FindStandardGeneralRolesByOrganizationUnitId(string organizationId, string standardGeneralRoleId)
         {
             string whereClause = null;
 
             for (int i = 1; i < 10; i++)
             {
                 whereClause += (i == 1 ? " ( " : " OR ")
-                            + string.Format(" OrganizationId = dbo.func_GetDepartmentIdByOrganizationId( ##{0}## , {1} ) ", organizationId, i)
+                            + string.Format(" OrganizationUnitId = dbo.func_GetDepartmentIdByOrganizationUnitId( ##{0}## , {1} ) ", organizationId, i)
                             + ((i + 1) == 10 ? " ) " : string.Empty);
             }
 
@@ -446,16 +446,16 @@ AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
 
                 args.Add("WhereClause", " ( T.Name LIKE '%" + searchText + "%' OR T.GlobalName LIKE '%" + searchText + "%' ) ");
             }
-            else if (query.Variables["scence"] == "QueryByOrganizationId")
+            else if (query.Variables["scence"] == "QueryByOrganizationUnitId")
             {
-                args.Add("WhereClause", " ( T.OrganizationId = '" + StringHelper.ToSafeSQL(query.Where["OrganizationId"].ToString()) + "' ) ");
+                args.Add("WhereClause", " ( T.OrganizationUnitId = '" + StringHelper.ToSafeSQL(query.Where["OrganizationUnitId"].ToString()) + "' ) ");
             }
             else
             {
                 args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             }
 
-            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, ModifiedDate DESC "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);

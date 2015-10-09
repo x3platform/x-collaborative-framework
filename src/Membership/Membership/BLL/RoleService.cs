@@ -20,8 +20,8 @@ namespace X3Platform.Membership.BLL
     using System.Data;
     using System.Text;
 
-    using X3Platform.ActiveDirectory;
-    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.LDAP;
+    using X3Platform.LDAP.Configuration;
     using X3Platform.Configuration;
     using X3Platform.Security.Authority;
     using X3Platform.Spring;
@@ -74,7 +74,7 @@ namespace X3Platform.Membership.BLL
         /// <returns>AccountInfo 实例详细信息</returns>
         public IRoleInfo Save(IRoleInfo param)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IRoleInfo originalObject = FindOne(param.Id);
 
@@ -83,14 +83,14 @@ namespace X3Platform.Membership.BLL
                     originalObject = param;
                 }
 
-                this.SyncToActiveDirectory(param, originalObject.GlobalName, originalObject.OrganizationId);
+                this.SyncToLDAP(param, originalObject.GlobalName, originalObject.OrganizationUnitId);
             }
 
             // 设置组织全路径
-            param.FullPath = this.CombineFullPath(param.Name, param.OrganizationId);
+            param.FullPath = this.CombineFullPath(param.Name, param.OrganizationUnitId);
 
             // 设置唯一识别名称
-            param.DistinguishedName = this.CombineDistinguishedName(param.Name, param.OrganizationId);
+            param.DistinguishedName = this.CombineDistinguishedName(param.Name, param.OrganizationUnitId);
 
             param = provider.Save(param);
 
@@ -193,7 +193,7 @@ namespace X3Platform.Membership.BLL
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
         public IList<IRoleInfo> FindAllByParentId(string parentId)
         {
             return FindAllByParentId(parentId, 0);
@@ -204,7 +204,7 @@ namespace X3Platform.Membership.BLL
         /// <summary>查询某个组织节点下的所有角色信息</summary>
         /// <param name="parentId">父节标识</param>
         /// <param name="depth">深入获取的层次，0表示只获取本层次，-1表示全部获取</param>
-        /// <returns>返回所有实例<see cref="IOrganizationInfo"/>的详细信息</returns>
+        /// <returns>返回所有实例<see cref="IOrganizationUnitInfo"/>的详细信息</returns>
         public IList<IRoleInfo> FindAllByParentId(string parentId, int depth)
         {
             // 结果列表
@@ -245,22 +245,22 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下的所有角色</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个 IRoleInfo 实例的详细信息</returns>
-        public IList<IRoleInfo> FindAllByOrganizationId(string organizationId)
+        public IList<IRoleInfo> FindAllByOrganizationUnitId(string organizationId)
         {
-            return this.FindAllByOrganizationId(organizationId, 0);
+            return this.FindAllByOrganizationUnitId(organizationId, 0);
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId, int depth)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId, int depth)
         /// <summary>查询某个组织节点下的所有角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="depth">深入获取的层次，0表示只获取本层次，-1表示全部获取</param>
-        /// <returns>返回所有实例<see cref="IOrganizationInfo"/>的详细信息</returns>
-        public IList<IRoleInfo> FindAllByOrganizationId(string organizationId, int depth)
+        /// <returns>返回所有实例<see cref="IOrganizationUnitInfo"/>的详细信息</returns>
+        public IList<IRoleInfo> FindAllByOrganizationUnitId(string organizationId, int depth)
         {
             // 结果列表
             List<IRoleInfo> list = new List<IRoleInfo>();
@@ -269,13 +269,13 @@ namespace X3Platform.Membership.BLL
             // 查找组织子部门的角色信息
             // -------------------------------------------------------
 
-            IList<IOrganizationInfo> organizations = MembershipManagement.Instance.OrganizationService.FindAllByParentId(organizationId);
+            IList<IOrganizationUnitInfo> organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(organizationId);
 
             // -------------------------------------------------------
             // 查找角色信息
             // -------------------------------------------------------
 
-            list.AddRange(this.provider.FindAllByOrganizationId(organizationId));
+            list.AddRange(this.provider.FindAllByOrganizationUnitId(organizationId));
 
             if (depth == -1)
             {
@@ -284,9 +284,9 @@ namespace X3Platform.Membership.BLL
 
             if (organizations.Count > 0 && depth > 0)
             {
-                foreach (IOrganizationInfo organization in organizations)
+                foreach (IOrganizationUnitInfo organization in organizations)
                 {
-                    list.AddRange(FindAllByOrganizationId(organization.Id, (depth - 1)));
+                    list.AddRange(FindAllByOrganizationUnitId(organization.Id, (depth - 1)));
                 }
             }
 
@@ -304,11 +304,11 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:FindAllByStandardOrganizationId(string standardOrganizationId)
+        #region 函数:FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         /// <summary>递归查询某个标准组织下面所有的角色</summary>
-        /// <param name="standardOrganizationId">组织标识</param>
+        /// <param name="standardOrganizationUnitId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindAllByStandardOrganizationId(string standardOrganizationId)
+        public IList<IRoleInfo> FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         {
             // 结果列表
             List<IRoleInfo> list = new List<IRoleInfo>();
@@ -320,7 +320,7 @@ namespace X3Platform.Membership.BLL
             // 查找角色信息
             // 
 
-            temp = provider.FindAllByStandardOrganizationId(standardOrganizationId);
+            temp = provider.FindAllByStandardOrganizationUnitId(standardOrganizationUnitId);
 
             list.AddRange(temp);
 
@@ -328,11 +328,11 @@ namespace X3Platform.Membership.BLL
             // 查找组织子部门的角色信息
             //
 
-            IList<IStandardOrganizationInfo> organizations = MembershipManagement.Instance.StandardOrganizationService.FindAllByParentId(standardOrganizationId);
+            IList<IStandardOrganizationUnitInfo> organizations = MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(standardOrganizationUnitId);
 
-            foreach (IStandardOrganizationInfo organization in organizations)
+            foreach (IStandardOrganizationUnitInfo organization in organizations)
             {
-                temp = FindAllByStandardOrganizationId(organization.Id);
+                temp = FindAllByStandardOrganizationUnitId(organization.Id);
 
                 list.AddRange(temp);
             }
@@ -351,14 +351,14 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationIdAndJobId(string organizationId, string jobId)
+        #region 函数:FindAllByOrganizationUnitIdAndJobId(string organizationId, string jobId)
         /// <summary>递归查询某个组织下面相关的职位对应的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="jobId">职位标识</param>
         /// <returns>返回一个<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindAllByOrganizationIdAndJobId(string organizationId, string jobId)
+        public IList<IRoleInfo> FindAllByOrganizationUnitIdAndJobId(string organizationId, string jobId)
         {
-            return provider.FindAllByOrganizationIdAndJobId(organizationId, jobId);
+            return provider.FindAllByOrganizationUnitIdAndJobId(organizationId, jobId);
         }
         #endregion
 
@@ -426,20 +426,20 @@ namespace X3Platform.Membership.BLL
             //
             // 查找部门(公司下一级组织架构)
             //
-            IList<IOrganizationInfo> organizations = MembershipManagement.Instance.OrganizationService.FindAllByParentId(corporationId);
+            IList<IOrganizationUnitInfo> organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(corporationId);
 
             // 
             // 查找角色信息
             // 
 
-            list.AddRange(FindAllByOrganizationId(corporationId));
+            list.AddRange(FindAllByOrganizationUnitId(corporationId));
 
-            foreach (IOrganizationInfo organization in organizations)
+            foreach (IOrganizationUnitInfo organization in organizations)
             {
                 // 获取项目团队以外的只能部门
                 if (organization.Name.IndexOf("项目团队") == -1)
                 {
-                    list.AddRange(FindAllByOrganizationId(organization.Id, -1));
+                    list.AddRange(FindAllByOrganizationUnitId(organization.Id, -1));
                 }
             }
 
@@ -479,7 +479,7 @@ namespace X3Platform.Membership.BLL
             // 项目团队的标识 和 项目标识 保存一致
             string organizationId = projectId;
 
-            return FindAllByOrganizationId(organizationId, -1);
+            return FindAllByOrganizationUnitId(organizationId, -1);
         }
         #endregion
 
@@ -527,56 +527,56 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:FindForwardLeadersByOrganizationId(string organizationId)
+        #region 函数:FindForwardLeadersByOrganizationUnitId(string organizationId)
         /// <summary>返回所有正向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindForwardLeadersByOrganizationId(string organizationId)
+        public IList<IRoleInfo> FindForwardLeadersByOrganizationUnitId(string organizationId)
         {
-            return provider.FindForwardLeadersByOrganizationId(organizationId, 1);
+            return provider.FindForwardLeadersByOrganizationUnitId(organizationId, 1);
         }
         #endregion
 
-        #region 函数:FindForwardLeadersByOrganizationId(string organizationId, int level)
+        #region 函数:FindForwardLeadersByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有正向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindForwardLeadersByOrganizationId(string organizationId, int level)
+        public IList<IRoleInfo> FindForwardLeadersByOrganizationUnitId(string organizationId, int level)
         {
-            return provider.FindForwardLeadersByOrganizationId(organizationId, level);
+            return provider.FindForwardLeadersByOrganizationUnitId(organizationId, level);
         }
         #endregion
 
-        #region 函数:FindBackwardLeadersByOrganizationId(string organizationId)
+        #region 函数:FindBackwardLeadersByOrganizationUnitId(string organizationId)
         /// <summary>返回所有反向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindBackwardLeadersByOrganizationId(string organizationId)
+        public IList<IRoleInfo> FindBackwardLeadersByOrganizationUnitId(string organizationId)
         {
-            return provider.FindBackwardLeadersByOrganizationId(organizationId, 1);
+            return provider.FindBackwardLeadersByOrganizationUnitId(organizationId, 1);
         }
         #endregion
 
-        #region 函数:FindBackwardLeadersByOrganizationId(string organizationId, int level)
+        #region 函数:FindBackwardLeadersByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有反向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindBackwardLeadersByOrganizationId(string organizationId, int level)
+        public IList<IRoleInfo> FindBackwardLeadersByOrganizationUnitId(string organizationId, int level)
         {
-            return provider.FindBackwardLeadersByOrganizationId(organizationId, level);
+            return provider.FindBackwardLeadersByOrganizationUnitId(organizationId, level);
         }
         #endregion
 
-        #region 函数:FindStandardGeneralRolesByOrganizationId(string organizationId, int standardGeneralRoleId)
+        #region 函数:FindStandardGeneralRolesByOrganizationUnitId(string organizationId, int standardGeneralRoleId)
         /// <summary>返回所有父级对象为标准通用角色标识【standardGeneralRoleId】的相关角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="standardGeneralRoleId">标准通用角色标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IRoleInfo> FindStandardGeneralRolesByOrganizationId(string organizationId, string standardGeneralRoleId)
+        public IList<IRoleInfo> FindStandardGeneralRolesByOrganizationUnitId(string organizationId, string standardGeneralRoleId)
         {
-            return provider.FindStandardGeneralRolesByOrganizationId(organizationId, standardGeneralRoleId);
+            return provider.FindStandardGeneralRolesByOrganizationUnitId(organizationId, standardGeneralRoleId);
         }
         #endregion
 
@@ -672,7 +672,7 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineFullPath(string name, string organizationId)
         {
-            string path = MembershipManagement.Instance.OrganizationService.GetOrganizationPathByOrganizationId(organizationId);
+            string path = MembershipManagement.Instance.OrganizationUnitService.GetOrganizationPathByOrganizationUnitId(organizationId);
 
             return string.Format(@"{0}{1}", path, name);
         }
@@ -685,9 +685,9 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineDistinguishedName(string name, string organizationId)
         {
-            string path = MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(organizationId);
+            string path = MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(organizationId);
 
-            return string.Format("CN={0},{1}{2}", name, path, ActiveDirectoryConfigurationView.Instance.SuffixDistinguishedName);
+            return string.Format("CN={0},{1}{2}", name, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
         #endregion
 
@@ -716,7 +716,7 @@ namespace X3Platform.Membership.BLL
                 return 3;
             }
 
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IRoleInfo originalObject = FindOne(id);
 
@@ -725,13 +725,13 @@ namespace X3Platform.Membership.BLL
                     // 由于外部系统直接同步到人员及权限管理的数据库中，
                     // 所以 Active Directory 上不会直接创建相关对象，需要手工设置全局名称并创建相关对象。
                     if (!string.IsNullOrEmpty(originalObject.GlobalName)
-                        && ActiveDirectoryManagement.Instance.Group.IsExistName(originalObject.GlobalName))
+                        && LDAPManagement.Instance.Group.IsExistName(originalObject.GlobalName))
                     {
-                        ActiveDirectoryManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
+                        LDAPManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
                     }
                     else
                     {
-                        ActiveDirectoryManagement.Instance.Group.Add(globalName, MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(originalObject.Id));
+                        LDAPManagement.Instance.Group.Add(globalName, MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalObject.Id));
                     }
                 }
             }
@@ -890,12 +890,12 @@ namespace X3Platform.Membership.BLL
 
                 param.Id = StringHelper.ToGuid();
                 param.Name = roleName;
-                param.OrganizationId = organizationId;
+                param.OrganizationUnitId = organizationId;
                 param.ParentId = StringHelper.ToGuid(Guid.Empty);
                 param.StandardRoleId = standardRoleId;
                 param.Status = 1;
 
-                IList<IOrganizationInfo> organizations = null;
+                IList<IOrganizationUnitInfo> organizations = null;
 
                 IList<IRoleInfo> roles = null;
 
@@ -905,25 +905,25 @@ namespace X3Platform.Membership.BLL
                     case "1":
                     case "11":
                     case "21":
-                        organizations = MembershipManagement.Instance.OrganizationService.FindAllByCorporationId(organizationId);
+                        organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByCorporationId(organizationId);
                         roles = MembershipManagement.Instance.RoleService.FindAllByCorporationId(organizationId);
                         break;
                     case "2":
                     case "12":
                     case "22":
-                        organizations = MembershipManagement.Instance.OrganizationService.FindAllByProjectId(organizationId);
+                        organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByProjectId(organizationId);
                         roles = MembershipManagement.Instance.RoleService.FindAllByCorporationId(organizationId);
                         break;
                     default:
                         return 0;
                 }
 
-                foreach (IOrganizationInfo organization in organizations)
+                foreach (IOrganizationUnitInfo organization in organizations)
                 {
                     // 根据标准组织找上级组织
-                    if (standardRoleInfo.StandardOrganizationId == organization.StandardOrganizationId)
+                    if (standardRoleInfo.StandardOrganizationUnitId == organization.StandardOrganizationUnitId)
                     {
-                        param.OrganizationId = organization.Id;
+                        param.OrganizationUnitId = organization.Id;
                     }
                 }
 
@@ -968,19 +968,19 @@ namespace X3Platform.Membership.BLL
                 param.Id = StringHelper.ToGuid();
                 param.Name = roleName;
                 param.GlobalName = roleName;
-                param.OrganizationId = projectId;
+                param.OrganizationUnitId = projectId;
                 param.ParentId = StringHelper.ToGuid(Guid.Empty);
                 param.StandardRoleId = standardRoleId;
                 param.Status = 1;
 
-                IList<IOrganizationInfo> organizations = MembershipManagement.Instance.OrganizationService.FindAllByProjectId(projectId);
+                IList<IOrganizationUnitInfo> organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByProjectId(projectId);
 
-                foreach (IOrganizationInfo organization in organizations)
+                foreach (IOrganizationUnitInfo organization in organizations)
                 {
                     // 根据标准组织找上级组织
-                    if (standardRoleInfo.StandardOrganizationId == organization.StandardOrganizationId)
+                    if (standardRoleInfo.StandardOrganizationUnitId == organization.StandardOrganizationUnitId)
                     {
-                        param.OrganizationId = organization.Id;
+                        param.OrganizationUnitId = organization.Id;
                     }
                 }
 
@@ -1010,7 +1010,7 @@ namespace X3Platform.Membership.BLL
         {
             DataTable table = new DataTable();
 
-            table.Columns.Add("fromProjectOrganizationId");
+            table.Columns.Add("fromProjectOrganizationUnitId");
             table.Columns.Add("fromProjectRoleId");
             table.Columns.Add("fromProjectRoleName");
             table.Columns.Add("fromProjectRoleAccountValue");
@@ -1024,7 +1024,7 @@ namespace X3Platform.Membership.BLL
             IList<IRoleInfo> toProjectRoles = FindAllByProjectId(toProjectId);
 
             // 添加来源项目角色数据
-            // 到fromProjectOrganizationId，fromProjectRoleId，fromProjectRoleName，fromProjectRoleAccountValue。
+            // 到fromProjectOrganizationUnitId，fromProjectRoleId，fromProjectRoleName，fromProjectRoleAccountValue。
             foreach (IRoleInfo role in fromProjectRoles)
             {
                 // 忽略没有所属标准角色的角色
@@ -1033,7 +1033,7 @@ namespace X3Platform.Membership.BLL
 
                 DataRow row = table.NewRow();
 
-                row["fromProjectOrganizationId"] = role.OrganizationId;
+                row["fromProjectOrganizationUnitId"] = role.OrganizationUnitId;
                 row["fromProjectRoleId"] = role.Id;
                 row["fromProjectRoleName"] = role.Name;
                 row["fromProjectRoleAccountValue"] = SetProjectRoleMappingAccountValue(role.Id);
@@ -1100,7 +1100,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<IRoleInfo> list = MembershipManagement.Instance.RoleService.FindAll(whereClause);
 
@@ -1121,23 +1121,23 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:SyncToActiveDirectory(IRoleInfo param)
+        #region 函数:SyncToLDAP(IRoleInfo param)
         /// <summary>同步信息至 Active Directory</summary>
         /// <param name="param">角色信息</param>
-        public int SyncToActiveDirectory(IRoleInfo param)
+        public int SyncToLDAP(IRoleInfo param)
         {
-            return SyncToActiveDirectory(param, param.Name, param.OrganizationId);
+            return SyncToLDAP(param, param.Name, param.OrganizationUnitId);
         }
         #endregion
 
-        #region 函数:SyncToActiveDirectory(IRoleInfo param, string originalGlobalName, string originalOrganizationId)
+        #region 函数:SyncToLDAP(IRoleInfo param, string originalGlobalName, string originalOrganizationUnitId)
         /// <summary>同步信息至 Active Directory</summary>
         /// <param name="param">角色信息</param>
         /// <param name="originalGlobalName">原始的全局名称</param>
-        /// <param name="originalOrganizationId">原始的所属组织标识</param>
-        public int SyncToActiveDirectory(IRoleInfo param, string originalGlobalName, string originalOrganizationId)
+        /// <param name="originalOrganizationUnitId">原始的所属组织标识</param>
+        public int SyncToLDAP(IRoleInfo param, string originalGlobalName, string originalOrganizationUnitId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.Name))
                 {
@@ -1154,28 +1154,28 @@ namespace X3Platform.Membership.BLL
                     // 1.原始的全局名称不为空。
                     // 2.Active Directory 上有相关对象。
                     if (!string.IsNullOrEmpty(originalGlobalName)
-                        && ActiveDirectoryManagement.Instance.Group.IsExistName(originalGlobalName))
+                        && LDAPManagement.Instance.Group.IsExistName(originalGlobalName))
                     {
                         if (param.GlobalName != originalGlobalName)
                         {
                             // 角色【${Name}】的名称发生改变。
-                            ActiveDirectoryManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
+                            LDAPManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
                         }
 
-                        if (param.OrganizationId != originalOrganizationId)
+                        if (param.OrganizationUnitId != originalOrganizationUnitId)
                         {
                             // 角色【${Name}】所属的组织发生变化。
-                            ActiveDirectoryManagement.Instance.Group.MoveTo(param.GlobalName,
-                                MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(param.OrganizationId));
+                            LDAPManagement.Instance.Group.MoveTo(param.GlobalName,
+                                MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(param.OrganizationUnitId));
                         }
 
                         return 0;
                     }
                     else
                     {
-                        string parentPath = MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(param.OrganizationId);
+                        string parentPath = MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(param.OrganizationUnitId);
 
-                        ActiveDirectoryManagement.Instance.Group.Add(param.GlobalName, parentPath);
+                        LDAPManagement.Instance.Group.Add(param.GlobalName, parentPath);
 
                         // 角色【${Name}】创建成功。
                         return 0;
@@ -1251,7 +1251,7 @@ namespace X3Platform.Membership.BLL
                 return 2;
             }
 
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IAccountInfo account = MembershipManagement.Instance.AccountService[accountId];
 
@@ -1261,7 +1261,7 @@ namespace X3Platform.Membership.BLL
                 if (account != null && !string.IsNullOrEmpty(account.GlobalName) && !string.IsNullOrEmpty(account.LoginName)
                     && role != null && !string.IsNullOrEmpty(role.GlobalName))
                 {
-                    ActiveDirectoryManagement.Instance.Group.AddRelation(account.LoginName, ActiveDirectorySchemaClassType.User, role.GlobalName);
+                    LDAPManagement.Instance.Group.AddRelation(account.LoginName, LDAPSchemaClassType.User, role.GlobalName);
                 }
             }
 
@@ -1303,7 +1303,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="roleId">角色标识</param>
         public int RemoveRelation(string accountId, string roleId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IAccountInfo account = MembershipManagement.Instance.AccountService[accountId];
 
@@ -1313,7 +1313,7 @@ namespace X3Platform.Membership.BLL
                 if (account != null && !string.IsNullOrEmpty(account.GlobalName) && !string.IsNullOrEmpty(account.LoginName)
                     && role != null && !string.IsNullOrEmpty(role.GlobalName))
                 {
-                    ActiveDirectoryManagement.Instance.Group.RemoveRelation(account.LoginName, ActiveDirectorySchemaClassType.User, role.GlobalName);
+                    LDAPManagement.Instance.Group.RemoveRelation(account.LoginName, LDAPSchemaClassType.User, role.GlobalName);
                 }
             }
 
@@ -1353,7 +1353,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="accountId">帐号标识</param>
         public int RemoveAllRelation(string accountId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IList<IAccountRoleRelationInfo> list = FindAllRelationByAccountId(accountId);
 
@@ -1386,7 +1386,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="roleId">角色标识</param>
         public int SetDefaultRelation(string accountId, string roleId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IAccountInfo account = MembershipManagement.Instance.AccountService[accountId];
 
@@ -1394,7 +1394,7 @@ namespace X3Platform.Membership.BLL
 
                 if (account != null && role != null)
                 {
-                    ActiveDirectoryManagement.Instance.Group.AddRelation(account.GlobalName, ActiveDirectorySchemaClassType.User, role.Name);
+                    LDAPManagement.Instance.Group.AddRelation(account.GlobalName, LDAPSchemaClassType.User, role.Name);
                 }
             }
 
@@ -1407,7 +1407,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="roleId">角色标识</param>
         public int ClearupRelation(string roleId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 IList<IAccountRoleRelationInfo> list = FindAllRelationByRoleId(roleId);
 

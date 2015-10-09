@@ -21,31 +21,31 @@ namespace X3Platform.Membership
         string CorporationId { get; set; }
 
         /// <summary>默认公司信息</summary>
-        IOrganizationInfo Corporation { get; }
+        IOrganizationUnitInfo Corporation { get; }
 
         /// <summary>默认一级部门标识</summary>
         string DepartmentId { get; set; }
 
         /// <summary>默认一级部门信息</summary>
-        IOrganizationInfo Department { get; }
+        IOrganizationUnitInfo Department { get; }
 
         /// <summary>默认二级部门标识</summary>
         string Department2Id { get; set; }
 
         /// <summary>默认二级部门信息</summary>
-        IOrganizationInfo Department2 { get; }
+        IOrganizationUnitInfo Department2 { get; }
 
         /// <summary>默认三级部门标识</summary>
         string Department3Id { get; set; }
 
         /// <summary>默认三级部门信息</summary>
-        IOrganizationInfo Department3 { get; }
+        IOrganizationUnitInfo Department3 { get; }
 
         /// <summary>默认所属组织标识</summary>
-        string OrganizationId { get; set; }
+        string OrganizationUnitId { get; set; }
 
         /// <summary>默认所属组织信息</summary>
-        IOrganizationInfo Organization { get; }
+        IOrganizationUnitInfo OrganizationUnit { get; }
 
         /// <summary>默认所属组织路径</summary>
         string OrganizationPath { get; }

@@ -221,7 +221,7 @@
     /// <returns>返回所有实例<see cref="ApplicationFeatureInfo"/>的详细信息</returns>
     public IList<ApplicationFeatureInfo> FindAllBetweenDateTime(DateTime beginDate, DateTime endDate)
     {
-      return Dictionary.Where(cacheItem => cacheItem.UpdateDate > beginDate && cacheItem.UpdateDate <= endDate).ToList();
+      return Dictionary.Where(cacheItem => cacheItem.ModifiedDate > beginDate && cacheItem.ModifiedDate <= endDate).ToList();
     }
     #endregion
 
@@ -351,7 +351,7 @@
     ///<param name="param">应用功能信息</param>
     public IList<ApplicationFeatureInfo> FetchNeededSyncData(DateTime beginDate, DateTime endDate)
     {
-      string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+      string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
       return this.provider.FindAll(whereClause, 0);
     }

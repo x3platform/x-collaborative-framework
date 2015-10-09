@@ -131,8 +131,9 @@ namespace X3Platform.Messages
                     {
                         this.connection.Close();
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        MessageQueueManagement.Log.Error(ex.Message, ex);
                     }
 
                     this.connection = null;
@@ -160,8 +161,9 @@ namespace X3Platform.Messages
                 {
                     this.channel.Close();
                 }
-                catch
+                catch (Exception ex)
                 {
+                    MessageQueueManagement.Log.Error(ex.Message, ex);
                 }
 
                 this.channel = null;
@@ -174,8 +176,9 @@ namespace X3Platform.Messages
                 {
                     this.connection.Close();
                 }
-                catch
+                catch (Exception ex)
                 {
+                    MessageQueueManagement.Log.Error(ex.Message, ex);
                 }
 
                 this.connection = null;
@@ -186,13 +189,15 @@ namespace X3Platform.Messages
         /// <param name="data"></param>
         public virtual void Send(IMessageObject data)
         {
-            if (data == null)
-            {
-                return;
-            }
+            if (data == null) { return; }
 
             lock (lockObject)
             {
+                if (this.channel == null)
+                {
+                    InitializeQueue();
+                }
+
                 try
                 {
                     // 在 MQ 上定义一个持久化队列，如果名称相同不会重复创建

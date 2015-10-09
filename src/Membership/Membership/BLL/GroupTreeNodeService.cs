@@ -18,8 +18,8 @@ namespace X3Platform.Membership.BLL
     using System.Collections.Generic;
     using System.Text;
 
-    using X3Platform.ActiveDirectory;
-    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.LDAP;
+    using X3Platform.LDAP.Configuration;
     using X3Platform.Configuration;
     using X3Platform.Spring;
 
@@ -74,14 +74,14 @@ namespace X3Platform.Membership.BLL
         /// <returns>ʵ��<see cref="GroupTreeNodeInfo"/>��ϸ��Ϣ</returns>
         public GroupTreeNodeInfo Save(GroupTreeNodeInfo param)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 GroupTreeNodeInfo originalObject = FindOne(param.Id);
 
                 if (originalObject == null)
                     originalObject = param;
 
-                SyncToActiveDirectory(param, originalObject.Name, originalObject.ParentId);
+                SyncToLDAP(param, originalObject.Name, originalObject.ParentId);
             }
 
             // ����Ψһʶ������
@@ -244,27 +244,27 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineDistinguishedName(string name, string parentId)
         {
-            string path = GetActiveDirectoryOUPathByGroupTreeNodeId(parentId);
+            string path = GetLDAPOUPathByGroupTreeNodeId(parentId);
 
-            return string.Format("OU={0},{1}{2}", name, path, ActiveDirectoryConfigurationView.Instance.SuffixDistinguishedName);
+            return string.Format("OU={0},{1}{2}", name, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
         #endregion
 
-        #region 属性:GetActiveDirectoryOUPathByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId)
         /// <summary>���ݷ��������ڵ���ʶ���� Active Directory OU ·��</summary>
         /// <param name="groupTreeNodeId">���������ڵ���ʶ</param>
         /// <returns></returns>
-        public string GetActiveDirectoryOUPathByGroupTreeNodeId(string groupTreeNodeId)
+        public string GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId)
         {
-            return FormatActiveDirectoryPath(groupTreeNodeId);
+            return FormatLDAPPath(groupTreeNodeId);
         }
         #endregion
 
-        #region ˽�к���:FormatActiveDirectoryPath(string id)
+        #region ˽�к���:FormatLDAPPath(string id)
         /// <summary>��ʽ�� Active Directory ·��</summary>
         /// <param name="groupTreeNodeId"></param>
         /// <returns></returns>
-        private string FormatActiveDirectoryPath(string groupTreeNodeId)
+        private string FormatLDAPPath(string groupTreeNodeId)
         {
             string path = string.Empty;
 
@@ -295,7 +295,7 @@ namespace X3Platform.Membership.BLL
                 {
                     parentId = param.ParentId;
 
-                    path = FormatActiveDirectoryPath(parentId);
+                    path = FormatLDAPPath(parentId);
 
                     path = string.IsNullOrEmpty(path) ? string.Format("OU={0}", name) : string.Format("OU={0}", name) + "," + path;
 
@@ -315,7 +315,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<GroupTreeNodeInfo> list = MembershipManagement.Instance.GroupTreeNodeService.FindAll(whereClause);
 
@@ -336,23 +336,23 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IRoleInfo param)
+        #region 属性:SyncToLDAP(IRoleInfo param)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">��ɫ��Ϣ</param>
-        public int SyncToActiveDirectory(GroupTreeNodeInfo param)
+        public int SyncToLDAP(GroupTreeNodeInfo param)
         {
-            return SyncToActiveDirectory(param, param.Name, param.ParentId);
+            return SyncToLDAP(param, param.Name, param.ParentId);
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IRoleInfo param, string originalName, string originalParentId)
+        #region 属性:SyncToLDAP(IRoleInfo param, string originalName, string originalParentId)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">����������Ϣ</param>
         /// <param name="originalName">ԭʼ������</param>
         /// <param name="originalParentId">ԭʼ�ĸ�����ʶ</param>
-        public int SyncToActiveDirectory(GroupTreeNodeInfo param, string originalName, string originalParentId)
+        public int SyncToLDAP(GroupTreeNodeInfo param, string originalName, string originalParentId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.Name))
                 {
@@ -361,35 +361,35 @@ namespace X3Platform.Membership.BLL
                 }
                 else
                 {
-                    string parentPath = this.GetActiveDirectoryOUPathByGroupTreeNodeId(originalParentId);
+                    string parentPath = this.GetLDAPOUPathByGroupTreeNodeId(originalParentId);
 
                     // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
                     // 2.Active Directory �������ض�����
                     if (!string.IsNullOrEmpty(originalName)
-                        && ActiveDirectoryManagement.Instance.Organization.IsExistName(originalName, parentPath))
+                        && LDAPManagement.Instance.OrganizationUnit.IsExistName(originalName, parentPath))
                     {
                         if (param.Name != originalName)
                         {
                             // ����������${Name}�������Ʒ����ı䡣
-                            ActiveDirectoryManagement.Instance.Organization.Rename(
+                            LDAPManagement.Instance.OrganizationUnit.Rename(
                                     originalName,
-                                    this.GetActiveDirectoryOUPathByGroupTreeNodeId(originalParentId),
+                                    this.GetLDAPOUPathByGroupTreeNodeId(originalParentId),
                                     param.Name);
                         }
 
                         if (param.ParentId != originalParentId)
                         {
                             // ����������${Name}���ĸ����ڵ㷢���ı䡣
-                            ActiveDirectoryManagement.Instance.Organization.MoveTo(
-                                this.GetActiveDirectoryOUPathByGroupTreeNodeId(param.Id),
-                                this.GetActiveDirectoryOUPathByGroupTreeNodeId(param.ParentId));
+                            LDAPManagement.Instance.OrganizationUnit.MoveTo(
+                                this.GetLDAPOUPathByGroupTreeNodeId(param.Id),
+                                this.GetLDAPOUPathByGroupTreeNodeId(param.ParentId));
                         }
 
                         return 0;
                     }
                     else
                     {
-                        ActiveDirectoryManagement.Instance.Organization.Add(param.Name, this.GetActiveDirectoryOUPathByGroupTreeNodeId(param.ParentId));
+                        LDAPManagement.Instance.OrganizationUnit.Add(param.Name, this.GetLDAPOUPathByGroupTreeNodeId(param.ParentId));
 
                         // ����������${Name}�������ɹ���
                         return 0;

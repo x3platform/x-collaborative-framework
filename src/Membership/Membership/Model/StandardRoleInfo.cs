@@ -190,39 +190,39 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:StandardOrganizationId
-        private string m_StandardOrganizationId;
+        #region 属性:StandardOrganizationUnitId
+        private string m_StandardOrganizationUnitId;
 
         /// <summary></summary>
-        public string StandardOrganizationId
+        public string StandardOrganizationUnitId
         {
-            get { return m_StandardOrganizationId; }
-            set { m_StandardOrganizationId = value; }
+            get { return m_StandardOrganizationUnitId; }
+            set { m_StandardOrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:StandardOrganizationName
+        #region 属性:StandardOrganizationUnitName
         /// <summary>标准角色名称</summary>
-        public string StandardOrganizationName
+        public string StandardOrganizationUnitName
         {
-            get { return this.StandardOrganization == null ? string.Empty : this.StandardOrganization.Name; }
+            get { return this.StandardOrganizationUnit == null ? string.Empty : this.StandardOrganizationUnit.Name; }
         }
         #endregion
 
-        #region 属性:StandardOrganization
-        private IStandardOrganizationInfo m_StandardOrganization = null;
+        #region 属性:StandardOrganizationUnit
+        private IStandardOrganizationUnitInfo m_StandardOrganizationUnit = null;
 
         /// <summary>所属的标准组织</summary>
-        public IStandardOrganizationInfo StandardOrganization
+        public IStandardOrganizationUnitInfo StandardOrganizationUnit
         {
             get
             {
-                if (m_StandardOrganization == null && !string.IsNullOrEmpty(this.StandardOrganizationId))
+                if (m_StandardOrganizationUnit == null && !string.IsNullOrEmpty(this.StandardOrganizationUnitId))
                 {
-                    m_StandardOrganization = MembershipManagement.Instance.StandardOrganizationService[this.StandardOrganizationId];
+                    m_StandardOrganizationUnit = MembershipManagement.Instance.StandardOrganizationUnitService[this.StandardOrganizationUnitId];
                 }
 
-                return m_StandardOrganization;
+                return m_StandardOrganizationUnit;
             }
         }
         #endregion
@@ -304,25 +304,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -376,7 +376,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<parentId><![CDATA[{0}]]></parentId>", this.ParentId);
             if (displayComment)
                 outString.Append("<!-- 所属标准组织标识(字符串) (nvarchar(36)) -->");
-            outString.AppendFormat("<standardOrganizationId><![CDATA[{0}]]></standardOrganizationId>", this.StandardOrganizationId);
+            outString.AppendFormat("<standardOrganizationUnitId><![CDATA[{0}]]></standardOrganizationUnitId>", this.StandardOrganizationUnitId);
             if (displayComment)
                 outString.Append("<!-- 标准角色类型(整型) (int) -->");
             outString.AppendFormat("<type><![CDATA[{0}]]></type>", this.Type);
@@ -400,7 +400,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<remark><![CDATA[{0}]]></remark>", this.Remark);
             if (displayComment)
                 outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</standardRole>");
 
             return outString.ToString();
@@ -416,7 +416,7 @@ namespace X3Platform.Membership.Model
             this.Code = element.SelectSingleNode("code").InnerText;
             this.Name = element.SelectSingleNode("name").InnerText;
             this.ParentId = element.SelectSingleNode("parentId").InnerText;
-            this.StandardOrganizationId = element.SelectSingleNode("standardOrganizationId").InnerText;
+            this.StandardOrganizationUnitId = element.SelectSingleNode("standardOrganizationUnitId").InnerText;
             this.Type = Convert.ToInt32(element.SelectSingleNode("type").InnerText);
             this.Priority = Convert.ToInt32(element.SelectSingleNode("priority").InnerText);
             this.IsKey = Convert.ToBoolean(element.SelectSingleNode("isKey").InnerText);
@@ -424,7 +424,7 @@ namespace X3Platform.Membership.Model
             this.OrderId = element.SelectSingleNode("orderId").InnerText;
             this.Status = Convert.ToInt32(element.SelectSingleNode("status").InnerText);
             this.Remark = element.SelectSingleNode("remark").InnerText;
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

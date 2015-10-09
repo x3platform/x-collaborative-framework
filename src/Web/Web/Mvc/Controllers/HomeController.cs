@@ -218,7 +218,7 @@
       //  outString.Append(BuilderContext.Instance.CustomizeManagement.ParseHomePage("Organization", navigationPortal.OrganizationId));
       //}
 
-      outString.Append(BuilderContext.Instance.CustomizeManagement.ParseHomePage("Organization", navigationPortal.OrganizationId));
+      outString.Append(BuilderContext.Instance.CustomizeManagement.ParseHomePage("Organization", navigationPortal.OrganizationUnitId));
 
       outString.Append("</div>");
       outString.Append("</td>");

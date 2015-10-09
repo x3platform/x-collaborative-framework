@@ -34,10 +34,10 @@ goto :EOF
 
 :CopyConfigFiles			
 	
-	attrib "%TargetWebSiteDir%config\*.config" -r
+	@REM attrib "%TargetWebSiteDir%config\*.config" -r
 	
 	xcopy "%ProjectDir%config\*.config" "%TargetWebSiteDir%config\" /y
 
-	attrib "%TargetWebSiteDir%config\*.config" +r
+	@REM attrib "%TargetWebSiteDir%config\*.config" +r
 	    
 goto :EOF       

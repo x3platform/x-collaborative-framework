@@ -1,4 +1,4 @@
-namespace X3Platform.ActiveDirectory.Interop
+namespace X3Platform.LDAP.Interop
 {
     #region Using Libraries
     using System;
@@ -6,7 +6,7 @@ namespace X3Platform.ActiveDirectory.Interop
 
     using Common.Logging;
 
-    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.LDAP.Configuration;
     #endregion
 
     public sealed class GroupHelper
@@ -26,11 +26,11 @@ namespace X3Platform.ActiveDirectory.Interop
         public GroupHelper()
         {
             Initialize(
-                ActiveDirectoryConfigurationView.Instance.IntegratedMode,
-                ActiveDirectoryConfigurationView.Instance.LDAPPath,
-                ActiveDirectoryConfigurationView.Instance.LoginName,
-                ActiveDirectoryConfigurationView.Instance.Password,
-                ActiveDirectoryConfigurationView.Instance.CorporationGroupFolderRoot);
+                LDAPConfigurationView.Instance.IntegratedMode,
+                LDAPConfigurationView.Instance.LDAPPath,
+                LDAPConfigurationView.Instance.LoginName,
+                LDAPConfigurationView.Instance.Password,
+                LDAPConfigurationView.Instance.CorporationGroupFolderRoot);
         }
 
         public GroupHelper(string integratedMode, string path, string username, string password, string directoryName)
@@ -55,7 +55,7 @@ namespace X3Platform.ActiveDirectory.Interop
         #region 函数:Add(string name, string parentPath)
         /// <summary>添加组</summary>
         /// <param name="name">名称</param>
-        /// <param name="parentPath">OrganizationalUnit Name</param>
+        /// <param name="parentPath">OrganizationUnitalUnit Name</param>
         public void Add(string name, string parentPath)
         {
             if (this.integratedMode == "OFF")
@@ -69,7 +69,7 @@ namespace X3Platform.ActiveDirectory.Interop
                 {
                     string fullName = string.Format("CN={0}", name + (string.Format(",{0}", (string.IsNullOrEmpty(parentPath) ? string.Format("OU={0}", directoryName) : parentPath))));
 
-                    DirectoryEntry param = directoryEntry.Children.Add(fullName, ActiveDirectorySchemaClassType.Group);
+                    DirectoryEntry param = directoryEntry.Children.Add(fullName, LDAPSchemaClassType.Group);
 
                     // 2:全局-通讯组 | 8:通用-通讯组 | -2147483640:通用-安全组
 
@@ -94,7 +94,7 @@ namespace X3Platform.ActiveDirectory.Interop
         /// <returns></returns>
         public DirectoryEntry Find(string name)
         {
-            return Find(name, ActiveDirectorySchemaClassType.Group);
+            return Find(name, LDAPSchemaClassType.Group);
         }
 
         /// <summary>查询</summary>
@@ -248,7 +248,7 @@ namespace X3Platform.ActiveDirectory.Interop
                 return;
 
             DirectoryEntry child = Find(name, schemaClassName);
-            DirectoryEntry group = Find(groupName, ActiveDirectorySchemaClassType.Group);
+            DirectoryEntry group = Find(groupName, LDAPSchemaClassType.Group);
 
             if (child == null || group == null)
                 return;
@@ -280,7 +280,7 @@ namespace X3Platform.ActiveDirectory.Interop
                 return;
 
             DirectoryEntry child = Find(name, schemaClassName);
-            DirectoryEntry group = Find(groupName, ActiveDirectorySchemaClassType.Group);
+            DirectoryEntry group = Find(groupName, LDAPSchemaClassType.Group);
 
             if (child == null || group == null)
                 return;

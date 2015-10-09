@@ -92,7 +92,7 @@ namespace X3Platform.Membership.IDAL
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
         IList<IRoleInfo> FindAllByParentId(string parentId);
         #endregion
 
@@ -103,11 +103,11 @@ namespace X3Platform.Membership.IDAL
         IList<IRoleInfo> FindAllByAccountId(string accountId);
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下面所有的角色</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个 IRoleInfo 实例的详细信息</returns>
-        IList<IRoleInfo> FindAllByOrganizationId(string organizationId);
+        IList<IRoleInfo> FindAllByOrganizationUnitId(string organizationId);
         #endregion
 
         #region 函数:FindAllByGeneralRoleId(string generalRoleId)
@@ -117,11 +117,11 @@ namespace X3Platform.Membership.IDAL
         IList<IRoleInfo> FindAllByGeneralRoleId(string generalRoleId);
         #endregion
 
-        #region 函数:FindAllByStandardOrganizationId(string standardOrganizationId)
+        #region 函数:FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         /// <summary>递归查询某个标准组织下面所有的角色</summary>
-        /// <param name="standardOrganizationId">组织标识</param>
+        /// <param name="standardOrganizationUnitId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        IList<IRoleInfo> FindAllByStandardOrganizationId(string standardOrganizationId);
+        IList<IRoleInfo> FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId);
         #endregion
 
         #region 函数:FindAllByStandardRoleId(string standardRoleId)
@@ -131,12 +131,12 @@ namespace X3Platform.Membership.IDAL
         IList<IRoleInfo> FindAllByStandardRoleId(string standardRoleId);
         #endregion
 
-        #region 函数:FindAllByOrganizationIdAndJobId(string organizationId, string jobId)
+        #region 函数:FindAllByOrganizationUnitIdAndJobId(string organizationId, string jobId)
         /// <summary>递归查询某个组织下面相关的职位对应的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="jobId">职位标识</param>
         /// <returns>返回一个<see cref="IRoleInfo"/>实例的详细信息</returns>
-        IList<IRoleInfo> FindAllByOrganizationIdAndJobId(string organizationId, string jobId);
+        IList<IRoleInfo> FindAllByOrganizationUnitIdAndJobId(string organizationId, string jobId);
         #endregion
 
         #region 函数:FindAllByAssignedJobId(string assignedJobId)
@@ -171,28 +171,28 @@ namespace X3Platform.Membership.IDAL
         IList<IRoleInfo> FindAllWithoutMember(int length, bool includeAllRole);
         #endregion
 
-        #region 函数:FindForwardLeadersByOrganizationId(string organizationId, int level)
+        #region 函数:FindForwardLeadersByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有正向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        IList<IRoleInfo> FindForwardLeadersByOrganizationId(string organizationId, int level);
+        IList<IRoleInfo> FindForwardLeadersByOrganizationUnitId(string organizationId, int level);
         #endregion
 
-        #region 函数:FindBackwardLeadersByOrganizationId(string organizationId, int level)
+        #region 函数:FindBackwardLeadersByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有反向领导的角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        IList<IRoleInfo> FindBackwardLeadersByOrganizationId(string organizationId, int level);
+        IList<IRoleInfo> FindBackwardLeadersByOrganizationUnitId(string organizationId, int level);
         #endregion
 
-        #region 函数:FindStandardGeneralRolesByOrganizationId(string organizationId, string standardGeneralRoleId)
+        #region 函数:FindStandardGeneralRolesByOrganizationUnitId(string organizationId, string standardGeneralRoleId)
         /// <summary>返回所有父级对象为标准通用角色标识【standardGeneralRoleId】的相关角色信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="standardGeneralRoleId">标准通用角色标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        IList<IRoleInfo> FindStandardGeneralRolesByOrganizationId(string organizationId, string standardGeneralRoleId);
+        IList<IRoleInfo> FindStandardGeneralRolesByOrganizationUnitId(string organizationId, string standardGeneralRoleId);
         #endregion
 
         // -------------------------------------------------------

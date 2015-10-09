@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :IStandardOrganizationProvider.cs
+// FileName     :IStandardOrganizationUnitProvider.cs
 //
 // Description  :
 //
@@ -26,7 +26,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
     /// <summary></summary>
     [DataObject]
-    public class StandardOrganizationProvider : IStandardOrganizationProvider
+    public class StandardOrganizationUnitProvider : IStandardOrganizationUnitProvider
     {
         /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
@@ -38,11 +38,11 @@ namespace X3Platform.Membership.DAL.IBatis
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "tb_StandardOrganization";
+        private string tableName = "tb_StandardOrganizationUnit";
 
-        #region 构造函数:StandardOrganizationProvider()
+        #region 构造函数:StandardOrganizationUnitProvider()
         /// <summary>构造函数</summary>
-        public StandardOrganizationProvider()
+        public StandardOrganizationUnitProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -56,11 +56,11 @@ namespace X3Platform.Membership.DAL.IBatis
         // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 函数:Save(IStandardOrganizationInfo param)
+        #region 函数:Save(IStandardOrganizationUnitInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        /// <returns>实例<see cref="IStandardOrganizationInfo"/>详细信息</returns>
-        public IStandardOrganizationInfo Save(IStandardOrganizationInfo param)
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</returns>
+        public IStandardOrganizationUnitInfo Save(IStandardOrganizationUnitInfo param)
         {
             if (!IsExist(param.Id))
             {
@@ -71,14 +71,14 @@ namespace X3Platform.Membership.DAL.IBatis
                 Update(param);
             }
 
-            return (IStandardOrganizationInfo)param;
+            return (IStandardOrganizationUnitInfo)param;
         }
         #endregion
 
-        #region 函数:Insert(IStandardOrganizationInfo param)
+        #region 函数:Insert(IStandardOrganizationUnitInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        public void Insert(IStandardOrganizationInfo param)
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        public void Insert(IStandardOrganizationUnitInfo param)
         {
             if (string.IsNullOrEmpty(param.Id))
             {
@@ -87,17 +87,17 @@ namespace X3Platform.Membership.DAL.IBatis
 
             if (string.IsNullOrEmpty(param.Code))
             {
-                param.Code = DigitalNumberContext.Generate("Table_StandardOrganization_Key_Code");
+                param.Code = DigitalNumberContext.Generate("Table_StandardOrganizationUnit_Key_Code");
             }
 
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
-        #region 函数:Update(IStandardOrganizationInfo param)
+        #region 函数:Update(IStandardOrganizationUnitInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="IStandardOrganizationInfo"/>详细信息</param>
-        public void Update(IStandardOrganizationInfo param)
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        public void Update(IStandardOrganizationUnitInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
@@ -126,14 +126,14 @@ namespace X3Platform.Membership.DAL.IBatis
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        public IStandardOrganizationInfo FindOne(string id)
+        /// <returns>返回实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        public IStandardOrganizationUnitInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("Id", StringHelper.ToSafeSQL(id));
 
-            IStandardOrganizationInfo param = this.ibatisMapper.QueryForObject<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+            IStandardOrganizationUnitInfo param = this.ibatisMapper.QueryForObject<IStandardOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
 
             return param;
         }
@@ -143,15 +143,15 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
-        public IList<IStandardOrganizationInfo> FindAll(string whereClause, int length)
+        /// <returns>返回所有实例<see cref="IStandardOrganizationUnitInfo"/>的详细信息</returns>
+        public IList<IStandardOrganizationUnitInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<IStandardOrganizationInfo> list = this.ibatisMapper.QueryForList<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<IStandardOrganizationUnitInfo> list = this.ibatisMapper.QueryForList<IStandardOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -160,8 +160,8 @@ namespace X3Platform.Membership.DAL.IBatis
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        public IList<IStandardOrganizationInfo> FindAllByParentId(string parentId)
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IList<IStandardOrganizationUnitInfo> FindAllByParentId(string parentId)
         {
             string whereClause = string.Format(" ParentId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(parentId));
 
@@ -179,19 +179,19 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="IStandardOrganizationInfo"/></returns>
-        public IList<IStandardOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="IStandardOrganizationUnitInfo"/></returns>
+        public IList<IStandardOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
             args.Add("RowCount", 0);
 
-            IList<IStandardOrganizationInfo> list = this.ibatisMapper.QueryForList<IStandardOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+            IList<IStandardOrganizationUnitInfo> list = this.ibatisMapper.QueryForList<IStandardOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -301,10 +301,10 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:SyncFromPackPage(IStandardOrganizationInfo param)
+        #region 函数:SyncFromPackPage(IStandardOrganizationUnitInfo param)
         /// <summary>同步信息</summary>
         /// <param name="param">组织信息</param>
-        public int SyncFromPackPage(IStandardOrganizationInfo param)
+        public int SyncFromPackPage(IStandardOrganizationUnitInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);
 

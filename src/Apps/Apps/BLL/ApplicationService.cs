@@ -336,7 +336,7 @@
     ///<param name="param">应用参数信息</param>
     public IList<ApplicationInfo> FetchNeededSyncData(DateTime beginDate, DateTime endDate)
     {
-      string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+      string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
       return this.provider.FindAll(whereClause, 0);
     }

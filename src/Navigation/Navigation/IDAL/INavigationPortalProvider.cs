@@ -96,11 +96,11 @@ namespace X3Platform.Navigation.IDAL
         NavigationPortalInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindOneByOrganizationId(string organizationId)
+        #region 属性:FindOneByOrganizationUnitId(string organizationId)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="organizationId">��֯��ʶ</param>
         /// <returns>����ʵ��<see cref="NavigationPortalInfo"/>����ϸ��Ϣ</returns>
-        NavigationPortalInfo FindOneByOrganizationId(string organizationId);
+        NavigationPortalInfo FindOneByOrganizationUnitId(string organizationId);
         #endregion
 
         #region 属性:FindAll(string whereClause, int length)

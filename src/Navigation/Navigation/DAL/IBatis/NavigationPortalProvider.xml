@@ -6,7 +6,7 @@
 	<resultMaps>
 		<resultMap id="proc_Navigation_Portal_FindOne_Result" class="NavigationPortalInfo">
 			<result property="Id" column="Id" />
-			<result property="OrganizationId" column="OrganizationId" />
+			<result property="OrganizationUnitId" column="OrganizationUnitId" />
 			<result property="Text" column="Text" />
 			<result property="Description" column="Description" />
 			<result property="Url" column="Url" />
@@ -22,7 +22,7 @@
 		</resultMap>
 		<resultMap id="proc_Navigation_Portal_FindAll_Result" class="NavigationPortalInfo">
 			<result property="Id" column="Id" />
-			<result property="OrganizationId" column="OrganizationId" />
+			<result property="OrganizationUnitId" column="OrganizationUnitId" />
 			<result property="Text" column="Text" />
 			<result property="Description" column="Description" />
 			<result property="Url" column="Url" />
@@ -42,7 +42,7 @@
 			INSERT INTO [tb_Navigation_Portal] 
             (
 					[Id],
-					[OrganizationId],
+					[OrganizationUnitId],
 					[Text],
 					[Description],
 					[Url],
@@ -59,7 +59,7 @@
 				VALUES
 				(
 					#Id#,
-					#OrganizationId#,
+					#OrganizationUnitId#,
 					#Text#,
 					#Description#,
 					#Url#,
@@ -79,7 +79,7 @@
 			UPDATE [tb_Navigation_Portal] SET
 
 					[Id] = #Id#,
-					[OrganizationId] = #OrganizationId#,
+					[OrganizationUnitId] = #OrganizationUnitId#,
 					[Text] = #Text#,
 					[Description] = #Description#,
 					[Url] = #Url#,

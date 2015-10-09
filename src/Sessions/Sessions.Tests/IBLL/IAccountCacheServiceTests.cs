@@ -26,9 +26,9 @@ namespace X3Platform.Sessions.Tests.Sessions
 
       param.IP = "255.255.255.255";
 
-      param.BeginDate = param.EndDate = DateTime.Now;
+      param.ValidFrom = param.ValidTo = DateTime.Now;
 
-      param.UpdateDate = DateTime.Now;
+      param.Date = DateTime.Now;
 
       SessionContext.Instance.AccountCacheService.Insert(param);
 

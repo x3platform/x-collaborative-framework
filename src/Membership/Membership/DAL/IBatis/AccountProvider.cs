@@ -133,7 +133,7 @@ namespace X3Platform.Membership.DAL.IBatis
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
 
             // 刷新相关对象更新时间
-            this.RefreshUpdateDate(param.Id);
+            this.RefreshModifiedDate(param.Id);
         }
         #endregion
 
@@ -158,7 +158,7 @@ namespace X3Platform.Membership.DAL.IBatis
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountGroup", tableName)), args);
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountRole", tableName)), args);
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountAssignedJob", tableName)), args);
-                this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountOrganization", tableName)), args);
+                this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountOrganizationUnit", tableName)), args);
 
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountGrant", tableName)), args);
                 this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete_AccountLog", tableName)), args);
@@ -280,34 +280,34 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个用户所在的所有组织单位</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
-        public IList<IAccountInfo> FindAllByOrganizationId(string organizationId)
+        public IList<IAccountInfo> FindAllByOrganizationUnitId(string organizationId)
         {
-            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Account_Organization WHERE OrganizationId = ##{0}## ) ", organizationId);
+            string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Account_OrganizationUnit WHERE OrganizationUnitId = ##{0}## ) ", organizationId);
 
             return this.FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId, bool defaultOrganizationUnitRelation)
         /// <summary>查询某个组织下的所有相关帐号</summary>
         /// <param name="organizationId">组织标识</param>
-        /// <param name="defaultOrganizationRelation">默认组织关系</param>
+        /// <param name="defaultOrganizationUnitRelation">默认组织关系</param>
         /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
-        public IList<IAccountInfo> FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+        public IList<IAccountInfo> FindAllByOrganizationUnitId(string organizationId, bool defaultOrganizationUnitRelation)
         {
-            if (defaultOrganizationRelation)
+            if (defaultOrganizationUnitRelation)
             {
-                string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Member WHERE OrganizationId = ##{0}## ) ", organizationId);
+                string whereClause = string.Format(" Id IN ( SELECT AccountId FROM tb_Member WHERE OrganizationUnitId = ##{0}## ) ", organizationId);
 
                 return this.FindAll(whereClause, 0);
             }
             else
             {
-                return this.FindAllByOrganizationId(organizationId);
+                return this.FindAllByOrganizationUnitId(organizationId);
             }
         }
         #endregion
@@ -349,17 +349,17 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        #region 函数:FindForwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有正向领导的帐号信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-        public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
         {
             string whereClause = string.Format(@" 
 Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( 
             SELECT Id FROM tb_Role WHERE
-                OrganizationId = dbo.func_GetDepartmentIdByOrganizationId( ##{0}## , {1} ) 
+                OrganizationUnitId = dbo.func_GetDepartmentIdByOrganizationUnitId( ##{0}## , {1} ) 
                 AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
 )) ", organizationId, level);
 
@@ -367,17 +367,17 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN (
         }
         #endregion
 
-        #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        #region 函数:FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有反向领导的帐号信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-        public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
         {
             string whereClause = string.Format(@" 
 Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN ( 
             SELECT Id FROM tb_Role WHERE
-                OrganizationId IN ( dbo.func_GetDepartmentIdByOrganizationId( ##{0}## , ( dbo.func_GetDepartmentLevelByOrganizationId( ##{0}## ) - {1} ) ) )
+                OrganizationUnitId IN ( dbo.func_GetDepartmentIdByOrganizationUnitId( ##{0}## , ( dbo.func_GetDepartmentLevelByOrganizationUnitId( ##{0}## ) - {1} ) ) )
                 AND StandardRoleId IN ( SELECT Id FROM tb_StandardRole WHERE Priority >= 40 )
 )) ", organizationId, level);
 
@@ -406,16 +406,16 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
 
                 args.Add("WhereClause", " ( T.Name LIKE '%" + searchText + "%' OR T.GlobalName LIKE '%" + searchText + "%' OR T.LoginName LIKE '%" + searchText + "%' ) ");
             }
-            else if (query.Variables["scence"] == "QueryByOrganizationId")
+            else if (query.Variables["scence"] == "QueryByOrganizationUnitId")
             {
-                args.Add("WhereClause", " T.Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( SELECT Id FROM tb_Role WHERE OrganizationId = '" + StringHelper.ToSafeSQL(query.Where["OrganizationId"].ToString()) + "' ) ) ");
+                args.Add("WhereClause", " T.Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( SELECT Id FROM tb_Role WHERE OrganizationUnitId = '" + StringHelper.ToSafeSQL(query.Where["OrganizationUnitId"].ToString()) + "' ) ) ");
             }
             else
             {
                 args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
             }
 
-            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, ModifiedDate DESC "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
@@ -556,7 +556,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Rename", tableName)), args);
 
             // 刷新相关对象更新时间
-            this.RefreshUpdateDate(id);
+            this.RefreshModifiedDate(id);
 
             return 0;
         }
@@ -581,7 +581,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetGlobalName", tableName)), args);
 
             // 刷新相关对象更新时间
-            RefreshUpdateDate(accountId);
+            RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -647,7 +647,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetLoginName", tableName)), args);
 
             // 刷新相关对象更新时间
-            this.RefreshUpdateDate(accountId);
+            this.RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -668,7 +668,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetCertifiedTelephone", tableName)), args);
 
             // 刷新相关对象更新时间
-            this.RefreshUpdateDate(accountId);
+            this.RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -689,7 +689,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetCertifiedEmail", tableName)), args);
 
             // 刷新相关对象更新时间
-            this.RefreshUpdateDate(accountId);
+            this.RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -710,7 +710,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetCertifiedAvatar", tableName)), args);
 
             // 刷新相关对象更新时间
-            this.RefreshUpdateDate(accountId);
+            this.RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -731,7 +731,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetExchangeStatus", tableName)), args);
 
             // 刷新相关对象更新时间
-            RefreshUpdateDate(accountId);
+            RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -752,7 +752,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetStatus", tableName)), args);
 
             // 刷新相关对象更新时间
-            RefreshUpdateDate(accountId);
+            RefreshModifiedDate(accountId);
 
             return 0;
         }
@@ -873,11 +873,11 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
         }
         #endregion
 
-        #region 函数:RefreshUpdateDate(string accountId)
+        #region 函数:RefreshModifiedDate(string accountId)
         /// <summary>刷新帐号的更新时间</summary>
         /// <param name="accountId">帐户标识</param>
         /// <returns>0 设置成功, 1 设置失败.</returns>
-        public int RefreshUpdateDate(string accountId)
+        public int RefreshModifiedDate(string accountId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -939,7 +939,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
                     {
                         MembershipManagement.Instance.RoleService.SetDefaultRelation(accountId, member.Role.Id);
 
-                        MembershipManagement.Instance.OrganizationService.SetDefaultRelation(accountId, member.Role.OrganizationId);
+                        MembershipManagement.Instance.OrganizationUnitService.SetDefaultRelation(accountId, member.Role.OrganizationUnitId);
                     }
                 }
 
@@ -947,7 +947,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
                 MembershipManagement.Instance.RoleService.RemoveNondefaultRelation(accountId);
 
                 // 3.移除非默认组织关系
-                MembershipManagement.Instance.OrganizationService.RemoveNondefaultRelation(accountId);
+                MembershipManagement.Instance.OrganizationUnitService.RemoveNondefaultRelation(accountId);
 
                 // 4.设置新的关系
                 foreach (IAccountRoleRelationInfo item in param.RoleRelations)
@@ -964,11 +964,11 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
                         continue;
                     }
 
-                    if (!string.IsNullOrEmpty(role.OrganizationId))
+                    if (!string.IsNullOrEmpty(role.OrganizationUnitId))
                     {
-                        MembershipManagement.Instance.OrganizationService.AddRelation(accountId, role.OrganizationId);
+                        MembershipManagement.Instance.OrganizationUnitService.AddRelation(accountId, role.OrganizationUnitId);
 
-                        MembershipManagement.Instance.OrganizationService.AddParentRelations(accountId, role.OrganizationId);
+                        MembershipManagement.Instance.OrganizationUnitService.AddParentRelations(accountId, role.OrganizationUnitId);
                     }
                 }
 
@@ -977,7 +977,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
                 {
                     MembershipManagement.Instance.RoleService.SetDefaultRelation(accountId, member.Role.Id);
 
-                    MembershipManagement.Instance.OrganizationService.SetDefaultRelation(accountId, member.Role.OrganizationId);
+                    MembershipManagement.Instance.OrganizationUnitService.SetDefaultRelation(accountId, member.Role.OrganizationUnitId);
                 }
 
                 //

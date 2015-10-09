@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :StandardOrganizationService.cs
+// FileName     :StandardOrganizationUnitService.cs
 //
 // Description  :
 //
@@ -188,10 +188,10 @@ namespace X3Platform.Membership.BLL
 
             IStandardGeneralRoleMappingRelationInfo relation = this.FindOneMappingRelation(standardGeneralRoleId, organizationId);
 
-            IList<IRoleInfo> roles = MembershipManagement.Instance.RoleService.FindAllByOrganizationId(organizationId);
+            IList<IRoleInfo> roles = MembershipManagement.Instance.RoleService.FindAllByOrganizationUnitId(organizationId);
 
             table.Columns.Add("StandardGeneralRoleId");
-            table.Columns.Add("OrganizationId");
+            table.Columns.Add("OrganizationUnitId");
             table.Columns.Add("RoleId");
             table.Columns.Add("RoleName");
             table.Columns.Add("IsMapping");
@@ -201,7 +201,7 @@ namespace X3Platform.Membership.BLL
                 DataRow row = table.NewRow();
 
                 row["StandardGeneralRoleId"] = standardGeneralRoleId;
-                row["OrganizationId"] = organizationId;
+                row["OrganizationUnitId"] = organizationId;
                 row["RoleId"] = roles[i].Id;
                 row["RoleName"] = roles[i].Name;
                 row["IsMapping"] = "0";
@@ -226,7 +226,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<IStandardGeneralRoleInfo> list = MembershipManagement.Instance.StandardGeneralRoleService.FindAll(whereClause);
 
@@ -322,13 +322,13 @@ namespace X3Platform.Membership.BLL
         {
             IStandardGeneralRoleInfo standardGeneralRole = this.FindOne(standardGeneralRoleId);
 
-            IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService.FindOne(organizationId);
+            IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService.FindOne(organizationId);
 
             RoleInfo role = new RoleInfo();
 
             role.Id = DigitalNumberContext.Generate("Key_Guid");
             role.Name = organization.GlobalName + "_" + standardGeneralRole.Name;
-            role.OrganizationId = organizationId;
+            role.OrganizationUnitId = organizationId;
             role.StandardRoleId = string.Empty;
             role.Type = 65536; // �ڲ�������ɫ
             role.Locking = 0; // ������

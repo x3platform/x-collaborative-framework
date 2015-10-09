@@ -8,8 +8,8 @@
     <ProjectGuid>{C6A0F863-E3CF-40B9-93BC-A2AA03E8F65C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>X3Platform.ActiveDirectory</RootNamespace>
-    <AssemblyName>X3Platform.ActiveDirectory</AssemblyName>
+    <RootNamespace>X3Platform.LDAP</RootNamespace>
+    <AssemblyName>X3Platform.LDAP</AssemblyName>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -65,13 +65,13 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ActiveDirectoryManagement.cs" />
-    <Compile Include="Configuration\ActiveDirectoryConfiguration.cs" />
-    <Compile Include="Configuration\ActiveDirectoryConfigurationView.cs" />
+    <Compile Include="Configuration\LDAPConfiguration.cs" />
+    <Compile Include="Configuration\LDAPConfigurationView.cs" />
     <Compile Include="Interop\GroupHelper.cs" />
     <Compile Include="Interop\OrganizationHelper.cs" />
-    <Compile Include="ActiveDirectorySchemaClassType.cs" />
     <Compile Include="Interop\UserHelper.cs" />
+    <Compile Include="LDAPManagement.cs" />
+    <Compile Include="LDAPSchemaClassType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>
       </SubType>
@@ -119,6 +119,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

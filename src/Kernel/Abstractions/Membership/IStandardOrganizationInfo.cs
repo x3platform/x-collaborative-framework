@@ -1,7 +1,7 @@
 ﻿namespace X3Platform.Membership
 {
     /// <summary>标准组织信息</summary>
-    public interface IStandardOrganizationInfo : IAuthorizationObject
+    public interface IStandardOrganizationUnitInfo : IAuthorizationObject
     {
         #region 属性:Code
         /// <summary>编号</summary>

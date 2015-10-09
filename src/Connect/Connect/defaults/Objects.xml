@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
   <description>服务提供者配置信息 | 数据提供者配置信息</description>
-
+  <!--<typeAliases>
+    <alias name="ConnectCallInfo" type="X3Platform.Connect.Model.ConnectCallInfo,X3Platform.Connect" />
+  </typeAliases>-->
   <!-- 应用连接 -->
   <object id="X3Platform.Connect.IBLL.IConnectService"
           type="X3Platform.Connect.BLL.ConnectService,X3Platform.Connect"
@@ -40,7 +42,7 @@
 
   <!-- 队列设置 -->
   <object id="X3Platform.Connect.Queues.ConnectCallQueue"
-          type="X3Platform.Messages.RabbitQueueObject&lt;X3Platform.Connect.Model.ConnectCallInfo&rt;,X3Platform.Messages"
+          type="X3Platform.Messages.RabbitQueueObject&lt;X3Platform.Connect.Model.ConnectCallInfo&gt;,X3Platform.Messages"
           lazy-init="true" />
-  
+
 </objects>

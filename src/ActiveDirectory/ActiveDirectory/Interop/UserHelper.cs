@@ -1,4 +1,4 @@
-namespace X3Platform.ActiveDirectory.Interop
+namespace X3Platform.LDAP.Interop
 {
     #region Using Libraries
     using System;
@@ -6,7 +6,7 @@ namespace X3Platform.ActiveDirectory.Interop
 
     using Common.Logging;
 
-    using X3Platform.ActiveDirectory.Configuration;
+    using X3Platform.LDAP.Configuration;
     #endregion
 
     public sealed class UserHelper
@@ -28,12 +28,12 @@ namespace X3Platform.ActiveDirectory.Interop
         public UserHelper()
         {
             Initialize(
-                ActiveDirectoryConfigurationView.Instance.IntegratedMode,
-                ActiveDirectoryConfigurationView.Instance.LDAPPath,
-                ActiveDirectoryConfigurationView.Instance.LoginName,
-                ActiveDirectoryConfigurationView.Instance.Password,
-                ActiveDirectoryConfigurationView.Instance.SuffixEmailDomain,
-                ActiveDirectoryConfigurationView.Instance.CorporationUserFolderRoot);
+                LDAPConfigurationView.Instance.IntegratedMode,
+                LDAPConfigurationView.Instance.LDAPPath,
+                LDAPConfigurationView.Instance.LoginName,
+                LDAPConfigurationView.Instance.Password,
+                LDAPConfigurationView.Instance.SuffixEmailDomain,
+                LDAPConfigurationView.Instance.CorporationUserFolderRoot);
         }
 
         public UserHelper(string integratedMode, string path, string username, string password, string suffixEmailDomain, string directoryName)
@@ -62,9 +62,9 @@ namespace X3Platform.ActiveDirectory.Interop
         {
             string name = string.Format("OU={0}", this.directoryName);
 
-            if (Find(this.directoryName, ActiveDirectorySchemaClassType.OrganizationalUnit) == null)
+            if (Find(this.directoryName, LDAPSchemaClassType.OrganizationUnitalUnit) == null)
             {
-                DirectoryEntry param = directoryEntry.Children.Add(name, ActiveDirectorySchemaClassType.OrganizationalUnit);
+                DirectoryEntry param = directoryEntry.Children.Add(name, LDAPSchemaClassType.OrganizationUnitalUnit);
 
                 param.CommitChanges();
             }
@@ -212,7 +212,7 @@ namespace X3Platform.ActiveDirectory.Interop
         /// <param name="email"></param>
         public void Add(string loginName, string name, string telephone, string email)
         {
-            string password = ActiveDirectoryConfigurationView.Instance.NewlyCreatedAccountPassword;
+            string password = LDAPConfigurationView.Instance.NewlyCreatedAccountPassword;
 
             this.Add(loginName, password, name, telephone, email);
         }
@@ -235,7 +235,7 @@ namespace X3Platform.ActiveDirectory.Interop
                 {
                     DirectoryEntries directoryEntries = directoryEntry.Children;
 
-                    DirectoryEntry param = directoryEntries.Add(string.Format("CN={0},OU={1}", name, this.directoryName), ActiveDirectorySchemaClassType.User);
+                    DirectoryEntry param = directoryEntries.Add(string.Format("CN={0},OU={1}", name, this.directoryName), LDAPSchemaClassType.User);
 
                     param.Properties["samAccountName"].Add(loginName);
 
@@ -520,7 +520,7 @@ namespace X3Platform.ActiveDirectory.Interop
                 //
                 // CN=PasswordStrategy
                 //
-                // (*)在 ActiveDirectory 中建一个PasswordStrategy帐号，专门用来检测密码是否符合当前的密码策略。
+                // (*)在 LDAP 中建一个PasswordStrategy帐号，专门用来检测密码是否符合当前的密码策略。
                 //
 
                 DirectoryEntry param = Find("passwordstrategy");
@@ -531,7 +531,7 @@ namespace X3Platform.ActiveDirectory.Interop
                 {
                     DirectoryEntries directoryEntries = directoryEntry.Children;
 
-                    param = directoryEntries.Add("CN=PasswordStrategy,CN=Users", ActiveDirectorySchemaClassType.User);
+                    param = directoryEntries.Add("CN=PasswordStrategy,CN=Users", LDAPSchemaClassType.User);
 
                     param.Properties["name"].Add("PasswordStrategy");
                     param.Properties["givenName"].Add("PasswordStrategy");

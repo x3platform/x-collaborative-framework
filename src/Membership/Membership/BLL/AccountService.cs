@@ -4,8 +4,8 @@ namespace X3Platform.Membership.BLL
   using System.Collections.Generic;
   using System.Data;
 
-  using X3Platform.ActiveDirectory;
-  using X3Platform.ActiveDirectory.Configuration;
+  using X3Platform.LDAP;
+  using X3Platform.LDAP.Configuration;
   using X3Platform.Collections;
   using X3Platform.Configuration;
   using X3Platform.Spring;
@@ -163,13 +163,13 @@ namespace X3Platform.Membership.BLL
     {
       if (string.IsNullOrEmpty(param.Id)) { throw new Exception("实例标识不能为空。"); }
 
-      if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+      if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
       {
         IAccountInfo originalObject = this.FindOne(param.Id);
 
         if (originalObject == null) { originalObject = param; }
 
-        this.SyncToActiveDirectory(param, originalObject.GlobalName, originalObject.Status);
+        this.SyncToLDAP(param, originalObject.GlobalName, originalObject.Status);
       }
 
       param.DistinguishedName = CombineDistinguishedName(param.Name);
@@ -195,16 +195,16 @@ namespace X3Platform.Membership.BLL
           // -------------------------------------------------------
 
           // 1.移除非默认角色关系
-          MembershipManagement.Instance.OrganizationService.RemoveNondefaultRelation(accountId);
+          MembershipManagement.Instance.OrganizationUnitService.RemoveNondefaultRelation(accountId);
 
           // 2.设置新的关系
           foreach (IAccountRoleRelationInfo item in param.RoleRelations)
           {
             MembershipManagement.Instance.RoleService.AddRelation(accountId, item.RoleId);
 
-            MembershipManagement.Instance.OrganizationService.AddRelation(accountId, item.GetRole().OrganizationId);
+            MembershipManagement.Instance.OrganizationUnitService.AddRelation(accountId, item.GetRole().OrganizationUnitId);
 
-            MembershipManagement.Instance.OrganizationService.AddParentRelations(accountId, item.GetRole().OrganizationId);
+            MembershipManagement.Instance.OrganizationUnitService.AddParentRelations(accountId, item.GetRole().OrganizationUnitId);
           }
 
           // -------------------------------------------------------
@@ -376,24 +376,24 @@ namespace X3Platform.Membership.BLL
     }
     #endregion
 
-    #region 函数:FindAllByOrganizationId(string organizationId)
+    #region 函数:FindAllByOrganizationUnitId(string organizationId)
     /// <summary>查询某个用户所在的所有组织单位</summary>
     /// <param name="organizationId">组织标识</param>
     /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
-    public IList<IAccountInfo> FindAllByOrganizationId(string organizationId)
+    public IList<IAccountInfo> FindAllByOrganizationUnitId(string organizationId)
     {
-      return this.provider.FindAllByOrganizationId(organizationId);
+      return this.provider.FindAllByOrganizationUnitId(organizationId);
     }
     #endregion
 
-    #region 函数:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+    #region 函数:FindAllByOrganizationUnitId(string organizationId, bool defaultOrganizationUnitRelation)
     /// <summary>查询某个组织下的所有相关帐号</summary>
     /// <param name="organizationId">组织标识</param>
-    /// <param name="defaultOrganizationRelation">默认组织关系</param>
+    /// <param name="defaultOrganizationUnitRelation">默认组织关系</param>
     /// <returns>返回一个 IIAccountInfo 实例的详细信息</returns>
-    public IList<IAccountInfo> FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+    public IList<IAccountInfo> FindAllByOrganizationUnitId(string organizationId, bool defaultOrganizationUnitRelation)
     {
-      return this.provider.FindAllByOrganizationId(organizationId, defaultOrganizationRelation);
+      return this.provider.FindAllByOrganizationUnitId(organizationId, defaultOrganizationUnitRelation);
     }
     #endregion
 
@@ -427,45 +427,45 @@ namespace X3Platform.Membership.BLL
     }
     #endregion
 
-    #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId)
+    #region 函数:FindForwardLeaderAccountsByOrganizationUnitId(string organizationId)
     /// <summary>返回所有正向领导的帐号信息</summary>
     /// <param name="organizationId">组织标识</param>
     /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-    public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId)
+    public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationUnitId(string organizationId)
     {
-      return this.provider.FindForwardLeaderAccountsByOrganizationId(organizationId, 1);
+      return this.provider.FindForwardLeaderAccountsByOrganizationUnitId(organizationId, 1);
     }
     #endregion
 
-    #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+    #region 函数:FindForwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
     /// <summary>返回所有正向领导的帐号信息</summary>
     /// <param name="organizationId">组织标识</param>
     /// <param name="level">层次</param>
     /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-    public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+    public IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
     {
-      return this.provider.FindForwardLeaderAccountsByOrganizationId(organizationId, level);
+      return this.provider.FindForwardLeaderAccountsByOrganizationUnitId(organizationId, level);
     }
     #endregion
 
-    #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId)
+    #region 函数:FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId)
     /// <summary>返回所有反向领导的帐号信息</summary>
     /// <param name="organizationId">组织标识</param>
     /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-    public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId)
+    public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId)
     {
-      return this.provider.FindBackwardLeaderAccountsByOrganizationId(organizationId, 1);
+      return this.provider.FindBackwardLeaderAccountsByOrganizationUnitId(organizationId, 1);
     }
     #endregion
 
-    #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+    #region 函数:FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
     /// <summary>返回所有反向领导的帐号信息</summary>
     /// <param name="organizationId">组织标识</param>
     /// <param name="level">层次</param>
     /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-    public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+    public IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
     {
-      return this.provider.FindBackwardLeaderAccountsByOrganizationId(organizationId, level);
+      return this.provider.FindBackwardLeaderAccountsByOrganizationUnitId(organizationId, level);
     }
     #endregion
 
@@ -646,7 +646,7 @@ namespace X3Platform.Membership.BLL
 
       param.Status = -1;
 
-      param.UpdateDate = param.CreateDate = DateTime.Now;
+      param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
       return param;
     }
@@ -661,8 +661,8 @@ namespace X3Platform.Membership.BLL
       //CN=${姓名},OU=组织用户,DC=lhwork,DC=net
 
       return string.Format("CN={0},OU={1}{2}", name,
-          ActiveDirectoryConfigurationView.Instance.CorporationUserFolderRoot,
-          ActiveDirectoryConfigurationView.Instance.SuffixDistinguishedName);
+          LDAPConfigurationView.Instance.CorporationUserFolderRoot,
+          LDAPConfigurationView.Instance.SuffixDistinguishedName);
     }
     #endregion
 
@@ -689,7 +689,7 @@ namespace X3Platform.Membership.BLL
         return 2;
       }
 
-      if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+      if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
       {
         // 同步 Active Directory 帐号全局名称
         IAccountInfo account = FindOne(accountId);
@@ -699,20 +699,20 @@ namespace X3Platform.Membership.BLL
           // 由于外部系统直接同步到人员及权限管理的数据库中，
           // 所以 Active Directory 上不会直接创建相关对象，需要手工设置全局名称并创建相关对象。
 
-          if (ActiveDirectoryManagement.Instance.User.IsExistLoginName(account.LoginName))
+          if (LDAPManagement.Instance.User.IsExistLoginName(account.LoginName))
           {
-            ActiveDirectoryManagement.Instance.User.Rename(account.LoginName, globalName);
+            LDAPManagement.Instance.User.Rename(account.LoginName, globalName);
           }
           else
           {
             // 如果未创建相关帐号，则创建相关帐号。
-            ActiveDirectoryManagement.Instance.User.Add(account.LoginName, globalName, string.Empty, string.Empty);
+            LDAPManagement.Instance.User.Add(account.LoginName, globalName, string.Empty, string.Empty);
 
-            ActiveDirectoryManagement.Instance.User.SetStatus(account.LoginName, account.Status == 1 ? true : false);
+            LDAPManagement.Instance.User.SetStatus(account.LoginName, account.Status == 1 ? true : false);
 
-            // ActiveDirectory 添加用户到所有人组和所在的部门组
+            // LDAP 添加用户到所有人组和所在的部门组
 
-            ActiveDirectoryManagement.Instance.Group.AddRelation(account.LoginName, ActiveDirectorySchemaClassType.User, "所有人");
+            LDAPManagement.Instance.Group.AddRelation(account.LoginName, LDAPSchemaClassType.User, "所有人");
           }
         }
       }
@@ -761,7 +761,7 @@ namespace X3Platform.Membership.BLL
     /// <returns>修改成功, 返回 0, 旧密码不匹配, 返回 1.</returns>
     public int SetPassword(string accountId, string password)
     {
-      if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+      if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
       {
         // 同步 Active Directory 帐号状态
         IAccountInfo account = FindOne(accountId);
@@ -769,7 +769,7 @@ namespace X3Platform.Membership.BLL
         if (account != null && !string.IsNullOrEmpty(account.LoginName)
             && !string.IsNullOrEmpty(password))
         {
-          ActiveDirectoryManagement.Instance.User.SetPassword(account.LoginName, password);
+          LDAPManagement.Instance.User.SetPassword(account.LoginName, password);
         }
       }
 
@@ -839,7 +839,7 @@ namespace X3Platform.Membership.BLL
     /// <returns>0 操作成功 | 1 操作失败</returns>
     public int SetStatus(string accountId, int status)
     {
-      if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+      if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
       {
         // 同步 Active Directory 帐号状态
         IAccountInfo account = FindOne(accountId);
@@ -847,7 +847,7 @@ namespace X3Platform.Membership.BLL
         if (account != null
             && !string.IsNullOrEmpty(account.LoginName))
         {
-          ActiveDirectoryManagement.Instance.User.SetStatus(account.LoginName, status == 1 ? true : false);
+          LDAPManagement.Instance.User.SetStatus(account.LoginName, status == 1 ? true : false);
         }
       }
 
@@ -1042,7 +1042,7 @@ namespace X3Platform.Membership.BLL
                       password,
                       originalPassword);
 
-      if (result == 0 && ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+      if (result == 0 && LDAPConfigurationView.Instance.IntegratedMode == "ON")
       {
         // 同步 Active Directory 帐号状态
         IAccountInfo account = this.FindOneByLoginName(loginName);
@@ -1050,7 +1050,7 @@ namespace X3Platform.Membership.BLL
         if (account != null && !string.IsNullOrEmpty(account.LoginName)
             && !string.IsNullOrEmpty(password))
         {
-          ActiveDirectoryManagement.Instance.User.SetPassword(account.LoginName, password);
+          LDAPManagement.Instance.User.SetPassword(account.LoginName, password);
         }
       }
 
@@ -1058,13 +1058,13 @@ namespace X3Platform.Membership.BLL
     }
     #endregion
 
-    #region 函数:RefreshUpdateDate(string accountId)
+    #region 函数:RefreshModifiedDate(string accountId)
     /// <summary>刷新帐号的更新时间</summary>
     /// <param name="accountId">帐户标识</param>
     /// <returns>0 设置成功, 1 设置失败.</returns>
-    public int RefreshUpdateDate(string accountId)
+    public int RefreshModifiedDate(string accountId)
     {
-      return this.provider.RefreshUpdateDate(accountId);
+      return this.provider.RefreshModifiedDate(accountId);
     }
     #endregion
 
@@ -1077,23 +1077,23 @@ namespace X3Platform.Membership.BLL
     }
     #endregion
 
-    #region 函数:SyncToActiveDirectory(IAccountInfo param)
+    #region 函数:SyncToLDAP(IAccountInfo param)
     /// <summary>同步信息至 Active Directory</summary>
     /// <param name="param">帐号信息</param>
-    public int SyncToActiveDirectory(IAccountInfo param)
+    public int SyncToLDAP(IAccountInfo param)
     {
-      return SyncToActiveDirectory(param, param.GlobalName, param.Status);
+      return SyncToLDAP(param, param.GlobalName, param.Status);
     }
     #endregion
 
-    #region 函数:SyncToActiveDirectory(IAccountInfo param, string originalGlobalName, int originalStatus)
+    #region 函数:SyncToLDAP(IAccountInfo param, string originalGlobalName, int originalStatus)
     /// <summary>同步信息至 Active Directory</summary>
     /// <param name="param">帐号信息</param>
     /// <param name="originalGlobalName">原始全局名称</param>
     /// <param name="originalStatus">原始状态</param>
-    public int SyncToActiveDirectory(IAccountInfo param, string originalGlobalName, int originalStatus)
+    public int SyncToLDAP(IAccountInfo param, string originalGlobalName, int originalStatus)
     {
-      if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+      if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
       {
         if (string.IsNullOrEmpty(param.LoginName))
         {
@@ -1110,20 +1110,20 @@ namespace X3Platform.Membership.BLL
           // 1.原始的全局名称和登录名都不为空。
           // 2.Active Directory 上有相关对象。
           if (!(string.IsNullOrEmpty(originalGlobalName) || string.IsNullOrEmpty(param.LoginName))
-              && ActiveDirectoryManagement.Instance.User.IsExistLoginName(param.LoginName))
+              && LDAPManagement.Instance.User.IsExistLoginName(param.LoginName))
           {
             // 如果已存在相关帐号，同步全局名称和帐号状态。
 
             if (param.GlobalName != originalGlobalName)
             {
-              ActiveDirectoryManagement.Instance.User.Rename(param.LoginName, param.GlobalName);
+              LDAPManagement.Instance.User.Rename(param.LoginName, param.GlobalName);
             }
 
-            ActiveDirectoryManagement.Instance.User.SetStatus(param.LoginName, param.Status == 1 ? true : false);
+            LDAPManagement.Instance.User.SetStatus(param.LoginName, param.Status == 1 ? true : false);
           }
           else
           {
-            if (ActiveDirectoryManagement.Instance.User.IsExist(param.LoginName, param.GlobalName))
+            if (LDAPManagement.Instance.User.IsExist(param.LoginName, param.GlobalName))
             {
               // "用户【${Name}(${LoginName})】的全局名称已被其他人创建，请设置相关配置。
               return 3;
@@ -1136,13 +1136,13 @@ namespace X3Platform.Membership.BLL
             else
             {
               // 如果未创建相关帐号，则创建相关帐号。
-              ActiveDirectoryManagement.Instance.User.Add(param.LoginName, param.GlobalName, string.Empty, string.Empty);
+              LDAPManagement.Instance.User.Add(param.LoginName, param.GlobalName, string.Empty, string.Empty);
 
-              ActiveDirectoryManagement.Instance.User.SetStatus(param.LoginName, param.Status == 1 ? true : false);
+              LDAPManagement.Instance.User.SetStatus(param.LoginName, param.Status == 1 ? true : false);
 
-              // ActiveDirectory 添加用户到所有人组和所在的部门组
+              // LDAP 添加用户到所有人组和所在的部门组
 
-              ActiveDirectoryManagement.Instance.Group.AddRelation(param.LoginName, ActiveDirectorySchemaClassType.User, "所有人");
+              LDAPManagement.Instance.Group.AddRelation(param.LoginName, LDAPSchemaClassType.User, "所有人");
 
               // "用户【${Name}(${LoginName})】创建成功。
               return 0;

@@ -7,16 +7,16 @@ namespace X3Platform.Security.Authority
   /// <summary>Ȩ�޼�����</summary>
   public sealed class AuthorityChecker
   {
-    //#region 属性:HasOrganization(string accountId, string organizationNames)
+    //#region 属性:HasOrganizationUnit(string accountId, string organizationNames)
     ///// <summary>
     ///// 检测用户是否拥有权限
     ///// </summary>
     ///// <param name="accountId"></param>
     ///// <param name="organizationNames"></param>
     ///// <returns></returns>
-    //public static bool HasOrganization(string accountId, string organizationNames)
+    //public static bool HasOrganizationUnit(string accountId, string organizationNames)
     //{
-    //    return AuthorityContext.Instance.AuthorityService.HasAuthorizationObject(accountId, "Organization", organizationNames);
+    //    return AuthorityContext.Instance.AuthorityService.HasAuthorizationObject(accountId, "OrganizationUnit", organizationNames);
     //}
     //#endregion
 
