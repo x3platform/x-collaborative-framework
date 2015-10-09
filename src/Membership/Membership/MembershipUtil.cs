@@ -49,7 +49,7 @@ namespace X3Platform.Membership
                         accounts = GetStandardRoleAccounts(temp[1]);
                         break;
                     case "standardorganization":
-                        accounts = GetStandardOrganizationAccounts(temp[1]);
+                        accounts = GetStandardOrganizationUnitAccounts(temp[1]);
                         break;
                     default:
                         break;
@@ -77,9 +77,9 @@ namespace X3Platform.Membership
         /// <summary>获取公司信息</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static IOrganizationInfo GetCorporation(string id)
+        public static IOrganizationUnitInfo GetCorporation(string id)
         {
-            IOrganizationInfo target = MembershipManagement.Instance.OrganizationService[id];
+            IOrganizationUnitInfo target = MembershipManagement.Instance.OrganizationUnitService[id];
 
             return (target.Type == 0 && target.Status == 1) ? target : null;
         }
@@ -87,9 +87,9 @@ namespace X3Platform.Membership
 
         #region 函数:GetDepartment(string id)
         /// <summary></summary>
-        public static IOrganizationInfo GetDepartment(string id)
+        public static IOrganizationUnitInfo GetDepartment(string id)
         {
-            IOrganizationInfo target = MembershipManagement.Instance.OrganizationService[id];
+            IOrganizationUnitInfo target = MembershipManagement.Instance.OrganizationUnitService[id];
 
             return (target.Type == 1 && target.Status == 1) ? target : null;
         }
@@ -140,17 +140,17 @@ namespace X3Platform.Membership
         /// <summary>获取对应的群组信息</summary>
         /// <param name="ids">群组标识，多个以逗号隔开</param>
         /// <returns></returns>
-        public static IList<IOrganizationInfo> GetDepartments(string ids)
+        public static IList<IOrganizationUnitInfo> GetDepartments(string ids)
         {
             string[] keys = ids.Split(new char[] { ',', ';' });
 
-            List<IOrganizationInfo> list = new List<IOrganizationInfo>();
+            List<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
-            IOrganizationInfo item = null;
+            IOrganizationUnitInfo item = null;
 
             foreach (string key in keys)
             {
-                item = MembershipManagement.Instance.OrganizationService[key];
+                item = MembershipManagement.Instance.OrganizationUnitService[key];
 
                 // 过滤对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
@@ -171,7 +171,7 @@ namespace X3Platform.Membership
         /// <returns></returns>
         public static IList<IAccountInfo> GetDepartmentAccounts(string ids)
         {
-            IList<IOrganizationInfo> departmentArray = GetDepartments(ids);
+            IList<IOrganizationUnitInfo> departmentArray = GetDepartments(ids);
 
             IList<IAccountInfo> objectArray = new List<IAccountInfo>();
 
@@ -180,7 +180,7 @@ namespace X3Platform.Membership
                 if (departmentArray[x] == null)
                     continue;
 
-                IList<IAccountInfo> members = MembershipManagement.Instance.AccountService.FindAllByOrganizationId(departmentArray[x].Id);
+                IList<IAccountInfo> members = MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(departmentArray[x].Id);
 
                 for (int y = 0; y < members.Count; y++)
                 {
@@ -201,7 +201,7 @@ namespace X3Platform.Membership
         /// <returns></returns>
         public static IList<IAccountInfo> GetDepartmentLeaderAccounts(string ids, int level)
         {
-            IList<IOrganizationInfo> departmentArray = GetDepartments(ids);
+            IList<IOrganizationUnitInfo> departmentArray = GetDepartments(ids);
 
             IList<IAccountInfo> objectArray = new List<IAccountInfo>();
 
@@ -210,7 +210,7 @@ namespace X3Platform.Membership
                 if (departmentArray[x] == null)
                     continue;
 
-                IList<IAccountInfo> leaders = MembershipManagement.Instance.AccountService.FindForwardLeaderAccountsByOrganizationId(departmentArray[x].Id, level);
+                IList<IAccountInfo> leaders = MembershipManagement.Instance.AccountService.FindForwardLeaderAccountsByOrganizationUnitId(departmentArray[x].Id, level);
 
                 for (int y = 0; y < leaders.Count; y++)
                 {
@@ -398,21 +398,21 @@ namespace X3Platform.Membership
         // 标准组织
         // -------------------------------------------------------
 
-        #region 函数:GetStandardOrganizations(string ids)
+        #region 函数:GetStandardOrganizationUnits(string ids)
         /// <summary>获取对应的角色信息</summary>
         /// <param name="ids">角色标识，多个以逗号隔开</param>
         /// <returns></returns>
-        public IList<IStandardOrganizationInfo> GetStandardOrganizations(string ids)
+        public IList<IStandardOrganizationUnitInfo> GetStandardOrganizationUnits(string ids)
         {
             string[] keys = ids.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-            IList<IStandardOrganizationInfo> list = new List<IStandardOrganizationInfo>();
+            IList<IStandardOrganizationUnitInfo> list = new List<IStandardOrganizationUnitInfo>();
 
-            IStandardOrganizationInfo item = null;
+            IStandardOrganizationUnitInfo item = null;
 
             for (int i = 0; i < keys.Length; i++)
             {
-                item = MembershipManagement.Instance.StandardOrganizationService[keys[i]];
+                item = MembershipManagement.Instance.StandardOrganizationUnitService[keys[i]];
 
                 // 过滤对象为空或者禁用的对象。
                 if (item != null && item.Status == 1)
@@ -429,7 +429,7 @@ namespace X3Platform.Membership
         /// <summary>获取对应的角色的用户信息，屏蔽id相同的用户</summary>
         /// <param name="ids">群组的标识，多个用逗号分隔</param>
         /// <returns></returns>
-        public static IList<IAccountInfo> GetStandardOrganizationAccounts(string ids)
+        public static IList<IAccountInfo> GetStandardOrganizationUnitAccounts(string ids)
         {
             string[] keys = ids.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -441,7 +441,7 @@ namespace X3Platform.Membership
             {
                 roleIds = string.Empty;
 
-                MembershipManagement.Instance.RoleService.FindAllByStandardOrganizationId(key)
+                MembershipManagement.Instance.RoleService.FindAllByStandardOrganizationUnitId(key)
                      .ToList()
                      .ForEach(role => roleIds += role.Id + ",");
 

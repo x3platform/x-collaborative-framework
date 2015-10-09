@@ -18,16 +18,16 @@ namespace X3Platform.Membership.Model
 
     /// <summary>帐户和组织的关联信息</summary>
     [Serializable]
-    public class AccountOrganizationRelationInfo : IAccountOrganizationRelationInfo
+    public class AccountOrganizationUnitRelationInfo : IAccountOrganizationUnitRelationInfo
     {
         /// <summary></summary>
-        public AccountOrganizationRelationInfo() { }
+        public AccountOrganizationUnitRelationInfo() { }
         
         /// <summary></summary>
-        public AccountOrganizationRelationInfo(string accountId, string organizationId)
+        public AccountOrganizationUnitRelationInfo(string accountId, string organizationId)
         {
             this.AccountId = accountId;
-            this.OrganizationId = organizationId;
+            this.OrganizationUnitId = organizationId;
         }
 
         #region 属性:AccountId
@@ -52,25 +52,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OrganizationId
-        private string m_OrganizationId = string.Empty;
+        #region 属性:OrganizationUnitId
+        private string m_OrganizationUnitId = string.Empty;
 
         /// <summary>组织标识</summary>
-        public string OrganizationId
+        public string OrganizationUnitId
         {
-            get { return m_OrganizationId; }
-            set { m_OrganizationId = value; }
+            get { return m_OrganizationUnitId; }
+            set { m_OrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:OrganizationGlobalName
-        private string m_OrganizationGlobalName = string.Empty;
+        #region 属性:OrganizationUnitGlobalName
+        private string m_OrganizationUnitGlobalName = string.Empty;
 
         /// <summary>组织全局名称</summary>
-        public string OrganizationGlobalName
+        public string OrganizationUnitGlobalName
         {
-            get { return m_OrganizationGlobalName; }
-            set { m_OrganizationGlobalName = value; }
+            get { return m_OrganizationUnitGlobalName; }
+            set { m_OrganizationUnitGlobalName = value; }
         }
         #endregion
 
@@ -117,9 +117,9 @@ namespace X3Platform.Membership.Model
 
         #region 函数:GetAccount()
         /// <summary>获取相关组织信息</summary>
-        public IOrganizationInfo GetOrganization()
+        public IOrganizationUnitInfo GetOrganizationUnit()
         {
-            return MembershipManagement.Instance.OrganizationService[this.OrganizationId];
+            return MembershipManagement.Instance.OrganizationUnitService[this.OrganizationUnitId];
         }
         #endregion
     }

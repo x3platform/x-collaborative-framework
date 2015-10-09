@@ -138,22 +138,22 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下面所有的岗位</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个<see cref="IAssignedJobInfo"/>实例的详细信息</returns>
-        public IList<IAssignedJobInfo> FindAllByOrganizationId(string organizationId)
+        public IList<IAssignedJobInfo> FindAllByOrganizationUnitId(string organizationId)
         {
-            return this.FindAllByOrganizationId(organizationId, 0);
+            return this.FindAllByOrganizationUnitId(organizationId, 0);
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId, int depth)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId, int depth)
         /// <summary>查询某个组织节点下的所有岗位信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="depth">深入获取的层次，0表示只获取本层次，-1表示全部获取</param>
         /// <returns>返回所有实例<see cref="IAssignedJobInfo"/>的详细信息</returns>
-        public IList<IAssignedJobInfo> FindAllByOrganizationId(string organizationId, int depth)
+        public IList<IAssignedJobInfo> FindAllByOrganizationUnitId(string organizationId, int depth)
         {
             // 结果列表
             List<IAssignedJobInfo> list = new List<IAssignedJobInfo>();
@@ -162,13 +162,13 @@ namespace X3Platform.Membership.BLL
             // 查找组织子部门的角色信息
             // -------------------------------------------------------
 
-            IList<IOrganizationInfo> organizations = MembershipManagement.Instance.OrganizationService.FindAllByParentId(organizationId);
+            IList<IOrganizationUnitInfo> organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(organizationId);
 
             // -------------------------------------------------------
             // 查找角色信息
             // -------------------------------------------------------
 
-            list.AddRange(this.provider.FindAllByOrganizationId(organizationId));
+            list.AddRange(this.provider.FindAllByOrganizationUnitId(organizationId));
 
             if (depth == -1)
             {
@@ -177,9 +177,9 @@ namespace X3Platform.Membership.BLL
 
             if (organizations.Count > 0 && depth > 0)
             {
-                foreach (IOrganizationInfo organization in organizations)
+                foreach (IOrganizationUnitInfo organization in organizations)
                 {
-                    list.AddRange(this.FindAllByOrganizationId(organization.Id, (depth - 1)));
+                    list.AddRange(this.FindAllByOrganizationUnitId(organization.Id, (depth - 1)));
                 }
             }
 
@@ -274,7 +274,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<IAssignedJobInfo> list = MembershipManagement.Instance.AssignedJobService.FindAll(whereClause);
 

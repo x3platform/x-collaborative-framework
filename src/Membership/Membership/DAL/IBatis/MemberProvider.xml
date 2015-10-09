@@ -11,7 +11,7 @@
             <result property="DepartmentId" column="DepartmentId" />
             <result property="Department2Id" column="Department2Id" />
             <result property="Department3Id" column="Department3Id" />
-            <result property="OrganizationId" column="OrganizationId" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
             <result property="RoleId" column="RoleId" />
             <result property="JobId" column="JobId" />
             <result property="AssignedJobId" column="AssignedJobId" />
@@ -35,8 +35,8 @@
             <result property="Address" column="Address" />
             <result property="Url" column="Url" />
             <result property="FullPath" column="FullPath" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
 
         <resultMap id="proc_Member_FindAll_Result" class="MemberInfo">
@@ -46,7 +46,7 @@
             <result property="DepartmentId" column="DepartmentId" />
             <result property="Department2Id" column="Department2Id" />
             <result property="Department3Id" column="Department3Id" />
-            <result property="OrganizationId" column="OrganizationId" />
+            <result property="OrganizationUnitId" column="OrganizationUnitId" />
             <result property="RoleId" column="RoleId" />
             <result property="JobId" column="JobId" />
             <result property="AssignedJobId" column="AssignedJobId" />
@@ -70,8 +70,8 @@
             <result property="Address" column="Address" />
             <result property="Url" column="Url" />
             <result property="FullPath" column="FullPath" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
 
     </resultMaps>
@@ -97,8 +97,8 @@
                 Address,
                 Url,
                 FullPath,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES 
             (
@@ -146,7 +146,7 @@
                 Address = #Address#,
                 Url = #Url#,
                 FullPath = #FullPath#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -270,7 +270,7 @@
                 Rtx = #Rtx#, 
                 PostCode = #PostCode#, 
                 Address = #Address#, 
-                UpdateDate = CURRENT_TIMESTAMP 
+                ModifiedDate = CURRENT_TIMESTAMP 
             
             WHERE AccountId = #AccountId#
         </update>
@@ -282,29 +282,29 @@
                 DepartmentId = #DepartmentId#, 
                 Department2Id = #Department2Id#, 
                 Department3Id = #Department3Id#, 
-                UpdateDate = CURRENT_TIMESTAMP 
+                ModifiedDate = CURRENT_TIMESTAMP 
             
             WHERE AccountId = #AccountId#
         </update>
         
-        <update id="proc_Member_SetDefaultOrganization" parameterClass="MemberInfo" >
-            UPDATE tb_Member SET OrganizationId = #OrganizationId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+        <update id="proc_Member_SetDefaultOrganizationUnit" parameterClass="MemberInfo" >
+            UPDATE tb_Member SET OrganizationUnitId = #OrganizationUnitId#, ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultRole" parameterClass="MemberInfo" >
-            UPDATE tb_Member SET RoleId = #RoleId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET RoleId = #RoleId#, ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultJob" parameterClass="MemberInfo" >
-            UPDATE tb_Member SET JobId = #JobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET JobId = #JobId#, ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultAssignedJob" parameterClass="MemberInfo" >
-            UPDATE tb_Member SET AssignedJobId = #AssignedJobId#, UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET AssignedJobId = #AssignedJobId#, ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <update id="proc_Member_SetDefaultJobGrade" parameterClass="MemberInfo" >
-            UPDATE tb_Member SET JobGradeId = #JobGradeId#, JobGradeDisplayName = (SELECT Name FROM tb_JobGrade WHERE Id = #JobGradeId#), UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
+            UPDATE tb_Member SET JobGradeId = #JobGradeId#, JobGradeDisplayName = (SELECT Name FROM tb_JobGrade WHERE Id = #JobGradeId#), ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #AccountId#
         </update>
 
         <insert id="proc_Member_SyncFromPackPage" parameterClass="MemberInfo" >
@@ -316,7 +316,7 @@
                     CorporationId = #CorporationId#,
                     DepartmentId = #DepartmentId#,
                     Department2Id = #Department2Id#,
-                    OrganizationId = #OrganizationId#,
+                    OrganizationUnitId = #OrganizationUnitId#,
                     JobId = #JobId#,
                     AssignedJobId = #AssignedJobId#,
                     JobGradeDisplayName = #JobGradeDisplayName#,
@@ -325,7 +325,7 @@
                     GraduationDate = #GraduationDate#,
                     EntryDate = #EntryDate#,
                     PromotionDate = #PromotionDate#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
             END
@@ -338,7 +338,7 @@
                     CorporationId,
                     DepartmentId,
                     Department2Id,
-                    OrganizationId,
+                    OrganizationUnitId,
                     JobId,
                     AssignedJobId,
                     JobGradeDisplayName,
@@ -347,8 +347,8 @@
                     GraduationDate,
                     EntryDate,
                     PromotionDate,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (
@@ -357,7 +357,7 @@
                     #CorporationId#,
                     #DepartmentId#,
                     #Department2Id#,
-                    #OrganizationId#,
+                    #OrganizationUnitId#,
                     #JobId#,
                     #AssignedJobId#,
                     #JobGradeDisplayName#,

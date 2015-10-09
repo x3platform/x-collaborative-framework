@@ -177,7 +177,7 @@ namespace X3Platform.Membership.Ajax
 
             param.GrantedTimeTo = Convert.ToDateTime(DateTime.Now.AddMonths(1).ToString("yyyy-MM-dd 00:00:00"));
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountGrantInfo>(param) + ",");
 

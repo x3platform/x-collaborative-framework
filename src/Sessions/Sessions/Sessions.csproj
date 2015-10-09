@@ -127,7 +127,6 @@
     <Content Include="DAL\MySQL\AccountCacheProvider.xml" />
     <EmbeddedResource Include="defaults\Objects.xml" />
     <EmbeddedResource Include="defaults\IBatis.SqlMap.xml" />
-    <None Include="build.publish.bat" />
     <Content Include="config\X3Platform.Sessions.config">
       <SubType>Designer</SubType>
     </Content>
@@ -146,6 +145,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>

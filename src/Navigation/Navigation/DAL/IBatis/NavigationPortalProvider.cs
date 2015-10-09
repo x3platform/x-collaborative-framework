@@ -172,13 +172,13 @@ namespace X3Platform.Navigation.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindOneByOrganizationId(string organizationId)
+        #region 函数:FindOneByOrganizationUnitId(string organizationId)
         /// <summary>查询某条记录</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回实例<see cref="NavigationPortalInfo"/>的详细信息</returns>
-        public NavigationPortalInfo FindOneByOrganizationId(string organizationId)
+        public NavigationPortalInfo FindOneByOrganizationUnitId(string organizationId)
         {
-            string whereClause = string.Format(" OrganizationId = ##{0}## ", organizationId);
+            string whereClause = string.Format(" OrganizationUnitId = ##{0}## ", organizationId);
 
             IList<NavigationPortalInfo> list = this.FindAll(whereClause, 0);
 

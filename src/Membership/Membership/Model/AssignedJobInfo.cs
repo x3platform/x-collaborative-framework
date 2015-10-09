@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :AssignedJobInfo.cs
-//
-// Description  :岗位
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.Model
+﻿namespace X3Platform.Membership.Model
 {
     using System;
     using System.Collections.Generic;
@@ -75,39 +61,39 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OrganizationId
-        private string m_OrganizationId;
+        #region 属性:OrganizationUnitId
+        private string m_OrganizationUnitId;
 
         /// <summary>所属组织标识</summary>
-        public string OrganizationId
+        public string OrganizationUnitId
         {
-            get { return m_OrganizationId; }
-            set { m_OrganizationId = value; }
+            get { return m_OrganizationUnitId; }
+            set { m_OrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:OrganizationGlobalName
+        #region 属性:OrganizationUnitGlobalName
         /// <summary>所属组织全局名称</summary>
-        public string OrganizationGlobalName
+        public string OrganizationUnitGlobalName
         {
-            get { return this.Organization == null ? string.Empty : this.Organization.GlobalName; }
+            get { return this.OrganizationUnit == null ? string.Empty : this.OrganizationUnit.GlobalName; }
         }
         #endregion
 
-        #region 属性:Organization
-        private IOrganizationInfo m_Organization = null;
+        #region 属性:OrganizationUnit
+        private IOrganizationUnitInfo m_OrganizationUnit = null;
 
         /// <summary>父级对象</summary>
-        public IOrganizationInfo Organization
+        public IOrganizationUnitInfo OrganizationUnit
         {
             get
             {
-                if (this.m_Organization == null && !string.IsNullOrEmpty(this.OrganizationId))
+                if (this.m_OrganizationUnit == null && !string.IsNullOrEmpty(this.OrganizationUnitId))
                 {
-                    this.m_Organization = MembershipManagement.Instance.OrganizationService[this.OrganizationId];
+                    this.m_OrganizationUnit = MembershipManagement.Instance.OrganizationUnitService[this.OrganizationUnitId];
                 }
 
-                return this.m_Organization;
+                return this.m_OrganizationUnit;
             }
         }
         #endregion
@@ -309,25 +295,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -376,7 +362,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<jobId><![CDATA[{0}]]></jobId>", this.JobId);
             if (displayComment)
                 outString.Append("<!-- 所属组织标识 (字符串) (nvarchar(36)) -->");
-            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationId);
+            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationUnitId);
             if (displayComment)
                 outString.Append("<!-- 岗位编号 (字符串) (nvarchar(100)) -->");
             outString.AppendFormat("<code><![CDATA[{0}]]></code>", this.Code);
@@ -388,7 +374,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<status><![CDATA[{0}]]></status>", this.Status);
             if (displayComment)
                 outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</assignedJob>");
 
             return outString.ToString();
@@ -402,7 +388,7 @@ namespace X3Platform.Membership.Model
         {
             this.Id = element.SelectSingleNode("id").InnerText;
             this.JobId = element.SelectSingleNode("jobId").InnerText;
-            this.OrganizationId = element.SelectSingleNode("organizationId").InnerText;
+            this.OrganizationUnitId = element.SelectSingleNode("organizationId").InnerText;
 
             if (element.SelectSingleNode("code") != null)
             {
@@ -411,7 +397,7 @@ namespace X3Platform.Membership.Model
 
             this.Name = element.SelectSingleNode("name").InnerText;
             this.Status = Convert.ToInt32(element.SelectSingleNode("status").InnerText);
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

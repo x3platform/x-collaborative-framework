@@ -112,13 +112,13 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:OrganizationService
-        private IOrganizationService m_OrganizationService = null;
+        #region 属性:OrganizationUnitService
+        private IOrganizationUnitService m_OrganizationUnitService = null;
 
         /// <summary>组织结构</summary>
-        public IOrganizationService OrganizationService
+        public IOrganizationUnitService OrganizationUnitService
         {
-            get { return this.m_OrganizationService; }
+            get { return this.m_OrganizationUnitService; }
         }
         #endregion
 
@@ -142,13 +142,13 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:StandardOrganizationService
-        private IStandardOrganizationService m_StandardOrganizationService = null;
+        #region 属性:StandardOrganizationUnitService
+        private IStandardOrganizationUnitService m_StandardOrganizationUnitService = null;
 
         /// <summary>标准组织信息</summary>
-        public IStandardOrganizationService StandardOrganizationService
+        public IStandardOrganizationUnitService StandardOrganizationUnitService
         {
-            get { return this.m_StandardOrganizationService; }
+            get { return this.m_StandardOrganizationUnitService; }
         }
         #endregion
 
@@ -317,12 +317,12 @@ namespace X3Platform.Membership
             this.m_AccountLogService = objectBuilder.GetObject<IAccountLogService>(typeof(IAccountLogService));
             this.m_AccountGrantService = objectBuilder.GetObject<IAccountGrantService>(typeof(IAccountGrantService));
             this.m_MemberService = objectBuilder.GetObject<IMemberService>(typeof(IMemberService));
-            this.m_OrganizationService = objectBuilder.GetObject<IOrganizationService>(typeof(IOrganizationService));
+            this.m_OrganizationUnitService = objectBuilder.GetObject<IOrganizationUnitService>(typeof(IOrganizationUnitService));
             this.m_RoleService = objectBuilder.GetObject<IRoleService>(typeof(IRoleService));
             this.m_GeneralRoleService = objectBuilder.GetObject<IGeneralRoleService>(typeof(IGeneralRoleService));
             this.m_StandardGeneralRoleService = objectBuilder.GetObject<IStandardGeneralRoleService>(typeof(IStandardGeneralRoleService));
             this.m_StandardRoleService = objectBuilder.GetObject<IStandardRoleService>(typeof(IStandardRoleService));
-            this.m_StandardOrganizationService = objectBuilder.GetObject<IStandardOrganizationService>(typeof(IStandardOrganizationService));
+            this.m_StandardOrganizationUnitService = objectBuilder.GetObject<IStandardOrganizationUnitService>(typeof(IStandardOrganizationUnitService));
             this.m_GroupService = objectBuilder.GetObject<IGroupService>(typeof(IGroupService));
             this.m_GroupTreeService = objectBuilder.GetObject<IGroupTreeService>(typeof(IGroupTreeService));
             this.m_GroupTreeNodeService = objectBuilder.GetObject<IGroupTreeNodeService>(typeof(IGroupTreeNodeService));

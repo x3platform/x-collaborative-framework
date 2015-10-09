@@ -31,7 +31,7 @@ namespace X3Platform.Membership.Model
         public StandardGeneralRoleMappingRelationInfo(string standardGeneralRoleId, string organizationIdId)
         {
             this.StandardGeneralRoleId = standardGeneralRoleId;
-            this.OrganizationId = organizationIdId;
+            this.OrganizationUnitId = organizationIdId;
         }
 
         #region 属性:StandardGeneralRoleId
@@ -56,25 +56,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OrganizationId
-        private string m_OrganizationId = string.Empty;
+        #region 属性:OrganizationUnitId
+        private string m_OrganizationUnitId = string.Empty;
 
         /// <summary>组织标识</summary>
-        public string OrganizationId
+        public string OrganizationUnitId
         {
-            get { return this.m_OrganizationId; }
-            set { this.m_OrganizationId = value; }
+            get { return this.m_OrganizationUnitId; }
+            set { this.m_OrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:OrganizationName
-        private string m_OrganizationName = string.Empty;
+        #region 属性:OrganizationUnitName
+        private string m_OrganizationUnitName = string.Empty;
 
         /// <summary>组织标识</summary>
-        public string OrganizationName
+        public string OrganizationUnitName
         {
-            get { return this.m_OrganizationName; }
-            set { this.m_OrganizationName = value; }
+            get { return this.m_OrganizationUnitName; }
+            set { this.m_OrganizationUnitName = value; }
         }
         #endregion
 
@@ -134,11 +134,11 @@ namespace X3Platform.Membership.Model
         }
 
         /// <summary></summary>
-        public IOrganizationInfo GetOrganization()
+        public IOrganizationUnitInfo GetOrganizationUnit()
         {
-            if (!string.IsNullOrEmpty(this.OrganizationId))
+            if (!string.IsNullOrEmpty(this.OrganizationUnitId))
             {
-                return MembershipManagement.Instance.OrganizationService.FindOne(this.OrganizationId);
+                return MembershipManagement.Instance.OrganizationUnitService.FindOne(this.OrganizationUnitId);
             }
 
             return null;

@@ -212,13 +212,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下面所有的角色</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个 IRoleInfo 实例的详细信息</returns>
-        public IList<IAssignedJobInfo> FindAllByOrganizationId(string organizationId)
+        public IList<IAssignedJobInfo> FindAllByOrganizationUnitId(string organizationId)
         {
-            string whereClause = string.Format(" OrganizationId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(organizationId));
+            string whereClause = string.Format(" OrganizationUnitId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(organizationId));
 
             return this.FindAll(whereClause, 0);
         }
@@ -242,7 +242,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回所有<see cref="IAssignedJobInfo"/>实例的详细信息</returns>
         public IList<IAssignedJobInfo> FindAllByRoleId(string roleId)
         {
-            string whereClause = " JobId IN ( SELECT JobId FROM tb_Job_StandardRole WHERE StandardRoleId = ##" + roleId + "## ) AND OrganizationId IN (SELECT OrganizationId FROM tb_Role WHERE Id = ##" + roleId + "##) ";
+            string whereClause = " JobId IN ( SELECT JobId FROM tb_Job_StandardRole WHERE StandardRoleId = ##" + roleId + "## ) AND OrganizationUnitId IN (SELECT OrganizationUnitId FROM tb_Role WHERE Id = ##" + roleId + "##) ";
 
             return FindAll(whereClause, 0);
         }
@@ -266,7 +266,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
             args.Add("RowCount", 0);
 

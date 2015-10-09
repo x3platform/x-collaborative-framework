@@ -38,14 +38,14 @@ namespace X3Platform.Membership
         IRoleInfo Parent { get; }
         #endregion
 
-        #region 属性:OrganizationId
+        #region 属性:OrganizationUnitId
         /// <summary>所属组织标识</summary>
-        string OrganizationId { get; set; }
+        string OrganizationUnitId { get; set; }
         #endregion
 
-        #region 属性:Organization
+        #region 属性:OrganizationUnit
         /// <summary>所属组织信息</summary>
-        IOrganizationInfo Organization { get; }
+        IOrganizationUnitInfo OrganizationUnit { get; }
         #endregion
 
         #region 属性:StandardRoleId

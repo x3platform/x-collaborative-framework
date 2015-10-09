@@ -91,9 +91,9 @@ namespace X3Platform.Membership
         string IP { get; set; }
         #endregion
 
-        #region 属性:OrganizationRelations
+        #region 属性:OrganizationUnitRelations
         /// <summary>组织信息</summary>
-        IList<IAccountOrganizationRelationInfo> OrganizationRelations { get; }
+        IList<IAccountOrganizationUnitRelationInfo> OrganizationUnitRelations { get; }
         #endregion
 
         #region 属性:RoleRelations
@@ -116,9 +116,9 @@ namespace X3Platform.Membership
         string DistinguishedName { get; set; }
         #endregion
 
-        #region 属性:CreateDate
+        #region 属性:CreatedDate
         /// <summary>创建时间</summary>
-        DateTime CreateDate { get; set; }
+        DateTime CreatedDate { get; set; }
         #endregion
     }
 }

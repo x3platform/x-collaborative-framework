@@ -91,7 +91,7 @@ namespace X3Platform.Membership.BLL
                     authorizationObject = MembershipManagement.Instance.RoleService[authorizationObjectId];
                     break;
                 case "organization":
-                    authorizationObject = MembershipManagement.Instance.OrganizationService[authorizationObjectId];
+                    authorizationObject = MembershipManagement.Instance.OrganizationUnitService[authorizationObjectId];
                     break;
                 case "group":
                     authorizationObject = MembershipManagement.Instance.GroupService[authorizationObjectId];
@@ -100,7 +100,7 @@ namespace X3Platform.Membership.BLL
                     authorizationObject = MembershipManagement.Instance.GeneralRoleService[authorizationObjectId];
                     break;
                 case "standardorganization":
-                    authorizationObject = MembershipManagement.Instance.StandardOrganizationService[authorizationObjectId];
+                    authorizationObject = MembershipManagement.Instance.StandardOrganizationUnitService[authorizationObjectId];
                     break;
                 case "standardrole":
                     authorizationObject = MembershipManagement.Instance.StandardRoleService[authorizationObjectId];
@@ -173,7 +173,7 @@ namespace X3Platform.Membership.BLL
                             isExist = MembershipManagement.Instance.RoleService.IsExistName(authorizationObjectName);
                             break;
                         case "organization":
-                            isExist = MembershipManagement.Instance.OrganizationService.IsExistName(authorizationObjectName);
+                            isExist = MembershipManagement.Instance.OrganizationUnitService.IsExistName(authorizationObjectName);
                             break;
                         case "group":
                             isExist = MembershipManagement.Instance.GroupService.IsExistName(authorizationObjectName);
@@ -182,7 +182,7 @@ namespace X3Platform.Membership.BLL
                             isExist = MembershipManagement.Instance.GeneralRoleService.IsExistName(authorizationObjectName);
                             break;
                         case "standardorganization":
-                            isExist = MembershipManagement.Instance.StandardOrganizationService.IsExistName(authorizationObjectName);
+                            isExist = MembershipManagement.Instance.StandardOrganizationUnitService.IsExistName(authorizationObjectName);
                             break;
                         case "standardrole":
                             isExist = MembershipManagement.Instance.StandardRoleService.IsExistName(authorizationObjectName);
@@ -231,9 +231,9 @@ namespace X3Platform.Membership.BLL
                         break;
 
                     // ��׼����
-                    case "StandardOrganization":
+                    case "StandardOrganizationUnit":
 
-                        MembershipUitily.GetIntersectionRoles(MembershipManagement.Instance.RoleService.FindAllByStandardOrganizationId(authorizationScope.AuthorizationObjectId), roles)
+                        MembershipUitily.GetIntersectionRoles(MembershipManagement.Instance.RoleService.FindAllByStandardOrganizationUnitId(authorizationScope.AuthorizationObjectId), roles)
                             .ToList()
                             .ForEach(item => list.Add((IAuthorizationObject)item));
 

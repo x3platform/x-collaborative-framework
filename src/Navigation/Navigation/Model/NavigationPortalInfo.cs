@@ -48,36 +48,36 @@ namespace X3Platform.Navigation.Model
         }
         #endregion
 
-        #region 属性:OrganizationId
-        private string m_OrganizationId;
+        #region 属性:OrganizationUnitId
+        private string m_OrganizationUnitId;
 
         /// <summary></summary>
-        public string OrganizationId
+        public string OrganizationUnitId
         {
-            get { return this.m_OrganizationId; }
-            set { this.m_OrganizationId = value; }
+            get { return this.m_OrganizationUnitId; }
+            set { this.m_OrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:OrganizationName
-        private string m_OrganizationName;
+        #region 属性:OrganizationUnitName
+        private string m_OrganizationUnitName;
 
         /// <summary></summary>
-        public string OrganizationName
+        public string OrganizationUnitName
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_OrganizationName) && !string.IsNullOrEmpty(this.OrganizationId))
+                if (string.IsNullOrEmpty(this.m_OrganizationUnitName) && !string.IsNullOrEmpty(this.OrganizationUnitId))
                 {
-                    IOrganizationInfo organization = Membership.MembershipManagement.Instance.OrganizationService.FindOne(this.OrganizationId);
+                    IOrganizationUnitInfo organization = Membership.MembershipManagement.Instance.OrganizationUnitService.FindOne(this.OrganizationUnitId);
                     
                     if (organization != null)
                     {
-                        this.m_OrganizationName = organization.Name;
+                        this.m_OrganizationUnitName = organization.Name;
                     }
                 }
 
-                return this.m_OrganizationName;
+                return this.m_OrganizationUnitName;
             }
         }
         #endregion

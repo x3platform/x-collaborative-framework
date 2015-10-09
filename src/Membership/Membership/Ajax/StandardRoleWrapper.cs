@@ -216,19 +216,19 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string standardOrganizationId = XmlHelper.Fetch("standardOrganizationId", doc);
+            string standardOrganizationUnitId = XmlHelper.Fetch("standardOrganizationUnitId", doc);
 
             IStandardRoleInfo param = new StandardRoleInfo();
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
 
-            if (!string.IsNullOrEmpty(standardOrganizationId))
+            if (!string.IsNullOrEmpty(standardOrganizationUnitId))
             {
-                param.StandardOrganizationId = standardOrganizationId;
+                param.StandardOrganizationUnitId = standardOrganizationUnitId;
             }
 
             param.Status = 1;
-            param.UpdateDate = DateTime.Now;
+            param.ModifiedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardRoleInfo>(param) + ",");
 

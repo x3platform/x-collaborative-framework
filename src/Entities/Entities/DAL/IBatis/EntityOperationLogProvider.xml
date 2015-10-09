@@ -13,7 +13,7 @@
             <result property="ToAuthorizationObjectId" column="ToAuthorizationObjectId" />
             <result property="ToAuthorizationObjectType" column="ToAuthorizationObjectType" />
             <result property="Reason" column="Reason" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Entity_OperationLog_FindAll_Result" class="EntityOperationLogInfo">
             <result property="Id" column="Id" />
@@ -24,7 +24,7 @@
             <result property="ToAuthorizationObjectId" column="ToAuthorizationObjectId" />
             <result property="ToAuthorizationObjectType" column="ToAuthorizationObjectType" />
             <result property="Reason" column="Reason" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>        
@@ -39,7 +39,7 @@
                 ToAuthorizationObjectId,
                 ToAuthorizationObjectType,
                 Reason,
-                CreateDate
+                CreatedDate
             )
             VALUES
             (
@@ -65,7 +65,7 @@
                 ToAuthorizationObjectId,
                 ToAuthorizationObjectType,
                 Reason,
-                CreateDate
+                CreatedDate
             )
             VALUES
             (

@@ -82,14 +82,14 @@
         }
         #endregion
 
-        #region 属性:Lock
-        private int m_Lock;
+        #region 属性:Locking
+        private int m_Locking;
 
         /// <summary></summary>
-        public int Lock
+        public int Locking
         {
-            get { return this.m_Lock; }
-            set { this.m_Lock = value; }
+            get { return this.m_Locking; }
+            set { this.m_Locking = value; }
         }
         #endregion
 
@@ -104,25 +104,25 @@
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return this.m_UpdateDate; }
-            set { this.m_UpdateDate = value; }
+            get { return this.m_ModifiedDate; }
+            set { this.m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return this.m_CreateDate; }
-            set { this.m_CreateDate = value; }
+            get { return this.m_CreatedDate; }
+            set { this.m_CreatedDate = value; }
         }
         #endregion
     }

@@ -26,8 +26,8 @@
             <result property="IP" column="IP" />
             <result property="LoginDate" column="LoginDate" />
             <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Account_FindAll_Result" class="AccountInfo">
             <result property="Id" column="Id" />
@@ -51,8 +51,8 @@
             <result property="IP" column="IP" />
             <result property="LoginDate" column="LoginDate" />
             <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -77,8 +77,8 @@
                 DistinguishedName,
                 IP,
                 LoginDate,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -121,7 +121,7 @@
                 Status = #Status#,
                 Remark = #Remark#,
                 DistinguishedName = #DistinguishedName#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -138,8 +138,8 @@
             DELETE FROM tb_Account_AssignedJob WHERE AccountId = '$Account$'
         </delete>
         
-        <delete id="proc_Account_Delete_AccountOrganization">
-            DELETE FROM tb_Account_Organization WHERE AccountId = '$Account$'
+        <delete id="proc_Account_Delete_AccountOrganizationUnit">
+            DELETE FROM tb_Account_OrganizationUnit WHERE AccountId = '$Account$'
         </delete>
         
         <delete id="proc_Account_Delete_AccountGrant">
@@ -246,11 +246,11 @@
         </select>
 
         <update id="proc_Account_Rename" parameterClass="AccountInfo">
-            UPDATE tb_Account SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Account SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetGlobalName" >
-            Update tb_Account SET GlobalName = #GlobalName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Account SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <select id="proc_Account_GetPassword" >
@@ -262,27 +262,27 @@
         </update>
 
         <update id="proc_Account_SetLoginName" >
-            Update tb_Account SET LoginName = #LoginName#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Account SET LoginName = #LoginName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedTelephone" >
-            Update tb_Account SET CertifiedTelephone = #CertifiedTelephone#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Account SET CertifiedTelephone = #CertifiedTelephone#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedEmail" >
-            Update tb_Account SET CertifiedEmail = #CertifiedEmail#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Account SET CertifiedEmail = #CertifiedEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedAvatar" >
-            Update tb_Account SET CertifiedAvatar = #CertifiedAvatar#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Account SET CertifiedAvatar = #CertifiedAvatar#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetExchangeStatus" >
-            UPDATE tb_Account SET EnableExchangeEmail = #EnableExchangeEmail#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Account SET EnableExchangeEmail = #EnableExchangeEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         
         <update id="proc_Account_SetStatus" >
-            Update tb_Account SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            Update tb_Account SET Status = #Status#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetIPAndLoginDate" >
@@ -298,11 +298,11 @@
         </update>
 
         <update id="proc_Account_Refresh_Table_Account" >
-            UPDATE tb_Account SET UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_Account SET ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_Refresh_Table_Member" >
-            UPDATE tb_Member SET UpdateDate = CURRENT_TIMESTAMP WHERE AccountId = #Id#
+            UPDATE tb_Member SET ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #Id#
         </update>
 
         <select id="proc_Account_GetAuthorizationScopesByAccount" >
@@ -319,7 +319,7 @@
                 DisplayName = #DisplayName#,
                 PinYin = #PinYin#,
                 Status = #Status#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
 
@@ -335,8 +335,8 @@
                 DisplayName,
                 PinYin,
                 Status,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES 
             (

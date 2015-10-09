@@ -1,7 +1,7 @@
 namespace X3Platform.Membership
 {
     /// <summary>组织节点状态</summary>
-    public enum OrganizationChartNodeStatus
+    public enum OrganizationUnitChartNodeStatus
     {
         /// <summary>启用</summary>
         Enable,

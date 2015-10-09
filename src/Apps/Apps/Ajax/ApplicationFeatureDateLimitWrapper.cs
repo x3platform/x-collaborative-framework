@@ -165,7 +165,7 @@
 
             param.Status = 1;
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
 

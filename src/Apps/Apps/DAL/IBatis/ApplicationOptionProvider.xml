@@ -14,8 +14,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Application_Option_FindAll_Result" class="ApplicationOptionInfo">
             <result property="ApplicationId" column="ApplicationId" />
@@ -27,8 +27,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -44,8 +44,8 @@
                 OrderId,
                 Status,
                 Remark,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -74,7 +74,7 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Name = #Name#
         </update>

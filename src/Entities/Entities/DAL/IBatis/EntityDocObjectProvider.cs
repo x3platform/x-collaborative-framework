@@ -137,7 +137,7 @@
         /// <returns>返回所有实例<see cref="IEntityDocObjectInfo"/>的详细信息</returns>
         public IList<IEntityDocObjectInfo> FindAllByDocToken(string customTableName, string docToken)
         {
-            string whereClause = string.Format(" DocToken = ##{0}## ORDER BY CreateDate ", docToken);
+            string whereClause = string.Format(" DocToken = ##{0}## ORDER BY CreatedDate ", docToken);
 
             return FindAll(customTableName, whereClause, 0);
         }
@@ -151,7 +151,7 @@
         /// <returns>返回所有实例<see cref="IEntityDocObjectInfo"/>的详细信息</returns>
         public IList<IEntityDocObjectInfo> FindAllByDocToken(string customTableName, string docToken, DataResultMapper mapper)
         {
-            string whereClause = string.Format(" {0} = ##{1}## ORDER BY CreateDate ", mapper["DocToken"].DataColumnName, docToken);
+            string whereClause = string.Format(" {0} = ##{1}## ORDER BY CreatedDate ", mapper["DocToken"].DataColumnName, docToken);
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

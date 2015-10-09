@@ -24,8 +24,8 @@
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
             <result property="FullPath" column="FullPath" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Application_Menu_FindAll_Result" class="ApplicationMenuInfo">
             <result property="Id" column="Id" />
@@ -46,8 +46,8 @@
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
             <result property="FullPath" column="FullPath" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Application_Menu_FindAllQueryObject_Result" class="ApplicationMenuQueryInfo">
             <result property="Id" column="Id" />
@@ -68,8 +68,8 @@
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
             <result property="FullPath" column="FullPath" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -95,8 +95,8 @@
                 Status,
                 Remark,
                 FullPath,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -143,7 +143,7 @@
                     Status = #Status#,
                     Remark = #Remark#,
                     FullPath = #FullPath#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
         </update>
@@ -337,7 +337,7 @@
                     Status = #Status#,
                     Remark = #Remark#,
                     FullPath = #FullPath#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
 
@@ -364,8 +364,8 @@
                     Status,
                     Remark,
                     FullPath,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (

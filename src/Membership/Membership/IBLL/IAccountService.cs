@@ -97,19 +97,19 @@
         IList<IAccountInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下的所有相关帐号</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
-        IList<IAccountInfo> FindAllByOrganizationId(string organizationId);
+        IList<IAccountInfo> FindAllByOrganizationUnitId(string organizationId);
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId, bool defaultOrganizationUnitRelation)
         /// <summary>查询某个组织下的所有相关帐号</summary>
         /// <param name="organizationId">组织标识</param>
-        /// <param name="defaultOrganizationRelation">默认组织关系</param>
+        /// <param name="defaultOrganizationUnitRelation">默认组织关系</param>
         /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
-        IList<IAccountInfo> FindAllByOrganizationId(string organizationId, bool defaultOrganizationRelation);
+        IList<IAccountInfo> FindAllByOrganizationUnitId(string organizationId, bool defaultOrganizationUnitRelation);
         #endregion
 
         #region 函数:FindAllByRoleId(string roleId)
@@ -133,34 +133,34 @@
         IList<IAccountInfo> FindAllWithoutMemberInfo(int length);
         #endregion
 
-        #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId)
+        #region 函数:FindForwardLeaderAccountsByOrganizationUnitId(string organizationId)
         /// <summary>返回所有正向领导的帐号信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-        IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId);
+        IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationUnitId(string organizationId);
         #endregion
 
-        #region 函数:FindForwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        #region 函数:FindForwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有正向领导的帐号信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-        IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationId(string organizationId, int level);
+        IList<IAccountInfo> FindForwardLeaderAccountsByOrganizationUnitId(string organizationId, int level);
         #endregion
 
-        #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId)
+        #region 函数:FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId)
         /// <summary>返回所有反向领导的帐号信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-        IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId);
+        IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId);
         #endregion
 
-        #region 函数:FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level)
+        #region 函数:FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId, int level)
         /// <summary>返回所有反向领导的帐号信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
         /// <returns>返回所有<see cref="IAccountInfo"/>实例的详细信息</returns>
-        IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationId(string organizationId, int level);
+        IList<IAccountInfo> FindBackwardLeaderAccountsByOrganizationUnitId(string organizationId, int level);
         #endregion
 
         // -------------------------------------------------------
@@ -388,11 +388,11 @@
         int ChangePassword(string loginName, string password, string originalPassword);
         #endregion
 
-        #region 函数:RefreshUpdateDate(string accountId)
+        #region 函数:RefreshModifiedDate(string accountId)
         /// <summary>刷新帐号的更新时间</summary>
         /// <param name="accountId">帐户标识</param>
         /// <returns>0 设置成功, 1 设置失败.</returns>
-        int RefreshUpdateDate(string accountId);
+        int RefreshModifiedDate(string accountId);
         #endregion
 
         #region 函数:GetAuthorizationScopeObjects(IAccount account)
@@ -401,10 +401,10 @@
         IList<MembershipAuthorizationScopeObject> GetAuthorizationScopeObjects(IAccountInfo account);
         #endregion
 
-        #region 函数:SyncToActiveDirectory(IAccountInfo param)
+        #region 函数:SyncToLDAP(IAccountInfo param)
         /// <summary>同步信息至 Active Directory</summary>
         /// <param name="param">帐号信息</param>
-        int SyncToActiveDirectory(IAccountInfo param);
+        int SyncToLDAP(IAccountInfo param);
         #endregion
 
         // -------------------------------------------------------

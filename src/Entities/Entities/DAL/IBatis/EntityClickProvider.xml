@@ -10,8 +10,8 @@
             <result property="EntityClassName" column="EntityClassName" />
             <result property="AccountId" column="AccountId" />
             <result property="Click" column="Click" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Entity_Click_FindAll_Result" class="EntityClickInfo">
             <result property="Id" column="Id" />
@@ -19,8 +19,8 @@
             <result property="EntityClassName" column="EntityClassName" />
             <result property="AccountId" column="AccountId" />
             <result property="Click" column="Click" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -32,8 +32,8 @@
                 EntityClassName,
                 AccountId,
                 Click,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -54,8 +54,8 @@
                 EntityClassName,
                 AccountId,
                 Click,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -72,7 +72,7 @@
             UPDATE $CustomTableName$ SET
 
                 Click = $Click$,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE
                 EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AccountId = '$AccountId$'
@@ -121,8 +121,8 @@
                 EntityClassName,
                 AccountId,
                 Click,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -135,7 +135,7 @@
                 CURRENT_TIMESTAMP
             )
             ON DUPLICATE KEY
-            UPDATE Click = (Click + 1), UpdateDate = CURRENT_TIMESTAMP
+            UPDATE Click = (Click + 1), ModifiedDate = CURRENT_TIMESTAMP
         </insert>
         <insert id="proc_Entity_Click_Increment#SqlServer" >
             IF EXISTS ( SELECT 0 FROM $CustomTableName$ WHERE EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AccountId = '$AccountId$' )
@@ -143,7 +143,7 @@
                 UPDATE $CustomTableName$ SET
 
                     Click = (Click + 1),
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE
                     EntityId = '$EntityId$' AND EntityClassName = '$EntityClassName$' AND AccountId = '$AccountId$'
@@ -157,8 +157,8 @@
                     EntityClassName,
                     AccountId,
                     Click,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (

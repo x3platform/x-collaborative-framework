@@ -524,27 +524,27 @@ namespace X3Platform.Membership.Configuration
         }
         #endregion
 
-        #region 属性:AutoBindingOrganizationByPrimaryKey
-        private string m_AutoBindingOrganizationByPrimaryKey = string.Empty;
+        #region 属性:AutoBindingOrganizationUnitByPrimaryKey
+        private string m_AutoBindingOrganizationUnitByPrimaryKey = string.Empty;
 
         /// <summary>根据字段数据自动绑定组织信息</summary>
-        public string AutoBindingOrganizationByPrimaryKey
+        public string AutoBindingOrganizationUnitByPrimaryKey
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_AutoBindingOrganizationByPrimaryKey))
+                if (string.IsNullOrEmpty(this.m_AutoBindingOrganizationUnitByPrimaryKey))
                 {
                     // 读取配置信息
-                    this.m_AutoBindingOrganizationByPrimaryKey = KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_AutoBindingOrganizationUnitByPrimaryKey = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
-                        "AutoBindingOrganizationByPrimaryKey",
+                        "AutoBindingOrganizationUnitByPrimaryKey",
                         this.Configuration.Keys);
 
                     // 如果配置文件里没有设置，设置一个默认值。
-                    this.m_AutoBindingOrganizationByPrimaryKey = StringHelper.NullOrEmptyTo(this.m_AutoBindingOrganizationByPrimaryKey, "None");
+                    this.m_AutoBindingOrganizationUnitByPrimaryKey = StringHelper.NullOrEmptyTo(this.m_AutoBindingOrganizationUnitByPrimaryKey, "None");
                 }
 
-                return this.m_AutoBindingOrganizationByPrimaryKey;
+                return this.m_AutoBindingOrganizationUnitByPrimaryKey;
             }
         }
         #endregion
@@ -731,27 +731,27 @@ namespace X3Platform.Membership.Configuration
         }
         #endregion
 
-        #region 属性:DefaultOrganizationId
-        private string m_DefaultOrganizationId = string.Empty;
+        #region 属性:DefaultOrganizationUnitId
+        private string m_DefaultOrganizationUnitId = string.Empty;
 
         /// <summary>默认的组织标识</summary>
-        public string DefaultOrganizationId
+        public string DefaultOrganizationUnitId
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_DefaultOrganizationId))
+                if (string.IsNullOrEmpty(this.m_DefaultOrganizationUnitId))
                 {
                     // 读取配置信息
-                    this.m_DefaultOrganizationId = KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_DefaultOrganizationUnitId = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
-                        "DefaultOrganizationId",
+                        "DefaultOrganizationUnitId",
                         this.Configuration.Keys);
 
                     // 如果配置文件里没有设置，设置一个默认值。
-                    this.m_DefaultOrganizationId = StringHelper.NullOrEmptyTo(this.m_DefaultOrganizationId, Guid.Empty.ToString());
+                    this.m_DefaultOrganizationUnitId = StringHelper.NullOrEmptyTo(this.m_DefaultOrganizationUnitId, Guid.Empty.ToString());
                 }
 
-                return this.m_DefaultOrganizationId;
+                return this.m_DefaultOrganizationUnitId;
             }
         }
         #endregion

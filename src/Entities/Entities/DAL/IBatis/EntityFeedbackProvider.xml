@@ -12,8 +12,8 @@
             <result property="CompletionStatus" column="CompletionStatus" />
             <result property="WorkContent" column="WorkContent" />
             <result property="Status" column="Status" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Entity_Feedback_FindAll_Result" class="EntityFeedbackInfo">
             <result property="Id" column="Id" />
@@ -23,8 +23,8 @@
             <result property="CompletionStatus" column="CompletionStatus" />
             <result property="WorkContent" column="WorkContent" />
             <result property="Status" column="Status" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -39,8 +39,8 @@
                 CompletionStatus,
                 WorkContent,
                 Status,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -66,7 +66,7 @@
             CompletionStatus = #CompletionStatus#,
             WorkContent = #WorkContent#,
             Status = #Status#,
-            UpdateDate = CURRENT_TIMESTAMP
+            ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>

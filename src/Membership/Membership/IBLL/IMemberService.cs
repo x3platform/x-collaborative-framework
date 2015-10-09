@@ -96,11 +96,11 @@ namespace X3Platform.Membership.IBLL
         IList<IMemberInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 函数:FindAllWithoutDefaultOrganization(int length)
+        #region 函数:FindAllWithoutDefaultOrganizationUnit(int length)
         /// <summary>返回所有没有默认组织的成员信息</summary>
         /// <param name="length">条数, 0表示全部</param>
         /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
-        IList<IMemberInfo> FindAllWithoutDefaultOrganization(int length);
+        IList<IMemberInfo> FindAllWithoutDefaultOrganizationUnit(int length);
         #endregion
 
         #region 函数:FindAllWithoutDefaultJob(int length)
@@ -176,12 +176,12 @@ namespace X3Platform.Membership.IBLL
         int SetDefaultCorporationAndDepartments(string accountId, string organizationIds);
         #endregion
 
-        #region 函数:SetDefaultOrganization(string accountId, string organizationId)
+        #region 函数:SetDefaultOrganizationUnit(string accountId, string organizationId)
         /// <summary>设置默认组织单位</summary>
         /// <param name="accountId">帐号标识</param>
         /// <param name="organizationId">组织单位标识</param>
         /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
-        int SetDefaultOrganization(string accountId, string organizationId);
+        int SetDefaultOrganizationUnit(string accountId, string organizationId);
         #endregion
 
         #region 函数:SetDefaultRole(string accountId, string roleId)

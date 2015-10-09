@@ -8,15 +8,15 @@
             <result property="Name" column="Name" />
             <result property="Expression" column="Expression" />
             <result property="Seed" column="Seed" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_DigitalNumber_FindAll_Result" class="DigitalNumberInfo">
             <result property="Name" column="Name" />
             <result property="Expression" column="Expression" />
             <result property="Seed" column="Seed" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -26,8 +26,8 @@
                 Name,
                 Expression,
                 Seed,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -43,7 +43,7 @@
 
                 Expression = #Expression#,
                 Seed = #Seed#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Name = #Name#
         </update>
@@ -54,7 +54,7 @@
 
                     Expression = #Expression#,
                     Seed = #Seed#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Name = #Name#
             END
@@ -65,8 +65,8 @@
                     Name,
                     Expression,
                     Seed,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 )
                 VALUES
                 (

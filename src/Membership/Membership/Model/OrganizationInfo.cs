@@ -28,15 +28,15 @@ namespace X3Platform.Membership.Model
 
     /// <summary>组织单位信息</summary>
     [Serializable]
-    public class OrganizationInfo : IOrganizationInfo
+    public class OrganizationUnitInfo : IOrganizationUnitInfo
     {
         /// <summary></summary>
-        public OrganizationInfo()
+        public OrganizationUnitInfo()
         {
         }
 
         /// <summary></summary>
-        public OrganizationInfo(string id)
+        public OrganizationUnitInfo(string id)
         {
             this.Id = id;
         }
@@ -61,7 +61,7 @@ namespace X3Platform.Membership.Model
 
                     SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-                    string extensionInformationName = "X3Platform.Membership.Model.OrganizationInfo.ExtensionInformation";
+                    string extensionInformationName = "X3Platform.Membership.Model.OrganizationUnitInfo.ExtensionInformation";
 
                     m_ExtensionInformation = objectBuilder.GetObject<IExtensionInformation>(extensionInformationName);
                 }
@@ -86,47 +86,47 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:StandardOrganizationId
-        private string m_StandardOrganizationId;
+        #region 属性:StandardOrganizationUnitId
+        private string m_StandardOrganizationUnitId;
 
         /// <summary>标准组织标识</summary>
-        public string StandardOrganizationId
+        public string StandardOrganizationUnitId
         {
-            get { return m_StandardOrganizationId; }
-            set { m_StandardOrganizationId = value; }
+            get { return m_StandardOrganizationUnitId; }
+            set { m_StandardOrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:StandardOrganizationName
+        #region 属性:StandardOrganizationUnitName
         /// <summary>父节点名称</summary>
-        public string StandardOrganizationName
+        public string StandardOrganizationUnitName
         {
-            get { return this.StandardOrganization == null ? string.Empty : this.StandardOrganization.Name; }
+            get { return this.StandardOrganizationUnit == null ? string.Empty : this.StandardOrganizationUnit.Name; }
         }
         #endregion
 
-        #region 属性:StandardOrganization
-        private IStandardOrganizationInfo m_StandardOrganization = null;
+        #region 属性:StandardOrganizationUnit
+        private IStandardOrganizationUnitInfo m_StandardOrganizationUnit = null;
 
         /// <summary>所属标准组织</summary>
-        public IStandardOrganizationInfo StandardOrganization
+        public IStandardOrganizationUnitInfo StandardOrganizationUnit
         {
             get
             {
                 //
-                // StandardOrganizationId = "00000000-0000-0000-0000-000000000000" 表示所属标准组织为空
+                // StandardOrganizationUnitId = "00000000-0000-0000-0000-000000000000" 表示所属标准组织为空
                 // 
-                if (this.StandardOrganizationId == Guid.Empty.ToString())
+                if (this.StandardOrganizationUnitId == Guid.Empty.ToString())
                 {
                     return null;
                 }
 
-                if (m_StandardOrganization == null && !string.IsNullOrEmpty(this.StandardOrganizationId))
+                if (m_StandardOrganizationUnit == null && !string.IsNullOrEmpty(this.StandardOrganizationUnitId))
                 {
-                    m_StandardOrganization = MembershipManagement.Instance.StandardOrganizationService[this.StandardOrganizationId];
+                    m_StandardOrganizationUnit = MembershipManagement.Instance.StandardOrganizationUnitService[this.StandardOrganizationUnitId];
                 }
 
-                return m_StandardOrganization;
+                return m_StandardOrganizationUnit;
             }
         }
         #endregion
@@ -264,10 +264,10 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Parent
-        private IOrganizationInfo m_Parent = null;
+        private IOrganizationUnitInfo m_Parent = null;
 
         /// <summary>父级对象</summary>
-        public IOrganizationInfo Parent
+        public IOrganizationUnitInfo Parent
         {
             get
             {
@@ -283,7 +283,7 @@ namespace X3Platform.Membership.Model
 
                 if (m_Parent == null && !string.IsNullOrEmpty(this.ParentId))
                 {
-                    m_Parent = MembershipManagement.Instance.OrganizationService[this.ParentId];
+                    m_Parent = MembershipManagement.Instance.OrganizationUnitService[this.ParentId];
                 }
 
                 return m_Parent;
@@ -308,16 +308,16 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Corporation
-        private IOrganizationInfo m_Corporation = null;
+        private IOrganizationUnitInfo m_Corporation = null;
 
         /// <summary>公司</summary>
-        public IOrganizationInfo Corporation
+        public IOrganizationUnitInfo Corporation
         {
             get
             {
                 if (m_Corporation == null && !string.IsNullOrEmpty(this.Id))
                 {
-                    m_Corporation = MembershipManagement.Instance.OrganizationService.FindCorporationByOrganizationId(this.Id);
+                    m_Corporation = MembershipManagement.Instance.OrganizationUnitService.FindCorporationByOrganizationUnitId(this.Id);
                 }
 
                 return m_Corporation;
@@ -335,7 +335,7 @@ namespace X3Platform.Membership.Model
             {
                 if (m_ChindNodes == null)
                 {
-                    m_ChindNodes = MembershipManagement.Instance.OrganizationService.GetChildNodes(this.Id);
+                    m_ChindNodes = MembershipManagement.Instance.OrganizationUnitService.GetChildNodes(this.Id);
                 }
 
                 return m_ChindNodes;
@@ -354,7 +354,7 @@ namespace X3Platform.Membership.Model
             {
                 if (m_Roles == null)
                 {
-                    this.m_Roles = MembershipManagement.Instance.RoleService.FindAllByOrganizationId(this.Id);
+                    this.m_Roles = MembershipManagement.Instance.RoleService.FindAllByOrganizationUnitId(this.Id);
                 }
 
                 return this.m_Roles;
@@ -418,7 +418,7 @@ namespace X3Platform.Membership.Model
             {
                 if (string.IsNullOrEmpty(this.m_RoleMemberView) && this.Roles.Count > 0)
                 {
-                    IList<IAccountInfo> list = MembershipManagement.Instance.AccountService.FindAllByOrganizationId(this.Id);
+                    IList<IAccountInfo> list = MembershipManagement.Instance.AccountService.FindAllByOrganizationUnitId(this.Id);
 
                     foreach (IAccountInfo item in list)
                     {
@@ -541,25 +541,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary>修改时间</summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary>创建时间</summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -586,7 +586,7 @@ namespace X3Platform.Membership.Model
         /// <summary>类型</summary>
         string IAuthorizationObject.Type
         {
-            get { return "Organization"; }
+            get { return "OrganizationUnit"; }
         }
         #endregion
 
@@ -656,7 +656,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<remark><![CDATA[{0}]]></remark>", this.Remark);
             if (displayComment)
                 outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</organization>");
 
             return outString.ToString();
@@ -671,9 +671,9 @@ namespace X3Platform.Membership.Model
             // 以下数据由人力资源输入.
             this.Id = element.SelectSingleNode("id").InnerText;
 
-            if (element.SelectSingleNode("standardOrganizationId") != null)
+            if (element.SelectSingleNode("standardOrganizationUnitId") != null)
             {
-                this.StandardOrganizationId = element.SelectSingleNode("standardOrganizationId").InnerText;
+                this.StandardOrganizationUnitId = element.SelectSingleNode("standardOrganizationUnitId").InnerText;
             }
 
             this.Code = element.SelectSingleNode("code").InnerText;
@@ -699,7 +699,7 @@ namespace X3Platform.Membership.Model
             {
                 this.Remark = element.SelectSingleNode("remark").InnerText;
             }
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

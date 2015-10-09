@@ -38,9 +38,9 @@
         string Remark { get; set; }
         #endregion
 
-        #region 属性:UpdateDate
+        #region 属性:ModifiedDate
         /// <summary>更新时间</summary>
-        DateTime UpdateDate { get; set; }
+        DateTime ModifiedDate { get; set; }
         #endregion
     }
 }

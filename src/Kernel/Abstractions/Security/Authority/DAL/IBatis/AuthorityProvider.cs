@@ -199,7 +199,7 @@ namespace X3Platform.Security.Authority.DAL.IBatis
       Dictionary<string, object> args = new Dictionary<string, object>();
       
       args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" }, { "Value", "LIKE" } }));
-      args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

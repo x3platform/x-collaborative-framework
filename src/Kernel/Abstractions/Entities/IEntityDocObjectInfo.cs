@@ -21,9 +21,9 @@ namespace X3Platform.Entities
         string DocStatus { get; }
 
         /// <summary>更新日期</summary>
-        DateTime UpdateDate { get; }
+        DateTime ModifiedDate { get; }
 
         /// <summary>创建日期</summary>
-        DateTime CreateDate { get; }
+        DateTime CreatedDate { get; }
     }
 }

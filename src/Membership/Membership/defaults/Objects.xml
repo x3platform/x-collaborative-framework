@@ -58,16 +58,16 @@
             lazy-init="true" />
 
     <!-- 组织单位 -->
-    <object name="X3Platform.Membership.Model.OrganizationInfo.ExtensionInformation"
-            type="X3Platform.Membership.HumanResources.Model.OrganizationExtensionInformation,X3Platform.Membership.HumanResources"
+    <object name="X3Platform.Membership.Model.OrganizationUnitInfo.ExtensionInformation"
+            type="X3Platform.Membership.HumanResources.Model.OrganizationUnitExtensionInformation,X3Platform.Membership.HumanResources"
             singleton="false" />
 
-    <object name="X3Platform.Membership.IBLL.IOrganizationService"
-            type="X3Platform.Membership.BLL.OrganizationService"
+    <object name="X3Platform.Membership.IBLL.IOrganizationUnitService"
+            type="X3Platform.Membership.BLL.OrganizationUnitService"
             lazy-init="true" />
 
-    <object name="X3Platform.Membership.IDAL.IOrganizationProvider"
-            type="X3Platform.Membership.DAL.IBatis.OrganizationProvider"
+    <object name="X3Platform.Membership.IDAL.IOrganizationUnitProvider"
+            type="X3Platform.Membership.DAL.IBatis.OrganizationUnitProvider"
             lazy-init="true" />
 
     <!-- 角色 -->
@@ -93,12 +93,12 @@
             lazy-init="true" />
 
     <!-- 标准组织 -->
-    <object name="X3Platform.Membership.IBLL.IStandardOrganizationService"
-            type="X3Platform.Membership.BLL.StandardOrganizationService"
+    <object name="X3Platform.Membership.IBLL.IStandardOrganizationUnitService"
+            type="X3Platform.Membership.BLL.StandardOrganizationUnitService"
             lazy-init="true" />
 
-    <object name="X3Platform.Membership.IDAL.IStandardOrganizationProvider"
-            type="X3Platform.Membership.DAL.IBatis.StandardOrganizationProvider"
+    <object name="X3Platform.Membership.IDAL.IStandardOrganizationUnitProvider"
+            type="X3Platform.Membership.DAL.IBatis.StandardOrganizationUnitProvider"
             lazy-init="true" />
 
     <!-- 标准通用角色 -->
@@ -210,8 +210,8 @@
             lazy-init="true" />
 
     <!-- 数据包管理[标准组织] -->
-    <object name="X3Platform.Membership.Synchronize.Packages.Membership.StandardOrganizationPackage"
-            type="X3Platform.Membership.Synchronize.Packages.Membership.StandardOrganizationPackage"
+    <object name="X3Platform.Membership.Synchronize.Packages.Membership.StandardOrganizationUnitPackage"
+            type="X3Platform.Membership.Synchronize.Packages.Membership.StandardOrganizationUnitPackage"
             lazy-init="true" />
 
     <!-- 数据包管理[标准角色] -->
@@ -220,8 +220,8 @@
             lazy-init="true" />
 
     <!-- 数据包管理[组织] -->
-    <object name="X3Platform.Membership.Synchronize.Packages.Membership.OrganizationPackage"
-            type="X3Platform.Membership.Synchronize.Packages.Membership.OrganizationPackage"
+    <object name="X3Platform.Membership.Synchronize.Packages.Membership.OrganizationUnitPackage"
+            type="X3Platform.Membership.Synchronize.Packages.Membership.OrganizationUnitPackage"
             lazy-init="true" />
 
     <!-- 数据包管理[角色] -->

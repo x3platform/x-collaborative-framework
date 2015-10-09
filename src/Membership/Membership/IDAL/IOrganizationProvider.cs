@@ -22,30 +22,30 @@ namespace X3Platform.Membership.IDAL
     using X3Platform.Spring;
 
     /// <summary></summary>
-    [SpringObject("X3Platform.Membership.IDAL.IOrganizationProvider")]
-    public interface IOrganizationProvider
+    [SpringObject("X3Platform.Membership.IDAL.IOrganizationUnitProvider")]
+    public interface IOrganizationUnitProvider
     {
         // -------------------------------------------------------
         // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(IOrganizationInfo param)
+        #region 函数:Save(IOrganizationUnitInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">IOrganizationInfo 实例详细信息</param>
-        /// <returns>IOrganizationInfo 实例详细信息</returns>
-        IOrganizationInfo Save(IOrganizationInfo param);
+        /// <param name="param">IOrganizationUnitInfo 实例详细信息</param>
+        /// <returns>IOrganizationUnitInfo 实例详细信息</returns>
+        IOrganizationUnitInfo Save(IOrganizationUnitInfo param);
         #endregion
 
-        #region 函数:Insert(IOrganizationInfo param)
+        #region 函数:Insert(IOrganizationUnitInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">IOrganizationInfo 实例的详细信息</param>
-        void Insert(IOrganizationInfo param);
+        /// <param name="param">IOrganizationUnitInfo 实例的详细信息</param>
+        void Insert(IOrganizationUnitInfo param);
         #endregion
 
-        #region 函数:Update(IOrganizationInfo param)
+        #region 函数:Update(IOrganizationUnitInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">IOrganizationInfo 实例的详细信息</param>
-        void Update(IOrganizationInfo param);
+        /// <param name="param">IOrganizationUnitInfo 实例的详细信息</param>
+        void Update(IOrganizationUnitInfo param);
         #endregion
 
         #region 函数:Delete(string id)
@@ -60,75 +60,75 @@ namespace X3Platform.Membership.IDAL
 
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
-        /// <param name="id">IOrganizationInfo id号</param>
-        /// <returns>返回一个<see cref="IOrganizationInfo" />实例的详细信息</returns>
-        IOrganizationInfo FindOne(string id);
+        /// <param name="id">IOrganizationUnitInfo id号</param>
+        /// <returns>返回一个<see cref="IOrganizationUnitInfo" />实例的详细信息</returns>
+        IOrganizationUnitInfo FindOne(string id);
         #endregion
 
         #region 函数:FindOneByGlobalName(string globalName)
         /// <summary>查询某条记录</summary>
         /// <param name="globalName">组织的全局名称</param>
-        /// <returns>返回一个<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        IOrganizationInfo FindOneByGlobalName(string globalName);
+        /// <returns>返回一个<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        IOrganizationUnitInfo FindOneByGlobalName(string globalName);
         #endregion
 
         #region 函数:FindOneByRoleId(string roleId)
         /// <summary>查询角色所属的组织信息</summary>
         /// <param name="roleId">角色标识</param>
-        /// <returns>返回一个<see cref="IOrganizationInfo" />实例的详细信息</returns>
-        IOrganizationInfo FindOneByRoleId(string roleId);
+        /// <returns>返回一个<see cref="IOrganizationUnitInfo" />实例的详细信息</returns>
+        IOrganizationUnitInfo FindOneByRoleId(string roleId);
         #endregion
 
         #region 函数:FindOneByRoleId(string roleId, int level)
         /// <summary>查询某个角色所属的某一级次的组织信息</summary>
         /// <param name="roleId">角色标识</param>
         /// <param name="level">层次</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        IOrganizationInfo FindOneByRoleId(string roleId, int level);
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        IOrganizationUnitInfo FindOneByRoleId(string roleId, int level);
         #endregion
 
-        #region 函数:FindCorporationByOrganizationId(string id)
+        #region 函数:FindCorporationByOrganizationUnitId(string id)
         /// <summary>查询某个组织所属的公司信息</summary>
         /// <param name="id">组织标识</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        IOrganizationInfo FindCorporationByOrganizationId(string id);
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        IOrganizationUnitInfo FindCorporationByOrganizationUnitId(string id);
         #endregion
 
-        #region 函数:FindDepartmentByOrganizationId(string organizationId, int level)
+        #region 函数:FindDepartmentByOrganizationUnitId(string organizationId, int level)
         /// <summary>查询某个组织的所属某个上级部门信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        IOrganizationInfo FindDepartmentByOrganizationId(string organizationId, int level);
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        IOrganizationUnitInfo FindDepartmentByOrganizationUnitId(string organizationId, int level);
         #endregion
 
         #region 函数:FindAll(string whereClause,int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有 IOrganizationInfo 实例的详细信息</returns>
-        IList<IOrganizationInfo> FindAll(string whereClause, int length);
+        /// <returns>返回所有 IOrganizationUnitInfo 实例的详细信息</returns>
+        IList<IOrganizationUnitInfo> FindAll(string whereClause, int length);
         #endregion
 
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回所有实例<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        IList<IOrganizationInfo> FindAllByParentId(string parentId);
+        /// <returns>返回所有实例<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        IList<IOrganizationUnitInfo> FindAllByParentId(string parentId);
         #endregion
 
         #region 函数:FindAllByAccountId(string accountId)
         /// <summary>查询某条记录</summary>
         /// <param name="accountId">帐号标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        IList<IOrganizationInfo> FindAllByAccountId(string accountId);
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        IList<IOrganizationUnitInfo> FindAllByAccountId(string accountId);
         #endregion
 
         #region 函数:FindCorporationsByAccountId(string accountId)
         /// <summary>查询某个帐户所属的所有公司信息</summary>
         /// <param name="accountId">帐号标识</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        IList<IOrganizationInfo> FindCorporationsByAccountId(string accountId);
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        IList<IOrganizationUnitInfo> FindCorporationsByAccountId(string accountId);
         #endregion
 
         // -------------------------------------------------------
@@ -142,7 +142,7 @@ namespace X3Platform.Membership.IDAL
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">记录行数</param>
         /// <returns>返回一个列表</returns>
-        IList<IOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        IList<IOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)
@@ -198,10 +198,10 @@ namespace X3Platform.Membership.IDAL
         int SetExchangeStatus(string accountId, int status);
         #endregion
 
-        #region 函数:SyncFromPackPage(IOrganizationInfo param)
+        #region 函数:SyncFromPackPage(IOrganizationUnitInfo param)
         /// <summary>同步信息</summary>
         /// <param name="param">组织信息</param>
-        int SyncFromPackPage(IOrganizationInfo param);
+        int SyncFromPackPage(IOrganizationUnitInfo param);
         #endregion
 
         // -------------------------------------------------------
@@ -211,15 +211,15 @@ namespace X3Platform.Membership.IDAL
         #region 函数:FindAllRelationByAccountId(string accountId)
         /// <summary>根据帐号查询相关组织的关系</summary>
         /// <param name="accountId">帐号标识</param>
-        /// <returns>Table Columns：AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        IList<IAccountOrganizationRelationInfo> FindAllRelationByAccountId(string accountId);
+        /// <returns>Table Columns：AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByAccountId(string accountId);
         #endregion
 
         #region 函数:FindAllRelationByRoleId(string organizationId)
         /// <summary>根据组织查询相关帐号的关系</summary>
         /// <param name="organizationId">组织标识</param>
-        /// <returns>Table Columns：AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        IList<IAccountOrganizationRelationInfo> FindAllRelationByRoleId(string organizationId);
+        /// <returns>Table Columns：AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByRoleId(string organizationId);
         #endregion
 
         #region 函数:AddRelation(string accountId, string organizationId, bool isDefault, DateTime beginDate, DateTime endDate)

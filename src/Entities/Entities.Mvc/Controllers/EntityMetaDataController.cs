@@ -53,7 +53,7 @@
         param = new EntityMetaDataInfo();
 
         param.Id = DigitalNumberContext.Generate("Key_Guid");
-        param.CreateDate = param.UpdateDate = DateTime.Now;
+        param.CreatedDate = param.ModifiedDate = DateTime.Now;
       }
       else
       {

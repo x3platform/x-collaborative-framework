@@ -11,8 +11,8 @@ CREATE TABLE dbo.tb_Authority(
 	Locking int NULL,
 	Tags nvarchar(50) NULL,
 	OrderId nvarchar(20) NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL,
+	ModifiedDate datetime NULL,
+	CreatedDate datetime NULL,
  CONSTRAINT PK_tb_Authority PRIMARY KEY CLUSTERED 
 (
 	Id ASC

@@ -14,8 +14,8 @@ CREATE TABLE tb_DigitalNumber(
 	Name nvarchar(100) COLLATE Chinese_PRC_CI_AS NOT NULL,
 	Expression nvarchar(200) COLLATE Chinese_PRC_CI_AS NULL,
 	Seed int NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL,
+	ModifiedDate datetime NULL,
+	CreatedDate datetime NULL,
     CONSTRAINT PK_tb_DateRunningNumber PRIMARY KEY CLUSTERED 
     (
 	    Name ASC
@@ -24,16 +24,16 @@ CREATE TABLE tb_DigitalNumber(
 END
 GO
 
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Key_32DigitGuid', '{guid:N}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Key_Guid', '{guid}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Key_Random_10', '{random:abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:10}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Key_RunningNumber', '{date:yyyyMMdd}{dailyIncrement:seed:10}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Key_Sessio', '{guid}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Key_Timestamp', '{date:yyyyMMddHHmmssfff}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Example_01', '{int:seed:8}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Example_02', '{date:yyyyMMddHHmmssfff}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Example_03', '{date:yyyyMMddHH}{dailyIncrement:seed:8}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Example_04', '{date:yyyyMMdd}{tag:-}{int:seed}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Example_05', '{guid}', 0, '2000-01-01', '2000-01-01');
-INSERT tb_DigitalNumber (Name, Expression, Seed, UpdateDate, CreateDate) VALUES ('Example_06', '{random:abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:10}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Key_32DigitGuid', '{guid:N}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Key_Guid', '{guid}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Key_Random_10', '{random:abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:10}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Key_RunningNumber', '{date:yyyyMMdd}{dailyIncrement:seed:10}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Key_Sessio', '{guid}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Key_Timestamp', '{date:yyyyMMddHHmmssfff}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Example_01', '{int:seed:8}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Example_02', '{date:yyyyMMddHHmmssfff}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Example_03', '{date:yyyyMMddHH}{dailyIncrement:seed:8}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Example_04', '{date:yyyyMMdd}{tag:-}{int:seed}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Example_05', '{guid}', 0, '2000-01-01', '2000-01-01');
+INSERT tb_DigitalNumber (Name, Expression, Seed, ModifiedDate, CreatedDate) VALUES ('Example_06', '{random:abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ:10}', 0, '2000-01-01', '2000-01-01');
 GO

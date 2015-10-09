@@ -198,7 +198,7 @@ namespace X3Platform.Membership.Ajax
 
             param.Status = 1;
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<StandardGeneralRoleInfo>(param) + ",");
 
@@ -253,13 +253,13 @@ namespace X3Platform.Membership.Ajax
                 param.StandardGeneralRoleName = (standardGeneralRole == null) ? string.Empty : standardGeneralRole.Name;
             }
 
-            param.OrganizationId = organizationId;
+            param.OrganizationUnitId = organizationId;
 
-            if (!string.IsNullOrEmpty(param.OrganizationId))
+            if (!string.IsNullOrEmpty(param.OrganizationUnitId))
             {
-                IOrganizationInfo organization = MembershipManagement.Instance.OrganizationService.FindOne(param.OrganizationId);
+                IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService.FindOne(param.OrganizationUnitId);
 
-                param.OrganizationName = (organization == null) ? string.Empty : organization.Name;
+                param.OrganizationUnitName = (organization == null) ? string.Empty : organization.Name;
             }
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<StandardGeneralRoleMappingRelationInfo>(param) + ",");

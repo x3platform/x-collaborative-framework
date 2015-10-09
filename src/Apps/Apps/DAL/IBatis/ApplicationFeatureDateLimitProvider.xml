@@ -10,8 +10,8 @@
 			<result property="EndDate" column="EndDate" />
 			<result property="Status" column="Status" />
 			<result property="Remark" column="Remark" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 		<resultMap id="proc_Application_FeatureDateLimit_FindAll_Result" class="ApplicationFeatureDateLimitInfo">
 			<result property="Id" column="Id" />
@@ -19,8 +19,8 @@
 			<result property="EndDate" column="EndDate" />
 			<result property="Status" column="Status" />
 			<result property="Remark" column="Remark" />
-			<result property="UpdateDate" column="UpdateDate" />
-			<result property="CreateDate" column="CreateDate" />
+			<result property="ModifiedDate" column="ModifiedDate" />
+			<result property="CreatedDate" column="CreatedDate" />
 		</resultMap>
 	</resultMaps>
 	<statements>
@@ -32,8 +32,8 @@
 				EndDate,
 				Status,
 				Remark,
-				UpdateDate,
-				CreateDate
+				ModifiedDate,
+				CreatedDate
 			)
 			VALUES
 			(
@@ -42,8 +42,8 @@
 				#EndDate#,
 				#Status#,
 				#Remark#,
-				#UpdateDate#,
-				#CreateDate#
+				#ModifiedDate#,
+				#CreatedDate#
 			)
 		</insert>
 
@@ -55,8 +55,8 @@
 				EndDate = #EndDate#,
 				Status = #Status#,
 				Remark = #Remark#,
-				UpdateDate = #UpdateDate#,
-				CreateDate = #CreateDate#
+				ModifiedDate = #ModifiedDate#,
+				CreatedDate = #CreatedDate#
 
 			WHERE Id = #Id#
 		</update>

@@ -1,4 +1,4 @@
-namespace X3Platform.ActiveDirectory.Configuration
+namespace X3Platform.LDAP.Configuration
 {
     #region Using Libraries
     using System;
@@ -9,21 +9,21 @@ namespace X3Platform.ActiveDirectory.Configuration
     #endregion
 
     /// <summary>配置视图</summary>
-    public class ActiveDirectoryConfigurationView : XmlConfigurationView<ActiveDirectoryConfiguration>
+    public class LDAPConfigurationView : XmlConfigurationView<LDAPConfiguration>
     {
         /// <summary>配置文件的默认路径.</summary>
-        private const string configFile = "config\\X3Platform.ActiveDirectory.config";
+        private const string configFile = "config\\X3Platform.LDAP.config";
 
         /// <summary>配置信息的全局前缀</summary>
-        private const string configGlobalPrefix = "ActiveDirectory";
+        private const string configGlobalPrefix = "LDAP";
 
         #region 静态属性:Instance
-        private static volatile ActiveDirectoryConfigurationView instance = null;
+        private static volatile LDAPConfigurationView instance = null;
 
         private static object lockObject = new object();
 
         /// <summary>实例</summary>
-        public static ActiveDirectoryConfigurationView Instance
+        public static LDAPConfigurationView Instance
         {
             get
             {
@@ -33,7 +33,7 @@ namespace X3Platform.ActiveDirectory.Configuration
                     {
                         if (instance == null)
                         {
-                            instance = new ActiveDirectoryConfigurationView();
+                            instance = new LDAPConfigurationView();
                         }
                     }
                 }
@@ -43,9 +43,9 @@ namespace X3Platform.ActiveDirectory.Configuration
         }
         #endregion
 
-        #region 构造函数:ActiveDirectoryConfigurationView()
+        #region 构造函数:LDAPConfigurationView()
         /// <summary>构造函数</summary>
-        private ActiveDirectoryConfigurationView()
+        private LDAPConfigurationView()
             : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
             // 基类初始化后会默认执行 Reload() 函数
@@ -170,7 +170,7 @@ namespace X3Platform.ActiveDirectory.Configuration
         #region 属性:LDAPPath
         private string m_LDAPPath = string.Empty;
 
-        /// <summary>ActiveDirectory LDAP Path</summary>
+        /// <summary>LDAP LDAP Path</summary>
         public string LDAPPath
         {
             get
@@ -236,24 +236,24 @@ namespace X3Platform.ActiveDirectory.Configuration
         }
         #endregion
 
-        #region 属性:CorporationOrganizationFolderRoot
-        private string m_CorporationOrganizationFolderRoot = string.Empty;
+        #region 属性:CorporationOrganizationUnitFolderRoot
+        private string m_CorporationOrganizationUnitFolderRoot = string.Empty;
 
         /// <summary>Active Directory 公司组织存放的根目录 (包括角色)</summary>
-        public string CorporationOrganizationFolderRoot
+        public string CorporationOrganizationUnitFolderRoot
         {
             get
             {
-                if (string.IsNullOrEmpty(m_CorporationOrganizationFolderRoot))
+                if (string.IsNullOrEmpty(m_CorporationOrganizationUnitFolderRoot))
                 {
                     // 读取配置信息
-                    this.m_CorporationOrganizationFolderRoot = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CorporationOrganizationFolderRoot", this.Configuration.Keys);
+                    this.m_CorporationOrganizationUnitFolderRoot = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CorporationOrganizationUnitFolderRoot", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_CorporationOrganizationFolderRoot = StringHelper.NullOrEmptyTo(this.m_CorporationOrganizationFolderRoot, "CorporationOrganizationals");
+                    this.m_CorporationOrganizationUnitFolderRoot = StringHelper.NullOrEmptyTo(this.m_CorporationOrganizationUnitFolderRoot, "CorporationOrganizationUnitals");
                 }
 
-                return m_CorporationOrganizationFolderRoot;
+                return m_CorporationOrganizationUnitFolderRoot;
             }
         }
         #endregion

@@ -8,7 +8,7 @@
     using X3Platform.CacheBuffer;
 
     /// <summary>组织单位</summary>
-    public interface IOrganizationInfo : IAuthorizationObject, ICacheable
+    public interface IOrganizationUnitInfo : IAuthorizationObject, ICacheable
     {
         /// <summary>标识</summary>
         new string Id { get; set; }
@@ -41,7 +41,7 @@
         #endregion
 
         /// <summary>父级组织信息</summary>
-        IOrganizationInfo Parent { get; }
+        IOrganizationUnitInfo Parent { get; }
 
         #region 属性:ChindNodes
         /// <summary>子节点</summary>
@@ -52,7 +52,7 @@
         IList<IRoleInfo> Roles { get; }
 
         /// <summary>所属标准组织标识</summary>
-        string StandardOrganizationId { get; set; }
+        string StandardOrganizationUnitId { get; set; }
 
         #region 属性:Type
         /// <summary>类型</summary>

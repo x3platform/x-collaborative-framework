@@ -85,11 +85,11 @@ namespace X3Platform.Membership.IDAL
         IList<IMemberInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 属性:FindAllWithoutDefaultOrganization(int length)
+        #region 属性:FindAllWithoutDefaultOrganizationUnit(int length)
         /// <summary>��������û��Ĭ����֯�ĳ�Ա��Ϣ</summary>
         /// <param name="length">����, 0��ʾȫ��</param>
         /// <returns>��������<see cref="IMemberInfo" />ʵ������ϸ��Ϣ</returns>
-        IList<IMemberInfo> FindAllWithoutDefaultOrganization(int length);
+        IList<IMemberInfo> FindAllWithoutDefaultOrganizationUnit(int length);
         #endregion
 
         #region 属性:FindAllWithoutDefaultJob(int length)
@@ -150,12 +150,12 @@ namespace X3Platform.Membership.IDAL
         int SetDefaultCorporationAndDepartments(string accountId, string organizationIds);
         #endregion
 
-        #region 属性:SetDefaultOrganization(string accountId, string organizationId)
+        #region 属性:SetDefaultOrganizationUnit(string accountId, string organizationId)
         /// <summary>����Ĭ����֯��λ</summary>
         /// <param name="accountId">�ʺű�ʶ</param>
         /// <param name="organizationId">��֯��λ��ʶ</param>
         /// <returns>�޸ĳɹ�,���� 0, �޸�ʧ��,���� 1.</returns>
-        int SetDefaultOrganization(string accountId, string organizationId);
+        int SetDefaultOrganizationUnit(string accountId, string organizationId);
         #endregion
 
         #region 属性:SetDefaultRole(string accountId, string roleId)

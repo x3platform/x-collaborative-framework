@@ -3,7 +3,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :StandardOrganizationWrapper.cs
+// FileName     :StandardOrganizationUnitWrapper.cs
 //
 // Description  :
 //
@@ -30,10 +30,10 @@ namespace X3Platform.Membership.Ajax
     #endregion
 
     /// <summary></summary>
-    public class StandardOrganizationWrapper : ContextWrapper
+    public class StandardOrganizationUnitWrapper : ContextWrapper
     {
         /// <summary>数据服务</summary>
-        private IStandardOrganizationService service = MembershipManagement.Instance.StandardOrganizationService;
+        private IStandardOrganizationUnitService service = MembershipManagement.Instance.StandardOrganizationUnitService;
 
         // -------------------------------------------------------
         // 保存 删除
@@ -45,9 +45,9 @@ namespace X3Platform.Membership.Ajax
         /// <returns>返回操作结果</returns>
         public string Save(XmlDocument doc)
         {
-            StandardOrganizationInfo param = new StandardOrganizationInfo();
+            StandardOrganizationUnitInfo param = new StandardOrganizationUnitInfo();
 
-            param = (StandardOrganizationInfo)AjaxUtil.Deserialize(param, doc);
+            param = (StandardOrganizationUnitInfo)AjaxUtil.Deserialize(param, doc);
 
             string originalName = XmlHelper.Fetch("originalName", doc);
 
@@ -88,9 +88,9 @@ namespace X3Platform.Membership.Ajax
 
                 if (param.Name != originalName)
                 {
-                    IList<IStandardOrganizationInfo> list = Membership.MembershipManagement.Instance.StandardOrganizationService.FindAllByParentId(param.ParentId);
+                    IList<IStandardOrganizationUnitInfo> list = Membership.MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(param.ParentId);
 
-                    foreach (IStandardOrganizationInfo item in list)
+                    foreach (IStandardOrganizationUnitInfo item in list)
                     {
                         if (item.Name == param.Name)
                         {
@@ -134,9 +134,9 @@ namespace X3Platform.Membership.Ajax
 
             string id = XmlHelper.Fetch("id", doc);
 
-            IStandardOrganizationInfo param = this.service.FindOne(id);
+            IStandardOrganizationUnitInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationUnitInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -156,9 +156,9 @@ namespace X3Platform.Membership.Ajax
 
             int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-            IList<IStandardOrganizationInfo> list = this.service.FindAll(whereClause, length);
+            IList<IStandardOrganizationUnitInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationUnitInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -190,11 +190,11 @@ namespace X3Platform.Membership.Ajax
 
             int rowCount = -1;
 
-            IList<IStandardOrganizationInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+            IList<IStandardOrganizationUnitInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationUnitInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
             // 兼容 ExtJS 设置
@@ -231,7 +231,7 @@ namespace X3Platform.Membership.Ajax
 
             string parentId = XmlHelper.Fetch("parentId", doc);
 
-            IStandardOrganizationInfo param = new StandardOrganizationInfo();
+            IStandardOrganizationUnitInfo param = new StandardOrganizationUnitInfo();
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
 
@@ -241,9 +241,9 @@ namespace X3Platform.Membership.Ajax
             }
 
             param.Status = 1;
-            param.UpdateDate = DateTime.Now;
+            param.ModifiedDate = DateTime.Now;
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IStandardOrganizationUnitInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -251,11 +251,11 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 函数:GetStandardOrganizationTypes(XmlDocument doc)
+        #region 函数:GetStandardOrganizationUnitTypes(XmlDocument doc)
         /// <summary>查询标准组织类型</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        public string GetStandardOrganizationTypes(XmlDocument doc)
+        public string GetStandardOrganizationUnitTypes(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -344,9 +344,9 @@ namespace X3Platform.Membership.Ajax
                 whereClause = " ParentId = ##00000000-0000-0000-0000-000000000001## AND Status = 1 ORDER BY OrderId, Code ";
             }
 
-            IList<IStandardOrganizationInfo> list = MembershipManagement.Instance.StandardOrganizationService.FindAll(whereClause);
+            IList<IStandardOrganizationUnitInfo> list = MembershipManagement.Instance.StandardOrganizationUnitService.FindAll(whereClause);
 
-            foreach (IStandardOrganizationInfo item in list)
+            foreach (IStandardOrganizationUnitInfo item in list)
             {
                 outString.Append("{");
                 outString.Append("\"id\":\"" + item.Id + "\",");

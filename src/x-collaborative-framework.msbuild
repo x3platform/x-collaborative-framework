@@ -12,7 +12,7 @@
         <ProjectToBuild Include="Services\Services\Services.csproj" />
         <!-- <ProjectToBuild Include="Services\Services.Host\Services.Host.csproj" /> -->
         <ProjectToBuild Include="Storages\Storages\Storages.csproj" />
-        <ProjectToBuild Include="ActiveDirectory\ActiveDirectory\ActiveDirectory.csproj" />
+        <ProjectToBuild Include="ActiveDirectory\ActiveDirectory\LDAP.csproj" />
         <ProjectToBuild Include="Email\Email.Client\Email.Client.csproj" />
         <ProjectToBuild Include="Drawing\Drawing.Captcha\Drawing.Captcha.csproj" />
         <ProjectToBuild Include="Location\Location.IPQuery\Location.IPQuery.csproj" />

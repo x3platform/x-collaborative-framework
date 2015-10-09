@@ -118,11 +118,11 @@ namespace X3Platform.Membership.IBLL
         string GetGroupTreeNodePathByGroupTreeNodeId(string groupTreeNodeId);
         #endregion
 
-        #region 函数:GetActiveDirectoryOUPathByGroupTreeNodeId(string groupTreeNodeId)
+        #region 函数:GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId)
         /// <summary>根据分组类别节点标识计算 Active Directory OU 路径</summary>
         /// <param name="groupTreeNodeId">分组类别节点标识</param>
         /// <returns></returns>
-        string GetActiveDirectoryOUPathByGroupTreeNodeId(string groupTreeNodeId);
+        string GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId);
         #endregion
 
         #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)

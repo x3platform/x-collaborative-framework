@@ -195,7 +195,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<IJobInfo> list = MembershipManagement.Instance.JobService.FindAll(whereClause);
 

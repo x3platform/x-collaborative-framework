@@ -26,8 +26,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Application_FindAll_Result" class="ApplicationInfo">
             <result property="Id" column="Id" />
@@ -51,8 +51,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -79,8 +79,8 @@
                 OrderId,
                 Status,
                 Remark,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             ) 
             VALUES 
             (
@@ -129,9 +129,9 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id# AND UpdateDate = #UpdateDate#
+            WHERE Id = #Id# AND ModifiedDate = #ModifiedDate#
         </update>
         <!--
         <update id="proc_Application_Sync_HasChildren" >
@@ -252,7 +252,7 @@
         </select>
         <insert id="proc_Application_AddAuthorizationScopeObject">
             INSERT INTO tb_Application_Scope
-            (AuthorizationObjectType, AuthorizationObjectId, AuthorityId, ApplicationId, UpdateDate, CreateDate)
+            (AuthorizationObjectType, AuthorizationObjectId, AuthorityId, ApplicationId, ModifiedDate, CreatedDate)
 
             VALUES
             (#AuthorizationObjectType#, #AuthorizationObjectId#, #AuthorityId#, #ApplicationId#, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
@@ -272,7 +272,7 @@
                     Code = #Code#,
                     ApplicationName = #ApplicationName#,
                     ApplicationDisplayName = #ApplicationDisplayName#,
-                    UpdateDate = CURRENT_TIMESTAMP
+                    ModifiedDate = CURRENT_TIMESTAMP
 
                 WHERE Id = #Id#
             END
@@ -300,8 +300,8 @@
                     OrderId,
                     Status,
                     Remark,
-                    UpdateDate,
-                    CreateDate
+                    ModifiedDate,
+                    CreatedDate
                 ) 
                 VALUES 
                 (

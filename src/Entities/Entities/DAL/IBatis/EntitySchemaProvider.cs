@@ -227,7 +227,7 @@ namespace X3Platform.Entities.DAL.IBatis
     {
       Dictionary<string, object> args = new Dictionary<string, object>();
 
-      orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
+      orderBy = string.IsNullOrEmpty(orderBy) ? " ModifiedDate DESC " : orderBy;
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

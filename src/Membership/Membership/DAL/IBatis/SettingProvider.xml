@@ -13,8 +13,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Setting_FindAll_Result" class="SettingInfo">
             <result property="Id" column="Id" />
@@ -25,8 +25,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -43,8 +43,8 @@
                 OrderId,
                 Status,
                 Remark,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -74,9 +74,9 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id# AND UpdateDate = #UpdateDate#
+            WHERE Id = #Id# AND ModifiedDate = #ModifiedDate#
         </update>
 
         <delete id="proc_Setting_Delete" >

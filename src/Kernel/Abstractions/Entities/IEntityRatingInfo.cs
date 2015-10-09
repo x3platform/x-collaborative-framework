@@ -21,6 +21,6 @@ namespace X3Platform.Entities
         int Rating { get; }
 
         /// <summary>最后更新时间</summary>
-        DateTime UpdateDate { get; }
+        DateTime ModifiedDate { get; }
     }
 }

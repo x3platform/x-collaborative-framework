@@ -82,11 +82,11 @@ namespace X3Platform.Membership.IDAL
         IList<IAssignedJobInfo> FindAllByAccountId(string accountId);
         #endregion
 
-        #region 函数:FindAllByOrganizationId(string organizationId)
+        #region 函数:FindAllByOrganizationUnitId(string organizationId)
         /// <summary>查询某个组织下面所有的岗位</summary>
         /// <param name="organizationId">组织标识</param>
         /// <returns>返回一个 IAssignedJobInfo 实例的详细信息</returns>
-        IList<IAssignedJobInfo> FindAllByOrganizationId(string organizationId);
+        IList<IAssignedJobInfo> FindAllByOrganizationUnitId(string organizationId);
         #endregion
 
         #region 函数:FindAllPartTimeJobsByAccountId(string accountId)

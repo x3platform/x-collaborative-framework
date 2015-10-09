@@ -23,8 +23,8 @@ using X3Platform.Membership.IBLL;
 using X3Platform.Membership.IDAL;
 using X3Platform.Membership.Model;
 using X3Platform.Configuration;
-using X3Platform.ActiveDirectory.Configuration;
-using X3Platform.ActiveDirectory;
+using X3Platform.LDAP.Configuration;
+using X3Platform.LDAP;
 using X3Platform.Data;
 
 namespace X3Platform.Membership.BLL
@@ -74,7 +74,7 @@ namespace X3Platform.Membership.BLL
         /// <returns>ʵ��<see cref="GeneralRoleInfo"/>��ϸ��Ϣ</returns>
         public GeneralRoleInfo Save(GeneralRoleInfo param)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 GeneralRoleInfo originalObject = FindOne(param.Id);
 
@@ -83,7 +83,7 @@ namespace X3Platform.Membership.BLL
                     originalObject = param;
                 }
 
-                this.SyncToActiveDirectory(param, originalObject.GlobalName, originalObject.GroupTreeNodeId);
+                this.SyncToLDAP(param, originalObject.GlobalName, originalObject.GroupTreeNodeId);
             }
 
             // ������֯ȫ·��
@@ -237,9 +237,9 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineDistinguishedName(string name, string groupTreeNodeId)
         {
-            string path = MembershipManagement.Instance.GroupTreeNodeService.GetActiveDirectoryOUPathByGroupTreeNodeId(groupTreeNodeId);
+            string path = MembershipManagement.Instance.GroupTreeNodeService.GetLDAPOUPathByGroupTreeNodeId(groupTreeNodeId);
 
-            return string.Format("CN={0},{1}{2}", name, path, ActiveDirectoryConfigurationView.Instance.SuffixDistinguishedName);
+            return string.Format("CN={0},{1}{2}", name, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
         #endregion
 
@@ -268,7 +268,7 @@ namespace X3Platform.Membership.BLL
                 return 3;
             }
 
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 /*
                 GeneralRoleInfo originalObject = FindOne(id);
@@ -278,15 +278,15 @@ namespace X3Platform.Membership.BLL
                     // �����ⲿϵͳֱ��ͬ������Ա��Ȩ�޹��������ݿ��У�
                     // ���� Active Directory �ϲ���ֱ�Ӵ������ض�������Ҫ�ֹ�����ȫ�����Ʋ��������ض�����
                     if (!string.IsNullOrEmpty(originalObject.GlobalName) 
-                        && ActiveDirectoryManagement.Instance.Group.IsExistName(globalName))
+                        && LDAPManagement.Instance.Group.IsExistName(globalName))
                     {
-                        ActiveDirectoryManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
+                        LDAPManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
                     }
                     else
                     {
-                        ActiveDirectoryManagement.Instance.Organization.Add(originalObject.Name, MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(originalObject.ParentId));
+                        LDAPManagement.Instance.OrganizationUnit.Add(originalObject.Name, MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalObject.ParentId));
 
-                        ActiveDirectoryManagement.Instance.Group.Add(globalName, MembershipManagement.Instance.OrganizationService.GetActiveDirectoryOUPathByOrganizationId(originalObject.Id));
+                        LDAPManagement.Instance.Group.Add(globalName, MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalObject.Id));
                     }
                 }
                  */
@@ -304,7 +304,7 @@ namespace X3Platform.Membership.BLL
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = string.Format(" UpdateDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
             IList<IRoleInfo> list = MembershipManagement.Instance.RoleService.FindAll(whereClause);
 
@@ -325,23 +325,23 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IGroupInfo param)
+        #region 属性:SyncToLDAP(IGroupInfo param)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">��ɫ��Ϣ</param>
-        public int SyncToActiveDirectory(GeneralRoleInfo param)
+        public int SyncToLDAP(GeneralRoleInfo param)
         {
-            return SyncToActiveDirectory(param, param.GlobalName, param.GroupTreeNodeId);
+            return SyncToLDAP(param, param.GlobalName, param.GroupTreeNodeId);
         }
         #endregion
 
-        #region 属性:SyncToActiveDirectory(IGroupInfo param, string originalGlobalName, string originalGroupTreeNodeId)
+        #region 属性:SyncToLDAP(IGroupInfo param, string originalGlobalName, string originalGroupTreeNodeId)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">��ɫ��Ϣ</param>
         /// <param name="originalGlobalName">ԭʼ��ȫ������</param>
         /// <param name="originalGroupTreeNodeId">ԭʼ�ķ�����ʶ</param>
-        public int SyncToActiveDirectory(GeneralRoleInfo param, string originalGlobalName, string originalGroupTreeNodeId)
+        public int SyncToLDAP(GeneralRoleInfo param, string originalGlobalName, string originalGroupTreeNodeId)
         {
-            if (ActiveDirectoryConfigurationView.Instance.IntegratedMode == "ON")
+            if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.Name))
                 {
@@ -358,28 +358,28 @@ namespace X3Platform.Membership.BLL
                     // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
                     // 2.Active Directory �������ض�����
                     if (!string.IsNullOrEmpty(originalGlobalName)
-                        && ActiveDirectoryManagement.Instance.Group.IsExistName(originalGlobalName))
+                        && LDAPManagement.Instance.Group.IsExistName(originalGlobalName))
                     {
                         if (param.GlobalName != originalGlobalName)
                         {
                             // ��ɫ��${Name}�������Ʒ����ı䡣
-                            ActiveDirectoryManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
+                            LDAPManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
                         }
 
                         if (param.GroupTreeNodeId != originalGroupTreeNodeId)
                         {
                             // ��ɫ��${Name}����������֯�����仯��
-                            ActiveDirectoryManagement.Instance.Group.MoveTo(param.GlobalName,
-                                MembershipManagement.Instance.GroupTreeNodeService.GetActiveDirectoryOUPathByGroupTreeNodeId(param.GroupTreeNodeId));
+                            LDAPManagement.Instance.Group.MoveTo(param.GlobalName,
+                                MembershipManagement.Instance.GroupTreeNodeService.GetLDAPOUPathByGroupTreeNodeId(param.GroupTreeNodeId));
                         }
 
                         return 0;
                     }
                     else
                     {
-                        string parentPath = MembershipManagement.Instance.GroupTreeNodeService.GetActiveDirectoryOUPathByGroupTreeNodeId(param.GroupTreeNodeId);
+                        string parentPath = MembershipManagement.Instance.GroupTreeNodeService.GetLDAPOUPathByGroupTreeNodeId(param.GroupTreeNodeId);
 
-                        ActiveDirectoryManagement.Instance.Group.Add(param.GlobalName, parentPath);
+                        LDAPManagement.Instance.Group.Add(param.GlobalName, parentPath);
 
                         // ��ɫ��${Name}�������ɹ���
                         return 0;

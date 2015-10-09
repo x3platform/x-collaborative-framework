@@ -264,7 +264,7 @@
         }));
       }
 
-      args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

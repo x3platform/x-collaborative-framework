@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>帐户和组织的关联信息</summary>
-    public interface IAccountOrganizationRelationInfo
+    public interface IAccountOrganizationUnitRelationInfo
     {
         #region 属性:AccountId
         /// <summary>帐号标识</summary>
@@ -15,14 +15,14 @@
         string AccountGlobalName { get; set; }
         #endregion
 
-        #region 属性:OrganizationId
+        #region 属性:OrganizationUnitId
         /// <summary>组织标识</summary>
-        string OrganizationId { get; set; }
+        string OrganizationUnitId { get; set; }
         #endregion
 
-        #region 属性:OrganizationGlobalName
+        #region 属性:OrganizationUnitGlobalName
         /// <summary>组织全局名称</summary>
-        string OrganizationGlobalName { get; set; }
+        string OrganizationUnitGlobalName { get; set; }
         #endregion
 
         #region 属性:IsDefault
@@ -44,8 +44,8 @@
         IAccountInfo GetAccount();
         #endregion
 
-        #region 函数:GetOrganization()
-        IOrganizationInfo GetOrganization();
+        #region 函数:GetOrganizationUnit()
+        IOrganizationUnitInfo GetOrganizationUnit();
         #endregion
     }
 }

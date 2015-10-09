@@ -121,21 +121,21 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:Organizations
-        private Dictionary<string, IOrganizationInfo> organizationCache = null;
+        #region 属性:OrganizationUnits
+        private Dictionary<string, IOrganizationUnitInfo> organizationCache = null;
 
         /// <summary>组织单位</summary>
-        public Dictionary<string, IOrganizationInfo> Organizations
+        public Dictionary<string, IOrganizationUnitInfo> OrganizationUnits
         {
             get
             {
                 if (organizationCache == null)
                 {
-                    organizationCache = new Dictionary<string, IOrganizationInfo>();
+                    organizationCache = new Dictionary<string, IOrganizationUnitInfo>();
 
-                    IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAll();
+                    IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAll();
 
-                    foreach (IOrganizationInfo item in list)
+                    foreach (IOrganizationUnitInfo item in list)
                     {
                         this.organizationCache.Add(item.Id, item);
                     }
@@ -147,18 +147,18 @@ namespace X3Platform.Membership
         #endregion
 
         #region 属性:Zones
-        private Dictionary<string, IOrganizationInfo> zoneCache = null;
+        private Dictionary<string, IOrganizationUnitInfo> zoneCache = null;
 
         /// <summary>区域</summary>
-        public Dictionary<string, IOrganizationInfo> Zones
+        public Dictionary<string, IOrganizationUnitInfo> Zones
         {
             get
             {
                 if (zoneCache == null)
                 {
-                    zoneCache = new Dictionary<string, IOrganizationInfo>();
+                    zoneCache = new Dictionary<string, IOrganizationUnitInfo>();
 
-                    foreach (KeyValuePair<string, IOrganizationInfo> entry in this.Organizations)
+                    foreach (KeyValuePair<string, IOrganizationUnitInfo> entry in this.OrganizationUnits)
                     {
                         if (entry.Value.Type == -1 && entry.Value.Status == 1)
                             zoneCache.Add(entry.Key, entry.Value);
@@ -171,18 +171,18 @@ namespace X3Platform.Membership
         #endregion
 
         #region 属性:Corporations
-        private Dictionary<string, IOrganizationInfo> corporationCache = null;
+        private Dictionary<string, IOrganizationUnitInfo> corporationCache = null;
 
         /// <summary>公司</summary>
-        public Dictionary<string, IOrganizationInfo> Corporations
+        public Dictionary<string, IOrganizationUnitInfo> Corporations
         {
             get
             {
                 if (corporationCache == null)
                 {
-                    corporationCache = new Dictionary<string, IOrganizationInfo>();
+                    corporationCache = new Dictionary<string, IOrganizationUnitInfo>();
 
-                    foreach (KeyValuePair<string, IOrganizationInfo> entry in this.Organizations)
+                    foreach (KeyValuePair<string, IOrganizationUnitInfo> entry in this.OrganizationUnits)
                     {
                         if (entry.Value.Type == 0 && entry.Value.Status == 1)
                             corporationCache.Add(entry.Key, entry.Value);
@@ -195,18 +195,18 @@ namespace X3Platform.Membership
         #endregion
 
         #region 属性:Departments
-        private Dictionary<string, IOrganizationInfo> departmentCache = null;
+        private Dictionary<string, IOrganizationUnitInfo> departmentCache = null;
 
         /// <summary>部门()</summary>
-        public Dictionary<string, IOrganizationInfo> Departments
+        public Dictionary<string, IOrganizationUnitInfo> Departments
         {
             get
             {
                 if (departmentCache == null)
                 {
-                    departmentCache = new Dictionary<string, IOrganizationInfo>();
+                    departmentCache = new Dictionary<string, IOrganizationUnitInfo>();
 
-                    foreach (KeyValuePair<string, IOrganizationInfo> entry in this.Organizations)
+                    foreach (KeyValuePair<string, IOrganizationUnitInfo> entry in this.OrganizationUnits)
                     {
                         if (entry.Value.Type > -1 && entry.Value.Status == 1)
                             departmentCache.Add(entry.Key, entry.Value);
@@ -230,7 +230,7 @@ namespace X3Platform.Membership
                 {
                     groupCache = new Dictionary<string, GroupInfo>();
 
-                    //foreach (KeyValuePair<string, IOrganizationInfo> entry in this.Organizations)
+                    //foreach (KeyValuePair<string, IOrganizationUnitInfo> entry in this.OrganizationUnits)
                     //{
                     //    if (entry.Value.Type == 65536 && entry.Value.Status == 1)
                     //        groupCache.Add(entry.Key, entry.Value);

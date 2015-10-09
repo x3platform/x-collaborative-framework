@@ -11,8 +11,8 @@
             <result property="Locking" column="Locking" />
             <result property="Tags" column="Tags" />
             <result property="OrderId" column="OrderId" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Authority_FindAll_Result" class="AuthorityInfo">
             <result property="Id" column="Id" />
@@ -21,8 +21,8 @@
             <result property="Locking" column="Locking" />
             <result property="Tags" column="Tags" />
             <result property="OrderId" column="OrderId" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -35,8 +35,8 @@
                 Locking,
                 Tags,
                 OrderId,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -59,7 +59,7 @@
                 Locking = #Locking#,
                 Tags = #Tags#,
                 OrderId = #OrderId#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>

@@ -16,7 +16,7 @@
 
     /// <summary></summary>
     [DataObject]
-    public class OrganizationProvider : IOrganizationProvider
+    public class OrganizationUnitProvider : IOrganizationUnitProvider
     {
         /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
@@ -28,11 +28,11 @@
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "tb_Organization";
+        private string tableName = "tb_OrganizationUnit";
 
-        #region 构造函数:OrganizationProvider()
+        #region 构造函数:OrganizationUnitProvider()
         /// <summary>构造函数</summary>
-        public OrganizationProvider()
+        public OrganizationUnitProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -43,7 +43,7 @@
         #endregion
 
         /// <summary></summary>
-        public IOrganizationInfo this[string index]
+        public IOrganizationUnitInfo this[string index]
         {
             get { return this.FindOne(index); }
         }
@@ -52,11 +52,11 @@
         // 保存 添加 修改 删除 
         // -------------------------------------------------------
 
-        #region 函数:Save(IOrganizationInfo param)
+        #region 函数:Save(IOrganizationUnitInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">IOrganizationInfo 实例详细信息</param>
-        /// <returns>IOrganizationInfo 实例详细信息</returns>
-        public IOrganizationInfo Save(IOrganizationInfo param)
+        /// <param name="param">IOrganizationUnitInfo 实例详细信息</param>
+        /// <returns>IOrganizationUnitInfo 实例详细信息</returns>
+        public IOrganizationUnitInfo Save(IOrganizationUnitInfo param)
         {
             if (string.IsNullOrEmpty(param.Id) || !this.IsExist(param.Id))
             {
@@ -71,10 +71,10 @@
         }
         #endregion
 
-        #region 函数:Insert(IOrganizationInfo param)
+        #region 函数:Insert(IOrganizationUnitInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">IOrganizationInfo 实例的详细信息</param>
-        public void Insert(IOrganizationInfo param)
+        /// <param name="param">IOrganizationUnitInfo 实例的详细信息</param>
+        public void Insert(IOrganizationUnitInfo param)
         {
             if (string.IsNullOrEmpty(param.Id))
             {
@@ -83,17 +83,17 @@
 
             if (string.IsNullOrEmpty(param.Code))
             {
-                param.Code = DigitalNumberContext.Generate("Table_Organization_Key_Code");
+                param.Code = DigitalNumberContext.Generate("Table_OrganizationUnit_Key_Code");
             }
 
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
-        #region 函数:Update(IOrganizationInfo param)
+        #region 函数:Update(IOrganizationUnitInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">IOrganizationInfo 实例的详细信息</param>
-        public void Update(IOrganizationInfo param)
+        /// <param name="param">IOrganizationUnitInfo 实例的详细信息</param>
+        public void Update(IOrganizationUnitInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
@@ -115,7 +115,7 @@
                 Dictionary<string, object> args = new Dictionary<string, object>();
 
                 // 删除组织与帐号的关系
-                this.RemoveRelation(string.Format(" OrganizationId = ##{0}## ", id));
+                this.RemoveRelation(string.Format(" OrganizationUnitId = ##{0}## ", id));
 
                 args.Add("WhereClause", string.Format(" Id = '{0}' ", id));
 
@@ -139,26 +139,26 @@
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">组织标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        public IOrganizationInfo FindOne(string id)
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IOrganizationUnitInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("Id", StringHelper.ToSafeSQL(id));
 
-            return this.ibatisMapper.QueryForObject<OrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+            return this.ibatisMapper.QueryForObject<OrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
         }
         #endregion
 
         #region 函数:FindOneByGlobalName(string globalName)
         /// <summary>查询某条记录</summary>
         /// <param name="globalName">组织的全局名称</param>
-        /// <returns>返回一个<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        public IOrganizationInfo FindOneByGlobalName(string globalName)
+        /// <returns>返回一个<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        public IOrganizationUnitInfo FindOneByGlobalName(string globalName)
         {
             string whereClause = string.Format(" GlobalName = ##{0}## ", StringHelper.ToSafeSQL(globalName));
 
-            IList<IOrganizationInfo> list = FindAll(whereClause, 0);
+            IList<IOrganizationUnitInfo> list = FindAll(whereClause, 0);
 
             return list.Count == 0 ? null : list[0];
         }
@@ -167,12 +167,12 @@
         #region 函数:FindOneByRoleId(string roleId)
         /// <summary>查询某个组织下的所有相关组织</summary>
         /// <param name="roleId">组织标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        public IOrganizationInfo FindOneByRoleId(string roleId)
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IOrganizationUnitInfo FindOneByRoleId(string roleId)
         {
-            string whereClause = string.Format(" Id IN ( SELECT OrganizationId FROM tb_Role WHERE Id = ##{0}## ) ", StringHelper.ToSafeSQL(roleId));
+            string whereClause = string.Format(" Id IN ( SELECT OrganizationUnitId FROM tb_Role WHERE Id = ##{0}## ) ", StringHelper.ToSafeSQL(roleId));
 
-            IList<IOrganizationInfo> list = FindAll(whereClause, 0);
+            IList<IOrganizationUnitInfo> list = FindAll(whereClause, 0);
 
             return list.Count > 0 ? list[0] : null;
         }
@@ -182,46 +182,46 @@
         /// <summary>查询某个组织下的所有相关组织</summary>
         /// <param name="roleId">组织标识</param>
         /// <param name="level">层次</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        public IOrganizationInfo FindOneByRoleId(string roleId, int level)
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IOrganizationUnitInfo FindOneByRoleId(string roleId, int level)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("RoleId", StringHelper.ToSafeSQL(roleId));
             args.Add("Level", level);
 
-            return this.ibatisMapper.QueryForObject<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByRoleId", tableName)), args);
+            return this.ibatisMapper.QueryForObject<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByRoleId", tableName)), args);
         }
         #endregion
 
-        #region 函数:FindCorporationByOrganizationId(string id)
+        #region 函数:FindCorporationByOrganizationUnitId(string id)
         /// <summary>查询某个组织所属的公司信息</summary>
         /// <param name="id">组织标识</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        public IOrganizationInfo FindCorporationByOrganizationId(string organizationId)
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        public IOrganizationUnitInfo FindCorporationByOrganizationUnitId(string organizationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
-            return this.ibatisMapper.QueryForObject<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindCorporationByOrganizationId", tableName)), args);
+            return this.ibatisMapper.QueryForObject<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindCorporationByOrganizationUnitId", tableName)), args);
         }
         #endregion
 
-        #region 函数:FindDepartmentByOrganizationId(string organizationId, int level)
+        #region 函数:FindDepartmentByOrganizationUnitId(string organizationId, int level)
         /// <summary>查询某个组织的所属某个上级部门信息</summary>
         /// <param name="organizationId">组织标识</param>
         /// <param name="level">层次</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        public IOrganizationInfo FindDepartmentByOrganizationId(string organizationId, int level)
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        public IOrganizationUnitInfo FindDepartmentByOrganizationUnitId(string organizationId, int level)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
             args.Add("Level", level);
 
-            return this.ibatisMapper.QueryForObject<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindDepartmentByOrganizationId", tableName)), args);
+            return this.ibatisMapper.QueryForObject<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindDepartmentByOrganizationUnitId", tableName)), args);
         }
         #endregion
 
@@ -229,15 +229,15 @@
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有 IOrganizationInfo 实例的详细信息</returns>
-        public IList<IOrganizationInfo> FindAll(string whereClause, int length)
+        /// <returns>返回所有 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IList<IOrganizationUnitInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<IOrganizationInfo> list = this.ibatisMapper.QueryForList<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<IOrganizationUnitInfo> list = this.ibatisMapper.QueryForList<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -246,8 +246,8 @@
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        public IList<IOrganizationInfo> FindAllByParentId(string parentId)
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IList<IOrganizationUnitInfo> FindAllByParentId(string parentId)
         {
             string whereClause = string.Format(" ParentId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(parentId));
 
@@ -257,13 +257,13 @@
 
         #region 函数:FindAllByAccountId(string accountId)
         /// <summary>查询某条记录</summary>
-        /// <param name="accountId">IOrganizationInfo Id号</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
-        public IList<IOrganizationInfo> FindAllByAccountId(string accountId)
+        /// <param name="accountId">IOrganizationUnitInfo Id号</param>
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
+        public IList<IOrganizationUnitInfo> FindAllByAccountId(string accountId)
         {
             string whereClause = string.Format(@" 
 Id IN (
-    SELECT OrganizationId FROM tb_Role WHERE Id IN ( SELECT RoleId FROM tb_Account_Role WHERE AccountId = ##{0}## )
+    SELECT OrganizationUnitId FROM tb_Role WHERE Id IN ( SELECT RoleId FROM tb_Account_Role WHERE AccountId = ##{0}## )
 ) ", StringHelper.ToSafeSQL(accountId));
 
             return FindAll(whereClause, 0);
@@ -273,13 +273,13 @@ Id IN (
         #region 函数:FindCorporationsByAccountId(string accountId)
         /// <summary>查询某个帐户所属的所有公司信息</summary>
         /// <param name="accountId">帐号标识</param>
-        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
-        public IList<IOrganizationInfo> FindCorporationsByAccountId(string accountId)
+        /// <returns>返回所有<see cref="IOrganizationUnitInfo"/>实例的详细信息</returns>
+        public IList<IOrganizationUnitInfo> FindCorporationsByAccountId(string accountId)
         {
             string whereClause = string.Format(@" 
 Id IN (
-    SELECT dbo.func_GetCorporationIdByOrganizationId( Id ) FROM tb_Organization WHERE Id IN (
-        SELECT OrganizationId FROM tb_Role WHERE Id IN ( SELECT RoleId FROM tb_Account_Role WHERE AccountId = ##{0}## )
+    SELECT dbo.func_GetCorporationIdByOrganizationUnitId( Id ) FROM tb_OrganizationUnit WHERE Id IN (
+        SELECT OrganizationUnitId FROM tb_Role WHERE Id IN ( SELECT RoleId FROM tb_Account_Role WHERE AccountId = ##{0}## )
 )) ", StringHelper.ToSafeSQL(accountId));
 
             return FindAll(whereClause, 0);
@@ -296,18 +296,18 @@ Id IN (
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="IOrganizationInfo"/></returns> 
-        public IList<IOrganizationInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="IOrganizationUnitInfo"/></returns> 
+        public IList<IOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
             
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             
-            IList<IOrganizationInfo> list = this.ibatisMapper.QueryForList<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+            IList<IOrganizationUnitInfo> list = this.ibatisMapper.QueryForList<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -323,11 +323,11 @@ Id IN (
         ///// <param name="orderBy">ORDER BY 排序条件</param>
         ///// <param name="rowCount">记录行数</param>
         ///// <returns>返回一个列表</returns>
-        //public IList<IOrganizationInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        //public IList<IOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
         //{
         //    Dictionary<string, object> args = new Dictionary<string, object>();
 
-        //    orderBy = string.IsNullOrEmpty(orderBy) ? " UpdateDate DESC " : orderBy;
+        //    orderBy = string.IsNullOrEmpty(orderBy) ? " ModifiedDate DESC " : orderBy;
 
         //    args.Add("StartIndex", startIndex);
         //    args.Add("PageSize", pageSize);
@@ -336,7 +336,7 @@ Id IN (
 
         //    args.Add("RowCount", 0);
 
-        //    IList<IOrganizationInfo> list = this.ibatisMapper.QueryForList<IOrganizationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+        //    IList<IOrganizationUnitInfo> list = this.ibatisMapper.QueryForList<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
         //    rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 
@@ -464,10 +464,10 @@ Id IN (
         }
         #endregion
 
-        #region 函数:SyncFromPackPage(IOrganizationInfo param)
+        #region 函数:SyncFromPackPage(IOrganizationUnitInfo param)
         /// <summary>同步信息</summary>
         /// <param name="param">组织信息</param>
-        public int SyncFromPackPage(IOrganizationInfo param)
+        public int SyncFromPackPage(IOrganizationUnitInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_SyncFromPackPage", tableName)), param);
 
@@ -482,8 +482,8 @@ Id IN (
         #region 私有函数:FindAllRelation(string whereClause)
         /// <summary>查询帐号与组织的关系</summary>
         /// <param name="whereClause">SQL 查询条件</param>
-        /// <returns>Table Columns：AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        private IList<IAccountOrganizationRelationInfo> FindAllRelation(string whereClause)
+        /// <returns>Table Columns：AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        private IList<IAccountOrganizationUnitRelationInfo> FindAllRelation(string whereClause)
         {
             if (string.IsNullOrEmpty(whereClause))
                 return null;
@@ -492,15 +492,15 @@ Id IN (
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
 
-            return this.ibatisMapper.QueryForList<IAccountOrganizationRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllRelation", tableName)), args);
+            return this.ibatisMapper.QueryForList<IAccountOrganizationUnitRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllRelation", tableName)), args);
         }
         #endregion
 
         #region 函数:FindAllRelationByAccountId(string accountId)
         /// <summary>根据帐号查询相关组织的关系</summary>
         /// <param name="accountId">帐号标识</param>
-        /// <returns>Table Columns：AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        public IList<IAccountOrganizationRelationInfo> FindAllRelationByAccountId(string accountId)
+        /// <returns>Table Columns：AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        public IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByAccountId(string accountId)
         {
             string whereClause = string.Format(" AccountId = ##{0}## ", accountId);
 
@@ -511,10 +511,10 @@ Id IN (
         #region 函数:FindAllRelationByRoleId(string organizationId)
         /// <summary>根据群组查询相关帐号的关系</summary>
         /// <param name="organizationId">组织标识</param>
-        /// <returns>Table Columns：AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
-        public IList<IAccountOrganizationRelationInfo> FindAllRelationByRoleId(string organizationId)
+        /// <returns>Table Columns：AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        public IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByRoleId(string organizationId)
         {
-            string whereClause = string.Format(" OrganizationId = ##{0}## ", organizationId);
+            string whereClause = string.Format(" OrganizationUnitId = ##{0}## ", organizationId);
 
             return FindAllRelation(whereClause);
         }
@@ -532,7 +532,7 @@ Id IN (
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("AccountId", accountId);
-            args.Add("OrganizationId", organizationId);
+            args.Add("OrganizationUnitId", organizationId);
             args.Add("IsDefault", isDefault);
             args.Add("BeginDate", beginDate.ToString("yyyy-MM-dd HH:mm:ss"));
             args.Add("EndDate", endDate.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -553,7 +553,7 @@ Id IN (
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("AccountId", accountId);
-            args.Add("OrganizationId", organizationId);
+            args.Add("OrganizationUnitId", organizationId);
             args.Add("EndDate", endDate.ToString("yyyy-MM-dd HH:mm:ss"));
 
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_ExtendRelation", tableName)), args);
@@ -585,7 +585,7 @@ Id IN (
         /// <param name="organizationId">组织标识</param>
         public int RemoveRelation(string accountId, string organizationId)
         {
-            string whereClause = string.Format(" ( AccountId = ##{0}## AND OrganizationId = ##{1}## ) ", accountId, organizationId);
+            string whereClause = string.Format(" ( AccountId = ##{0}## AND OrganizationUnitId = ##{1}## ) ", accountId, organizationId);
 
             return this.RemoveRelation(whereClause);
         }
@@ -695,7 +695,7 @@ Id IN (
                 Dictionary<string, object> args = new Dictionary<string, object>();
 
                 args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
-                args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+                args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
                 // 1.添加关系
                 AddRelation(accountId, organizationId, true, DateTime.Now, DateTime.MaxValue);
@@ -724,7 +724,7 @@ Id IN (
         /// <param name="organizationId">组织标识</param>
         public int ClearupRelation(string organizationId)
         {
-            string whereClause = string.Format(" ( OrganizationId = ##{0}## ) ", organizationId);
+            string whereClause = string.Format(" ( OrganizationUnitId = ##{0}## ) ", organizationId);
 
             return RemoveRelation(whereClause);
         }

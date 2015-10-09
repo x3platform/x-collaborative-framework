@@ -163,7 +163,7 @@ namespace X3Platform.Membership.DAL.IBatis
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询某个父节点下的所有组织单位</summary>
         /// <param name="parentId">父节标识</param>
-        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
+        /// <returns>返回一个 IOrganizationUnitInfo 实例的详细信息</returns>
         public IList<IStandardRoleInfo> FindAllByParentId(string parentId)
         {
             string whereClause = string.Format(" ParentId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(parentId));
@@ -172,13 +172,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllByStandardOrganizationId(string standardOrganizationId)
+        #region 函数:FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         /// <summary>递归查询某个标准组织下面所有的标准角色</summary>
-        /// <param name="standardOrganizationId">组织标识</param>
+        /// <param name="standardOrganizationUnitId">组织标识</param>
         /// <returns>返回所有<see cref="IRoleInfo"/>实例的详细信息</returns>
-        public IList<IStandardRoleInfo> FindAllByStandardOrganizationId(string standardOrganizationId)
+        public IList<IStandardRoleInfo> FindAllByStandardOrganizationUnitId(string standardOrganizationUnitId)
         {
-            string whereClause = string.Format(" StandardOrganizationId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(standardOrganizationId));
+            string whereClause = string.Format(" StandardOrganizationUnitId = ##{0}## ORDER BY OrderId ", StringHelper.ToSafeSQL(standardOrganizationUnitId));
 
             return FindAll(whereClause, 0);
         }
@@ -226,7 +226,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, ModifiedDate DESC "));
 
             args.Add("RowCount", 0);
 

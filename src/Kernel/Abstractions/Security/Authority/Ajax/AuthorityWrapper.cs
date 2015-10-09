@@ -159,7 +159,7 @@ namespace X3Platform.Security.Authority.Ajax
 
             param.Id = StringHelper.ToGuid();
 
-            param.CreateDate = param.UpdateDate = DateTime.Now;
+            param.CreatedDate = param.ModifiedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AuthorityInfo>(param) + ",");
 

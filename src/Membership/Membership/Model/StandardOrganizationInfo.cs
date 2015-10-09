@@ -3,7 +3,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :StandardOrganizationInfo.cs
+// FileName     :StandardOrganizationUnitInfo.cs
 //
 // Description  :
 //
@@ -24,11 +24,11 @@ namespace X3Platform.Membership.Model
     #endregion
 
     /// <summary></summary>
-    public class StandardOrganizationInfo : IStandardOrganizationInfo
+    public class StandardOrganizationUnitInfo : IStandardOrganizationUnitInfo
     {
-        #region 构造函数:StandardOrganizationInfo()
+        #region 构造函数:StandardOrganizationUnitInfo()
         /// <summary>默认构造函数</summary>
-        public StandardOrganizationInfo() { }
+        public StandardOrganizationUnitInfo() { }
         #endregion
 
         #region 属性:Id
@@ -111,10 +111,10 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Parent
-        private IStandardOrganizationInfo m_Parent = null;
+        private IStandardOrganizationUnitInfo m_Parent = null;
 
         /// <summary>父级对象</summary>
-        public IStandardOrganizationInfo Parent
+        public IStandardOrganizationUnitInfo Parent
         {
             get
             {
@@ -130,7 +130,7 @@ namespace X3Platform.Membership.Model
 
                 if (m_Parent == null && !string.IsNullOrEmpty(this.ParentId))
                 {
-                    m_Parent = MembershipManagement.Instance.StandardOrganizationService[this.ParentId];
+                    m_Parent = MembershipManagement.Instance.StandardOrganizationUnitService[this.ParentId];
                 }
 
                 return m_Parent;
@@ -182,25 +182,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -212,7 +212,7 @@ namespace X3Platform.Membership.Model
         /// <summary>类型</summary>
         string IAuthorizationObject.Type
         {
-            get { return "StandardOrganization"; }
+            get { return "StandardOrganizationUnit"; }
         }
         #endregion
 
@@ -237,7 +237,7 @@ namespace X3Platform.Membership.Model
             StringBuilder outString = new StringBuilder();
             if (displayComment)
                 outString.Append("<!-- 标准组织对象 -->");
-            outString.Append("<standardOrganization>");
+            outString.Append("<standardOrganizationUnit>");
             if (displayComment)
                 outString.Append("<!-- 标准组织标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<id><![CDATA[{0}]]></id>", this.Id);
@@ -264,8 +264,8 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<remark><![CDATA[{0}]]></remark>", this.Remark);
             if (displayComment)
                 outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
-            outString.Append("</standardOrganization>");
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
+            outString.Append("</standardOrganizationUnit>");
 
             return outString.ToString();
         }
@@ -283,7 +283,7 @@ namespace X3Platform.Membership.Model
             this.OrderId = element.SelectSingleNode("orderId").InnerText;
             this.Status = Convert.ToInt32(element.SelectSingleNode("status").InnerText);
             this.Remark = element.SelectSingleNode("remark").InnerText;
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

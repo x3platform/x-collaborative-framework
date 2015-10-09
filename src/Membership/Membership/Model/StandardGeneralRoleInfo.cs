@@ -156,25 +156,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -239,7 +239,7 @@ namespace X3Platform.Membership.Model
             //}
             outString.Append("</relationObjects>");
             outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</standardGeneralRole>");
 
             return outString.ToString();
@@ -259,7 +259,7 @@ namespace X3Platform.Membership.Model
             // this.ParentId = element.GetElementsByTagName("parentId")[0].InnerText;
             this.OrderId = element.GetElementsByTagName("orderId")[0].InnerText;
             this.Status = Convert.ToInt32(element.GetElementsByTagName("status")[0].InnerText);
-            this.UpdateDate = Convert.ToDateTime(element.GetElementsByTagName("updateDate")[0].InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.GetElementsByTagName("updateDate")[0].InnerText);
         }
         #endregion
     }

@@ -161,7 +161,7 @@
 
             param.IsInternal = false;
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationOptionInfo>(param) + ",");
 

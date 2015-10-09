@@ -212,16 +212,16 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Corporation
-        private IOrganizationInfo m_Corporation = null;
+        private IOrganizationUnitInfo m_Corporation = null;
 
         /// <summary>公司</summary>
-        public IOrganizationInfo Corporation
+        public IOrganizationUnitInfo Corporation
         {
             get
             {
-                if (m_Corporation == null && !string.IsNullOrEmpty(this.OrganizationId))
+                if (m_Corporation == null && !string.IsNullOrEmpty(this.OrganizationUnitId))
                 {
-                    m_Corporation = MembershipManagement.Instance.OrganizationService.FindCorporationByOrganizationId(this.OrganizationId);
+                    m_Corporation = MembershipManagement.Instance.OrganizationUnitService.FindCorporationByOrganizationUnitId(this.OrganizationUnitId);
                 }
 
                 return m_Corporation;
@@ -319,39 +319,39 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OrganizationId
-        private string m_OrganizationId;
+        #region 属性:OrganizationUnitId
+        private string m_OrganizationUnitId;
 
         /// <summary>所属组织标识</summary>
-        public string OrganizationId
+        public string OrganizationUnitId
         {
-            get { return m_OrganizationId; }
-            set { m_OrganizationId = value; }
+            get { return m_OrganizationUnitId; }
+            set { m_OrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:OrganizationGlobalName
+        #region 属性:OrganizationUnitGlobalName
         /// <summary>所属组织全局名称</summary>
-        public string OrganizationGlobalName
+        public string OrganizationUnitGlobalName
         {
-            get { return this.Organization == null ? string.Empty : this.Organization.GlobalName; }
+            get { return this.OrganizationUnit == null ? string.Empty : this.OrganizationUnit.GlobalName; }
         }
         #endregion
 
-        #region 属性:Organization
-        private IOrganizationInfo m_Organization = null;
+        #region 属性:OrganizationUnit
+        private IOrganizationUnitInfo m_OrganizationUnit = null;
 
         /// <summary>父级对象</summary>
-        public IOrganizationInfo Organization
+        public IOrganizationUnitInfo OrganizationUnit
         {
             get
             {
-                if (m_Organization == null && !string.IsNullOrEmpty(this.OrganizationId))
+                if (m_OrganizationUnit == null && !string.IsNullOrEmpty(this.OrganizationUnitId))
                 {
-                    m_Organization = MembershipManagement.Instance.OrganizationService[this.OrganizationId];
+                    m_OrganizationUnit = MembershipManagement.Instance.OrganizationUnitService[this.OrganizationUnitId];
                 }
 
-                return m_Organization;
+                return m_OrganizationUnit;
             }
         }
         #endregion
@@ -503,25 +503,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary>修改时间</summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary>创建时间</summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -676,7 +676,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<standardRoleId><![CDATA[{0}]]></standardRoleId>", this.StandardRoleId);
             if (displayComment)
                 outString.Append("<!-- 所属组织标识 (字符串) (nvarchar(36)) -->");
-            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationId);
+            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationUnitId);
             if (displayComment)
                 outString.Append("<!-- 所属旧版通用角色标识(兼容门户系统，可以忽略。) (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<generalRoleId><![CDATA[{0}]]></generalRoleId>", this.GeneralRoleId);
@@ -694,7 +694,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<remark><![CDATA[{0}]]></remark>", this.Remark);
             if (displayComment)
                 outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</role>");
 
             return outString.ToString();
@@ -710,13 +710,13 @@ namespace X3Platform.Membership.Model
             this.Code = element.SelectSingleNode("code").InnerText;
             this.Name = element.SelectSingleNode("name").InnerText;
             this.PinYin = element.SelectSingleNode("pinyin").InnerText;
-            this.OrganizationId = element.SelectSingleNode("organizationId").InnerText;
+            this.OrganizationUnitId = element.SelectSingleNode("organizationId").InnerText;
             this.StandardRoleId = element.SelectSingleNode("standardRoleId").InnerText;
             this.ParentId = element.SelectSingleNode("parentId").InnerText;
             this.OrderId = element.SelectSingleNode("orderId").InnerText;
             this.Status = Convert.ToInt32(element.SelectSingleNode("status").InnerText);
             this.Remark = element.SelectSingleNode("remark").InnerText;
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

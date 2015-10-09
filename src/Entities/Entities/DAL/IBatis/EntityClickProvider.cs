@@ -228,7 +228,7 @@ namespace X3Platform.Entities.DAL.IBatis
         /// <returns>返回所有实例<see cref="IEntityClickInfo"/>的详细信息</returns>
         public IList<IEntityClickInfo> FindAllByEntityId(string customTableName, string entityId, string entityClassName, DataResultMapper mapper)
         {
-            string whereClause = string.Format(" {0} = ##{1}## AND {2} = ##{3}## ORDER BY {4} DESC ", mapper["EntityId"].DataColumnName, entityId, mapper["EntityClassName"].DataColumnName, entityClassName, mapper["UpdateDate"].DataColumnName);
+            string whereClause = string.Format(" {0} = ##{1}## AND {2} = ##{3}## ORDER BY {4} DESC ", mapper["EntityId"].DataColumnName, entityId, mapper["EntityClassName"].DataColumnName, entityClassName, mapper["ModifiedDate"].DataColumnName);
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

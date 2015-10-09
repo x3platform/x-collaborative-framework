@@ -102,9 +102,9 @@ namespace X3Platform.Security
                         break;
 
                     case "organization":
-                        foreach (IAccountOrganizationRelationInfo relation in account.OrganizationRelations)
+                        foreach (IAccountOrganizationUnitRelationInfo relation in account.OrganizationUnitRelations)
                         {
-                            if (relation.OrganizationId == authorizationObject.Id)
+                            if (relation.OrganizationUnitId == authorizationObject.Id)
                             {
                                 authenticated = true;
                                 break;

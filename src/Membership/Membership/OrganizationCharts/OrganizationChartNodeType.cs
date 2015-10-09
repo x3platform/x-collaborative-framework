@@ -1,12 +1,12 @@
-namespace X3Platform.Membership.OrganizationCharts
+namespace X3Platform.Membership.OrganizationUnitCharts
 {
     /// <summary>组织节点类型</summary>
-    public enum OrganizationChartNodeType
+    public enum OrganizationUnitChartNodeType
     {
         /// <summary>帐号</summary>
         Account,
         /// <summary>组织</summary>
-        Organization,
+        OrganizationUnit,
         /// <summary>角色</summary>
         Role,
     }

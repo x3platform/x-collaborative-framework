@@ -95,13 +95,13 @@ namespace X3Platform.Navigation.BLL
         }
         #endregion
 
-        #region 属性:FindOneByOrganizationId(string organizationId)
+        #region 属性:FindOneByOrganizationUnitId(string organizationId)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="organizationId">��֯��ʶ</param>
         /// <returns>����ʵ��<see cref="NavigationPortalInfo"/>����ϸ��Ϣ</returns>
-        public NavigationPortalInfo FindOneByOrganizationId(string organizationId)
+        public NavigationPortalInfo FindOneByOrganizationUnitId(string organizationId)
         {
-            return this.provider.FindOneByOrganizationId(organizationId);
+            return this.provider.FindOneByOrganizationUnitId(organizationId);
         }
         #endregion
 

@@ -3,7 +3,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :OrganizationWrapper.cs
+// FileName     :OrganizationUnitWrapper.cs
 //
 // Description  :
 //
@@ -30,9 +30,9 @@ namespace X3Platform.Membership.Ajax
     #endregion
 
     /// <summary></summary>
-    public sealed class OrganizationWrapper : ContextWrapper
+    public sealed class OrganizationUnitWrapper : ContextWrapper
     {
-        private IOrganizationService service = MembershipManagement.Instance.OrganizationService; // 数据服务
+        private IOrganizationUnitService service = MembershipManagement.Instance.OrganizationUnitService; // 数据服务
 
         // -------------------------------------------------------
         // 保存 删除
@@ -44,9 +44,9 @@ namespace X3Platform.Membership.Ajax
         /// <returns>返回操作结果</returns>
         public string Save(XmlDocument doc)
         {
-            IOrganizationInfo param = new OrganizationInfo();
+            IOrganizationUnitInfo param = new OrganizationUnitInfo();
 
-            param = (IOrganizationInfo)AjaxUtil.Deserialize<IOrganizationInfo>(param, doc);
+            param = (IOrganizationUnitInfo)AjaxUtil.Deserialize<IOrganizationUnitInfo>(param, doc);
 
             string originalName = XmlHelper.Fetch("originalName", doc);
             string originalGlobalName = XmlHelper.Fetch("originalGlobalName", doc);
@@ -86,9 +86,9 @@ namespace X3Platform.Membership.Ajax
 
                 if (param.Name != originalName)
                 {
-                    IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(param.ParentId);
+                    IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(param.ParentId);
 
-                    foreach (IOrganizationInfo item in list)
+                    foreach (IOrganizationUnitInfo item in list)
                     {
                         if (item.Name == param.Name)
                         {
@@ -132,9 +132,9 @@ namespace X3Platform.Membership.Ajax
 
             string id = XmlHelper.Fetch("id", doc);
 
-            IOrganizationInfo param = MembershipManagement.Instance.OrganizationService.FindOne(id);
+            IOrganizationUnitInfo param = MembershipManagement.Instance.OrganizationUnitService.FindOne(id);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -152,9 +152,9 @@ namespace X3Platform.Membership.Ajax
 
             string whereClause = XmlHelper.Fetch("whereClause", doc);
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAll(whereClause);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAll(whereClause);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -172,9 +172,9 @@ namespace X3Platform.Membership.Ajax
 
             string accountId = XmlHelper.Fetch("accountId", doc);
 
-            IList<IOrganizationInfo> list = this.service.FindAllByAccountId(accountId);
+            IList<IOrganizationUnitInfo> list = this.service.FindAllByAccountId(accountId);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -192,9 +192,9 @@ namespace X3Platform.Membership.Ajax
 
             string parentId = XmlHelper.Fetch("parentId", doc);
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(parentId);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(parentId);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -212,9 +212,9 @@ namespace X3Platform.Membership.Ajax
 
             string projectId = XmlHelper.Fetch("projectId", doc);
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByProjectId(projectId);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByProjectId(projectId);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -246,11 +246,11 @@ namespace X3Platform.Membership.Ajax
 
             int rowCount = -1;
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out  rowCount);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out  rowCount);
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
@@ -272,7 +272,7 @@ namespace X3Platform.Membership.Ajax
 
             string parentId = XmlHelper.Fetch("parentId", doc);
 
-            OrganizationInfo param = new OrganizationInfo();
+            OrganizationUnitInfo param = new OrganizationUnitInfo();
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
 
@@ -283,9 +283,9 @@ namespace X3Platform.Membership.Ajax
 
             param.Status = 1;
 
-            param.UpdateDate = param.CreateDate = DateTime.Now;
+            param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(param) + ",");
 
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
@@ -302,7 +302,7 @@ namespace X3Platform.Membership.Ajax
             string id = XmlHelper.Fetch("id", doc);
             string globalName = XmlHelper.Fetch("globalName", doc);
 
-            int reuslt = MembershipManagement.Instance.OrganizationService.SetGlobalName(id, globalName);
+            int reuslt = MembershipManagement.Instance.OrganizationUnitService.SetGlobalName(id, globalName);
 
             if (reuslt == 1)
             {
@@ -334,7 +334,7 @@ namespace X3Platform.Membership.Ajax
             // 树形控件默认根节点标识为0, 需要特殊处理.
             parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
 
-            IList<IOrganizationInfo> list = MembershipManagement.Instance.OrganizationService.FindAllByParentId(parentId);
+            IList<IOrganizationUnitInfo> list = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(parentId);
 
             StringBuilder outString = new StringBuilder();
 
@@ -343,7 +343,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("\"parentId\":\"" + parentId + "\",");
             outString.Append("childNodes:[");
 
-            foreach (IOrganizationInfo item in list)
+            foreach (IOrganizationUnitInfo item in list)
             {
                 if (item.Status == 0)
                     continue;

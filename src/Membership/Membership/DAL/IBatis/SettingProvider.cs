@@ -192,7 +192,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, ModifiedDate DESC "));
 
             args.Add("RowCount", 0);
 

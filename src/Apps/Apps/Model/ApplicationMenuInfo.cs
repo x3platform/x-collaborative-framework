@@ -343,25 +343,25 @@
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -554,7 +554,7 @@
             outString.Append("</authorizationObjects>");
             if (displayComment)
                 outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate.ToString("yyyy-MM-dd HH:mm:ss"));
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate.ToString("yyyy-MM-dd HH:mm:ss"));
             outString.Append("</menu>");
 
             return outString.ToString();
@@ -592,7 +592,7 @@
                 this.AuthorizationReadScopeObjects.Add(new MembershipAuthorizationScopeObject(node.Attributes["type"].Value, node.Attributes["id"].Value));
             }
 
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

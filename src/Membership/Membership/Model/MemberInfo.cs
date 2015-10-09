@@ -85,7 +85,7 @@ namespace X3Platform.Membership.Model
         // -------------------------------------------------------
         // ����, �ɴ�����չ����, ��ʱ����
         //
-        // �����ӵ����� 属性: AccountId, DeaultOrganizationId, DeaultRoleId, CorporationId, DepartmentId
+        // �����ӵ����� 属性: AccountId, DeaultOrganizationUnitId, DeaultRoleId, CorporationId, DepartmentId
         // -------------------------------------------------------
 
         #region 属性:Properties
@@ -175,16 +175,16 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Corporation
-        private IOrganizationInfo m_Corporation = null;
+        private IOrganizationUnitInfo m_Corporation = null;
 
         /// <summary>��˾</summary>
-        public IOrganizationInfo Corporation
+        public IOrganizationUnitInfo Corporation
         {
             get
             {
                 if (m_Corporation == null && !string.IsNullOrEmpty(m_CorporationId))
                 {
-                    m_Corporation = MembershipManagement.Instance.OrganizationService[m_CorporationId];
+                    m_Corporation = MembershipManagement.Instance.OrganizationUnitService[m_CorporationId];
                 }
 
                 return m_Corporation;
@@ -231,16 +231,16 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Department
-        private IOrganizationInfo m_Department = null;
+        private IOrganizationUnitInfo m_Department = null;
 
         /// <summary>һ������</summary>
-        public IOrganizationInfo Department
+        public IOrganizationUnitInfo Department
         {
             get
             {
                 if (m_Department == null && !string.IsNullOrEmpty(m_DepartmentId))
                 {
-                    m_Department = MembershipManagement.Instance.OrganizationService[m_DepartmentId];
+                    m_Department = MembershipManagement.Instance.OrganizationUnitService[m_DepartmentId];
                 }
 
                 return m_Department;
@@ -268,16 +268,16 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Department2
-        private IOrganizationInfo m_Department2 = null;
+        private IOrganizationUnitInfo m_Department2 = null;
 
         /// <summary>��������</summary>
-        public IOrganizationInfo Department2
+        public IOrganizationUnitInfo Department2
         {
             get
             {
                 if (m_Department2 == null && !string.IsNullOrEmpty(this.Department2Id))
                 {
-                    m_Department2 = MembershipManagement.Instance.OrganizationService[this.Department2Id];
+                    m_Department2 = MembershipManagement.Instance.OrganizationUnitService[this.Department2Id];
                 }
 
                 return m_Department2;
@@ -305,16 +305,16 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Department3
-        private IOrganizationInfo m_Department3 = null;
+        private IOrganizationUnitInfo m_Department3 = null;
 
         /// <summary>��������</summary>
-        public IOrganizationInfo Department3
+        public IOrganizationUnitInfo Department3
         {
             get
             {
                 if (m_Department3 == null && !string.IsNullOrEmpty(this.Department3Id))
                 {
-                    m_Department3 = MembershipManagement.Instance.OrganizationService[this.Department3Id];
+                    m_Department3 = MembershipManagement.Instance.OrganizationUnitService[this.Department3Id];
                 }
 
                 return m_Department3;
@@ -322,39 +322,39 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OrganizationId
-        private string m_OrganizationId = null;
+        #region 属性:OrganizationUnitId
+        private string m_OrganizationUnitId = null;
 
         /// <summary>Ĭ�ϵ���֯��λ��ʶ</summary>
-        public string OrganizationId
+        public string OrganizationUnitId
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_OrganizationId))
+                if (string.IsNullOrEmpty(this.m_OrganizationUnitId))
                 {
-                    this.m_OrganizationId = MembershipConfigurationView.Instance.DefaultOrganizationId;
+                    this.m_OrganizationUnitId = MembershipConfigurationView.Instance.DefaultOrganizationUnitId;
                 }
 
-                return m_OrganizationId;
+                return m_OrganizationUnitId;
             }
-            set { m_OrganizationId = value; }
+            set { m_OrganizationUnitId = value; }
         }
         #endregion
 
-        #region 属性:Organization
-        private IOrganizationInfo m_Organization = null;
+        #region 属性:OrganizationUnit
+        private IOrganizationUnitInfo m_OrganizationUnit = null;
 
         /// <summary>Ĭ�ϵ���֯��λ</summary>
-        public IOrganizationInfo Organization
+        public IOrganizationUnitInfo OrganizationUnit
         {
             get
             {
-                if (m_Organization == null && !string.IsNullOrEmpty(this.OrganizationId))
+                if (m_OrganizationUnit == null && !string.IsNullOrEmpty(this.OrganizationUnitId))
                 {
-                    m_Organization = MembershipManagement.Instance.OrganizationService[this.OrganizationId];
+                    m_OrganizationUnit = MembershipManagement.Instance.OrganizationUnitService[this.OrganizationUnitId];
                 }
 
-                return m_Organization;
+                return m_OrganizationUnit;
             }
         }
         #endregion
@@ -962,25 +962,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary>�޸�ʱ��</summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return m_UpdateDate; }
-            set { m_UpdateDate = value; }
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary>����ʱ��</summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return m_CreateDate; }
-            set { m_CreateDate = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -1044,7 +1044,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<department3Id><![CDATA[{0}]]></department3Id>", this.Department3Id);
             if (displayComment)
                 outString.Append("<!-- Ĭ��������ĩ����֯��ʶ (�ַ���) (nvarchar(36)) -->");
-            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationId);
+            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationUnitId);
             if (displayComment)
                 outString.Append("<!-- Ĭ��������ɫ (�ַ���) (nvarchar(36)) -->");
             outString.AppendFormat("<roleId><![CDATA[{0}]]></roleId>", this.RoleId);
@@ -1116,7 +1116,7 @@ namespace X3Platform.Membership.Model
                             outString.Append("<!-- ������׼��ɫ��ʶ (�ַ���) (nvarchar(36)) -->");
 
                         outString.AppendFormat("<standardRole organizationId=\"{0}\" standardRoleType=\"{1}\" standardRoleId=\"{2}\" />",
-                            role.OrganizationId,
+                            role.OrganizationUnitId,
                             role.StandardRole.Type,
                             role.StandardRole.Id);
                     }
@@ -1128,9 +1128,9 @@ namespace X3Platform.Membership.Model
                 outString.Append("<!-- ��������-->");
             outString.Append("<relationObjects>");
             if (this.Account != null)
-            { //foreach (IOrganizationInfo organization in this.Account.Organizations)
+            { //foreach (IOrganizationUnitInfo organization in this.Account.OrganizationUnits)
                 //{
-                //    outString.AppendFormat("<relationObject id=\"{0}\" type=\"Organization\" />", organization.Id);
+                //    outString.AppendFormat("<relationObject id=\"{0}\" type=\"OrganizationUnit\" />", organization.Id);
                 //}
                 foreach (IAccountRoleRelationInfo relation in this.Account.RoleRelations)
                 {
@@ -1153,7 +1153,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<status><![CDATA[{0}]]></status>", this.Account == null ? 0 : this.Account.Status);
             if (displayComment)
                 outString.Append("<!-- ��������ʱ�� (ʱ��) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.UpdateDate);
+            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
             outString.Append("</user>");
 
             return outString.ToString();
@@ -1189,7 +1189,7 @@ namespace X3Platform.Membership.Model
                 this.Department3Id = element.SelectSingleNode("department3Id").InnerText;
             }
 
-            this.OrganizationId = element.SelectSingleNode("organizationId").InnerText;
+            this.OrganizationUnitId = element.SelectSingleNode("organizationId").InnerText;
 
             if (element.SelectSingleNode("roleId") != null)
             {
@@ -1266,7 +1266,7 @@ namespace X3Platform.Membership.Model
                 this.JobGradeDisplayName = element.SelectSingleNode("jobGrade").InnerText;
             }
 
-            this.UpdateDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
+            this.ModifiedDate = Convert.ToDateTime(element.SelectSingleNode("updateDate").InnerText);
         }
         #endregion
     }

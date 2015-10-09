@@ -11,7 +11,7 @@
             <result property="Type" column="Type" />
             <result property="Priority" column="Priority" />
             <result property="ParentId" column="ParentId" />
-            <result property="StandardOrganizationId" column="StandardOrganizationId" />
+            <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
             <result property="IsKey" column="IsKey" />
             <result property="IsDraft" column="IsDraft" />
@@ -19,8 +19,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_StandardRole_FindAll_Result" class="StandardRoleInfo">
             <result property="Id" column="Id" />
@@ -29,7 +29,7 @@
             <result property="Type" column="Type" />
             <result property="Priority" column="Priority" />
             <result property="ParentId" column="ParentId" />
-            <result property="StandardOrganizationId" column="StandardOrganizationId" />
+            <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
             <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
             <result property="IsKey" column="IsKey" />
             <result property="IsDraft" column="IsDraft" />
@@ -37,8 +37,8 @@
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
             <result property="Remark" column="Remark" />
-            <result property="UpdateDate" column="UpdateDate" />
-            <result property="CreateDate" column="CreateDate" />
+            <result property="ModifiedDate" column="ModifiedDate" />
+            <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
     <statements>
@@ -51,7 +51,7 @@
                 Type,
                 Priority,
                 ParentId,
-                StandardOrganizationId,
+                StandardOrganizationUnitId,
                 GroupTreeNodeId,
                 IsKey,
                 IsDraft,
@@ -59,8 +59,8 @@
                 OrderId,
                 Status,
                 Remark,
-                UpdateDate,
-                CreateDate
+                ModifiedDate,
+                CreatedDate
             )
             VALUES
             (
@@ -70,7 +70,7 @@
                 #Type#,
                 #Priority#,
                 #ParentId#,
-                #StandardOrganizationId#,
+                #StandardOrganizationUnitId#,
                 #GroupTreeNodeId#,
                 #IsKey#,
                 #IsDraft#,
@@ -90,7 +90,7 @@
                 Type = #Type#,
                 Priority = #Priority#,
                 ParentId = #ParentId#,
-                StandardOrganizationId = #StandardOrganizationId#,
+                StandardOrganizationUnitId = #StandardOrganizationUnitId#,
                 GroupTreeNodeId = #GroupTreeNodeId#,
                 IsKey =  #IsKey#,
                 IsDraft =  #IsDraft#,
@@ -98,7 +98,7 @@
                 OrderId = #OrderId#,
                 Status = #Status#,
                 Remark = #Remark#,
-                UpdateDate = CURRENT_TIMESTAMP
+                ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
         </update>
@@ -175,7 +175,7 @@
             SELECT COUNT(0) AS 'Count' FROM tb_StandardRole T WHERE $WhereClause$
         </select>
         <update id="proc_StandardRole_Rename" parameterClass="StandardRoleInfo">
-            UPDATE tb_StandardRole SET Name = #Name#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+            UPDATE tb_StandardRole SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
         <insert id="proc_StandardRole_SyncFromPackPage" parameterClass="StandardRoleInfo" >
             IF EXISTS(SELECT 0 FROM tb_StandardRole WHERE Id = #Id#)
@@ -186,13 +186,13 @@
             Name = #Name#,
             Type = #Type#,
             ParentId = #ParentId#,
-            StandardOrganizationId = #StandardOrganizationId#,
+            StandardOrganizationUnitId = #StandardOrganizationUnitId#,
             IsKey =  #IsKey#,
             GroupTreeNodeId = #GroupTreeNodeId#,
             OrderId = #OrderId#,
             Status = #Status#,
             Remark = #Remark#,
-            UpdateDate = CURRENT_TIMESTAMP
+            ModifiedDate = CURRENT_TIMESTAMP
 
             WHERE Id = #Id#
             END
@@ -204,14 +204,14 @@
             Name,
             Type,
             ParentId,
-            StandardOrganizationId,
+            StandardOrganizationUnitId,
             IsKey,
             GroupTreeNodeId,
             OrderId,
             Status,
             Remark,
-            UpdateDate,
-            CreateDate
+            ModifiedDate,
+            CreatedDate
             )
             VALUES
             (
@@ -220,7 +220,7 @@
             #Name#,
             #Type#,
             #ParentId#,
-            #StandardOrganizationId#,
+            #StandardOrganizationUnitId#,
             #IsKey#,
             #GroupTreeNodeId#,
             #OrderId#,

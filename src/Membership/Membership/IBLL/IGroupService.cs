@@ -161,10 +161,10 @@ namespace X3Platform.Membership.IBLL
         string CreatePackage(DateTime beginDate, DateTime endDate);
         #endregion
 
-        #region 函数:SyncToActiveDirectory(IRoleInfo param)
+        #region 函数:SyncToLDAP(IRoleInfo param)
         /// <summary>同步信息至 Active Directory</summary>
         /// <param name="param">群组信息</param>
-        int SyncToActiveDirectory(IGroupInfo param);
+        int SyncToLDAP(IGroupInfo param);
         #endregion
 
         #region 函数:SyncFromPackPage(IRoleInfo param)

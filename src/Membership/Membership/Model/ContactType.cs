@@ -16,16 +16,16 @@ namespace X3Platform.Membership.Model
     public enum ContactType
     {
         /// <summary>默认</summary>
-        Default = Account | Organization | Role | Group,
+        Default = Account | OrganizationUnit | Role | Group,
 
         /// <summary>所有</summary>
-        All = Account | Organization | Role | Group | StandardOrganization | StandardRole | GeneralRole | Contact,
+        All = Account | OrganizationUnit | Role | Group | StandardOrganizationUnit | StandardRole | GeneralRole | Contact,
 
         /// <summary>帐号</summary>
         Account = 1,
 
         /// <summary>组织单位</summary>
-        Organization = 2,
+        OrganizationUnit = 2,
 
         /// <summary>角色</summary>
         Role = 4,
@@ -34,7 +34,7 @@ namespace X3Platform.Membership.Model
         Group = 8,
 
         /// <summary>标准组织</summary>
-        StandardOrganization = 16,
+        StandardOrganizationUnit = 16,
 
         /// <summary>标准角色</summary>
         StandardRole = 32,

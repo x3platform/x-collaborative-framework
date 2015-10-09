@@ -172,13 +172,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindAllWithoutDefaultOrganization(int length)
+        #region 函数:FindAllWithoutDefaultOrganizationUnit(int length)
         /// <summary>返回所有没有默认组织的成员信息</summary>
         /// <param name="length">条数, 0表示全部</param>
         /// <returns>返回所有<see cref="IMemberInfo" />实例的详细信息</returns>
-        public IList<IMemberInfo> FindAllWithoutDefaultOrganization(int length)
+        public IList<IMemberInfo> FindAllWithoutDefaultOrganizationUnit(int length)
         {
-            string whereClause = " Id NOT IN ( SELECT AccountId FROM tb_Member WHERE ISNULL( OrganizationId , '' ) = '' ) ";
+            string whereClause = " Id NOT IN ( SELECT AccountId FROM tb_Member WHERE ISNULL( OrganizationUnitId , '' ) = '' ) ";
 
             return FindAll(whereClause, length);
         }
@@ -238,7 +238,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
             args.Add("RowCount", 0);
 
@@ -347,19 +347,19 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:SetDefaultOrganization(string accountId, string organizationId)
+        #region 函数:SetDefaultOrganizationUnit(string accountId, string organizationId)
         /// <summary>设置默认组织单位</summary>
         /// <param name="accountId">帐号标识</param>
         /// <param name="organizationId">组织单位标识</param>
         /// <returns>修改成功,返回 0, 修改失败,返回 1.</returns>
-        public int SetDefaultOrganization(string accountId, string organizationId)
+        public int SetDefaultOrganizationUnit(string accountId, string organizationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
-            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetDefaultOrganization", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetDefaultOrganizationUnit", tableName)), args);
 
             return 0;
         }

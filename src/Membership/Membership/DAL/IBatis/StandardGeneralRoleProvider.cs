@@ -190,7 +190,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" OrderId, UpdateDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" OrderId, ModifiedDate DESC "));
 
             args.Add("RowCount", 0);
 
@@ -257,7 +257,7 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("StandardGeneralRoleId", StringHelper.ToSafeSQL(standardGeneralRoleId));
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
             return this.ibatisMapper.QueryForObject<IStandardGeneralRoleMappingRelationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneMappingRelation", tableName)), args);
         }
@@ -300,7 +300,7 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("StandardGeneralRoleId", StringHelper.ToSafeSQL(standardGeneralRoleId));
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
             args.Add("RoleId", StringHelper.ToSafeSQL(roleId));
             args.Add("StandardRoleId", StringHelper.ToSafeSQL(standardRoleId));
 
@@ -319,7 +319,7 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("StandardGeneralRoleId", StringHelper.ToSafeSQL(standardGeneralRoleId));
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_RemoveMappingRelation", tableName)), args);
 
@@ -336,7 +336,7 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("StandardGeneralRoleId", StringHelper.ToSafeSQL(standardGeneralRoleId));
-            args.Add("OrganizationId", StringHelper.ToSafeSQL(organizationId));
+            args.Add("OrganizationUnitId", StringHelper.ToSafeSQL(organizationId));
 
             return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_HasMappingRelation", tableName)), args) == 0) ? false : true;
         }
