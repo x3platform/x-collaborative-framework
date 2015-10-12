@@ -65,25 +65,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:OptionAccountId
-        private string m_OptionAccountId;
+        #region 属性:OperatedBy
+        private string m_OperatedBy;
 
         /// <summary></summary>
-        public string OptionAccountId
+        public string OperatedBy
         {
-            get { return this.m_OptionAccountId; }
-            set { this.m_OptionAccountId = value; }
+            get { return this.m_OperatedBy; }
+            set { this.m_OperatedBy = value; }
         }
         #endregion
 
-        #region 属性:OptionName
-        private string m_OptionName;
+        #region 属性:OperationName
+        private string m_OperationName;
 
         /// <summary></summary>
-        public string OptionName
+        public string OperationName
         {
-            get { return this.m_OptionName; }
-            set { this.m_OptionName = value; }
+            get { return this.m_OperationName; }
+            set { this.m_OperationName = value; }
         }
         #endregion
 

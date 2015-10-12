@@ -28,10 +28,12 @@ namespace X3Platform.Connect.Tests.IBLL
     using X3Platform.Membership;
     using X3Platform.Util;
     using X3Platform.DigitalNumber;
+    using X3Platform.Messages;
+    using X3Platform.Spring;
 
     /// <summary></summary>
     [TestClass]
-    public class IConnectServiceTests
+    public class IConnectCallServiceTests
     {
         [TestMethod]
         public void TestSave()
@@ -39,17 +41,13 @@ namespace X3Platform.Connect.Tests.IBLL
             Assert.IsNotNull(KernelContext.Current.AuthenticationManagement);
             Assert.IsNotNull(KernelContext.Current.User);
 
-            ConnectInfo param = new ConnectInfo();
+            ConnectCallInfo param = new ConnectCallInfo();
 
             param.Id = "test-" + DateHelper.GetTimestamp();
 
             param.AppKey = Guid.NewGuid().ToString();
 
-            param.Description = DateTime.Now.ToString();
-
-            param.CreatedDate = DateTime.Now;
-
-            param = ConnectContext.Instance.ConnectService.Save(param);
+            param = ConnectContext.Instance.ConnectCallService.Save(param);
 
             Assert.IsNotNull(param);
         }
@@ -57,7 +55,7 @@ namespace X3Platform.Connect.Tests.IBLL
         [TestMethod]
         public void TestFindAll()
         {
-            IList<ConnectInfo> list = ConnectContext.Instance.ConnectService.FindAll();
+            IList<ConnectCallInfo> list = ConnectContext.Instance.ConnectCallService.FindAll();
 
             Assert.IsNotNull(list);
         }
@@ -69,7 +67,7 @@ namespace X3Platform.Connect.Tests.IBLL
 
             var query = new DataQuery();
 
-            IList<ConnectInfo> list = ConnectContext.Instance.ConnectService.GetPaging(0, 10, query, out rowCount);
+            IList<ConnectCallInfo> list = ConnectContext.Instance.ConnectCallService.GetPaging(0, 10, query, out rowCount);
 
             Assert.IsNotNull(list);
         }

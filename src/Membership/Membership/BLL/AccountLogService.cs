@@ -202,8 +202,8 @@ namespace X3Platform.Membership.BLL
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
             param.AccountId = accountId;
-            param.OptionAccountId = optionAccountId;
-            param.OptionName = optionName;
+            param.OperatedBy = optionAccountId;
+            param.OperationName = optionName;
             param.OriginalObjectValue = originalObject == null ? string.Empty : originalObject.Serializable();
             param.Description = description;
             param.Date = DateTime.Now;
