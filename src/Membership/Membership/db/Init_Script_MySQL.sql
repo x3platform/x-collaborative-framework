@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS `tb_Account_Log`(
 	`Id` varchar(36) NOT NULL,
 	`AccountId` varchar(36) NULL,
 	`OriginalObjectValue` text NULL,
-	`OptionAccountId` varchar(36) NULL,
-	`OptionName` varchar(50) NULL,
+	`OperatedBy` varchar(36) NULL,
+	`OperationName` varchar(50) NULL,
 	`Description` text NULL,
 	`Date` datetime NULL
 );
