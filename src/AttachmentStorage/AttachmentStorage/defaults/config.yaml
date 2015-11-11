@@ -10,7 +10,7 @@ keys:
   PhysicalUploadFolderRule: folder\year\quarter\month\
   # 上传文件夹虚拟目录根路径
   VirtualUploadFolder: /uploads/
-  # 允许上传的最大文件大小 单位(KB)
+  # 允许上传的最大文件大小 单位(B) 1024000 = 100 KB
   AllowMaxFileSize: 102400
   # 允许上传的最小文件大小 单位(KB)
   AllowMinFileSize: 0

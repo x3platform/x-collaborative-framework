@@ -3,11 +3,11 @@
     <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
     <!-- 数字流水号 -->
-    <object name="X3Platform.DigitalNumber.IBLL.IDigitalNumberService"
+    <object id="X3Platform.DigitalNumber.IBLL.IDigitalNumberService"
             type="X3Platform.DigitalNumber.BLL.DigitalNumberService,X3Platform.Abstractions"
             lazy-init="true"></object>
     
-    <object name="X3Platform.DigitalNumber.IDAL.IDigitalNumberProvider"
+    <object id="X3Platform.DigitalNumber.IDAL.IDigitalNumberProvider"
             type="X3Platform.DigitalNumber.DAL.IBatis.DigitalNumberProvider,X3Platform.Abstractions"
             lazy-init="true"></object>
 </objects>

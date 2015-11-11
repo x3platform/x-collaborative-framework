@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -22,7 +23,13 @@
 
 using System;
 using System.IO;
+using System.Text;
+
+#if NET_2_0
 using System.Net.Mail;
+#else
+using System.Web.Mail;
+#endif
 
 using X3Platform.Logging.Layout;
 using X3Platform.Logging.Core;
@@ -83,7 +90,59 @@ namespace X3Platform.Logging.Appender
         #region Public Instance Properties
 
         /// <summary>
-        /// Gets or sets a semicolon-delimited list of recipient e-mail addresses.
+        /// Gets or sets a comma- or semicolon-delimited list of recipient e-mail addresses (use semicolon on .NET 1.1 and comma for later versions).
+        /// </summary>
+        /// <value>
+        /// <para>
+        /// For .NET 1.1 (System.Web.Mail): A semicolon-delimited list of e-mail addresses.
+        /// </para>
+        /// <para>
+        /// For .NET 2.0 (System.Net.Mail): A comma-delimited list of e-mail addresses.
+        /// </para>
+        /// </value>
+        /// <remarks>
+        /// <para>
+        /// For .NET 1.1 (System.Web.Mail): A semicolon-delimited list of e-mail addresses.
+        /// </para>
+        /// <para>
+        /// For .NET 2.0 (System.Net.Mail): A comma-delimited list of e-mail addresses.
+        /// </para>
+        /// </remarks>
+        public string To
+        {
+            get { return m_to; }
+            set { m_to = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a comma- or semicolon-delimited list of recipient e-mail addresses 
+        /// that will be carbon copied (use semicolon on .NET 1.1 and comma for later versions).
+        /// </summary>
+        /// <value>
+        /// <para>
+        /// For .NET 1.1 (System.Web.Mail): A semicolon-delimited list of e-mail addresses.
+        /// </para>
+        /// <para>
+        /// For .NET 2.0 (System.Net.Mail): A comma-delimited list of e-mail addresses.
+        /// </para>
+        /// </value>
+        /// <remarks>
+        /// <para>
+        /// For .NET 1.1 (System.Web.Mail): A semicolon-delimited list of e-mail addresses.
+        /// </para>
+        /// <para>
+        /// For .NET 2.0 (System.Net.Mail): A comma-delimited list of e-mail addresses.
+        /// </para>
+        /// </remarks>
+        public string Cc
+        {
+            get { return m_cc; }
+            set { m_cc = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a semicolon-delimited list of recipient e-mail addresses
+        /// that will be blind carbon copied.
         /// </summary>
         /// <value>
         /// A semicolon-delimited list of e-mail addresses.
@@ -93,10 +152,10 @@ namespace X3Platform.Logging.Appender
         /// A semicolon-delimited list of recipient e-mail addresses.
         /// </para>
         /// </remarks>
-        public string To
+        public string Bcc
         {
-            get { return m_to; }
-            set { m_to = value; }
+            get { return m_bcc; }
+            set { m_bcc = value; }
         }
 
         /// <summary>
@@ -265,6 +324,56 @@ namespace X3Platform.Logging.Appender
             set { m_mailPriority = value; }
         }
 
+#if NET_2_0
+        /// <summary>
+        /// Enable or disable use of SSL when sending e-mail message
+        /// </summary>
+        /// <remarks>
+        /// This is available on MS .NET 2.0 runtime and higher
+        /// </remarks>
+        public bool EnableSsl
+        {
+            get { return m_enableSsl; }
+            set { m_enableSsl = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the reply-to e-mail address.
+        /// </summary>
+        /// <remarks>
+        /// This is available on MS .NET 2.0 runtime and higher
+        /// </remarks>
+        public string ReplyTo
+        {
+            get { return m_replyTo; }
+            set { m_replyTo = value; }
+        }
+#endif
+
+        /// <summary>
+        /// Gets or sets the subject encoding to be used.
+        /// </summary>
+        /// <remarks>
+        /// The default encoding is the operating system's current ANSI codepage.
+        /// </remarks>
+        public Encoding SubjectEncoding
+        {
+            get { return m_subjectEncoding; }
+            set { m_subjectEncoding = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the body encoding to be used.
+        /// </summary>
+        /// <remarks>
+        /// The default encoding is the operating system's current ANSI codepage.
+        /// </remarks>
+        public Encoding BodyEncoding
+        {
+            get { return m_bodyEncoding; }
+            set { m_bodyEncoding = value; }
+        }
+
         #endregion // Public Instance Properties
 
         #region Override implementation of BufferingAppenderSkeleton
@@ -335,49 +444,141 @@ namespace X3Platform.Logging.Appender
         /// <param name="messageBody">the body text to include in the mail</param>
         virtual protected void SendEmail(string messageBody)
         {
-            // .NET 2.0 has a new API for SMTP email System.Net.Mail
-            // This API supports credentials and multiple hosts correctly.
-            // The old API is deprecated.
+#if NET_2_0
+			// .NET 2.0 has a new API for SMTP email System.Net.Mail
+			// This API supports credentials and multiple hosts correctly.
+			// The old API is deprecated.
 
-            // Create and configure the smtp client
-            SmtpClient smtpClient = new SmtpClient();
-           
-            if (m_smtpHost != null && m_smtpHost.Length > 0)
-            {
-                smtpClient.Host = m_smtpHost;
-            }
+			// Create and configure the smtp client
+			SmtpClient smtpClient = new SmtpClient();
+			if (!String.IsNullOrEmpty(m_smtpHost))
+			{
+				smtpClient.Host = m_smtpHost;
+			}
+			smtpClient.Port = m_port;
+			smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = m_enableSsl;
 
-            smtpClient.Port = m_port;
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+			if (m_authentication == SmtpAuthentication.Basic)
+			{
+				// Perform basic authentication
+				smtpClient.Credentials = new System.Net.NetworkCredential(m_username, m_password);
+			}
+			else if (m_authentication == SmtpAuthentication.Ntlm)
+			{
+				// Perform integrated authentication (NTLM)
+				smtpClient.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
+			}
 
-            if (m_authentication == SmtpAuthentication.Basic)
+            using (MailMessage mailMessage = new MailMessage())
             {
-                // Perform basic authentication
-                smtpClient.Credentials = new System.Net.NetworkCredential(m_username, m_password);
+                mailMessage.Body = messageBody;
+				mailMessage.BodyEncoding = m_bodyEncoding;
+                mailMessage.From = new MailAddress(m_from);
+                mailMessage.To.Add(m_to);
+                if (!String.IsNullOrEmpty(m_cc))
+                {
+                    mailMessage.CC.Add(m_cc);
+                }
+                if (!String.IsNullOrEmpty(m_bcc))
+                {
+                    mailMessage.Bcc.Add(m_bcc);
+                }
+                if (!String.IsNullOrEmpty(m_replyTo))
+                {
+                    // .NET 4.0 warning CS0618: 'System.Net.Mail.MailMessage.ReplyTo' is obsolete:
+                    // 'ReplyTo is obsoleted for this type.  Please use ReplyToList instead which can accept multiple addresses. http://go.microsoft.com/fwlink/?linkid=14202'
+#if !NET_4_0
+                    mailMessage.ReplyTo = new MailAddress(m_replyTo);
+#else
+                    mailMessage.ReplyToList.Add(new MailAddress(m_replyTo));
+#endif
+                }
+                mailMessage.Subject = m_subject;
+				mailMessage.SubjectEncoding = m_subjectEncoding;
+                mailMessage.Priority = m_mailPriority;
+
+                // TODO: Consider using SendAsync to send the message without blocking. This would be a change in
+                // behaviour compared to .NET 1.x. We would need a SendCompletedCallback to log errors.
+                smtpClient.Send(mailMessage);
             }
-            else if (m_authentication == SmtpAuthentication.Ntlm)
-            {
-                // Perform integrated authentication (NTLM)
-                smtpClient.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
-            }
+#else
+            // .NET 1.x uses the System.Web.Mail API for sending Mail
 
             MailMessage mailMessage = new MailMessage();
             mailMessage.Body = messageBody;
-            mailMessage.From = new MailAddress(m_from);
-            mailMessage.To.Add(m_to);
+            mailMessage.BodyEncoding = m_bodyEncoding;
+            mailMessage.From = m_from;
+            mailMessage.To = m_to;
+            if (m_cc != null && m_cc.Length > 0)
+            {
+                mailMessage.Cc = m_cc;
+            }
+            if (m_bcc != null && m_bcc.Length > 0)
+            {
+                mailMessage.Bcc = m_bcc;
+            }
             mailMessage.Subject = m_subject;
+#if !MONO && !NET_1_0 && !NET_1_1 && !CLI_1_0
+            // mailMessage.SubjectEncoding = m_subjectEncoding;
+#endif
             mailMessage.Priority = m_mailPriority;
 
-            // TODO: Consider using SendAsync to send the message without blocking. This would be a change in
-            // behaviour compared to .NET 1.x. We would need a SendCompletedCallback to log errors.
-            smtpClient.Send(mailMessage);
+#if NET_1_1
+				// The Fields property on the MailMessage allows the CDO properties to be set directly.
+				// This property is only available on .NET Framework 1.1 and the implementation must understand
+				// the CDO properties. For details of the fields available in CDO see:
+				//
+				// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cdosys/html/_cdosys_configuration_coclass.asp
+				// 
+
+				try
+				{
+					if (m_authentication == SmtpAuthentication.Basic)
+					{
+						// Perform basic authentication
+						mailMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate", 1);
+						mailMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/sendusername", m_username);
+						mailMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/sendpassword", m_password);
+					}
+					else if (m_authentication == SmtpAuthentication.Ntlm)
+					{
+						// Perform integrated authentication (NTLM)
+						mailMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate", 2);
+					}
+
+					// Set the port if not the default value
+					if (m_port != 25) 
+					{
+						mailMessage.Fields.Add("http://schemas.microsoft.com/cdo/configuration/smtpserverport", m_port);
+					}
+				}
+				catch(MissingMethodException missingMethodException)
+				{
+					// If we were compiled against .NET 1.1 but are running against .NET 1.0 then
+					// we will get a MissingMethodException when accessing the MailMessage.Fields property.
+
+					ErrorHandler.Error("SmtpAppender: Authentication and server Port are only supported when running on the MS .NET 1.1 framework", missingMethodException);
+				}
+#else
+            if (m_authentication != SmtpAuthentication.None)
+            {
+                ErrorHandler.Error("SmtpAppender: Authentication is only supported on the MS .NET 1.1 or MS .NET 2.0 builds of X3Platform.Logging");
+            }
+
+            if (m_port != 25)
+            {
+                ErrorHandler.Error("SmtpAppender: Server Port is only supported on the MS .NET 1.1 or MS .NET 2.0 builds of X3Platform.Logging");
+            }
+#endif // if NET_1_1
 
             if (m_smtpHost != null && m_smtpHost.Length > 0)
             {
-                smtpClient.Host = m_smtpHost;
+                SmtpMail.SmtpServer = m_smtpHost;
             }
 
-            smtpClient.Send(mailMessage);
+            SmtpMail.Send(mailMessage);
+#endif // if NET_2_0
         }
 
         #endregion // Protected Methods
@@ -385,9 +586,13 @@ namespace X3Platform.Logging.Appender
         #region Private Instance Fields
 
         private string m_to;
+        private string m_cc;
+        private string m_bcc;
         private string m_from;
         private string m_subject;
         private string m_smtpHost;
+        private Encoding m_subjectEncoding = Encoding.UTF8;
+        private Encoding m_bodyEncoding = Encoding.UTF8;
 
         // authentication fields
         private SmtpAuthentication m_authentication = SmtpAuthentication.None;
@@ -398,6 +603,11 @@ namespace X3Platform.Logging.Appender
         private int m_port = 25;
 
         private MailPriority m_mailPriority = MailPriority.Normal;
+
+#if NET_2_0
+        private bool m_enableSsl = false;
+        private string m_replyTo;
+#endif
 
         #endregion // Private Instance Fields
 

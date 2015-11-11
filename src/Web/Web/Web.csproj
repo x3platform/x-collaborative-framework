@@ -56,6 +56,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />

@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -386,7 +387,7 @@ namespace X3Platform.Logging.Appender
 		#region Override implementation of AppenderSkeleton
 
 		/// <summary>
-		/// This method is called by the <see cref="AppenderSkeleton.DoAppend(LoggingEvent)"/> method.
+		/// This method is called by the <see cref="M:AppenderSkeleton.DoAppend(LoggingEvent)"/> method.
 		/// </summary>
 		/// <param name="loggingEvent">The event to log.</param>
 		/// <remarks>
@@ -473,11 +474,19 @@ namespace X3Platform.Logging.Appender
 			{
 				if (this.LocalPort == 0)
 				{
+#if NETCF || NET_1_0 || SSCLI_1_0 || CLI_1_0
 					this.Client = new UdpClient();
+#else
+					this.Client = new UdpClient(RemoteAddress.AddressFamily);
+#endif
 				}
 				else
 				{
+#if NETCF || NET_1_0 || SSCLI_1_0 || CLI_1_0
 					this.Client = new UdpClient(this.LocalPort);
+#else
+					this.Client = new UdpClient(this.LocalPort, RemoteAddress.AddressFamily);
+#endif
 				}
 			} 
 			catch (Exception ex) 

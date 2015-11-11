@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -30,7 +31,7 @@ namespace X3Platform.Logging.Core
 	/// <remarks>
 	/// <para>
 	/// Mapping between string name and <see cref="Level"/> object.
-	/// This mapping is held separately for each <see cref="log4net.Repository.ILoggerRepository"/>.
+	/// This mapping is held separately for each <see cref="X3Platform.Logging.Repository.ILoggerRepository"/>.
 	/// The level name is case insensitive.
 	/// </para>
 	/// </remarks>
@@ -111,7 +112,7 @@ namespace X3Platform.Logging.Core
 		/// Create a new Level and add it to the map
 		/// </para>
 		/// </remarks>
-		/// <seealso cref="Add(string,int,string)"/>
+		/// <seealso cref="M:Add(string,int,string)"/>
 		public void Add(string name, int value)
 		{
 			Add(name, value, null);

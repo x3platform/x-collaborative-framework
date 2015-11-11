@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2006 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -19,13 +20,63 @@
 using System;
 using System.IO;
 using System.Text;
-
+using System.Threading;
 using X3Platform.Logging.Util;
 using X3Platform.Logging.Layout;
 using X3Platform.Logging.Core;
 
 namespace X3Platform.Logging.Appender
 {
+#if !NETCF
+	/// <summary>
+	/// Appends logging events to a file.
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// Logging events are sent to the file specified by
+	/// the <see cref="File"/> property.
+	/// </para>
+	/// <para>
+	/// The file can be opened in either append or overwrite mode 
+	/// by specifying the <see cref="AppendToFile"/> property.
+	/// If the file path is relative it is taken as relative from 
+	/// the application base directory. The file encoding can be
+	/// specified by setting the <see cref="Encoding"/> property.
+	/// </para>
+	/// <para>
+	/// The layout's <see cref="ILayout.Header"/> and <see cref="ILayout.Footer"/>
+	/// values will be written each time the file is opened and closed
+	/// respectively. If the <see cref="AppendToFile"/> property is <see langword="true"/>
+	/// then the file may contain multiple copies of the header and footer.
+	/// </para>
+	/// <para>
+	/// This appender will first try to open the file for writing when <see cref="ActivateOptions"/>
+	/// is called. This will typically be during configuration.
+	/// If the file cannot be opened for writing the appender will attempt
+	/// to open the file again each time a message is logged to the appender.
+	/// If the file cannot be opened for writing when a message is logged then
+	/// the message will be discarded by this appender.
+	/// </para>
+    /// <para>
+    /// The <see cref="FileAppender"/> supports pluggable file locking models via
+    /// the <see cref="LockingModel"/> property.
+    /// The default behavior, implemented by <see cref="FileAppender.ExclusiveLock"/> 
+    /// is to obtain an exclusive write lock on the file until this appender is closed.
+    /// The alternative models only hold a
+    /// write lock while the appender is writing a logging event (<see cref="FileAppender.MinimalLock"/>)
+    /// or synchronize by using a named system wide Mutex (<see cref="FileAppender.InterProcessLock"/>).
+    /// </para>
+    /// <para>
+    /// All locking strategies have issues and you should seriously consider using a different strategy that
+    /// avoids having multiple processes logging to the same file.
+    /// </para>
+	/// </remarks>
+	/// <author>Nicko Cadell</author>
+	/// <author>Gert Driesen</author>
+	/// <author>Rodrigo B. de Oliveira</author>
+	/// <author>Douglas de la Torre</author>
+	/// <author>Niall Daley</author>
+#else
 	/// <summary>
 	/// Appends logging events to a file.
 	/// </summary>
@@ -60,16 +111,21 @@ namespace X3Platform.Logging.Appender
 	/// the <see cref="LockingModel"/> property.
 	/// The default behavior, implemented by <see cref="FileAppender.ExclusiveLock"/> 
 	/// is to obtain an exclusive write lock on the file until this appender is closed.
-	/// The alternative model, <see cref="FileAppender.MinimalLock"/>, only holds a
-	/// write lock while the appender is writing a logging event.
+	/// The alternative model only holds a
+    /// write lock while the appender is writing a logging event (<see cref="FileAppender.MinimalLock"/>).
 	/// </para>
+    /// <para>
+    /// All locking strategies have issues and you should seriously consider using a different strategy that
+    /// avoids having multiple processes logging to the same file.
+    /// </para>
 	/// </remarks>
 	/// <author>Nicko Cadell</author>
 	/// <author>Gert Driesen</author>
 	/// <author>Rodrigo B. de Oliveira</author>
 	/// <author>Douglas de la Torre</author>
 	/// <author>Niall Daley</author>
-	public class FileAppender : TextWriterAppender 
+#endif
+    public class FileAppender : TextWriterAppender 
 	{
 		#region LockingStream Inner Class
 
@@ -161,7 +217,7 @@ namespace X3Platform.Logging.Appender
 			}
 			void IDisposable.Dispose() 
 			{
-				this.Close();
+				Close();
 			}
 			public override void Write(byte[] buffer, int offset, int count) 
 			{
@@ -355,6 +411,56 @@ namespace X3Platform.Logging.Appender
 				get { return m_appender; }
 				set { m_appender = value; }
 			}
+
+            /// <summary>
+            /// Helper method that creates a FileStream under CurrentAppender's SecurityContext.
+            /// </summary>
+            /// <remarks>
+            /// <para>
+            /// Typically called during OpenFile or AcquireLock. 
+            /// </para>
+            /// <para>
+            /// If the directory portion of the <paramref name="filename"/> does not exist, it is created
+            /// via Directory.CreateDirecctory.
+            /// </para>
+            /// </remarks>
+            /// <param name="filename"></param>
+            /// <param name="append"></param>
+            /// <param name="fileShare"></param>
+            /// <returns></returns>
+            protected Stream CreateStream(string filename, bool append, FileShare fileShare)
+            {
+                using (CurrentAppender.SecurityContext.Impersonate(this))
+                {
+                    // Ensure that the directory structure exists
+                    string directoryFullName = Path.GetDirectoryName(filename);
+
+                    // Only create the directory if it does not exist
+                    // doing this check here resolves some permissions failures
+                    if (!Directory.Exists(directoryFullName))
+                    {
+                        Directory.CreateDirectory(directoryFullName);
+                    }
+
+                    FileMode fileOpenMode = append ? FileMode.Append : FileMode.Create;
+                    return new FileStream(filename, fileOpenMode, FileAccess.Write, fileShare);
+                }
+            }
+
+            /// <summary>
+            /// Helper method to close <paramref name="stream"/> under CurrentAppender's SecurityContext.
+            /// </summary>
+            /// <remarks>
+            /// Does not set <paramref name="stream"/> to null.
+            /// </remarks>
+            /// <param name="stream"></param>
+            protected void CloseStream(Stream stream)
+            {
+                using (CurrentAppender.SecurityContext.Impersonate(this))
+                {
+                    stream.Close();
+                }
+           }
 		}
 
 		/// <summary>
@@ -388,21 +494,7 @@ namespace X3Platform.Logging.Appender
 			{
 				try
 				{
-					using(CurrentAppender.SecurityContext.Impersonate(this))
-					{
-						// Ensure that the directory structure exists
-						string directoryFullName = Path.GetDirectoryName(filename);
-
-						// Only create the directory if it does not exist
-						// doing this check here resolves some permissions failures
-						if (!Directory.Exists(directoryFullName))
-						{
-							Directory.CreateDirectory(directoryFullName);
-						}
-
-						FileMode fileOpenMode = append ? FileMode.Append : FileMode.Create;
-						m_stream = new FileStream(filename, fileOpenMode, FileAccess.Write, FileShare.Read);
-					}
+                    m_stream = CreateStream(filename, append, FileShare.Read);
 				}
 				catch (Exception e1)
 				{
@@ -420,10 +512,8 @@ namespace X3Platform.Logging.Appender
 			/// </remarks>
 			public override void CloseFile()
 			{
-				using(CurrentAppender.SecurityContext.Impersonate(this))
-				{
-					m_stream.Close();
-				}
+                CloseStream(m_stream);
+                m_stream = null;
 			}
 
 			/// <summary>
@@ -521,22 +611,8 @@ namespace X3Platform.Logging.Appender
 				{
 					try
 					{
-						using(CurrentAppender.SecurityContext.Impersonate(this))
-						{
-							// Ensure that the directory structure exists
-							string directoryFullName = Path.GetDirectoryName(m_filename);
-
-							// Only create the directory if it does not exist
-							// doing this check here resolves some permissions failures
-							if (!Directory.Exists(directoryFullName))
-							{
-								Directory.CreateDirectory(directoryFullName);
-							}
-
-							FileMode fileOpenMode = m_append ? FileMode.Append : FileMode.Create;
-							m_stream = new FileStream(m_filename, fileOpenMode, FileAccess.Write, FileShare.Read);
-							m_append=true;
-						}
+                        m_stream = CreateStream(m_filename, m_append, FileShare.Read);
+                        m_append = true;
 					}
 					catch (Exception e1)
 					{
@@ -557,13 +633,116 @@ namespace X3Platform.Logging.Appender
 			/// </remarks>
 			public override void ReleaseLock()
 			{
-				using(CurrentAppender.SecurityContext.Impersonate(this))
-				{
-					m_stream.Close();
-					m_stream=null;
-				}
+                CloseStream(m_stream);
+                m_stream = null;
 			}
 		}
+
+#if !NETCF
+        /// <summary>
+        /// Provides cross-process file locking.
+        /// </summary>
+        /// <author>Ron Grabowski</author>
+        /// <author>Steve Wranovsky</author>
+        public class InterProcessLock : LockingModelBase
+        {
+            private Mutex m_mutex = null;
+            private bool m_mutexClosed = false;
+            private Stream m_stream = null;
+
+            /// <summary>
+            /// Open the file specified and prepare for logging.
+            /// </summary>
+            /// <param name="filename">The filename to use</param>
+            /// <param name="append">Whether to append to the file, or overwrite</param>
+            /// <param name="encoding">The encoding to use</param>
+            /// <remarks>
+            /// <para>
+            /// Open the file specified and prepare for logging. 
+            /// No writes will be made until <see cref="AcquireLock"/> is called.
+            /// Must be called before any calls to <see cref="AcquireLock"/>,
+            /// -<see cref="ReleaseLock"/> and <see cref="CloseFile"/>.
+            /// </para>
+            /// </remarks>
+#if NET_4_0
+            [System.Security.SecuritySafeCritical]
+#endif
+            public override void OpenFile(string filename, bool append, Encoding encoding)
+            {
+                try
+                {
+                    m_stream = CreateStream(filename, append, FileShare.ReadWrite);
+
+                    string mutextFriendlyFilename = filename
+                            .Replace("\\", "_")
+                            .Replace(":", "_")
+                            .Replace("/", "_");
+
+                    m_mutex = new Mutex(false, mutextFriendlyFilename); 
+                }
+                catch (Exception e1)
+                {
+                    CurrentAppender.ErrorHandler.Error("Unable to acquire lock on file " + filename + ". " + e1.Message);
+                }
+            }
+
+            /// <summary>
+            /// Close the file
+            /// </summary>
+            /// <remarks>
+            /// <para>
+            /// Close the file. No further writes will be made.
+            /// </para>
+            /// </remarks>
+            public override void CloseFile()
+            {
+                try {
+                    CloseStream(m_stream);
+                    m_stream = null;
+                }
+                finally {
+                    m_mutex.ReleaseMutex();
+                    m_mutex.Close();
+                    m_mutexClosed = true;
+                }
+            }
+
+            /// <summary>
+            /// Acquire the lock on the file
+            /// </summary>
+            /// <returns>A stream that is ready to be written to.</returns>
+            /// <remarks>
+            /// <para>
+            /// Does nothing. The lock is already taken
+            /// </para>
+            /// </remarks>
+            public override Stream AcquireLock()
+            {
+                if (m_mutex != null) {
+                    // TODO: add timeout?
+                    m_mutex.WaitOne();
+
+                    // should always be true (and fast) for FileStream
+                    if (m_stream.CanSeek) {
+                        m_stream.Seek(0, SeekOrigin.End);
+                    }
+                }
+
+                return m_stream;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public override void ReleaseLock()
+            {
+                if (m_mutexClosed == false && m_mutex != null)
+                {
+                    m_mutex.ReleaseMutex();
+                }
+            }
+        }
+#endif
 
 		#endregion Locking Models
 
@@ -697,6 +876,7 @@ namespace X3Platform.Logging.Appender
 			set { m_securityContext = value; }
 		}
 
+#if NETCF
 		/// <summary>
 		/// Gets or sets the <see cref="FileAppender.LockingModel"/> used to handle locking of the file.
 		/// </summary>
@@ -708,14 +888,37 @@ namespace X3Platform.Logging.Appender
 		/// Gets or sets the <see cref="FileAppender.LockingModel"/> used to handle locking of the file.
 		/// </para>
 		/// <para>
-		/// There are two built in locking models, <see cref="FileAppender.ExclusiveLock"/> and <see cref="FileAppender.MinimalLock"/>.
-		/// The former locks the file from the start of logging to the end and the 
-		/// later lock only for the minimal amount of time when logging each message.
+        /// There are two built in locking models, <see cref="FileAppender.ExclusiveLock"/> and <see cref="FileAppender.MinimalLock"/>.
+		/// The first locks the file from the start of logging to the end, the 
+		/// second locks only for the minimal amount of time when logging each message
+        /// and the last synchronizes processes using a named system wide Mutex.
 		/// </para>
 		/// <para>
 		/// The default locking model is the <see cref="FileAppender.ExclusiveLock"/>.
 		/// </para>
 		/// </remarks>
+#else
+        /// <summary>
+		/// Gets or sets the <see cref="FileAppender.LockingModel"/> used to handle locking of the file.
+		/// </summary>
+		/// <value>
+		/// The <see cref="FileAppender.LockingModel"/> used to lock the file.
+		/// </value>
+		/// <remarks>
+		/// <para>
+		/// Gets or sets the <see cref="FileAppender.LockingModel"/> used to handle locking of the file.
+		/// </para>
+		/// <para>
+        /// There are three built in locking models, <see cref="FileAppender.ExclusiveLock"/>, <see cref="FileAppender.MinimalLock"/> and <see cref="FileAppender.InterProcessLock"/> .
+		/// The first locks the file from the start of logging to the end, the 
+		/// second locks only for the minimal amount of time when logging each message
+        /// and the last synchronizes processes using a named system wide Mutex.
+		/// </para>
+		/// <para>
+		/// The default locking model is the <see cref="FileAppender.ExclusiveLock"/>.
+		/// </para>
+		/// </remarks>
+#endif
 		public FileAppender.LockingModelBase LockingModel
 		{
 			get { return m_lockingModel; }
@@ -760,20 +963,19 @@ namespace X3Platform.Logging.Appender
 			}
 
 			m_lockingModel.CurrentAppender=this;
-
-			using(SecurityContext.Impersonate(this))
-			{
-				m_fileName = ConvertToFullPath(m_fileName.Trim());
-			}
-
+			
 			if (m_fileName != null) 
 			{
+				using(SecurityContext.Impersonate(this))
+				{
+					m_fileName = ConvertToFullPath(m_fileName.Trim());
+				}
 				SafeOpenFile(m_fileName, m_appendToFile);
 			} 
 			else 
 			{
-				LogLog.Warn("FileAppender: File option not set for appender ["+Name+"].");
-				LogLog.Warn("FileAppender: Are you using FileAppender instead of ConsoleAppender?");
+				LogLog.Warn(declaringType, "FileAppender: File option not set for appender ["+Name+"].");
+				LogLog.Warn(declaringType, "FileAppender: Are you using FileAppender instead of ConsoleAppender?");
 			}
 		}
 
@@ -810,7 +1012,7 @@ namespace X3Platform.Logging.Appender
  		}
 
 		/// <summary>
-		/// This method is called by the <see cref="AppenderSkeleton.DoAppend(LoggingEvent)"/>
+		/// This method is called by the <see cref="M:AppenderSkeleton.DoAppend(LoggingEvent)"/>
 		/// method. 
 		/// </summary>
 		/// <param name="loggingEvent">The event to log.</param>
@@ -839,7 +1041,7 @@ namespace X3Platform.Logging.Appender
 		}
 
 		/// <summary>
-		/// This method is called by the <see cref="AppenderSkeleton.DoAppend(LoggingEvent[])"/>
+		/// This method is called by the <see cref="M:AppenderSkeleton.DoAppend(LoggingEvent[])"/>
 		/// method. 
 		/// </summary>
 		/// <param name="loggingEvents">The array of events to log.</param>
@@ -1011,7 +1213,7 @@ namespace X3Platform.Logging.Appender
 				}
 				if (!isPathRooted)
 				{
-					LogLog.Error("FileAppender: INTERNAL ERROR. OpenFile("+fileName+"): File name is not fully qualified.");
+					LogLog.Error(declaringType, "INTERNAL ERROR. OpenFile("+fileName+"): File name is not fully qualified.");
 				}
 			}
 
@@ -1019,7 +1221,7 @@ namespace X3Platform.Logging.Appender
 			{
 				Reset();
 
-				LogLog.Debug("FileAppender: Opening file for writing ["+fileName+"] append ["+append+"]");
+				LogLog.Debug(declaringType, "Opening file for writing ["+fileName+"] append ["+append+"]");
 
 				// Save these for later, allowing retries if file open fails
 				m_fileName = fileName;
@@ -1052,9 +1254,9 @@ namespace X3Platform.Logging.Appender
 		/// <param name="fileStream">the file stream that has been opened for writing</param>
 		/// <remarks>
 		/// <para>
-		/// This implementation of <see cref="SetQWForFiles(Stream)"/> creates a <see cref="StreamWriter"/>
+		/// This implementation of <see cref="M:SetQWForFiles(Stream)"/> creates a <see cref="StreamWriter"/>
 		/// over the <paramref name="fileStream"/> and passes it to the 
-		/// <see cref="SetQWForFiles(TextWriter)"/> method.
+		/// <see cref="M:SetQWForFiles(TextWriter)"/> method.
 		/// </para>
 		/// <para>
 		/// This method can be overridden by sub classes that want to wrap the
@@ -1140,5 +1342,18 @@ namespace X3Platform.Logging.Appender
 		private FileAppender.LockingModelBase m_lockingModel = new FileAppender.ExclusiveLock();
 
 		#endregion Private Instance Fields
+
+	    #region Private Static Fields
+
+	    /// <summary>
+	    /// The fully qualified type of the FileAppender class.
+	    /// </summary>
+	    /// <remarks>
+	    /// Used by the internal logger to record the Type of the
+	    /// log message.
+	    /// </remarks>
+	    private readonly static Type declaringType = typeof(FileAppender);
+
+	    #endregion Private Static Fields
 	}
 }

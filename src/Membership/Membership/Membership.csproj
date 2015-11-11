@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>X3Platform.Membership</RootNamespace>
     <AssemblyName>X3Platform.Membership</AssemblyName>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -67,6 +67,9 @@
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Core">
       <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>

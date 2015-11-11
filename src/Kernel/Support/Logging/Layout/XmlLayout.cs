@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -219,7 +220,7 @@ namespace X3Platform.Logging.Layout
 			writer.WriteStartElement(m_elmEvent);
 			writer.WriteAttributeString(ATTR_LOGGER, loggingEvent.LoggerName);
 
-#if NET_2_0 || MONO_2_0
+#if NET_2_0 || NETCF_2_0 || MONO_2_0
 			writer.WriteAttributeString(ATTR_TIMESTAMP, XmlConvert.ToString(loggingEvent.TimeStamp, XmlDateTimeSerializationMode.Local));
 #else
 			writer.WriteAttributeString(ATTR_TIMESTAMP, XmlConvert.ToString(loggingEvent.TimeStamp));
@@ -331,7 +332,7 @@ namespace X3Platform.Logging.Layout
 
 		#region Private Static Fields
 
-		private const string PREFIX = "X3Platform.Logging";
+		private const string PREFIX = "logging";
 
 		private const string ELM_EVENT = "event";
 		private const string ELM_MESSAGE = "message";

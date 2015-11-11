@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -308,10 +309,10 @@ namespace X3Platform.Logging.Config
 		/// </para>
 		/// <para>
 		/// For more information on how to configure X3Platform.Logging using
-		/// a separate configuration file, see <see cref="Configure(FileInfo)"/>.
+		/// a separate configuration file, see <see cref="M:Configure(FileInfo)"/>.
 		/// </para>
 		/// </remarks>
-		/// <seealso cref="Configure(FileInfo)"/>
+		/// <seealso cref="M:Configure(FileInfo)"/>
 		[Obsolete("Use XmlConfigurator.ConfigureAndWatch instead of DOMConfigurator.ConfigureAndWatch")]
 		static public void ConfigureAndWatch(FileInfo configFile)
 		{
@@ -340,10 +341,10 @@ namespace X3Platform.Logging.Config
 		/// </para>
 		/// <para>
 		/// For more information on how to configure X3Platform.Logging using
-		/// a separate configuration file, see <see cref="Configure(FileInfo)"/>.
+		/// a separate configuration file, see <see cref="M:Configure(FileInfo)"/>.
 		/// </para>
 		/// </remarks>
-		/// <seealso cref="Configure(FileInfo)"/>
+		/// <seealso cref="M:Configure(FileInfo)"/>
 		[Obsolete("Use XmlConfigurator.ConfigureAndWatch instead of DOMConfigurator.ConfigureAndWatch")]
 		static public void ConfigureAndWatch(ILoggerRepository repository, FileInfo configFile)
 		{

@@ -14,15 +14,6 @@ namespace X3Platform.Apps
     /// <summary>应用上下文环境</summary>
     public class AppsContext : CustomPlugin
     {
-        /// <summary>日志记录器</summary>
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        /// <summary>日志记</summary>
-        public static ILog Log
-        {
-            get { return logger; }
-        }
-
         #region 静态属性:Instance
         private static volatile AppsContext instance = null;
 
@@ -182,7 +173,7 @@ namespace X3Platform.Apps
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message, ex);
+                KernelContext.Log.Error(ex.Message, ex);
                 throw;
             }
 

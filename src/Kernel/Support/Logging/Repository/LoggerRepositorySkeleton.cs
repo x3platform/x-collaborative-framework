@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -17,12 +18,13 @@
 #endregion
 
 using System;
+using System.Collections;
 
+using X3Platform.Logging.Appender;
 using X3Platform.Logging.ObjectRenderer;
 using X3Platform.Logging.Core;
 using X3Platform.Logging.Util;
 using X3Platform.Logging.Plugin;
-using X3Platform.Logging.Appender;
 
 namespace X3Platform.Logging.Repository
 {
@@ -50,6 +52,7 @@ namespace X3Platform.Logging.Repository
 		private LevelMap m_levelMap;
 		private Level m_threshold;
 		private bool m_configured;
+        private ICollection m_configurationMessages;
 		private event LoggerRepositoryShutdownEventHandler m_shutdownEvent;
 		private event LoggerRepositoryConfigurationResetEventHandler m_configurationResetEvent;
 		private event LoggerRepositoryConfigurationChangedEventHandler m_configurationChangedEvent;
@@ -86,6 +89,7 @@ namespace X3Platform.Logging.Repository
 			m_rendererMap = new RendererMap();
 			m_pluginMap = new PluginMap(this);
 			m_levelMap = new LevelMap();
+            m_configurationMessages = EmptyCollection.Instance;
 			m_configured = false;
 
 			AddBuiltinLevels();
@@ -140,7 +144,7 @@ namespace X3Platform.Logging.Repository
 				else
 				{
 					// Must not set threshold to null
-					LogLog.Warn("LoggerRepositorySkeleton: Threshold cannot be set to null. Setting to ALL");
+					LogLog.Warn(declaringType, "LoggerRepositorySkeleton: Threshold cannot be set to null. Setting to ALL");
 					m_threshold = Level.All;
 				}
 			}
@@ -285,6 +289,7 @@ namespace X3Platform.Logging.Repository
 			// Clear internal data structures
 			m_rendererMap.Clear();
 			m_levelMap.Clear();
+            m_configurationMessages = EmptyCollection.Instance;
 
 			// Add the predefined levels to the map
 			AddBuiltinLevels();
@@ -304,7 +309,7 @@ namespace X3Platform.Logging.Repository
 		/// This method should not normally be used to log.
 		/// The <see cref="ILog"/> interface should be used 
 		/// for routine logging. This interface can be obtained
-		/// using the <see cref="X3Platform.Logging.LogManager.GetLogger(string)"/> method.
+		/// using the <see cref="M:X3Platform.Logging.LogManager.GetLogger(string)"/> method.
 		/// </para>
 		/// <para>
 		/// The <c>logEvent</c> is delivered to the appropriate logger and
@@ -330,7 +335,17 @@ namespace X3Platform.Logging.Repository
 			set { m_configured = value; }
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Contains a list of internal messages captures during the 
+        /// last configuration.
+        /// </summary>
+	    virtual public ICollection ConfigurationMessages
+	    {
+            get { return m_configurationMessages; }
+            set { m_configurationMessages = value; }
+	    }
+
+	    /// <summary>
 		/// Event to notify that the repository has been shutdown.
 		/// </summary>
 		/// <value>
@@ -408,6 +423,19 @@ namespace X3Platform.Logging.Repository
 		abstract public IAppender[] GetAppenders();
 
 		#endregion
+
+	    #region Private Static Fields
+
+	    /// <summary>
+	    /// The fully qualified type of the LoggerRepositorySkeleton class.
+	    /// </summary>
+	    /// <remarks>
+	    /// Used by the internal logger to record the Type of the
+	    /// log message.
+	    /// </remarks>
+	    private readonly static Type declaringType = typeof(LoggerRepositorySkeleton);
+
+	    #endregion Private Static Fields
 
 		private void AddBuiltinLevels()
 		{
@@ -529,7 +557,7 @@ namespace X3Platform.Logging.Repository
 			LoggerRepositoryConfigurationChangedEventHandler handler = m_configurationChangedEvent;
 			if (handler != null)
 			{
-				handler(this, EventArgs.Empty);
+				handler(this, e);
 			}
 		}
 

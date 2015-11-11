@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4fe08777-d6da-4ed6-b630-c6fe8bec0c8b}</ProjectGuid>
+    <ProjectGuid>{4FE08777-D6DA-4ED6-B630-C6FE8BEC0C8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>X3Platform.Drawing.Captcha</RootNamespace>
     <AssemblyName>X3Platform.Drawing.Captcha</AssemblyName>
@@ -63,7 +63,6 @@
     <Folder Include="Web\Mvc\Controllers\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build.publish.bat" />
     <None Include="Fonts\README">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -80,6 +79,6 @@
     <EmbeddedResource Include="Fonts\Lora.font.png" />
   </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

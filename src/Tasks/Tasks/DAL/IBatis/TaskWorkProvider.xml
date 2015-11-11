@@ -36,35 +36,35 @@
     <insert id="proc_Task_Insert#SqlServer" parameterClass="X3Platform.Tasks.Model.TaskWorkItemInfo,X3Platform.Tasks" >
       INSERT INTO tb_Task_WorkItem
       (
-      Id,
-      ApplicationId,
-      TaskCode,
-      Type,
-      Title,
-      Content,
-      Tags,
-      SenderId,
-      ReceiverId,
-      Status,
-      IsRead,
-      FinishTime,
-      CreateDate
+        Id,
+        ApplicationId,
+        TaskCode,
+        Type,
+        Title,
+        Content,
+        Tags,
+        SenderId,
+        ReceiverId,
+        Status,
+        IsRead,
+        FinishTime,
+        CreateDate
       )
       VALUES
       (
-      #Id#,
-      #ApplicationId#,
-      #TaskCode#,
-      #Type#,
-      #Title#,
-      #Content#,
-      #Tags#,
-      #SenderId#,
-      #ReceiverId#,
-      #Status#,
-      #IsRead#,
-      #FinishTime#,
-      CURRENT_TIMESTAMP
+        #Id#,
+        #ApplicationId#,
+        #TaskCode#,
+        #Type#,
+        #Title#,
+        #Content#,
+        #Tags#,
+        #SenderId#,
+        #ReceiverId#,
+        #Status#,
+        #IsRead#,
+        #FinishTime#,
+        CURRENT_TIMESTAMP
       )
     </insert>
     <insert id="proc_Task_Insert#MySql" parameterClass="X3Platform.Tasks.Model.TaskWorkItemInfo,X3Platform.Tasks" >

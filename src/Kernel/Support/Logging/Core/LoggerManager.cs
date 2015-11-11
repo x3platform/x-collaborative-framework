@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -88,14 +89,14 @@ namespace X3Platform.Logging.Core
 			}
 			catch(System.Security.SecurityException)
 			{
-				LogLog.Debug("LoggerManager: Security Exception (ControlAppDomain LinkDemand) while trying "+
+				LogLog.Debug(declaringType, "Security Exception (ControlAppDomain LinkDemand) while trying "+
 					"to register Shutdown handler with the AppDomain. LoggerManager.Shutdown() "+
 					"will not be called automatically when the AppDomain exits. It must be called "+
 					"programmatically.");
 			}
 
 			// Dump out our assembly version into the log if debug is enabled
-			LogLog.Debug(GetVersionInfo());
+            LogLog.Debug(declaringType, GetVersionInfo());
 
 			// Set the default repository selector
 #if NETCF
@@ -114,7 +115,7 @@ namespace X3Platform.Logging.Core
 				}
 				catch(Exception ex)
 				{
-					LogLog.Error("LoggerManager: Exception while resolving RepositorySelector Type ["+appRepositorySelectorTypeName+"]", ex);
+					LogLog.Error(declaringType, "Exception while resolving RepositorySelector Type ["+appRepositorySelectorTypeName+"]", ex);
 				}
 
 				if (appRepositorySelectorType != null)
@@ -127,7 +128,7 @@ namespace X3Platform.Logging.Core
 					}
 					catch(Exception ex)
 					{
-						LogLog.Error("LoggerManager: Exception while creating RepositorySelector ["+appRepositorySelectorType.FullName+"]", ex);
+						LogLog.Error(declaringType, "Exception while creating RepositorySelector ["+appRepositorySelectorType.FullName+"]", ex);
 					}
 
 					if (appRepositorySelectorObj != null && appRepositorySelectorObj is IRepositorySelector)
@@ -136,7 +137,7 @@ namespace X3Platform.Logging.Core
 					}
 					else
 					{
-						LogLog.Error("LoggerManager: RepositorySelector Type ["+appRepositorySelectorType.FullName+"] is not an IRepositorySelector");
+						LogLog.Error(declaringType, "RepositorySelector Type ["+appRepositorySelectorType.FullName+"] is not an IRepositorySelector");
 					}
 				}
 			}
@@ -404,7 +405,7 @@ namespace X3Platform.Logging.Core
 		}	
 
 		/// <summary>
-		/// Shorthand for <see cref="LogManager.GetLogger(string)"/>.
+		/// Shorthand for <see cref="M:LogManager.GetLogger(string)"/>.
 		/// </summary>
 		/// <param name="repository">The repository to lookup in.</param>
 		/// <param name="type">The <paramref name="type"/> of which the fullname will be used as the name of the logger to retrieve.</param>
@@ -428,7 +429,7 @@ namespace X3Platform.Logging.Core
 		}
 
 		/// <summary>
-		/// Shorthand for <see cref="LogManager.GetLogger(string)"/>.
+		/// Shorthand for <see cref="M:LogManager.GetLogger(string)"/>.
 		/// </summary>
 		/// <param name="repositoryAssembly">the assembly to use to lookup the repository</param>
 		/// <param name="type">The <paramref name="type"/> of which the fullname will be used as the name of the logger to retrieve.</param>
@@ -702,7 +703,7 @@ namespace X3Platform.Logging.Core
 		/// </para>
 		/// <para>
 		/// The <see cref="ILoggerRepository"/> created will be associated with the repository
-		/// specified such that a call to <see cref="GetRepository(Assembly)"/> with the
+		/// specified such that a call to <see cref="M:GetRepository(Assembly)"/> with the
 		/// same assembly specified will return the same repository instance.
 		/// </para>
 		/// </remarks>
@@ -723,7 +724,7 @@ namespace X3Platform.Logging.Core
 		/// <remarks>
 		/// <para>
 		/// The <see cref="ILoggerRepository"/> created will be associated with the repository
-		/// specified such that a call to <see cref="GetRepository(Assembly)"/> with the
+		/// specified such that a call to <see cref="M:GetRepository(Assembly)"/> with the
 		/// same assembly specified will return the same repository instance.
 		/// </para>
 		/// </remarks>
@@ -769,7 +770,7 @@ namespace X3Platform.Logging.Core
 		/// <para>
 		/// The caller to <see cref="LogManager"/> supplies either a string name 
 		/// or an assembly (if not supplied the assembly is inferred using 
-		/// <see cref="Assembly.GetCallingAssembly()"/>).
+		/// <see cref="M:Assembly.GetCallingAssembly()"/>).
 		/// </para>
 		/// <para>
 		/// This context is used by the selector to lookup a specific repository.
@@ -823,7 +824,7 @@ namespace X3Platform.Logging.Core
 		/// Called when the <see cref="AppDomain.DomainUnload"/> event fires.
 		/// </para>
 		/// <para>
-		/// When the event is triggered the X3Platform.Logging system is <see cref="Shutdown()"/>.
+		/// When the event is triggered the X3Platform.Logging system is <see cref="M:Shutdown()"/>.
 		/// </para>
 		/// </remarks>
 		private static void OnDomainUnload(object sender, EventArgs e)
@@ -841,7 +842,7 @@ namespace X3Platform.Logging.Core
 		/// Called when the <see cref="AppDomain.ProcessExit"/> event fires.
 		/// </para>
 		/// <para>
-		/// When the event is triggered the X3Platform.Logging system is <see cref="Shutdown()"/>.
+		/// When the event is triggered the X3Platform.Logging system is <see cref="M:Shutdown()"/>.
 		/// </para>
 		/// </remarks>
 		private static void OnProcessExit(object sender, EventArgs e)
@@ -853,6 +854,15 @@ namespace X3Platform.Logging.Core
 		#endregion Private Static Methods
 
 		#region Private Static Fields
+
+	    /// <summary>
+	    /// The fully qualified type of the LoggerManager class.
+	    /// </summary>
+	    /// <remarks>
+	    /// Used by the internal logger to record the Type of the
+	    /// log message.
+	    /// </remarks>
+	    private readonly static Type declaringType = typeof(LoggerManager);
 
 		/// <summary>
 		/// Initialize the default repository selector

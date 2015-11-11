@@ -10,6 +10,10 @@ namespace X3Platform.Web.APIs
     using Common.Logging;
 
     using X3Platform.Util;
+    using X3Platform.Connect.Configuration;
+    using X3Platform.Location.IPQuery;
+    using X3Platform.Connect;
+    using X3Platform.Connect.Model;
 
     /// <summary></summary>
     /// <param name="methodName"></param>
@@ -26,6 +30,10 @@ namespace X3Platform.Web.APIs
         {
             // 请求响应的内容
             string responseText = string.Empty;
+
+            string clientId = (context.Request["clientId"] == null) ? string.Empty : context.Request["clientId"];
+
+            string accessToken = (context.Request["accessToken"] == null) ? string.Empty : context.Request["accessToken"];
 
             string xml = (context.Request.Form["xhr-xml"] == null) ? string.Empty : context.Request.Form["xhr-xml"];
 
@@ -93,9 +101,42 @@ namespace X3Platform.Web.APIs
 
                 try
                 {
-                    var responseObject = methodInvoke(methodName, doc, logger);
+                    // 记录
+                    if (ConnectConfigurationView.Instance.TrackingCall == "ON")
+                    {
+                        ConnectCallInfo call = new ConnectCallInfo(clientId, context.Request.RawUrl, doc.InnerXml);
 
-                    responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
+                        try
+                        {
+                            call.Start();
+
+                            var responseObject = methodInvoke(methodName, doc, logger);
+
+                            responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
+
+                            call.ReturnCode = 0;
+                        }
+                        catch
+                        {
+                            call.ReturnCode = 1;
+
+                            throw;
+                        }
+                        finally
+                        {
+                            call.Finish();
+
+                            call.IP = IPQueryContext.GetClientIP();
+
+                            ConnectContext.Instance.ConnectCallService.Save(call);
+                        }
+                    }
+                    else
+                    {
+                        var responseObject = methodInvoke(methodName, doc, logger);
+
+                        responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
+                    }
 
                     if (resultType == "json"
                         && responseText.IndexOf("\"message\":") > -1

@@ -47,9 +47,9 @@ namespace X3Platform.Services
 
                 eventLog.WriteEntry(text, type);
             }
-            catch (System.Security.SecurityException) 
+            catch (System.Security.SecurityException ex) 
             {
-                throw;
+                throw ex;
             }
         }
 

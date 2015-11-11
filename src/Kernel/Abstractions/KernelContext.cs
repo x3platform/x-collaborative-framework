@@ -10,18 +10,20 @@ namespace X3Platform
     using X3Platform.Configuration;
     using X3Platform.Membership;
     using X3Platform.Security.Authentication;
+    using Common.Logging;
     #endregion
 
     /// <summary>核心环境</summary>
     public sealed class KernelContext : IContext
     {
-        #region 属性:Name
-        /// <summary>名称</summary>
-        public string Name
+        /// <summary>日志记录器</summary>
+        private readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        /// <summary>日志记录</summary>
+        public static ILog Log
         {
-            get { return "核心环境"; }
+            get { return Current.logger; }
         }
-        #endregion
 
         #region 属性:Current
         private static volatile KernelContext instance = null;
@@ -46,6 +48,14 @@ namespace X3Platform
 
                 return instance;
             }
+        }
+        #endregion
+
+        #region 属性:Name
+        /// <summary>名称</summary>
+        public string Name
+        {
+            get { return "核心环境"; }
         }
         #endregion
 

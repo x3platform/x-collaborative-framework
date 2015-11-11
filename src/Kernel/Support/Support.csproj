@@ -71,6 +71,9 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -214,6 +217,24 @@
     <Compile Include="Json\JsonDynamicConverter.cs" />
     <Compile Include="Globalization\I18n.cs" />
     <Compile Include="Globalization\Localization.cs" />
+    <Compile Include="Logging\Appender\ManagedColoredConsoleAppender.cs" />
+    <Compile Include="Logging\Core\ExceptionEvaluator.cs" />
+    <Compile Include="Logging\Core\MethodItem.cs" />
+    <Compile Include="Logging\Core\StackFrameItem.cs" />
+    <Compile Include="Logging\Core\TimeEvaluator.cs" />
+    <Compile Include="Logging\Layout\DynamicPatternLayout.cs" />
+    <Compile Include="Logging\Layout\Pattern\AspNetCachePatternConverter.cs" />
+    <Compile Include="Logging\Layout\Pattern\AspNetContextPatternConverter.cs" />
+    <Compile Include="Logging\Layout\Pattern\AspNetPatternConverter.cs" />
+    <Compile Include="Logging\Layout\Pattern\AspNetRequestPatternConverter.cs" />
+    <Compile Include="Logging\Layout\Pattern\AspNetSessionPatternConverter.cs" />
+    <Compile Include="Logging\Layout\Pattern\StackTraceDetailPatternConverter.cs" />
+    <Compile Include="Logging\Layout\Pattern\StackTracePatternConverter.cs" />
+    <Compile Include="Logging\Repository\ConfigurationChangedEventArgs.cs" />
+    <Compile Include="Logging\Util\ConverterInfo.cs" />
+    <Compile Include="Logging\Util\ILogExtensions.cs" />
+    <Compile Include="Logging\Util\PatternStringConverters\EnvironmentFolderPathPatternConverter.cs" />
+    <Compile Include="Logging\Util\PropertyEntry.cs" />
     <Compile Include="Messages\Configuration\MessageQueueConfiguration.cs" />
     <Compile Include="Messages\Configuration\MessageQueueConfigurationView.cs" />
     <Compile Include="Security\CiphertextFormat.cs" />

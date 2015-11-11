@@ -30,6 +30,8 @@ namespace X3Platform.Connect.Tests.IBLL
     using X3Platform.DigitalNumber;
     using X3Platform.Messages;
     using X3Platform.Spring;
+    using Quartz;
+    using X3Platform.Connect.Jobs;
 
     /// <summary></summary>
     [TestClass]
