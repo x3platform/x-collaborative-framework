@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2006 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -23,6 +24,13 @@ using System.IO;
 using X3Platform.Logging.Core;
 using X3Platform.Logging.Layout.Pattern;
 using X3Platform.Logging.Util;
+using X3Platform.Logging.Util.PatternStringConverters;
+using AppDomainPatternConverter=X3Platform.Logging.Layout.Pattern.AppDomainPatternConverter;
+using DatePatternConverter=X3Platform.Logging.Layout.Pattern.DatePatternConverter;
+using IdentityPatternConverter=X3Platform.Logging.Layout.Pattern.IdentityPatternConverter;
+using PropertyPatternConverter=X3Platform.Logging.Layout.Pattern.PropertyPatternConverter;
+using UserNamePatternConverter=X3Platform.Logging.Layout.Pattern.UserNamePatternConverter;
+using UtcDatePatternConverter=X3Platform.Logging.Layout.Pattern.UtcDatePatternConverter;
 
 namespace X3Platform.Logging.Layout
 {
@@ -31,7 +39,7 @@ namespace X3Platform.Logging.Layout
 	/// </summary>
 	/// <remarks>
 	/// <para>
-	/// The goal of this class is to <see cref="PatternLayout.Format"/> a 
+	/// The goal of this class is to <see cref="M:PatternLayout.Format(TextWriter,LoggingEvent)"/> a 
 	/// <see cref="LoggingEvent"/> as a string. The results
 	/// depend on the <i>conversion pattern</i>.
 	/// </para>
@@ -96,6 +104,50 @@ namespace X3Platform.Logging.Layout
 	///         </description>
 	///     </item>
 	///     <item>
+	///         <term>aspnet-cache</term>
+	///         <description>
+    ///             <para>
+    ///             Used to output all cache items in the case of <b>%aspnet-cache</b> or just one named item if used as <b>%aspnet-cache{key}</b>
+    ///             </para>
+    ///             <para>
+    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///             </para>
+	///         </description>
+	///     </item>
+	///     <item>
+	///         <term>aspnet-context</term>
+	///         <description>
+    ///             <para>
+    ///             Used to output all context items in the case of <b>%aspnet-context</b> or just one named item if used as <b>%aspnet-context{key}</b>
+    ///             </para>
+    ///             <para>
+    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///             </para>
+    ///         </description>
+	///     </item>
+	///     <item>
+	///         <term>aspnet-request</term>
+	///         <description>
+    ///             <para>
+    ///             Used to output all request parameters in the case of <b>%aspnet-request</b> or just one named param if used as <b>%aspnet-request{key}</b>
+    ///             </para>
+    ///             <para>
+    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///             </para>
+    ///         </description>
+	///     </item>
+	///     <item>
+	///         <term>aspnet-session</term>
+	///         <description>
+    ///             <para>
+    ///             Used to output all session items in the case of <b>%aspnet-session</b> or just one named item if used as <b>%aspnet-session{key}</b>
+    ///             </para>
+    ///             <para>
+    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///             </para>
+    ///         </description>
+	///     </item>
+	///     <item>
 	///         <term>c</term>
 	///         <description>Equivalent to <b>logger</b></description>
 	///     </item>
@@ -126,7 +178,7 @@ namespace X3Platform.Logging.Layout
 	/// 			</para>
 	/// 			<para>
 	/// 			The date format specifier admits the same syntax as the
-	/// 			time pattern string of the <see cref="DateTime.ToString(string)"/>.
+	/// 			time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
 	/// 			</para>
 	/// 			<para>
 	/// 			For better results it is recommended to use the X3Platform.Logging date
@@ -139,7 +191,7 @@ namespace X3Platform.Logging.Layout
 	/// 			</para>
 	/// 			<para>
 	/// 			These dedicated date formatters perform significantly
-	/// 			better than <see cref="DateTime.ToString(string)"/>.
+	/// 			better than <see cref="M:DateTime.ToString(string)"/>.
 	/// 			</para>
 	///			</description>
 	///		</item>
@@ -405,7 +457,43 @@ namespace X3Platform.Logging.Layout
 	///         <term>r</term>
 	///         <description>Equivalent to <b>timestamp</b></description>
 	///     </item>
-	///     <item>
+	/// 	<item>
+	///			<term>stacktrace</term> 
+	///			<description>
+	/// 			<para>
+	/// 			Used to output the stack trace of the logging event
+	/// 			The stack trace level specifier may be enclosed 
+	/// 			between braces. For example, <b>%stacktrace{level}</b>.  
+	/// 			If no stack trace level specifier is given then 1 is assumed 
+	/// 			</para>
+    /// 			<para>
+    /// 			Output uses the format:
+    /// 			type3.MethodCall3 > type2.MethodCall2 > type1.MethodCall1
+    /// 			</para>
+    ///             <para>
+    ///             This pattern is not available for Compact Framework assemblies.
+    ///             </para>
+    ///			</description>
+	///		</item>
+    /// 	<item>
+    ///			<term>stacktracedetail</term> 
+    ///			<description>
+    /// 			<para>
+    /// 			Used to output the stack trace of the logging event
+    /// 			The stack trace level specifier may be enclosed 
+    /// 			between braces. For example, <b>%stacktracedetail{level}</b>.  
+    /// 			If no stack trace level specifier is given then 1 is assumed 
+    /// 			</para>
+    /// 			<para>
+    /// 			Output uses the format:
+    ///             type3.MethodCall3(type param,...) > type2.MethodCall2(type param,...) > type1.MethodCall1(type param,...)
+    /// 			</para>
+    ///             <para>
+    ///             This pattern is not available for Compact Framework assemblies.
+    ///             </para>
+    ///			</description>
+    ///		</item>
+    ///     <item>
 	///         <term>t</term>
 	///         <description>Equivalent to <b>thread</b></description>
 	///     </item>
@@ -487,7 +575,7 @@ namespace X3Platform.Logging.Layout
 	/// 			</para>
 	/// 			<para>
 	/// 			The date format specifier admits the same syntax as the
-	/// 			time pattern string of the <see cref="DateTime.ToString(string)"/>.
+	/// 			time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
 	/// 			</para>
 	/// 			<para>
 	/// 			For better results it is recommended to use the X3Platform.Logging date
@@ -500,7 +588,7 @@ namespace X3Platform.Logging.Layout
 	/// 			</para>
 	/// 			<para>
 	/// 			These dedicated date formatters perform significantly
-	/// 			better than <see cref="DateTime.ToString(string)"/>.
+	/// 			better than <see cref="M:DateTime.ToString(string)"/>.
 	/// 			</para>
 	///			</description>
 	///		</item>
@@ -672,7 +760,7 @@ namespace X3Platform.Logging.Layout
 	/// </note>
 	/// <para>
 	/// Additional pattern converters may be registered with a specific <see cref="PatternLayout"/>
-	/// instance using the <see cref="AddConverter(string, Type)"/> method.
+	/// instance using the <see cref="M:AddConverter(string, Type)"/> method.
 	/// </para>
 	/// </remarks>
 	/// <example>
@@ -767,9 +855,18 @@ namespace X3Platform.Logging.Layout
 		{
 			s_globalRulesRegistry = new Hashtable(45);
 
-			s_globalRulesRegistry.Add("literal", typeof(X3Platform.Logging.Util.PatternStringConverters.LiteralPatternConverter));
-            s_globalRulesRegistry.Add("newline", typeof(X3Platform.Logging.Util.PatternStringConverters.NewLinePatternConverter));
-            s_globalRulesRegistry.Add("n", typeof(X3Platform.Logging.Util.PatternStringConverters.NewLinePatternConverter));
+			s_globalRulesRegistry.Add("literal", typeof(LiteralPatternConverter));
+			s_globalRulesRegistry.Add("newline", typeof(NewLinePatternConverter));
+			s_globalRulesRegistry.Add("n", typeof(NewLinePatternConverter));
+
+// .NET Compact Framework 1.0 has no support for ASP.NET
+// SSCLI 1.0 has no support for ASP.NET
+#if !NETCF && !SSCLI && !CLIENT_PROFILE
+			s_globalRulesRegistry.Add("aspnet-cache", typeof(AspNetCachePatternConverter));
+			s_globalRulesRegistry.Add("aspnet-context", typeof(AspNetContextPatternConverter));
+			s_globalRulesRegistry.Add("aspnet-request", typeof(AspNetRequestPatternConverter));
+			s_globalRulesRegistry.Add("aspnet-session", typeof(AspNetSessionPatternConverter));
+#endif
 
 			s_globalRulesRegistry.Add("c", typeof(LoggerPatternConverter));
 			s_globalRulesRegistry.Add("logger", typeof(LoggerPatternConverter));
@@ -807,15 +904,20 @@ namespace X3Platform.Logging.Layout
 
 			s_globalRulesRegistry.Add("r", typeof(RelativeTimePatternConverter));
 			s_globalRulesRegistry.Add("timestamp", typeof(RelativeTimePatternConverter));
+			
+#if !NETCF
+			s_globalRulesRegistry.Add("stacktrace", typeof(StackTracePatternConverter));
+            s_globalRulesRegistry.Add("stacktracedetail", typeof(StackTraceDetailPatternConverter));
+#endif
 
 			s_globalRulesRegistry.Add("t", typeof(ThreadPatternConverter));
 			s_globalRulesRegistry.Add("thread", typeof(ThreadPatternConverter));
 
-			// For backwards compatibility the NDC patters
+			// For backwards compatibility the NDC patterns
 			s_globalRulesRegistry.Add("x", typeof(NdcPatternConverter));
 			s_globalRulesRegistry.Add("ndc", typeof(NdcPatternConverter));
 
-			// For backwards compatibility the MDC patters just do a property lookup
+			// For backwards compatibility the MDC patterns just do a property lookup
 			s_globalRulesRegistry.Add("X", typeof(PropertyPatternConverter));
 			s_globalRulesRegistry.Add("mdc", typeof(PropertyPatternConverter));
 
@@ -924,7 +1026,10 @@ namespace X3Platform.Logging.Layout
 			// Add all the builtin patterns
 			foreach(DictionaryEntry entry in s_globalRulesRegistry)
 			{
-				patternParser.PatternConverters[entry.Key] = entry.Value;
+                ConverterInfo converterInfo = new ConverterInfo();
+                converterInfo.Name = (string)entry.Key;
+                converterInfo.Type = (Type)entry.Value;
+                patternParser.PatternConverters[entry.Key] = converterInfo;
 			}
 			// Add the instance patterns
 			foreach(DictionaryEntry entry in m_instanceRulesRegistry)
@@ -1020,12 +1125,18 @@ namespace X3Platform.Logging.Layout
 		/// <remarks>
 		/// <para>
 		/// This version of the method is used by the configurator.
-		/// Programmatic users should use the alternative <see cref="AddConverter(string,Type)"/> method.
+		/// Programmatic users should use the alternative <see cref="M:AddConverter(string,Type)"/> method.
 		/// </para>
 		/// </remarks>
 		public void AddConverter(ConverterInfo converterInfo)
 		{
-			AddConverter(converterInfo.Name, converterInfo.Type);
+            if (converterInfo == null) throw new ArgumentNullException("converterInfo");
+
+            if (!typeof(PatternConverter).IsAssignableFrom(converterInfo.Type))
+            {
+                throw new ArgumentException("The converter type specified [" + converterInfo.Type + "] must be a subclass of X3Platform.Logging.Util.PatternConverter", "converterInfo");
+            }
+            m_instanceRulesRegistry[converterInfo.Name] = converterInfo;
 		}
 
 		/// <summary>
@@ -1046,66 +1157,14 @@ namespace X3Platform.Logging.Layout
 		/// </remarks>
 		public void AddConverter(string name, Type type)
 		{
-			if (name == null) throw new ArgumentNullException("name");
-			if (type == null) throw new ArgumentNullException("type");
+            if (name == null) throw new ArgumentNullException("name");
+            if (type == null) throw new ArgumentNullException("type");
 
-			if (!typeof(PatternConverter).IsAssignableFrom(type))
-			{
-				throw new ArgumentException("The converter type specified ["+type+"] must be a subclass of X3Platform.Logging.Util.PatternConverter", "type");
-			}
-			m_instanceRulesRegistry[name] = type;
-		}
+            ConverterInfo converterInfo = new ConverterInfo();
+            converterInfo.Name = name;
+            converterInfo.Type = type;
 
-		/// <summary>
-		/// Wrapper class used to map converter names to converter types
-		/// </summary>
-		/// <remarks>
-		/// <para>
-		/// Pattern converter info class used during configuration to
-		/// pass to the <see cref="PatternLayout.AddConverter(ConverterInfo)"/>
-		/// method.
-		/// </para>
-		/// </remarks>
-		public sealed class ConverterInfo
-		{
-			private string m_name;
-			private Type m_type;
-
-			/// <summary>
-			/// default constructor
-			/// </summary>
-			public ConverterInfo()
-			{
-			}
-
-			/// <summary>
-			/// Gets or sets the name of the conversion pattern
-			/// </summary>
-			/// <remarks>
-			/// <para>
-			/// The name of the pattern in the format string
-			/// </para>
-			/// </remarks>
-			public string Name
-			{
-				get { return m_name; }
-				set { m_name = value; }
-			}
-
-			/// <summary>
-			/// Gets or sets the type of the converter
-			/// </summary>
-			/// <remarks>
-			/// <para>
-			/// The value specified must extend the 
-			/// <see cref="PatternConverter"/> type.
-			/// </para>
-			/// </remarks>
-			public Type Type
-			{
-				get { return m_type; }
-				set { m_type = value; }
-			}
+            AddConverter(converterInfo);
 		}
 	}
 }

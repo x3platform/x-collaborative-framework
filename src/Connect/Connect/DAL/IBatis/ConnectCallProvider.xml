@@ -1,130 +1,157 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Connect.DAL.IBatis.ConnectCallProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-	<alias>
-		<typeAlias alias="ConnectCallInfo" type="X3Platform.Connect.Model.ConnectCallInfo,X3Platform.Connect" />
-	</alias>
-	<resultMaps>
-		<resultMap id="proc_Connect_Call_FindOne_Result" class="ConnectCallInfo">
-			<result property="Id" column="Id" />
-			<result property="AppKey" column="AppKey" />
-			<result property="RequestUri" column="RequestUri" />
-			<result property="RequestData" column="RequestData" />
-		    <result property="StartTime" column="StartTime" />
-            <result property="FinishTime" column="FinishTime" />
-            <result property="TimeSpan" column="TimeSpan" />
-            <result property="IP" column="IP" />
-            <result property="ReturnCode" column="ReturnCode" />
-            <result property="Date" column="Date" />
-        </resultMap>
-		<resultMap id="proc_Connect_Call_FindAll_Result" class="ConnectCallInfo">
-		    <result property="Id" column="Id" />
-			<result property="AppKey" column="AppKey" />
-			<result property="RequestUri" column="RequestUri" />
-			<result property="StartTime" column="StartTime" />
-            <result property="FinishTime" column="FinishTime" />
-            <result property="TimeSpan" column="TimeSpan" />
-            <result property="IP" column="IP" />
-            <result property="ReturnCode" column="ReturnCode" />
-            <result property="Date" column="Date" />
-        </resultMap>
-	</resultMaps>
-	<statements>
-		<insert id="proc_Connect_Call_Save" parameterClass="ConnectCallInfo">
-			IF NOT EXISTS(SELECT 0 FROM tb_Connect_Call WHERE Id = #Id#)
-			BEGIN
-			    INSERT INTO tb_Connect_Call 
-                (
-			        Id,
-                    AppKey,
-                    RequestUri,
-                    RequestData,
-                    StartTime,
-                    FinishTime,
-                    TimeSpan,
-                    IP,
-                    ReturnCode,
-                    Date
-                )
-                VALUES
-                (
-                    #Id#,
-                    #AppKey#,
-                    #RequestUri#,
-                    #RequestData#,
-                    #StartTime#,
-                    #FinishTime#,
-                    #TimeSpan#,
-                    #IP#,
-                    #ReturnCode#,
-                    CURRENT_TIMESTAMP
-                )
-            END
-		</insert>
+  <alias>
+    <typeAlias alias="ConnectCallInfo" type="X3Platform.Connect.Model.ConnectCallInfo,X3Platform.Connect" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Connect_Call_FindOne_Result" class="ConnectCallInfo">
+      <result property="Id" column="Id" />
+      <result property="AppKey" column="AppKey" />
+      <result property="RequestUri" column="RequestUri" />
+      <result property="RequestData" column="RequestData" />
+      <result property="StartTime" column="StartTime" />
+      <result property="FinishTime" column="FinishTime" />
+      <result property="TimeSpan" column="TimeSpan" />
+      <result property="IP" column="IP" />
+      <result property="ReturnCode" column="ReturnCode" />
+      <result property="Date" column="Date" />
+    </resultMap>
+    <resultMap id="proc_Connect_Call_FindAll_Result" class="ConnectCallInfo">
+      <result property="Id" column="Id" />
+      <result property="AppKey" column="AppKey" />
+      <result property="RequestUri" column="RequestUri" />
+      <result property="StartTime" column="StartTime" />
+      <result property="FinishTime" column="FinishTime" />
+      <result property="TimeSpan" column="TimeSpan" />
+      <result property="IP" column="IP" />
+      <result property="ReturnCode" column="ReturnCode" />
+      <result property="Date" column="Date" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Connect_Call_Save#SqlServer" parameterClass="ConnectCallInfo">
+      IF NOT EXISTS(SELECT 0 FROM tb_Connect_Call WHERE Id = #Id#)
+      BEGIN
+        INSERT INTO tb_Connect_Call
+        (
+          Id,
+          AppKey,
+          RequestUri,
+          RequestData,
+          StartTime,
+          FinishTime,
+          TimeSpan,
+          IP,
+          ReturnCode,
+          Date
+        )
+        VALUES
+        (
+          #Id#,
+          #AppKey#,
+          #RequestUri#,
+          #RequestData#,
+          #StartTime#,
+          #FinishTime#,
+          #TimeSpan#,
+          #IP#,
+          #ReturnCode#,
+          CURRENT_TIMESTAMP
+        )
+      END
+    </insert>
+    <insert id="proc_Connect_Call_Save#MySql" parameterClass="ConnectCallInfo">
+      INSERT INTO tb_Connect_Call
+      (
+        Id,
+        AppKey,
+        RequestUri,
+        RequestData,
+        StartTime,
+        FinishTime,
+        TimeSpan,
+        IP,
+        ReturnCode,
+        Date
+      )
+      SELECT
+        #Id#,
+        #AppKey#,
+        #RequestUri#,
+        #RequestData#,
+        #StartTime#,
+        #FinishTime#,
+        #TimeSpan#,
+        #IP#,
+        #ReturnCode#,
+        CURRENT_TIMESTAMP
+      FROM DUAL
+      WHERE NOT EXISTS ( SELECT * FROM tb_Connect_Call WHERE Id = #Id#)
+    </insert>
+    <update id="proc_Connect_Call_Update" parameterClass="ConnectCallInfo" >
+      -- 记录不允许修改
+    </update>
 
-        <update id="proc_Connect_Call_Update" parameterClass="ConnectCallInfo" >
-            -- 记录不允许修改
-        </update>
-        
-		<delete id="proc_Connect_Call_Delete" >
-			DELETE FROM tb_Connect_Call WHERE $WhereClause$ 
-		</delete>
-        
-        <select id="proc_Connect_Call_FindOne" resultMap="proc_Connect_Call_FindOne_Result" >
-			SELECT * FROM tb_Connect_Call WHERE Id = #Id#
-		</select>
+    <delete id="proc_Connect_Call_Delete" >
+      DELETE FROM tb_Connect_Call WHERE $WhereClause$
+    </delete>
 
-		<select id="proc_Connect_Call_FindAll" resultMap="proc_Connect_Call_FindAll_Result" >
-			SELECT
+    <select id="proc_Connect_Call_FindOne" resultMap="proc_Connect_Call_FindOne_Result" >
+      SELECT * FROM tb_Connect_Call WHERE Id = #Id#
+    </select>
 
-			<dynamic prepend="TOP">
-				<isNotEqual prepend="TOP" property="Length" compareValue = "0">
-					$Length$
-				</isNotEqual>
-			</dynamic>
+    <select id="proc_Connect_Call_FindAll" resultMap="proc_Connect_Call_FindAll_Result" >
+      SELECT
 
-			* FROM tb_Connect_Call
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-			<dynamic prepend="WHERE">
-				<isParameterPresent>
-					<isNotEmpty prepend="AND" property="WhereClause" >
-						$WhereClause$
-					</isNotEmpty>
-				</isParameterPresent>
-			</dynamic>
-		</select>
+      * FROM tb_Connect_Call
 
-		<select id="proc_Connect_Call_GetPaging" resultMap="proc_Connect_Call_FindAll_Result" >
-			SELECT *
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
 
-			FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+    <select id="proc_Connect_Call_GetPaging" resultMap="proc_Connect_Call_FindAll_Result" >
+      SELECT *
 
-			FROM tb_Connect_Call T
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-			<dynamic prepend="WHERE">
-				<isParameterPresent>
-					<isNotEmpty prepend="AND" property="WhereClause" >
-						$WhereClause$
-					</isNotEmpty>
-				</isParameterPresent>
-			</dynamic>) TableIndex
+      FROM tb_Connect_Call T
 
-			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-		</select>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-		<select id="proc_Connect_Call_GetRowCount" >
-			SELECT COUNT(1) AS "RowCount" FROM tb_Connect_Call T
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
 
-			<dynamic prepend="WHERE">
-				<isParameterPresent>
-					<isNotEmpty prepend="AND" property="WhereClause" >
-						$WhereClause$
-					</isNotEmpty>
-				</isParameterPresent>
-			</dynamic>
-		</select>
+    <select id="proc_Connect_Call_GetRowCount" >
+      SELECT COUNT(1) AS "RowCount" FROM tb_Connect_Call T
 
-		<select id="proc_Connect_Call_IsExist" >
-			SELECT COUNT(0) AS "Count" FROM tb_Connect_Call T WHERE $WhereClause$
-		</select>
-	</statements>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="proc_Connect_Call_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Connect_Call T WHERE $WhereClause$
+    </select>
+  </statements>
 </sqlMap>

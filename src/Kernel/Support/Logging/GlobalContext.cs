@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -50,7 +51,11 @@ namespace X3Platform.Logging
     /// <author>Nicko Cadell</author>
     public sealed class GlobalContext
     {
-        /// <summary>Private Constructor. </summary>
+        #region Private Instance Constructors
+
+        /// <summary>
+        /// Private Constructor. 
+        /// </summary>
         /// <remarks>
         /// Uses a private access modifier to prevent instantiation of this class.
         /// </remarks>
@@ -58,10 +63,14 @@ namespace X3Platform.Logging
         {
         }
 
+        #endregion Private Instance Constructors
+
         static GlobalContext()
         {
             Properties[X3Platform.Logging.Core.LoggingEvent.HostNameProperty] = SystemInfo.HostName;
         }
+
+        #region Public Static Properties
 
         /// <summary>
         /// The global properties map.
@@ -70,18 +79,24 @@ namespace X3Platform.Logging
         /// The global properties map.
         /// </value>
         /// <remarks>
-        /// <para>The global properties map.</para>
+        /// <para>
+        /// The global properties map.
+        /// </para>
         /// </remarks>
         public static GlobalContextProperties Properties
         {
             get { return s_properties; }
         }
 
+        #endregion Public Static Properties
+
+        #region Private Static Fields
 
         /// <summary>
         /// The global context properties instance
         /// </summary>
         private readonly static GlobalContextProperties s_properties = new GlobalContextProperties();
 
+        #endregion Private Static Fields
     }
 }

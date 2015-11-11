@@ -30,15 +30,15 @@
           <div class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></div>
         </div>
         <div class="window-sign-in-form-remember-me">
-          <a href="/account/forgot-password" target="_blank">忘记登录密码？</a>
-          <input id="remember" name="remember" type="checkbox"> <span>@I18n.Translates["Membership","RememberLoginName"]</span>
+          <div class="pull-left" ><a href="/account/forgot-password" target="_blank">@I18n.Translates["Membership", "ForgotLoginPassword"]?</a></div>
+          <div class="pull-right" ><input id="remember" name="remember" type="checkbox"> <span>@I18n.Translates["Membership","RememberLoginName"]</span></div>
         </div>
         <div class="window-sign-in-button-wrapper">
           <div class="window-sign-in-button-submit"><button id="btnSubmit" class="btn btn-success">@I18n.Translates["Membership", "SignIn"]</button></div>
           <div class="window-sign-in-loading" style="display:none;"><img src="/resources/images/loading.gif" alt="登录中" /></div>
         </div>
         <div class="window-sign-in-form-bottom">
-          <a href="/account/sign-up">@I18n.Translates["Membership", "注册新帐号"]</a>
+          <a href="/account/sign-up">@I18n.Translates["Membership", "CreateNewAccount"]</a>
         </div>
       </div>
     </div>

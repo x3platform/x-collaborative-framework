@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2004-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -152,7 +153,12 @@ namespace X3Platform.Logging.Appender
 			/// <summary>
 			/// text is displayed with a strikethrough
 			/// </summary>
-			Strikethrough	= 64
+			Strikethrough		= 64,
+
+			/// <summary>
+			/// text color is light
+			/// </summary>
+			Light			= 128
 		}
 
 		/// <summary>
@@ -279,7 +285,7 @@ namespace X3Platform.Logging.Appender
 		#region Override implementation of AppenderSkeleton
 
 		/// <summary>
-		/// This method is called by the <see cref="AppenderSkeleton.DoAppend(LoggingEvent)"/> method.
+		/// This method is called by the <see cref="M:AppenderSkeleton.DoAppend(LoggingEvent)"/> method.
 		/// </summary>
 		/// <param name="loggingEvent">The event to log.</param>
 		/// <remarks>
@@ -333,7 +339,7 @@ namespace X3Platform.Logging.Appender
 				}
 			}
 
-#if NETCF
+#if NETCF_1_0
 			// Write to the output stream
 			Console.Write(loggingMessage);
 #else
@@ -509,12 +515,14 @@ namespace X3Platform.Logging.Appender
 				// Reset any existing codes
 				buf.Append("\x1b[0;");
 
+				int lightAdjustment = ((m_attributes & AnsiAttributes.Light) > 0) ? 60 : 0;
+				
 				// set the foreground color
-				buf.Append(30 + (int)m_foreColor);
+				buf.Append(30 + lightAdjustment + (int)m_foreColor);
 				buf.Append(';');
 
 				// set the background color
-				buf.Append(40 + (int)m_backColor);
+				buf.Append(40 + lightAdjustment + (int)m_backColor);
 
 				// set the attributes
 				if ((m_attributes & AnsiAttributes.Bright) > 0)

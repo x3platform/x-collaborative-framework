@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -45,6 +46,7 @@ namespace X3Platform.Logging.Repository.Hierarchy
 		/// <summary>
 		/// Create a new <see cref="Logger" /> instance
 		/// </summary>
+		/// <param name="repository">The <see cref="ILoggerRepository" /> that will own the <see cref="Logger" />.</param>
 		/// <param name="name">The name of the <see cref="Logger" />.</param>
 		/// <returns>The <see cref="Logger" /> instance for the specified name.</returns>
 		/// <remarks>
@@ -61,6 +63,6 @@ namespace X3Platform.Logging.Repository.Hierarchy
 		/// must be returned.
 		/// </para>
 		/// </remarks>
-		Logger CreateLogger(string name);
+		Logger CreateLogger(ILoggerRepository repository, string name);
 	}
 }

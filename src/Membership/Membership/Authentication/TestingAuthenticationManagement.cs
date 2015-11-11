@@ -50,6 +50,5 @@
         {
             this.account = MembershipManagement.Instance.AccountService[accountId];
         }
-
     }
 }

@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -18,6 +19,9 @@
 
 #if (!NETCF)
 #define HAS_READERWRITERLOCK
+#endif
+#if (NET_4_0)
+#define HAS_READERWRITERLOCKSLIM
 #endif
 
 using System;
@@ -57,8 +61,13 @@ namespace X3Platform.Logging.Util
 		/// </remarks>
 		public ReaderWriterLock()
 		{
+
 #if HAS_READERWRITERLOCK
+#if HAS_READERWRITERLOCKSLIM
+			m_lock = new System.Threading.ReaderWriterLockSlim();
+#else
 			m_lock = new System.Threading.ReaderWriterLock();
+#endif
 #endif
 		}
 
@@ -78,7 +87,11 @@ namespace X3Platform.Logging.Util
 		public void AcquireReaderLock()
 		{
 #if HAS_READERWRITERLOCK
+#if HAS_READERWRITERLOCKSLIM
+			m_lock.EnterReadLock();
+#else
 			m_lock.AcquireReaderLock(-1);
+#endif
 #else
 			System.Threading.Monitor.Enter(this);
 #endif
@@ -96,7 +109,12 @@ namespace X3Platform.Logging.Util
 		public void ReleaseReaderLock()
 		{
 #if HAS_READERWRITERLOCK
+#if HAS_READERWRITERLOCKSLIM
+			m_lock.ExitReadLock();
+#else
 			m_lock.ReleaseReaderLock();
+
+#endif
 #else
 			System.Threading.Monitor.Exit(this);
 #endif
@@ -113,7 +131,11 @@ namespace X3Platform.Logging.Util
 		public void AcquireWriterLock()
 		{
 #if HAS_READERWRITERLOCK
+#if HAS_READERWRITERLOCKSLIM
+			m_lock.EnterWriteLock();
+#else
 			m_lock.AcquireWriterLock(-1);
+#endif
 #else
 			System.Threading.Monitor.Enter(this);
 #endif
@@ -131,7 +153,11 @@ namespace X3Platform.Logging.Util
 		public void ReleaseWriterLock()
 		{
 #if HAS_READERWRITERLOCK
+#if HAS_READERWRITERLOCKSLIM
+			m_lock.ExitWriteLock();
+#else
 			m_lock.ReleaseWriterLock();
+#endif
 #else
 			System.Threading.Monitor.Exit(this);
 #endif
@@ -142,7 +168,12 @@ namespace X3Platform.Logging.Util
 		#region Private Members
 
 #if HAS_READERWRITERLOCK
+#if HAS_READERWRITERLOCKSLIM
+		private System.Threading.ReaderWriterLockSlim m_lock;
+#else
 		private System.Threading.ReaderWriterLock m_lock;
+#endif
+
 #endif
 
 		#endregion

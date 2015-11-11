@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2004-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -60,7 +61,7 @@ namespace X3Platform.Logging.Util.TypeConverters
 		/// <returns>the Type</returns>
 		/// <remarks>
 		/// <para>
-		/// Uses the <see cref="Type.GetType(string,bool)"/> method to convert the
+		/// Uses the <see cref="M:Type.GetType(string,bool)"/> method to convert the
 		/// <see cref="String"/> argument to a <see cref="Type"/>.
 		/// Additional effort is made to locate partially specified types
 		/// by searching the loaded assemblies.

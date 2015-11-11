@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -196,10 +197,7 @@ namespace X3Platform.Logging.Layout
 				throw new ArgumentNullException("loggingEvent");
 			}
 
-			// Attach the protected writer to the TextWriter passed in
-			m_protectCloseTextWriter.Attach(writer);
-
-			XmlTextWriter xmlWriter = new XmlTextWriter(m_protectCloseTextWriter);
+			XmlTextWriter xmlWriter = new XmlTextWriter(new ProtectCloseTextWriter(writer));
 			xmlWriter.Formatting = Formatting.None;
 			xmlWriter.Namespaces = false;
 
@@ -211,9 +209,6 @@ namespace X3Platform.Logging.Layout
 			// Close on xmlWriter will ensure xml is flushed
 			// the protected writer will ignore the actual close
 			xmlWriter.Close();
-
-			// detach from the writer
-			m_protectCloseTextWriter.Attach(null);
 		}
 
 		#endregion Override implementation of LayoutSkeleton
@@ -242,11 +237,6 @@ namespace X3Platform.Logging.Layout
 		/// the XML events.
 		/// </summary>
 		private bool m_locationInfo = false;
-
-		/// <summary>
-		/// Writer adapter that ignores Close
-		/// </summary>
-		private readonly ProtectCloseTextWriter m_protectCloseTextWriter = new ProtectCloseTextWriter(null);
 
 		/// <summary>
 		/// The string to replace invalid chars with

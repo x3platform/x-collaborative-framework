@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2006 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -36,7 +37,7 @@ namespace X3Platform.Logging.Appender
 	/// the current list of events that have been appended.
 	/// </para>
 	/// <para>
-	/// Use the <see cref="Clear()"/> method to clear the
+	/// Use the <see cref="M:Clear()"/> method to clear the
 	/// current list of events.
 	/// </para>
 	/// </remarks>
@@ -75,7 +76,10 @@ namespace X3Platform.Logging.Appender
 		/// </remarks>
 		virtual public LoggingEvent[] GetEvents()
 		{
-			return (LoggingEvent[])m_eventsList.ToArray(typeof(LoggingEvent));
+            lock (m_eventsList.SyncRoot)
+            {
+                return (LoggingEvent[]) m_eventsList.ToArray(typeof(LoggingEvent));
+            }
 		}
 
 		/// <summary>
@@ -92,7 +96,7 @@ namespace X3Platform.Logging.Appender
 		/// data to be fixed and stored in the appender, hereby improving performance. 
 		/// </para>
 		/// <para>
-		/// See <see cref="LoggingEvent.FixVolatileData(bool)"/> for more information.
+		/// See <see cref="M:LoggingEvent.FixVolatileData(bool)"/> for more information.
 		/// </para>
 		/// </remarks>
 		[Obsolete("Use Fix property")]
@@ -133,7 +137,7 @@ namespace X3Platform.Logging.Appender
 		#region Override implementation of AppenderSkeleton
 
 		/// <summary>
-		/// This method is called by the <see cref="AppenderSkeleton.DoAppend(LoggingEvent)"/> method. 
+		/// This method is called by the <see cref="M:AppenderSkeleton.DoAppend(LoggingEvent)"/> method. 
 		/// </summary>
 		/// <param name="loggingEvent">the event to log</param>
 		/// <remarks>
@@ -146,7 +150,10 @@ namespace X3Platform.Logging.Appender
 			// volatile data in the event.
 			loggingEvent.Fix = this.Fix;
 
-			m_eventsList.Add(loggingEvent);
+            lock (m_eventsList.SyncRoot)
+            {
+                m_eventsList.Add(loggingEvent);
+            }
 		} 
 
 		#endregion Override implementation of AppenderSkeleton
@@ -161,7 +168,10 @@ namespace X3Platform.Logging.Appender
 		/// </remarks>
 		virtual public void Clear()
 		{
-			m_eventsList.Clear();
+            lock (m_eventsList.SyncRoot)
+            {
+                m_eventsList.Clear();
+            }
 		}
 
 		#endregion Public Instance Methods

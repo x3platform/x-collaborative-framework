@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -32,7 +33,7 @@ namespace X3Platform.Logging.ObjectRenderer
     /// is used to render them.
     /// </para>
     /// <para>
-    /// The <see cref="FindAndRender(object)"/> method is used to render an
+    /// The <see cref="M:FindAndRender(object)"/> method is used to render an
     /// <c>object</c> using the appropriate renderers defined in this map.
     /// </para>
     /// </remarks>
@@ -40,6 +41,8 @@ namespace X3Platform.Logging.ObjectRenderer
     /// <author>Gert Driesen</author>
     public class RendererMap
     {
+        private readonly static Type declaringType = typeof(RendererMap);
+
         #region Member Variables
 
         private System.Collections.Hashtable m_map;
@@ -74,7 +77,7 @@ namespace X3Platform.Logging.ObjectRenderer
         /// <remarks>
         /// <para>
         /// This is a convenience method used to render an object to a string.
-        /// The alternative method <see cref="FindAndRender(object,TextWriter)"/>
+        /// The alternative method <see cref="M:FindAndRender(object,TextWriter)"/>
         /// should be used when streaming output to a <see cref="TextWriter"/>.
         /// </para>
         /// </remarks>
@@ -101,7 +104,7 @@ namespace X3Platform.Logging.ObjectRenderer
         /// <para>
         /// Find the appropriate renderer for the type of the
         /// <paramref name="obj"/> parameter. This is accomplished by calling the
-        /// <see cref="Get(Type)"/> method. Once a renderer is found, it is
+        /// <see cref="M:Get(Type)"/> method. Once a renderer is found, it is
         /// applied on the object <paramref name="obj"/> and the result is returned
         /// as a <see cref="string"/>.
         /// </para>
@@ -130,7 +133,7 @@ namespace X3Platform.Logging.ObjectRenderer
                     catch (Exception ex)
                     {
                         // Exception rendering the object
-                        LogLog.Error("RendererMap: Exception while rendering object of type [" + obj.GetType().FullName + "]", ex);
+                        LogLog.Error(declaringType, "Exception while rendering object of type [" + obj.GetType().FullName + "]", ex);
 
                         // return default message
                         string objectTypeName = "";
@@ -171,7 +174,7 @@ namespace X3Platform.Logging.ObjectRenderer
         /// Gets the renderer for the specified object type.
         /// </param>
         /// <param>
-        /// Syntactic sugar method that calls <see cref="Get(Type)"/> 
+        /// Syntactic sugar method that calls <see cref="M:Get(Type)"/> 
         /// with the type of the object parameter.
         /// </param>
         /// </remarks>
@@ -300,7 +303,7 @@ namespace X3Platform.Logging.ObjectRenderer
         /// <remarks>
         /// <para>
         /// Register an object renderer for a specific source type.
-        /// This renderer will be returned from a call to <see cref="Get(Type)"/>
+        /// This renderer will be returned from a call to <see cref="M:Get(Type)"/>
         /// specifying the same <paramref name="typeToRender"/> as an argument.
         /// </para>
         /// </remarks>

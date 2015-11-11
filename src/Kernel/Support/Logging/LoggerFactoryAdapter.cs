@@ -1,10 +1,11 @@
 using System;
-using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 
-using X3Platform.Logging.Config;
 using Common.Logging;
+using Common.Logging.Configuration;
+
+using X3Platform.Logging.Config;
 using X3Platform.Configuration;
 
 namespace X3Platform.Logging
@@ -13,7 +14,7 @@ namespace X3Platform.Logging
     /// Concrete subclass of ILoggerFactoryAdapter specific to log4net.
     /// </summary>
     public class LoggerFactoryAdapter : ILoggerFactoryAdapter
-    {
+    { 
         /// <summary></summary>
         /// <param name="properties"></param>
         public LoggerFactoryAdapter(NameValueCollection properties)

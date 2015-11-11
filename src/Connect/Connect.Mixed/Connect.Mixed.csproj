@@ -7,9 +7,9 @@
     <ProjectGuid>{5F14E379-8BF6-4363-85F8-5081386FD5D7}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <RootNamespace>X3Platform.Connect.Mixed</RootNamespace>
+    <RootNamespace>X3Platform.Connect</RootNamespace>
     <AssemblyName>X3Platform.Connect.Mixed</AssemblyName>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
@@ -92,6 +92,18 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\..\lib\Quartz.NET\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.ServiceModel">
+      <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.ServiceModel.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -108,6 +120,9 @@
     <Reference Include="X3Platform.Membership">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Messages">
+      <HintPath>..\..\..\bin\X3Platform.Messages.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
@@ -120,6 +135,7 @@
     <Compile Include="Ajax\ConnectCallWrapper.cs" />
     <Compile Include="Ajax\ConnectOAuth2Wrapper.cs" />
     <Compile Include="Ajax\ConnectWrapper.cs" />
+    <Compile Include="Jobs\SyncConnectCallJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

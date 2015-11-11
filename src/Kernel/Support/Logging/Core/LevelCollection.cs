@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -18,7 +19,6 @@
 
 using System;
 using System.Collections;
-using X3Platform.Logging.Util;
 
 namespace X3Platform.Logging.Core
 {
@@ -541,9 +541,9 @@ namespace X3Platform.Logging.Core
 		#region Implementation (helpers)
 
 		/// <exception cref="ArgumentOutOfRangeException">
-		/// <para><paramref name="index"/> is less than zero</para>
+		/// <para><paramref name="i"/> is less than zero</para>
 		/// <para>-or-</para>
-		/// <para><paramref name="index"/> is equal to or greater than <see cref="LevelCollection.Count"/>.</para>
+		/// <para><paramref name="i"/> is equal to or greater than <see cref="LevelCollection.Count"/>.</para>
 		/// </exception>
 		private void ValidateIndex(int i)
 		{
@@ -551,16 +551,16 @@ namespace X3Platform.Logging.Core
 		}
 
 		/// <exception cref="ArgumentOutOfRangeException">
-		/// <para><paramref name="index"/> is less than zero</para>
+		/// <para><paramref name="i"/> is less than zero</para>
 		/// <para>-or-</para>
-		/// <para><paramref name="index"/> is equal to or greater than <see cref="LevelCollection.Count"/>.</para>
+		/// <para><paramref name="i"/> is equal to or greater than <see cref="LevelCollection.Count"/>.</para>
 		/// </exception>
 		private void ValidateIndex(int i, bool allowEqualEnd)
 		{
 			int max = (allowEqualEnd) ? (m_count) : (m_count-1);
 			if (i < 0 || i > max)
 			{
-				throw SystemInfo.CreateArgumentOutOfRangeException("i", (object)i, "Index was out of range. Must be non-negative and less than the size of the collection. [" + (object)i + "] Specified argument was out of the range of valid values.");
+				throw X3Platform.Logging.Util.SystemInfo.CreateArgumentOutOfRangeException("i", (object)i, "Index was out of range. Must be non-negative and less than the size of the collection. [" + (object)i + "] Specified argument was out of the range of valid values.");
 			}
 		}
 

@@ -37,41 +37,25 @@ namespace X3Platform.Services.Host
             // 创建服务宿主对象
             //
 
-            Topshelf.Host host = HostFactory.New(configure =>
+            HostFactory.Run(configure =>
             {
-                configure.AfterStoppingServices(callback =>
-                {
-                    ServiceTrace.Instance.WriteLine("正在停止服务。");
-                });
-
-                configure.BeforeStartingServices(callback =>
-                {
-                    ServiceTrace.Instance.WriteLine("正在启动服务。");
-                });
-
-                configure.EnableDashboard();
-
                 configure.Service<ServicesManagement>(callback =>
                 {
-                    callback.SetServiceName(ServicesConfigurationView.Instance.ServiceName);
+                    // callback.SetServiceName(ServicesConfigurationView.Instance.ServiceName);
                     callback.ConstructUsing(instance => new ServicesManagement());
                     callback.WhenStarted(instance => instance.Start());
                     callback.WhenStopped(instance => instance.Stop());
                 });
+
+                // Support Linux
+                configure.UseLinuxIfAvailable();
 
                 configure.RunAsLocalSystem();
 
                 configure.SetServiceName(ServicesConfigurationView.Instance.ServiceName);
                 configure.SetDisplayName(ServicesConfigurationView.Instance.ServiceDisplayName);
                 configure.SetDescription(ServicesConfigurationView.Instance.ServiceDescription);
-
-                // 设置服务的依赖项
-                // configure.DependsOn("Elane X Services");
-                // configure.DependsOnMsmq();
-                // configure.DependsOnMsSql();
             });
-            
-            host.Run();
         }
 
         /*

@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -32,8 +33,8 @@ namespace X3Platform.Logging.Util.TypeConverters
 	/// types.
 	/// </para>
 	/// <para>
-	/// Use the <see cref="AddConverter(Type, object)"/> and 
-	/// <see cref="AddConverter(Type, Type)"/> methods to register new converters.
+	/// Use the <see cref="M:AddConverter(Type, object)"/> and 
+	/// <see cref="M:AddConverter(Type, Type)"/> methods to register new converters.
 	/// The <see cref="GetConvertTo"/> and <see cref="GetConvertFrom"/> methods
 	/// lookup appropriate converters to use.
 	/// </para>
@@ -75,7 +76,7 @@ namespace X3Platform.Logging.Util.TypeConverters
 			AddConverter(typeof(System.Text.Encoding), typeof(EncodingConverter));
 			AddConverter(typeof(System.Type), typeof(TypeConverter));
 			AddConverter(typeof(X3Platform.Logging.Layout.PatternLayout), typeof(PatternLayoutConverter));
-            AddConverter(typeof(X3Platform.Logging.Util.PatternString), typeof(PatternStringConverter));
+			AddConverter(typeof(X3Platform.Logging.Util.PatternString), typeof(PatternStringConverter));
 			AddConverter(typeof(System.Net.IPAddress), typeof(IPAddressConverter));
 		}
 
@@ -259,12 +260,12 @@ namespace X3Platform.Logging.Util.TypeConverters
 				}
 				catch(Exception ex)
 				{
-					LogLog.Error("ConverterRegistry: Cannot CreateConverterInstance of type ["+converterType.FullName+"], Exception in call to Activator.CreateInstance", ex);
+					LogLog.Error(declaringType, "Cannot CreateConverterInstance of type ["+converterType.FullName+"], Exception in call to Activator.CreateInstance", ex);
 				}
 			}
 			else
 			{
-				LogLog.Error("ConverterRegistry: Cannot CreateConverterInstance of type ["+converterType.FullName+"], type does not implement IConvertFrom or IConvertTo");
+				LogLog.Error(declaringType, "Cannot CreateConverterInstance of type ["+converterType.FullName+"], type does not implement IConvertFrom or IConvertTo");
 			}
 			return null;
 		}
@@ -272,6 +273,15 @@ namespace X3Platform.Logging.Util.TypeConverters
 		#endregion Public Static Methods
 
 		#region Private Static Fields
+
+	    /// <summary>
+	    /// The fully qualified type of the ConverterRegistry class.
+	    /// </summary>
+	    /// <remarks>
+	    /// Used by the internal logger to record the Type of the
+	    /// log message.
+	    /// </remarks>
+	    private readonly static Type declaringType = typeof(ConverterRegistry);
 
 		/// <summary>
 		/// Mapping from <see cref="Type" /> to type converter.

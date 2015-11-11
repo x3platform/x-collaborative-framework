@@ -20,7 +20,7 @@
     {
         /// <summary>日志记录器</summary>
         private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        
         #region 属性:Name
         public override string Name
         {

@@ -83,6 +83,9 @@
     <Reference Include="Topshelf">
       <HintPath>..\..\..\lib\Topshelf\Topshelf.dll</HintPath>
     </Reference>
+    <Reference Include="Topshelf.Linux">
+      <HintPath>..\..\..\lib\Topshelf\Topshelf.Linux.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Services">
       <HintPath>..\..\..\bin\X3Platform.Services.dll</HintPath>
     </Reference>
@@ -143,7 +146,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="build.publish.bat" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +165,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

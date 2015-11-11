@@ -1,52 +1,52 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-@section scripts { 
+@section scripts {
   <script type="text/javascript" src="/views/main/membership/default.js"></script>
 }
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
-<div id="window-container" class="window-container" >
-<div id="window-main-table" class="table-style" style="width:100%;">
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table-style" style="width:100%;">
     <div id="window-main-table-header" class="table-header">
-        <span>人员及权限管理</span>
+      <span>人员及权限管理</span>
     </div>
     <div id="window-main-table-container" class="table-body">
-        <table class="table-style window-feature-navigator-wrapper" style="width:100%;">
-            <tr>
-                <td style="width:50%;height:360px;">
-                    <div class="window-feature-navigator-title">帐号管理</div>
-                    <ul class="window-feature-navigator-ul">
-                        <li><a href="/membership/account/list" target="_blank" target="_self">帐号管理</a></li>
-                        <li><a href="/membership/grant/list" target="_blank" target="_self">帐号委托</a></li>
-                    </ul>
-                    <div class="window-feature-navigator-title">组织管理</div>
-                    <ul class="window-feature-navigator-ul">
-                        <li><a href="/membership/organization/list" target="_self">组织管理</a></li>
-                        <li><a href="/membership/group/list" target="_self">群组管理</a></li>
-                    </ul>
-                    <div class="window-feature-navigator-title">常用工具</div>
-                    <ul class="window-feature-navigator-ul">
-                        <li><a href="/membership/authorization-configuration-analysis-warning.aspx" target="_self">授权配置分析预警</a></li>
-                        <li><a href="/membership/authorization-object-query.aspx" target="_self">授权对象查询分析器</a></li>
-                        <li><a href="/membership/batch-create-role-from-standard-role-set.aspx" target="_self">批量创建角色</a></li>
-                        <li><a href="/membership/batch-import-account-from-another-project.aspx" target="_self">批量导入项目人员</a></li>
-                    </ul>
-                </td>
-                <td>
-                    <div class="window-feature-navigator-title">角色管理</div>
-                    <ul class="window-feature-navigator-ul">
-                        <li><a href="/membership/role/list" target="_self">角色管理</a></li>
-                        <li><a href="/membership/general-role/list" target="_self">通用角色管理</a></li>
-                        <li><a href="/membership/standard-organization/list" target="_self">标准组织管理</a></li>
-                        <li><a href="/membership/standard-role/list" target="_self">标准角色管理</a></li>
-                        <li><a href="/membership/standard-general-role/list" target="_self">标准通用角色管理</a></li>
-                    </ul>
-                    <div class="window-feature-navigator-title">基础设置</div>
-                    <ul class="window-feature-navigator-ul">
-                        <li><a href="/membership/setting/list" target="_self">参数设置</a></li>
-                        <li><a href="/membership/group-tree/list" target="_self">分组类别设置</a></li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+      <table class="table-style window-feature-navigator-wrapper" style="width:100%;">
+        <tr>
+          <td style="width:50%;height:360px;">
+            <div class="window-feature-navigator-title">帐号管理</div>
+            <ul class="window-feature-navigator-ul">
+              <li><a href="/membership/account/list" target="_blank" target="_self">帐号管理</a></li>
+              <li><a href="/membership/grant/list" target="_blank" target="_self">帐号委托</a></li>
+            </ul>
+            <div class="window-feature-navigator-title">组织管理</div>
+            <ul class="window-feature-navigator-ul">
+              <li><a href="/membership/organization/list" target="_self">组织管理</a></li>
+              <li><a href="/membership/group/list" target="_self">群组管理</a></li>
+            </ul>
+            <div class="window-feature-navigator-title">常用工具</div>
+            <ul class="window-feature-navigator-ul">
+              <li><a href="/membership/authorization-configuration-analysis-warning.aspx" target="_self">授权配置分析预警</a></li>
+              <li><a href="/membership/authorization-object-query.aspx" target="_self">授权对象查询分析器</a></li>
+              <li><a href="/membership/batch-create-role-from-standard-role-set.aspx" target="_self">批量创建角色</a></li>
+              <li><a href="/membership/batch-import-account-from-another-project.aspx" target="_self">批量导入项目人员</a></li>
+            </ul>
+          </td>
+          <td>
+            <div class="window-feature-navigator-title">角色管理</div>
+            <ul class="window-feature-navigator-ul">
+              <li><a href="/membership/role/list" target="_self">角色管理</a></li>
+              <li><a href="/membership/general-role/list" target="_self">通用角色管理</a></li>
+              <li><a href="/membership/standard-organization/list" target="_self">标准组织管理</a></li>
+              <li><a href="/membership/standard-role/list" target="_self">标准角色管理</a></li>
+              <li><a href="/membership/standard-general-role/list" target="_self">标准通用角色管理</a></li>
+            </ul>
+            <div class="window-feature-navigator-title">基础设置</div>
+            <ul class="window-feature-navigator-ul">
+              <li><a href="/membership/setting/list" target="_self">参数设置</a></li>
+              <li><a href="/membership/group-tree/list" target="_self">分组类别设置</a></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
     </div>
-</div>
+  </div>
 </div>

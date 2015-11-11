@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -17,12 +18,14 @@
 #endregion
 
 using System;
+#if !NETCF
 using System.Runtime.Serialization;
+#endif
 
 namespace X3Platform.Logging.Core
 {
 	/// <summary>
-	/// Exception base type for log4net.
+	/// Exception base type for X3Platform.Logging.
 	/// </summary>
 	/// <remarks>
 	/// <para>
@@ -36,7 +39,7 @@ namespace X3Platform.Logging.Core
 #if !NETCF
 	[Serializable]
 #endif
-	public class LogException : ApplicationException
+	public class LogException : ApplicationException 
 	{
 		#region Public Instance Constructors
 
@@ -62,10 +65,10 @@ namespace X3Platform.Logging.Core
 		/// the specified message.
 		/// </para>
 		/// </remarks>
-		public LogException(String message) : base(message)
+		public LogException(String message) : base(message) 
 		{
 		}
-
+		
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -77,7 +80,7 @@ namespace X3Platform.Logging.Core
 		/// with the specified message and inner exception.
 		/// </para>
 		/// </remarks>
-		public LogException(String message, Exception innerException) : base(message, innerException)
+		public LogException(String message, Exception innerException) : base(message, innerException) 
 		{
 		}
 
@@ -93,11 +96,11 @@ namespace X3Platform.Logging.Core
 		/// <param name="context">The <see cref="StreamingContext" /> that contains contextual information about the source or destination.</param>
 		/// <remarks>
 		/// <para>
-		/// Initializes a new instance of the <see cref="LogException" /> class
+		/// Initializes a new instance of the <see cref="LogException" /> class 
 		/// with serialized data.
 		/// </para>
 		/// </remarks>
-		protected LogException(SerializationInfo info, StreamingContext context) : base(info, context)
+		protected LogException(SerializationInfo info, StreamingContext context) : base(info, context) 
 		{
 		}
 #endif

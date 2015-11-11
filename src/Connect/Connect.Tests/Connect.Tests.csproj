@@ -59,12 +59,19 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\dev\Quartz.NET-2.3.3\bin\4.0\release\Quartz\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\lib\MySQL\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="NMock3">
       <HintPath>..\..\..\lib\NMock\NMock3.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\..\..\lib\Quartz.NET\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\..\..\lib\RabbitMQ\RabbitMQ.Client.dll</HintPath>
@@ -84,6 +91,9 @@
     </Reference>
     <Reference Include="X3Platform.Connect">
       <HintPath>..\..\..\bin\X3Platform.Connect.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Connect.Mixed">
+      <HintPath>..\..\..\bin\X3Platform.Connect.Mixed.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Membership">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>

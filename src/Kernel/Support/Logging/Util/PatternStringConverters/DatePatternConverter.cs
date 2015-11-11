@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -68,7 +69,7 @@ namespace X3Platform.Logging.Util.PatternStringConverters
 	/// 		<description>
 	/// 		Any other pattern string uses the <see cref="SimpleDateFormatter"/> formatter. 
 	/// 		This formatter passes the pattern string to the <see cref="DateTime"/> 
-	/// 		<see cref="DateTime.ToString(string)"/> method.
+	/// 		<see cref="M:DateTime.ToString(string)"/> method.
 	/// 		For details on valid patterns see 
 	/// 		<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp">DateTimeFormatInfo Class</a>.
 	/// 		</description>
@@ -139,7 +140,7 @@ namespace X3Platform.Logging.Util.PatternStringConverters
 				}
 				catch (Exception e) 
 				{
-					LogLog.Error("DatePatternConverter: Could not instantiate SimpleDateFormatter with ["+dateFormatStr+"]", e);
+					LogLog.Error(declaringType, "Could not instantiate SimpleDateFormatter with ["+dateFormatStr+"]", e);
 					m_dateFormatter = new Iso8601DateFormatter();
 				}	
 			}
@@ -169,8 +170,21 @@ namespace X3Platform.Logging.Util.PatternStringConverters
 			}
 			catch (Exception ex) 
 			{
-				LogLog.Error("DatePatternConverter: Error occurred while converting date.", ex);
+				LogLog.Error(declaringType, "Error occurred while converting date.", ex);
 			}
 		}
+
+	    #region Private Static Fields
+
+	    /// <summary>
+	    /// The fully qualified type of the DatePatternConverter class.
+	    /// </summary>
+	    /// <remarks>
+	    /// Used by the internal logger to record the Type of the
+	    /// log message.
+	    /// </remarks>
+	    private readonly static Type declaringType = typeof(DatePatternConverter);
+
+	    #endregion Private Static Fields
 	}
 }

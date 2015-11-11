@@ -1,10 +1,11 @@
-#region Copyright & License
+#region Apache License
 //
-// Copyright 2001-2005 The Apache Software Foundation
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed to the Apache Software Foundation (ASF) under one or more 
+// contributor license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright ownership. 
+// The ASF licenses this file to you under the Apache License, Version 2.0
+// (the "License"); you may not use this file except in compliance with 
+// the License. You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -87,7 +88,7 @@ namespace X3Platform.Logging.Core
 
 			m_defaultRepositoryType = defaultRepositoryType;
 
-			LogLog.Debug("CompactRepositorySelector: defaultRepositoryType ["+m_defaultRepositoryType+"]");
+			LogLog.Debug(declaringType, "defaultRepositoryType ["+m_defaultRepositoryType+"]");
 		}
 
 		#endregion
@@ -123,7 +124,7 @@ namespace X3Platform.Logging.Core
 		/// <para>
 		/// Get the named <see cref="ILoggerRepository"/>. The default 
 		/// repository is <c>X3Platform.Logging-default-repository</c>. Other repositories 
-		/// must be created using the <see cref="CreateRepository(string, Type)"/>.
+		/// must be created using the <see cref="M:CreateRepository(string, Type)"/>.
 		/// If the named repository does not exist an exception is thrown.
 		/// </para>
 		/// </remarks>
@@ -202,7 +203,7 @@ namespace X3Platform.Logging.Core
 		/// <remarks>
 		/// <para>
 		/// The <see cref="ILoggerRepository"/> created will be associated with the repository
-		/// specified such that a call to <see cref="GetRepository(string)"/> with the
+		/// specified such that a call to <see cref="M:GetRepository(string)"/> with the
 		/// same repository specified will return the same repository instance.
 		/// </para>
 		/// <para>
@@ -240,7 +241,7 @@ namespace X3Platform.Logging.Core
 				}
 				else
 				{
-					LogLog.Debug("DefaultRepositorySelector: Creating repository ["+repositoryName+"] using type ["+repositoryType+"]");
+					LogLog.Debug(declaringType, "Creating repository ["+repositoryName+"] using type ["+repositoryType+"]");
 
 					// Call the no arg constructor for the repositoryType
 					rep = (ILoggerRepository)Activator.CreateInstance(repositoryType);
@@ -266,8 +267,8 @@ namespace X3Platform.Logging.Core
 		/// <returns><c>true</c> if the repository exists</returns>
 		/// <remarks>
 		/// <para>
-		/// Test if a named repository exists. Use <see cref="CreateRepository(string, Type)"/>
-		/// to create a new repository and <see cref="GetRepository(string)"/> to retrieve 
+		/// Test if a named repository exists. Use <see cref="M:CreateRepository(string, Type)"/>
+		/// to create a new repository and <see cref="M:GetRepository(string)"/> to retrieve 
 		/// a repository.
 		/// </para>
 		/// </remarks>
@@ -300,6 +301,19 @@ namespace X3Platform.Logging.Core
 		}
 
 		#endregion
+
+	    #region Private Static Fields
+
+	    /// <summary>
+	    /// The fully qualified type of the CompactRepositorySelector class.
+	    /// </summary>
+	    /// <remarks>
+	    /// Used by the internal logger to record the Type of the
+	    /// log message.
+	    /// </remarks>
+	    private readonly static Type declaringType = typeof(CompactRepositorySelector);
+
+	    #endregion Private Static Fields
 
 		/// <summary>
 		/// Event to notify that a logger repository has been created.
