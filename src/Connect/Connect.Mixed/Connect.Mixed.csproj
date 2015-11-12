@@ -139,7 +139,7 @@
     <Compile Include="Ajax\ConnectCallWrapper.cs" />
     <Compile Include="Ajax\ConnectOAuth2Wrapper.cs" />
     <Compile Include="Ajax\ConnectWrapper.cs" />
-    <Compile Include="Jobs\SyncConnectCallJob.cs" />
+    <Compile Include="Jobs\SyncQueueJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
