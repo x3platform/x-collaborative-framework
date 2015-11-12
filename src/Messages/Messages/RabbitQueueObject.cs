@@ -249,21 +249,28 @@ namespace X3Platform.Messages
                     // 消费队列，并设置应答模式为程序主动应答
                     channel.BasicConsume(this.QueueName, false, consumer);
 
-                    //阻塞函数，获取队列中的消息
-                    BasicDeliverEventArgs ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+                    // 阻塞函数，获取队列中的消息
+                    // BasicDeliverEventArgs ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+                    BasicDeliverEventArgs ea = (BasicDeliverEventArgs)consumer.Queue.DequeueNoWait(null);
+                    if (ea == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        byte[] bytes = ea.Body;
 
-                    byte[] bytes = ea.Body;
+                        XmlDocument doc = new XmlDocument();
 
-                    XmlDocument doc = new XmlDocument();
+                        doc.LoadXml(Encoding.UTF8.GetString(bytes));
 
-                    doc.LoadXml(Encoding.UTF8.GetString(bytes));
+                        data.Deserialize(doc.DocumentElement);
 
-                    data.Deserialize(doc.DocumentElement);
-
-                    //回复确认
-                    channel.BasicAck(ea.DeliveryTag, false);
-
-                    return data;
+                        // 回复确认
+                        channel.BasicAck(ea.DeliveryTag, false);
+                        
+                        return data;
+                    }
                 }
                 catch (Exception ex)
                 {

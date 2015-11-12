@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>X3Platform.Membership</RootNamespace>
     <AssemblyName>X3Platform.Membership</AssemblyName>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -271,7 +271,9 @@
     <EmbeddedResource Include="DAL\IBatis\JobFamilyProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\SettingProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AssignedJobProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\AuthorizationObjectProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AuthorizationObjectProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ContactProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\GeneralRoleProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\GroupProvider.xml" />
