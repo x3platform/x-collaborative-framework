@@ -3,6 +3,7 @@ namespace X3Platform.Connect.Model
     #region Using Libraries
     using System;
     using System.Text;
+    using System.Web;
     using System.Xml;
     using X3Platform.Messages;
     using X3Platform.Util;
@@ -170,7 +171,7 @@ namespace X3Platform.Connect.Model
             this.Id = element.SelectSingleNode("id").InnerText;
             this.AppKey = element.SelectSingleNode("appKey").InnerText;
             this.RequestUri = element.SelectSingleNode("requestUri").InnerText;
-            this.RequestData = element.SelectSingleNode("requestData").InnerText;
+            this.RequestData = StringHelper.FromBase64(element.SelectSingleNode("requestData").InnerText);
             this.StartTime = Convert.ToDateTime(element.SelectSingleNode("startTime").InnerText);
             this.FinishTime = Convert.ToDateTime(element.SelectSingleNode("finishTime").InnerText);
             this.TimeSpan = Convert.ToDouble(element.SelectSingleNode("timeSpan").InnerText);
@@ -202,7 +203,7 @@ namespace X3Platform.Connect.Model
             outString.AppendFormat("<id><![CDATA[{0}]]></id>", this.Id);
             outString.AppendFormat("<appKey><![CDATA[{0}]]></appKey>", this.AppKey);
             outString.AppendFormat("<requestUri><![CDATA[{0}]]></requestUri>", this.RequestUri);
-            outString.AppendFormat("<requestData><![CDATA[{0}]]></requestData>", this.RequestData);
+            outString.AppendFormat("<requestData><![CDATA[{0}]]></requestData>", StringHelper.ToBase64(this.RequestData));
             outString.AppendFormat("<startTime><![CDATA[{0}]]></startTime>", this.StartTime);
             outString.AppendFormat("<finishTime><![CDATA[{0}]]></finishTime>", this.FinishTime);
             outString.AppendFormat("<timeSpan><![CDATA[{0}]]></timeSpan>", this.TimeSpan);

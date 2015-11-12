@@ -61,6 +61,10 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\lib\MySQL\MySql.Data.dll</HintPath>
