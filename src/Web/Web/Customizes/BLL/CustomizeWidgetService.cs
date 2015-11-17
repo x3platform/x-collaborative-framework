@@ -1,28 +1,14 @@
-// =============================================================================
-//
-// Copyright (c) 2010 Elane, ruany@chinasic.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Web.Customizes.BLL
 {
-  using System;
-  using System.Collections.Generic;
-  using X3Platform.Data;
-  using X3Platform.Security;
-  using X3Platform.Spring;
-  using X3Platform.Web.Configuration;
-  using X3Platform.Web.Customizes.IBLL;
-  using X3Platform.Web.Customizes.IDAL;
-  using X3Platform.Web.Customizes.Model;
+    using System;
+    using System.Collections.Generic;
+    using X3Platform.Data;
+    using X3Platform.Security;
+    using X3Platform.Spring;
+    using X3Platform.Web.Configuration;
+    using X3Platform.Web.Customizes.IBLL;
+    using X3Platform.Web.Customizes.IDAL;
+    using X3Platform.Web.Customizes.Model;
 
     /// <summary>页面</summary>
     [SecurityClass]
@@ -34,12 +20,12 @@ namespace X3Platform.Web.Customizes.BLL
         /// <summary>构造函数</summary>
         public CustomizeWidgetService()
         {
-          // 创建对象构建器(Spring.NET)
-          string springObjectFile = WebConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
+            // 创建对象构建器(Spring.NET)
+            string springObjectFile = WebConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
-          SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(WebConfiguration.APP_NAME_CUSTOMIZES, springObjectFile);
+            SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(WebConfiguration.APP_NAME_CUSTOMIZES, springObjectFile);
 
-          // 创建数据提供器
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<ICustomizeWidgetProvider>(typeof(ICustomizeWidgetProvider));
         }
         #endregion
@@ -144,7 +130,7 @@ namespace X3Platform.Web.Customizes.BLL
         /// <returns>返回一个 WorkflowCollectorInfo 列表实例</returns>
         public IList<CustomizeWidgetInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-          return this.provider.GetPaging(startIndex, pageSize, query, out  rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out  rowCount);
         }
         #endregion
 

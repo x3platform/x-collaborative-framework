@@ -5,9 +5,11 @@ namespace X3Platform.Connect.Jobs
     using System.Net;
     using System.Reflection;
     using System.Text;
+    using System.Xml;
     using Common.Logging;
     using Quartz;
     using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.Model;
     using X3Platform.Json;
@@ -27,11 +29,61 @@ namespace X3Platform.Connect.Jobs
         {
             logger.Info("Fetching...");
 
+            ConnectionFactory factory = new ConnectionFactory();
+            /*
             IMessageQueueObject queue = new RabbitQueueObject<ConnectCallInfo>(ConnectConfigurationView.Instance.MessageQueueHostName,
                 ConnectConfigurationView.Instance.MessageQueuePort,
                 ConnectConfigurationView.Instance.MessageQueueUsername,
                 ConnectConfigurationView.Instance.MessageQueuePassword,
                 ConnectConfigurationView.Instance.MessageQueueName);
+            */
+            factory.HostName = ConnectConfigurationView.Instance.MessageQueueHostName;
+            factory.Port = ConnectConfigurationView.Instance.MessageQueuePort;
+            factory.UserName = ConnectConfigurationView.Instance.MessageQueueUsername;
+            factory.Password = ConnectConfigurationView.Instance.MessageQueuePassword;
+
+            using (IConnection connection = factory.CreateConnection())
+            {
+                using (IModel channel = connection.CreateModel())
+                {
+                    ConnectCallInfo data = new ConnectCallInfo();
+                    
+                    while (true)
+                    {
+                        BasicGetResult result = channel.BasicGet(ConnectConfigurationView.Instance.MessageQueueName, false);
+
+                        if (result == null)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            bool t = result.Redelivered;
+
+                            byte[] bytes = result.Body;
+
+                            XmlDocument doc = new XmlDocument();
+
+                            doc.LoadXml(Encoding.UTF8.GetString(bytes));
+
+                            data.Deserialize(doc.DocumentElement);
+
+                            // ªÿ∏¥»∑»œ
+                            channel.BasicAck(result.DeliveryTag, false);
+
+                            // return data;
+                            if (data != null)
+                            {
+                                ConnectContext.Instance.ConnectCallService.Save(data);
+
+                                logger.Info("id:" + data.Id + " insert success.");
+                            }
+                        }
+                    }
+                }
+            }
+            /*
+            queue.Open();
 
             ConnectCallInfo param = (ConnectCallInfo)queue.Receive();
 
@@ -41,6 +93,9 @@ namespace X3Platform.Connect.Jobs
 
                 logger.Info("id:" + param.Id + " insert success.");
             }
+
+            queue.Close();
+            */
         }
     }
 }

@@ -356,7 +356,9 @@ namespace X3Platform.Membership.Ajax
                 param.LoginName = email;
 
                 param.DisplayName = ((AccountInfo)param).Name = ((AccountInfo)param).GlobalName = email;
-                
+
+                param.CertifiedEmail = email;
+
                 if (MembershipManagement.Instance.AccountService.IsExistLoginName(param.LoginName))
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此登录名已经存在。\"}}";
@@ -377,6 +379,8 @@ namespace X3Platform.Membership.Ajax
                 param.LoginName = telephone;
 
                 param.DisplayName = ((AccountInfo)param).Name = telephone;
+
+                param.CertifiedTelephone = telephone;
 
                 if (MembershipManagement.Instance.AccountService.IsExistLoginName(param.LoginName))
                 {

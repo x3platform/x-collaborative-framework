@@ -29,5 +29,11 @@
 
         /// <summary>接收数据</summary>
         IMessageObject Receive();
+
+        /// <summary>关闭连接</summary>
+        void Open();
+
+        /// <summary>关闭连接</summary>
+        void Close();
     }
 }
