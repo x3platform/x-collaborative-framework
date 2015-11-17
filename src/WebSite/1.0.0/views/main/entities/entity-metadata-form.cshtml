@@ -1,0 +1,54 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/main/entities/entity-metadata-form.js"></script>
+<div id="window-container" class="container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <div id="toolbar" class="table-toolbar">
+        <a href="javascript:main.entities.entity.metadata.form.save()" class="btn btn-default">保存</a>
+        <a href="javascript:x.page.close();" class="btn btn-default">关闭</a>
+      </div>
+      <span>实体元数据设置</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <table class="table-style" style="width:100%">
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">
+            <span class="required-text">所属实体架构</span>
+          </td>
+          <td class="table-body-input">
+            <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+            <input id="entitySchemaId" name="entitySchemaId" type="hidden" x-dom-data-type="value" class="form-control" value="@ViewBag.param.EntitySchemaId" />
+            <input id="entitySchemaName" name="entitySchemaName" type="text" x-dom-data-type="value" class="form-control" value="@ViewBag.param.EntitySchemaName" style="width:120px;" />
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text" style="width:120px;"><span class="required-text">字段名称</span></td>
+          <td class="table-body-input" style="width:160px;"><input id="fieldName" name="fieldName" type="text" x-dom-data-type="value" class="form-control" value="@ViewBag.param.FieldName" style="width:120px;" /></td>
+          <td class="table-body-text" style="width:120px;"><span class="required-text">字段类型</span></td>
+          <td class="table-body-input"><input id="fieldType" name="fieldType" type="text" x-dom-data-type="value" value="@ViewBag.param.FieldType" x-dom-feature="combobox" selectedtext="@ViewBag.param.FieldType" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_实体数据管理_字段类型\#\# ) " class="form-control" style="width:120px;" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text"><span class="required-text">数据列名称</span></td>
+          <td class="table-body-input" colspan="3"><input id="dataColumnName" name="dataColumnName" type="text" x-dom-data-type="value" value="@ViewBag.param.DataColumnName" class="form-control" style="width:120px;" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">描述</td>
+          <td class="table-body-input" colspan="3"><textarea id="description" name="description" x-dom-data-type="value" class="textarea-normal" style="width:460px; height:80px;">@ViewBag.param.Description</textarea></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">排序</td>
+          <td class="table-body-input"><input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:120px;" x-dom-feature="integer" /></td>
+          <td class="table-body-text"><span class="required-text">作用范围</span></td>
+          <td class="table-body-input"><input id="effectScope" name="effectScope" type="text" x-dom-data-type="value" value="@ViewBag.param.EffectScope" x-dom-feature="combobox" selectedtext="@ViewBag.param.EffectScopeView" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_实体数据管理_字段作用范围\#\# ) " class="form-control" style="width:120px;" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">启用</td>
+          <td class="table-body-input"><input id="status" name="status" type="checkbox" x-dom-feature="checkbox" x-dom-data-type="value" value="@ViewBag.param.Status" /></td>
+          <td class="table-body-text">防止意外删除</td>
+          <td class="table-body-input"><input id="locking" name="locking" type="checkbox" x-dom-feature="checkbox" x-dom-data-type="value" value="@ViewBag.param.Locking" /></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

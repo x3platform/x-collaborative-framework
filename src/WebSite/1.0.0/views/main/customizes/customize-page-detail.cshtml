@@ -1,0 +1,18 @@
+﻿@{
+  Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml";
+}
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table-style" style="width:960px;">
+    <div id="window-main-table-header" class="table-header">
+      <div id="toolbar" class="table-toolbar">
+        <button href="javascript:x.page.close();" class="btn btn-default"><i class="fa fa-ban" title="关闭"></i> 关闭</button>
+      </div>
+      <span>@ViewBag.param.Title</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="x-ui-pkg-customize-wrapper">
+        @Html.Raw(ViewBag.outputHtml)
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" id="x-app-script" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" id="shared-windows-application-setting-list-script" src="/views/shared/windows/application-setting-list-window.js"></script>
+<script type="text/javascript" id="main-bugs-bug-setting-list-script" src="/views/main/bugs/bug-setting-list.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"人员及权限管理\组织管理" } }))
+<div id="window-container" class="window-container" >
+<div id="window-main-table" class="table" >
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+        <span>参数设置</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+        <table class="table table-nopadding">
+            <tr>
+                <td class="table-sidebar">
+                    <div id="window-main-table-sidebar">
+                        <div class="table-sidebar-search form-inline">
+                            <input id="searchText" type="text" value="" class="table-sidebar-search-text form-control input-sm" placeholder="文本\值" /> 
+                            <button id="btnFilter" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search" title="查询"></i></button>
+                        </div>
+                        <div id="treeViewContainer" class="table-sidebar-tree-view"></div>
+                        <input id="searchApplicationId" name="searchApplicationId" type="hidden" value="@ViewBag.application.Id" />
+                        <input id="searchApplicationName" name="searchApplicationName" type="hidden" value="@ViewBag.application.ApplicationDisplayName" /> 	
+                    </div>
+                </td>
+                <td>
+                    <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="window-main-table-footer" class="table-footer x-freeze-height"></div>
+</div>
+</div>
