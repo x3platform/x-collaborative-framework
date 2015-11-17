@@ -190,6 +190,12 @@ namespace X3Platform.Messages
             return queue;
         }
 
+        /// <summary>开启</summary>
+        public void Open()
+        {
+            InitializeQueue();
+        }
+
         /// <summary>关闭</summary>
         public void Close()
         {

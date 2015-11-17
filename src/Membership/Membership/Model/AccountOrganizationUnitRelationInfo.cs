@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.Model
+﻿namespace X3Platform.Membership.Model
 {
     using System;
 
@@ -115,7 +101,7 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 函数:GetAccount()
+        #region 函数:GetOrganizationUnit()
         /// <summary>获取相关组织信息</summary>
         public IOrganizationUnitInfo GetOrganizationUnit()
         {

@@ -1,9 +1,8 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-@section scripts {
-  <script type="text/javascript" id="x-client-api-template-script" src="/resources/javascript/x-client-api-template.zh-cn.js"></script>
-  <script type="text/javascript" id="x-app-script" src="/resources/javascript/app/x.app.js"></script>
-  <script type="text/javascript" id="shared-wizards-contacts-wizard-script" src="/views/shared/wizards/contacts-wizard.js"></script>
-  <script type="text/javascript" id="main-customizes-customize-content-list-script" src="/views/main/customizes/customize-content-list.js"></script> }
+<script type="text/javascript" id="x-client-api-template-script" src="/resources/javascript/x-client-api-template.zh-cn.js"></script>
+<script type="text/javascript" id="x-app-script" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" id="shared-wizards-contacts-wizard-script" src="/views/shared/wizards/contacts-wizard.js"></script>
+<script type="text/javascript" id="main-customizes-customize-content-list-script" src="/views/main/customizes/customize-content-list.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用配置管理" } }))
 <div id="window-container" class="window-container">
   <div id="window-main-table" class="table">

@@ -65,7 +65,7 @@ namespace X3Platform.Membership.Ajax
             if ((contactType & ContactType.OrganizationUnit) == ContactType.OrganizationUnit)
             {
                 whereClause = string.Format("( T.Name LIKE ##%{0}%## {1} )", key, (includeProhibited == 1 ? string.Empty : "AND Status = 1"));
-
+                
                 outString.Append(FormatOrganizationUnit(MembershipManagement.Instance.OrganizationUnitService.FindAll(whereClause), includeProhibited));
             }
 

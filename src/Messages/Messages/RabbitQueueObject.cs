@@ -123,33 +123,36 @@ namespace X3Platform.Messages
         /// <summary>初始化队列</summary>
         private void InitializeQueue()
         {
-            lock (lockObject)
+            if (this.connection != null)
             {
-                if (this.connection != null)
-                {
-                    try
-                    {
-                        this.connection.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageQueueManagement.Log.Error(ex.Message, ex);
-                    }
-
-                    this.connection = null;
-                }
-
                 try
                 {
-                    this.connection = this.factory.CreateConnection();
-
-                    this.channel = this.connection.CreateModel();
+                    this.connection.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageQueueManagement.Log.Error(ex.Message, ex);
                 }
+
+                this.connection = null;
             }
+
+            try
+            {
+                this.connection = this.factory.CreateConnection();
+
+                this.channel = this.connection.CreateModel();
+            }
+            catch (Exception ex)
+            {
+                MessageQueueManagement.Log.Error(ex.Message, ex);
+            }
+        }
+
+        /// <summary>开启</summary>
+        public void Open()
+        {
+            InitializeQueue();
         }
 
         /// <summary>关闭</summary>
@@ -237,6 +240,31 @@ namespace X3Platform.Messages
                 {
                     data = new T();
 
+                    BasicGetResult result = channel.BasicGet(this.QueueName, false);
+
+                    if (result == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        byte[] bytes = result.Body;
+
+                        XmlDocument doc = new XmlDocument();
+
+                        doc.LoadXml(Encoding.UTF8.GetString(bytes));
+
+                        data.Deserialize(doc.DocumentElement);
+
+                        // 回复确认
+                        channel.BasicAck(result.DeliveryTag, false);
+
+                        return data;
+                    }
+                    /*
+                    // 回复确认
+                    channel.BasicAck(result.DeliveryTag, false);
+
                     //在MQ上定义一个持久化队列，如果名称相同不会重复创建
                     channel.QueueDeclare(this.QueueName, true, false, false, null);
 
@@ -268,9 +296,9 @@ namespace X3Platform.Messages
 
                         // 回复确认
                         channel.BasicAck(ea.DeliveryTag, false);
-                        
+
                         return data;
-                    }
+                    }*/
                 }
                 catch (Exception ex)
                 {

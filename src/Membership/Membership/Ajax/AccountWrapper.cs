@@ -604,5 +604,36 @@ namespace X3Platform.Membership.Ajax
             return outString.ToString();
         }
         #endregion
+
+        #region 函数:FindFriends(XmlDocument doc)
+        /// <summary>查找好友</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns></returns>
+        public string FindFriends(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            paging.Query.Variables["scence"] = "FindFriends";
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
+
+            int rowCount = -1;
+
+            IList<IAccountInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+
+            paging.RowCount = rowCount;
+
+            outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(list) + ",");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
+
+            return outString.ToString();
+        }
+        #endregion
     }
 }

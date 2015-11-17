@@ -410,6 +410,24 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
             {
                 args.Add("WhereClause", " T.Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( SELECT Id FROM tb_Role WHERE OrganizationUnitId = '" + StringHelper.ToSafeSQL(query.Where["OrganizationUnitId"].ToString()) + "' ) ) ");
             }
+            else if (query.Variables["scence"] == "FindFriends")
+            {
+                // 查找好友 
+                string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+                if (RegularExpressionHelper.IsNumeric(searchText))
+                {
+                    args.Add("WhereClause", " ( T.CertifiedEmail = '" + searchText + "' ) ");
+                }
+                else if(RegularExpressionHelper.IsEmail(searchText))
+                {
+                    args.Add("WhereClause", " ( T.CertifiedTelephone = '" + searchText + "' ) ");
+                }
+                else 
+                {
+                    args.Add("WhereClause", " ( T.Name = '" + searchText + "' OR T.GlobalName = '" + searchText + "' OR T.LoginName = '" + searchText + "' ) ");
+                }
+            }
             else
             {
                 args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
