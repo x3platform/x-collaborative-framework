@@ -1,0 +1,34 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/main/connect/connect-overview.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用配置管理" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <span>@(ViewBag.param.Name)应用概述</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <table class="table">
+        <tr>
+          <td style="width:120px"><strong>App Key</strong></td>
+          <td>
+            <input id="appKey" name="appKey" type="hidden" value="@ViewBag.param.AppKey" />
+            <span id="appKeyView" class="gray-text">@ViewBag.param.AppKey</span>
+          </td>
+          <td style="width:60px"></td>
+        </tr>
+        <tr>
+          <td><strong>App Secret</strong></td>
+          <td><span id="appSecretView" class="gray-text">@ViewBag.param.AppSecret</span></td>
+          <td><a href="javascript:main.connect.overview.resetAppSecret();">重置</a></td>
+        </tr>
+        <tr>
+          <td><strong>App Status</strong></td>
+          <td><span class="gray-text">@(ViewBag.param.Status == 1 ? "启用" : "停用")</span></td>
+          <td><a href="/connect/form?id=@ViewBag.param.AppKey">编辑</a></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用事件管理" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <span>系统环境</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <div class="table-freeze-head">
+          <table class="table table-borderless">
+
+            <tr>
+              <td class="table-body-text" style="width:120px">服务器名称</td>
+              <td class="table-body-input">@ViewBag.HostName</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">地址</td>
+              <td class="table-body-input">@ViewBag.Address</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">应用帐号</td>
+              <td class="table-body-input">@ViewBag.UserName</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">系统文件夹</td>
+              <td class="table-body-input">@ViewBag.SystemDirectory</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">系统已运行时间</td>
+              <td class="table-body-input">@ViewBag.TickTime</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">操作系统版本</td>
+              <td class="table-body-input">@ViewBag.OSVersion @(ViewBag.Is64BitOperatingSystem ? "- x64" : "")</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">处理器数量</td>
+              <td class="table-body-input">@ViewBag.ProcessorCount</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">.Net 版本</td>
+              <td class="table-body-input">@ViewBag.FrameworkVersion</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">应用系统名称</td>
+              <td class="table-body-input">@ViewBag.configuration.SystemName</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">默认域</td>
+              <td class="table-body-input">@ViewBag.configuration.Domain</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">管理员邮箱</td>
+              <td class="table-body-input">@ViewBag.configuration.WebmasterEmail</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">应用程序路径</td>
+              <td class="table-body-input">@ViewBag.configuration.ApplicationPathRoot</td>
+            </tr>
+
+            <tr>
+              <td class="table-body-text">系统状态</td>
+              <td class="table-body-input">@ViewBag.configuration.SystemStatus</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

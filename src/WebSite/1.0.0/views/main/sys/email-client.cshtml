@@ -1,0 +1,55 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" id="views-main-sys-authorities.js" src="/views/main/sys/email-client.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用事件管理" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <span>邮件设置</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td class="table-body-text">服务器地址</td>
+              <td class="table-body-input" colspan="3"><input id="host" name="host" type="text" value="" class="form-control" style="width:200px" /></td>
+            </tr>
+            <tr>
+              <td class="table-body-text" style="width:120px;">服务器端口</td>
+              <td class="table-body-input" style="width:186px;"><input id="port" name="content" type="text" value="" class="form-control" style="width:80px" /></td>
+              <td class="table-body-text" style="width:80px;">SSL方式</td>
+              <td class="table-body-input"><input id="enableSsl" name="enableSsl" type="checkbox" feature="checkbox" value="0" /></td>
+            </tr>
+            <tr>
+              <td class="table-body-text">帐号</td>
+              <td class="table-body-input"><input id="username" name="username" type="text" value="" class="form-control" style="width:200px" /></td>
+              <td class="table-body-text">密码</td>
+              <td class="table-body-input"><input id="password" name="password" type="password" value="" class="form-control" style="width:200px" /></td>
+            </tr>
+            <tr>
+              <td class="table-body-text">From</td>
+              <td class="table-body-input"><input id="from" name="from" type="text" value="" class="form-control" style="width:200px" /></td>
+              <td class="table-body-text">To</td>
+              <td class="table-body-input"><input id="to" name="to" type="text" value="" class="form-control" style="width:200px" /></td>
+            </tr>
+            <tr>
+              <td class="table-body-text">邮件标题</td>
+              <td class="table-body-input" colspan="3"><input id="subject" name="subject" type="text" value="" class="form-control" style="width:460px" /></td>
+            </tr>
+            <tr>
+              <td class="table-body-text">邮件内容</td>
+              <td class="table-body-input" colspan="3"><textarea id="content" name="content" class="form-control" style="width:460px;height:120px"></textarea></td>
+            </tr>
+            <tr>
+              <td class="table-body-text"></td>
+              <td class="table-body-input" colspan="3">
+                <input id="btnSendEmail" name="btnSendEmail" type="button" value="发送邮件" onclick="main.sys.email.client.sendMail();" class="btn btn-default" />
+                <input id="btnSendTestEmail" name="btnSendTestEmail" type="button" value="发送测试邮件" onclick="main.sys.email.client.testSmtpServer();" class="btn btn-default" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

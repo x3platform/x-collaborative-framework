@@ -1,0 +1,41 @@
+﻿@{
+  ViewBag.Title = "XHR 签名生成工具";
+  Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<form id="form1" method="get">
+  <div class="form-container">
+    <div class="form-top">
+      <h3>XHR 签名生成工具</h3>
+    </div>
+    <div class="form-main">
+      <dl class="form-cell">
+        <dt class="input-label">App Secret</dt>
+        <dd>
+          <input id="appSecret" name="appSecret" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@Request.QueryString["appSecret"]" />
+        </dd>
+      </dl>
+      <dl class="form-cell">
+        <dt class="input-label">Timestamp</dt>
+        <dd>
+          <input id="timestamp" name="timestamp" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.timestamp" />
+        </dd>
+      </dl>
+      <dl class="form-cell">
+        <dt class="input-label">Nonce</dt>
+        <dd>
+          <input id="nonce" name="nonce" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.nonce" />
+        </dd>
+      </dl>
+      <dl class="form-cell">
+        <dt class="input-label">Signature</dt>
+        <dd>
+          <input id="appSignature" name="appSignature" type="text" x-dom-data-type="value" x-dom-feature="text" maxlength="100" value="@ViewBag.appSignature" />
+        </dd>
+      </dl>
+      <div class="form-actions">
+        <div class="button-submit button primary"><a id="btnSubmit" href="javascript:void(0);" onclick="document.getElementById('form1').submit()">生成</a></div>
+      </div>
+    </div>
+    <div class="form-bottom"><a href="/sdk/">在线软件开发工具集</a></div>
+  </div>
+</form>

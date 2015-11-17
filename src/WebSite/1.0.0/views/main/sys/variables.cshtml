@@ -1,0 +1,42 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用事件管理" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <span>系统变量</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div id="window-main-table-container">
+        <div class="table-freeze-head">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th style="width:600px">值</th>
+                <th class="table-freeze-head-padding"></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <div class="table-freeze-body">
+          <table class="table table-striped">
+            <colgroup>
+              <col />
+              <col style="width:600px" />
+            </colgroup>
+            <tbody>
+              @foreach (var option in ViewBag.options)
+              {
+                <tr>
+                  <td style="word-break:break-all" >@option.Name</td>
+                  <td style="word-break:break-all" >@option.Value</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

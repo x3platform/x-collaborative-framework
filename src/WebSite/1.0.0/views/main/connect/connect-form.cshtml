@@ -1,0 +1,70 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/main/connect/connect-form.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用配置管理" } }))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <div id="toolbar" class="table-toolbar">
+      </div>
+      <span>应用连接器信息</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <table class="table table-borderless" style="width:100%; margin-bottom:20px;">
+        <tr>
+          <td class="table-body-text" style="width:120px">应用名称</td>
+          <td class="table-body-input">
+            <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+            <input id="accountId" name="accountId" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AccountId" />
+            <input id="appSecret" name="appSecret" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AppSecret" />
+            <input id="code" name="code" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Code" />
+            <input id="isInternal" name="isInternal" type="hidden" x-dom-data-type="value" value="@ViewBag.param.IsInternal" />
+            <input id="status" name="status" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Status" />
+            <input id="name" name="name" type="text" x-dom-data-type="value" value="@ViewBag.param.Name" class="form-control" style="width:460px;" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text">App Key</td>
+          <td class="table-body-input">
+            <input id="appKey" name="appKey" type="text" x-dom-data-type="value" value="@ViewBag.param.AppKey" readonly="readonly" class="form-control" style="width:460px;" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text">应用简介</td>
+          <td class="table-body-input">
+            <textarea id="description" name="description" x-dom-data-type="value" class="textarea-normal" style="width:460px; height:80px;">@ViewBag.param.Description</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text">应用地址</td>
+          <td class="table-body-input">
+            <input id="domain" name="domain" type="text" x-dom-data-type="value" value="@ViewBag.param.Domain" class="form-control" style="width:460px;" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text">回调地址</td>
+          <td class="table-body-input">
+            <input id="redirectUri" name="redirectUri" type="text" x-dom-data-type="value" value="@ViewBag.param.RedirectUri" class="form-control" style="width:460px;" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text">应用图标</td>
+          <td class="table-body-input">
+            <input id="iconPath" name="iconPath" type="text" x-dom-data-type="value" value="@ViewBag.param.IconPath" class="form-control" style="width:460px;" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text">集成方式</td>
+          <td class="table-body-input">
+            <input id="appType" name="appType" type="text" x-dom-data-type="value" value="@ViewBag.param.AppType" class="form-control" style="width:460px;" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-body-text"></td>
+          <td class="table-body-input">
+            <button onclick="main.connect.form.save()" class="btn btn-default">保存</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>

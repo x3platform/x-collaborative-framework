@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>X3Platform.Apps</RootNamespace>
     <AssemblyName>X3Platform.Apps</AssemblyName>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <OldToolsVersion>3.5</OldToolsVersion>

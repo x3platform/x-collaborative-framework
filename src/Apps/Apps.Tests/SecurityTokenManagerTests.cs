@@ -54,11 +54,11 @@ namespace X3Platform.Apps.Tests
             //
             // 测试会议管理
             // 
-            //accountService = new AccountService(mockCurrencyService); //用mock对象初始化accountService
+            // accountService = new AccountService(mockCurrencyService); //用mock对象初始化accountService
             //    // 模拟mossadmin帐号
             //    administrator = new TestAccountInfo("00000000-0000-0000-0000-000000001001", "mossadmin", "mossadmin(模拟)");
 
-            //member = new TestAccountInfo("00000000-0000-0000-0000-000000001000", "mossguest", "mossguest(模拟)");
+            // member = new TestAccountInfo("00000000-0000-0000-0000-000000001000", "mossguest", "mossguest(模拟)");
 
             IAccountInfo administrator = administorMock.MockObject;
             IAccountInfo member = memberMock.MockObject;

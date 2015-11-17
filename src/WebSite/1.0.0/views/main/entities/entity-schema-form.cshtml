@@ -1,0 +1,56 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/single-render.cshtml"; }
+<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/views/main/entities/entity-metadata-form.js"></script>
+<div id="window-container" class="container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <div id="toolbar" class="table-toolbar">
+        <a href="javascript:main.entities.entity.metadata.form.save()" class="btn btn-default">保存</a>
+        <a href="javascript:x.page.close();" class="btn btn-default">关闭</a>
+      </div>
+      <span>实体元数据设置</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+
+      <table class="table-style" style="width:100%">
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">
+            <span class="required-text">编号</span>
+          </td>
+          <td class="table-body-input">
+            <input id="id" name="id" type="hidden" x-dom-data-type="value" value="@ViewBag.param.Id" />
+            <input id="code" name="code" type="text" x-dom-data-type="value" value="@ViewBag.param.Code" class="form-control" style="width:120px;" />
+          </td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text" style="width:120px;"><span class="required-text">名称</span></td>
+          <td class="table-body-input" style="width:160px;"><input id="name" name="name" type="text" x-dom-data-type="value" class="form-control" value="@ViewBag.param.Name" style="width:120px;" /></td>
+          <td class="table-body-text" style="width:120px;"><span class="required-text">数据表名称</span></td>
+          <td class="table-body-input"><input id="dataTableName" name="dataTableName" type="text" x-dom-data-type="value" value="@ViewBag.param.DataTableName" class="form-control" style="width:120px;" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text"><span class="required-text">实体类名称</span></td>
+          <td class="table-body-input" colspan="3"><input id="entityClassName" name="entityClassName" type="text" x-dom-data-type="value" value="@ViewBag.param.EntityClassName" class="form-control" style="width:460px;" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">标签</td>
+          <td class="table-body-input" colspan="3"><input id="tags" name="tags" type="text" x-dom-data-type="value" value="@ViewBag.param.Tags" class="form-control" style="width:460px;" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">描述</td>
+          <td class="table-body-input" colspan="3"><textarea id="description" name="description" x-dom-data-type="value" class="form-control" style="width:460px; height:80px;">@ViewBag.param.Description</textarea></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">排序</td>
+          <td class="table-body-input"><input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:120px;" x-dom-feature="integer" /></td>
+          <td class="table-body-text">防止意外删除</td>
+          <td class="table-body-input"><input id="locking" name="locking" type="checkbox" x-dom-feature="checkbox" x-dom-data-type="value" value="@ViewBag.param.Locking" /></td>
+        </tr>
+        <tr class="table-row-normal-transparent">
+          <td class="table-body-text">启用</td>
+          <td class="table-body-input" colspan="3"><input id="status" name="status" type="checkbox" x-dom-feature="checkbox" x-dom-data-type="value" value="@ViewBag.param.Status" /></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  </div>
