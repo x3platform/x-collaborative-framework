@@ -97,6 +97,11 @@
 
             CustomizeContentInfo content = CustomizeContext.Instance.CustomizeContentService.FindOneByName(name);
 
+            if (content == null)
+            {
+                ApplicationError.Write(404);
+            }
+
             ViewBag.output = content.Html;
 
             return View("/views/main/customizes/customize-content-generate-template.cshtml");

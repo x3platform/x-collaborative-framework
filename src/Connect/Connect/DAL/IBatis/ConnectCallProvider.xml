@@ -32,75 +32,97 @@
     <insert id="proc_Connect_Call_Save#SqlServer" parameterClass="ConnectCallInfo">
       IF NOT EXISTS(SELECT 0 FROM tb_Connect_Call WHERE Id = #Id#)
       BEGIN
-        INSERT INTO tb_Connect_Call
-        (
-          Id,
-          AppKey,
-          RequestUri,
-          RequestData,
-          StartTime,
-          FinishTime,
-          TimeSpan,
-          IP,
-          ReturnCode,
-          Date
-        )
-        VALUES
-        (
-          #Id#,
-          #AppKey#,
-          #RequestUri#,
-          #RequestData#,
-          #StartTime#,
-          #FinishTime#,
-          #TimeSpan#,
-          #IP#,
-          #ReturnCode#,
-          CURRENT_TIMESTAMP
-        )
+      INSERT INTO tb_Connect_Call
+      (
+      Id,
+      AppKey,
+      RequestUri,
+      RequestData,
+      StartTime,
+      FinishTime,
+      TimeSpan,
+      IP,
+      ReturnCode,
+      Date
+      )
+      VALUES
+      (
+      #Id#,
+      #AppKey#,
+      #RequestUri#,
+      #RequestData#,
+      #StartTime#,
+      #FinishTime#,
+      #TimeSpan#,
+      #IP#,
+      #ReturnCode#,
+      CURRENT_TIMESTAMP
+      )
       END
     </insert>
     <insert id="proc_Connect_Call_Save#MySql" parameterClass="ConnectCallInfo">
       INSERT INTO tb_Connect_Call
       (
-        Id,
-        AppKey,
-        RequestUri,
-        RequestData,
-        StartTime,
-        FinishTime,
-        TimeSpan,
-        IP,
-        ReturnCode,
-        Date
+      Id,
+      AppKey,
+      RequestUri,
+      RequestData,
+      StartTime,
+      FinishTime,
+      TimeSpan,
+      IP,
+      ReturnCode,
+      Date
       )
       SELECT
-        #Id#,
-        #AppKey#,
-        #RequestUri#,
-        #RequestData#,
-        #StartTime#,
-        #FinishTime#,
-        #TimeSpan#,
-        #IP#,
-        #ReturnCode#,
-        CURRENT_TIMESTAMP
+      #Id#,
+      #AppKey#,
+      #RequestUri#,
+      #RequestData#,
+      #StartTime#,
+      #FinishTime#,
+      #TimeSpan#,
+      #IP#,
+      #ReturnCode#,
+      CURRENT_TIMESTAMP
       FROM DUAL
       WHERE NOT EXISTS ( SELECT * FROM tb_Connect_Call WHERE Id = #Id#)
     </insert>
     <update id="proc_Connect_Call_Update" parameterClass="ConnectCallInfo" >
       -- 记录不允许修改
     </update>
-
     <delete id="proc_Connect_Call_Delete" >
       DELETE FROM tb_Connect_Call WHERE $WhereClause$
     </delete>
-
     <select id="proc_Connect_Call_FindOne" resultMap="proc_Connect_Call_FindOne_Result" >
       SELECT * FROM tb_Connect_Call WHERE Id = #Id#
     </select>
+    <select id="proc_Connect_Call_FindAll#MySql" resultMap="proc_Connect_Call_FindAll_Result" >
+      SELECT * FROM tb_Connect_Call T
 
-    <select id="proc_Connect_Call_FindAll" resultMap="proc_Connect_Call_FindAll_Result" >
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="OrderBy" >
+            $OrderBy$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0, $Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Connect_Call_FindAll#SqlServer" resultMap="proc_Connect_Call_FindAll_Result" >
       SELECT
 
       <dynamic prepend="TOP">
@@ -119,8 +141,22 @@
         </isParameterPresent>
       </dynamic>
     </select>
+    <select id="proc_Connect_Call_GetPaging#MySql"  resultMap="proc_Connect_Call_FindAll_Result" >
+      SELECT * FROM tb_Connect_Call T
 
-    <select id="proc_Connect_Call_GetPaging" resultMap="proc_Connect_Call_FindAll_Result" >
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      ORDER BY $OrderBy$
+
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Connect_Call_GetPaging#SqlServer" resultMap="proc_Connect_Call_FindAll_Result" >
       SELECT *
 
       FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -137,7 +173,6 @@
 
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
-
     <select id="proc_Connect_Call_GetRowCount" >
       SELECT COUNT(1) AS "RowCount" FROM tb_Connect_Call T
 
@@ -149,7 +184,6 @@
         </isParameterPresent>
       </dynamic>
     </select>
-
     <select id="proc_Connect_Call_IsExist" >
       SELECT COUNT(0) AS "Count" FROM tb_Connect_Call T WHERE $WhereClause$
     </select>

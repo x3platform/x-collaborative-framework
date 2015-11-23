@@ -1,28 +1,12 @@
 @echo off
+setlocal
+for %%a in (%*) do echo "%%a" | findstr /C:"mono">nul && set buildtool=xbuild.bat
+if not defined buildtool for /f %%i in ('dir /b /ad /on "%windir%\Microsoft.NET\Framework\v*"') do @if exist "%windir%\Microsoft.NET\Framework\%%i\msbuild".exe set buildtool=%windir%\Microsoft.NET\Framework\%%i\msbuild.exe
 
-@rem set /p targetFramework=Please Enter(net-3.5 OR net-4.0 OR mono-3.5)£º
-set targetFramework=%~1
+if not defined buildtool (echo no MSBuild.exe or xbuild was found>&2 & exit /b 42)
 
-if "%targetFramework%" equ "net-4.0" goto NET40
-if "%targetFramework%" equ "mono-4.0" goto MONO40
-goto DEFAULT
+@REM call "tools/nuget.exe" restore nunit.sln
+@REM if errorlevel 1 (echo NuGet restore failed.>&2 & exit /b 1)
 
-:DEFAULT
-nant -buildfile:default.build -logfile:build-log.txt
-goto end
-:NET35
-nant -buildfile:default.build -t:%targetFramework% -logfile:build.net-3.5.txt
-goto end
-:NET40
-nant -buildfile:default.build -t:%targetFramework% -logfile:build.net-4.0.txt
-goto end
-:MONO20
-nant -buildfile:default.build -t:%targetFramework% -logfile:build.mono-2.0.txt
-goto end
-:MONO35
-nant -buildfile:default.build -t:%targetFramework% -logfile:build.mono-3.5.txt
-goto end
-:MONO40
-nant -buildfile:default.build -t:%targetFramework% -logfile:build.mono-4.0.txt
-goto end
-:END
+@REM if defined buildtool "%buildtool%" %*
+if defined buildtool "%buildtool%" ./src/makefile.msbuild
