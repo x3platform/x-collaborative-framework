@@ -11,7 +11,7 @@ namespace X3Platform.Connect.DAL.IBatis
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.Model;
     using X3Platform.Connect.IDAL;
-    
+
     [DataObject]
     public class ConnectCallProvider : IConnectCallProvider
     {
@@ -119,13 +119,13 @@ namespace X3Platform.Connect.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" Date DESC "));
 
             args.Add("RowCount", 0);
 
             IList<ConnectCallInfo> list = this.ibatisMapper.QueryForList<ConnectCallInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args));
 
             return list;
         }
@@ -143,7 +143,7 @@ namespace X3Platform.Connect.DAL.IBatis
 
             args.Add("Id", id);
 
-            return ((int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args) == 0) ? false : true;
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
         }
         #endregion
     }
