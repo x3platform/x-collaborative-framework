@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :AccountLogService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership.BLL
 {
     #region Using Libraries
@@ -34,14 +18,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class AccountLogService : IAccountLogService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IAccountLogProvider provider = null;
 
-        #region ���캯��:AccountLogService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:AccountLogService()
+        /// <summary>构造函数</summary>
         public AccountLogService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -56,8 +40,8 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public AccountLogInfo this[string id]
@@ -67,74 +51,84 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(AccountLogInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="AccountLogInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="AccountLogInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(AccountLogInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="AccountLogInfo"/>详细信息</param>
+        /// <returns>实例<see cref="AccountLogInfo"/>详细信息</returns>
         public AccountLogInfo Save(AccountLogInfo param)
         {
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">实例的标识</param>
+        public void Delete(string id)
         {
-            this.provider.Delete(ids);
+            this.provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="AccountLogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="AccountLogInfo"/>的详细信息</returns>
         public AccountLogInfo FindOne(string id)
         {
             return this.provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="AccountLogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
         public IList<AccountLogInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="AccountLogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
         public IList<AccountLogInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="AccountLogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
         public IList<AccountLogInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
         }
         #endregion
 
+        #region 函数:FindAllByAccountId(string accountId)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
+        public IList<AccountLogInfo> FindAllByAccountId(string accountId)
+        {
+            return this.provider.FindAllByAccountId(accountId);
+        }
+        #endregion
+
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -150,54 +144,54 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:Log(string accountId, string optionName, string description)
-        /// <summary>������־��Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="optionName">����属性:��¼ �༭ ɾ��</param>
-        /// <param name="description">������Ϣ</param>
-        /// <returns>0 �����ɹ� | 1 ����ʧ��</returns>
+        #region 函数:Log(string accountId, string optionName, string description)
+        /// <summary>保存日志信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="optionName">操作名称:登录 编辑 删除</param>
+        /// <param name="description">描述信息</param>
+        /// <returns>0 保存成功 | 1 保存失败</returns>
         public int Log(string accountId, string optionName, string description)
         {
             return this.Log(accountId, optionName, description, string.Empty);
         }
         #endregion
 
-        #region 属性:Log(string accountId, string optionName, string description, string optionAccountId)
-        /// <summary>�����ʺŲ�����־��Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="optionName">����属性: �鿴</param>
-        /// <param name="description">������Ϣ</param>
-        /// <param name="optionAccountId">�����˵��ʺű�ʶ</param>
-        /// <returns>0 �����ɹ� | 1 ����ʧ��</returns>
+        #region 函数:Log(string accountId, string optionName, string description, string optionAccountId)
+        /// <summary>保存帐号操作日志信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="optionName">操作名称: 查看</param>
+        /// <param name="description">描述信息</param>
+        /// <param name="optionAccountId">操作人的帐号标识</param>
+        /// <returns>0 保存成功 | 1 保存失败</returns>
         public int Log(string accountId, string optionName, string description, string optionAccountId)
         {
             return this.Log(accountId, optionName, null, description, optionAccountId);
         }
         #endregion
 
-        #region 属性:Log(string accountId, string optionName, IAccountInfo originalObject, string description, string optionAccountId)
-        /// <summary>������־��Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="optionName">����属性:��¼ �༭ ɾ��</param>
-        /// <param name="originalObject">ԭʼ�Ķ�����Ϣ</param>
-        /// <param name="description">������Ϣ</param>
-        /// <param name="optionAccountId">�����˵��ʺű�ʶ</param>
-        /// <returns>0 �����ɹ� | 1 ����ʧ��</returns>
+        #region 函数:Log(string accountId, string optionName, IAccountInfo originalObject, string description, string optionAccountId)
+        /// <summary>保存日志信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="optionName">操作名称:登录 编辑 删除</param>
+        /// <param name="originalObject">原始的对象信息</param>
+        /// <param name="description">描述信息</param>
+        /// <param name="optionAccountId">操作人的帐号标识</param>
+        /// <returns>0 保存成功 | 1 保存失败</returns>
         public int Log(string accountId, string optionName, IAccountInfo originalObject, string description, string optionAccountId)
         {
             IAccountInfo account = KernelContext.Current.User;
 
-            // ����ʵ�����ݲ�����¼
+            // 保存实体数据操作记录
             AccountLogInfo param = new AccountLogInfo();
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");

@@ -163,7 +163,6 @@ namespace X3Platform.Membership.HumanResources.Model
         }
         #endregion
 
-        #region IOrganizationExtensionInformation 成员
         public void Delete()
         {
             throw new NotImplementedException();
@@ -179,16 +178,9 @@ namespace X3Platform.Membership.HumanResources.Model
             throw new NotImplementedException();
         }
 
-        #endregion
-
-        #region IExtensionInformation 成员
-
-
         public void Load(XmlDocument doc)
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

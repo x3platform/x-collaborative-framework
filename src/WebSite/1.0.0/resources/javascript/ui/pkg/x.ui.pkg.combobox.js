@@ -224,7 +224,7 @@ x.ui.pkg.combobox = {
         // 预加载人员选择列表，加快显示速度。
         var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
-        outString += '<ajaxStorage>';
+        outString += '<request>';
         outString += '<action><![CDATA[' + ((typeof (this.options.ajaxMethod) === 'undefined') ? 'getCombobox' : this.options.ajaxMethod) + ']]></action>';
         outString += '<combobox><![CDATA[' + this.name + ']]></combobox>';
         outString += '<selectedValue><![CDATA[' + x.util.htmlEncode(this.targetValueObject.val()) + ']]></selectedValue>';
@@ -233,9 +233,19 @@ x.ui.pkg.combobox = {
           // 空白选项 全部 
           outString += '<emptyItemText><![CDATA[' + this.options.comboboxEmptyItemText.trim() + ']]></emptyItemText>';
         }
-        outString += '<whereClause><![CDATA[' + this.options.whereClause.replace('{0}', this.targetViewObject.val()).replace(/\\/g, '') + ']]></whereClause>';
+        if(!x.isUndefined(this.options.xhrParams))
+        {
+          x.each(this.options.xhrParams, function(node)
+          {
+            outString += '<' + node + '><![CDATA[' + node + ']]></' + node + '>';
+          });
+        }
+        if(x.isUndefined(this.options.xhrWhere))
+        {
+          outString += '<whereClause><![CDATA[' + this.options.xhrWhere.replace('{0}', this.targetViewObject.val()).replace(/\\/g, '') + ']]></whereClause>';
+        }
         outString += '<length>0</length>';
-        outString += '</ajaxStorage>';
+        outString += '</request>';
 
         x.net.xhr(combobox.options.url, outString, {
           callback: function(response)
@@ -290,7 +300,18 @@ x.ui.pkg.combobox = {
             // 空白选项 全部 
             outString += '<emptyItemText><![CDATA[' + this.options.comboboxEmptyItemText.trim() + ']]></emptyItemText>';
           }
-          outString += '<whereClause><![CDATA[' + this.options.whereClause.replace('{0}', this.targetViewObject.val()).replace(/\\/g, '') + ']]></whereClause>';
+          if(!x.isUndefined(this.options.xhrParams))
+          {
+            x.each(this.options.xhrParams, function(key, value)
+            {
+              x.debug.log(key);
+              outString += '<' + key + '><![CDATA[' + value + ']]></' + key + '>';
+            });
+          }
+          if(!x.isUndefined(this.options.xhrWhere))
+          {
+            outString += '<whereClause><![CDATA[' + this.options.xhrWhere.replace('{0}', this.targetViewObject.val()).replace(/\\/g, '') + ']]></whereClause>';
+          }
           outString += '<length>0</length>';
           outString += '</request>';
 

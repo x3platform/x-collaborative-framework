@@ -73,7 +73,7 @@ main.membership.group.tree.node.list = {
             outString += '<tr class="' + classNameValue + '">';
             outString += '<td><a href="javascript:main.membership.group.tree.node.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
             outString += '<td>' + (node.status == '1' ? '<span class="green-text">启用</span>' : '<span class="red-text">禁用</span>') + '</td>';
-            outString += '<td>' + node.updateDateView + '</td>';
+            outString += '<td>' + node.modifiedDateView + '</td>';
             outString += '<td><a href="javascript:main.membership.group.tree.node.list.confirmDelete(\'' + node.id + '\');">删除</a></td>';
             outString += '</tr>';
 

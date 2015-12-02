@@ -29,7 +29,7 @@ main.bugs.bug.category.list = {
     main.bugs.bug.category.list.paging.query.where.CategoryIndex = $('#searchText').val().trim();
     main.bugs.bug.category.list.paging.query.where.Status = '0,1';
 
-    main.bugs.bug.category.list.paging.query.orders = ' OrderId, UpdateDate DESC';
+    main.bugs.bug.category.list.paging.query.orders = ' OrderId, ModifiedDate DESC';
 
     main.bugs.bug.category.list.getPaging(1);
   },
@@ -79,7 +79,7 @@ main.bugs.bug.category.list = {
       outString += '<td><a href="/bugs/bug-category/form?id=' + node.id + '" target="_blank">' + node.categoryIndex + '</a></td>';
       outString += '<td>' + node.accountName + '</td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td>' + ($('#isAdminToken').val().toLowerCase() === 'true' ? ('<a href="javascript:main.bugs.bug.category.list.confirmDelete(\'' + node.id + '\');" title="删除" ><i class="fa fa-trash" ></i></a>') : '<span class="gray-text" title="删除" ><i class="fa fa-trash" ></i></span>') + '</td>';
       outString += '</tr>';
 

@@ -64,7 +64,7 @@ main.membership.standard.organization.list = {
       outString += '<tr>';
       outString += '<td><a href="javascript:main.membership.standard.organization.list.openDialog(\'' + node.id + '\');" >' + node.name + '(' + node.globalName + ')</a></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       if(node.locking === '1')
       {
         outString += '<td><span class="gray-text" title="删除" ><i class="fa fa-trash" ></i></span></td>';

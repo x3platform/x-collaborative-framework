@@ -80,7 +80,7 @@ main.membership.group.tree.list = {
                 outString += '<td><a href="/membership/group-tree-node/list?treeViewId=' + node.id + '" target="_blank" >' + node.name + '</a></td>';
             }
             outString += '<td>' + x.app.setColorStatusView (node.status) + '</td>';
-            outString += '<td>' + node.updateDateView + '</td>';
+            outString += '<td>' + node.modifiedDateView + '</td>';
             outString += '<td><a href="javascript:main.membership.group.tree.list.openDialog(\'' + node.id + '\');" title="编辑" ><i class="fa fa-edit" ></i></a></td>';
             // outString += '<td><a href="javascript:main.membership.group.tree.list.confirmDelete(\'' + node.id + '\');" >删除</a></td>';
             // outString += '<td><span class="gray-text">删除</span></td>';

@@ -27,7 +27,7 @@
         </div>
         <label for="query-status">@I18n.Translates["Bugs", "Status"]</label>
         <div class="form-group">
-          <input id="query-status" type="text" x-dom-feature="combobox" class="form-control input-sm" value="" selectedtext="" url="/api/application.setting.getCombobox.aspx" comboboxemptyitemtext="@I18n.Strings["text_all"]" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_问题跟踪_问题状态\#\# ) " style="width:80px" />
+          <input id="query-status" type="text" value="" x-dom-feature="combobox" x-dom-combobox-selectedText="" x-dom-xhr-url="/api/application.setting.getCombobox.aspx" x-dom-combobox-empty-item-text="@I18n.Strings["text_all"]" x-dom-xhr-params="{applicationSettingGroupName:'应用管理_协同平台_问题跟踪_问题状态'}" class="form-control input-sm" style="width:80px" />
         </div>
         <button id="btnFilter" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search" title="@I18n.Strings["btn_query"]"></i></button>
       </div>

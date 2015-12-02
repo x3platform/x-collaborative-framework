@@ -61,6 +61,8 @@
 
             accountCache.IP = account.IP;
 
+            accountCache.HttpUserAgent = HttpContext.Current == null ? string.Empty : HttpContext.Current.Request.UserAgent;
+
             accountCache.ValidFrom = DateTime.Now;
 
             accountCache.ValidTo = accountCache.ValidFrom.AddMonths(3);

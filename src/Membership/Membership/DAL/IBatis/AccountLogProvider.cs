@@ -187,9 +187,22 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<AccountLogInfo> list = this.ibatisMapper.QueryForList<AccountLogInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            return this.ibatisMapper.QueryForList<AccountLogInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
 
-            return list;
+        #region 函数:FindAllByAccountId(string accountId)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
+        public IList<AccountLogInfo> FindAllByAccountId(string accountId)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' ", StringHelper.ToSafeSQL(accountId)));
+            args.Add("Length", 0);
+
+            return this.ibatisMapper.QueryForList<AccountLogInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 

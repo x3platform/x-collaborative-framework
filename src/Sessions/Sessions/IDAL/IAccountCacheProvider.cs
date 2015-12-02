@@ -29,6 +29,13 @@ namespace X3Platform.Sessions.IDAL
         IList<AccountCacheInfo> Dump();
         #endregion
 
+        #region 函数:Dump(string accountCacheValue)
+        /// <summary>转储所有记录信息</summary>
+        /// <param name="accountCacheValue">帐号缓存的值</param>
+        /// <returns>返回一个<see cref="AccountCacheInfo"/>列表</returns>
+        IList<AccountCacheInfo> Dump(string accountCacheValue);
+        #endregion
+
         #region 函数:Insert(AccountCacheInfo param)
         /// <summary>添加记录</summary>
         /// <param name="param">实例<see cref="AccountCacheInfo"/>的详细信息</param>

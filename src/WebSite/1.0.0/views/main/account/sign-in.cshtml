@@ -14,11 +14,7 @@
 </head>
 
 <body>
-  <div class="window-sign-in-main-wrapper">
-    <div class="window-sign-in-main-logo"><img src="/resources/images/corporation/x3platform/x3platform.login.image.png" /></div>
-    <div class="window-sign-in-main-application-wall">
-      <img src="/resources/images/corporation/x3platform/x3platform.login.application.wall.png" />
-    </div>
+  <div class="container">
     <div class="window-sign-in-form-wrapper">
       <div class="window-sign-in-form-container">
         <div class="window-sign-in-form-input input-group">
@@ -42,48 +38,7 @@
         </div>
       </div>
     </div>
-    <div class="clear"></div>
   </div>
-  @*
-    <!--
-    <div class="window-sign-in-bottom-wrapper">
-    <div class="window-sign-in-bottom-container" >
-        <div style="padding-top:10px;" >
-        <div style="float:right;padding-top:10px;width:300px;" >
-            <div style="float:left;" ><strong>公告</strong></div>
-            <div style="float:left;" >
-                <div style="padding-left:10px; color:#000; font-weight:bold;" ><a href="http://x3platform.com" target="_blank" >钓鱼岛是中国的!</a></div>
-                <div style="padding-left:10px; padding-top:10px;" ><a href="/public/changelog.aspx" target="_blank" >2012-01-01 系统更新</a></div>
-            </div>
-        </div>
-        <div class="window-sign-in-bottom-friendly-links" style="padding-top:10px;" >
-            <a href="/help/" >开放平台</a>
-            <a href="/forum/default.aspx" >技术论坛</a>
-            <a href="http://blog.x3platform.com" >官方博客</a>
-        </div>
-        <div class="window-sign-in-bottom-friendly-links" style="padding:10px 0 20px 0;" >
-            <!-- <a href="http://i.bendi3g.com" target="_blank" >本地分类信息</a>
-            <a href="http://babaofan.bendi3g.com" target="_blank" >温州八宝饭</a>
-            <a href="http://jiazhao.bendi3g.com" target="_blank" >驾照理论模拟考试</a>
-            <a href="http://wenzhou.kanf.cn" target="_blank" >租房网</a> -- >
-        </div>
-        </div>
-
-        <div class="window-sign-in-bottom-links" >
-            <span>Copyright © @DateTime.Now.Year x3platform.com All rights reserved.</span> |
-            <a href="/public/about-us.aspx" >联系我们</a> |
-            <a href="/public/privacy.aspx" >隐私声明</a> |
-            <a href="/public/terms.aspx" >使用条款</a> |
-            <a href="/public/help.aspx" >帮助</a> |
-            <a href="/public/feedback.aspx" >反馈</a>
-        </div>
-    </div>
-    </div>
-    -->
-  <input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
-  <input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
-  <input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
-  *@
   <input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
 </body>
 </html>

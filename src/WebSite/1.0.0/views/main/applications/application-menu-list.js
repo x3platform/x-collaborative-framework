@@ -64,7 +64,7 @@ main.applications.application.menu.list = {
             outString += '<td><a href="/applications/application-menu/form?id=' + node.id + '" target="_blank" >' + node.name + '</a> <span class="label label-default" >' + node.displayTypeView + '</span></td>';
             outString += '<td>' + node.menuTypeView + '</td>';
             outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-            outString += '<td>' + node.updateDateView + '</td>';
+            outString += '<td>' + node.modifiedDateView + '</td>';
             outString += '<td><a href="javascript:main.applications.application.menu.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除"><i class="fa fa-trash" ></i></a></td>';
             outString += '</tr>';
 

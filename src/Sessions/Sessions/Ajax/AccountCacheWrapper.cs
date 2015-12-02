@@ -23,17 +23,6 @@ namespace X3Platform.Sessions.Interop
         /// <returns></returns>
         public string Heartbeat(XmlDocument doc)
         {
-            if (KernelContext.Current.User == null)
-            {
-                // 未登录用户信息跟踪
-                // return "{\"ajaxStorage\":{\"sessionId\":\"\"},\"message\":{\"returnCode\":1,\"value\":\"请登录系统。\"}}";
-            }
-            else
-            {
-                // 已登录用户信息跟踪
-                // return "{\"ajaxStorage\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}";
-            }
-
             return "1";
         }
         #endregion
@@ -49,7 +38,7 @@ namespace X3Platform.Sessions.Interop
             }
             else
             {
-                return "{\"ajaxStorage\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}";
+                return "{\"data\":{\"sessionId\":\"" + HttpContext.Current.Session.SessionID + "\"},\"message\":{\"returnCode\":0,\"value\":\"操作成功。\"}}";
             }
         }
         #endregion
@@ -65,7 +54,7 @@ namespace X3Platform.Sessions.Interop
 
             AccountCacheInfo param = this.service.FindByAccountIdentity(accountIdentity);
 
-            outString.Append("{\"ajaxStorage\":");
+            outString.Append("{\"data\":");
 
             if (param != null)
             {
@@ -74,7 +63,7 @@ namespace X3Platform.Sessions.Interop
                 outString.Append("\"accountCacheValue\":\"" + param.AccountCacheValue + "\",");
                 outString.Append("\"accountObjectType\":\"" + param.AccountObjectType + "\",");
                 outString.Append("\"accountObject\":\"" + param.AccountObject + "\",");
-                outString.Append("\"updateDate\":\"" + param.Date + "\" ");
+                outString.Append("\"date\":\"" + param.Date + "\" ");
                 outString.Append("}");
             }
 
@@ -93,14 +82,14 @@ namespace X3Platform.Sessions.Interop
 
             IList<AccountCacheInfo> list = service.Dump();
 
-            outString.Append("{\"ajaxStorage\":[");
+            outString.Append("{\"data\":[");
 
             foreach (AccountCacheInfo item in list)
             {
                 outString.Append("{");
                 outString.Append("\"accountIdentity\":\"" + item.AccountIdentity + "\",");
                 outString.Append("\"accountCacheValue\":\"" + item.AccountCacheValue + "\",");
-                outString.Append("\"updateDate\":\"" + item.Date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "\" ");
+                outString.Append("\"date\":\"" + item.Date.ToString("yyyy-MM-dd HH:mm:ss.fff") + "\" ");
                 outString.Append("},");
             }
 

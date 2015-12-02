@@ -130,12 +130,7 @@
         #region 属性:EffectScope
         private int m_EffectScope = 0;
 
-        // 1 Anonymous 匿名权限 = 系统前端应用 + 匿名用户 + 读取 / 客户端标识(AppKey)
-        // 2 Read 成员读取权限 = 系统前端应用 + 登录用户 + 读取 / 客户端标识(AppKey) + 客户端密钥(AppSecret)
-        // 4 Write 写入权限 = 系统前端应用 + 登录用户 + 写入 / 客户端标识(AppKey) + 客户端密钥(AppSecret) + 访问令牌 (AccessToken)
-        // 8 Privilege 应用管理员特权 = 系统前端应用 + 应用管理员特殊权限 / 第三方应用禁止访问
-
-        /// <summary>作用范围 1 匿名用户 2 登录用户 4 应用可访问成员 8 应用可访问成员 16 应用可访问成员</summary>
+        /// <summary>作用范围 1 匿名用户 2 登录用户 4 应用可访问成员 8 应用审查员 16 应用管理员</summary>
         public int EffectScope
         {
             get { return this.m_EffectScope; }

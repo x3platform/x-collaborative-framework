@@ -69,7 +69,7 @@ main.applications.application.setting.group.list = {
       outString += '<td>' + node.code + '</td>';
       outString += '<td><a href="javascript:main.applications.application.setting.group.list.openDialog(\'' + node.id + '\');">' + node.name + '</a></td>';
       outString += '<td>' + (node.status == '1' ? '<span class="green-text">启用</span>' : '<span class="red-text">禁用</span>') + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.applications.application.setting.group.list.openDialog(\'' + node.id + '\');">编辑</a></td>';
       outString += '<td><a href="javascript:main.applications.application.setting.group.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');">删除</a></td>';
       outString += '</tr>';

@@ -62,7 +62,7 @@ main.applications.application.method.list = {
       outString += '<td>' + node.code + '</td>';
       outString += '<td><a href="javascript:main.applications.application.method.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.applications.application.method.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除"><i class="fa fa-trash" ></i></a></td>';
       outString += '</tr>';
 

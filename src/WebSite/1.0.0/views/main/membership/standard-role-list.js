@@ -60,7 +60,7 @@ main.membership.standard.role.list = {
       outString += '<tr>';
       outString += '<td><a href="javascript:main.membership.standard.role.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
 
       if(node.locking === '1')
       {
@@ -143,9 +143,9 @@ main.membership.standard.role.list = {
     outString += '</td>';
     outString += '<td class="table-body-text" ><span class="required-text">所属标准组织</span></td>';
     outString += '<td class="table-body-input" >';
-    outString += '<input id="standardOrganizationId" name="standardOrganizationId" type="hidden" x-dom-data-type="value" value="' + (typeof (param.standardOrganizationId) == 'undefined' ? '' : param.standardOrganizationId) + '" />';
+    outString += '<input id="standardOrganizationUnitId" name="standardOrganizationUnitId" type="hidden" x-dom-data-type="value" value="' + (typeof (param.standardOrganizationUnitId) == 'undefined' ? '' : param.standardOrganizationUnitId) + '" />';
     outString += '<input id="standardOrganizationName" name="standardOrganizationName" type="text" x-dom-data-type="value" value="' + (typeof (param.standardOrganizationName) == 'undefined' ? '' : param.standardOrganizationName) + '" dataVerifyWarning="【所属标准组织】必须填写。"  class="form-control custom-forms-data-required" style="width:120px;" /> ';
-    outString += '<a href="javascript:x.ui.wizards.getContactWizard({targetViewName:\'standardOrganizationName\', targetValueName:\'standardOrganizationId\', contactTypeText:\'standard-organization\'});" >编辑</a> ';
+    outString += '<a href="javascript:x.ui.wizards.getContactWizard({targetViewName:\'standardOrganizationName\', targetValueName:\'standardOrganizationUnitId\', contactTypeText:\'standard-organization\'});" >编辑</a> ';
     outString += '</td>';
 
     outString += '<tr class="table-row-normal-transparent">';
@@ -316,7 +316,7 @@ main.membership.standard.role.list = {
 
       var treeNode = main.membership.standard.role.list.tree.getSelectedNode();
 
-      if(treeNode != null) { outString += '<standardOrganizationId><![CDATA[' + treeNode.id + ']]></standardOrganizationId>'; }
+      if(treeNode != null) { outString += '<standardOrganizationUnitId><![CDATA[' + treeNode.id + ']]></standardOrganizationUnitId>'; }
 
       isNewObject = true;
     }
@@ -470,7 +470,7 @@ main.membership.standard.role.list = {
   /*#region 函数:setTreeViewNode(value)*/
   setTreeViewNode: function(value)
   {
-    main.membership.standard.role.list.paging.query.where.StandardOrganizationId = value;
+    main.membership.standard.role.list.paging.query.where.StandardOrganizationUnitId = value;
     main.membership.standard.role.list.getPaging(1);
   },
   /*#endregion*/

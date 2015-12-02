@@ -1,89 +1,98 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Sessions.DAL.MySQL.AccountCacheProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="AccountCacheInfo" type="X3Platform.Sessions.AccountCacheInfo,X3Platform.Abstractions" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_AccountCache_FindOne_Result" class="AccountCacheInfo">
-            <result property="AccountIdentity" column="AccountIdentity" />
-            <result property="AppKey" column="AppKey" />
-            <result property="AccountCacheValue" column="AccountCacheValue" />
-            <result property="AccountObject" column="AccountObject" />
-            <result property="AccountObjectType" column="AccountObjectType" />
-            <result property="IP" column="IP" />
-            <result property="ValidFrom" column="ValidFrom" />
-            <result property="ValidTo" column="ValidTo" />
-            <result property="Date" column="Date" />
-        </resultMap>
-        <resultMap id="proc_AccountCache_FindAll_Result" class="AccountCacheInfo">
-            <result property="AccountIdentity" column="AccountIdentity" />
-            <result property="AppKey" column="AppKey" />
-            <result property="AccountCacheValue" column="AccountCacheValue" />
-            <result property="AccountObject" column="AccountObject" />
-            <result property="AccountObjectType" column="AccountObjectType" />
-            <result property="IP" column="IP" />
-            <result property="ValidFrom" column="ValidFrom" />
-            <result property="ValidTo" column="ValidTo" />
-            <result property="Date" column="Date" />
-        </resultMap>
-    </resultMaps>
-    <statements>
-        <insert id="proc_AccountCache_Insert" parameterClass="AccountCacheInfo">
-            INSERT INTO tb_AccountCache
-            (
-                AccountIdentity,
-                AppKey,
-                AccountCacheValue,
-                AccountObject,
-                AccountObjectType,
-                IP,
-                ValidFrom,
-                ValidTo,
-                Date
-            )
-            VALUES
-            (
-                #AccountIdentity#,
-                #AppKey#,
-                #AccountCacheValue#,
-                #AccountObject#,
-                #AccountObjectType#,
-                #IP#,
-                #ValidFrom#,
-                #ValidTo#,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+  <alias>
+    <typeAlias alias="AccountCacheInfo" type="X3Platform.Sessions.AccountCacheInfo,X3Platform.Abstractions" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_AccountCache_FindOne_Result" class="AccountCacheInfo">
+      <result property="AccountIdentity" column="AccountIdentity" />
+      <result property="AppKey" column="AppKey" />
+      <result property="AccountCacheValue" column="AccountCacheValue" />
+      <result property="AccountObject" column="AccountObject" />
+      <result property="AccountObjectType" column="AccountObjectType" />
+      <result property="IP" column="IP" />
+      <result property="Location" column="Location" />
+      <result property="HttpUserAgent" column="HttpUserAgent" />
+      <result property="ValidFrom" column="ValidFrom" />
+      <result property="ValidTo" column="ValidTo" />
+      <result property="Date" column="Date" />
+    </resultMap>
+    <resultMap id="proc_AccountCache_FindAll_Result" class="AccountCacheInfo">
+      <result property="AccountIdentity" column="AccountIdentity" />
+      <result property="AppKey" column="AppKey" />
+      <result property="AccountCacheValue" column="AccountCacheValue" />
+      <result property="AccountObject" column="AccountObject" />
+      <result property="AccountObjectType" column="AccountObjectType" />
+      <result property="IP" column="IP" />
+      <result property="Location" column="Location" />
+      <result property="HttpUserAgent" column="HttpUserAgent" />
+      <result property="ValidFrom" column="ValidFrom" />
+      <result property="ValidTo" column="ValidTo" />
+      <result property="Date" column="Date" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_AccountCache_Insert" parameterClass="AccountCacheInfo">
+      INSERT INTO tb_AccountCache
+      (
+        AccountIdentity,
+        AppKey,
+        AccountCacheValue,
+        AccountObject,
+        AccountObjectType,
+        IP,
+        Location,
+        HttpUserAgent,
+        ValidFrom,
+        ValidTo,
+        Date
+      )
+      VALUES
+      (
+        #AccountIdentity#,
+        #AppKey#,
+        #AccountCacheValue#,
+        #AccountObject#,
+        #AccountObjectType#,
+        #IP#,
+        #Location#,
+        #HttpUserAgent#,
+        #ValidFrom#,
+        #ValidTo#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_AccountCache_Update" parameterClass="AccountCacheInfo">
+      UPDATE tb_AccountCache SET
 
-        <update id="proc_AccountCache_Update" parameterClass="AccountCacheInfo">
-            UPDATE tb_AccountCache SET
+        AccountObject = #AccountObject#,
+        AccountObjectType = #AccountObjectType#,
+        ValidTo = #ValidTo#,
+        Date = CURRENT_TIMESTAMP
 
-                AccountObject = #AccountObject#,
-                AccountObjectType = #AccountObjectType#,
-                ValidTo = #ValidTo#,
-                Date = CURRENT_TIMESTAMP
-
-            WHERE AccountIdentity = #AccountIdentity#
-        </update>
-
-        <delete id="proc_AccountCache_Delete" >
-            DELETE FROM tb_AccountCache WHERE $WhereClause$
-        </delete>
-
-        <select id="proc_AccountCache_FindByAccountIdentity" resultMap="proc_AccountCache_FindOne_Result" >
-            SELECT * FROM tb_AccountCache WHERE AccountIdentity = #AccountIdentity#
-        </select>
-
-        <select id="proc_AccountCache_FindByAccountCacheValue" resultMap="proc_AccountCache_FindOne_Result" >
-            SELECT * FROM tb_AccountCache WHERE AccountCacheValue = #AccountCacheValue#
-        </select>
-
-        <select id="proc_AccountCache_Dump" resultMap="proc_AccountCache_FindAll_Result" >
-            SELECT * FROM tb_AccountCache
-        </select>
-
-        <select id="proc_AccountCache_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_AccountCache WHERE $WhereClause$
-        </select>
-    </statements>
+      WHERE AccountIdentity = #AccountIdentity#
+    </update>
+    <delete id="proc_AccountCache_Delete" >
+      DELETE FROM tb_AccountCache WHERE $WhereClause$
+    </delete>
+    <select id="proc_AccountCache_FindByAccountIdentity" resultMap="proc_AccountCache_FindOne_Result" >
+      SELECT * FROM tb_AccountCache WHERE AccountIdentity = #AccountIdentity#
+    </select>
+    <select id="proc_AccountCache_FindByAccountCacheValue" resultMap="proc_AccountCache_FindOne_Result" >
+      SELECT * FROM tb_AccountCache WHERE AccountCacheValue = #AccountCacheValue#
+    </select>
+    <select id="proc_AccountCache_Dump" resultMap="proc_AccountCache_FindAll_Result" >
+      SELECT * FROM tb_AccountCache
+			<dynamic prepend="WHERE">
+        <isParameterPresent>
+			    <isNotEmpty prepend="AND" property="WhereClause" >
+				    $WhereClause$
+		      </isNotEmpty>
+        </isParameterPresent>
+			</dynamic>
+    </select>
+    <select id="proc_AccountCache_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_AccountCache WHERE $WhereClause$
+    </select>
+  </statements>
 </sqlMap>

@@ -547,7 +547,7 @@ namespace X3Platform.Membership.Ajax
                 // 设置本地服务器状态
                 HttpContext.Current.Response.Cookies.Add(new HttpCookie("session-local-status", "1"));
 
-                MembershipManagement.Instance.AccountLogService.Log(account.Id, "登录", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", ((IAuthorizationObject)member.Account).Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), member.Account.IP));
+                MembershipManagement.Instance.AccountLogService.Log(account.Id, "membership.member.quit", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", ((IAuthorizationObject)member.Account).Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), member.Account.IP));
 
                 FormsAuthentication.SetAuthCookie(loginName, false);
             }
@@ -600,7 +600,7 @@ namespace X3Platform.Membership.Ajax
             }
 
             // 记录帐号操作日志
-            MembershipManagement.Instance.AccountLogService.Log(account.Id, "退出", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", account.Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), IPQueryContext.GetClientIP()));
+            MembershipManagement.Instance.AccountLogService.Log(account.Id, "membership.member.quit", string.Format("【{0}】在 {1} 退出了系统。【IP:{2}】", account.Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), IPQueryContext.GetClientIP()));
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"已成功退出。\"}}";
         }

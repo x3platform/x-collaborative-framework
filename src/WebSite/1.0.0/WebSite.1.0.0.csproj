@@ -235,6 +235,7 @@
     <Content Include="views\main\account\settings\applications.js" />
     <Content Include="views\main\account\settings\avatar.js" />
     <Content Include="views\main\account\settings\contact.js" />
+    <Content Include="views\main\account\settings\security.js" />
     <Content Include="views\main\account\settings\profile.js" />
     <Content Include="views\main\account\sign-in.js" />
     <Content Include="views\main\account\sign-up.js" />
@@ -440,11 +441,13 @@
     <Content Include="views\main\sdk\uuid.cshtml" />
     <Content Include="views\main\sdk\xhrsignature.cshtml" />
     <Content Include="views\main\customizes\customize-content-generate-template.cshtml" />
+    <Content Include="views\main\account\settings\security.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="views\admins\" />
+    <Folder Include="views\main\account\friends\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>
   <PropertyGroup>

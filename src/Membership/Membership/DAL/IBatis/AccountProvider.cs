@@ -417,11 +417,11 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
 
                 if (RegularExpressionHelper.IsNumeric(searchText))
                 {
-                    args.Add("WhereClause", " ( T.CertifiedEmail = '" + searchText + "' ) ");
+                    args.Add("WhereClause", " ( T.CertifiedTelephone = '" + searchText + "' ) ");
                 }
                 else if(RegularExpressionHelper.IsEmail(searchText))
                 {
-                    args.Add("WhereClause", " ( T.CertifiedTelephone = '" + searchText + "' ) ");
+                    args.Add("WhereClause", " ( T.CertifiedEmail = '" + searchText + "' ) ");
                 }
                 else 
                 {

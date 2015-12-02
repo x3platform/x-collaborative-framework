@@ -78,7 +78,7 @@ main.bugs.my.list = {
       outString += '</td>';
       outString += '<td>' + node.accountName + '</td>';
       outString += '<td>' + main.bugs.util.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.bugs.my.list.confirmDelete(\'' + node.id + '\',\'' + node.title + '\',\'' + main.bugs.my.list.paging.currentPage + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
       outString += '</tr>';
 

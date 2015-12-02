@@ -22,6 +22,17 @@ namespace X3Platform.Security.VerificationCode
         }
         #endregion
 
+        #region 属性:IP
+        private string m_IP;
+
+        /// <summary>IP</summary>
+        public string IP
+        {
+            get { return this.m_IP; }
+            set { this.m_IP = value; }
+        }
+        #endregion
+
         #region 属性:ObjectType
         private string m_ObjectType;
 

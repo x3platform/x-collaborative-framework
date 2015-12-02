@@ -111,6 +111,7 @@
     <Compile Include="Ajax\AssignedJobWrapper.cs" />
     <Compile Include="Ajax\ContactsWrapper.cs" />
     <Compile Include="Ajax\JobFamilyWrapper.cs" />
+    <Compile Include="Ajax\OrganizationUnitWrapper.cs" />
     <Compile Include="Ajax\StandardGeneralRoleWrapper.cs" />
     <Compile Include="Ajax\GroupTreeWrapper.cs" />
     <Compile Include="Ajax\GroupTreeNodeWrapper.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="BLL\AccountLogService.cs" />
     <Compile Include="BLL\AccountService.cs" />
     <Compile Include="BLL\JobFamilyService.cs" />
+    <Compile Include="BLL\OrganizationUnitService.cs" />
     <Compile Include="BLL\SettingService.cs" />
     <Compile Include="BLL\AssignedJobService.cs" />
     <Compile Include="BLL\AuthorizationObjectService.cs" />
@@ -136,7 +138,6 @@
     <Compile Include="BLL\JobGradeService.cs" />
     <Compile Include="BLL\JobService.cs" />
     <Compile Include="BLL\MemberService.cs" />
-    <Compile Include="BLL\OrganizationService.cs" />
     <Compile Include="BLL\RoleService.cs" />
     <Compile Include="BLL\StandardGeneralRoleService.cs" />
     <Compile Include="BLL\StandardOrganizationService.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="IBLL\IAccountLogService.cs" />
     <Compile Include="IBLL\IAccountService.cs" />
     <Compile Include="IBLL\IJobFamilyService.cs" />
+    <Compile Include="IBLL\IOrganizationUnitService.cs" />
     <Compile Include="IBLL\ISettingService.cs" />
     <Compile Include="IBLL\IAssignedJobService.cs" />
     <Compile Include="IBLL\IAuthorizationObjectService.cs" />
@@ -178,7 +180,6 @@
     <Compile Include="IBLL\IJobGradeService.cs" />
     <Compile Include="IBLL\IJobService.cs" />
     <Compile Include="IBLL\IMemberService.cs" />
-    <Compile Include="IBLL\IOrganizationService.cs" />
     <Compile Include="IBLL\IRoleService.cs" />
     <Compile Include="IBLL\IStandardGeneralRoleService.cs" />
     <Compile Include="IBLL\IStandardOrganizationService.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="IDAL\IAccountLogProvider.cs" />
     <Compile Include="IDAL\IAccountProvider.cs" />
     <Compile Include="IDAL\IJobFamilyProvider.cs" />
+    <Compile Include="IDAL\IOrganizationUnitProvider.cs" />
     <Compile Include="IDAL\ISettingProvider.cs" />
     <Compile Include="IDAL\IAssignedJobProvider.cs" />
     <Compile Include="IDAL\IAuthorizationObjectProvider.cs" />
@@ -198,7 +200,6 @@
     <Compile Include="IDAL\IJobGradeProvider.cs" />
     <Compile Include="IDAL\IJobProvider.cs" />
     <Compile Include="IDAL\IMemberProvider.cs" />
-    <Compile Include="IDAL\IOrganizationProvider.cs" />
     <Compile Include="IDAL\IRoleProvider.cs" />
     <Compile Include="IDAL\IStandardGeneralRoleProvider.cs" />
     <Compile Include="IDAL\IStandardOrganizationProvider.cs" />
@@ -235,7 +236,6 @@
     <Compile Include="OrganizationCharts\OrganizationChartNodeType.cs" />
     <Compile Include="OrganizationCharts\OrganizationChartNodeStatus.cs" />
     <Compile Include="Ajax\MemberWrapper.cs" />
-    <Compile Include="Ajax\OrganizationWrapper.cs" />
     <Compile Include="Ajax\RoleWrapper.cs" />
     <Compile Include="Authentication\HttpAuthenticationManagement.cs" />
     <Compile Include="Authentication\NLMAuthenticationManagement.cs" />

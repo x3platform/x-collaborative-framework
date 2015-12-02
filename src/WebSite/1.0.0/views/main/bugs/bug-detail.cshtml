@@ -89,7 +89,7 @@
               <td class="table-body-text">提交人</td>
               <td class="table-body-input">@ViewBag.param.AccountName</td>
               <td class="table-body-text">提交时间</td>
-              <td class="table-body-input">@ViewBag.param.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+              <td class="table-body-input">@ViewBag.param.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
             </tr>
           </table>
 
@@ -122,7 +122,7 @@
                   <script type="text/javascript">document.write(main.bugs.util.setColorStatusView('@item.FromStatusView') + ' <i class="fa fa-random"></i> ' + main.bugs.util.setColorStatusView('@item.ToStatusView'))</script>
                   </td>
                 }
-                <td>@item.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@item.CreatedDate.ToString("yyyy-MM-dd HH:mm:ss")</td>
               </tr>
             }
           </table>

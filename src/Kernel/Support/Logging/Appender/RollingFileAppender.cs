@@ -693,8 +693,11 @@ namespace X3Platform.Logging.Appender
                     {
                         m_datePattern = m_datePattern.Replace("\\", "/");
                     }
-
-                    fileName = CombinePath(fileName, m_now.ToString(m_datePattern, System.Globalization.DateTimeFormatInfo.InvariantInfo));
+                    
+                    if (Path.GetExtension(fileName).Length == 0)
+                    {
+                        fileName = CombinePath(fileName, m_now.ToString(m_datePattern, System.Globalization.DateTimeFormatInfo.InvariantInfo));
+                    }
                 }
 
                 if (m_countDirection >= 0)

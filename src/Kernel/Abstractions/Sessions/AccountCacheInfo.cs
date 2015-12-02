@@ -79,6 +79,28 @@ namespace X3Platform.Sessions
         }
         #endregion
 
+        #region 属性:HttpUserAgent
+        private string m_HttpUserAgent;
+
+        /// <summary>帐号会话的Http用户代理信息</summary>
+        public string HttpUserAgent
+        {
+            get { return m_HttpUserAgent; }
+            set { m_HttpUserAgent = value; }
+        }
+        #endregion
+
+        #region 属性:Location
+        private string m_Location;
+
+        /// <summary>帐号会话的位置信息</summary>
+        public string Location
+        {
+            get { return m_Location; }
+            set { m_Location = value; }
+        }
+        #endregion
+
         #region 属性:ValidFrom
         private DateTime m_ValidFrom;
 
