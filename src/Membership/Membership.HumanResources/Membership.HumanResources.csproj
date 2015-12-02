@@ -121,7 +121,7 @@
     <Compile Include="HumanResourceManagement.cs" />
     <Compile Include="IDAL\IMemberExtensionInformationProvider.cs" />
     <Compile Include="Model\MemberExtensionInformation.cs" />
-    <Compile Include="Model\OrganizationExtensionInformation.cs" />
+    <Compile Include="Model\OrganizationUnitExtensionInformation.cs" />
     <Compile Include="Model\RoleExtensionInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
