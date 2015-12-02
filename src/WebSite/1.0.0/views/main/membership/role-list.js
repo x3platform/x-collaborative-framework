@@ -68,7 +68,7 @@ main.membership.role.list = {
       outString += '<td><a href="javascript:main.membership.role.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + node.globalName + '</td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="/apps/paging/membership/role-validator.aspx?roleId=' + node.id + '" target="_blank" >数据验证</a></td>';
       if(node.locking === '1')
       {
@@ -536,9 +536,9 @@ main.membership.role.list = {
   /*#region 函数:setTreeViewNode(value)*/
   setTreeViewNode: function(value)
   {
-    main.membership.role.list.paging.query.scence = 'QueryByOrganizationId';
+    main.membership.role.list.paging.query.scence = 'QueryByOrganizationUnitId';
 
-    main.membership.role.list.paging.query.where.OrganizationId = value;
+    main.membership.role.list.paging.query.where.OrganizationUnitId = value;
     main.membership.role.list.paging.query.orders = ' OrderId ';
 
     main.membership.role.list.getPaging(1);

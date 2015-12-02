@@ -9,6 +9,11 @@ namespace X3Platform.Connect.Model
     /// <summary>应用连接信息</summary>
     public class ConnectInfo : EntityClass, ICacheable
     {
+        // 1 Anonymous 匿名权限 = 系统前端应用 + 匿名用户 + 读取 / 客户端标识(AppKey)
+        // 2 Read 成员读取权限 = 系统前端应用 + 登录用户 + 读取 / 客户端标识(AppKey) + 客户端密钥(AppSecret)
+        // 4 Write 写入权限 = 系统前端应用 + 登录用户 + 写入 / 客户端标识(AppKey) + 客户端密钥(AppSecret) + 访问令牌 (AccessToken)
+        // 8 Privilege 应用管理员特权 = 系统前端应用 + 应用管理员特殊权限 / 第三方应用禁止访问
+
         public ConnectInfo() { }
 
         #region 属性:Id

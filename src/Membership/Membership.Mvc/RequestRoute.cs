@@ -154,7 +154,7 @@
           routeData.Values.Add("controller", "Settings");
           routeData.Values.Add("action", "Applications");
         }
-        else if (Regex.IsMatch(friendlyUrl, @"^settings/admin$"))
+        else if (Regex.IsMatch(friendlyUrl, @"^settings/security$"))
         {
           // 设置 - 安全信息
           routeData.Values.Add("controller", "Settings");

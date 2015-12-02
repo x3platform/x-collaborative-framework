@@ -47,14 +47,6 @@ namespace X3Platform.Sessions.IBLL
         AccountCacheInfo Read(string accountIdentity);
         #endregion
 
-        #region 函数:Read(string accountIdentity)
-        /// <summary>查找缓存记录</summary>
-        /// <param name="accountIdentity">帐号会话唯一标识</param>
-        /// <param name="appKey">App Key</param>
-        /// <returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
-        // AccountCacheInfo Read(string accountIdentity, string appKey);
-        #endregion
-
         #region 函数:ReadWithAccountCacheValue(string accountCacheValue)
         /// <summary>查找缓存记录</summary>
         /// <param name="accountCacheValue">缓存的值</param>
@@ -81,7 +73,7 @@ namespace X3Platform.Sessions.IBLL
 
         #region 函数:FindByAccountCacheValue(string accountCacheValue)
         /// <summary>查找某条记录</summary>
-        /// <param name="value">缓存的值</param>
+        /// <param name="accountCacheValue">帐号缓存的值</param>
         /// <returns>返回一个 实例<see cref="AccountCacheInfo"/>的详细信息</returns>
         AccountCacheInfo FindByAccountCacheValue(string accountCacheValue);
         #endregion
@@ -90,6 +82,13 @@ namespace X3Platform.Sessions.IBLL
         /// <summary>转储所有记录信息</summary>
         /// <returns>返回一个<see cref="AccountCacheInfo"/>列表</returns>
         IList<AccountCacheInfo> Dump();
+        #endregion
+
+        #region 函数:Dump(string accountCacheValue)
+        /// <summary>转储所有记录信息</summary>
+        /// <param name="accountCacheValue">帐号缓存的值</param>
+        /// <returns>返回一个<see cref="AccountCacheInfo"/>列表</returns>
+        IList<AccountCacheInfo> Dump(string accountCacheValue);
         #endregion
 
         #region 函数:Insert(AccountCacheInfo param)

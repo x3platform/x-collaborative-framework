@@ -38,7 +38,7 @@ main.bugs.bug.list = {
     main.bugs.bug.list.paging.query.where.CategoryIndex = $('#query-categoryIndex').val().trim().replace('\\', '\\\\');
     main.bugs.bug.list.paging.query.where.Status = $('#query-status').val();
 
-    main.bugs.bug.list.paging.query.orders = ' UpdateDate DESC ';
+    main.bugs.bug.list.paging.query.orders = ' ModifiedDate DESC ';
 
     main.bugs.bug.list.getPaging(1);
   },
@@ -102,7 +102,7 @@ main.bugs.bug.list = {
       outString += '<td>' + node.accountName + '</td>';
       outString += '<td>' + (node.assignToAccountName === '' ? '<span class="label label-danger">未指定</span>' : node.assignToAccountName) + '</td>';
       outString += '<td>' + main.bugs.util.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       // outString += '<td><a href="/apps/paging/bugzilla/bugzilla-form.aspx?id=' + node.id + '" target="_blank" >编辑</a></td>';
       outString += '<td><a href="javascript:main.bugs.bug.list.confirmDelete(\'' + node.id + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
       outString += '</tr>';

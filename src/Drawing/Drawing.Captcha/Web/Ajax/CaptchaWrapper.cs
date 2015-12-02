@@ -1,26 +1,13 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :OrganizationWrapper.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Drawing.Captcha.Web.Ajax
 {
     #region Using Libraries
     using System;
+    using System.Drawing;
     using System.IO;
     using System.Text;
+    using System.Web;
     using System.Xml;
+    using X3Platform.Security.VerificationCode;
     using X3Platform.Util;
     #endregion
 
@@ -34,15 +21,21 @@ namespace X3Platform.Drawing.Captcha.Web.Ajax
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
-            
+
             string base64String = string.Empty;
 
-            string name = XmlHelper.Fetch("name", doc);
-            
+            string validationType = XmlHelper.Fetch("validationType", doc);
+
             // 初始化验证码
             Captcha captcha = new Captcha(new
             {
-                waves = true
+                Width = 100, // image width in pixels
+                Height = 50, // image height in pixels
+                // Foreground = Color.Black, // font color; html color (#RRGGBB) or System.Drawing.Color
+                Background = Color.White, // background color; html color (#RRGGBB) or System.Drawing.Color
+                KeyLength = 5, // key length
+                Waves = true, // enable waves filter (distortions)
+                Overlay = true // enable overlaying
             });
 
             using (MemoryStream stream = new MemoryStream())
@@ -57,6 +50,8 @@ namespace X3Platform.Drawing.Captcha.Web.Ajax
 
                 base64String = Convert.ToBase64String(buffer);
             }
+
+            HttpContext.Current.Session["captcha"] = captcha.Key;
 
             return "{\"data\":{\"width\":" + captcha.Image.Width + ",\"height\":" + captcha.Image.Height + ",\"base64\":\"" + base64String + "\"},\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}";
         }

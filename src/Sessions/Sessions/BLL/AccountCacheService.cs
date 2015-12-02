@@ -118,6 +118,7 @@ namespace X3Platform.Sessions.BLL
         #region 函数:Write(IAccountStorageStrategy strategy, string appKey, string accountIdentity, IAccountInfo account)
         ///<summary>写入信息</summary>
         ///<param name="strategy">策略</param>
+        ///<param name="appKey">AppKey</param>
         /// <param name="accountIdentity">帐号会话唯一标识</param>
         /// <param name="account">帐号信息</param>
         ///<returns>返回一个实例<see cref="AccountCacheInfo"/>的详细信息</returns>
@@ -165,13 +166,13 @@ namespace X3Platform.Sessions.BLL
         }
         #endregion
 
-        #region 函数:FindByAccountCacheValue(string cacheValue)
+        #region 函数:FindByAccountCacheValue(string accountCacheValue)
         ///<summary>根据缓存的值查找某条记录</summary>
-        ///<param name="cacheValue">缓存的值</param>
+        ///<param name="accountCacheValue">缓存的值</param>
         ///<returns>返回一个 AccountCacheInfo 实例的详细信息</returns>
-        public AccountCacheInfo FindByAccountCacheValue(string cacheValue)
+        public AccountCacheInfo FindByAccountCacheValue(string accountCacheValue)
         {
-            return this.provider.FindByAccountCacheValue(cacheValue);
+            return this.provider.FindByAccountCacheValue(accountCacheValue);
         }
         #endregion
 
@@ -181,6 +182,16 @@ namespace X3Platform.Sessions.BLL
         public IList<AccountCacheInfo> Dump()
         {
             return this.provider.Dump();
+        }
+        #endregion
+
+        #region 函数:Dump(string accountCacheValue)
+        /// <summary>转储所有记录信息</summary>
+        /// <param name="accountCacheValue">帐号缓存的值</param>
+        /// <returns>返回一个<see cref="AccountCacheInfo"/>列表</returns>
+        public IList<AccountCacheInfo> Dump(string accountCacheValue)
+        {
+            return this.provider.Dump(accountCacheValue);
         }
         #endregion
 

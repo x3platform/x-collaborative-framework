@@ -1,18 +1,4 @@
-﻿//=============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-//=============================================================================
-
-using System;
+﻿using System;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Text;
@@ -23,11 +9,11 @@ namespace X3Platform.Membership.HumanResources.Model
     /// 实体类 GroupInfo 
     /// </summary>
     [Serializable]
-    public class OrganizationExtensionInformation : IExtensionInformation
+    public class OrganizationUnitExtensionInformation : IExtensionInformation
     {
-        public OrganizationExtensionInformation() { }
+        public OrganizationUnitExtensionInformation() { }
 
-        public OrganizationExtensionInformation(string id)
+        public OrganizationUnitExtensionInformation(string id)
         {
             this.m_Id = id;
         }

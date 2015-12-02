@@ -25,21 +25,21 @@
     <insert id="proc_VerificationCode_Insert" parameterClass="VerificationCodeInfo">
       INSERT INTO tb_VerificationCode
       (
-      Id,
-      ObjectType,
-      ObjectValue,
-      Code,
-      ValidationType,
-      CreatedDate
+        Id,
+        ObjectType,
+        ObjectValue,
+        Code,
+        ValidationType,
+        CreatedDate
       )
       VALUES
       (
-      #Id#,
-      #ObjectType#,
-      #ObjectValue#,
-      #Code#,
-      #ValidationType#,
-      CURRENT_TIMESTAMP
+        #Id#,
+        #ObjectType#,
+        #ObjectValue#,
+        #Code#,
+        #ValidationType#,
+        CURRENT_TIMESTAMP
       )
     </insert>
     <delete id="proc_VerificationCode_Delete" >

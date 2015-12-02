@@ -33,27 +33,34 @@ x.dom.features.combobox = {
 
         var comboboxName = classNamePrefix + '-' + inputName + '-combobox';
 
-        var selectedText = (typeof (input.attr('selectedText')) == 'undefined') ? '' : input.attr('selectedText');
+        var selectedText = x.isUndefined(input.attr('x-dom-combobox-selectedText')) ? '' : input.attr('x-dom-combobox-selectedText');
 
-        if(typeof (input.attr('url')) != 'undefined')
+        var iconHidden = x.isUndefined(input.attr('x-dom-combobox-icon-hidden')) ? '0' : input.attr('x-dom-combobox-icon-hidden');
+
+        if(!x.isUndefined(input.attr('x-dom-xhr-url')))
         {
-          input.attr('comboboxType', 'dynamic');
+          input.attr('x-dom-combobox-type', 'dynamic');
         }
 
         input.wrap('<div id="' + maskName + '" style="display:none;" ></div>');
 
         $('#' + maskName).after('<input id="' + viewName + '" readonly="readonly" name="' + viewName + '" type="text" value="' + selectedText + '" data-toggle="dropdown" class="' + input.attr('class') + '" style="' + input.attr('style') + '" />');
+        if(iconHidden == '1')
+        {
+          $('#' + viewName).wrap('<div id="' + classNamePrefix + '-' + inputName + '-wrapper" class="dropdown"></div>');
+        }
+        else
+        {
+          $('#' + viewName).wrap('<div class="form-inline"></div>');
+          $('#' + viewName).wrap('<div class="form-group"></div>');
+          $('#' + viewName).wrap('<div id="' + classNamePrefix + '-' + inputName + '-wrapper" class="input-group dropdown"></div>');
+          $('#' + viewName).after('<div class="input-group-addon"><span class="glyphicon glyphicon-list" ></span></div>');
+        }
 
-        $('#' + viewName).wrap('<div class="form-inline"></div>');
-        $('#' + viewName).wrap('<div class="form-group"></div>');
-        $('#' + viewName).wrap('<div id="' + classNamePrefix + '-' + inputName + '-wrapper" class="input-group dropdown"></div>');
-        $('#' + viewName).after('<div class="input-group-addon"><span class="glyphicon glyphicon-list" ></span></div>');
         $('#' + viewName).after('<div id="' + comboboxName + '" class="dropdown-menu" style="display:none;" ></div>');
 
         // 交换相关验证组件需要的标签信息
         x.dom.swap({ from: inputName, to: viewName, attributes: ['dataVerifyWarning', 'dataRegExpWarning', 'dataIgnoreCase', 'dataRegExpName', 'dataRegExp'] });
-
-        var iconHidden = (typeof (input.attr('comboboxIconHidden')) == 'undefined') ? '0' : input.attr('comboboxIconHidden');
 
         var inputView = $('#' + viewName);
 
@@ -69,38 +76,38 @@ x.dom.features.combobox = {
         // x-dom-options='{show:text}'
 
         var options = {
-          show: (typeof (input.attr('show')) == 'undefined') ? 'text' : input.attr('show'),
-          topOffset: (typeof (input.attr('topOffset')) == 'undefined' || input.attr('topOffset') == '') ? '0' : input.attr('topOffset'),
-          widthOffset: (typeof (input.attr('widthOffset')) == 'undefined' || input.attr('widthOffset') == '') ? '0' : input.attr('widthOffset'),
           selectedValue: input.val(),
-          comboboxEmptyItemText: (typeof (input.attr('comboboxEmptyItemText')) == 'undefined') ? undefined : input.attr('comboboxEmptyItemText'),
-          comboboxType: (typeof (input.attr('comboboxType')) == 'undefined') ? 'static' : input.attr('comboboxType'),
-          comboboxIconHidden: (typeof (input.attr('comboboxIconHidden')) == 'undefined') ? '0' : input.attr('comboboxIconHidden'),
-          ajaxMethod: (typeof (input.attr('ajaxMethod')) == 'undefined') ? undefined : input.attr('ajaxMethod'),
-          callback: (typeof (input.attr('callback')) == 'undefined') ? undefined : input.attr('callback')
+          topOffset: (typeof (input.attr('x-dom-topOffset')) == 'undefined' || input.attr('x-dom-topOffset') == '') ? '0' : input.attr('x-dom-topOffset'),
+          widthOffset: (typeof (input.attr('x-dom-widthOffset')) == 'undefined' || input.attr('x-dom-widthOffset') == '') ? '0' : input.attr('x-dom-widthOffset'),
+          show: (typeof (input.attr('x-dom-combobox-show')) == 'undefined') ? 'text' : input.attr('x-dom-combobox-show'),
+          comboboxEmptyItemText: (typeof (input.attr('x-dom-combobox-empty-item-text')) == 'undefined') ? undefined : input.attr('x-dom-combobox-empty-item-text'),
+          comboboxType: (typeof (input.attr('x-dom-combobox-type')) == 'undefined') ? 'static' : input.attr('x-dom-combobox-type'),
+          comboboxIconHidden: (typeof (input.attr('x-dom-combobox-icon-hidden')) == 'undefined') ? '0' : input.attr('x-dom-combobox-icon-hidden'),
+          ajaxMethod: (typeof (input.attr('x-dom-combobox-ajax-method')) == 'undefined') ? undefined : input.attr('x-dom-combobox-ajax-method'),
+          callback: (typeof (input.attr('x-dom-callback')) == 'undefined') ? undefined : input.attr('x-dom-callback')
         };
 
         if(options.comboboxType == 'static')
         {
-          options.list = x.toJSON(input.attr('data'));
+          options.list = x.toJSON(input.attr('x-dom-combobox-data'));
         }
         else if(options.comboboxType == 'dynamic')
         {
-          options.url = input.attr('url');
+          options.url = input.attr('x-dom-xhr-url');
 
-          if(typeof (input.attr('comboboxWhereClause')) != 'undefined')
+          if(!x.isUndefined(input.attr('x-dom-xhr-where')))
           {
-            options.whereClause = input.attr('comboboxWhereClause');
+            options.xhrWhere = input.attr('x-dom-xhr-where');
           }
-          else
+          else if(!x.isUndefined(input.attr('x-dom-xhr-params')) && input.attr('x-dom-xhr-params').trim() != '')
           {
-            options.whereClause = ' Name LIKE ##%{0}%## ';
+            options.xhrParams = x.toJSON(input.attr('x-dom-xhr-params'));
           }
         }
 
         window[comboboxName] = x.ui.pkg.combobox.newCombobox(comboboxName, comboboxName, viewName, inputName, options);
 
-        inputView.bind('focus', function()
+        inputView.on('focus', function()
         {
           window[(this.id.replace('-view', '') + '-combobox')].open();
         });

@@ -33,7 +33,7 @@
                 <td class="table-body-text" style="width:120px"><span class="required-text">应用代码</span></td>
                 <td class="table-body-input" style="width:160px">
                   <input id="applicationKey" name="applicationKey" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ApplicationKey" />
-                  <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.UpdateDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
+                  <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ModifiedDate.ToString(" yyyy-MM-dd HH:mm:ss.fff")" />
                   @if (ViewBag.param.Code == "")
                   {
                     <span class="gray-text">自动生成</span>

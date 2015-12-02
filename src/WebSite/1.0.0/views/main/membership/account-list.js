@@ -70,7 +70,7 @@ main.membership.account.list = {
       outString += '<td>' + node.globalName + '</td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
       // outString += '<td>' + x.date.newTime(node.loginDate).toString('yyyy-MM-dd HH:mm:ss') + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="/membership/account/validator?accountId=' + node.id + '" target="_blank" >数据验证</a></td>';
       if(node.locking === '1')
       {
@@ -789,12 +789,12 @@ main.membership.account.list = {
   /*#region 函数:setTreeViewNode(value)*/
   setTreeViewNode: function(value)
   {
-    // var whereClauseValue = ' T.Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( SELECT Id FROM tb_Role WHERE OrganizationId =  ##' + value + '## ) ) ';
+    // var whereClauseValue = ' T.Id IN ( SELECT AccountId FROM tb_Account_Role WHERE RoleId IN ( SELECT Id FROM tb_Role WHERE OrganizationUnitId =  ##' + value + '## ) ) ';
 
     // main.membership.account.list.paging.whereClause = whereClauseValue;
 
-    main.membership.account.list.paging.query.scence = 'QueryByOrganizationId';
-    main.membership.account.list.paging.query.where.OrganizationId = value;
+    main.membership.account.list.paging.query.scence = 'QueryByOrganizationUnitId';
+    main.membership.account.list.paging.query.where.OrganizationUnitId = value;
     main.membership.account.list.getPaging(1);
   },
   /*#endregion*/

@@ -74,7 +74,7 @@ main.membership.organization.list = {
       outString += '<td><a href="javascript:main.membership.organization.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + node.globalName + '</td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="/apps/paging/membership/organization-validator.aspx?organizationId=' + node.id + '" target="_blank" >数据验证</a></td>';
       if(node.locking === '1')
       {
@@ -167,7 +167,7 @@ main.membership.organization.list = {
     outString += '</td>';
     outString += '<td class="table-body-text" style="width:120px" >所属标准组织</td>';
     outString += '<td class="table-body-input" >';
-    outString += '<input id="standardOrganizationId" name="standardOrganizationId" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.standardOrganizationId, '') + '" selectedText="' + x.isUndefined(param.standardOrganizationName, '') + '" x-dom-feature="contacts" contactTypeText="standard-organization" class="form-control" style="width:120px;" />';
+    outString += '<input id="standardOrganizationUnitId" name="standardOrganizationUnitId" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.standardOrganizationUnitId, '') + '" selectedText="' + x.isUndefined(param.standardOrganizationName, '') + '" x-dom-feature="contacts" contactTypeText="standard-organization" class="form-control" style="width:120px;" />';
     outString += '</td>';
     outString += '</tr>';
 

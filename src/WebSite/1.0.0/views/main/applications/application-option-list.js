@@ -69,7 +69,7 @@ main.applications.application.option.list = {
             outString += '<td><a href="javascript:main.applications.application.option.list.openDialog(\'' + node.name + '\');">' + node.name + '</a></td>';
             outString += '<td style="word-break:break-all;" >' + node.value + '</td>';
             outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-            outString += '<td>' + node.updateDateView + '</td>';
+            outString += '<td>' + node.modifiedDateView + '</td>';
             outString += '<td><a href="javascript:main.applications.application.option.list.confirmDelete(\'' + node.name + '\');">删除</a></td>';
             outString += '</tr>';
 

@@ -29,7 +29,7 @@
                     <input id="hasChild" name="hasChild" type="hidden" x-dom-data-type="value" value="@ViewBag.param.HasChild" />
                     <input id="contextObject" name="contextObject" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ContextObject" />
                     <input id="fullPath" name="fullPath" type="hidden" x-dom-data-type="value" value="@ViewBag.param.FullPath" />
-                    <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.UpdateDate.ToString("yyyy-MM-dd HH:mm:ss.fff")" />
+                    <input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ModifiedDate.ToString("yyyy-MM-dd HH:mm:ss.fff")" />
                     <a href="javascript:x.ui.wizards.getApplicationWizard({targetViewName:'applicationDisplayName',targetValueName:'applicationId'});" class="input-group-addon" title="编辑"><i class="glyphicon glyphicon-modal-window"></i></a>
                   </div>
                 </td>
@@ -80,7 +80,7 @@
               <tr class="table-row-normal-transparent">
                 <td class="table-body-text">打开方式</td>
                 <td class="table-body-input">
-                  <div class="float-left"><input id="target" name="target" type="text" x-dom-data-type="value" x-dom-feature="combobox" value="@ViewBag.param.Target" selectedtext="@ViewBag.param.TargetView" topoffset="-1" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_应用链接打开方式\#\# ) " class="form-control" style="width:200px;" /></div>
+                  <div class="float-left"><input id="target" name="target" type="text" value="@ViewBag.param.Target" x-dom-data-type="value" x-dom-feature="combobox" x-dom-combobox-selectedText="@ViewBag.param.TargetView" x-dom-topOffset="-1" x-dom-xhr-url="/api/application.setting.getCombobox.aspx" x-dom-xhr-params="{applicationSettingGroupName:'应用管理_应用链接打开方式'}" class="form-control" style="width:200px;" /></div>
                 </td>
               </tr>
               <tr class="table-row-normal-transparent">
@@ -98,7 +98,7 @@
               <tr class="table-row-normal-transparent">
                 <td class="table-body-text">展现类型</td>
                 <td class="table-body-input">
-                  <div class="float-left"><input id="displayType" name="displayType" type="text" x-dom-data-type="value" x-dom-feature="combobox" value="@ViewBag.param.DisplayType" selectedtext="@ViewBag.param.DisplayTypeView" topoffset="-1" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_应用菜单展现方式\#\# ) " class="form-control" style="width:200px;" /></div>
+                  <div class="float-left"><input id="displayType" name="displayType" type="text" value="@ViewBag.param.DisplayType" x-dom-data-type="value" x-dom-feature="combobox" x-dom-combobox-selectedText="@ViewBag.param.DisplayTypeView" x-dom-topOffset="-1" x-dom-xhr-url="/api/application.setting.getCombobox.aspx" x-dom-xhr-params="{applicationSettingGroupName:'应用管理_应用菜单展现方式'}" class="form-control" style="width:200px;" /></div>
                 </td>
               </tr>
               <tr class="table-row-normal-transparent">

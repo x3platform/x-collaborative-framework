@@ -60,7 +60,7 @@ main.membership.general.role.list = {
             outString += '<tr class="' + classNameValue + '">';
             outString += '<td><a href="javascript:main.membership.general.role.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
             outString += '<td>' + x.customForm.setColorStatusView(node.status) + '</td>';
-            outString += '<td>' + node.updateDateView + '</td>';
+            outString += '<td>' + node.modifiedDateView + '</td>';
             if(node.locking === '1')
             {
                 outString += '<td><span class="gray-text">删除</span></td>';

@@ -49,10 +49,10 @@ namespace X3Platform.Membership.IBLL
         AccountLogInfo Save(AccountLogInfo param);
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        void Delete(string ids);
+        /// <param name="id">实例的标识</param>
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
@@ -85,6 +85,13 @@ namespace X3Platform.Membership.IBLL
         /// <param name="length">条数</param>
         /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
         IList<AccountLogInfo> FindAll(string whereClause, int length);
+        #endregion
+
+        #region 函数:FindAllByAccountId(string accountId)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回所有实例<see cref="AccountLogInfo"/>的详细信息</returns>
+        IList<AccountLogInfo> FindAllByAccountId(string accountId);
         #endregion
 
         // -------------------------------------------------------

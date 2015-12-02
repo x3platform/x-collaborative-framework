@@ -106,6 +106,9 @@
                     // 设置会话信息
                     ConnectAccessTokenInfo token = ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id);
 
+                    // 记录日志
+                    MembershipManagement.Instance.AccountLogService.Log(account.Id, "connect.auth.authorize", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", account.Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), account.IP));
+
                     string sessionId = token.AccountId + "-" + token.Id;
 
                     KernelContext.Current.AuthenticationManagement.AddSession(clientId, sessionId, account);

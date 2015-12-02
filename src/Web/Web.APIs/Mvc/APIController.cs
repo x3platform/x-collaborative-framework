@@ -17,6 +17,7 @@
     using X3Platform.Web.APIs.Configuration;
     using X3Platform.Web.APIs.Methods;
     using X3Platform.Security;
+    using X3Platform.Apps.Model;
 
     /// <summary></summary>
     public sealed class APIController : Controller
@@ -50,9 +51,21 @@
             }
             else
             {
-                // 尝试执行 Application Method 中设置的方法.
-                if (Authenticate(context))
+                // 匿名方法允许用户跳过验证直接访问
+                // 应用方法信息
+                ApplicationMethodInfo method = AppsContext.Instance.ApplicationMethodService.FindOneByName(methodName);
+
+                if (method == null)
                 {
+                    logger.Warn("unkown methodName:" + methodName + ", please contact the administrator.");
+
+                    responseText = "{\"message\":{\"returnCode\":1,\"value\":\"【" + methodName + "】方法不存在，请联系管理员检查配置信息。\"}}";
+                }
+                else if (method.EffectScope == 1 || Authenticate(context, methodName))
+                {
+                    // 直接执行匿名方法 或者 验证需要身份验证方法
+                
+                    // 尝试执行 Application Method 中设置的方法.
                     responseText = APIHub.ProcessRequest(context, methodName, logger, MethodInvoker.Invoke);
                 }
                 else
@@ -78,7 +91,7 @@
         /// <summary>验证请求合法性</summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public bool Authenticate(HttpContextBase context)
+        public bool Authenticate(HttpContextBase context, string method)
         {
             // 获取客户端签名 clientId 和 clientSecret 或 clientId, clientSignature, timestamp, nonce
 

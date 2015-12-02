@@ -4,4 +4,10 @@ keys:
   SpringObjectFile: assembly://X3Platform.Abstractions/X3Platform.Security.VerificationCode/defaults.Objects.xml
   # IBatis : 配置映射文件
   IBatisMapping: embedded:X3Platform.Security.VerificationCode.defaults.IBatis.SqlMap.xml
+  # 验证码获取的间隔时间，默认为120秒，单位:秒
+  SendInterval: 120
+  # 24小时内，同一IP地址请求的最大次数；
+  IP24HourMaxRequestCount: 100
+  # 24小时内，同一手机号码请求的最大次数；
+  PhoneNumber24HourMaxRequestCount: 5 
 ...

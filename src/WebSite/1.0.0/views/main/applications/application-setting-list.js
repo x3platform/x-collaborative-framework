@@ -66,7 +66,7 @@ main.applications.application.setting.list = {
       outString += '<td><a href="javascript:main.applications.application.setting.list.openDialog(\'' + node.id + '\');">' + node.text + '</a></td>';
       outString += '<td>' + node.value + '</td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.applications.application.setting.list.openDialog(\'' + node.id + '\');">编辑</a></td>';
       outString += '<td><a href="javascript:main.applications.application.setting.list.confirmDelete(\'' + node.id + '\');">删除</a></td>';
       outString += '</tr>';

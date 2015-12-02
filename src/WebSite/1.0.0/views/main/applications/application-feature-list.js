@@ -73,7 +73,7 @@ main.applications.application.feature.list = {
       outString += '<td><a href="javascript:main.applications.application.feature.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + (node.type == 'function' ? '功能点' : '动作点') + '</td>';
       outString += '<td>' + (node.status == '1' ? '<span class="green-text">启用</span>' : '<span class="red-text">禁用</span>') + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.applications.application.feature.list.openDialog(\'' + node.id + '\');" >编辑</a></td>';
       outString += '<td><a href="javascript:main.applications.application.feature.list.confirmDelete(\'' + node.id + '\',\'' + node.name + '\');" >删除</a></td>';
       outString += '</tr>';
