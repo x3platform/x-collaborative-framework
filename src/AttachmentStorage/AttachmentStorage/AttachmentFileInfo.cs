@@ -141,16 +141,18 @@ namespace X3Platform.AttachmentStorage
                 {
                     m_FileDataLoaded = true;
 
-                    //
+                    // -------------------------------------------------------
                     // 读取 二进制数据
-                    //
+                    // -------------------------------------------------------
 
                     string path = VirtualPath.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.PhysicalUploadFolder);
 
-                    if (path.IndexOf("/") == 0)
+                    if (path.IndexOf("~/") == 0)
                     {
                         path = VirtualPathHelper.GetPhysicalPath(path);
                     }
+
+                    path = DirectoryHelper.FormatLocalPath(path);
 
                     if (File.Exists(path))
                     {
