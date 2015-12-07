@@ -70,7 +70,7 @@
         param.TopExpiryDate = DateHelper.DefaultTime;
         param.HotExpiryDate = DateHelper.DefaultTime;
         param.Status = -1;
-        param.CreateDate = param.UpdateDate = DateTime.Now;
+        param.CreatedDate = param.ModifiedDate = DateTime.Now;
       }
       else
       {

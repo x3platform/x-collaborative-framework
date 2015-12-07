@@ -11,7 +11,7 @@
       <result property="ThreadId" column="ThreadId" />
       <result property="Title" column="Title" />
       <result property="Content" column="Content" />
-      <result property="UpdateDate" column="UpdateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
       <result property="Sign" column="Sign" />
       <result property="ApplicationTag" column="ApplicationTag" />
     </resultMap>
@@ -21,7 +21,7 @@
       <result property="ThreadId" column="ThreadId" />
       <result property="Title" column="Title" />
       <result property="Content" column="Content" />
-      <result property="UpdateDate" column="UpdateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
       <result property="Sign" column="Sign" />
       <result property="ApplicationTag" column="ApplicationTag" />
     </resultMap>
@@ -33,7 +33,7 @@
       <result property="ThreadId" column="ThreadId" />
       <result property="Title" column="Title" />
       <result property="Content" column="Content" />
-      <result property="UpdateDate" column="UpdateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
       <result property="Sign" column="Sign" />
       <result property="ApplicationTag" column="ApplicationTag" />
     </resultMap>
@@ -45,7 +45,7 @@
       Id,
       AccountId,
       FollowAccountId,
-      CreateDate
+      CreatedDate
       )
       VALUES
       (
@@ -60,10 +60,10 @@
       SELECT *,substring('$ApplicationStore$',11,len('$ApplicationStore$')-10) AS ApplicationTag FROM (
       SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex FROM (
       SELECT * FROM (
-      SELECT Id,AccountId,Id as ThreadId,Title,Content,UpdateDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
+      SELECT Id,AccountId,Id as ThreadId,Title,Content,ModifiedDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
       AccountId $WhereClause$ AND Anonymous = 0 AND Status = 1
       UNION ALL
-      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.UpdateDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
+      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.ModifiedDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
       LEFT JOIN $ApplicationStore$_Thread AS T ON C.ThreadId=T.Id WHERE C.AccountId $WhereClause$ AND C.Anonymous = 0
       ) AS Temp1
       ) AS Temp2
@@ -75,10 +75,10 @@
       SELECT TableIndex.*,Temp.AccountName,Temp.IconPath,substring('$ApplicationStore$',11,len('$ApplicationStore$')-10) AS ApplicationTag FROM (
       SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex FROM (
       SELECT * FROM (
-      SELECT Id,AccountId,Id as ThreadId,Title,Content,UpdateDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
+      SELECT Id,AccountId,Id as ThreadId,Title,Content,ModifiedDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
       AccountId $WhereClause$ AND Anonymous = 0 AND Status = 1
       UNION ALL
-      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.UpdateDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
+      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.ModifiedDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
       LEFT JOIN $ApplicationStore$_Thread AS T ON C.ThreadId=T.Id WHERE C.AccountId $WhereClause$ AND C.Anonymous = 0
       ) AS Temp1
       ) AS Temp2
@@ -89,10 +89,10 @@
 
     <select id="proc_Forum_Follow_Account_GetRowCount" >
       SELECT COUNT(Id) AS 'RowCount' FROM (
-      SELECT Id,AccountId,Id as ThreadId,Title,Content,UpdateDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
+      SELECT Id,AccountId,Id as ThreadId,Title,Content,ModifiedDate,1 AS Sign FROM $ApplicationStore$_Thread WHERE
       AccountId $WhereClause$ AND Anonymous = 0 AND Status = 1
       UNION ALL
-      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.UpdateDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
+      SELECT C.Id,C.AccountId,C.ThreadId,T.Title,C.Content,C.ModifiedDate,2 AS Sign FROM $ApplicationStore$_Comment AS C
       LEFT JOIN $ApplicationStore$_Thread AS T ON C.ThreadId=T.Id WHERE C.AccountId $WhereClause$ AND C.Anonymous = 0
       ) AS Temp
     </select>

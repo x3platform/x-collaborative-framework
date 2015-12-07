@@ -15,9 +15,6 @@ namespace X3Platform.Membership
     /// <summary>人员关系管理</summary>
     public sealed class MembershipManagement : CustomPlugin
     {
-        /// <summary>日志记录器</summary>
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         #region 属性:Name
         /// <summary></summary>
         public override string Name
@@ -99,6 +96,26 @@ namespace X3Platform.Membership
         public IAccountGrantService AccountGrantService
         {
             get { return this.m_AccountGrantService; }
+        }
+        #endregion
+
+        #region 属性:AccountBindingService
+        private IAccountBindingService m_AccountBindingService;
+
+        /// <summary>帐号第三方应用绑定信息</summary>
+        public IAccountBindingService AccountBindingService
+        {
+            get { return this.m_AccountBindingService; }
+        }
+        #endregion
+
+        #region 属性:AccountFriendService
+        private IAccountFriendService m_AccountFriendService;
+
+        /// <summary>帐号好友信息</summary>
+        public IAccountFriendService AccountFriendService
+        {
+            get { return this.m_AccountFriendService; }
         }
         #endregion
 
@@ -287,7 +304,7 @@ namespace X3Platform.Membership
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message, ex);
+                KernelContext.Log.Error(ex.Message, ex);
                 throw ex;
             }
 
@@ -316,6 +333,8 @@ namespace X3Platform.Membership
             this.m_AccountService = objectBuilder.GetObject<IAccountService>(typeof(IAccountService));
             this.m_AccountLogService = objectBuilder.GetObject<IAccountLogService>(typeof(IAccountLogService));
             this.m_AccountGrantService = objectBuilder.GetObject<IAccountGrantService>(typeof(IAccountGrantService));
+            this.m_AccountBindingService = objectBuilder.GetObject<IAccountBindingService>(typeof(IAccountBindingService));
+            this.m_AccountFriendService = objectBuilder.GetObject<IAccountFriendService>(typeof(IAccountFriendService));
             this.m_MemberService = objectBuilder.GetObject<IMemberService>(typeof(IMemberService));
             this.m_OrganizationUnitService = objectBuilder.GetObject<IOrganizationUnitService>(typeof(IOrganizationUnitService));
             this.m_RoleService = objectBuilder.GetObject<IRoleService>(typeof(IRoleService));

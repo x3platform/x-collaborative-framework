@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.AccountBindingProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="AccountBindingInfo" type="X3Platform.Membership.Model.AccountBindingInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Account_Binding_FindOne_Result" class="AccountBindingInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="BindingType" column="BindingType" />
+            <result property="BindingObjectId" column="BindingObjectId" />
+            <result property="BindingOptions" column="BindingOptions" />
+            <result property="CreatedDate" column="CreatedDate" />
+        </resultMap>
+        <resultMap id="proc_Account_Binding_FindAll_Result" class="AccountBindingInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="BindingType" column="BindingType" />
+            <result property="BindingObjectId" column="BindingObjectId" />
+            <result property="BindingOptions" column="BindingOptions" />
+            <result property="CreatedDate" column="CreatedDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_Account_Binding_Insert" parameterClass="AccountBindingInfo">
+            INSERT INTO tb_Account_Binding 
+            (
+                Id,
+                AccountId,
+                BindingType,
+                BindingObjectId,
+                BindingOptions,
+                CreatedDate
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #BindingType#,
+                #BindingObjectId#,
+                #BindingOptions#,
+                #CreatedDate#
+            )
+        </insert>
+
+        <update id="proc_Account_Binding_Update" parameterClass="AccountBindingInfo">
+            UPDATE tb_Account_Binding SET
+
+                AccountId = #AccountId#,
+                BindingType = #BindingType#,
+                BindingObjectId = #BindingObjectId#,
+                BindingOptions = #BindingOptions#,
+                CreatedDate = #CreatedDate#
+
+            WHERE Id = #Id#
+        </update>
+        <delete id="proc_Account_Binding_Delete" >
+            DELETE FROM tb_Account_Binding WHERE $WhereClause$
+        </delete>
+        <select id="proc_Account_Binding_FindOne" resultMap="proc_Account_Binding_FindOne_Result" >
+            SELECT * FROM tb_Account_Binding WHERE Id = #Id#
+        </select>
+        <select id="proc_Account_Binding_FindAll#MySql" resultMap="proc_Account_Binding_FindAll_Result" >
+            SELECT * FROM tb_Account_Binding T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue="0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Account_Binding_FindAll#SqlServer" resultMap="proc_Account_Binding_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM tb_Account_Binding T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>            
+        </select>
+        <select id="proc_Account_Binding_GetPaging#MySql"  resultMap="proc_Account_Binding_FindAll_Result" >
+            SELECT * FROM tb_Account_Binding T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Account_Binding_GetPaging#SqlServer" resultMap="proc_Account_Binding_FindAll_Result" >
+          SELECT * 
+            FROM (
+                   SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+                     FROM tb_Account_Binding T
+
+                    <dynamic prepend="WHERE">
+                        <isParameterPresent>
+                            <isNotEmpty prepend="AND" property="WhereClause" >
+                                $WhereClause$
+                            </isNotEmpty>
+                        </isParameterPresent>
+                    </dynamic>) TableIndex
+
+          WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+        <select id="proc_Account_Binding_GetRowCount" >
+            SELECT COUNT(*) AS "RowCount" FROM tb_Account_Binding T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Account_Binding_IsExist" >
+            SELECT COUNT(0) AS "Count" FROM tb_Account_Binding WHERE $WhereClause$
+        </select>
+    </statements>
+</sqlMap>

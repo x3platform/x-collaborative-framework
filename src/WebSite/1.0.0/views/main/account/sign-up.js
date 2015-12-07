@@ -1,96 +1,128 @@
-﻿x.dom.ready(function()
+﻿(function(x, document)
 {
-    // 帐号输入框事件
-    x.dom('#loginName').on('blur', function()
-    {
-        this.className = 'window-sign-up-input-style';
-    });
-
-    x.dom('#loginName').on('focus', function()
-    {
-        this.className = 'window-sign-up-input-style-over';
-    });
-
-    // 密码输入框事件
-    x.dom('#originalPassword').on('blur', function()
-    {
-        this.className = 'window-sign-up-input-style';
-    });
-
-    x.dom('#originalPassword').on('focus', function()
-    {
-        this.className = 'window-sign-up-input-style-over';
-    });
-
-    function checkAndSignUp()
-    {
-        var email = x.dom('#email').val();
-        var originalPassword = x.dom('#originalPassword').val();
-
-        x.dom('#password').val(CryptoJS.SHA1(originalPassword).toString());
-
-        if (x.dom('#email').val() == '' || originalPassword == '')
+    var main = {
+        // 加载验证码
+        loadCaptcha: function()
         {
-            x.msg('必须填写电子邮箱和密码。');
-            return;
-        }
+            x.net.xhr('/api/kernel.security.verificationCode.captcha.create.aspx?width=100&height=34', {
+                callback: function(responseText)
+                {
+                    var result = x.toJSON(responseText);
 
-        if (originalPassword.length < 6)
+                    $('#captchaImage')[0].src = 'data:image/png;base64,' + result.data.base64;
+                    $('#captchaImage').css({
+                        'width': result.data.width,
+                        'height': result.data.height,
+                        'border': '1px solid #ccc',
+                        'border-radius': '5px',
+                        'margin-left': '10px'
+                    });
+
+                    // console.log(responseText);
+                }
+            });
+        },
+
+        sendVerificationCode: function()
         {
-            x.msg('密码长度必须大于八位。');
-            return;
-        }
+            var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
-        if (originalPassword != x.dom('#confirmPassword').val())
+            outString += '<request>';
+            outString += '<captcha><![CDATA[' + x.dom('#captcha').val() + ']]></captcha>';
+            outString += '<email><![CDATA[' + x.dom('#email').val() + ']]></email>';
+            outString += '<validationType>注册帐号</validationType>';
+            outString += '</request>';
+
+            x.net.xhr('/api/hr.general.sendVerificationMail.aspx', outString, {
+                callback: function(response)
+                {
+                    var result = x.toJSON(response).message;
+
+                    switch(Number(result.returnCode))
+                    {
+                        case 0:
+                            break;
+
+                        case 1:
+                            x.msg(result.value);
+                            break;
+                    }
+                }
+            });
+        },
+
+        checkAndSignUp: function()
         {
-            x.dom('#originalPassword').val('');
-            x.dom('#confirmPassword').val('');
+            var email = x.dom('#email').val();
+            var originalPassword = x.dom('#originalPassword').val();
 
-            x.msg('密码和确认密码不匹配，请重新输入。');
-            return;
-        }
+            x.dom('#password').val(CryptoJS.SHA1(originalPassword).toString());
 
-        /*
-        var outString = '<?xml version="1.0" encoding="utf-8" ?>';
-
-        outString += '<ajaxStorage>';
-        outString += '<loginName><![CDATA[' + $('#loginName').val() + ']]></loginName>';
-        outString += '<password><![CDATA[' + $('#password').val() + ']]></password>';
-        outString += '</ajaxStorage>';
-        */
-
-        x.dom('.loading').css({ 'display': '' });
-
-        x.net.xhr('/api/membership.member.register.aspx', x.dom.data.serialize(), function(response)
-        {
-            var result = x.toJSON(response).message;
-
-            switch (Number(result.returnCode))
+            if(x.dom('#email').val() == '' || originalPassword == '')
             {
-                case 0:
-                    var returnUrl = decodeURIComponent(x.net.request.find("returnUrl"));
-                    window.location.href = (returnUrl == '') ? '/' : returnUrl;
-                    break;
-
-                case 1:
-                    x.msg(result.value);
-                    break;
+                x.msg('必须填写电子邮箱和密码。');
+                return;
             }
 
-            x.dom('.loading').css({ 'display': 'none' });
-        });
-    }
+            if(originalPassword.length < 6)
+            {
+                x.msg('密码长度必须大于八位。');
+                return;
+            }
 
-    x.dom('#password').on('keyup', function(event)
+            if(originalPassword != x.dom('#confirmPassword').val())
+            {
+                x.dom('#originalPassword').val('');
+                x.dom('#confirmPassword').val('');
+
+                x.msg('密码和确认密码不匹配，请重新输入。');
+                return;
+            }
+
+            x.dom('.loading').css({ 'display': '' });
+
+            x.net.xhr('/api/membership.member.register.aspx', x.dom.data.serialize(), function(response)
+            {
+                var result = x.toJSON(response).message;
+
+                switch(Number(result.returnCode))
+                {
+                    case 0:
+                        var returnUrl = decodeURIComponent(x.net.request.find("returnUrl"));
+                        window.location.href = (returnUrl == '') ? '/' : returnUrl;
+                        break;
+
+                    case 1:
+                        x.msg(result.value);
+                        break;
+                }
+
+                x.dom('.loading').css({ 'display': 'none' });
+            });
+        }
+
+    };
+
+    x.dom.ready(function()
     {
-        event = (typeof (event) == 'undefined') ? window.event : event;
+        x.dom('#password').on('keyup', function(event)
+        {
+            event = (typeof (event) == 'undefined') ? window.event : event;
 
-        if (event.keyCode == 13) { checkAndSignUp(); }
+            if(event.keyCode == 13) { main.checkAndSignUp(); }
+        });
+
+        x.dom('#captchaImage').on('click', main.loadCaptcha);
+
+        x.dom('#btnVerificationCode').on('click', main.sendVerificationCode);
+
+        // 登录按钮事件事件
+        x.dom('#btnSubmit').on('click', main.checkAndSignUp);
+
+        // 加载表单特性
+        x.dom.features.bind();
+
+        // 初次加载
+        main.loadCaptcha();
     });
-
-    // 登录按钮事件事件
-    x.dom('#btnSubmit').on('click', checkAndSignUp);
-
-    // 加载表单特性
-    x.dom.features.bind();
-});
+})(x, document);

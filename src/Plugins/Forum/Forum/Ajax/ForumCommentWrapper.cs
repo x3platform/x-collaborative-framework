@@ -38,8 +38,8 @@
       param.IP = IPQueryContext.GetClientIP();
       param.AccountId = KernelContext.Current.User.Id;
       param.AccountName = KernelContext.Current.User.Name;
-      param.UpdateDate = System.DateTime.Now;
-      param.CreateDate = System.DateTime.Now;
+      param.ModifiedDate = System.DateTime.Now;
+      param.CreatedDate = System.DateTime.Now;
 
       // 是否有附件
       param.AttachmentFileCount = AttachmentStorageContext.Instance.AttachmentFileService.FindAllByEntityId(KernelContext.ParseObjectType(typeof(ForumCommentInfo)), param.Id).Count;

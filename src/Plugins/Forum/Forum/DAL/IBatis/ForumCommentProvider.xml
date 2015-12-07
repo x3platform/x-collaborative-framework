@@ -16,8 +16,8 @@
       <result property="AttachmentFileCount" column="AttachmentFileCount" />
       <result property="IP" column="IP" />
       <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Forum_Comment_FindAll_Result" class="ForumCommentInfo">
       <result property="Id" column="Id" />
@@ -30,8 +30,8 @@
       <result property="AttachmentFileCount" column="AttachmentFileCount" />
       <result property="IP" column="IP" />
       <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
       <result property="RowIndex" column="RowIndex" />
     </resultMap>
     <resultMap id="proc_Forum_Comment_FindAllQueryObject_Result" class="ForumCommentQueryInfo">
@@ -52,8 +52,8 @@
       <result property="AttachmentFileCount" column="AttachmentFileCount" />
       <result property="IP" column="IP" />
       <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
       <result property="RowIndex" column="RowIndex" />
     </resultMap>
   </resultMaps>
@@ -72,8 +72,8 @@
         AttachmentFileCount,
         IP,
         UpdateHistoryLog,
-        UpdateDate,
-        CreateDate
+        ModifiedDate,
+        CreatedDate
       )
       VALUES
       (
@@ -98,7 +98,7 @@
         Content = #Content#,
         UpdateHistoryLog = #UpdateHistoryLog#,
         IP = #IP#,
-        UpdateDate = CURRENT_TIMESTAMP
+        ModifiedDate = CURRENT_TIMESTAMP
 
       WHERE Id = #Id#
     </update>
@@ -115,20 +115,20 @@
       UPDATE tb_Forum_Comment SET ReplyCommentId = '' WHERE $WhereClause$
     </update>
     <select id="proc_Forum_Comment_FindOne" resultMap="proc_Forum_Comment_FindOne_Result" >
-      SELECT *,ROW_NUMBER() OVER(ORDER BY CreateDate ASC) AS RowIndex FROM tb_Forum_Comment T WHERE Id = #Id#
+      SELECT *,ROW_NUMBER() OVER(ORDER BY CreatedDate ASC) AS RowIndex FROM tb_Forum_Comment T WHERE Id = #Id#
     </select>
     <select id="proc_Forum_Comment_FindOneByTheadId" resultMap="proc_Forum_Comment_FindOne_Result" >
       SELECT *
 
-      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY CreateDate ASC) AS RowIndex
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY CreatedDate ASC) AS RowIndex
 
       FROM tb_Forum_Comment T WHERE THREADID=#ThreadId#) TableIndex WHERE Id = #Id#
     </select>
     <select id="proc_Forum_Comment_GetLastComment#MySql" resultMap="proc_Forum_Comment_FindOne_Result" >
-      SELECT * FROM (SELECT T1.*,@ROWNUM:=@ROWNUM+1 AS RowIndex FROM tb_Forum_Comment T1 JOIN (SELECT @ROWNUM:=0) R WHERE ThreadId = #ThreadId# ORDER BY CreateDate DESC) T limit 0,1
+      SELECT * FROM (SELECT T1.*,@ROWNUM:=@ROWNUM+1 AS RowIndex FROM tb_Forum_Comment T1 JOIN (SELECT @ROWNUM:=0) R WHERE ThreadId = #ThreadId# ORDER BY CreatedDate DESC) T limit 0,1
     </select>
     <select id="proc_Forum_Comment_GetLastComment#SqlServer" resultMap="proc_Forum_Comment_FindOne_Result" >
-      SELECT TOP (1) *,ROW_NUMBER() OVER(ORDER BY  CreateDate DESC) AS RowIndex FROM tb_Forum_Comment WHERE ThreadId = #ThreadId#
+      SELECT TOP (1) *,ROW_NUMBER() OVER(ORDER BY  CreatedDate DESC) AS RowIndex FROM tb_Forum_Comment WHERE ThreadId = #ThreadId#
     </select>
     <select id="proc_Forum_Comment_QueryCount" resultClass="int">
       SELECT COUNT(0) FROM tb_Forum_Comment WHERE ThreadId = #TheadId#

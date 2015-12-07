@@ -28,8 +28,8 @@
       <result property="IP" column="IP" />
       <result property="Status" column="Status" />
       <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Forum_Thread_FindAll_Result" class="ForumThreadInfo">
       <result property="Id" column="Id" />
@@ -54,8 +54,8 @@
       <result property="IP" column="IP" />
       <result property="Status" column="Status" />
       <result property="UpdateHistoryLog" column="UpdateHistoryLog" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Forum_Thread_FindAllQueryObject_Result" class="ForumThreadQueryInfo">
       <result property="Id" column="Id" />
@@ -77,8 +77,8 @@
       <result property="Anonymous" column="Anonymous" />
       <result property="IP" column="IP" />
       <result property="Status" column="Status" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -106,8 +106,8 @@
         IP,
         Status,
         UpdateHistoryLog,
-        UpdateDate,
-        CreateDate
+        ModifiedDate,
+        CreatedDate
       )
       VALUES
       (
@@ -152,7 +152,7 @@
         IP = #IP#,
         Status=#Status#,
         UpdateHistoryLog = #UpdateHistoryLog#,
-        UpdateDate = CURRENT_TIMESTAMP
+        ModifiedDate = CURRENT_TIMESTAMP
 
       WHERE Id = #Id#
     </update>
@@ -175,7 +175,7 @@
       SELECT * FROM tb_Forum_Thread T WHERE Code = #Code#
     </select>
     <select id="proc_Forum_Thread_FindOneByNew" resultMap="proc_Forum_Thread_FindOne_Result" >
-      SELECT TOP (1) * FROM tb_Forum_Thread WHERE AccountId=#AccountId# ORDER BY CreateDate DESC
+      SELECT TOP (1) * FROM tb_Forum_Thread WHERE AccountId=#AccountId# ORDER BY CreatedDate DESC
     </select>
     <select id="proc_Forum_Thread_FindAll#MySql" resultMap="proc_Forum_Thread_FindAll_Result" >
       SELECT * FROM tb_Forum_Thread T
@@ -358,18 +358,18 @@
              INNER JOIN (
               SELECT @ROWNUM:=@ROWNUM+1,
                      Id,
-                     CONCAT(CAST(YEAR(CreateDate) AS CHAR)
-                            ,func_PaddingLeft(CAST(MONTH(CreateDate) AS CHAR), '0', 2)
+                     CONCAT(CAST(YEAR(CreatedDate) AS CHAR)
+                            ,func_PaddingLeft(CAST(MONTH(CreatedDate) AS CHAR), '0', 2)
                             ,func_PaddingLeft(CAST(@ROWNUM AS CHAR), '0', 3)
                      ) AS RowIndex
                 FROM tb_Forum_Thread JOIN (SELECT @ROWNUM:=0) R 
-               WHERE CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
+               WHERE CreatedDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
              ) AS TableIndex
              
          SET Code = TableIndex.RowIndex
         
        WHERE TableIndex.Id = tb_Forum_Thread.Id
-             AND tb_Forum_Thread.CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
+             AND tb_Forum_Thread.CreatedDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
     </update>
     <update id="proc_Forum_Thread_GenerateCode#SqlServer" >
       UPDATE tb_Forum_Thread SET
@@ -377,19 +377,19 @@
       FROM
         (SELECT
             Id,
-            CONVERT(NVARCHAR,YEAR(CreateDate))
-             + dbo.func_PaddingLeft(CONVERT(NVARCHAR,MONTH(CreateDate)), '0', 2)
-             + dbo.func_PaddingLeft(CONVERT(NVARCHAR,ROW_NUMBER() OVER(ORDER BY CreateDate)), '0', 3) AS RowIndex
+            CONVERT(NVARCHAR,YEAR(CreatedDate))
+             + dbo.func_PaddingLeft(CONVERT(NVARCHAR,MONTH(CreatedDate)), '0', 2)
+             + dbo.func_PaddingLeft(CONVERT(NVARCHAR,ROW_NUMBER() OVER(ORDER BY CreatedDate)), '0', 3) AS RowIndex
             FROM tb_Forum_Thread
             WHERE
-            CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997') TableIndex
+            CreatedDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997') TableIndex
 
       WHERE
         TableIndex.Id = tb_Forum_Thread.Id
-        AND tb_Forum_Thread.CreateDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
+        AND tb_Forum_Thread.CreatedDate BETWEEN '$BeginDate$ 00:00:00.000' AND '$EndDate$ 23:59:59.997'
     </update>
     <procedure id="proc_Forum_Thread_RebuildCode" >
-      proc_Util_RebuildCode 'tb_Forum_Thread', 'Code', 'CreateDate', 3
+      proc_Util_RebuildCode 'tb_Forum_Thread', 'Code', 'CreatedDate', 3
     </procedure>
   </statements>
 </sqlMap>

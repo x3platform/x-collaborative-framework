@@ -20,6 +20,7 @@ namespace X3Platform.Membership.Ajax
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
+    using X3Platform.Security.VerificationCode;
 
     /// <summary></summary>
     public sealed class MemberWrapper : ContextWrapper
@@ -200,11 +201,11 @@ namespace X3Platform.Membership.Ajax
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPages(XmlDocument doc)
+        #region 函数:GetPaging(XmlDocument doc)
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns> 
-        public string GetPages(XmlDocument doc)
+        public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
 
@@ -341,6 +342,8 @@ namespace X3Platform.Membership.Ajax
             string telephone = XmlHelper.Fetch("telephone", doc);
             string password = XmlHelper.Fetch("password", doc);
 
+            string code = XmlHelper.Fetch("code", doc);
+
             if (registerType == "email")
             {
                 if (string.IsNullOrEmpty(email))
@@ -351,6 +354,11 @@ namespace X3Platform.Membership.Ajax
                 if (MembershipManagement.Instance.AccountService.IsExistCertifiedEmail(email))
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此邮箱已经存在。\"}}";
+                }
+
+                if (!VerificationCodeContext.Instance.VerificationCodeService.Validate("Mail", email, "注册账号", code))
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"邮件验证码错误。\"}}";
                 }
 
                 param.LoginName = email;
@@ -374,6 +382,11 @@ namespace X3Platform.Membership.Ajax
                 if (MembershipManagement.Instance.AccountService.IsExistCertifiedTelephone(telephone))
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此手机号已经存在。\"}}";
+                }
+
+                if (!VerificationCodeContext.Instance.VerificationCodeService.Validate("Phone", telephone, "注册账号", code))
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"短信验证码错误。\"}}";
                 }
 
                 param.LoginName = telephone;
@@ -412,6 +425,7 @@ namespace X3Platform.Membership.Ajax
             param.Id = DigitalNumberContext.Generate("Key_Guid");
             param.LoginDate = new DateTime(2000, 1, 1);
             param.Status = 1;
+            param.IP = IPQueryContext.GetClientIP();
 
             param = MembershipManagement.Instance.AccountService.Save(param);
 

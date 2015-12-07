@@ -222,7 +222,7 @@
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { }));
-      args.Add("OrderBy", query.GetOrderBySql(" CreateDate ASC "));
+      args.Add("OrderBy", query.GetOrderBySql(" CreatedDate ASC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);
@@ -248,7 +248,7 @@
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { }));
-      args.Add("OrderBy", query.GetOrderBySql(" CreateDate ASC "));
+      args.Add("OrderBy", query.GetOrderBySql(" CreatedDate ASC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

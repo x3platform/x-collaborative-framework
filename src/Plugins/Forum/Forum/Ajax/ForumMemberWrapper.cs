@@ -30,8 +30,8 @@
             ForumMemberInfo param = new ForumMemberInfo();
 
             param = (ForumMemberInfo)AjaxUtil.Deserialize(param, doc);
-            param.UpdateDate = DateTime.Now;
-            param.CreateDate = DateTime.Now;
+            param.ModifiedDate = DateTime.Now;
+            param.CreatedDate = DateTime.Now;
             
             this.service.Save(param);
 

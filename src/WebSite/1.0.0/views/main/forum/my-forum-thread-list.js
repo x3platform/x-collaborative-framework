@@ -50,7 +50,7 @@ main.forum.my.thread.list = {
 
     main.forum.my.thread.list.paging.whereClause = whereClauseValue;
     */
-    main.forum.my.thread.list.paging.orders = ' IsTop DESC, UpdateDate DESC';
+    main.forum.my.thread.list.paging.orders = ' IsTop DESC, ModifiedDate DESC';
     
     main.forum.my.thread.list.getPaging(1);
   },
@@ -116,23 +116,23 @@ main.forum.my.thread.list = {
       // outString += main.forum.util.getType(node.isTop, node.sign);
       outString += '<a href="/forum/detail/' + node.id + '" target="_blank" >' + node.title + '</a> ';
       outString += '<span class="label label-default">' + node.categoryIndex + '</span> ';
-      outString += main.forum.util.isNew(node.updateDate, $("#nowDate").val());
+      outString += main.forum.util.isNew(node.modifiedDate, $("#nowDate").val());
       outString += main.forum.util.isHot(node.click, node.commentCount)
       outString += main.forum.util.isEssential(node.isEssential);
       outString += '</td>';
       outString += '<td>' + displayName + '</td>';
-      // outString += '<td>' + node.createDateView + '</td>';
+      // outString += '<td>' + node.createdDateView + '</td>';
       outString += '<td><strong>' + node.commentCount + '</strong> / ' + node.click + '</td>';
       
       if(parseInt(node.commentCount, 10) === 0)
       {
         // outString += '<td></td>';
-        outString += '<td>' + node.createDateView + '</td>';
+        outString += '<td>' + node.createdDateView + '</td>';
       }
       else
       {
         // outString += '<td>' + node.latestCommentAccountName + '</td>';
-        outString += '<td>' + node.updateDateView + '</td>';
+        outString += '<td>' + node.modifiedDateView + '</td>';
       }
       if($('#isAdminToken').val().toLowerCase() == 'true')
       {

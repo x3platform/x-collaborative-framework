@@ -35,9 +35,6 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class AccountLogProvider : IAccountLogProvider
     {
-        /// <summary>配置</summary>
-        private MembershipConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -51,9 +48,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <summary>构造函数</summary>
         public AccountLogProvider()
         {
-            this.configuration = MembershipConfigurationView.Instance.Configuration;
-
-            this.ibatisMapping = configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = MembershipConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }

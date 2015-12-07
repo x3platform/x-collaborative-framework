@@ -21,7 +21,7 @@ main.forum.category.list = {
 
     main.forum.category.list.pages.whereClause = whereClauseValue;
 
-    main.forum.category.list.pages.orderBy = ' T.OrderId, T.UpdateDate DESC';
+    main.forum.category.list.pages.orderBy = ' T.OrderId, T.ModifiedDate DESC';
 
     main.forum.category.list.getPages(1);
   },
@@ -59,7 +59,7 @@ main.forum.category.list = {
       outString += '<td><a href="/apps/pages/forum/forum-category-form.aspx?id=' + node.id + '" >' + node.categoryIndex + '</a></td>';
       outString += '<td>' + node.accountName + '</td>';
       outString += '<td>' + x.customForm.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.forum.category.list.confirmDelete(\'' + node.id + '\');">删除</a></td>';
       outString += '</tr>';
 
