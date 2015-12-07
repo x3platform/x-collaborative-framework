@@ -128,7 +128,7 @@
       // 回帖编号
       ViewBag.CommentId = DigitalNumberContext.Generate("Key_Guid");
 
-      ViewBag.CreateDate = param.CreateDate.ToString("yyyy-MM-dd HH:mm");
+      ViewBag.CreatedDate = param.CreatedDate.ToString("yyyy-MM-dd HH:mm");
 
       string dayCountStr = AppsContext.Instance.ApplicationSettingService.GetValue(application.Id, string.Empty, "编辑有效天数").Trim().ToLower();
       ViewBag.dayCountStr = dayCountStr;

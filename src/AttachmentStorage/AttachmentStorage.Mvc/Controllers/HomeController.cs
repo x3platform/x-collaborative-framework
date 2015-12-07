@@ -49,12 +49,16 @@
 
             if (param == null)
             {
+                KernelContext.Log.Info("file not found id:" + id);
+
                 ApplicationError.Write(404);
             }
             else
             {
                 if (param != null && param.FileData == null)
                 {
+                    KernelContext.Log.Info("file data is null id:" + id);
+
                     // 下载分布式文件数据
                     param.FileData = DistributedFileStorage.Download(param);
                 }

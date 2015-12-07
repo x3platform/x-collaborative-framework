@@ -61,7 +61,7 @@ main.applications.home = {
       outString += '<td>' + node.code + '</td>';
       outString += '<td><a href="/applications/application/form?id=' + node.id + '" target="_blank" >' + node.applicationName + '(' + node.applicationDisplayName + ')</a></td>';
       outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.updateDateView + '</td>';
+      outString += '<td>' + node.modifiedDateView + '</td>';
       if(node.locking == 1)
       {
         outString += '<td><a href="javascript:main.applications.home.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';

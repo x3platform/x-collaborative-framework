@@ -16,13 +16,13 @@
     [TestClass]
     public class IMessageQueueObjectTestSuite
     {
-        private MockFactory factory=null;
+        private MockFactory factory = null;
 
         public IMessageQueueObjectTestSuite()
-		{
-			// 初始化工厂类
-			factory = new MockFactory();
-		}
+        {
+            // 初始化工厂类
+            factory = new MockFactory();
+        }
 
         /// <summary></summary>
         [TestMethod]
@@ -53,7 +53,8 @@
             }
         }
 
-        [TestMethod]
+        /*
+[TestMethod]
         public void TestRabbitSend()
         {
             IMessageQueueObject queue = new RabbitQueueObject("rabbit.x3platform.com", 5672, "rabbit", "rabbit", "test");
@@ -64,17 +65,17 @@
 
             queue.Send(message);
         }
-
+        
         [TestMethod]
         public void TestRabbitReceive()
         {
-            IMessageQueueObject queue = new RabbitQueueObject("rabbit.x3platform.com", 5672, "rabbit", "rabbit", "test");
-
+            IMessageQueueObject queue = new RabbitQueueObject<object>("rabbit.x3platform.com", 5672, "rabbit", "rabbit", "test");
+           
             if (queue.Enabled)
             {
                 IMessageObject message = queue.Receive();
             }
-        }
+        }*/
 
     }
 }

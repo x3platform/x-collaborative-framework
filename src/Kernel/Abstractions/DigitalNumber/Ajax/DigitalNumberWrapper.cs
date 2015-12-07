@@ -30,9 +30,7 @@
         {
             DigitalNumberInfo param = new DigitalNumberInfo();
 
-            string scopeText = XmlHelper.Fetch("scopeText", doc);
-
-            param = (DigitalNumberInfo)AjaxUtil.Deserialize(param, doc);
+            param = AjaxUtil.Deserialize<DigitalNumberInfo>(param, doc);
 
             this.service.Save(param);
 
@@ -60,7 +58,7 @@
 
         #region 函数:FindOne(XmlDocument doc)
         /// <summary>获取分页内容 / get paging.</summary>
-        /// <param name="paging">paging helper.</param>
+        /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回一个相关的实例列表.</returns> 
         public string FindOne(XmlDocument doc)
         {

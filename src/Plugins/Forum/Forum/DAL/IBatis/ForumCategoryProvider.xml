@@ -22,8 +22,8 @@
       <result property="OrderId" column="OrderId" />
       <result property="Status" column="Status" />
       <result property="Remark" column="Remark" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Forum_Category_FindAll_Result" class="ForumCategoryInfo">
       <result property="Id" column="Id" />
@@ -42,8 +42,8 @@
       <result property="OrderId" column="OrderId" />
       <result property="Status" column="Status" />
       <result property="Remark" column="Remark" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Forum_Category_FindAllQueryObject_Result" class="ForumCategoryQueryInfo">
       <result property="Id" column="Id" />
@@ -51,8 +51,8 @@
       <result property="AccountName" column="AccountName" />
       <result property="CategoryIndex" column="CategoryIndex" />
       <result property="Status" column="Status" />
-      <result property="UpdateDate" column="UpdateDate" />
-      <result property="CreateDate" column="CreateDate" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -75,8 +75,8 @@
         OrderId,
         Status,
         Remark,
-        UpdateDate,
-        CreateDate
+        ModifiedDate,
+        CreatedDate
       )
       VALUES
       (
@@ -110,7 +110,7 @@
         PublishCommentPoint = #PublishCommentPoint#,
         Status = #Status#,
         Remark = #Remark#,
-        UpdateDate = CURRENT_TIMESTAMP
+        ModifiedDate = CURRENT_TIMESTAMP
 
       WHERE Id = #Id#
     </update>

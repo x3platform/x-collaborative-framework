@@ -161,7 +161,7 @@ main.forum.thread.detail = {
       }
 
       // 得到帖子时间
-      var time = main.forum.util.getTimeHelper(node.createDate);
+      var time = main.forum.util.getTimeHelper(node.createdDate);
 
       // 得到楼层说明
       var showFloor = main.forum.thread.detail.showFloor(node.rowIndex);
@@ -216,11 +216,11 @@ main.forum.thread.detail = {
               var dayCount = parseInt(dayCountStr, 10);
               if(!isNaN(dayCount) && dayCount != 0)
               {
-                var strDate = node.createDate.split(',');
-                var createDate = new Date(strDate[0], parseInt(strDate[1], 10) - 1, strDate[2], strDate[3], strDate[4], strDate[5]);
+                var strDate = node.createdDate.split(',');
+                var createdDate = new Date(strDate[0], parseInt(strDate[1], 10) - 1, strDate[2], strDate[3], strDate[4], strDate[5]);
                 // 得到当前时间
                 var nowDate = new Date(Date.parse($("#nowDate").val().replace(/-/g, "/")));
-                var day = (nowDate.getTime() - createDate.getTime()) / (24 * 60 * 60 * 1000)
+                var day = (nowDate.getTime() - createdDate.getTime()) / (24 * 60 * 60 * 1000)
                 if(day <= dayCount)
                 {
                   isEdit = true;

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.AccountFriendProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <alias>
+        <typeAlias alias="AccountFriendInfo" type="X3Platform.Membership.Model.AccountFriendInfo,X3Platform.Membership" />
+    </alias>
+    <resultMaps>
+        <resultMap id="proc_Account_Friend_FindOne_Result" class="AccountFriendInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="FriendAccountId" column="FriendAccountId" />
+            <result property="FriendDisplayName" column="FriendDisplayName" />
+            <result property="Status" column="Status" />
+            <result property="CreatedDate" column="CreatedDate" />
+        </resultMap>
+        <resultMap id="proc_Account_Friend_FindAll_Result" class="AccountFriendInfo">
+            <result property="Id" column="Id" />
+            <result property="AccountId" column="AccountId" />
+            <result property="FriendAccountId" column="FriendAccountId" />
+            <result property="FriendDisplayName" column="FriendDisplayName" />
+            <result property="Status" column="Status" />
+            <result property="CreatedDate" column="CreatedDate" />
+        </resultMap>
+    </resultMaps>
+    <statements>
+        <insert id="proc_Account_Friend_Insert" parameterClass="AccountFriendInfo">
+            INSERT INTO tb_Account_Friend 
+            (
+                Id,
+                AccountId,
+                FriendAccountId,
+                FriendDisplayName,
+                Status,
+                CreatedDate
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #FriendAccountId#,
+                #FriendDisplayName#,
+                #Status#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
+        <update id="proc_Account_Friend_Update" parameterClass="AccountFriendInfo">
+            UPDATE tb_Account_Friend SET
+
+                AccountId = #AccountId#,
+                FriendAccountId = #FriendAccountId#,
+                FriendDisplayName = #FriendDisplayName#,
+                Status = #Status#
+
+            WHERE Id = #Id#
+        </update>
+        <delete id="proc_Account_Friend_Delete" >
+            DELETE FROM tb_Account_Friend WHERE $WhereClause$
+        </delete>
+        <select id="proc_Account_Friend_FindOne" resultMap="proc_Account_Friend_FindOne_Result" >
+            SELECT * FROM tb_Account_Friend WHERE Id = #Id#
+        </select>
+        <select id="proc_Account_Friend_FindAll#MySql" resultMap="proc_Account_Friend_FindAll_Result" >
+            SELECT * FROM tb_Account_Friend T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            <dynamic prepend="LIMIT">
+                <isNotEqual prepend="LIMIT" property="Length" compareValue="0">
+                    0, $Length$
+                </isNotEqual>
+            </dynamic>
+        </select>
+        <select id="proc_Account_Friend_FindAll#SqlServer" resultMap="proc_Account_Friend_FindAll_Result" >
+            SELECT
+
+            <dynamic prepend="TOP">
+                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+                    $Length$
+                </isNotEqual>
+            </dynamic>
+
+            * FROM tb_Account_Friend T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>            
+        </select>
+        <select id="proc_Account_Friend_GetPaging#MySql"  resultMap="proc_Account_Friend_FindAll_Result" >
+            SELECT * FROM tb_Account_Friend T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Account_Friend_GetPaging#SqlServer" resultMap="proc_Account_Friend_FindAll_Result" >
+          SELECT * 
+            FROM (
+                   SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+                     FROM tb_Account_Friend T
+
+                    <dynamic prepend="WHERE">
+                        <isParameterPresent>
+                            <isNotEmpty prepend="AND" property="WhereClause" >
+                                $WhereClause$
+                            </isNotEmpty>
+                        </isParameterPresent>
+                    </dynamic>) TableIndex
+
+          WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+        <select id="proc_Account_Friend_GetRowCount" >
+            SELECT COUNT(*) AS "RowCount" FROM tb_Account_Friend T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
+        <select id="proc_Account_Friend_IsExist" >
+            SELECT COUNT(0) AS "Count" FROM tb_Account_Friend WHERE $WhereClause$
+        </select>
+        <update id="proc_Account_Friend_SetStatus" parameterClass="AccountFriendInfo">
+            UPDATE tb_Account_Friend SET Status = #Status# WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
+        </update>
+        <update id="proc_Account_Friend_SetDisplayNameName" parameterClass="AccountFriendInfo">
+            UPDATE tb_Account_Friend SET FriendDisplayName = #FriendDisplayName# WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
+        </update>
+    </statements>
+</sqlMap>

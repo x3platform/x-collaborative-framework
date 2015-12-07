@@ -14,6 +14,9 @@
     using X3Platform.Security.VerificationCode;
     using X3Platform.DigitalNumber;
     using X3Platform.Security;
+    using System.Web;
+    using System.Net.Mail;
+    using X3Platform.TemplateContent;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -129,14 +132,14 @@
 
             if (account != null)
             {
-                VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, "forgot_password");
+                VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, "忘记密码");
 
                 IPQueryContext.GetClientIP();
-                
+
                 // 您好 {date} 您通过了忘记密码功能找回密码。验证码: {code}
                 // 
                 // IP 地址
-                EmailClientContext.Instance.Send(email, "密码找回", string.Format("您好，您通过了忘记密码功能找回密码。验证码:{0}, \r\nIP:{1}\r\nDate:{2} ", verificationCode.Code, IPQueryContext.GetClientIP(), DateTime.Now.ToString()));
+                EmailClientContext.Instance.Send(email, "密码找回", string.Format("尊敬的用户，\r\n您好，您正在通过忘记密码功能找回密码。当前验证码:{0}, \r\nIP:{1}\r\nDate:{2} ", verificationCode.Code, IPQueryContext.GetClientIP(), DateTime.Now.ToString()));
 
                 return "{message:{\"returnCode\":0,\"value\":\"邮件发送成功。\"}}";
             }
@@ -158,7 +161,7 @@
             // 验证码
             string code = XmlHelper.Fetch("code", doc);
 
-            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.FindOne("Mail", email, "ForgotPassword");
+            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.FindOne("Mail", email, "忘记密码");
 
             if (verificationCode.Code != code)
             {
@@ -181,7 +184,7 @@
                 password = password.Insert(random.Next(password.Length), StringHelper.ToRandom("ABCDEFGHJKLMNPQRSTUVWXYZ", 1));
 
                 MembershipManagement.Instance.AccountService.SetPassword(account.Id, Encrypter.EncryptSHA1(password));
-                
+
                 // 通过了{date}忘记密码功能找回密码
                 // IP 地址
                 EmailClientContext.Instance.Send(email, "密码找回", "新的密码:" + password);
@@ -192,6 +195,50 @@
             {
                 return "{message:{\"returnCode\":1,\"value\":\"邮件发送失败，不存在的邮箱地址。\"}}";
             }
+        }
+        #endregion
+
+        #region 函数:SendVerificationMail(XmlDocument doc)
+        /// <summary></summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string SendVerificationMail(XmlDocument doc)
+        {
+            // 验证码
+            string captcha = XmlHelper.Fetch("captcha", doc);
+
+            if (HttpContext.Current.Session["captcha"] == null || captcha != HttpContext.Current.Session["captcha"].ToString())
+            {
+                return "{\"message\":{\"returnCode\":1,\"value\":\"验证码错误。\"}}";
+            }
+
+            // 检查验证码发送时间
+            if (HttpContext.Current.Session["VerificationCodeSendTime"] != null && HttpContext.Current.Session["VerificationCodeSendTime"] is DateTime)
+            {
+                DateTime time = (DateTime)HttpContext.Current.Session["VerificationCodeSendTime"];
+                
+                if (time.AddSeconds(120) > DateTime.Now)
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"发送太频繁，请稍后再试。\"}}";
+                }
+            }
+
+            // 邮件地址
+            string email = XmlHelper.Fetch("email", doc);
+            // 验证类型
+            string validationType = XmlHelper.Fetch("validationType", doc);
+
+            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, validationType);
+
+            VerificationMailOptionInfo option = VerificationCodeContext.Instance.VerificationMailOptionService.FindOneByValidationType(validationType);
+
+            string content = TemplateContentContext.Instance.TemplateContentService.GetHtml(option.TemplateContentName);
+
+            EmailClientContext.Instance.Send(email, option.Subject, string.Format(content, verificationCode.Code), EmailFormat.Html);
+
+            HttpContext.Current.Session["VerificationCodeSendTime"] = DateTime.Now;
+
+            return "{\"message\":{\"returnCode\":0,\"value\":\"发送成功。\"}}";
         }
         #endregion
     }

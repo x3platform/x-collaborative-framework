@@ -44,6 +44,24 @@
             type="X3Platform.Membership.DAL.IBatis.AccountGrantProvider,X3Platform.Membership"
             lazy-init="true" />
 
+    <!-- 帐号第三方绑定信息 -->
+    <object name="X3Platform.Membership.IBLL.IAccountBindingService"
+            type="X3Platform.Membership.BLL.AccountBindingService,X3Platform.Membership"
+            lazy-init="true" />
+
+    <object name="X3Platform.Membership.IDAL.IAccountBindingProvider"
+            type="X3Platform.Membership.DAL.IBatis.AccountBindingProvider,X3Platform.Membership"
+            lazy-init="true" />
+
+  <!-- 帐号我的好友信息 -->
+    <object name="X3Platform.Membership.IBLL.IAccountFriendService"
+            type="X3Platform.Membership.BLL.AccountFriendService,X3Platform.Membership"
+            lazy-init="true" />
+
+    <object name="X3Platform.Membership.IDAL.IAccountFriendProvider"
+            type="X3Platform.Membership.DAL.IBatis.AccountFriendProvider,X3Platform.Membership"
+            lazy-init="true" />
+
     <!-- 成员 -->
     <object name="X3Platform.Membership.Model.MemberInfo.ExtensionInformation"
             type="X3Platform.Membership.HumanResources.Model.MemberExtensionInformation,X3Platform.Membership.HumanResources"

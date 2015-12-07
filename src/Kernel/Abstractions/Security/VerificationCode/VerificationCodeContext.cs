@@ -13,9 +13,6 @@ namespace X3Platform.Security.VerificationCode
     /// <summary>权限引擎</summary>
     public sealed class VerificationCodeContext : CustomPlugin
     {
-        /// <summary>日志记录器</summary>
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         #region 静态属性:Instance
         private static volatile VerificationCodeContext instance = null;
 
@@ -53,10 +50,20 @@ namespace X3Platform.Security.VerificationCode
         #region 属性:VerificationCodeService
         private IVerificationCodeService m_VerificationCodeService = null;
 
-        /// <summary>权限服务</summary>
+        /// <summary>验证码服务</summary>
         public IVerificationCodeService VerificationCodeService
         {
-            get { return m_VerificationCodeService; }
+            get { return this.m_VerificationCodeService; }
+        }
+        #endregion
+
+        #region 属性:VerificationMailOptionService
+        private IVerificationMailOptionService m_VerificationMailOptionService = null;
+
+        /// <summary>验证邮件选项服务</summary>
+        public IVerificationMailOptionService VerificationMailOptionService
+        {
+            get { return this.m_VerificationMailOptionService; }
         }
         #endregion
 
@@ -79,7 +86,7 @@ namespace X3Platform.Security.VerificationCode
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message, ex);
+                KernelContext.Log.Error(ex.Message, ex);
                 throw ex;
             }
 
@@ -98,6 +105,7 @@ namespace X3Platform.Security.VerificationCode
 
             // 创建数据服务对象
             this.m_VerificationCodeService = objectBuilder.GetObject<IVerificationCodeService>(typeof(IVerificationCodeService));
+            this.m_VerificationMailOptionService = objectBuilder.GetObject<IVerificationMailOptionService>(typeof(IVerificationMailOptionService));
         }
         #endregion
     }

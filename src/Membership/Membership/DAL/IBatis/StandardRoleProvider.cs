@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IStandardRoleProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.DAL.IBatis
+﻿namespace X3Platform.Membership.DAL.IBatis
 {
     using System;
     using System.Collections.Generic;
@@ -31,9 +17,6 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class StandardRoleProvider : IStandardRoleProvider
     {
-        /// <summary>配置</summary>
-        private MembershipConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -47,9 +30,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <summary>构造函数</summary>
         public StandardRoleProvider()
         {
-            configuration = MembershipConfigurationView.Instance.Configuration;
-
-            ibatisMapping = configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = MembershipConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
             ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
         }

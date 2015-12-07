@@ -100,14 +100,14 @@ namespace X3Platform.Plugins.Forum.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return this.m_UpdateDate; }
-            set { this.m_UpdateDate = value; }
+            get { return this.m_ModifiedDate; }
+            set { this.m_ModifiedDate = value; }
         }
         #endregion
 

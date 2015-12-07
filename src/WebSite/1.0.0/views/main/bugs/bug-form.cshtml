@@ -104,7 +104,7 @@
             <tr class="table-row-normal">
               <td class="table-body-text">@I18n.Translates["Tag"]</td>
               <td class="table-body-input">
-                <input id="tags" name="tags" type="text" x-dom-data-type="value" value="@ViewBag.param.Tags" x-dom-feature="combobox" selectedtext="@ViewBag.param.Tags" topoffset="-1" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_问题跟踪_问题标签\#\# ) " class="form-control" style="width:160px;" />
+                <input id="tags" name="tags" type="text" x-dom-data-type="value" value="@ViewBag.param.Tags" x-dom-feature="combobox" x-dom-combobox-selectedText="@ViewBag.param.Tags" x-dom-topOffset="-1" x-dom-xhr-url="/api/application.setting.getCombobox.aspx" x-dom-xhr-params="{applicationSettingGroupName:'应用管理_协同平台_问题跟踪_问题标签'}" class="form-control" style="width:160px;" />
               </td>
 
               <td class="table-body-text">@I18n.Translates["Bugs", "SimilarBugs"]</td>

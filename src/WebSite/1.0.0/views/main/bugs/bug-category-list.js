@@ -23,7 +23,7 @@ main.bugs.bug.category.list = {
 
     //main.bugs.bug.category.list.paging.whereClause = whereClauseValue;
 
-    //main.bugs.bug.category.list.paging.orderBy = ' T.OrderId, T.UpdateDate DESC';
+    //main.bugs.bug.category.list.paging.orderBy = ' T.OrderId, T.ModifiedDate DESC';
 
     main.bugs.bug.category.list.paging.query.scence = 'Query';
     main.bugs.bug.category.list.paging.query.where.CategoryIndex = $('#searchText').val().trim();

@@ -240,7 +240,7 @@
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { }));
-      args.Add("OrderBy", query.GetOrderBySql(" IsTop DESC, UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" IsTop DESC, ModifiedDate DESC "));
       args.Add("Length", query.Length);
 
       return this.ibatisMapper.QueryForList<ForumThreadQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllQueryObject", this.tableName)), args);
@@ -264,7 +264,7 @@
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { }));
-      args.Add("OrderBy", query.GetOrderBySql(" IsTop DESC, UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" IsTop DESC, ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);
@@ -290,7 +290,7 @@
       Dictionary<string, object> args = new Dictionary<string, object>();
 
       args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { }));
-      args.Add("OrderBy", query.GetOrderBySql(" IsTop DESC, UpdateDate DESC "));
+      args.Add("OrderBy", query.GetOrderBySql(" IsTop DESC, ModifiedDate DESC "));
 
       args.Add("StartIndex", startIndex);
       args.Add("PageSize", pageSize);

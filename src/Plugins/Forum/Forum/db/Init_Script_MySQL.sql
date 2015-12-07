@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS tb_Forum_Category (
 	OrderId varchar(20) NULL,
 	Status int NULL,
 	Remark varchar(200) NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL
+	ModifiedDate datetime NULL,
+	CreatedDate datetime NULL
 );
 
 -- 设置主键: Id
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS tb_Forum_Thread(
 	Status int NULL,
 	UpdateHistoryLog varchar(400) NULL,
 	StorageNodeIndex int NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL
+	ModifiedDate datetime NULL,
+	CreatedDate datetime NULL
 );
 
 -- 设置主键: Id
@@ -89,8 +89,8 @@ CREATE TABLE IF NOT EXISTS tb_Forum_Comment(
 	IP varchar(20) NULL,
 	UpdateHistoryLog varchar(400) NULL,
 	StorageNodeIndex int NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL
+	ModifiedDate datetime NULL,
+	CreatedDate datetime NULL
 );
 
 -- 设置主键: Id
@@ -109,8 +109,8 @@ CREATE TABLE IF NOT EXISTS tb_Forum_Member (
 	PublishThreadCount int NULL,
 	PublishCommentCount int NULL,
 	FollowCount int NULL,
-	UpdateDate datetime NULL,
-	CreateDate datetime NULL
+	ModifiedDate datetime NULL,
+	CreatedDate datetime NULL
 );
 
 -- 设置主键: Id
@@ -121,21 +121,21 @@ CREATE TABLE IF NOT EXISTS tb_Forum_Follow_Account (
 	Id varchar(36) NOT NULL,
 	AccountId varchar(36) NOT NULL,
 	FollowAccountId varchar(36) NOT NULL,
-	CreateDate datetime NOT NULL
+	CreatedDate datetime NOT NULL
 );
 
 -- 设置主键: Id
 ALTER TABLE tb_Forum_Follow_Account ADD CONSTRAINT PK_tb_Forum_Follow_Account PRIMARY KEY CLUSTERED (Id);
 
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('125d5281-b7ee-4e03-968f-59deb6605bd0', '0', NULL, '工作园地\沟通与交流', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('146ee670-abe7-4fcb-a96e-0c37e9750c15', '0', NULL, '生活频道\生活贴士', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('293e16fa-5e55-443b-90f8-f2c6d21dd9d7', '0', NULL, '工作园地\投诉与建议', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('30386ce3-da2c-4ed9-9028-d888064a4fb6', '0', NULL, '生活频道\闲聊灌水', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('3e716582-9cad-49b7-b932-75d605196a40', '0', NULL, '工作园地\杂谈', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('58c3a4c4-35cc-4715-b9ed-491d91ab62da', '0', NULL, '生活频道\浓情祝语 ', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('5a5d6952-892a-4f56-853f-27047aa934ed', '0', NULL, '工作园地\新员工天地', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('6b10a072-8f77-4813-b66d-bc9ad887e2f6', '0', NULL, '生活频道\幽默人生', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('7a85502f-2469-40c5-99fc-9955bd5544a7', '0', NULL, '生活频道\学习分享', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('98881ab4-ce89-4439-b727-dba4533268c3', '0', NULL, '生活频道', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('9bb69e4c-a8eb-4261-8550-7cba979b5baf', '0', NULL, '工作园地', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
-INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, UpdateDate, CreateDate) VALUES ('cc649e5f-4c75-4ade-ac36-3d72c6ca9def', '0', NULL, '工作园地\领导力及职业发展', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('125d5281-b7ee-4e03-968f-59deb6605bd0', '0', NULL, '工作园地\沟通与交流', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('146ee670-abe7-4fcb-a96e-0c37e9750c15', '0', NULL, '生活频道\生活贴士', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('293e16fa-5e55-443b-90f8-f2c6d21dd9d7', '0', NULL, '工作园地\投诉与建议', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('30386ce3-da2c-4ed9-9028-d888064a4fb6', '0', NULL, '生活频道\闲聊灌水', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('3e716582-9cad-49b7-b932-75d605196a40', '0', NULL, '工作园地\杂谈', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('58c3a4c4-35cc-4715-b9ed-491d91ab62da', '0', NULL, '生活频道\浓情祝语 ', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('5a5d6952-892a-4f56-853f-27047aa934ed', '0', NULL, '工作园地\新员工天地', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('6b10a072-8f77-4813-b66d-bc9ad887e2f6', '0', NULL, '生活频道\幽默人生', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('7a85502f-2469-40c5-99fc-9955bd5544a7', '0', NULL, '生活频道\学习分享', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('98881ab4-ce89-4439-b727-dba4533268c3', '0', NULL, '生活频道', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('9bb69e4c-a8eb-4261-8550-7cba979b5baf', '0', NULL, '工作园地', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);
+INSERT tb_Forum_Category (Id, AccountId, AccountName, CategoryIndex, Keywords, Description, Anonymous, PublishThreadPoint, PublishCommentPoint, TodayCount, WeekCount, MonthCount, TotalCount, Hidden, OrderId, Status, Remark, ModifiedDate, CreatedDate) VALUES ('cc649e5f-4c75-4ade-ac36-3d72c6ca9def', '0', NULL, '工作园地\领导力及职业发展', '', '0', 2, NULL, NULL, NULL, 1, NULL, NULL, 1, '0', 1, NULL, NULL, NULL);

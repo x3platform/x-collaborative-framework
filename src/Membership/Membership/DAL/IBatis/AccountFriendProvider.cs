@@ -1,0 +1,312 @@
+namespace X3Platform.Membership.DAL.IBatis
+{
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+
+    using X3Platform.Data;
+    using X3Platform.IBatis.DataMapper;
+    using X3Platform.Util;
+
+    using X3Platform.Membership.Configuration;
+    using X3Platform.Membership.IDAL;
+    using X3Platform.Membership.Model;
+    using X3Platform.DigitalNumber;
+    #endregion
+
+    /// <summary></summary>
+    public class AccountFriendProvider : IAccountFriendProvider
+    {
+        /// <summary>IBatis映射文件</summary>
+        private string ibatisMapping = null;
+
+        /// <summary>IBatis映射对象</summary>
+        private ISqlMapper ibatisMapper = null;
+
+        /// <summary>数据表名</summary>
+        private string tableName = "tb_Account_Friend";
+
+        #region 构造函数:AccountFriendProvider()
+        /// <summary>构造函数</summary>
+        public AccountFriendProvider()
+        {
+            this.ibatisMapping = MembershipConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
+
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 事务支持
+        // -------------------------------------------------------
+
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
+        public void BeginTransaction()
+        {
+            this.ibatisMapper.BeginTransaction();
+        }
+        #endregion
+
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
+        public void BeginTransaction(IsolationLevel isolationLevel)
+        {
+            this.ibatisMapper.BeginTransaction(isolationLevel);
+        }
+        #endregion
+
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
+        public void CommitTransaction()
+        {
+            this.ibatisMapper.CommitTransaction();
+        }
+        #endregion
+
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
+        public void RollBackTransaction()
+        {
+            this.ibatisMapper.RollBackTransaction();
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 添加 删除 修改
+        // -------------------------------------------------------
+
+        #region 函数:Save(AccountFriendInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
+        /// <returns>实例<see cref="AccountFriendInfo"/>详细信息</returns>
+        public AccountFriendInfo Save(AccountFriendInfo param)
+        {
+            if (!IsExist(param.Id))
+            {
+                this.Insert(param);
+            }
+            else
+            {
+                this.Update(param);
+            }
+
+            return param;
+        }
+        #endregion
+
+        #region 函数:Insert(AccountFriendInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
+        public void Insert(AccountFriendInfo param)
+        {
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
+        }
+        #endregion
+
+        #region 函数:Update(AccountFriendInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
+        public void Update(AccountFriendInfo param)
+        {
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
+        }
+        #endregion
+
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public void Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id)) { return; }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
+
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 查询
+        // -------------------------------------------------------
+
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="AccountFriendInfo"/>的详细信息</returns>
+        public AccountFriendInfo FindOne(string id)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("Id", StringHelper.ToSafeSQL(id));
+
+            return this.ibatisMapper.QueryForObject<AccountFriendInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+        }
+        #endregion
+
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有<see cref="AccountFriendInfo"/>实例的详细信息</returns>
+        public IList<AccountFriendInfo> FindAll(DataQuery query)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
+            string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
+
+            args.Add("WhereClause", whereClause);
+            args.Add("OrderBy", orderBy);
+            args.Add("Length", query.Length);
+
+            return this.ibatisMapper.QueryForList<AccountFriendInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 自定义功能
+        // -------------------------------------------------------
+
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="AccountFriendInfo"/></returns> 
+        public IList<AccountFriendInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = "";
+
+            if (query.Variables["scence"] == "Query")
+            {
+                whereClause = " Status IN (" + StringHelper.ToSafeSQL(query.Where["Status"].ToString()) + ") ";
+
+                if (query.Where.ContainsKey("SearchText") && string.IsNullOrEmpty(query.Where.ContainsKey("SearchText").ToString()))
+                {
+                    whereClause = " AND T.CategoryIndex LIKE '%" + StringHelper.ToSafeSQL(query.Where["SearchText"].ToString()) + "%'";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else if (query.Variables["scence"] == "QueryMyList")
+            {
+                string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+                whereClause = " AccountId = '" + query.Variables["accountId"] + "' ";
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    whereClause += " FriendDisplayName LIKE '" + searchText + "' ";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            }
+
+            args.Add("OrderBy", query.GetOrderBySql(" FriendDisplayName DESC "));
+
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
+
+            IList<AccountFriendInfo> list = this.ibatisMapper.QueryForList<AccountFriendInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
+
+            return list;
+        }
+        #endregion
+
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
+        public bool IsExist(string id)
+        {
+            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
+
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
+        }
+        #endregion
+
+        #region 函数:Invite(string accountId, string friendAccountId)
+        /// <summary>邀请好友</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        public int Invite(string accountId, string friendAccountId)
+        {
+            accountId = StringHelper.ToSafeSQL(accountId);
+            friendAccountId = StringHelper.ToSafeSQL(friendAccountId);
+
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
+                new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 0 });
+            return 0;
+        }
+        #endregion
+
+        #region 函数:Accept(string accountId, string friendAccountId)
+        /// <summary>同意好友邀请</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        public int Accept(string accountId, string friendAccountId)
+        {
+            accountId = StringHelper.ToSafeSQL(accountId);
+            friendAccountId = StringHelper.ToSafeSQL(friendAccountId);
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            // 同意好友的邀请关系
+            args.Add("AccountId", friendAccountId);
+            args.Add("FriendAccountId", accountId);
+            args.Add("Status", 1);
+
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetStatus", tableName)), args);
+
+            // 自动添加对方为好友关系
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
+                new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 1 });
+
+            return 0;
+        }
+        #endregion
+
+        #region 函数:Unfriend(string accountId, string friendAccountId)
+        /// <summary>解除好友关系</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        public int Unfriend(string accountId, string friendAccountId)
+        {
+            accountId = StringHelper.ToSafeSQL(accountId);
+            friendAccountId = StringHelper.ToSafeSQL(friendAccountId);
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            // 解除自身好友关系
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' AND FriendAccountId = '{1}' ", accountId, friendAccountId));
+
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+
+            // 解除对方好友关系
+            args["WhereClause"] = string.Format(" AccountId = '{0}' AND FriendAccountId = '{1}' ", friendAccountId, accountId);
+
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+
+            return 0;
+        }
+        #endregion
+    }
+}

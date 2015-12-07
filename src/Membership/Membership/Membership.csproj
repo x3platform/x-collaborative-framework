@@ -105,6 +105,8 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Ajax\AccountBindingWrapper.cs" />
+    <Compile Include="Ajax\AccountFriendWrapper.cs" />
     <Compile Include="Ajax\AccountGrantWrapper.cs" />
     <Compile Include="Ajax\AccountLogWrapper.cs" />
     <Compile Include="Ajax\AccountWrapper.cs" />
@@ -122,6 +124,8 @@
     <Compile Include="Authentication\DevelopmentAuthenticationManagement.cs" />
     <Compile Include="Authentication\GenericAuthenticationManagement.cs" />
     <Compile Include="Authentication\TestingAuthenticationManagement.cs" />
+    <Compile Include="BLL\AccountBindingService.cs" />
+    <Compile Include="BLL\AccountFriendService.cs" />
     <Compile Include="BLL\AccountGrantService.cs" />
     <Compile Include="BLL\AccountLogService.cs" />
     <Compile Include="BLL\AccountService.cs" />
@@ -144,6 +148,8 @@
     <Compile Include="BLL\StandardRoleService.cs" />
     <Compile Include="Configuration\MembershipConfiguration.cs" />
     <Compile Include="Configuration\MembershipConfigurationView.cs" />
+    <Compile Include="DAL\IBatis\AccountBindingProvider.cs" />
+    <Compile Include="DAL\IBatis\AccountFriendProvider.cs" />
     <Compile Include="DAL\IBatis\AccountGrantProvider.cs" />
     <Compile Include="DAL\IBatis\AccountLogProvider.cs" />
     <Compile Include="DAL\IBatis\AccountProvider.cs" />
@@ -164,6 +170,8 @@
     <Compile Include="DAL\IBatis\StandardGeneralRoleProvider.cs" />
     <Compile Include="DAL\IBatis\StandardOrganizationUnitProvider.cs" />
     <Compile Include="DAL\IBatis\StandardRoleProvider.cs" />
+    <Compile Include="IBLL\IAccountBindingService.cs" />
+    <Compile Include="IBLL\IAccountFriendService.cs" />
     <Compile Include="IBLL\IAccountGrantService.cs" />
     <Compile Include="IBLL\IAccountLogService.cs" />
     <Compile Include="IBLL\IAccountService.cs" />
@@ -184,6 +192,8 @@
     <Compile Include="IBLL\IStandardGeneralRoleService.cs" />
     <Compile Include="IBLL\IStandardOrganizationService.cs" />
     <Compile Include="IBLL\IStandardRoleService.cs" />
+    <Compile Include="IDAL\IAccountBindingProvider.cs" />
+    <Compile Include="IDAL\IAccountFriendProvider.cs" />
     <Compile Include="IDAL\IAccountGrantProvider.cs" />
     <Compile Include="IDAL\IAccountLogProvider.cs" />
     <Compile Include="IDAL\IAccountProvider.cs" />
@@ -207,6 +217,8 @@
     <Compile Include="MembershipManagement.cs" />
     <Compile Include="MembershipUtil.cs" />
     <Compile Include="Model\AccountAssignedJobRelationInfo.cs" />
+    <Compile Include="Model\AccountBindingInfo.cs" />
+    <Compile Include="Model\AccountFriendInfo.cs" />
     <Compile Include="Model\AccountGrantInfo.cs" />
     <Compile Include="Model\AccountGroupRelationInfo.cs" />
     <Compile Include="Model\AccountInfo.cs" />
@@ -289,6 +301,8 @@
     <EmbeddedResource Include="DAL\IBatis\StandardRoleProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\OrganizationUnitProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\StandardOrganizationUnitProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AccountBindingProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\AccountFriendProvider.xml" />
     <Content Include="db\Functions_MySQL\func_PaddingLeft.sql" />
     <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationId.sql" />

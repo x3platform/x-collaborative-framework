@@ -174,8 +174,8 @@ namespace X3Platform.Plugins.Forum.BLL
         info.Signature = "";
         info.Point = 0;
         info.IconPath = KernelContext.Current.User.Id + "_120x120.png";
-        info.UpdateDate = DateTime.Now;
-        info.CreateDate = DateTime.Now;
+        info.ModifiedDate = DateTime.Now;
+        info.CreatedDate = DateTime.Now;
 
         this.provider.Insert(info);
       }

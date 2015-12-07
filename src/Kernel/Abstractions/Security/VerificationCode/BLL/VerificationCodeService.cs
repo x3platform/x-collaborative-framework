@@ -20,12 +20,6 @@ namespace X3Platform.Security.VerificationCode.BLL
     /// <summary>权限服务</summary>
     public class VerificationCodeService : IVerificationCodeService
     {
-        /// <summary>日志记录器</summary>
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        /// <summary>配置</summary>
-        private VerificationCodeConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IVerificationCodeProvider provider = null;
 
@@ -38,10 +32,8 @@ namespace X3Platform.Security.VerificationCode.BLL
         /// <summary>构造函数</summary>
         public VerificationCodeService()
         {
-            this.configuration = VerificationCodeConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = VerificationCodeConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(VerificationCodeConfiguration.ApplicationName, springObjectFile);
 
@@ -157,6 +149,50 @@ namespace X3Platform.Security.VerificationCode.BLL
             param.CreatedDate = DateTime.Now;
 
             return this.provider.Save(param);
+        }
+        #endregion
+
+        #region 函数:Validate(string objectType, string objectValue, string validationType, string code)
+        /// <summary>校验验证码</summary>
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <param name="code">验证码</param>
+        /// <returns>布尔值</returns>
+        public bool Validate(string objectType, string objectValue, string validationType, string code)
+        {
+            return this.Validate(objectType, objectValue, validationType, code, 0);
+        }
+        #endregion
+
+        #region 函数:Validate(string objectType, string objectValue, string validationType, string code, int availableMinutes)
+        /// <summary>校验验证码</summary>
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <param name="code">验证码</param>
+        /// <param name="availableMinutes">有效分钟数</param>
+        /// <returns>布尔值</returns>
+        public bool Validate(string objectType, string objectValue, string validationType, string code, int availableMinutes)
+        {
+            VerificationCodeInfo param = this.FindOne(objectType, objectValue, validationType);
+
+            // 判断对象是否存在
+            if (param == null)
+            {
+                return false;
+            }
+            else
+            {
+                // 校验时间有效性
+                if (availableMinutes > 0 && param.CreatedDate.AddMinutes(availableMinutes) < DateTime.Now)
+                {
+                    return false;
+                }
+
+                // 校验验证码
+                return (param.Code == code);
+            }
         }
         #endregion
     }

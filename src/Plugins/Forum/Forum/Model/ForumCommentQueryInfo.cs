@@ -230,10 +230,10 @@ namespace X3Platform.Plugins.Forum.Model
         }
         #endregion
 
-        #region 属性:ReplyCommentCreateDate
-        public DateTime ReplyCommentCreateDate
+        #region 属性:ReplyCommentCreatedDate
+        public DateTime ReplyCommentCreatedDate
         {
-            get { return this.ReplyComment == null ? new DateTime() : this.ReplyComment.CreateDate; }
+            get { return this.ReplyComment == null ? new DateTime() : this.ReplyComment.CreatedDate; }
         }
         #endregion
 
@@ -309,25 +309,25 @@ namespace X3Platform.Plugins.Forum.Model
         }
         #endregion
 
-        #region 属性:UpdateDate
-        private DateTime m_UpdateDate;
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
 
         /// <summary></summary>
-        public DateTime UpdateDate
+        public DateTime ModifiedDate
         {
-            get { return this.m_UpdateDate; }
-            set { this.m_UpdateDate = value; }
+            get { return this.m_ModifiedDate; }
+            set { this.m_ModifiedDate = value; }
         }
         #endregion
 
-        #region 属性:CreateDate
-        private DateTime m_CreateDate;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime CreateDate
+        public DateTime CreatedDate
         {
-            get { return this.m_CreateDate; }
-            set { this.m_CreateDate = value; }
+            get { return this.m_CreatedDate; }
+            set { this.m_CreatedDate = value; }
         }
         #endregion
 

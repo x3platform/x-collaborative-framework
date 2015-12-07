@@ -48,8 +48,11 @@
     <select id="proc_VerificationCode_FindOne" resultMap="proc_VerificationCode_FindOne_Result" >
       SELECT * FROM tb_VerificationCode WHERE Id = #Id#
     </select>
-    <select id="proc_VerificationCode_FindOneByObjectType" resultMap="proc_VerificationCode_FindOne_Result" >
-      SELECT * FROM tb_VerificationCode WHERE ObjectType = #ObjectType# AND ObjectValue = #ObjectValue# ORDER BY CreatedDate DESC;
+    <select id="proc_VerificationCode_FindOneByObjectType#MySql" resultMap="proc_VerificationCode_FindOne_Result" >
+      SELECT * FROM tb_VerificationCode WHERE ObjectType = #ObjectType# AND ObjectValue = #ObjectValue# ORDER BY CreatedDate DESC LIMIT 0,1
+    </select>
+    <select id="proc_VerificationCode_FindOneByObjectType#SqlServer" resultMap="proc_VerificationCode_FindOne_Result" >
+      SELECT TOP 1 * FROM tb_VerificationCode WHERE ObjectType = #ObjectType# AND ObjectValue = #ObjectValue# ORDER BY CreatedDate DESC
     </select>
     <select id="proc_VerificationCode_FindAll#MySql" resultMap="proc_VerificationCode_FindAll_Result" >
       SELECT * FROM tb_VerificationCode

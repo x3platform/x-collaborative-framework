@@ -27,37 +27,44 @@
 </head>
 
 <body>
-  <div class="window-sign-up-form-wrapper container">
+  <div class="window-sign-up-form-wrapper container" style="width:400px; margin:20px auto; border-radius:5px;">
     <div class="window-sign-up-form">
       <dl class="form">
         <dt class="input-label">电子邮箱</dt>
         <dd>
-          <input id="email" name="email" type="text" x-dom-data-type="value" x-dom-feature="email" class="window-sign-up-input-style" maxlength="100" value="" />
+          <input id="email" name="email" type="text" x-dom-data-type="value" x-dom-feature="email" class="form-control" maxlength="100" value="" />
         </dd>
       </dl>
       <dl class="form">
         <dt class="input-label">密码</dt>
         <dd>
-          <input id="originalPassword" name="originalPassword" type="password" class="window-sign-up-input-style" maxlength="20" value="" />
+          <input id="originalPassword" name="originalPassword" type="password" class="form-control" maxlength="20" value="" />
           <p class="note">密码强度要求：密码长度必须大于等于八位，并且至少包含一个小写字母和一个数字。<p>
         </dd>
       </dl>
       <dl class="form">
         <dt class="input-label">确认密码</dt>
         <dd>
-          <input id="confirmPassword" name="confirmPassword" type="password" class="window-sign-up-input-style" maxlength="20" value="" />
+          <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" maxlength="20" value="" />
         </dd>
       </dl>
       <dl class="form">
         <dt class="input-label">验证码</dt>
         <dd>
-          <input id="validatecode" name="validatecode" type="text" x-dom-data-type="value" class="window-sign-up-input-style" maxlength="6" value="" />
+          <div class="form-inline clearfix">
+            <input id="captcha" type="text" value="" maxlength="6" x-dom-data-type="value" class="form-control pull-left" style="width:100px;" />
+            <img id="captchaImage" class="pull-left" />
+          </div>
+          <p class="note">填写完验证码后，点击【获取验证码】按钮，系统将会发送邮件验证码至您填写的电子邮箱，请及时查收。<p>
         </dd>
       </dl>
       <dl class="form">
-        <dt class="input-label">短信验证码</dt>
+        <dt class="input-label">邮件验证码</dt>
         <dd>
-          <input id="validatecode" name="validatecode" type="text" x-dom-data-type="value" class="window-sign-up-input-style" maxlength="6" value="" />
+          <div class="form-inline">
+            <input id="code" name="code" type="text" value="" maxlength="6" x-dom-data-type="value" class="form-control" style="width:100px;" />
+            <button id="btnVerificationCode" class="btn btn-default">获取验证码</button>
+          </div>
         </dd>
       </dl>
       <p class="window-sign-up-form-terms-of-service">
@@ -66,7 +73,7 @@
       <input id="registerType" name="registerType" type="hidden" x-dom-data-type="value" value="email" />
       <input id="password" name="password" type="hidden" x-dom-data-type="value" value="" />
       <div class="form-actions">
-        <div class="button-submit button primary"><a id="btnSubmit" href="javascript:void(0);">创建帐户</a></div>
+        <div class="button-submit button primary"><button id="btnSubmit" class="btn btn-success" >创建帐户</button></div>
         <div class="loading" style="display:none;"><img src="/resources/images/loading.gif" alt="正在创建帐号..." /></div>
       </div>
     </div>
@@ -75,8 +82,5 @@
     </div>
   </div>
   <input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
-  <input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
-  <input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
-  <input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
 </body>
 </html>

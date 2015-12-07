@@ -10,4 +10,13 @@
     <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeProvider"
             type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider"
             lazy-init="true" />
+  
+    <!-- 验证码邮件选项 -->
+    <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationMailOptionService"
+            type="X3Platform.Security.VerificationCode.BLL.VerificationMailOptionService"
+            lazy-init="true" />
+
+    <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationMailOptionProvider"
+            type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationMailOptionProvider"
+            lazy-init="true" />
 </objects>
