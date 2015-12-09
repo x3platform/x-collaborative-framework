@@ -117,10 +117,10 @@
     <Compile Include="ContextWrapper.cs" />
     <Compile Include="Security\VerificationCode\BLL\VerificationCodeTemplateService.cs" />
     <Compile Include="Security\VerificationCode\DAL\IBatis\VerificationCodeTemplateProvider.cs" />
+    <Compile Include="Security\VerificationCode\IBLL\IVerificationCodeTemplateService.cs" />
     <Compile Include="Security\VerificationCode\IDAL\IVerificationCodeTemplateProvider.cs" />
     <Compile Include="Security\VerificationCode\VerificationCodeTemplateInfo.cs" />
     <Compile Include="Security\VerificationCode\VerificationObjectType.cs" />
-    <Compile Include="Security\VerificationCode\IBLL\IVerificationMailOptionService.cs" />
     <Compile Include="TemplateContent\Ajax\TemplateContentWrapper.cs" />
     <Compile Include="TemplateContent\BLL\TemplateContentService.cs" />
     <Compile Include="TemplateContent\Configuration\TemplateContentConfiguration.cs" />
