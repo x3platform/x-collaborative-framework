@@ -9,4 +9,4 @@ if not defined buildtool (echo no MSBuild.exe or xbuild was found>&2 & exit /b 4
 @REM if errorlevel 1 (echo NuGet restore failed.>&2 & exit /b 1)
 
 @REM if defined buildtool "%buildtool%" %*
-if defined buildtool "%buildtool%" ./src/makefile.msbuild
+if defined buildtool "%buildtool%" ./src/makefile.msbuild /fileLoggerParameters:LogFile=build.log;Encoding=UTF-8

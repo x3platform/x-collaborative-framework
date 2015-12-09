@@ -15,6 +15,7 @@
         <ProjectToBuild Include="Storages\Storages\Storages.csproj" />
         <ProjectToBuild Include="LDAP\LDAP\LDAP.csproj" />
         <ProjectToBuild Include="Email\Email.Client\Email.Client.csproj" />
+        <ProjectToBuild Include="SMS\SMS.Client\SMS.Client.csproj" />
         <ProjectToBuild Include="Drawing\Drawing.Captcha\Drawing.Captcha.csproj" />
         <ProjectToBuild Include="Location\Location.IPQuery\Location.IPQuery.csproj" />
         <ProjectToBuild Include="Sessions\Sessions\Sessions.csproj" />
