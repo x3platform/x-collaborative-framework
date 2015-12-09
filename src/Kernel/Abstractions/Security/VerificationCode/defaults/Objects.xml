@@ -12,11 +12,11 @@
             lazy-init="true" />
   
     <!-- 验证码邮件选项 -->
-    <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationMailOptionService"
-            type="X3Platform.Security.VerificationCode.BLL.VerificationMailOptionService"
+    <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationCodeTemplateService"
+            type="X3Platform.Security.VerificationCode.BLL.VerificationCodeTemplateService"
             lazy-init="true" />
 
-    <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationMailOptionProvider"
-            type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationMailOptionProvider"
+    <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeTemplateProvider"
+            type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeTemplateProvider"
             lazy-init="true" />
 </objects>

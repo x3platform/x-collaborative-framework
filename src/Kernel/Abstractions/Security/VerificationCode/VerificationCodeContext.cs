@@ -57,13 +57,13 @@ namespace X3Platform.Security.VerificationCode
         }
         #endregion
 
-        #region 属性:VerificationMailOptionService
-        private IVerificationMailOptionService m_VerificationMailOptionService = null;
+        #region 属性:VerificationCodeTemplateService
+        private IVerificationCodeTemplateService m_VerificationCodeTemplateService = null;
 
         /// <summary>验证邮件选项服务</summary>
-        public IVerificationMailOptionService VerificationMailOptionService
+        public IVerificationCodeTemplateService VerificationCodeTemplateService
         {
-            get { return this.m_VerificationMailOptionService; }
+            get { return this.m_VerificationCodeTemplateService; }
         }
         #endregion
 
@@ -105,7 +105,7 @@ namespace X3Platform.Security.VerificationCode
 
             // 创建数据服务对象
             this.m_VerificationCodeService = objectBuilder.GetObject<IVerificationCodeService>(typeof(IVerificationCodeService));
-            this.m_VerificationMailOptionService = objectBuilder.GetObject<IVerificationMailOptionService>(typeof(IVerificationMailOptionService));
+            this.m_VerificationCodeTemplateService = objectBuilder.GetObject<IVerificationCodeTemplateService>(typeof(IVerificationCodeTemplateService));
         }
         #endregion
     }

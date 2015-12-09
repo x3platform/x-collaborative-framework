@@ -1,0 +1,17 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.SMS.Client/X3Platform.SMS.Client/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.SMS.Client.defaults.IBatis.SqlMap.xml,X3Platform.SMS.Client
+  # 发送短信默认时间间隔 秒
+  SendInterval : 120
+  # 短信发送地址
+  SendUrl : http://localhost/api/sms
+  # 企业编号
+  EnterpriseCode: 000000
+  # 帐号
+  Username : admin
+  # 密码
+  Password : 000000
+...

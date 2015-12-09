@@ -67,5 +67,34 @@ namespace X3Platform.Security.VerificationCode.Configuration
         // -------------------------------------------------------
         // 自定义属性
         // -------------------------------------------------------
+
+        #region 属性:SendInterval
+        private int m_SendInterval = -1;
+
+        /// <summary>验证码发送时间间隔(单位:秒)</summary>
+        public int SendInterval
+        {
+            get
+            {
+                if (this.m_SendInterval == -1)
+                {
+                    // 读取配置信息
+                    this.m_SendInterval = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "SendInterval",
+                        this.Configuration.Keys));
+
+                    if (this.m_SendInterval == -1)
+                    {
+                        // 如果配置文件里没有设置，设置一个默认值。
+                        this.m_SendInterval = 120;
+                    }
+                }
+
+                return this.m_SendInterval;
+            }
+        }
+        #endregion
+
     }
 }

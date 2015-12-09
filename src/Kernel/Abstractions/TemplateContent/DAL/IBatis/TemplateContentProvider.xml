@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.TemplateContent.DAL.IBatis.TemplateContentProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="TemplateContentInfo" type="X3Platform.TemplateContent.Model.TemplateContentInfo,X3Platform.Abstractions" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Template_Content_FindOne_Result" class="TemplateContentInfo">
+      <result property="Name" column="Name" />
+      <result property="Description" column="Description" />
+      <result property="Html" column="Html" />
+    </resultMap>
+    <resultMap id="proc_Template_Content_FindAll_Result" class="TemplateContentInfo">
+      <result property="Name" column="Name" />
+      <result property="Description" column="Description" />
+      <result property="Html" column="Html" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="proc_Template_Content_FindOneByName" parameterClass="TemplateContentInfo" resultMap="proc_Template_Content_FindOne_Result" >
+      SELECT * FROM tb_Customize_Content WHERE Name = #Name# AND Status = 1
+    </select>
+    <select id="proc_Template_Content_IsExist" >
+      SELECT COUNT(*) AS 'Count' FROM tb_Customize_Content WHERE $WhereClause$
+    </select>
+    <select id="proc_Template_Content_GetHtml" >
+      SELECT Html FROM tb_Customize_Content WHERE Name = #Name# AND Status = 1
+    </select>
+  </statements>
+</sqlMap>

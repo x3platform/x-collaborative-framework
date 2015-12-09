@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace X3Platform.Membership.OrganizationUnitCharts
+namespace X3Platform.Membership.OrganizationCharts
 {
     /// <summary></summary>
-    public class OrganizationUnitChartNode : IDisposable
+    public class OrganizationChartNode : IDisposable
     {
         /// <summary></summary>
-        public OrganizationUnitChartNode() { }
+        public OrganizationChartNode() { }
 
         /// <summary></summary>
-        public OrganizationUnitChartNode(string id, string parentId, string code, string name, string description)
+        public OrganizationChartNode(string id, string parentId, string code, string name, string description)
         {
             this.Id = id;
             this.ParentId = parentId;
@@ -88,10 +88,10 @@ namespace X3Platform.Membership.OrganizationUnitCharts
         #endregion
 
         /// <summary>The data of the employee</summary>
-        private IList<OrganizationUnitChartNode> m_ChildNodes;
+        private IList<OrganizationChartNode> m_ChildNodes;
 
         /// <summary>The record with all employee data</summary>
-        public IList<OrganizationUnitChartNode> ChildNodes
+        public IList<OrganizationChartNode> ChildNodes
         {
             get { return m_ChildNodes; }
             set { m_ChildNodes = value; }

@@ -8,18 +8,15 @@ namespace X3Platform.Security.VerificationCode.IBLL
     #endregion
 
     /// <summary></summary>
-    [SpringObject("X3Platform.Security.VerificationCode.IBLL.IVerificationMailOptionService")]
-    public interface IVerificationMailOptionService
+    [SpringObject("X3Platform.Security.VerificationCode.IBLL.IVerificationCodeTemplateService")]
+    public interface IVerificationCodeTemplateService
     {
-        // -------------------------------------------------------
-        // 查询
-        // -------------------------------------------------------
-
-        #region 函数:FindOneByValidationType(string validationType)
-        /// <summary>查询某条记录</summary>
+        #region 函数:FindOne(string objectType, string validationType)
+        /// <summary>查询模板信息</summary>
+        /// <param name="objectType">对象类型</param>
         /// <param name="validationType">验证方式</param>
-        /// <returns>返回一个<see cref="VerificationMailOptionInfo"/>实例的详细信息</returns>
-        VerificationMailOptionInfo FindOneByValidationType(string validationType);
+        /// <returns>返回一个<see cref="VerificationCodeTemplateInfo"/>实例的详细信息</returns>
+        VerificationCodeTemplateInfo FindOne(string objectType, string validationType);
         #endregion
     }
 }

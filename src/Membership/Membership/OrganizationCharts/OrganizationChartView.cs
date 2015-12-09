@@ -19,7 +19,7 @@
 */
 #endregion
 
-namespace X3Platform.Membership.OrganizationUnitCharts
+namespace X3Platform.Membership.OrganizationCharts
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace X3Platform.Membership.OrganizationUnitCharts
     using System.Linq;
 
     /// <summary>组织结构视图</summary>
-    public class OrganizationUnitChartView : IDisposable
+    public class OrganizationChartView : IDisposable
     {
         /// <summary>绘图类</summary>
         private Graphics graphics;
@@ -43,14 +43,14 @@ namespace X3Platform.Membership.OrganizationUnitCharts
         private XmlDocument organizationTreeView;
 
         /// <summary>the employee data</summary>
-        private IList<OrganizationUnitChartNode> cacheOrganizationUnitChartNodes;
+        private IList<OrganizationChartNode> cacheOrganizationChartNodes;
 
         // private List<Position> EmpPositions;
         // A Dictionary of all employee data
-        private SortedDictionary<string, OrganizationUnitChartNode> m_ChartNodes;
+        private SortedDictionary<string, OrganizationChartNode> m_ChartNodes;
 
         /// <summary>A list of the chart node positions.</summary>
-        public SortedDictionary<string, OrganizationUnitChartNode> ChartNodes
+        public SortedDictionary<string, OrganizationChartNode> ChartNodes
         {
             get { return m_ChartNodes; }
             set { m_ChartNodes = value; }
@@ -174,15 +174,15 @@ namespace X3Platform.Membership.OrganizationUnitCharts
         }
 
         /// <summary></summary>
-        public OrganizationUnitChartView(IList<OrganizationUnitChartNode> list)
+        public OrganizationChartView(IList<OrganizationChartNode> list)
         {
-            this.cacheOrganizationUnitChartNodes = list;
+            this.cacheOrganizationChartNodes = list;
         }
 
         /// <summary></summary>
         public void Dispose()
         {
-            this.cacheOrganizationUnitChartNodes = null;
+            this.cacheOrganizationChartNodes = null;
 
             if (this.graphics != null)
             {
@@ -197,11 +197,11 @@ namespace X3Platform.Membership.OrganizationUnitCharts
         /// <param name="rootId">The ID of the Boss from which to start building the chart</param>
         /// <param name="imageFormat"></param>
         /// <returns>A stream of the image. can be shown or saved to disk.</returns>
-        public Stream GenerateOrganizationUnitChart(int width, int height, string rootId, ImageFormat imageFormat)
+        public Stream GenerateOrganizationChart(int width, int height, string rootId, ImageFormat imageFormat)
         {
             MemoryStream result = new MemoryStream();
 
-            this.ChartNodes = new SortedDictionary<string, OrganizationUnitChartNode>();
+            this.ChartNodes = new SortedDictionary<string, OrganizationChartNode>();
 
             //reset image size
             imageHeight = 0;
@@ -236,7 +236,7 @@ namespace X3Platform.Membership.OrganizationUnitCharts
 
                 this.graphics.Clear(this.BackgroundColor);
 
-                DrawOrganizationUnitChart(root);
+                DrawOrganizationChart(root);
 
                 //if caller does not care about size, use original calculated size
                 if (width < 0)
@@ -274,18 +274,18 @@ namespace X3Platform.Membership.OrganizationUnitCharts
         /// <param name="rootNodeId"></param>
         /// <param name="imageFormat"></param>
         /// <returns></returns>
-        public Stream GenerateOrganizationUnitChart(string rootNodeId, ImageFormat imageFormat)
+        public Stream GenerateOrganizationChart(string rootNodeId, ImageFormat imageFormat)
         {
-            return GenerateOrganizationUnitChart(-1, -1, rootNodeId, imageFormat);
+            return GenerateOrganizationChart(-1, -1, rootNodeId, imageFormat);
         }
 
         private void BuildTree(XmlNode node, int y)
         {
-            IList<OrganizationUnitChartNode> list = this.cacheOrganizationUnitChartNodes.Where(
+            IList<OrganizationChartNode> list = this.cacheOrganizationChartNodes.Where(
                 chartNode => chartNode.ParentId == node.Attributes["id"].Value).ToList();
 
             //has employees
-            foreach (OrganizationUnitChartNode item in list)
+            foreach (OrganizationChartNode item in list)
             {
                 //for each employee call this function again
                 XmlNode NewEmployeeNode = this.organizationTreeView.CreateElement("node");
@@ -304,7 +304,7 @@ namespace X3Platform.Membership.OrganizationUnitCharts
 
             //build employee data
             //after checking for employees we can add the current employee
-            OrganizationUnitChartNode organizationObject = this.cacheOrganizationUnitChartNodes.Where(
+            OrganizationChartNode organizationObject = this.cacheOrganizationChartNodes.Where(
                 chartNode => chartNode.Id == node.Attributes["id"].Value).First();
 
             organizationObject.ChildNodeCount = node.ChildNodes.Count;
@@ -424,7 +424,7 @@ namespace X3Platform.Membership.OrganizationUnitCharts
         }
 
         /// <summary>Draws the actual chart image.</summary>
-        private void DrawOrganizationUnitChart(XmlNode node)
+        private void DrawOrganizationChart(XmlNode node)
         {
             // 
             // 字体 和 笔刷
@@ -445,11 +445,11 @@ namespace X3Platform.Membership.OrganizationUnitCharts
             // 竖着显示文字
             // format.FormatFlags = StringFormatFlags.DirectionVertical;
 
-            IList<OrganizationUnitChartNode> list = cacheOrganizationUnitChartNodes.Where(charNode => charNode.ParentId == node.Attributes["id"].Value).ToList();
+            IList<OrganizationChartNode> list = cacheOrganizationChartNodes.Where(charNode => charNode.ParentId == node.Attributes["id"].Value).ToList();
 
-            foreach (OrganizationUnitChartNode chartNode in list)
+            foreach (OrganizationChartNode chartNode in list)
             {
-                DrawOrganizationUnitChart(node.SelectSingleNode(string.Format("node[@id='{0}']", chartNode.Id)));
+                DrawOrganizationChart(node.SelectSingleNode(string.Format("node[@id='{0}']", chartNode.Id)));
             }
 
             this.graphics.DrawRectangle(new Pen(this.LineColor, this.LineWidth * 2),
@@ -515,7 +515,7 @@ namespace X3Platform.Membership.OrganizationUnitCharts
             double percentageChangeX = actualWidth / imageWidth;
             double percentageChangeY = actualHeight / imageHeight;
 
-            foreach (OrganizationUnitChartNode item in this.ChartNodes.Values)
+            foreach (OrganizationChartNode item in this.ChartNodes.Values)
             {
                 Rectangle resizedRectangle = new Rectangle(
                     (int)(item.Position.X * percentageChangeX),

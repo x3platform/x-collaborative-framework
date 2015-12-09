@@ -303,10 +303,10 @@
     <EmbeddedResource Include="DAL\IBatis\StandardOrganizationUnitProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountBindingProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountFriendProvider.xml" />
+    <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationUnitId.sql" />
+    <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationUnitId.sql" />
+    <Content Include="db\Functions_MySQL\func_GetDepartmentLevelByOrganizationUnitId.sql" />
     <Content Include="db\Functions_MySQL\func_PaddingLeft.sql" />
-    <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationId.sql" />
-    <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationId.sql" />
-    <Content Include="db\Functions_MySQL\func_GetDepartmentLevelByOrganizationId.sql" />
     <Content Include="db\Functions_SQLServer\func_GetCorporationIdByOrganizationId.sql" />
     <Content Include="db\Functions_SQLServer\func_GetDepartmentIdByOrganizationId.sql" />
     <Content Include="db\Functions_SQLServer\func_GetDepartmentLevelByOrganizationId.sql" />
