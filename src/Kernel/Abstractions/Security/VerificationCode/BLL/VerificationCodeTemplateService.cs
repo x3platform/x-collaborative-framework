@@ -17,26 +17,26 @@ namespace X3Platform.Security.VerificationCode.BLL
     #endregion
 
     /// <summary>权限服务</summary>
-    public class VerificationMailOptionService : IVerificationMailOptionService
+    public class VerificationCodeTemplateService : IVerificationCodeTemplateService
     {
         /// <summary>数据提供器</summary>
-        private IVerificationMailOptionProvider provider = null;
+        private IVerificationCodeTemplateProvider provider = null;
 
         /// <summary>缓存存储</summary>
-        private IDictionary<string, VerificationMailOptionInfo> dictionary = new Dictionary<string, VerificationMailOptionInfo>();
+        private IDictionary<string, VerificationCodeTemplateInfo> dictionary = new Dictionary<string, VerificationCodeTemplateInfo>();
 
         private DateTime actionTime = DateTime.Now;
 
-        #region 构造函数:VerificationMailOptionService()
+        #region 构造函数:VerificationCodeTemplateService()
         /// <summary>构造函数</summary>
-        public VerificationMailOptionService()
+        public VerificationCodeTemplateService()
         {
             // 创建对象构建器(Spring.NET)
             string springObjectFile = VerificationCodeConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(VerificationCodeConfiguration.ApplicationName, springObjectFile);
 
-            this.provider = objectBuilder.GetObject<IVerificationMailOptionProvider>(typeof(IVerificationMailOptionProvider));
+            this.provider = objectBuilder.GetObject<IVerificationCodeTemplateProvider>(typeof(IVerificationCodeTemplateProvider));
         }
         #endregion
 
@@ -44,13 +44,14 @@ namespace X3Platform.Security.VerificationCode.BLL
         // 查询
         //-------------------------------------------------------
 
-        #region 函数:FindOneByValidationType(string validationType)
-        /// <summary>查询某条记录</summary>
+        #region 函数:FindOne(string objectType, string validationType)
+        /// <summary>查询模板信息</summary>
+        /// <param name="objectType">对象类型</param>
         /// <param name="validationType">验证方式</param>
-        /// <returns>返回一个<see cref="VerificationMailOptionInfo"/>实例的详细信息</returns>
-        public VerificationMailOptionInfo FindOneByValidationType(string validationType)
+        /// <returns>返回一个<see cref="VerificationCodeTemplateInfo"/>实例的详细信息</returns>
+        public VerificationCodeTemplateInfo FindOne(string objectType, string validationType)
         {
-            return this.provider.FindOneByValidationType(validationType);
+            return this.provider.FindOne(objectType, validationType);
         }
         #endregion
     }

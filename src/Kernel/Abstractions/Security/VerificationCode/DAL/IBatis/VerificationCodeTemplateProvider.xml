@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeTemplateProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="VerificationCodeTemplateInfo" type="X3Platform.Security.VerificationCode.VerificationCodeTemplateInfo,X3Platform.Abstractions" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_VerificationCodeTemplate_FindOne_Result" class="VerificationCodeTemplateInfo">
+      <result property="ObjectType" column="ObjectType" />
+      <result property="ValidationType" column="ValidationType" />
+      <result property="TemplateContentName" column="TemplateContentName" />
+      <result property="Options" column="Options" />
+    </resultMap>
+    <resultMap id="proc_VerificationCodeTemplate_FindAll_Result" class="VerificationCodeTemplateInfo">
+      <result property="ObjectType" column="ObjectType" />
+      <result property="ValidationType" column="ValidationType" />
+      <result property="TemplateContentName" column="TemplateContentName" />
+      <result property="Options" column="Options" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="proc_VerificationCodeTemplate_FindOne" resultMap="proc_VerificationCodeTemplate_FindOne_Result" >
+      SELECT * FROM tb_VerificationCodeTemplate WHERE ObjectType = #ObjectType# AND ValidationType = #ValidationType#
+    </select>
+  </statements>
+</sqlMap>

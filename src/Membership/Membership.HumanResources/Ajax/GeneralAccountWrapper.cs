@@ -1,6 +1,10 @@
 ﻿namespace X3Platform.Membership.HumanResources.Ajax
 {
+    using System;
+    using System.Net.Mail;
+    using System.Web;
     using System.Xml;
+
     using X3Platform.Ajax;
     using X3Platform.Location.IPQuery;
     using X3Platform.Membership.Model;
@@ -10,13 +14,11 @@
     using X3Platform.Membership.HumanResources.Model;
     using X3Platform.Util;
     using X3Platform.Email.Client;
-    using System;
     using X3Platform.Security.VerificationCode;
     using X3Platform.DigitalNumber;
     using X3Platform.Security;
-    using System.Web;
-    using System.Net.Mail;
     using X3Platform.TemplateContent;
+    using X3Platform.Json;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -216,7 +218,7 @@
             if (HttpContext.Current.Session["VerificationCodeSendTime"] != null && HttpContext.Current.Session["VerificationCodeSendTime"] is DateTime)
             {
                 DateTime time = (DateTime)HttpContext.Current.Session["VerificationCodeSendTime"];
-                
+
                 if (time.AddSeconds(120) > DateTime.Now)
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"发送太频繁，请稍后再试。\"}}";
@@ -230,11 +232,13 @@
 
             VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, validationType);
 
-            VerificationMailOptionInfo option = VerificationCodeContext.Instance.VerificationMailOptionService.FindOneByValidationType(validationType);
+            VerificationCodeTemplateInfo template = VerificationCodeContext.Instance.VerificationCodeTemplateService.FindOne("Mail", validationType);
 
-            string content = TemplateContentContext.Instance.TemplateContentService.GetHtml(option.TemplateContentName);
+            JsonData options = JsonMapper.ToObject(template.Options);
+            
+            string content = TemplateContentContext.Instance.TemplateContentService.GetHtml(template.TemplateContentName);
 
-            EmailClientContext.Instance.Send(email, option.Subject, string.Format(content, verificationCode.Code), EmailFormat.Html);
+            EmailClientContext.Instance.Send(email, JsonHelper.GetDataValue(options, "subject"), string.Format(content, verificationCode.Code), EmailFormat.Html);
 
             HttpContext.Current.Session["VerificationCodeSendTime"] = DateTime.Now;
 

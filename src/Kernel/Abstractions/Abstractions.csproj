@@ -116,7 +116,8 @@
     <Compile Include="ContextUnknownException.cs" />
     <Compile Include="ContextWrapper.cs" />
     <Compile Include="Security\VerificationCode\BLL\VerificationMailOptionService.cs" />
-    <Compile Include="Security\VerificationCode\DAL\IBatis\VerificationMailOptionProvider.cs" />
+    <Compile Include="Security\VerificationCode\DAL\IBatis\VerificationCodeTemplateProvider.cs" />
+    <Compile Include="Security\VerificationCode\VerificationObjectType.cs" />
     <Compile Include="Security\VerificationCode\IBLL\IVerificationMailOptionService.cs" />
     <Compile Include="Security\VerificationCode\IDAL\IVerificationMailOptionProvider.cs" />
     <Compile Include="Security\VerificationCode\VerificationMailOptionInfo.cs" />
@@ -258,7 +259,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TemplateContent\defaults\Objects.xml" />
     <EmbeddedResource Include="TemplateContent\DAL\IBatis\TemplateContentProvider.xml" />
-    <EmbeddedResource Include="Security\VerificationCode\DAL\IBatis\VerificationMailOptionProvider.xml" />
+    <EmbeddedResource Include="Security\VerificationCode\DAL\IBatis\VerificationCodeTemplateProvider.xml" />
     <Content Include="Security\VerificationCode\db\Init_Scripts_MySQL.sql" />
     <Content Include="Security\VerificationCode\db\Init_Scripts_SQLServer.sql" />
     <EmbeddedResource Include="Security\VerificationCode\defaults\IBatis.SqlMap.xml" />

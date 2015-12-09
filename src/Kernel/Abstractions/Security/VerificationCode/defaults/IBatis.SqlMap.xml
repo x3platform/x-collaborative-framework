@@ -20,6 +20,6 @@
 
     <sqlMaps>
         <sqlMap embedded="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider.xml,X3Platform.Abstractions"/>
-        <sqlMap embedded="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationMailOptionProvider.xml,X3Platform.Abstractions"/>
+        <sqlMap embedded="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeTemplateProvider.xml,X3Platform.Abstractions"/>
     </sqlMaps>
 </sqlMapConfig>

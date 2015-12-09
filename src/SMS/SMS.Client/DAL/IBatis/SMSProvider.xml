@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.SMS.Client.DAL.IBatis.SMSProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ShortMessage" type="X3Platform.SMS.Client.ShortMessage,X3Platform.SMS.Client" />
+  </alias>
+  <statements>
+    <insert id="proc_SMS_Send">
+      INSERT INTO tb_SMS
+      (
+        SerialNumber,
+        AccountId,
+        PhoneNumber,
+        MessageContent,
+        ReturnCode,
+        Date
+      )
+      VALUES
+      (
+        #SerialNumber#,
+        #AccountId#,
+        #PhoneNumber#,
+        #MessageContent#,
+        #ReturnCode#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+  </statements>
+</sqlMap>

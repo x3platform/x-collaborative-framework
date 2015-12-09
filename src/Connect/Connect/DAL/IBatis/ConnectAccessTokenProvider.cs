@@ -17,9 +17,6 @@ namespace X3Platform.Connect.DAL.IBatis
     [DataObject]
     public class ConnectAccessTokenProvider : IConnectAccessTokenProvider
     {
-        /// <summary>配置</summary>
-        private ConnectConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -31,9 +28,7 @@ namespace X3Platform.Connect.DAL.IBatis
 
         public ConnectAccessTokenProvider()
         {
-            this.configuration = ConnectConfigurationView.Instance.Configuration;
-
-            this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = ConnectConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
