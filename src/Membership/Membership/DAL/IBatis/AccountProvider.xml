@@ -14,7 +14,7 @@
             <result property="LoginName" column="LoginName" />
             <result property="IdentityCard" column="IdentityCard" />
             <result property="Type" column="Type" />
-            <result property="CertifiedTelephone" column="CertifiedTelephone" />
+            <result property="CertifiedMobile" column="CertifiedMobile" />
             <result property="CertifiedEmail" column="CertifiedEmail" />
             <result property="CertifiedAvatar" column="CertifiedAvatar" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
@@ -39,7 +39,7 @@
             <result property="LoginName" column="LoginName" />
             <result property="IdentityCard" column="IdentityCard" />
             <result property="Type" column="Type" />
-            <result property="CertifiedTelephone" column="CertifiedTelephone" />
+            <result property="CertifiedMobile" column="CertifiedMobile" />
             <result property="CertifiedEmail" column="CertifiedEmail" />
             <result property="CertifiedAvatar" column="CertifiedAvatar" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
@@ -70,7 +70,7 @@
                 PasswordChangedDate,
                 IdentityCard,
                 Type,
-                CertifiedTelephone,
+                CertifiedMobile,
                 CertifiedEmail,
                 CertifiedAvatar,
                 EnableExchangeEmail,
@@ -97,7 +97,7 @@
                 CURRENT_TIMESTAMP,
                 #IdentityCard#,
                 #Type#,
-                #CertifiedTelephone#,
+                #CertifiedMobile#,
                 #CertifiedEmail#,
                 #CertifiedAvatar#,
                 #EnableExchangeEmail#,
@@ -273,8 +273,8 @@
             Update tb_Account SET LoginName = #LoginName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
-        <update id="proc_Account_SetCertifiedTelephone" >
-            Update tb_Account SET CertifiedTelephone = #CertifiedTelephone#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+        <update id="proc_Account_SetCertifiedMobile" >
+            Update tb_Account SET CertifiedMobile = #CertifiedMobile#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
         </update>
 
         <update id="proc_Account_SetCertifiedEmail" >

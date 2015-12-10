@@ -10,7 +10,7 @@ namespace X3Platform.Membership
     using X3Platform.Membership.Scope;
 
     /// <summary>人员及权限管理工具类</summary>
-    public sealed class MembershipUitily
+    public sealed class MembershipUtil
     {
         /// <summary>获取用户信息</summary>
         /// <param name="scopeText">范围文本数据</param>
@@ -220,7 +220,7 @@ namespace X3Platform.Membership
                 }
             }
 
-            return MembershipUitily.ToAccounts(objectArray);
+            return MembershipUtil.ToAccounts(objectArray);
         }
         #endregion
 

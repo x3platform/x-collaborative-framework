@@ -165,6 +165,7 @@
     <Compile Include="Customizes\Widgets\TodayWidget.cs" />
     <Compile Include="Customizes\Widgets\WeatherWidget.cs" />
     <Compile Include="Mvc\Attributes\HandleExceptionAttribute.cs" />
+    <Compile Include="Mvc\Attributes\CaptchaAttribute.cs" />
     <Compile Include="Mvc\Attributes\LoginFilterAttribute.cs" />
     <Compile Include="Mvc\Controllers\CustomController.cs" />
     <Compile Include="Mvc\Controllers\HomeController.cs" />

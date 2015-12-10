@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Start Menu -->
+  <application name="Start"></application>
+  <!-- Shortcut Menu -->
+  <application name="Shortcut"></application>
+  <!-- Top Menu -->
+  <application name="Top">
+    <menu name="61f70d0b-03ff-4a11-a5a8-161e6b4a87b1">新闻管理</menu>
+    <menu name="7971003d-71e7-4392-80db-8b9526e4508a">费用报销</menu>
+    <menu name="7358c3d9-443d-4524-938f-1d885d689927">论坛管理</menu>
+    <menu name="9d1cb823-d63a-4fd3-aae3-45aecb28c18d">问题跟踪</menu>
+  </application>
+  <!-- Bottom Menu -->
+  <application name="Bottom"></application>
+  <!-- Membership -->
+  <application name="Membership">
+    <menu name="MyTasks">我的待办事宜</menu>
+    <menu name="MyPreferences">帐号偏好设置</menu>
+    <menu name="RememberLoginName">记住登录名</menu>
+    <menu name="Settings">设置</menu>
+    <menu name="SignIn">登录</menu>
+    <menu name="SignUp">注册</menu>
+    <menu name="SignOut">退出</menu>
+  </application>
+  <!-- Bugs -->
+  <application name="Bugs">
+    <menu name="4176b203-ca6b-4698-9240-9e4bd0ae19e4">问题列表</menu>
+    <menu name="c6f42b69-79d2-44a1-a53e-b8c509ad522e">提交新的问题</menu>
+    <menu name="bb259313-8578-48fc-b3de-9b0fb8b10344">我的问题列表</menu>
+    <menu name="7e68b9b2-3fa1-4ebd-83b2-4c6dad9ac716">参数设置</menu>
+    <menu name="daf8baf5-abaf-4ade-8267-895edc257fc3">类别设置</menu>
+  </application>
+</resources>

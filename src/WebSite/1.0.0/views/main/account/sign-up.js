@@ -25,15 +25,45 @@
 
         sendVerificationCode: function()
         {
+            var registerType = $('#registerType').val();
+
+            var url = null;
+
+            if(registerType == 'mobile')
+            {
+                url = '/api/hr.general.sendVerificationSMS.aspx';
+            }
+            else
+            {
+                url = '/api/hr.general.sendVerificationMail.aspx';
+            }
+
             var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
             outString += '<request>';
             outString += '<captcha><![CDATA[' + x.dom('#captcha').val() + ']]></captcha>';
-            outString += '<email><![CDATA[' + x.dom('#email').val() + ']]></email>';
-            outString += '<validationType>注册帐号</validationType>';
+            if(registerType == 'mobile')
+            {
+                if(x.dom('#mobile').val() == '')
+                {
+                    x.msg('必须填写手机号码。');
+                    return;
+                }
+                outString += '<phoneNumber><![CDATA[' + x.dom('#mobile').val() + ']]></phoneNumber>';
+            }
+            else
+            {
+                if(x.dom('#email').val() == '')
+                {
+                    x.msg('必须填写邮箱地址。');
+                    return;
+                }
+                outString += '<email><![CDATA[' + x.dom('#email').val() + ']]></email>';
+            }
+            outString += '<validationType>用户注册</validationType>';
             outString += '</request>';
 
-            x.net.xhr('/api/hr.general.sendVerificationMail.aspx', outString, {
+            x.net.xhr(url, outString, {
                 callback: function(response)
                 {
                     var result = x.toJSON(response).message;
@@ -41,9 +71,34 @@
                     switch(Number(result.returnCode))
                     {
                         case 0:
+                            x.dom('#btnVerificationCode')[0].disabled = true;
+
+                            x.msg(result.value);
+
+                            // 初始化一个60秒的倒计时计时器
+                            var counter = 60;
+
+                            var timer = x.newTimer(1, function(timer)
+                            {
+                                x.dom('#btnVerificationCode').html((counter--) + '秒后重新获取');
+
+                                if(counter < 0)
+                                {
+                                    x.dom('#btnVerificationCode').html('重新发送验证码');
+                                    x.dom('#btnVerificationCode')[0].disabled = false;
+
+                                    // 停止计时器
+                                    timer.stop();
+                                }
+                            });
+
+                            // 启动计时器
+                            timer.start();
+
                             break;
 
                         case 1:
+                            x.dom('#btnVerificationCode')[0].disabled = false;
                             x.msg(result.value);
                             break;
                     }
@@ -53,18 +108,29 @@
 
         checkAndSignUp: function()
         {
-            var email = x.dom('#email').val();
+            var registerType = $('#registerType').val();
             var originalPassword = x.dom('#originalPassword').val();
 
             x.dom('#password').val(CryptoJS.SHA1(originalPassword).toString());
 
-            if(x.dom('#email').val() == '' || originalPassword == '')
+            if(registerType == 'mobile')
             {
-                x.msg('必须填写电子邮箱和密码。');
-                return;
+                if(x.dom('#mobile').val() == '' || originalPassword == '')
+                {
+                    x.msg('必须填写手机号码和密码。');
+                    return;
+                }
+            }
+            else
+            {
+                if(x.dom('#email').val() == '' || originalPassword == '')
+                {
+                    x.msg('必须填写电子邮箱和密码。');
+                    return;
+                }
             }
 
-            if(originalPassword.length < 6)
+            if(originalPassword.length < 7)
             {
                 x.msg('密码长度必须大于八位。');
                 return;
@@ -100,7 +166,6 @@
                 x.dom('.loading').css({ 'display': 'none' });
             });
         }
-
     };
 
     x.dom.ready(function()

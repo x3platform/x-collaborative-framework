@@ -13,6 +13,7 @@ using Common.Logging;
 using X3Platform.Configuration;
 using X3Platform.Data;
 using X3Platform.Globalization;
+using System.IO;
 
 namespace X3Platform.WebSiteV10
 {
@@ -99,8 +100,15 @@ namespace X3Platform.WebSiteV10
                     {
                         cultureName = HttpContext.Current.Request.UserLanguages[0];
                     }
-
-                    culture = new CultureInfo(cultureName);
+                    
+                    if (cultureName == "zh-CN" || cultureName == "en-US")
+                    {
+                        culture = new CultureInfo(cultureName);
+                    }
+                    else
+                    {
+                        culture = new CultureInfo("zh-CN");
+                    }
 
                     this.Session["CurrentCulture"] = culture;
                 }

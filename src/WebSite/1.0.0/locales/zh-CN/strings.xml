@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- text -->
+  <string name="text_all">全部</string>
+  <string name="text_please_select">请选择</string>
+  <string name="text_paging_tip_format">共有{0}条信息 当前{1}-{2}信息</string>
+  <!-- msg -->
+  <string name="msg_are_you_sure_you_want_to_delete">确定删除?</string>
+  <string name="msg_net_error_401">访问被拒绝，客户试图未经授权访问受密码保护的页面。</string>
+  <string name="msg_net_error_404">无法找到指定位置的资源。</string>
+  <string name="msg_net_error_500">服务器繁忙，请稍候再试。</string>
+  <string name="msg_net_error_unkown">系统错误，错误信息【{0}】。</string>
+  <string name="msg_net_waiting_loading_tip_text">正在加载数据，请稍后......</string>
+  <string name="msg_net_waiting_query_tip_text">正在查询数据，请稍后......</string>
+  <string name="msg_net_waiting_commit_tip_text">正在提交数据，请稍后......</string>
+  <string name="msg_net_waiting_hold_tip_text">正在暂存数据，请稍后......</string>
+  <string name="msg_net_waiting_save_tip_text">正在保存数据，请稍后......</string>
+  <string name="msg_net_waiting_delete_tip_text">正在删除数据，请稍后......</string>
+  <string name="msg_net_waiting_workflow_loading_template_tip_text">正在加载工作流模板，请稍后......</string>
+  <string name="msg_net_waiting_workflow_commit_tip_text">正在提交信息，请稍后......</string>
+  <string name="msg_net_waiting_workflow_rejected_tip_text">正在驳回信息，请稍后......</string>
+  <!-- warning -->
+  <string name="warning_required">必须填写【{0}】</string>
+  <!-- button translation -->
+  <string name="btn_search">搜索</string>
+  <string name="btn_filter">过滤</string>
+  <string name="btn_query">查询</string>
+  <string name="btn_add">添加</string>
+  <string name="btn_edit">编辑</string>
+  <string name="btn_remove">移除</string>
+  <string name="btn_delete">删除</string>
+  <string name="btn_refresh">刷新</string>
+  <string name="btn_save">保存</string>
+  <string name="btn_close">关闭</string>
+  <!-- date -->
+  <string name="date_dateformat_fulldaykey">yyyyMMdd</string>
+  <string name="date_dateformat_fulldayshow">yyyy年M月d日</string>
+  <string name="date_dateformat_fulldayvalue">yyyyMMdd</string>
+  <string name="date_dateformat_Md">M/d (W)</string>
+  <string name="date_dateformat_Md3">M月d日</string>
+</resources>

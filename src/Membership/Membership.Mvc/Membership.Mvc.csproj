@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AccountGrantController.cs" />
     <Compile Include="HumanResources.Controllers\AssignedJobController.cs" />
     <Compile Include="HumanResources.Controllers\OrganizationController.cs" />
+    <Compile Include="Personal.Controllers\FriendsController.cs" />
     <Compile Include="Personal.Controllers\SettingsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="HumanResources.Controllers\JobController.cs" />

@@ -81,6 +81,42 @@
         }
         #endregion
 
+        #region 函数:Avatar()
+        /// <summary>联系信息</summary>
+        /// <returns></returns>
+        public ActionResult Avatar()
+        {
+            // 所属应用信息
+            ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
+
+            IMemberInfo member = MembershipManagement.Instance.MemberService[this.Account.Id];
+
+            if (member == null)
+            {
+                ApplicationError.Write(404);
+            }
+
+            ViewBag.member = member;
+
+            IAccountInfo account = MembershipManagement.Instance.AccountService[member.Account.Id];
+
+            string avatar_120x120 = string.Empty;
+
+            if (string.IsNullOrEmpty(account.CertifiedAvatar))
+            {
+                avatar_120x120 = AttachmentStorageConfigurationView.Instance.VirtualUploadFolder + "avatar/default_120x120.png";
+            }
+            else
+            {
+                avatar_120x120 = account.CertifiedAvatar.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder);
+            }
+
+            ViewBag.avatar_120x120 = avatar_120x120;
+
+            return View("/views/main/account/settings/avatar.cshtml");
+        }
+        #endregion
+
         #region 函数:Emails()
         /// <summary>邮箱管理</summary>
         /// <returns></returns>
@@ -90,6 +126,18 @@
             ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
 
             return View("/views/main/account/settings/emails.cshtml");
+        }
+        #endregion
+
+        #region 函数:Contact()
+        /// <summary>联系信息</summary>
+        /// <returns></returns>
+        public ActionResult contact()
+        {
+            // 所属应用信息
+            ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
+
+            return View("/views/main/account/settings/contact.cshtml");
         }
         #endregion
 

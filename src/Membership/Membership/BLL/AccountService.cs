@@ -326,13 +326,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:FindOneByCertifiedTelephone(string certifiedTelephone)
+        #region 函数:FindOneByCertifiedMobile(string certifiedMobile)
         /// <summary>根据已验证的手机号查询某条记录</summary>
-        /// <param name="certifiedTelephone">已验证的手机号</param>
+        /// <param name="certifiedMobile">已验证的手机号</param>
         /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
-        public IAccountInfo FindOneByCertifiedTelephone(string certifiedTelephone)
+        public IAccountInfo FindOneByCertifiedMobile(string certifiedMobile)
         {
-            return this.provider.FindOneByCertifiedTelephone(certifiedTelephone);
+            return this.provider.FindOneByCertifiedMobile(certifiedMobile);
         }
         #endregion
 
@@ -570,17 +570,17 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:IsExistCertifiedTelephone(string certifiedTelephone)
+        #region 函数:IsExistCertifiedMobile(string certifiedMobile)
         /// <summary>检测是否存在相关的手机号</summary>
-        /// <param name="certifiedTelephone">已验证的手机号</param>
+        /// <param name="certifiedMobile">已验证的手机号</param>
         /// <returns>布尔值</returns>
-        public bool IsExistCertifiedTelephone(string certifiedTelephone)
+        public bool IsExistCertifiedMobile(string certifiedMobile)
         {
-            bool result = this.provider.IsExistCertifiedTelephone(certifiedTelephone);
+            bool result = this.provider.IsExistCertifiedMobile(certifiedMobile);
 
             if (!result)
             {
-                result = Convert.ToBoolean(IsExistFieldValue("CertifiedTelephone", certifiedTelephone));
+                result = Convert.ToBoolean(IsExistFieldValue("CertifiedMobile", certifiedMobile));
             }
 
             return result;
@@ -788,14 +788,14 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:SetCertifiedTelephone(string accountId, string telephone)
+        #region 函数:SetCertifiedMobile(string accountId, string telephone)
         /// <summary>设置已验证的联系电话</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="telephone">联系电话</param>
         /// <returns>0 操作成功 | 1 操作失败</returns>
-        public int SetCertifiedTelephone(string accountId, string telephone)
+        public int SetCertifiedMobile(string accountId, string telephone)
         {
-            return this.provider.SetCertifiedTelephone(accountId, telephone);
+            return this.provider.SetCertifiedMobile(accountId, telephone);
         }
         #endregion
 

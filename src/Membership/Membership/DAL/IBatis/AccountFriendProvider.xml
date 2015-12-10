@@ -42,6 +42,26 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
+        <insert id="proc_Account_Friend_Accept_Insert" >
+            INSERT INTO tb_Account_Friend_Accept 
+            (
+                Id,
+                AccountId,
+                FriendAccountId,
+                Reason,
+                Status,
+                CreatedDate
+            )
+            VALUES
+            (
+                #Id#,
+                #AccountId#,
+                #FriendAccountId#,
+                #Reason#,
+                #Status#,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
         <update id="proc_Account_Friend_Update" parameterClass="AccountFriendInfo">
             UPDATE tb_Account_Friend SET
 
@@ -54,6 +74,9 @@
         </update>
         <delete id="proc_Account_Friend_Delete" >
             DELETE FROM tb_Account_Friend WHERE $WhereClause$
+        </delete>
+        <delete id="proc_Account_Friend_Accept_Delete" >
+            DELETE FROM tb_Account_Friend_Accept WHERE $WhereClause$
         </delete>
         <select id="proc_Account_Friend_FindOne" resultMap="proc_Account_Friend_FindOne_Result" >
             SELECT * FROM tb_Account_Friend WHERE Id = #Id#
@@ -152,12 +175,62 @@
                 </isParameterPresent>
             </dynamic>
         </select>
+        <select id="proc_Account_Friend_Accept_GetPaging#MySql"  resultMap="proc_Account_Friend_FindAll_Result" >
+            SELECT * FROM tb_Account_Friend_Accept T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+            
+            <dynamic prepend="ORDER BY">
+                <isNotEmpty prepend="AND" property="OrderBy" >
+                    $OrderBy$
+                </isNotEmpty>
+            </dynamic>
+            
+            LIMIT $StartIndex$, $PageSize$
+        </select>
+        <select id="proc_Account_Friend_Accept_GetPaging#SqlServer" resultMap="proc_Account_Friend_FindAll_Result" >
+          SELECT * 
+            FROM (
+                   SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+                     FROM tb_Account_Friend_Accept T
+
+                    <dynamic prepend="WHERE">
+                        <isParameterPresent>
+                            <isNotEmpty prepend="AND" property="WhereClause" >
+                                $WhereClause$
+                            </isNotEmpty>
+                        </isParameterPresent>
+                    </dynamic>) TableIndex
+
+          WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+        </select>
+        <select id="proc_Account_Friend_Accept_GetRowCount" >
+            SELECT COUNT(*) AS "RowCount" FROM tb_Account_Friend_Accept T
+
+            <dynamic prepend="WHERE">
+                <isParameterPresent>
+                    <isNotEmpty prepend="AND" property="WhereClause" >
+                        $WhereClause$
+                    </isNotEmpty>
+                </isParameterPresent>
+            </dynamic>
+        </select>
         <select id="proc_Account_Friend_IsExist" >
             SELECT COUNT(0) AS "Count" FROM tb_Account_Friend WHERE $WhereClause$
         </select>
         <update id="proc_Account_Friend_SetStatus" parameterClass="AccountFriendInfo">
             UPDATE tb_Account_Friend SET Status = #Status# WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
         </update>
+        <update id="proc_Account_Friend_Accept_SetStatus" >
+            UPDATE tb_Account_Friend_Accept SET Status = #Status# WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
+        </update>
+      
         <update id="proc_Account_Friend_SetDisplayNameName" parameterClass="AccountFriendInfo">
             UPDATE tb_Account_Friend SET FriendDisplayName = #FriendDisplayName# WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
         </update>

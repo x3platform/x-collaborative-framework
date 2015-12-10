@@ -2,7 +2,7 @@
 // Name     : x-client-api 
 // Version  : 1.0.0 
 // Author   : ruanyu@live.com
-// Date     : 2015-08-12
+// Date     : 2015-11-24
 (function(global, factory) 
 {
     if (typeof module === "object" && typeof module.exports === "object") 
@@ -20,7 +20,9 @@
     {
         factory(global);
     }
-} (typeof window !== "undefined" ? window : this, function(window, noGlobal) {    /**
+} (typeof window !== "undefined" ? window : this, function(window, noGlobal) {
+
+    /**
     * 模板引擎
     * @name    template
     * @param   {String}            模板选项
@@ -470,7 +472,9 @@
         },
     
         injectionCode: function(buffer, beginIndex, openTag, closeTag, expression)
-        {    
+        {
+            // x.debug.log('beginIndex:' + beginIndex + ', openTag:' + openTag + ', closeTag:' + closeTag + ', expression:' + expression);
+    
             var deep = 0, endIndex = beginIndex;
     
             // 格式化开始标签
@@ -720,7 +724,9 @@
             ex.temp = "function anonymous($data,$fileName) {" + code + "}";
             throw ex;
         }
-            /**
+    
+        /*#region 函数:html(code)*/
+        /**
         * 处理 HTML 语句
         */
         function html(code)

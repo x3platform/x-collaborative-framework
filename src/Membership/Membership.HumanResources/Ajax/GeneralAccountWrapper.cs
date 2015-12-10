@@ -19,6 +19,8 @@
     using X3Platform.Security;
     using X3Platform.TemplateContent;
     using X3Platform.Json;
+    using X3Platform.SMS.Client;
+    using X3Platform.Security.VerificationCode.Configuration;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -59,7 +61,7 @@
             this.service.SetMemberCard(member);
 
             // 记录帐号操作日志
-            MembershipManagement.Instance.AccountLogService.Log(account.Id, "设置个人信息", "【" + account.Name + "】更新了自己的个人信息，【IP:" + IPQueryContext.GetClientIP() + "】。", account.Id);
+            MembershipManagement.Instance.AccountLogService.Log(account.Id, "hr.general.setMemberCard", "【" + account.Name + "】更新了自己的个人信息，【IP:" + IPQueryContext.GetClientIP() + "】。", account.Id);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
         }
@@ -219,7 +221,7 @@
             {
                 DateTime time = (DateTime)HttpContext.Current.Session["VerificationCodeSendTime"];
 
-                if (time.AddSeconds(120) > DateTime.Now)
+                if (time.AddSeconds(VerificationCodeConfigurationView.Instance.SendInterval) > DateTime.Now)
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"发送太频繁，请稍后再试。\"}}";
                 }
@@ -239,6 +241,45 @@
             string content = TemplateContentContext.Instance.TemplateContentService.GetHtml(template.TemplateContentName);
 
             EmailClientContext.Instance.Send(email, JsonHelper.GetDataValue(options, "subject"), string.Format(content, verificationCode.Code), EmailFormat.Html);
+
+            HttpContext.Current.Session["VerificationCodeSendTime"] = DateTime.Now;
+
+            return "{\"message\":{\"returnCode\":0,\"value\":\"发送成功。\"}}";
+        }
+        #endregion
+    
+        #region 函数:SendVerificationSMS(XmlDocument doc)
+        /// <summary></summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string SendVerificationSMS(XmlDocument doc)
+        {
+            // 验证码
+            string captcha = XmlHelper.Fetch("captcha", doc);
+
+            if (HttpContext.Current.Session["captcha"] == null || captcha != HttpContext.Current.Session["captcha"].ToString())
+            {
+                return "{\"message\":{\"returnCode\":1,\"value\":\"验证码错误。\"}}";
+            }
+
+            // 检查验证码发送时间
+            if (HttpContext.Current.Session["VerificationCodeSendTime"] != null && HttpContext.Current.Session["VerificationCodeSendTime"] is DateTime)
+            {
+                DateTime time = (DateTime)HttpContext.Current.Session["VerificationCodeSendTime"];
+
+                if (time.AddSeconds(VerificationCodeConfigurationView.Instance.SendInterval) > DateTime.Now)
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"发送太频繁，请稍后再试。\"}}";
+                }
+            }
+
+            // 手机号码
+            string phoneNumber = XmlHelper.Fetch("phoneNumber", doc);
+            // 验证类型
+            string validationType = XmlHelper.Fetch("validationType", doc);
+            
+            // 发送短信
+            SMSContext.Instance.SMSService.Send(phoneNumber, validationType);
 
             HttpContext.Current.Session["VerificationCodeSendTime"] = DateTime.Now;
 

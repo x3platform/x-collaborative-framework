@@ -61,9 +61,9 @@ namespace X3Platform.Membership
         new int Type { get; set; }
         #endregion
 
-        #region 属性:CertifiedTelephone
-        /// <summary>已验证的电话</summary>
-        string CertifiedTelephone { get; set; }
+        #region 属性:CertifiedMobile
+        /// <summary>已验证的手机号码</summary>
+        string CertifiedMobile { get; set; }
         #endregion
 
         #region 属性:CertifiedEmail

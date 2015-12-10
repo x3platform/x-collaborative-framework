@@ -101,6 +101,9 @@
     <Reference Include="X3Platform.Sessions">
       <HintPath>..\..\..\bin\X3Platform.Sessions.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.SMS.Client">
+      <HintPath>..\..\..\bin\X3Platform.SMS.Client.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>

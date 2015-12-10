@@ -9,6 +9,7 @@ namespace X3Platform.Membership.IBLL
     using X3Platform.Spring;
     
     using X3Platform.Membership.Model;
+    using System.Data;
     #endregion
 
     /// <summary></summary>
@@ -71,18 +72,30 @@ namespace X3Platform.Membership.IBLL
         IList<AccountFriendInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-		#region 函数:IsExist(string id)
-        /// <summary>查询是否存在相关的记录</summary>
-        /// <param name="id">标识</param>
-        /// <returns>布尔值</returns>
-        bool IsExist(string id);
+        #region 函数:GetAcceptListPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="AccountFriendInfo"/></returns> 
+        DataTable GetAcceptListPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 函数:Invite(string accountId, string friendAccountId)
+        #region 函数:IsExist(string accountId, string friendAccountId)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="friendAccountId">好友帐号唯一标识</param>
+        /// <returns>布尔值</returns>
+        bool IsExist(string accountId, string friendAccountId);
+        #endregion
+
+        #region 函数:Invite(string accountId, string friendAccountId, string reason)
         /// <summary>邀请好友</summary>
         /// <param name="accountId">帐号标识</param>
         /// <param name="friendAccountId">帐号标识</param>
-        int Invite(string accountId, string friendAccountId);
+        /// <param name="reason">原因</param>
+        int Invite(string accountId, string friendAccountId, string reason);
         #endregion
 
         #region 函数:Accept(string accountId, string friendAccountId)

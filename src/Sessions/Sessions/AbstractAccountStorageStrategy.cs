@@ -90,7 +90,7 @@
             outString.AppendFormat("<type><![CDATA[{0}]]></type>", account.Type);
             outString.AppendFormat("<certifiedAvatar><![CDATA[{0}]]></certifiedAvatar>", account.CertifiedAvatar);
             outString.AppendFormat("<certifiedEmail><![CDATA[{0}]]></certifiedEmail>", account.CertifiedEmail);
-            outString.AppendFormat("<certifiedTelephone><![CDATA[{0}]]></certifiedTelephone>", account.CertifiedTelephone);
+            outString.AppendFormat("<certifiedMobile><![CDATA[{0}]]></certifiedMobile>", account.CertifiedMobile);
             outString.AppendFormat("<ip><![CDATA[{0}]]></ip>", account.IP);
             outString.Append("</accountObject>");
 

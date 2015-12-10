@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Common -->
+  <translate name="AutomaticNumbering">自动编号</translate>
+  <translate name="Keywords">关键字</translate>
+  <translate name="Name">名称</translate>
+  <translate name="SubmittedBy">提交人</translate>
+  <translate name="Attachments">附件</translate>
+  <translate name="UploadFile">上传文件</translate>
+  <translate name="Tag">标签</translate>
+  <translate name="Status">状态</translate>
+  <translate name="ModifiedDate">更新时间</translate>
+  <translate name="CreatedDate">创建时间</translate>
+  <!-- Membership -->
+  <application name="Membership">
+    <translate name="MyProfile">我的配置信息</translate>
+    <translate name="MyTasks">我的待办事宜</translate>
+    <translate name="RememberLoginName">记住登录名</translate>
+    <translate name="ForgotLoginPassword">忘记登录密码</translate>
+    <translate name="CreateNewAccount">注册新帐号</translate>
+    <translate name="Settings">设置</translate>
+    <translate name="SignIn">登录</translate>
+    <translate name="SignUp">注册</translate>
+    <translate name="SignOut">退出</translate>
+  </application>
+  <!-- Bugs -->
+  <application name="Bugs">
+    <translate name="Bugs">问题跟踪</translate>
+    <translate name="Bug">问题</translate>
+    <translate name="Code">编码</translate>
+    <translate name="Title">标题</translate>
+    <translate name="Category">所属类别</translate>
+    <translate name="Content">内容</translate>
+    <translate name="Project">所属项目</translate>
+    <translate name="Status">问题状态</translate>
+    <translate name="AssignTo">负责人</translate>
+    <translate name="Priority">优先级</translate>
+    <translate name="SimilarBugs">相似问题</translate>
+    <translate name="Comment">反馈</translate>
+    <translate name="History">记录</translate>
+  </application>
+</resources>

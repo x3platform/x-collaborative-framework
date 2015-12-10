@@ -1,0 +1,22 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/views/main/account/friends/account-friend-invite.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+<div id="window-container" class="window-container">
+  <div style="padding-top:10px;">
+  <table class="table table-borderless">
+    <tr>
+      <td class="table-body-input">
+        <input id="searchText" name="searchText" type="text" value="" class="form-control" placeholder="手机号码" />
+      </td>
+    </tr>
+    <tr>
+      <td class="table-body-input">
+        <button id="btnFilter" class="btn btn-default" style="width:100%;">查询</button>
+      </td>
+    </tr>
+    <tr>
+      <td id="window-main-table-container" class="table-body-input">
+      </td>
+    </tr>
+  </table></div>
+</div>

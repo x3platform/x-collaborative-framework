@@ -67,11 +67,11 @@ namespace X3Platform.Membership.IDAL
     IAccountInfo FindOneByLoginName(string loginName);
     #endregion
 
-    #region 函数:FindOneByCertifiedTelephone(string certifiedTelephone)
+    #region 函数:FindOneByCertifiedMobile(string certifiedMobile)
     /// <summary>根据已验证的手机号查询某条记录</summary>
-    /// <param name="certifiedTelephone">已验证的手机号</param>
+    /// <param name="certifiedMobile">已验证的手机号</param>
     /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
-    IAccountInfo FindOneByCertifiedTelephone(string certifiedTelephone);
+    IAccountInfo FindOneByCertifiedMobile(string certifiedMobile);
     #endregion
 
     #region 函数:FindOneByCertifiedEmail(string certifiedEmail)
@@ -191,11 +191,11 @@ namespace X3Platform.Membership.IDAL
     bool IsExistGlobalName(string globalName);
     #endregion
 
-    #region 函数:IsExistCertifiedTelephone(string certifiedTelephone)
+    #region 函数:IsExistCertifiedMobile(string certifiedMobile)
     /// <summary>检测是否存在相关的手机号</summary>
-    /// <param name="certifiedTelephone">已验证的手机号</param>
+    /// <param name="certifiedMobile">已验证的手机号</param>
     /// <returns>布尔值</returns>
-    bool IsExistCertifiedTelephone(string certifiedTelephone);
+    bool IsExistCertifiedMobile(string certifiedMobile);
     #endregion
 
     #region 函数:IsExistCertifiedEmail(string certifiedEmail)
@@ -254,12 +254,12 @@ namespace X3Platform.Membership.IDAL
     int SetLoginName(string accountId, string loginName);
     #endregion
 
-    #region 函数:SetCertifiedTelephone(string accountId, string telephone)
+    #region 函数:SetCertifiedMobile(string accountId, string telephone)
     /// <summary>设置已验证的联系电话</summary>
     /// <param name="accountId">帐户标识</param>
     /// <param name="telephone">联系电话</param>
     /// <returns>0 操作成功 | 1 操作失败</returns>
-    int SetCertifiedTelephone(string accountId, string telephone);
+    int SetCertifiedMobile(string accountId, string telephone);
     #endregion
 
     #region 函数:SetCertifiedEmail(string accountId, string email)

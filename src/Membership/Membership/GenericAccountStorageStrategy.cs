@@ -46,8 +46,8 @@
                 account.CertifiedAvatar = doc.SelectSingleNode("accountObject/certifiedAvatar").InnerText;
             if (doc.SelectSingleNode("accountObject/certifiedEmail") != null)
                 account.CertifiedEmail = doc.SelectSingleNode("accountObject/certifiedEmail").InnerText;
-            if (doc.SelectSingleNode("accountObject/certifiedTelephone") != null)
-                account.CertifiedTelephone = doc.SelectSingleNode("accountObject/certifiedTelephone").InnerText;
+            if (doc.SelectSingleNode("accountObject/certifiedMobile") != null)
+                account.CertifiedMobile = doc.SelectSingleNode("accountObject/certifiedMobile").InnerText;
             if (doc.SelectSingleNode("accountObject/ip") != null)
                 account.IP = doc.SelectSingleNode("accountObject/ip").InnerText;
 

@@ -30,10 +30,20 @@
   <div class="window-sign-up-form-wrapper container" style="width:400px; margin:20px auto; border-radius:5px;">
     <div class="window-sign-up-form">
       <dl class="form">
-        <dt class="input-label">电子邮箱</dt>
-        <dd>
-          <input id="email" name="email" type="text" x-dom-data-type="value" x-dom-feature="email" class="form-control" maxlength="100" value="" />
-        </dd>
+        @if (ViewBag.registerType == "mobile")
+        {
+          <dt class="input-label">手机号码</dt>
+          <dd>
+            <input id="mobile" name="mobile" type="text" x-dom-data-type="value" class="form-control" maxlength="100" value="" />
+          </dd>
+        }
+        else
+        {
+          <dt class="input-label">电子邮箱</dt>
+          <dd>
+            <input id="email" name="email" type="text" x-dom-data-type="value" class="form-control" maxlength="100" value="" />
+          </dd>
+        }
       </dl>
       <dl class="form">
         <dt class="input-label">密码</dt>
@@ -59,21 +69,30 @@
         </dd>
       </dl>
       <dl class="form">
-        <dt class="input-label">邮件验证码</dt>
+        <dt class="input-label">
+          @if (ViewBag.registerType == "mobile")
+          {
+            <text>短信验证码</text>
+          }
+          else
+          {
+            <text>邮件验证码</text>
+          }
+        </dt>
         <dd>
           <div class="form-inline">
             <input id="code" name="code" type="text" value="" maxlength="6" x-dom-data-type="value" class="form-control" style="width:100px;" />
-            <button id="btnVerificationCode" class="btn btn-default">获取验证码</button>
+            <button id="btnVerificationCode" class="btn btn-default" style="width:130px;">获取验证码</button>
           </div>
         </dd>
       </dl>
       <p class="window-sign-up-form-terms-of-service">
         单击“创建帐户”的，即表示您同意服务条款和隐私权政策。
       </p>
-      <input id="registerType" name="registerType" type="hidden" x-dom-data-type="value" value="email" />
+      <input id="registerType" name="registerType" type="hidden" x-dom-data-type="value" value="@ViewBag.registerType" />
       <input id="password" name="password" type="hidden" x-dom-data-type="value" value="" />
       <div class="form-actions">
-        <div class="button-submit button primary"><button id="btnSubmit" class="btn btn-success" >创建帐户</button></div>
+        <div class="button-submit button primary"><button id="btnSubmit" class="btn btn-success">创建帐户</button></div>
         <div class="loading" style="display:none;"><img src="/resources/images/loading.gif" alt="正在创建帐号..." /></div>
       </div>
     </div>
