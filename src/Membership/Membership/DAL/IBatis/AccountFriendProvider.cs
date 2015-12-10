@@ -85,7 +85,7 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>实例<see cref="AccountFriendInfo"/>详细信息</returns>
         public AccountFriendInfo Save(AccountFriendInfo param)
         {
-            if (!IsExist(param.Id))
+            if (!IsExist(param.AccountId, param.FriendAccountId))
             {
                 this.Insert(param);
             }
@@ -227,33 +227,83 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:IsExist(string id)
-        /// <summary>查询是否存在相关的记录.</summary>
-        /// <param name="id">标识</param>
-        /// <returns>布尔值</returns>
-        public bool IsExist(string id)
+        #region 函数:GetAcceptListPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="AccountFriendInfo"/></returns> 
+        public DataTable GetAcceptListPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            if (string.IsNullOrEmpty(id)) { throw new Exception("实例标识不能为空。"); }
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            // string whereClause = "";
+            // whereClause = " AccountId = '" + query.Variables["accountId"] + "' ";
+
+            args.Add("WhereClause", " AccountId = '" + query.Variables["accountId"] + "' ");
+
+            args.Add("OrderBy", query.GetOrderBySql(" CreatedDate DESC "));
+
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
+
+            DataTable table = this.ibatisMapper.QueryForDataTable(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_GetPaging", tableName)), args);
+
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_GetRowCount", tableName)), args));
+
+            return table;
+        }
+        #endregion
+
+        #region 函数:IsExist(string accountId, string friendAccountId)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="friendAccountId">好友帐号唯一标识</param>
+        /// <returns>布尔值</returns>
+        public bool IsExist(string accountId, string friendAccountId)
+        {
+            if (string.IsNullOrEmpty(accountId)) { throw new Exception("帐号唯一标识不能为空。"); }
+            if (string.IsNullOrEmpty(friendAccountId)) { throw new Exception("好友帐号唯一标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' AND FriendAccountId = '{1}' ", StringHelper.ToSafeSQL(accountId), StringHelper.ToSafeSQL(friendAccountId)));
 
             return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
 
-        #region 函数:Invite(string accountId, string friendAccountId)
+        #region 函数:Invite(string accountId, string friendAccountId, string reason)
         /// <summary>邀请好友</summary>
         /// <param name="accountId">帐号标识</param>
         /// <param name="friendAccountId">帐号标识</param>
-        public int Invite(string accountId, string friendAccountId)
+        /// <param name="reason">原因</param>
+        public int Invite(string accountId, string friendAccountId, string reason)
         {
             accountId = StringHelper.ToSafeSQL(accountId);
             friendAccountId = StringHelper.ToSafeSQL(friendAccountId);
 
-            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
-                new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 0 });
+            if (!this.IsExist(accountId, friendAccountId))
+            {
+                // 加入好友
+                this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
+                    new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 0 });
+
+                // 加入好友邀请列表
+
+                Dictionary<string, object> args = new Dictionary<string, object>();
+
+                // 同意好友的邀请关系
+                args.Add("Id", DigitalNumberContext.Generate("Key_Guid"));
+                args.Add("AccountId", friendAccountId);
+                args.Add("FriendAccountId", accountId);
+                args.Add("Reason", reason);
+                args.Add("Status", 0);
+
+                this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_Insert", tableName)), args);
+            }
+
             return 0;
         }
         #endregion
@@ -267,18 +317,30 @@ namespace X3Platform.Membership.DAL.IBatis
             accountId = StringHelper.ToSafeSQL(accountId);
             friendAccountId = StringHelper.ToSafeSQL(friendAccountId);
 
-            Dictionary<string, object> args = new Dictionary<string, object>();
+            if (!this.IsExist(accountId, friendAccountId))
+            {
+                Dictionary<string, object> args = new Dictionary<string, object>();
 
-            // 同意好友的邀请关系
-            args.Add("AccountId", friendAccountId);
-            args.Add("FriendAccountId", accountId);
-            args.Add("Status", 1);
+                // 同意好友的邀请关系
+                args.Add("AccountId", friendAccountId);
+                args.Add("FriendAccountId", accountId);
+                args.Add("Status", 1);
 
-            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetStatus", tableName)), args);
+                this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetStatus", tableName)), args);
 
-            // 自动添加对方为好友关系
-            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
-                new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 1 });
+                args.Clear();
+
+                // 同意好友的邀请关系
+                args.Add("AccountId", accountId);
+                args.Add("FriendAccountId", friendAccountId);
+                args.Add("Status", 1);
+
+                this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_SetStatus", tableName)), args);
+
+                // 自动添加对方为好友关系
+                this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
+                    new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 1 });
+            }
 
             return 0;
         }
@@ -300,10 +362,14 @@ namespace X3Platform.Membership.DAL.IBatis
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
 
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_Delete", tableName)), args);
+
             // 解除对方好友关系
             args["WhereClause"] = string.Format(" AccountId = '{0}' AND FriendAccountId = '{1}' ", friendAccountId, accountId);
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_Delete", tableName)), args);
 
             return 0;
         }

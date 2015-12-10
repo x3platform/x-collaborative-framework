@@ -154,6 +154,12 @@
                     routeData.Values.Add("controller", "Account");
                     routeData.Values.Add("action", "SignUp");
                 }
+                else if (Regex.IsMatch(friendlyUrl, @"^sign-up\?registerType=([\w+\-\.\%]+)$"))
+                {
+                    // 注册
+                    routeData.Values.Add("controller", "Account");
+                    routeData.Values.Add("action", "SignUp");
+                }
                 else if (Regex.IsMatch(friendlyUrl, @"^sign-in$"))
                 {
                     // 登录

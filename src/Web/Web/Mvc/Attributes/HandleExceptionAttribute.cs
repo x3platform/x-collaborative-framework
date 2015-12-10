@@ -11,17 +11,14 @@ namespace X3Platform.Web.Mvc.Attributes
 {
     public class HandleExceptionAttribute : HandleErrorAttribute
     {
-        /// <summary>日志记录器</summary>
-        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
-
         public override void OnException(ExceptionContext filterContext)
         {
-            logger.Error(filterContext.Exception);
+            KernelContext.Log.Error(filterContext.Exception);
 
-            string message =filterContext.Exception.Message;
-            
+            string message = filterContext.Exception.Message;
+
             ActionResult result = null;
-            
+
             if (!filterContext.IsChildAction && !filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 filterContext.Result = null;

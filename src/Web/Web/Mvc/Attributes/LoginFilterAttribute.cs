@@ -9,8 +9,6 @@ namespace X3Platform.Web.Mvc.Attributes
 {
     public class LoginFilterAttribute : ActionFilterAttribute
     {
-        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (KernelContext.Current.User == null)
@@ -25,7 +23,7 @@ namespace X3Platform.Web.Mvc.Attributes
                 else
                 {
                     filterContext.Result = new RedirectResult(string.Format(
-                        WebConfigurationView.Instance.SignInUrl, 
+                        WebConfigurationView.Instance.SignInUrl,
                         HttpUtility.UrlEncode(filterContext.RequestContext.HttpContext.Request.Url.ToString())));
                 }
             }

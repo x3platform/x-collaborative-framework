@@ -19,6 +19,8 @@
         /// <summary>注册</summary>
         public ActionResult SignUp()
         {
+            ViewBag.registerType = Request.QueryString["registerType"] == null ? "mail" : Request.QueryString["registerType"];
+
             return View("/views/" + LocateFolder("main") + "/account/sign-up.cshtml");
         }
         #endregion

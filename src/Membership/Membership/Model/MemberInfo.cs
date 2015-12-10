@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Membership.Model
 {
     #region Copyright & Author
@@ -30,7 +14,7 @@ namespace X3Platform.Membership.Model
     using X3Platform.Membership.Configuration;
     #endregion
 
-    /// <summary>��Ա</summary>
+    /// <summary>成员</summary>
     [Serializable]
     public class MemberInfo : IMemberInfo
     {
@@ -48,13 +32,13 @@ namespace X3Platform.Membership.Model
         }
 
         // -------------------------------------------------------
-        // ��չ
+        // 扩展
         // -------------------------------------------------------
 
         #region 属性:ExtensionInformation
         private IExtensionInformation m_ExtensionInformation = null;
 
-        /// <summary>��չ</summary>
+        /// <summary>扩展</summary>
         public IExtensionInformation ExtensionInformation
         {
             get
@@ -83,15 +67,15 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ����, �ɴ�����չ����, ��ʱ����
+        // 属性, 可存放扩展属性, 临时属性
         //
-        // �����ӵ����� 属性: AccountId, DeaultOrganizationUnitId, DeaultRoleId, CorporationId, DepartmentId
+        // 可添加的属性 例如: AccountId, DeaultOrganizationId, DeaultRoleId, CorporationId, DepartmentId
         // -------------------------------------------------------
 
         #region 属性:Properties
         private Dictionary<string, object> m_Properties = new Dictionary<string, object>();
 
-        /// <summary>����</summary>
+        /// <summary>属性</summary>
         public Dictionary<string, object> Properties
         {
             get { return m_Properties; }
@@ -99,13 +83,13 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ��������
+        // 具体属性
         // -------------------------------------------------------
 
         #region 属性:Id
         private string m_Id;
 
-        /// <summary>�û���ʶ</summary>
+        /// <summary>用户标识</summary>
         public string Id
         {
             get { return m_Id; }
@@ -116,7 +100,7 @@ namespace X3Platform.Membership.Model
         #region 属性:FullName
         private string m_FullName = string.Empty;
 
-        /// <summary>����</summary>
+        /// <summary>姓名</summary>
         public string FullName
         {
             get { return this.Account == null ? m_FullName : this.Account.Name; }
@@ -138,7 +122,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Account
         private IAccountInfo m_Account = null;
 
-        /// <summary>�ʺ�</summary>
+        /// <summary>帐号</summary>
         public IAccountInfo Account
         {
             get
@@ -158,7 +142,7 @@ namespace X3Platform.Membership.Model
         #region 属性:AccountId
         private string m_AccountId = string.Empty;
 
-        /// <summary>�ʻ���ʶ</summary>
+        /// <summary>帐户标识</summary>
         public string AccountId
         {
             get { return m_AccountId; }
@@ -167,7 +151,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:AccountName
-        /// <summary>�ʺ�����</summary>
+        /// <summary>帐号名称</summary>
         public string AccountName
         {
             get { return this.Account == null ? string.Empty : this.Account.Name; }
@@ -177,7 +161,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Corporation
         private IOrganizationUnitInfo m_Corporation = null;
 
-        /// <summary>��˾</summary>
+        /// <summary>公司</summary>
         public IOrganizationUnitInfo Corporation
         {
             get
@@ -195,7 +179,7 @@ namespace X3Platform.Membership.Model
         #region 属性:CorporationId
         private string m_CorporationId = null;
 
-        /// <summary>��˾��ʶ</summary>
+        /// <summary>公司标识</summary>
         public string CorporationId
         {
             get { return m_CorporationId; }
@@ -204,7 +188,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:CorporationName
-        /// <summary>��˾����</summary>
+        /// <summary>公司名称</summary>
         public string CorporationName
         {
             get { return this.Corporation == null ? string.Empty : this.Corporation.Name; }
@@ -214,7 +198,7 @@ namespace X3Platform.Membership.Model
         #region 属性:DepartmentId
         private string m_DepartmentId = null;
 
-        /// <summary>���ű�ʶ</summary>
+        /// <summary>部门标识</summary>
         public string DepartmentId
         {
             get { return m_DepartmentId; }
@@ -223,7 +207,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:DepartmentName
-        /// <summary>һ����������</summary>
+        /// <summary>一级部门名称</summary>
         public string DepartmentName
         {
             get { return this.Department == null ? string.Empty : this.Department.Name; }
@@ -233,7 +217,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Department
         private IOrganizationUnitInfo m_Department = null;
 
-        /// <summary>һ������</summary>
+        /// <summary>一级部门</summary>
         public IOrganizationUnitInfo Department
         {
             get
@@ -251,7 +235,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Department2Id
         private string m_Department2Id = null;
 
-        /// <summary>�������ű�ʶ</summary>
+        /// <summary>二级部门标识</summary>
         public string Department2Id
         {
             get { return m_Department2Id; }
@@ -260,7 +244,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Department2Name
-        /// <summary>������������</summary>
+        /// <summary>二级部门名称</summary>
         public string Department2Name
         {
             get { return this.Department2 == null ? string.Empty : this.Department2.Name; }
@@ -270,7 +254,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Department2
         private IOrganizationUnitInfo m_Department2 = null;
 
-        /// <summary>��������</summary>
+        /// <summary>二级部门</summary>
         public IOrganizationUnitInfo Department2
         {
             get
@@ -288,7 +272,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Department3Id
         private string m_Department3Id = null;
 
-        /// <summary>�������ű�ʶ</summary>
+        /// <summary>三级部门标识</summary>
         public string Department3Id
         {
             get { return m_Department3Id; }
@@ -297,7 +281,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:Department3Name
-        /// <summary>������������</summary>
+        /// <summary>三级部门名称</summary>
         public string Department3Name
         {
             get { return this.Department3 == null ? string.Empty : this.Department3.Name; }
@@ -307,7 +291,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Department3
         private IOrganizationUnitInfo m_Department3 = null;
 
-        /// <summary>��������</summary>
+        /// <summary>三级部门</summary>
         public IOrganizationUnitInfo Department3
         {
             get
@@ -325,7 +309,7 @@ namespace X3Platform.Membership.Model
         #region 属性:OrganizationUnitId
         private string m_OrganizationUnitId = null;
 
-        /// <summary>Ĭ�ϵ���֯��λ��ʶ</summary>
+        /// <summary>默认的组织单位标识</summary>
         public string OrganizationUnitId
         {
             get
@@ -344,7 +328,7 @@ namespace X3Platform.Membership.Model
         #region 属性:OrganizationUnit
         private IOrganizationUnitInfo m_OrganizationUnit = null;
 
-        /// <summary>Ĭ�ϵ���֯��λ</summary>
+        /// <summary>默认的组织单位</summary>
         public IOrganizationUnitInfo OrganizationUnit
         {
             get
@@ -362,7 +346,7 @@ namespace X3Platform.Membership.Model
         #region 属性:OrganizationPath
         private string m_OrganizationPath = string.Empty;
 
-        /// <summary>Ĭ�ϵ���֯·��</summary>
+        /// <summary>默认的组织路径</summary>
         public string OrganizationPath
         {
             get
@@ -395,7 +379,7 @@ namespace X3Platform.Membership.Model
         #region 属性:RoleId
         private string m_RoleId = null;
 
-        /// <summary>Ĭ�ϵĽ�ɫ��ʶ</summary>
+        /// <summary>默认的角色标识</summary>
         public string RoleId
         {
             get { return m_RoleId; }
@@ -404,7 +388,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:RoleName
-        /// <summary>Ĭ�Ͻ�ɫ����</summary>
+        /// <summary>默认角色名称</summary>
         public string RoleName
         {
             get { return this.Role == null ? string.Empty : this.Role.Name; }
@@ -414,7 +398,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Role
         private IRoleInfo m_Role = null;
 
-        /// <summary>Ĭ�ϵĽ�ɫ</summary>
+        /// <summary>默认的角色</summary>
         public IRoleInfo Role
         {
             get
@@ -432,7 +416,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Headship
         private string m_Headship = string.Empty;
 
-        /// <summary>ְ�� | ͷ��</summary>
+        /// <summary>职务 | 头衔</summary>
         public string Headship
         {
             get { return m_Headship; }
@@ -443,14 +427,14 @@ namespace X3Platform.Membership.Model
         #region 属性:Sex
         private string m_Sex;
 
-        /// <summary>�Ա�</summary>
+        /// <summary>性别</summary>
         public string Sex
         {
             get
             {
                 if (string.IsNullOrEmpty(m_Sex))
                 {
-                    m_Sex = "��";
+                    m_Sex = "男";
                 }
 
                 return m_Sex;
@@ -462,7 +446,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Birthday
         private DateTime m_Birthday;
 
-        /// <summary>����</summary>
+        /// <summary>生日</summary>
         public DateTime Birthday
         {
             get
@@ -481,7 +465,7 @@ namespace X3Platform.Membership.Model
         #region 属性:GraduationDate
         private DateTime m_GraduationDate;
 
-        /// <summary>��ҵʱ��</summary>
+        /// <summary>毕业时间</summary>
         public DateTime GraduationDate
         {
             get
@@ -500,7 +484,7 @@ namespace X3Platform.Membership.Model
         #region 属性:EntryDate
         private DateTime m_EntryDate;
 
-        /// <summary>��ְʱ��</summary>
+        /// <summary>入职时间</summary>
         public DateTime EntryDate
         {
             get
@@ -519,7 +503,7 @@ namespace X3Platform.Membership.Model
         #region 属性:PromotionDate
         private DateTime m_PromotionDate;
 
-        /// <summary>����һ�ν���ʱ�䣬��������ְ��������ְʱ��</summary>
+        /// <summary>最近一次晋升时间，如果刚入职则等于入职时间</summary>
         public DateTime PromotionDate
         {
             get
@@ -538,7 +522,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Hometown
         private string m_Hometown = string.Empty;
 
-        /// <summary>������</summary>
+        /// <summary>出生地</summary>
         public string Hometown
         {
             get { return m_Hometown; }
@@ -549,7 +533,7 @@ namespace X3Platform.Membership.Model
         #region 属性:City
         private string m_City;
 
-        /// <summary>��ס����</summary>
+        /// <summary>居住城市</summary>
         public string City
         {
             get { return m_City; }
@@ -558,13 +542,13 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ְλ
+        // 职位
         // -------------------------------------------------------
 
         #region 属性:JobId
         private string m_JobId = string.Empty;
 
-        /// <summary>ְλ</summary>
+        /// <summary>职位</summary>
         public string JobId
         {
             get { return m_JobId; }
@@ -573,7 +557,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:JobName
-        /// <summary>ְλ����</summary>
+        /// <summary>职位名称</summary>
         public string JobName
         {
             get { return this.Job == null ? string.Empty : this.Job.Name; }
@@ -583,7 +567,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Job
         private IJobInfo m_Job = null;
 
-        /// <summary>ְλ</summary>
+        /// <summary>职位</summary>
         public IJobInfo Job
         {
             get
@@ -601,7 +585,7 @@ namespace X3Platform.Membership.Model
         #region 属性:AssignedJobId
         private string m_AssignedJobId = string.Empty;
 
-        /// <summary>��λ</summary>
+        /// <summary>岗位</summary>
         public string AssignedJobId
         {
             get { return m_AssignedJobId; }
@@ -610,7 +594,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:AssignedJobName
-        /// <summary>��λ����</summary>
+        /// <summary>岗位名称</summary>
         public string AssignedJobName
         {
             get { return this.AssignedJob == null ? string.Empty : this.AssignedJob.Name; }
@@ -620,7 +604,7 @@ namespace X3Platform.Membership.Model
         #region 属性:AssignedJob
         private IAssignedJobInfo m_AssignedJob = null;
 
-        /// <summary>��λ</summary>
+        /// <summary>岗位</summary>
         public IAssignedJobInfo AssignedJob
         {
             get
@@ -638,7 +622,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobGradeDisplayName
         private string m_JobGradeDisplayName = string.Empty;
 
-        /// <summary>ְ����ʾ����</summary>
+        /// <summary>职级显示名称</summary>
         public string JobGradeDisplayName
         {
             get { return m_JobGradeDisplayName; }
@@ -649,7 +633,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobGradeId
         private string m_JobGradeId;
 
-        /// <summary>ְ����ʶ</summary>
+        /// <summary>职级标识</summary>
         public string JobGradeId
         {
             get { return m_JobGradeId; }
@@ -660,7 +644,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobGrade
         private IJobGradeInfo m_JobGrade = null;
 
-        /// <summary>ְ��</summary>
+        /// <summary>职级</summary>
         public IJobGradeInfo JobGrade
         {
             get
@@ -678,7 +662,7 @@ namespace X3Platform.Membership.Model
         #region 属性:PartTimeJobs
         private IList<IAssignedJobInfo> m_PartTimeJobs = null;
 
-        /// <summary>��ְ</summary>
+        /// <summary>兼职</summary>
         public IList<IAssignedJobInfo> PartTimeJobs
         {
             get
@@ -694,7 +678,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:PartTimeJobsView
-        /// <summary>��ְ��ͼ</summary>
+        /// <summary>兼职视图</summary>
         public string PartTimeJobsView
         {
             get
@@ -714,7 +698,7 @@ namespace X3Platform.Membership.Model
         #region 属性:PartTimeJobsText
         private string m_PartTimeJobsText = string.Empty;
 
-        /// <summary>��ְ�ı�����</summary>
+        /// <summary>兼职文本数据</summary>
         public string PartTimeJobsText
         {
             get
@@ -735,13 +719,13 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ְ��
+        // 职级
         // -------------------------------------------------------
 
         #region 属性:JobGradeGroup
         private IGroupInfo m_JobGradeGroup = null;
 
-        /// <summary>ְ��Ⱥ��</summary>
+        /// <summary>职级群组</summary>
         public IGroupInfo JobGradeGroup
         {
             get
@@ -759,7 +743,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobGradeGroupId
         private string m_JobGradeGroupId;
 
-        /// <summary>ְ��Ⱥ����ֵ</summary>
+        /// <summary>职级群组的值</summary>
         public string JobGradeGroupId
         {
             get { return m_JobGradeGroupId; }
@@ -768,7 +752,7 @@ namespace X3Platform.Membership.Model
         #endregion
 
         #region 属性:JobGradeGroupName
-        /// <summary>ְ��Ⱥ��������</summary>
+        /// <summary>职级群组的名称</summary>
         public string JobGradeGroupName
         {
             get { return this.JobGradeGroup == null ? string.Empty : this.JobGradeGroup.Name; }
@@ -778,7 +762,7 @@ namespace X3Platform.Membership.Model
         #region 属性:JobGradeValue
         private int m_JobGradeValue = -1;
 
-        /// <summary>ְ��ֵ</summary>
+        /// <summary>职级值</summary>
         public int JobGradeValue
         {
             get
@@ -793,8 +777,8 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region ˽�к���:ParseJobGradeValue(string groupId)
-        /// <summary>����ְ��Ⱥ����ֵ</summary>
+        #region 私有函数:ParseJobGradeValue(string groupId)
+        /// <summary>解析职级群组的值</summary>
         /// <returns></returns>
         private int ParseJobGradeValue(string groupId)
         {
@@ -827,13 +811,13 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ��ϵ��ʽ
+        // 联系方式
         // -------------------------------------------------------
 
         #region 属性:Mobile
         private string m_Mobile = string.Empty;
 
-        /// <summary>�ֻ�����</summary>
+        /// <summary>手机号码</summary>
         public string Mobile
         {
             get { return m_Mobile; }
@@ -844,7 +828,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Telephone
         private string m_Telephone = string.Empty;
 
-        /// <summary>�칫����</summary>
+        /// <summary>办公号码</summary>
         public string Telephone
         {
             get { return m_Telephone; }
@@ -855,7 +839,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Email
         private string m_Email = string.Empty;
 
-        /// <summary>����</summary>
+        /// <summary>邮箱</summary>
         public string Email
         {
             get { return m_Email; }
@@ -899,7 +883,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Office
         private string m_Office;
 
-        /// <summary>�칫��ַ</summary>
+        /// <summary>办公地址</summary>
         public string Office
         {
             get { return m_Office; }
@@ -932,7 +916,7 @@ namespace X3Platform.Membership.Model
         #region 属性:Url
         private string m_Url = string.Empty;
 
-        /// <summary>������ҳ</summary>
+        /// <summary>个人主页</summary>
         public string Url
         {
             get { return m_Url; }
@@ -943,7 +927,7 @@ namespace X3Platform.Membership.Model
         #region 属性:FullPath
         private string m_FullPath = null;
 
-        /// <summary>������֯�ܹ�ȫ·��</summary>
+        /// <summary>所属组织架构全路径</summary>
         public string FullPath
         {
             get { return m_FullPath; }
@@ -954,7 +938,7 @@ namespace X3Platform.Membership.Model
         #region 属性:DistinguishedName
         private string m_DistinguishedName = null;
 
-        /// <summary>Ψһ����</summary>
+        /// <summary>唯一名称</summary>
         public string DistinguishedName
         {
             get { return m_DistinguishedName; }
@@ -965,7 +949,7 @@ namespace X3Platform.Membership.Model
         #region 属性:ModifiedDate
         private DateTime m_ModifiedDate;
 
-        /// <summary>�޸�ʱ��</summary>
+        /// <summary>修改时间</summary>
         public DateTime ModifiedDate
         {
             get { return m_ModifiedDate; }
@@ -976,7 +960,7 @@ namespace X3Platform.Membership.Model
         #region 属性:CreatedDate
         private DateTime m_CreatedDate;
 
-        /// <summary>����ʱ��</summary>
+        /// <summary>创建时间</summary>
         public DateTime CreatedDate
         {
             get { return m_CreatedDate; }
@@ -985,11 +969,11 @@ namespace X3Platform.Membership.Model
         #endregion
 
         // -------------------------------------------------------
-        // ʵ�� ISerializedObject ���л�
+        // 实现 ISerializedObject 序列化
         // -------------------------------------------------------
 
-        #region 属性:Serializable()
-        /// <summary>���ݶ��󵼳�XmlԪ��</summary>
+        #region 函数:Serializable()
+        /// <summary>根据对象导出Xml元素</summary>
         /// <returns></returns>
         public string Serializable()
         {
@@ -997,112 +981,112 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Serializable(bool displayComment, bool displayFriendlyName)
-        /// <summary>���ݶ��󵼳�XmlԪ��</summary>
-        /// <param name="displayComment">��ʾע��</param>
-        /// <param name="displayFriendlyName">��ʾ�Ѻ�����</param>
+        #region 函数:Serializable(bool displayComment, bool displayFriendlyName)
+        /// <summary>根据对象导出Xml元素</summary>
+        /// <param name="displayComment">显示注释</param>
+        /// <param name="displayFriendlyName">显示友好名称</param>
         /// <returns></returns>
         public virtual string Serializable(bool displayComment, bool displayFriendlyName)
         {
             StringBuilder outString = new StringBuilder();
 
             if (displayComment)
-                outString.Append("<!-- �û����� -->");
+                outString.Append("<!-- 用户对象 -->");
             outString.Append("<user>");
             if (displayComment)
-                outString.Append("<!-- �û���ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 用户标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<id><![CDATA[{0}]]></id>", this.Id);
             if (displayComment)
-                outString.Append("<!-- �û����� (�ַ���) (nvarchar(30)) -->");
+                outString.Append("<!-- 用户编号 (字符串) (nvarchar(30)) -->");
             outString.AppendFormat("<code><![CDATA[{0}]]></code>", this.Account == null ? string.Empty : this.Account.Code);
             if (displayComment)
-                outString.Append("<!-- ��¼�� (�ַ���) (nvarchar(50)) -->");
+                outString.Append("<!-- 登录名 (字符串) (nvarchar(50)) -->");
             outString.AppendFormat("<loginName><![CDATA[{0}]]></loginName>", this.Account == null ? string.Empty : this.Account.LoginName);
             if (displayComment)
-                outString.Append("<!-- ���� (�ַ���) (nvarchar(50)) -->");
+                outString.Append("<!-- 名称 (字符串) (nvarchar(50)) -->");
             outString.AppendFormat("<name><![CDATA[{0}]]></name>", this.Account == null ? string.Empty : this.Account.Name);
             if (displayComment)
-                outString.Append("<!-- ȫ������ (�ַ���) (nvarchar(100)) -->");
+                outString.Append("<!-- 全局名称 (字符串) (nvarchar(100)) -->");
             outString.AppendFormat("<globalName><![CDATA[{0}]]></globalName>", this.Account == null ? string.Empty : this.Account.GlobalName);
             if (displayComment)
-                outString.Append("<!-- ��ʾ���� (�ַ���) (nvarchar(50)) -->");
+                outString.Append("<!-- 显示名称 (字符串) (nvarchar(50)) -->");
             outString.AppendFormat("<alias><![CDATA[{0}]]></alias>", this.Account == null ? string.Empty : this.Account.DisplayName);
             if (displayComment)
-                outString.Append("<!-- ƴ�� (�ַ���) (nvarchar(100)) -->");
+                outString.Append("<!-- 拼音 (字符串) (nvarchar(100)) -->");
             outString.AppendFormat("<pinyin><![CDATA[{0}]]></pinyin>", this.Account == null ? string.Empty : this.Account.PinYin);
             if (displayComment)
-                outString.Append("<!-- Ĭ��������˾��ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 默认所属公司标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<corporationId><![CDATA[{0}]]></corporationId>", this.CorporationId);
             if (displayComment)
-                outString.Append("<!-- Ĭ���������ű�ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 默认所属部门标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<departmentId><![CDATA[{0}]]></departmentId>", this.DepartmentId);
             if (displayComment)
-                outString.Append("<!-- Ĭ�������������ű�ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 默认所属二级部门标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<department2Id><![CDATA[{0}]]></department2Id>", this.Department2Id);
             if (displayComment)
-                outString.Append("<!-- Ĭ�������������ű�ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 默认所属三级部门标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<department3Id><![CDATA[{0}]]></department3Id>", this.Department3Id);
             if (displayComment)
-                outString.Append("<!-- Ĭ��������ĩ����֯��ʶ (�ַ���) (nvarchar(36)) -->");
-            outString.AppendFormat("<organizationId><![CDATA[{0}]]></organizationId>", this.OrganizationUnitId);
+                outString.Append("<!-- 默认所属最末级组织标识 (字符串) (nvarchar(36)) -->");
+            outString.AppendFormat("<organizationUnitId><![CDATA[{0}]]></organizationUnitId>", this.OrganizationUnitId);
             if (displayComment)
-                outString.Append("<!-- Ĭ��������ɫ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 默认所属角色 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<roleId><![CDATA[{0}]]></roleId>", this.RoleId);
             if (displayComment)
-                outString.Append("<!-- ��λͷ��/ְ�� (�ַ���) (nvarchar(50)) -->");
+                outString.Append("<!-- 岗位头衔/职务 (字符串) (nvarchar(50)) -->");
             outString.AppendFormat("<headship><![CDATA[{0}]]></headship>", this.Headship);
             if (displayComment)
-                outString.Append("<!-- �Ա� (�ַ���) (nvarchar(4)) -->");
+                outString.Append("<!-- 性别 (字符串) (nvarchar(4)) -->");
             outString.AppendFormat("<sex><![CDATA[{0}]]></sex>", this.Sex);
             if (displayComment)
-                outString.Append("<!-- ���� (ʱ��) (datetime) -->");
+                outString.Append("<!-- 生日 (时间) (datetime) -->");
             outString.AppendFormat("<birthday><![CDATA[{0}]]></birthday>", this.Birthday);
             if (displayComment)
-                outString.Append("<!-- ��ҵʱ�� (ʱ��) (datetime) -->");
+                outString.Append("<!-- 毕业时间 (时间) (datetime) -->");
             outString.AppendFormat("<graduateDate><![CDATA[{0}]]></graduateDate>", this.GraduationDate);
             if (displayComment)
-                outString.Append("<!-- ��ְʱ�� (ʱ��) (datetime) -->");
+                outString.Append("<!-- 入职时间 (时间) (datetime) -->");
             outString.AppendFormat("<entryDate><![CDATA[{0}]]></entryDate>", this.EntryDate);
             if (displayComment)
-                outString.Append("<!-- ����ʱ�� (ʱ��) (datetime) -->");
+                outString.Append("<!-- 晋升时间 (时间) (datetime) -->");
             outString.AppendFormat("<promotionDate><![CDATA[{0}]]></promotionDate>", this.PromotionDate);
             if (displayComment)
-                outString.Append("<!-- �ƶ��绰 (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 移动电话 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<mobile><![CDATA[{0}]]></mobile>", this.Mobile);
             if (displayComment)
-                outString.Append("<!-- ���� (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 座机 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<telephone><![CDATA[{0}]]></telephone>", this.Telephone);
             if (displayComment)
-                outString.Append("<!-- �����ʼ� (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 电子邮件 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<email><![CDATA[{0}]]></email>", this.Email);
             if (displayComment)
-                outString.Append("<!-- RTX (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- RTX (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<rtx><![CDATA[{0}]]></rtx>", this.Rtx);
             if (displayComment)
-                outString.Append("<!-- ����ְλ��ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 所属职位标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<jobId><![CDATA[{0}]]></jobId>", this.JobId);
             if (displayComment)
-                outString.Append("<!-- ����ְ����ʶ (�����ϣ����Ժ��ԡ�) (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 所属职级标识 (已作废，可以忽略。) (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<jobGradeId><![CDATA[{0}]]></jobGradeId>", this.JobGradeId);
             if (displayComment)
-                outString.Append("<!-- ְ����ʾ��Ϣ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 职级显示信息 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<jobGrade><![CDATA[{0}]]></jobGrade>", this.JobGradeDisplayName);
             if (displayComment)
-                outString.Append("<!-- ������λ��ʶ (�ַ���) (nvarchar(36)) -->");
+                outString.Append("<!-- 所属岗位标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<assignedJobId><![CDATA[{0}]]></assignedJobId>", this.AssignedJobId);
             if (displayComment)
-                outString.Append("<!-- ��ְ��Ϣ -->");
+                outString.Append("<!-- 兼职信息 -->");
             outString.Append("<partTimeJobs>");
             foreach (IAssignedJobInfo partTimeJob in this.PartTimeJobs)
             {
                 if (displayComment)
-                    outString.Append("<!-- ������ְ��ʶ (�ַ���) (nvarchar(36)) -->");
+                    outString.Append("<!-- 所属兼职标识 (字符串) (nvarchar(36)) -->");
                 outString.AppendFormat("<partTimeJobId><![CDATA[{0}]]></partTimeJobId>", partTimeJob.Id);
             }
             outString.Append("</partTimeJobs>");
 
             if (displayComment)
-                outString.Append("<!-- ��׼��ɫ -->");
+                outString.Append("<!-- 标准角色 -->");
             outString.Append("<standardRoles>");
             if (this.Account != null)
             {
@@ -1113,7 +1097,7 @@ namespace X3Platform.Membership.Model
                     if (!string.IsNullOrEmpty(role.StandardRoleId) && !string.IsNullOrEmpty(role.StandardRoleId) && role.StandardRole != null)
                     {
                         if (displayComment)
-                            outString.Append("<!-- ������׼��ɫ��ʶ (�ַ���) (nvarchar(36)) -->");
+                            outString.Append("<!-- 所属标准角色标识 (字符串) (nvarchar(36)) -->");
 
                         outString.AppendFormat("<standardRole organizationId=\"{0}\" standardRoleType=\"{1}\" standardRoleId=\"{2}\" />",
                             role.OrganizationUnitId,
@@ -1125,7 +1109,7 @@ namespace X3Platform.Membership.Model
             outString.Append("</standardRoles>");
 
             if (displayComment)
-                outString.Append("<!-- ��������-->");
+                outString.Append("<!-- 关联对象-->");
             outString.Append("<relationObjects>");
             if (this.Account != null)
             { //foreach (IOrganizationUnitInfo organization in this.Account.OrganizationUnits)
@@ -1135,25 +1119,25 @@ namespace X3Platform.Membership.Model
                 foreach (IAccountRoleRelationInfo relation in this.Account.RoleRelations)
                 {
                     if (displayComment)
-                        outString.Append("<!-- ������ɫ��ʶ (�ַ���) (nvarchar(36)) -->");
+                        outString.Append("<!-- 所属角色标识 (字符串) (nvarchar(36)) -->");
 
                     outString.AppendFormat("<relationObject id=\"{0}\" type=\"Role\" />", relation.RoleId);
                 }
                 foreach (IAccountGroupRelationInfo relation in this.Account.GroupRelations)
                 {
                     if (displayComment)
-                        outString.Append("<!-- ����Ⱥ����ʶ(�����Ż�ϵͳ�����Ժ��ԡ�) (�ַ���) (nvarchar(36)) -->");
+                        outString.Append("<!-- 所属群组标识(兼容门户系统，可以忽略。) (字符串) (nvarchar(36)) -->");
 
                     outString.AppendFormat("<relationObject id=\"{0}\" type=\"Group\" />", relation.GroupId);
                 }
             }
             outString.Append("</relationObjects>");
             if (displayComment)
-                outString.Append("<!-- ״̬ (����) (int) -->");
+                outString.Append("<!-- 状态 (整型) (int) -->");
             outString.AppendFormat("<status><![CDATA[{0}]]></status>", this.Account == null ? 0 : this.Account.Status);
             if (displayComment)
-                outString.Append("<!-- ��������ʱ�� (ʱ��) (datetime) -->");
-            outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
+                outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
+            outString.AppendFormat("<modifiedDate><![CDATA[{0}]]></modifiedDate>", this.ModifiedDate);
             outString.Append("</user>");
 
             return outString.ToString();
@@ -1161,9 +1145,9 @@ namespace X3Platform.Membership.Model
 
         #endregion
 
-        #region 属性:Deserialize(XmlElement element)
-        /// <summary>����XmlԪ�ؼ��ض���</summary>
-        /// <param name="element">XmlԪ��</param>
+        #region 函数:Deserialize(XmlElement element)
+        /// <summary>根据Xml元素加载对象</summary>
+        /// <param name="element">Xml元素</param>
         public virtual void Deserialize(XmlElement element)
         {
             if (this.Account == null)

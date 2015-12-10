@@ -15,6 +15,7 @@ namespace X3Platform.Membership.Ajax
     using X3Platform.Membership.Model;
     using X3Platform;
     using X3Platform.Membership;
+    using System.Data;
     #endregion
 
     /// <summary></summary>
@@ -146,6 +147,55 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
+        #region 函数:GetAcceptListPaging(XmlDocument doc)
+        /// <summary>获取加我好友请求信息</summary>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public string GetAcceptListPaging(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
+
+            paging.Query.Variables["scence"] = "QueryAcceptList";
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
+
+            int rowCount = -1;
+
+            DataTable table = this.service.GetAcceptListPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+
+            paging.RowCount = rowCount;
+
+            // outString.Append("{\"data\":" + AjaxUtil.Parse<AccountFriendInfo>(list) + ",");
+            outString.Append("{\"data\":[");
+
+            foreach (DataRow row in table.Rows)
+            {
+                outString.Append("{");
+                outString.Append("\"id\":\"" + row["Id"].ToString() + "\",");
+                outString.Append("\"accountId\":\"" + row["AccountId"].ToString() + "\",");
+                outString.Append("\"friendAccountId\":\"" + row["FriendAccountId"].ToString() + "\",");
+                outString.Append("\"friendAccountName\":\"" + MembershipUtil.GetAccount(row["FriendAccountId"].ToString()).Name + "\",");
+                outString.Append("\"reason\":\"" + StringHelper.ToSafeJson(row["Reason"].ToString()) + "\",");
+                outString.Append("\"status\":" + row["Status"].ToString() + ",");
+                outString.Append("\"createdDateView\":\"" + ((DateTime)row["CreatedDate"]).ToString("yyyy-MM-dd") + "\"");
+                outString.Append("},");
+            }
+
+            outString = StringHelper.TrimEnd(outString, ",");
+
+            outString.Append("],");
+            outString.Append("\"paging\":" + paging + ",");
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append("\"total\":" + paging.RowCount + ",");
+            outString.Append("\"success\":1,");
+            outString.Append("\"msg\":\"success\"}");
+
+            return outString.ToString();
+        }
+        #endregion
+
         #region 函数:Invite(XmlDocument doc)
         /// <summary>邀请好友</summary>
         /// <param name="doc">Xml 文档对象</param>
@@ -154,8 +204,9 @@ namespace X3Platform.Membership.Ajax
         {
             string accountId = KernelContext.Current.User.Id;
             string friendAccountId = XmlHelper.Fetch("friendAccountId", doc);
+            string reason = XmlHelper.Fetch("reason", doc);
 
-            this.service.Invite(accountId, friendAccountId);
+            this.service.Invite(accountId, friendAccountId, reason);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"邀请成功，请等待对方同意。\"}}";
         }

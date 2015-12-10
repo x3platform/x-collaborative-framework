@@ -474,27 +474,27 @@ namespace X3Platform.Membership.Configuration
         }
         #endregion
 
-        #region 属性:AutoBindingCertifiedTelephone
-        private string m_AutoBindingCertifiedTelephone = string.Empty;
+        #region 属性:AutoBindingCertifiedMobile
+        private string m_AutoBindingCertifiedMobile = string.Empty;
 
         /// <summary>根据字段数据自动绑定联系电话信息</summary>
-        public string AutoBindingCertifiedTelephone
+        public string AutoBindingCertifiedMobile
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_AutoBindingCertifiedTelephone))
+                if (string.IsNullOrEmpty(this.m_AutoBindingCertifiedMobile))
                 {
                     // 读取配置信息
-                    this.m_AutoBindingCertifiedTelephone = KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_AutoBindingCertifiedMobile = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
-                        "AutoBindingCertifiedTelephone",
+                        "AutoBindingCertifiedMobile",
                         this.Configuration.Keys);
 
                     // 如果配置文件里没有设置，设置一个默认值。
-                    this.m_AutoBindingCertifiedTelephone = StringHelper.NullOrEmptyTo(this.m_AutoBindingCertifiedTelephone, "None");
+                    this.m_AutoBindingCertifiedMobile = StringHelper.NullOrEmptyTo(this.m_AutoBindingCertifiedMobile, "None");
                 }
 
-                return this.m_AutoBindingCertifiedTelephone;
+                return this.m_AutoBindingCertifiedMobile;
             }
         }
         #endregion

@@ -1,0 +1,12 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/views/main/account/friends/account-friend-detail.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+<div id="window-container" class="container">
+  <input id="id" type="hidden" value="@ViewBag.member.Id" />
+  <div>@ViewBag.member.Account.Name</div>
+  <div>头像 @ViewBag.member.Account.Name</div>
+  <div>地区 @ViewBag.member.City</div>
+  <div>二维码</div>
+  
+  <button id="btnInvite" class="btn btn-default">加为好友</button>
+</div>

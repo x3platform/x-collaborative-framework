@@ -222,13 +222,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 函数:FindOneByCertifiedTelephone(string certifiedTelephone)
+        #region 函数:FindOneByCertifiedMobile(string certifiedMobile)
         /// <summary>根据已验证的手机号查询某条记录</summary>
-        /// <param name="certifiedTelephone">已验证的手机号</param>
+        /// <param name="certifiedMobile">已验证的手机号</param>
         /// <returns>返回一个<see cref="IAccountInfo"/>实例的详细信息</returns>
-        public IAccountInfo FindOneByCertifiedTelephone(string certifiedTelephone)
+        public IAccountInfo FindOneByCertifiedMobile(string certifiedMobile)
         {
-            string whereClause = string.Format(" CertifiedTelephone = ##{0}## ", StringHelper.ToSafeSQL(certifiedTelephone, true));
+            string whereClause = string.Format(" CertifiedMobile = ##{0}## ", StringHelper.ToSafeSQL(certifiedMobile, true));
 
             IList<IAccountInfo> list = FindAll(whereClause, 0);
 
@@ -412,7 +412,7 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
 
                 if (RegularExpressionHelper.IsNumeric(searchText))
                 {
-                    args.Add("WhereClause", " ( T.CertifiedTelephone = '" + searchText + "' ) ");
+                    args.Add("WhereClause", " ( T.CertifiedMobile = '" + searchText + "' ) ");
                 }
                 else if(RegularExpressionHelper.IsEmail(searchText))
                 {
@@ -522,17 +522,17 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
         }
         #endregion
 
-        #region 函数:IsExistCertifiedTelephone(string certifiedTelephone)
+        #region 函数:IsExistCertifiedMobile(string certifiedMobile)
         /// <summary>检测是否存在相关的手机号</summary>
-        /// <param name="certifiedTelephone">已验证的手机号</param>
+        /// <param name="certifiedMobile">已验证的手机号</param>
         /// <returns>布尔值</returns>
-        public bool IsExistCertifiedTelephone(string certifiedTelephone)
+        public bool IsExistCertifiedMobile(string certifiedMobile)
         {
-            if (string.IsNullOrEmpty(certifiedTelephone)) { throw new Exception("手机号不能为空。"); }
+            if (string.IsNullOrEmpty(certifiedMobile)) { throw new Exception("手机号不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" CertifiedTelephone = '{0}' ", StringHelper.ToSafeSQL(certifiedTelephone)));
+            args.Add("WhereClause", string.Format(" CertifiedMobile = '{0}' ", StringHelper.ToSafeSQL(certifiedMobile)));
 
             return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
@@ -666,19 +666,19 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
         }
         #endregion
 
-        #region 函数:SetCertifiedTelephone(string accountId, string telephone)
+        #region 函数:SetCertifiedMobile(string accountId, string telephone)
         /// <summary>设置已验证的联系电话</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="telephone">联系电话</param>
         /// <returns>0 操作成功 | 1 操作失败</returns>
-        public int SetCertifiedTelephone(string accountId, string telephone)
+        public int SetCertifiedMobile(string accountId, string telephone)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("Id", StringHelper.ToSafeSQL(accountId));
-            args.Add("CertifiedTelephone", StringHelper.ToSafeSQL(telephone));
+            args.Add("CertifiedMobile", StringHelper.ToSafeSQL(telephone));
 
-            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetCertifiedTelephone", tableName)), args);
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetCertifiedMobile", tableName)), args);
 
             // 刷新相关对象更新时间
             this.RefreshModifiedDate(accountId);

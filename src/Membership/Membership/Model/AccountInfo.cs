@@ -188,14 +188,14 @@
         }
         #endregion
 
-        #region 属性:CertifiedTelephone
-        private string m_CertifiedTelephone;
+        #region 属性:CertifiedMobile
+        private string m_CertifiedMobile;
 
         /// <summary>已验证的电话</summary>
-        public string CertifiedTelephone
+        public string CertifiedMobile
         {
-            get { return m_CertifiedTelephone; }
-            set { m_CertifiedTelephone = value; }
+            get { return m_CertifiedMobile; }
+            set { m_CertifiedMobile = value; }
         }
         #endregion
 

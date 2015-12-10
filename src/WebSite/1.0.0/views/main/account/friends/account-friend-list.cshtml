@@ -1,0 +1,25 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" src="/views/main/account/friends/account-friend-list.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <div id="toolbar" class="table-toolbar">
+        <a id="btnAccept" class="btn btn-default"><i class="glyphicon glyphicon-plus" title="新朋友"></i> 新朋友</a>
+        <a id="btnInvite" class="btn btn-default"><i class="glyphicon glyphicon-plus" title="邀请"></i> 邀请</a>
+      </div>
+      <span>好友</span>
+      <div class="clearfix"></div>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="table-row-filter form-inline align-right x-freeze-height">
+        <input id="searchText" type="text" value="" class="table-sidebar-search-text form-control" />
+        <button id="btnFilter" class="btn btn-default"><i class="glyphicon glyphicon-search" title="@I18n.Strings["btn_query"]"></i></button>
+      </div>
+      <div id="window-main-table-container" class="table-body">
+        <span class="tooltip-loading-text"><img src="/resources/images/loading.gif" alt="正在加载..." /></span>
+      </div>
+    </div>
+    <div id="window-main-table-footer" class="table-footer x-freeze-height"></div>
+  </div>
+</div>

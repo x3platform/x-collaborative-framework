@@ -338,13 +338,13 @@ namespace X3Platform.Membership.Ajax
 
             string loginName = XmlHelper.Fetch("loginName", doc);
             string name = XmlHelper.Fetch("name", doc);
+            string mobile = XmlHelper.Fetch("mobile", doc);
             string email = XmlHelper.Fetch("email", doc);
-            string telephone = XmlHelper.Fetch("telephone", doc);
             string password = XmlHelper.Fetch("password", doc);
 
             string code = XmlHelper.Fetch("code", doc);
 
-            if (registerType == "email")
+            if (registerType == "mail")
             {
                 if (string.IsNullOrEmpty(email))
                 {
@@ -356,7 +356,7 @@ namespace X3Platform.Membership.Ajax
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此邮箱已经存在。\"}}";
                 }
 
-                if (!VerificationCodeContext.Instance.VerificationCodeService.Validate("Mail", email, "注册账号", code))
+                if (!VerificationCodeContext.Instance.VerificationCodeService.Validate("Mail", email, "用户注册", code))
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"邮件验证码错误。\"}}";
                 }
@@ -372,28 +372,28 @@ namespace X3Platform.Membership.Ajax
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此登录名已经存在。\"}}";
                 }
             }
-            else if (registerType == "telephone")
+            else if (registerType == "mobile")
             {
-                if (string.IsNullOrEmpty(telephone))
+                if (string.IsNullOrEmpty(mobile))
                 {
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"必须填写手机号。\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"必须填写手机号码。\"}}";
                 }
 
-                if (MembershipManagement.Instance.AccountService.IsExistCertifiedTelephone(telephone))
+                if (MembershipManagement.Instance.AccountService.IsExistCertifiedMobile(mobile))
                 {
-                    return "{\"message\":{\"returnCode\":1,\"value\":\"此手机号已经存在。\"}}";
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"此手机号码已经存在。\"}}";
                 }
 
-                if (!VerificationCodeContext.Instance.VerificationCodeService.Validate("Phone", telephone, "注册账号", code))
+                if (!VerificationCodeContext.Instance.VerificationCodeService.Validate("Mobile", mobile, "用户注册", code))
                 {
                     return "{\"message\":{\"returnCode\":1,\"value\":\"短信验证码错误。\"}}";
                 }
 
-                param.LoginName = telephone;
+                param.LoginName = mobile;
 
-                param.DisplayName = ((AccountInfo)param).Name = telephone;
+                param.DisplayName = ((AccountInfo)param).Name = mobile;
 
-                param.CertifiedTelephone = telephone;
+                param.CertifiedMobile = mobile;
 
                 if (MembershipManagement.Instance.AccountService.IsExistLoginName(param.LoginName))
                 {
@@ -433,7 +433,7 @@ namespace X3Platform.Membership.Ajax
             {
                 MembershipManagement.Instance.AccountService.SetPassword(param.Id, password);
 
-                var result = this.service.Save(new MemberInfo() { Id = param.Id, AccountId = param.Id, Telephone = telephone });
+                var result = this.service.Save(new MemberInfo() { Id = param.Id, AccountId = param.Id, Mobile = mobile });
 
                 if (result != null)
                 {
