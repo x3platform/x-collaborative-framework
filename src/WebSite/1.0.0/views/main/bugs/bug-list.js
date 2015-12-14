@@ -64,7 +64,7 @@ main.bugs.bug.list = {
     outString += '<th style="width:100px">' + i18n.translates['SubmittedBy'] + '</th>';
     outString += '<th style="width:100px">' + i18n.translates['Bugs']['AssignTo'] + '</th>';
     outString += '<th style="width:80px" >' + i18n.translates['Status'] + '</th>';
-    outString += '<th style="width:100px" >' + i18n.translates['ModifiedDate'] + '</th>';
+    outString += '<th style="width:120px" >' + i18n.translates['ModifiedDate'] + '</th>';
     outString += '<th style="width:30px" title="' + i18n.strings['btn_remove'] + '" ><i class="fa fa-trash" ></i></th>';
     outString += '<th class="table-freeze-head-padding" ></th>';
     outString += '</tr>';
@@ -79,7 +79,7 @@ main.bugs.bug.list = {
     outString += '<col style="width:100px" />';
     outString += '<col style="width:100px" />';
     outString += '<col style="width:80px" />';
-    outString += '<col style="width:100px" />';
+    outString += '<col style="width:120px" />';
     outString += '<col style="width:30px" />';
     outString += '</colgroup>';
     outString += '<tbody>';

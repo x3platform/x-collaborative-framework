@@ -116,6 +116,8 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Controllers\TaskCategoryController.cs" />
+    <Compile Include="Controllers\TaskWaitingController.cs" />
+    <Compile Include="Controllers\TaskHistoryController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\TaskSettingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

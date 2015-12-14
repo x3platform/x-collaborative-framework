@@ -5,19 +5,19 @@
     </alias>
     <resultMaps>
         <resultMap id="proc_Account_Binding_FindOne_Result" class="AccountBindingInfo">
-            <result property="Id" column="Id" />
             <result property="AccountId" column="AccountId" />
             <result property="BindingType" column="BindingType" />
             <result property="BindingObjectId" column="BindingObjectId" />
             <result property="BindingOptions" column="BindingOptions" />
+            <result property="ModifiedDate" column="ModifiedDate" />
             <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Account_Binding_FindAll_Result" class="AccountBindingInfo">
-            <result property="Id" column="Id" />
             <result property="AccountId" column="AccountId" />
             <result property="BindingType" column="BindingType" />
             <result property="BindingObjectId" column="BindingObjectId" />
             <result property="BindingOptions" column="BindingOptions" />
+            <result property="ModifiedDate" column="ModifiedDate" />
             <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
     </resultMaps>
@@ -25,34 +25,32 @@
         <insert id="proc_Account_Binding_Insert" parameterClass="AccountBindingInfo">
             INSERT INTO tb_Account_Binding 
             (
-                Id,
                 AccountId,
                 BindingType,
                 BindingObjectId,
                 BindingOptions,
+                ModifiedDate,
                 CreatedDate
             )
             VALUES
             (
-                #Id#,
                 #AccountId#,
                 #BindingType#,
                 #BindingObjectId#,
                 #BindingOptions#,
-                #CreatedDate#
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
             )
         </insert>
 
         <update id="proc_Account_Binding_Update" parameterClass="AccountBindingInfo">
             UPDATE tb_Account_Binding SET
 
-                AccountId = #AccountId#,
-                BindingType = #BindingType#,
                 BindingObjectId = #BindingObjectId#,
                 BindingOptions = #BindingOptions#,
-                CreatedDate = #CreatedDate#
+                ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id#
+            WHERE AccountId = #AccountId# AND BindingType = #BindingType#
         </update>
         <delete id="proc_Account_Binding_Delete" >
             DELETE FROM tb_Account_Binding WHERE $WhereClause$

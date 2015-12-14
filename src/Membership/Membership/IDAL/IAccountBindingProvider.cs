@@ -74,39 +74,41 @@ namespace X3Platform.Membership.IDAL
         // 查询
         // -------------------------------------------------------
 
-		#region 函数:FindOne(string id)
-		/// <summary>查询某条记录</summary>
-        /// <param name="id">标识</param>
+        #region 函数:FindOne(string accountId, string bindingType)
+        /// <summary>查询某条记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
         /// <returns>返回实例<see cref="AccountBindingInfo"/>的详细信息</returns>
-        AccountBindingInfo FindOne(string id);
-		#endregion
-        
-        #region 函数:FindAll(DataQuery query)
-        /// <summary>查询所有相关记录</summary>
-        /// <param name="query">数据查询参数</param>
-        /// <returns>返回所有实例<see cref="AccountBindingInfo"/>的详细信息</returns>
-        IList<AccountBindingInfo> FindAll(DataQuery query);
-		#endregion
+        AccountBindingInfo FindOne(string accountId, string bindingType);
+        #endregion
 
-		// -------------------------------------------------------
+        #region 函数:FindAllByAccountId(string accountId)
+        /// <summary>查询某个用户的所有相关记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <returns>返回所有实例<see cref="AccountBindingInfo"/>的详细信息</returns>
+        IList<AccountBindingInfo> FindAllByAccountId(string accountId);
+        #endregion
+
+        // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        /// <summary>分页函数</summary>
-        /// <param name="startIndex">开始行索引数,由0开始统计</param>
-        /// <param name="pageSize">页面大小</param>
-        /// <param name="query">数据查询参数</param>
-        /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="AccountBindingInfo"/></returns> 
-        IList<AccountBindingInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        #region 函数:IsExist(string accountId, string bindingType)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <returns>布尔值</returns>
+        bool IsExist(string accountId, string bindingType);
         #endregion
 
-		#region 函数:IsExist(string id)
-        /// <summary>查询是否存在相关的记录.</summary>
-        /// <param name="id">标识</param>
-        /// <returns>布尔值</returns>
-        bool IsExist(string id);
+        #region 函数:Bind(string accountId, string bindingType, string bindingObjectId, string bindingOptions)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <param name="bindingObjectId">绑定对象唯一标识</param>
+        /// <param name="bindingOptions">绑定的参数信息</param>
+        /// <returns></returns>
+        int Bind(string accountId, string bindingType, string bindingObjectId, string bindingOptions);
         #endregion
     }
 }

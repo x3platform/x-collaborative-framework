@@ -15,11 +15,6 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Id
-        /// <summary></summary>
-        public string Id { get; set; }
-        #endregion
-
         #region 属性:AccountId
         /// <summary></summary>
         public string AccountId { get; set; }
@@ -38,6 +33,17 @@ namespace X3Platform.Membership.Model
         #region 属性:BindingOptions
         /// <summary></summary>
         public string BindingOptions { get; set; }
+        #endregion
+
+        #region 属性:ModifiedDate
+        private DateTime m_ModifiedDate;
+
+        /// <summary>修改时间</summary>
+        public DateTime ModifiedDate
+        {
+            get { return m_ModifiedDate; }
+            set { m_ModifiedDate = value; }
+        }
         #endregion
 
         #region 属性:CreatedDate

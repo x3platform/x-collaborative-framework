@@ -311,6 +311,9 @@
     <Content Include="views\main\sys\digital-number.js" />
     <Content Include="views\main\sys\email-client.js" />
     <Content Include="views\main\sys\authorities.js" />
+    <Content Include="views\main\tasks\task-waiting-list.js" />
+    <Content Include="views\main\tasks\task-history-list.js" />
+    <Content Include="views\main\tasks\task-form.js" />
     <Content Include="views\main\tasks\default.js" />
     <Content Include="views\main\tasks\task-category-list.js" />
     <Content Include="views\main\tasks\task-setting-list.js" />
@@ -450,6 +453,9 @@
     <Content Include="views\main\account\friends\account-friend-invite.cshtml" />
     <Content Include="views\main\account\friends\account-friend-list.cshtml" />
     <Content Include="views\main\account\friends\account-friend-accept.cshtml" />
+    <Content Include="views\main\tasks\task-form.cshtml" />
+    <Content Include="views\main\tasks\task-history-list.cshtml" />
+    <Content Include="views\main\tasks\task-waiting-list.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
