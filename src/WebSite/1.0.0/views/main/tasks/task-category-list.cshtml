@@ -1,6 +1,4 @@
-﻿@{
-    Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml";
-}
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
 @if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
 {
 <script id="x-main" type="text/javascript" >
@@ -47,7 +45,7 @@ else
     </div>
     <div id="window-main-table-body" class="table-body">
         <div class="table-row-filter">
-            <div class="float-right small-text"><input id="searchText" type="text" value="" class="table-sidebar-search-text" /> <span id="btnFilter" class="table-sidebar-search-button">查询</span></div>
+            <div class="float-right small-text"><input id="searchText" type="text" value="" class="table-sidebar-search-text form-control" /> <span id="btnFilter" class="table-sidebar-search-button">查询</span></div>
             <div class="clear"></div>
         </div>
         <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>

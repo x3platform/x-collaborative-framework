@@ -1,4 +1,4 @@
-﻿$(document).ready(function()
+﻿x.dom.ready(function()
 {
     x.ui.windows.getApplicationSettingListWindow('applicationSettingListWindow', {
 

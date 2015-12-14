@@ -79,12 +79,12 @@ namespace X3Platform.Membership.DAL.IBatis
         // -------------------------------------------------------
 
         #region 函数:Save(AccountBindingInfo param)
-		/// <summary>保存记录</summary>
+        /// <summary>保存记录</summary>
         /// <param name="param">实例<see cref="AccountBindingInfo"/>详细信息</param>
         /// <returns>实例<see cref="AccountBindingInfo"/>详细信息</returns>
         public AccountBindingInfo Save(AccountBindingInfo param)
         {
-            if (!IsExist(param.Id))
+            if (!IsExist(param.AccountId, param.BindingType))
             {
                 this.Insert(param);
             }
@@ -97,24 +97,24 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-		#region 函数:Insert(AccountBindingInfo param)
-		/// <summary>添加记录</summary>
+        #region 函数:Insert(AccountBindingInfo param)
+        /// <summary>添加记录</summary>
         /// <param name="param">实例<see cref="AccountBindingInfo"/>详细信息</param>
         public void Insert(AccountBindingInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
-		#endregion
+        #endregion
 
-		#region 函数:Update(AccountBindingInfo param)
-		/// <summary>修改记录</summary>
+        #region 函数:Update(AccountBindingInfo param)
+        /// <summary>修改记录</summary>
         /// <param name="param">实例<see cref="AccountBindingInfo"/>详细信息</param>
         public void Update(AccountBindingInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
-        
+
         #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
         /// <param name="id">标识</param>
@@ -134,20 +134,36 @@ namespace X3Platform.Membership.DAL.IBatis
         // 查询
         // -------------------------------------------------------
 
-		#region 函数:FindOne(string id)
-		/// <summary>查询某条记录</summary>
-        /// <param name="id">标识</param>
+        #region 函数:FindOne(string accountId, string bindingType)
+        /// <summary>查询某条记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
         /// <returns>返回实例<see cref="AccountBindingInfo"/>的详细信息</returns>
-        public AccountBindingInfo FindOne(string id)
+        public AccountBindingInfo FindOne(string accountId, string bindingType)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Id", StringHelper.ToSafeSQL(id));
+            args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
+            args.Add("BindingType", StringHelper.ToSafeSQL(bindingType));
 
             return this.ibatisMapper.QueryForObject<AccountBindingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
         }
-		#endregion
-        
+        #endregion
+
+        #region 函数:FindAllByAccountId(string accountId)
+        /// <summary>查询某个用户的所有相关记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <returns>返回所有实例<see cref="AccountBindingInfo"/>的详细信息</returns>
+        public IList<AccountBindingInfo> FindAllByAccountId(string accountId)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' ", StringHelper.ToSafeSQL(accountId)));
+
+            return this.ibatisMapper.QueryForList<AccountBindingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllByAccountId", tableName)), args);
+        }
+        #endregion
+
         #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
@@ -155,7 +171,7 @@ namespace X3Platform.Membership.DAL.IBatis
         public IList<AccountBindingInfo> FindAll(DataQuery query)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
-            
+
             string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
             string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
 
@@ -167,51 +183,50 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-		// -------------------------------------------------------
+        // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
 
-		#region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        /// <summary>分页函数</summary>
-        /// <param name="startIndex">开始行索引数,由0开始统计</param>
-        /// <param name="pageSize">页面大小</param>
-        /// <param name="query">数据查询参数</param>
-        /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="AccountBindingInfo"/></returns> 
-        public IList<AccountBindingInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        {
-            Dictionary<string, object> args = new Dictionary<string, object>();
-
-            string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
-            string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
-
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
-            args.Add("WhereClause", whereClause);
-            args.Add("OrderBy", orderBy);
-
-            IList<AccountBindingInfo> list = this.ibatisMapper.QueryForList<AccountBindingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPages", tableName)), args);
-
-            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
-
-            return list;
-        }
-        #endregion
-
-		#region 函数:IsExist(string id)
-        /// <summary>查询是否存在相关的记录.</summary>
-        /// <param name="id">标识</param>
+        #region 函数:IsExist(string accountId, string bindingType)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
         /// <returns>布尔值</returns>
-        public bool IsExist(string id)
+        public bool IsExist(string accountId, string bindingType)
         {
-            if (string.IsNullOrEmpty(id)){ throw new Exception("实例标识不能为空。"); }
+            if (string.IsNullOrEmpty(accountId)) { throw new Exception("实例标识不能为空。"); }
+
+            if (string.IsNullOrEmpty(bindingType)) { throw new Exception("实例标识不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' AND BindingType = '{1}' ", StringHelper.ToSafeSQL(accountId), StringHelper.ToSafeSQL(bindingType)));
 
             return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
         }
         #endregion
+
+        #region 函数:Bind(string accountId, string bindingType, string bindingObjectId, string bindingOptions)
+        /// <summary>查询是否存在相关的记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <param name="bindingObjectId">绑定对象唯一标识</param>
+        /// <param name="bindingOptions">绑定的参数信息</param>
+        /// <returns></returns>
+        public int Bind(string accountId, string bindingType, string bindingObjectId, string bindingOptions)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
+            args.Add("BindingType", StringHelper.ToSafeSQL(bindingType));
+            args.Add("BindingObjectId", StringHelper.ToSafeSQL(bindingObjectId));
+            args.Add("BindingOptions", StringHelper.ToSafeSQL(bindingOptions));
+
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Bind", tableName)), args);
+
+            return 0;
+        }
+        #endregion
+
     }
 }

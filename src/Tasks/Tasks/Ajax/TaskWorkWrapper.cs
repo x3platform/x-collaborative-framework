@@ -34,14 +34,14 @@ namespace X3Platform.Tasks.Ajax
 
             param = (TaskWorkInfo)AjaxUtil.Deserialize(param, doc);
 
-            XmlNodeList nodes = doc.SelectNodes("/ajaxStorage/receivers/receiver");
+            XmlNodeList nodes = doc.SelectNodes("/request/receivers/receiver");
 
             IAccountInfo account = MembershipManagement.Instance.AccountService[param.SenderId];
 
             if (account == null)
             {
                 // 如果默认状态下没有填写发送者标识(SenderId), 则根据填写的发送者的登录名信息查找相关标识信息.
-                XmlNode senderNode = doc.SelectSingleNode("/ajaxStorage/sender/loginName");
+                XmlNode senderNode = doc.SelectSingleNode("/request/sender/loginName");
 
                 if (senderNode == null)
                 {
