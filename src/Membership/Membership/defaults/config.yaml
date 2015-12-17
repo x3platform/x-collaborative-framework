@@ -34,6 +34,8 @@ keys:
   GuestLoginName: guest
   # 默认的游客名称
   GuestNickName: 匿名帐号
+  # 默认注册方式 : mail 邮箱 | mobile 手机
+  DefaultRegistration: mail
   # 默认初始密码 : 系统新建帐号和重置时的初始密码
   DefaultPassword: 888888
   # 默认的组织标识 : 组织结构(帐号创建时默认所在的组织信息)

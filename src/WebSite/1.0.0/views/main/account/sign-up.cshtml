@@ -30,7 +30,7 @@
   <div class="window-sign-up-form-wrapper container" style="width:400px; margin:20px auto; border-radius:5px;">
     <div class="window-sign-up-form">
       <dl class="form">
-        @if (ViewBag.registerType == "mobile")
+        @if (ViewBag.registration == "mobile")
         {
           <dt class="input-label">手机号码</dt>
           <dd>
@@ -70,7 +70,7 @@
       </dl>
       <dl class="form">
         <dt class="input-label">
-          @if (ViewBag.registerType == "mobile")
+          @if (ViewBag.registration == "mobile")
           {
             <text>短信验证码</text>
           }
@@ -89,7 +89,7 @@
       <p class="window-sign-up-form-terms-of-service">
         单击“创建帐户”的，即表示您同意服务条款和隐私权政策。
       </p>
-      <input id="registerType" name="registerType" type="hidden" x-dom-data-type="value" value="@ViewBag.registerType" />
+      <input id="registration" name="registration" type="hidden" x-dom-data-type="value" value="@ViewBag.registration" />
       <input id="password" name="password" type="hidden" x-dom-data-type="value" value="" />
       <div class="form-actions">
         <div class="button-submit button primary"><button id="btnSubmit" class="btn btn-success">创建帐户</button></div>

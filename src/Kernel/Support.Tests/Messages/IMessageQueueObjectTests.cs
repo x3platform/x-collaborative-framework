@@ -14,11 +14,11 @@
 
     /// <summary>消息类测试类</summary>
     [TestClass]
-    public class IMessageQueueObjectTestSuite
+    public class IMessageQueueObjectTests
     {
         private MockFactory factory = null;
 
-        public IMessageQueueObjectTestSuite()
+        public IMessageQueueObjectTests()
         {
             // 初始化工厂类
             factory = new MockFactory();
@@ -54,7 +54,7 @@
         }
 
         /*
-[TestMethod]
+        [TestMethod]
         public void TestRabbitSend()
         {
             IMessageQueueObject queue = new RabbitQueueObject("rabbit.x3platform.com", 5672, "rabbit", "rabbit", "test");
@@ -76,6 +76,5 @@
                 IMessageObject message = queue.Receive();
             }
         }*/
-
     }
 }

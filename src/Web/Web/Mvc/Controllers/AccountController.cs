@@ -10,6 +10,7 @@
     using X3Platform.Location.IPQuery;
     using X3Platform.Membership;
     using X3Platform.Membership.Authentication;
+    using X3Platform.Membership.Configuration;
     using X3Platform.Web.Mvc.Attributes;
 
     /// <summary>帐号基本信息</summary>
@@ -19,7 +20,7 @@
         /// <summary>注册</summary>
         public ActionResult SignUp()
         {
-            ViewBag.registerType = Request.QueryString["registerType"] == null ? "mail" : Request.QueryString["registerType"];
+            ViewBag.registration = Request.QueryString["registration"] == null ? MembershipConfigurationView.Instance.DefaultRegistration : Request.QueryString["registration"];
 
             return View("/views/" + LocateFolder("main") + "/account/sign-up.cshtml");
         }
