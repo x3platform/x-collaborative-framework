@@ -1,26 +1,14 @@
-﻿#region Using Testing Libraries
-#if NUNIT
-using NUnit.Framework;
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestContext = System.Object;
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Category = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute;
-#endif
-
-using NMock;
-#endregion
-
-namespace X3Platform.Connect.Tests.IBLL
+﻿namespace X3Platform.Connect.Tests.IBLL
 {
+    using NUnit.Framework;
+
     using System;
     using System.Text;
     using System.Collections.Generic;
     using System.Configuration;
-
+    
+    using Quartz;
+    
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.Model;
     using X3Platform.Data;
@@ -30,14 +18,13 @@ namespace X3Platform.Connect.Tests.IBLL
     using X3Platform.DigitalNumber;
     using X3Platform.Messages;
     using X3Platform.Spring;
-    using Quartz;
     using X3Platform.Connect.Jobs;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class IConnectCallServiceTests
     {
-        [TestMethod]
+        [Test]
         public void TestSave()
         {
             Assert.IsNotNull(KernelContext.Current.AuthenticationManagement);
@@ -54,7 +41,7 @@ namespace X3Platform.Connect.Tests.IBLL
             Assert.IsNotNull(param);
         }
 
-        [TestMethod]
+        [Test]
         public void TestFindAll()
         {
             IList<ConnectCallInfo> list = ConnectContext.Instance.ConnectCallService.FindAll();
@@ -62,7 +49,7 @@ namespace X3Platform.Connect.Tests.IBLL
             Assert.IsNotNull(list);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetPaging()
         {
             int rowCount = -1;
