@@ -41,6 +41,7 @@
         <ProjectToBuild Include="Sessions\Sessions.Tests\Sessions.Tests.csproj" />
         <ProjectToBuild Include="Connect\Connect.Tests\Connect.Tests.csproj" />
         <ProjectToBuild Include="Apps\Apps.Tests\Apps.Tests.csproj" />
+        <ProjectToBuild Include="AttachmentStorage\AttachmentStorage.Tests\AttachmentStorage.Tests.csproj" />
         <ProjectToBuild Include="Web\Web.Tests\Web.Tests.csproj" />
         <!-- Bugs -->
         <ProjectToBuild Include="Plugins\Bugs\Bugs\Bugs.csproj" />
