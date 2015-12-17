@@ -1,0 +1,28 @@
+{
+  "mobileReqBody": {
+    "servReqInfo": {
+      "intVer": "sample string 1",
+      "testFlag": "sample string 2",
+      "method": "sample string 3",
+      "modCode": "sample string 4",
+      "funcCode": "sample string 5",
+      "operCode": "sample string 6",
+      "verChkType": "sample string 7"
+    },
+    "parameter": {"accountId":"${accountId}"}
+  },
+  "mobileReqHeader": {
+    "appInfo": {
+      "appCode": "sample string 1",
+      "platform": "sample string 2",
+      "userKey": "sample string 3",
+      "verCode": 4,
+      "chnlCode": "sample string 5"
+    },
+    "authInfo": {
+      "timeStamp": "sample string 1",
+      "authKey": "sample string 2"
+    },
+    "extInfo": {}
+  }
+}
