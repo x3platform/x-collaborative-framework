@@ -25,11 +25,11 @@
 
         sendVerificationCode: function()
         {
-            var registerType = $('#registerType').val();
+            var registration = $('#registration').val();
 
             var url = null;
 
-            if(registerType == 'mobile')
+            if(registration == 'mobile')
             {
                 url = '/api/hr.general.sendVerificationSMS.aspx';
             }
@@ -42,7 +42,7 @@
 
             outString += '<request>';
             outString += '<captcha><![CDATA[' + x.dom('#captcha').val() + ']]></captcha>';
-            if(registerType == 'mobile')
+            if(registration == 'mobile')
             {
                 if(x.dom('#mobile').val() == '')
                 {
@@ -108,12 +108,12 @@
 
         checkAndSignUp: function()
         {
-            var registerType = $('#registerType').val();
+            var registration = $('#registration').val();
             var originalPassword = x.dom('#originalPassword').val();
 
             x.dom('#password').val(CryptoJS.SHA1(originalPassword).toString());
 
-            if(registerType == 'mobile')
+            if(registration == 'mobile')
             {
                 if(x.dom('#mobile').val() == '' || originalPassword == '')
                 {

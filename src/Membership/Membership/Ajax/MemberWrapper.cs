@@ -333,18 +333,22 @@ namespace X3Platform.Membership.Ajax
         {
             IAccountInfo param = new AccountInfo();
 
-            // RegisterType 注册类型: email | telephone | default
-            string registerType = XmlHelper.Fetch("registerType", doc);
-
+            // Registration 注册类型: email | mobile | default
+            string registration = XmlHelper.Fetch("registration", doc);
+            // 登陆名
             string loginName = XmlHelper.Fetch("loginName", doc);
+            // 姓名
             string name = XmlHelper.Fetch("name", doc);
+            // 手机号码
             string mobile = XmlHelper.Fetch("mobile", doc);
+            // 邮箱
             string email = XmlHelper.Fetch("email", doc);
+            // 密码
             string password = XmlHelper.Fetch("password", doc);
 
             string code = XmlHelper.Fetch("code", doc);
 
-            if (registerType == "mail")
+            if (registration == "mail")
             {
                 if (string.IsNullOrEmpty(email))
                 {
@@ -372,7 +376,7 @@ namespace X3Platform.Membership.Ajax
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此登录名已经存在。\"}}";
                 }
             }
-            else if (registerType == "mobile")
+            else if (registration == "mobile")
             {
                 if (string.IsNullOrEmpty(mobile))
                 {

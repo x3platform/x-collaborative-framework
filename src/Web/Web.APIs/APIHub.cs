@@ -55,7 +55,7 @@ namespace X3Platform.Web.APIs
                 {
                     for (int i = 0; i < context.Request.QueryString.Count; i++)
                     {
-                        if (context.Request.QueryString.Keys[i] == null) { continue; }
+                        if (string.IsNullOrEmpty(context.Request.QueryString.Keys[i])) { continue; }
 
                         if (context.Request.QueryString.Keys[i] != "xhr-name")
                         {
@@ -77,7 +77,7 @@ namespace X3Platform.Web.APIs
                 {
                     for (int i = 0; i < context.Request.Form.Count; i++)
                     {
-                        if (context.Request.Form.Keys[i] == null) { continue; }
+                        if (string.IsNullOrEmpty(context.Request.Form.Keys[i])) { continue; }
 
                         if (context.Request.Form.Keys[i] != "xhr-name" && context.Request.Form.Keys[i] != "xhr-xml")
                         {

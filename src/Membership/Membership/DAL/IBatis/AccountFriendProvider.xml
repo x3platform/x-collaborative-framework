@@ -5,7 +5,6 @@
     </alias>
     <resultMaps>
         <resultMap id="proc_Account_Friend_FindOne_Result" class="AccountFriendInfo">
-            <result property="Id" column="Id" />
             <result property="AccountId" column="AccountId" />
             <result property="FriendAccountId" column="FriendAccountId" />
             <result property="FriendDisplayName" column="FriendDisplayName" />
@@ -13,7 +12,6 @@
             <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
         <resultMap id="proc_Account_Friend_FindAll_Result" class="AccountFriendInfo">
-            <result property="Id" column="Id" />
             <result property="AccountId" column="AccountId" />
             <result property="FriendAccountId" column="FriendAccountId" />
             <result property="FriendDisplayName" column="FriendDisplayName" />
@@ -25,7 +23,6 @@
         <insert id="proc_Account_Friend_Insert" parameterClass="AccountFriendInfo">
             INSERT INTO tb_Account_Friend 
             (
-                Id,
                 AccountId,
                 FriendAccountId,
                 FriendDisplayName,
@@ -34,7 +31,6 @@
             )
             VALUES
             (
-                #Id#,
                 #AccountId#,
                 #FriendAccountId#,
                 #FriendDisplayName#,
@@ -45,7 +41,6 @@
         <insert id="proc_Account_Friend_Accept_Insert" >
             INSERT INTO tb_Account_Friend_Accept 
             (
-                Id,
                 AccountId,
                 FriendAccountId,
                 Reason,
@@ -54,7 +49,6 @@
             )
             VALUES
             (
-                #Id#,
                 #AccountId#,
                 #FriendAccountId#,
                 #Reason#,
@@ -65,12 +59,11 @@
         <update id="proc_Account_Friend_Update" parameterClass="AccountFriendInfo">
             UPDATE tb_Account_Friend SET
 
-                AccountId = #AccountId#,
-                FriendAccountId = #FriendAccountId#,
                 FriendDisplayName = #FriendDisplayName#,
                 Status = #Status#
 
-            WHERE Id = #Id#
+            WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
+                
         </update>
         <delete id="proc_Account_Friend_Delete" >
             DELETE FROM tb_Account_Friend WHERE $WhereClause$
@@ -79,7 +72,7 @@
             DELETE FROM tb_Account_Friend_Accept WHERE $WhereClause$
         </delete>
         <select id="proc_Account_Friend_FindOne" resultMap="proc_Account_Friend_FindOne_Result" >
-            SELECT * FROM tb_Account_Friend WHERE Id = #Id#
+            SELECT * FROM tb_Account_Friend WHERE AccountId = #AccountId# AND FriendAccountId = #FriendAccountId#
         </select>
         <select id="proc_Account_Friend_FindAll#MySql" resultMap="proc_Account_Friend_FindAll_Result" >
             SELECT * FROM tb_Account_Friend T

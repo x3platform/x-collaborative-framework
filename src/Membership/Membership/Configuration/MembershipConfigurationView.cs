@@ -706,6 +706,31 @@ namespace X3Platform.Membership.Configuration
         }
         #endregion
 
+        #region 属性:DefaultRegistration
+        private string m_DefaultRegistration = string.Empty;
+
+        /// <summary>默认注册方式</summary>
+        public string DefaultRegistration
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_DefaultRegistration))
+                {
+                    // 读取配置信息
+                    this.m_DefaultRegistration = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "DefaultRegistration",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    this.m_DefaultRegistration = StringHelper.NullOrEmptyTo(this.m_DefaultRegistration, "mail");
+                }
+
+                return this.m_DefaultRegistration;
+            }
+        }
+        #endregion
+
         #region 属性:DefaultPassword
         private string m_DefaultPassword = string.Empty;
 
