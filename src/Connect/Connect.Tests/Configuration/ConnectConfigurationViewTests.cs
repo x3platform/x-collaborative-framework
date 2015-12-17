@@ -1,35 +1,21 @@
-#region Using Testing Libraries
-#if NUNIT
-using NUnit.Framework;
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestContext = System.Object;
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Category = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute;
-#endif
-
-using NMock;
-#endregion
-
 namespace X3Platform.Connect.Tests.Configuration
 {
+    using NUnit.Framework;
+
     using System;
 
     using X3Platform.IBatis.DataMapper;
 
     using X3Platform.Connect.Configuration;
 
-    [TestClass]
+    [TestFixture]
     public class ConnectConfigurationViewTests
     {
         //-------------------------------------------------------
         // ≤‚ ‘ƒ⁄»›
         //-------------------------------------------------------
 
-        [TestMethod]
+        [Test]
         public void TestInit()
         {
             ConnectConfiguration configuration = ConnectConfigurationView.Instance.Configuration;
@@ -40,7 +26,7 @@ namespace X3Platform.Connect.Tests.Configuration
             Assert.IsNotNull(configuration.Keys["IBatisMapping"]);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCreateMapper()
         {
             ConnectConfiguration configuration = ConnectConfigurationView.Instance.Configuration;

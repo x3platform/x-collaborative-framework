@@ -1,30 +1,18 @@
-﻿#region Using Testing Libraries
-#if NUNIT
-using NUnit.Framework;
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestContext = System.Object;
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Category = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute;
-#endif
-
-using NMock;
-#endregion
-
-namespace X3Platform.Apps.Tests
+﻿namespace X3Platform.Apps.Tests
 {
+    using NUnit.Framework;
+
+    using NMock;
+    
     using System.Configuration;
 
     using X3Platform.Membership;
 
     using X3Platform.Apps.Configuration;
-  using X3Platform.Apps.Model;
-
+    using X3Platform.Apps.Model;
+    
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class SecurityTokenManagerTests
     {
         //初始化mockery
@@ -34,7 +22,7 @@ namespace X3Platform.Apps.Tests
         // 测试内容
         // -------------------------------------------------------
 
-        [TestMethod]
+        [Test]
         public void TestIsAdministrator()
         {
             bool result = false;

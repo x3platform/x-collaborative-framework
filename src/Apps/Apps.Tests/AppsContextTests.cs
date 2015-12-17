@@ -1,21 +1,7 @@
-﻿#region Using Testing Libraries
-#if NUNIT
-using NUnit.Framework;
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestContext = System.Object;
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Category = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute;
-#endif
-
-using NMock;
-#endregion
-
-namespace X3Platform.Apps.Tests
+﻿namespace X3Platform.Apps.Tests
 {
+    using NUnit.Framework;
+
     using System;
     using System.Text;
     using System.Collections.Generic;
@@ -26,14 +12,14 @@ namespace X3Platform.Apps.Tests
     using X3Platform.Apps.IBLL;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class AppsContextTests
     {
         //-------------------------------------------------------
         // 测试内容
         //-------------------------------------------------------
 
-        [TestMethod]
+        [Test]
         public void TestRestart()
         {
             AppsContext.Instance.Restart();
