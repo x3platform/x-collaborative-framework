@@ -5,9 +5,10 @@
             <Properties>Configuration=Debug</Properties>
         </ProjectToBuild>
         -->
-        <!-- 附件管理 -->
+        <!-- 01.Framework -->
         <ProjectToBuild Include="Kernel\Support\Support.csproj" />
         <ProjectToBuild Include="Kernel\Abstractions\Abstractions.csproj" />
+        <ProjectToBuild Include="TestTools\TestTools\TestTools.csproj" />
         <ProjectToBuild Include="Velocity\Velocity\Velocity.csproj" />
         <ProjectToBuild Include="Services\Services\Services.csproj" />
         <ProjectToBuild Include="Messages\Messages\Messages.csproj" />
