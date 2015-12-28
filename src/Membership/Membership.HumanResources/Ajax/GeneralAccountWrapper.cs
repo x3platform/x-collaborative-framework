@@ -21,6 +21,7 @@
     using X3Platform.Json;
     using X3Platform.SMS.Client;
     using X3Platform.Security.VerificationCode.Configuration;
+    using X3Platform.Security.Configuration;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -130,27 +131,52 @@
         /// <returns>返回操作结果</returns>
         public string ForgotPassword(XmlDocument doc)
         {
+            string mobile = XmlHelper.Fetch("mobile", doc);
             string email = XmlHelper.Fetch("email", doc);
 
-            IAccountInfo account = MembershipManagement.Instance.AccountService.FindOneByCertifiedEmail(email);
+            IAccountInfo account = null;
 
-            if (account != null)
+            if (!string.IsNullOrEmpty(mobile))
             {
-                VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, "忘记密码");
+                account = MembershipManagement.Instance.AccountService.FindOneByCertifiedMobile(mobile);
 
-                IPQueryContext.GetClientIP();
+                if (account != null)
+                {
+                    VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mobile", mobile, "忘记密码");
 
-                // 您好 {date} 您通过了忘记密码功能找回密码。验证码: {code}
-                // 
-                // IP 地址
-                EmailClientContext.Instance.Send(email, "密码找回", string.Format("尊敬的用户，\r\n您好，您正在通过忘记密码功能找回密码。当前验证码:{0}, \r\nIP:{1}\r\nDate:{2} ", verificationCode.Code, IPQueryContext.GetClientIP(), DateTime.Now.ToString()));
+                    EmailClientContext.Instance.Send(mobile, "密码找回", string.Format("尊敬的用户，\r\n您好，您正在通过忘记密码功能找回密码。当前验证码:{0}, \r\nIP:{1}\r\nDate:{2} ", verificationCode.Code, IPQueryContext.GetClientIP(), DateTime.Now.ToString()));
 
-                return "{message:{\"returnCode\":0,\"value\":\"邮件发送成功。\"}}";
+                    return "{message:{\"returnCode\":0,\"value\":\"验证码发送成功。\"}}";
+                }
+                else
+                {
+                    return "{message:{\"returnCode\":1,\"value\":\"验证码发送失败，不存在的手机号码。\"}}";
+                }
             }
-            else
+            else if (!string.IsNullOrEmpty(email))
             {
-                return "{message:{\"returnCode\":1,\"value\":\"邮件发送失败，不存在的邮箱地址。\"}}";
-            }
+                account = MembershipManagement.Instance.AccountService.FindOneByCertifiedEmail(email);
+
+                if (account != null)
+                {
+                    VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, "忘记密码");
+
+                    IPQueryContext.GetClientIP();
+
+                    // 您好 {date} 您通过了忘记密码功能找回密码。验证码: {code}
+                    // 
+                    // IP 地址
+                    EmailClientContext.Instance.Send(email, "密码找回", string.Format("尊敬的用户，\r\n您好，您正在通过忘记密码功能找回密码。当前验证码:{0}, \r\nIP:{1}\r\nDate:{2} ", verificationCode.Code, IPQueryContext.GetClientIP(), DateTime.Now.ToString()));
+
+                    return "{message:{\"returnCode\":0,\"value\":\"验证码发送成功。\"}}";
+                }
+                else
+                {
+                    return "{message:{\"returnCode\":1,\"value\":\"验证码发送失败，不存在的邮箱地址。\"}}";
+                }
+            } 
+            
+            return "{message:{\"returnCode\":2,\"value\":\"必须填写手机号码或邮箱地址。\"}}";                
         }
         #endregion
 
@@ -208,12 +234,15 @@
         /// <returns>返回操作结果</returns>
         public string SendVerificationMail(XmlDocument doc)
         {
-            // 验证码
-            string captcha = XmlHelper.Fetch("captcha", doc);
-
-            if (HttpContext.Current.Session["captcha"] == null || captcha != HttpContext.Current.Session["captcha"].ToString())
+            if (SecurityConfigurationView.Instance.CaptchaMode == "ON")
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"验证码错误。\"}}";
+                // 验证码
+                string captcha = XmlHelper.Fetch("captcha", doc);
+
+                if (HttpContext.Current.Session["captcha"] == null || captcha != HttpContext.Current.Session["captcha"].ToString())
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"验证码错误。\"}}";
+                }
             }
 
             // 检查验证码发送时间
@@ -232,12 +261,12 @@
             // 验证类型
             string validationType = XmlHelper.Fetch("validationType", doc);
 
-            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, validationType);
+            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create("Mail", email, validationType, IPQueryContext.GetClientIP());
 
             VerificationCodeTemplateInfo template = VerificationCodeContext.Instance.VerificationCodeTemplateService.FindOne("Mail", validationType);
 
             JsonData options = JsonMapper.ToObject(template.Options);
-            
+
             string content = TemplateContentContext.Instance.TemplateContentService.GetHtml(template.TemplateContentName);
 
             EmailClientContext.Instance.Send(email, JsonHelper.GetDataValue(options, "subject"), string.Format(content, verificationCode.Code), EmailFormat.Html);
@@ -247,19 +276,22 @@
             return "{\"message\":{\"returnCode\":0,\"value\":\"发送成功。\"}}";
         }
         #endregion
-    
+
         #region 函数:SendVerificationSMS(XmlDocument doc)
         /// <summary></summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
         public string SendVerificationSMS(XmlDocument doc)
         {
-            // 验证码
-            string captcha = XmlHelper.Fetch("captcha", doc);
-
-            if (HttpContext.Current.Session["captcha"] == null || captcha != HttpContext.Current.Session["captcha"].ToString())
+            if (SecurityConfigurationView.Instance.CaptchaMode == "ON")
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"验证码错误。\"}}";
+                // 验证码
+                string captcha = XmlHelper.Fetch("captcha", doc);
+
+                if (HttpContext.Current.Session["captcha"] == null || captcha != HttpContext.Current.Session["captcha"].ToString())
+                {
+                    return "{\"message\":{\"returnCode\":1,\"value\":\"验证码错误。\"}}";
+                }
             }
 
             // 检查验证码发送时间
@@ -277,7 +309,7 @@
             string phoneNumber = XmlHelper.Fetch("phoneNumber", doc);
             // 验证类型
             string validationType = XmlHelper.Fetch("validationType", doc);
-            
+
             // 发送短信
             SMSContext.Instance.SMSService.Send(phoneNumber, validationType);
 

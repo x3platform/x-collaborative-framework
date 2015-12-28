@@ -72,8 +72,8 @@
     <Reference Include="X3Platform.Abstractions">
       <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Storages">
-      <HintPath>..\..\..\bin\X3Platform.Storages.dll</HintPath>
+    <Reference Include="X3Platform.Location.IPQuery">
+      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>

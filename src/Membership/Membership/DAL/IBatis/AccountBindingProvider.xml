@@ -155,5 +155,25 @@
         <select id="proc_Account_Binding_IsExist" >
             SELECT COUNT(0) AS "Count" FROM tb_Account_Binding WHERE $WhereClause$
         </select>
+        <insert id="proc_Account_Binding_Bind" parameterClass="AccountBindingInfo">
+            INSERT INTO tb_Account_Binding 
+            (
+                AccountId,
+                BindingType,
+                BindingObjectId,
+                BindingOptions,
+                ModifiedDate,
+                CreatedDate
+            )
+            VALUES
+            (
+                #AccountId#,
+                #BindingType#,
+                #BindingObjectId#,
+                #BindingOptions#,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP
+            )
+        </insert>
     </statements>
 </sqlMap>

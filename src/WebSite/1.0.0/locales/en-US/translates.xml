@@ -15,8 +15,10 @@
   <application name="Membership">
     <translate name="MyProfile">My Profile</translate>
     <translate name="MyTasks">My Tasks</translate>
+    <translate name="MyFriends">My Friends</translate>
+    <translate name="ChangePassword">Change password</translate>
     <translate name="RememberLoginName">Remember login name</translate>
-    <translate name="ForgotLoginPassword">forgot login password</translate>
+    <translate name="ForgotLoginPassword">Forgot login password</translate>
     <translate name="CreateNewAccount">Create new account</translate>
     <translate name="Settings">Settings</translate>
     <translate name="SignIn">Sign in</translate>

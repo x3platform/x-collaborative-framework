@@ -1,4 +1,4 @@
-﻿namespace X3Platform.AttachmentStorage.TestSuite.Util
+﻿namespace X3Platform.AttachmentStorage.Tests.Util
 {
     using System;
     using System.Text;
@@ -7,15 +7,15 @@
     using System.IO;
 
     using NUnit.Framework;
-    
+
     using X3Platform.Configuration;
     using X3Platform.Spring.Configuration;
     using X3Platform.Util;
-    
+
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.Util;
     using X3Platform.AttachmentStorage.Images;
-    
+
     /// <summary></summary>
     [TestFixture]
     public class UploadPathHelperTests
@@ -26,16 +26,22 @@
         //-------------------------------------------------------
         // 测试内容
         //-------------------------------------------------------
+
         [Test]
         public void TestTryCreateDirectory()
         {
-            string path = "E:\\Workspace\\X3Platform\\trunk\\WebSite\\1.0.0\\uploads\\test\\2009\\4Q\\12\\2.jpg";
+            string path = KernelConfigurationView.Instance.ApplicationPathRoot + "uploads\\";
+
+            DateTime datetime = DateTime.Now;
+
+            path = path + datetime.ToString("yyyy\\MM\\dd\\");
 
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(path));
             }
 
+            Assert.IsTrue(Directory.Exists(path));
         }
 
         [Test]
@@ -80,6 +86,9 @@
             string attachmentFolder = "test";
 
             AttachmentFileInfo attachment = new AttachmentFileInfo();
+            
+            attachment.Id = StringHelper.ToGuid();
+            attachment.FileType = ".doc";
             attachment.AttachmentName = "123.doc";
             attachment.CreatedDate = new DateTime(2001, 1, 1);
 
@@ -87,8 +96,9 @@
 
             string path1 = "{uploads}" + attachmentFolder + "/"
                 + datetime.Year + "/" + (((datetime.Month - 1) / 3) + 1) + "Q/" + datetime.Month + "/"
-                + attachment.AttachmentName;
-
+                + attachment.Id
+                + attachment.FileType;
+            
             string path2 = UploadPathHelper.GetVirtualPathFormat(attachmentFolder, attachment);
 
             Assert.AreEqual(path1, path2);

@@ -41,7 +41,12 @@
             var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
             outString += '<request>';
-            outString += '<captcha><![CDATA[' + x.dom('#captcha').val() + ']]></captcha>';
+
+            if(x.dom('#captchaMode').val() == 'ON')
+            {
+                outString += '<captcha><![CDATA[' + x.dom('#captcha').val() + ']]></captcha>';
+            }
+
             if(registration == 'mobile')
             {
                 if(x.dom('#mobile').val() == '')
@@ -177,7 +182,13 @@
             if(event.keyCode == 13) { main.checkAndSignUp(); }
         });
 
-        x.dom('#captchaImage').on('click', main.loadCaptcha);
+        if(x.dom('#captchaMode').val() == 'ON')
+        {
+            x.dom('#captchaImage').on('click', main.loadCaptcha);
+
+            // 初次加载
+            main.loadCaptcha();
+        }
 
         x.dom('#btnVerificationCode').on('click', main.sendVerificationCode);
 
@@ -186,8 +197,5 @@
 
         // 加载表单特性
         x.dom.features.bind();
-
-        // 初次加载
-        main.loadCaptcha();
     });
 })(x, document);

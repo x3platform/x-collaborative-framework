@@ -87,5 +87,22 @@ namespace X3Platform.Membership.Ajax
             return "{\"message\":{\"returnCode\":0,\"value\":\"绑定成功。\"}}";
         }
         #endregion
+
+        #region 函数:Unbind(XmlDocument doc)
+        /// <summary>绑定记录</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string Unbind(XmlDocument doc)
+        {
+            string accountId = KernelContext.Current.User.Id;
+
+            string bindingType = XmlHelper.Fetch("bindingType", doc);
+            string bindingObjectId = XmlHelper.Fetch("bindingObjectId", doc);
+
+            this.service.Unbind(accountId, bindingType, bindingObjectId);
+
+            return "{\"message\":{\"returnCode\":0,\"value\":\"已解除绑定。\"}}";
+        }
+        #endregion
     }
 }

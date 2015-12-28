@@ -6,6 +6,7 @@
   <resultMaps>
     <resultMap id="proc_VerificationCode_FindOne_Result" class="VerificationCodeInfo">
       <result property="Id" column="Id" />
+      <result property="IP" column="IP" />
       <result property="ObjectType" column="ObjectType" />
       <result property="ObjectValue" column="ObjectValue" />
       <result property="Code" column="Code" />
@@ -14,7 +15,7 @@
     </resultMap>
     <resultMap id="proc_VerificationCode_FindAll_Result" class="VerificationCodeInfo">
       <result property="Id" column="Id" />
-      <result property="ObjectType" column="ObjectType" />
+      <result property="IP" column="IP" />
       <result property="ObjectValue" column="ObjectValue" />
       <result property="Code" column="Code" />
       <result property="ValidationType" column="ValidationType" />
@@ -26,6 +27,7 @@
       INSERT INTO tb_VerificationCode
       (
         Id,
+        IP,
         ObjectType,
         ObjectValue,
         Code,
@@ -35,6 +37,7 @@
       VALUES
       (
         #Id#,
+        #IP#,
         #ObjectType#,
         #ObjectValue#,
         #Code#,

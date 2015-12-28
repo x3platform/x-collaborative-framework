@@ -228,5 +228,22 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
+        #region 函数:Unbind(string accountId, string bindingType, string bindingObjectId)
+        /// <summary>解除第三方帐号绑定关系</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <param name="bindingObjectId">绑定对象唯一标识</param>
+        /// <returns></returns>
+        public int Unbind(string accountId, string bindingType, string bindingObjectId)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' AND BindingType = '{1}' AND BindingObjectId = '{2}' ", StringHelper.ToSafeSQL(accountId), StringHelper.ToSafeSQL(bindingType), StringHelper.ToSafeSQL(bindingObjectId)));
+
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+
+            return 0;
+        }
+        #endregion
     }
 }

@@ -13,9 +13,6 @@
     /// <summary>文件上传</summary>
     public class FileUploadWrapper : ContextWrapper
     {
-        /// <summary>日志记录器</summary>
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         public string Upload(XmlDocument doc)
         {
             this.ProcessRequest(HttpContext.Current);
@@ -27,20 +24,29 @@
 
         public override void ProcessRequest(HttpContext context)
         {
-            //
-            // 由于Flash在读取FireFox的cookie时存在bug引发以下用户验证代码发生,所以注释. 
-            // [*]寻求别的验证方法替代当前方式. 
-            //
-            // 登录用户才可上传文件
-            if (KernelContext.Current.User == null)
-                return;
-
             HttpRequest request = context.Request;
 
             HttpResponse response = context.Response;
 
             try
             {
+                foreach (string key in request.ServerVariables.Keys)
+                {
+                    KernelContext.Log.Info(key + ":" + request.ServerVariables[key]);
+                }
+
+                foreach (string key in request.Form.Keys)
+                {
+                    KernelContext.Log.Info(key + ":" + request.Form[key]);
+                }
+
+                foreach (string key in request.Files.Keys)
+                {
+                    KernelContext.Log.Info(key + ":" + request.Files[key].FileName);
+                }
+
+                KernelContext.Log.Info("file count:" + request.Files.Count);
+
                 HttpPostedFile file = request.Files["fileData"];
 
                 string attachmentId = request.Form["attachmentId"];
@@ -48,6 +54,9 @@
                 string entityClassName = request.Form["entityClassName"];
                 string attachmentEntityClassName = request.Form["attachmentEntityClassName"];
                 string attachmentFolder = request.Form["attachmentFolder"];
+
+                // 匿名用户上传文件的文件, 存放在 anonymous 目录
+                if (KernelContext.Current.User == null) { attachmentFolder = "anonymous"; }
 
                 // IAttachmentParentObject parent = new AttachmentParentObject(entityId, entityClassName, attachmentEntityClassName, attachmentFolder);
 
@@ -102,7 +111,7 @@
                 {
                     attachment.Save();
 
-                    logger.Info("attachment id: " + attachment.Id);
+                    KernelContext.Log.Info("attachment id: " + attachment.Id);
 
                     HttpContext.Current.Response.StatusCode = 200;
                     HttpContext.Current.Response.Write(attachment.Id);
@@ -115,7 +124,7 @@
                 HttpContext.Current.Response.StatusDescription = "An error occured";
                 HttpContext.Current.Response.End();
 
-                logger.Error(ex.Message, ex);
+                KernelContext.Log.Error(ex.Message, ex);
             }
         }
     }

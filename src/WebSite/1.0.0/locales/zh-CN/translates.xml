@@ -15,6 +15,8 @@
   <application name="Membership">
     <translate name="MyProfile">我的配置信息</translate>
     <translate name="MyTasks">我的待办事宜</translate>
+    <translate name="MyFriends">我的好友</translate>
+    <translate name="ChangePassword">修改密码</translate>
     <translate name="RememberLoginName">记住登录名</translate>
     <translate name="ForgotLoginPassword">忘记登录密码</translate>
     <translate name="CreateNewAccount">注册新帐号</translate>

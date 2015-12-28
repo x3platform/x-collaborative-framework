@@ -32,12 +32,12 @@ main.sys.verification.code.history = {
     outString += '<table class="table" >';
     outString += '<thead>';
     outString += '<tr>';
-    outString += '<th style="width:300px">唯一标识</th>';
-    outString += '<th style="width:120px">对象类型</th>';
-    outString += '<th style="width:240px">对象值</th>';
-    outString += '<th style="width:160px">验证码</th>';
-    outString += '<th >验证类型</th>';
-    outString += '<th style="width:200px">创建时间</th>';
+    outString += '<th style="width:300px" >唯一标识</th>';
+    outString += '<th style="width:120px" >对象类型</th>';
+    outString += '<th >对象值</th>';
+    outString += '<th style="width:160px" >验证码</th>';
+    outString += '<th style="width:100px" >验证类型</th>';
+    outString += '<th style="width:200px" >创建时间</th>';
     outString += '<th class="table-freeze-head-padding" ></th>';
     outString += '</tr>';
     outString += '</thead>';
@@ -49,9 +49,9 @@ main.sys.verification.code.history = {
     outString += '<colgroup>';
     outString += '<col style="width:300px" />';
     outString += '<col style="width:120px" />';
-    outString += '<col style="width:240px" />';
-    outString += '<col style="width:160px" />';
     outString += '<col />';
+    outString += '<col style="width:160px" />';
+    outString += '<col style="width:100px" />';
     outString += '<col style="width:200px" />';
     outString += '</colgroup>';
     outString += '<tbody>';
@@ -64,7 +64,7 @@ main.sys.verification.code.history = {
       outString += '<td>' + node.objectValue + '</td>';
       outString += '<td>' + node.code + '</td>';
       outString += '<td>' + node.validationType + '</td>';
-      outString += '<td>' + node.createDateTimestampView + '</td>';
+      outString += '<td>' + node.createdDateTimestampView + '</td>';
       outString += '</tr>';
 
       counter++;

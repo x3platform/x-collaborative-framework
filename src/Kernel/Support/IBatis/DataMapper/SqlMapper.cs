@@ -608,10 +608,6 @@ namespace X3Platform.IBatis.DataMapper
 
                 statement.PreparedCommand.Create(request, session, statement.Statement, parameterObject);
 
-                // IDbCommand command = session.CreateCommand(CommandType.StoredProcedure);
-
-                // command.CommandText = request.IDbCommand.CommandText;
-
                 dataSet = new DataSet(string.Format("{0}_{1}", statementName, DateTime.Now.ToString("yyyyMMddHHmmssfff")));
 
                 session.CreateDataAdapter(request.IDbCommand).Fill(dataSet);
@@ -629,6 +625,86 @@ namespace X3Platform.IBatis.DataMapper
             }
 
             return dataSet;
+        }
+
+        private const string PagingSql = "with cte as( select id0=row_number() over(order by {0}),* from  ({1}) as cte1) select * from cte where id0 between @beginNo and @endNo";
+
+        private const string CountSql = "select count(*) {0}";
+
+        /// <summary>查询分页</summary>
+        /// <typeparam name="T">泛型</typeparam>
+        /// <param name="mapper">mapper</param>
+        /// <param name="tag">SQL Statement的id</param>
+        /// <param name="paramObject">参数</param>
+        /// <param name="orderby">查询条件，必须确保数据库中有这一列</param>
+        /// <param name="beginNo">开始行数</param>
+        /// <param name="endNo">结束行数</param>
+        /// <param name="totalCount">总条数</param>
+        /// <returns>查询结果</returns>
+        public IList<T> QueryForListPaging<T>(string statementName, object parameterObject, string orderby, int beginNo, int endNo, out int totalCount)
+        {
+            bool isSessionLocal = false;
+            ISqlMapSession session = _sessionStore.LocalSession;
+            if (session == null)
+            {
+                session = CreateSqlMapSession();
+                isSessionLocal = true;
+            }
+            try
+            {
+                IMappedStatement mappedStatement = GetMappedStatement(statementName);
+                IStatement statement = mappedStatement.Statement;
+                RequestScope request = statement.Sql.GetRequestScope(mappedStatement, parameterObject, session);
+                string statementsql = request.PreparedStatement.PreparedSql;
+                string cmdPageSql = string.Format(PagingSql, orderby, statementsql);
+                string cmdCountSql = string.Format(CountSql, statementsql.Substring(statementsql.ToLower().IndexOf("from", StringComparison.Ordinal)));
+
+                request.PreparedStatement.PreparedSql = cmdPageSql;
+                /*
+                request.IDbCommand = new DbCommandDecorator(session.CreateCommand(statement.CommandType), request);
+                ApplyParameterMap(session, request.IDbCommand, request, statement, parameterObject);
+
+                totalCount = GetCount(request, session, cmdCountSql);
+
+                request.IDbCommand.CommandText = request.PreparedStatement.PreparedSql;
+
+                AddCommandParameters(beginNo, endNo, request);
+
+                return QueryForObject<T>(statement, parameterObject);
+                */
+                totalCount = 0;
+                return null;
+            }
+            finally
+            {
+                if (isSessionLocal)
+                {
+                    CloseConnection();
+                }
+            }
+        }
+
+        private int GetCount(RequestScope request, ISqlMapSession sqlMapSession, string cmdCountSql)
+        {
+            int totalCount;
+            IDbCommand cmdCount = sqlMapSession.CreateCommand(CommandType.Text);
+            cmdCount.Connection = sqlMapSession.Connection;
+            cmdCount.CommandText = cmdCountSql;
+            foreach (IDbDataParameter para in request.IDbCommand.Parameters)
+            {
+                IDbDataParameter cmdp = cmdCount.CreateParameter();
+                cmdp.Direction = para.Direction;
+                cmdp.Size = para.Size;
+                cmdp.Precision = para.Precision;
+                cmdp.Scale = para.Scale;
+                cmdp.ParameterName = para.ParameterName;
+                cmdp.Value = para.Value;
+                cmdCount.Parameters.Add(cmdp);
+            }
+            cmdCount.Connection.Open();
+            totalCount = Convert.ToInt32(cmdCount.ExecuteScalar());
+            cmdCount.Connection.Close();
+            return totalCount;
         }
 
         #region QueryForObject

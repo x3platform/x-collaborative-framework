@@ -9,20 +9,10 @@
   <link rel="stylesheet" media="all" href="/resources/bootstrap/css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" media="all" href="/resources/styles/default/style.css" type="text/css" />
   <link rel="shortcut icon" href="/favorite.ico" />
-  @if (X3Platform.Configuration.KernelConfigurationView.Instance.SystemStatus == "Debug")
-  {
-    <script type="text/javascript" id="jquery-script" src="/resources/javascript/jquery-1.11.2.js"></script>
-    <script type="text/javascript" id="bootstrap-script" src="/resources/bootstrap/js/bootstrap.js"></script>
-    <script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.js"></script>
-    <script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
-  }
-  else
-  {
-    <script type="text/javascript" id="jquery-script" src="/resources/javascript/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" id="bootstrap-script" src="/resources/bootstrap/js/bootstrap.min.js"></script>
-    <script id="x-client-api-core-script" type="text/javascript" src="/resources/javascript/x-client-api-core.zh-cn.min.js"></script>
-    <script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
-  }
+  <script type="text/javascript" id="jquery-script" src="/resources/javascript/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" id="bootstrap-script" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" id="x-client-api-core-script" src="/resources/javascript/x-client-api-core.zh-cn.min.js"></script>
+  <script type="text/javascript" id="crypto-sha1-script" src="/resources/javascript/crypto/rollups/sha1.js"></script>
   <script type="text/javascript" src="/views/main/account/sign-up.js"></script>
 </head>
 
@@ -58,6 +48,8 @@
           <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" maxlength="20" value="" />
         </dd>
       </dl>
+      @if (ViewBag.captchaMode == "ON") 
+      { 
       <dl class="form">
         <dt class="input-label">验证码</dt>
         <dd>
@@ -68,6 +60,7 @@
           <p class="note">填写完验证码后，点击【获取验证码】按钮，系统将会发送邮件验证码至您填写的电子邮箱，请及时查收。<p>
         </dd>
       </dl>
+      }
       <dl class="form">
         <dt class="input-label">
           @if (ViewBag.registration == "mobile")
@@ -89,6 +82,7 @@
       <p class="window-sign-up-form-terms-of-service">
         单击“创建帐户”的，即表示您同意服务条款和隐私权政策。
       </p>
+      <input id="captchaMode" name="captchaMode" type="hidden" x-dom-data-type="value" value="@ViewBag.captchaMode" />
       <input id="registration" name="registration" type="hidden" x-dom-data-type="value" value="@ViewBag.registration" />
       <input id="password" name="password" type="hidden" x-dom-data-type="value" value="" />
       <div class="form-actions">

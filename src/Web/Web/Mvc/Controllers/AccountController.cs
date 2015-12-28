@@ -11,6 +11,7 @@
     using X3Platform.Membership;
     using X3Platform.Membership.Authentication;
     using X3Platform.Membership.Configuration;
+    using X3Platform.Security.Configuration;
     using X3Platform.Web.Mvc.Attributes;
 
     /// <summary>帐号基本信息</summary>
@@ -20,8 +21,9 @@
         /// <summary>注册</summary>
         public ActionResult SignUp()
         {
+            ViewBag.captchaMode = SecurityConfigurationView.Instance.CaptchaMode;
             ViewBag.registration = Request.QueryString["registration"] == null ? MembershipConfigurationView.Instance.DefaultRegistration : Request.QueryString["registration"];
-
+            
             return View("/views/" + LocateFolder("main") + "/account/sign-up.cshtml");
         }
         #endregion
@@ -30,6 +32,9 @@
         /// <summary>登录</summary>
         public ActionResult SignIn()
         {
+            ViewBag.captchaMode = SecurityConfigurationView.Instance.CaptchaMode;
+            ViewBag.registration = Request.QueryString["registration"] == null ? MembershipConfigurationView.Instance.DefaultRegistration : Request.QueryString["registration"];
+            
             return View("/views/" + LocateFolder("main") + "/account/sign-in.cshtml");
         }
         #endregion
@@ -76,6 +81,9 @@
         /// <summary>忘记密码</summary>
         public ActionResult ForgotPassword()
         {
+            ViewBag.captchaMode = SecurityConfigurationView.Instance.CaptchaMode;
+            ViewBag.registration = Request.QueryString["registration"] == null ? MembershipConfigurationView.Instance.DefaultRegistration : Request.QueryString["registration"];
+            
             return View("/views/" + LocateFolder("main") + "/account/forgot-password.cshtml");
         }
         #endregion

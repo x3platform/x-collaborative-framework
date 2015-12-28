@@ -1,8 +1,11 @@
 ﻿namespace X3Platform.AttachmentStorage.Mvc.Controllers
 {
     using System;
+    using System.IO;
+    using System.Web;
     using System.Web.Mvc;
-
+    using System.Text;
+    
     using X3Platform.Json;
     using X3Platform.Membership;
     using X3Platform.DigitalNumber;
@@ -11,14 +14,11 @@
     using X3Platform.Web.Mvc.Attributes;
     using X3Platform.Apps;
     using X3Platform.Apps.Model;
-
+    using X3Platform.Util;
+    
     using X3Platform.AttachmentStorage;
     using X3Platform.AttachmentStorage.Configuration;
-    using System.Web;
-    using System.Text;
-    using X3Platform.Util;
-    using System.IO;
-
+    
     [LoginFilter]
     public class HomeController : CustomController
     {

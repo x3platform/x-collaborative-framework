@@ -11,6 +11,7 @@ namespace X3Platform.SMS.Client.Providers
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using System.Web;
+    using System.Xml;
     using Common.Logging;
     using X3Platform.Configuration;
     using X3Platform.SMS.Client.Configuration;
@@ -134,13 +135,13 @@ namespace X3Platform.SMS.Client.Providers
 
                 IDictionary<string, string> dict = ToDictionary(result);
 
-                if (dict["result"] != "0")
+                if (dict["returnCode"] != "0")
                 {
                     // 返回错误时，记录错误信息
-                    KernelContext.Log.Error("request:" + url + "\nresponse:" + result);
+                    KernelContext.Log.Error("request:" + url + "?" + httpParams.ToString() + "\nresponse:" + result);
                 }
 
-                return dict["result"];
+                return dict["returnCode"];
             }
             catch (Exception ex)
             {
@@ -156,16 +157,31 @@ namespace X3Platform.SMS.Client.Providers
         private IDictionary<string, string> ToDictionary(string text)
         {
             IDictionary<string, string> dict = new Dictionary<string, string>();
-
-            string[] items = text.Split('&');
-
-            foreach (string item in items)
+            try
             {
-                string[] subitems = item.Split('=');
+                XmlDocument doc = new XmlDocument();
 
-                dict.Add(subitems[0], subitems[1]);
+                doc.LoadXml(text);
+
+                XmlElement element = doc.DocumentElement;
+                if (element.Name == "alibaba_aliqin_fc_sms_num_send_response")
+                {
+                    // <?xml version="1.0" encoding="utf-8" ?><alibaba_aliqin_fc_sms_num_send_response><result><err_code>0</err_code><model>100427199489^1100752990330</model><success>true</success></result><request_id>14762i1yumo9f</request_id></alibaba_aliqin_fc_sms_num_send_response><!--top010179045181.s.et2-->
+                    dict.Add("returnCode", element.SelectSingleNode("result/err_code").InnerText);
+                }
+                else
+                {
+                    // <?xml version="1.0" encoding="utf-8" ?><error_response><code>25</code><msg>Invalid signature</msg><request_id>qm3rb09ubd2m</request_id></error_response><!--top010176019162.et2-->
+                    dict.Add("returnCode", element.SelectSingleNode("code").InnerText);
+                }
             }
+            catch (Exception ex)
+            {
+                dict.Add("returnCode", "");
 
+                // 返回错误时，记录错误信息
+                KernelContext.Log.Error(text, ex);
+            }
             return dict;
         }
 
