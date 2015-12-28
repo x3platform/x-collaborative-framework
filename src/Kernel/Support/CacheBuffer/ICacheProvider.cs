@@ -1,8 +1,9 @@
-using System;
-using System.Collections.Generic;
 
 namespace X3Platform.CacheBuffer
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface ICacheProvider
     {
         #region 属性:索引
