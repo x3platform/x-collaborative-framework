@@ -20,6 +20,7 @@ namespace X3Platform.SMS.Client.BLL
     using X3Platform.TemplateContent;
     using X3Platform.Configuration;
     using X3Platform.Json;
+    using X3Platform.Location.IPQuery;
     #endregion
 
     /// <summary>短信服务</summary>
@@ -65,7 +66,7 @@ namespace X3Platform.SMS.Client.BLL
             string objectType = VerificationObjectType.Mobile.ToString();
 
             // 获取验证码信息
-            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create(objectType, phoneNumber, validationType);
+            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.Create(objectType, phoneNumber, validationType, IPQueryContext.GetClientIP());
 
             // 获取验证模板信息
             VerificationCodeTemplateInfo template = VerificationCodeContext.Instance.VerificationCodeTemplateService.FindOne(objectType, validationType);
@@ -99,7 +100,9 @@ namespace X3Platform.SMS.Client.BLL
             // 保存结果至数据库
             this.provider.Send(serialNumber, accountId, phoneNumber, message.MessageContent, returnCode);
 
-            return 0;
+            if (string.IsNullOrEmpty(returnCode)) return 0;
+
+            return Convert.ToInt32(returnCode);
         }
     }
 }

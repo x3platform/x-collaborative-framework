@@ -53,9 +53,7 @@ namespace X3Platform.CacheBuffer
         #region 属性:Expires
         private DateTime m_Expires = DateTime.Now;
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary></summary>
         public DateTime Expires
         {
             get { return m_Expires; }

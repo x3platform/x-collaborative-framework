@@ -1,4 +1,4 @@
-namespace X3Platform.AttachmentStorage.TestSuite.Configuration
+namespace X3Platform.AttachmentStorage.Tests.Configuration
 {
     using NUnit.Framework;
 

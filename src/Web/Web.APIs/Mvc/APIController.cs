@@ -18,6 +18,7 @@
     using X3Platform.Web.APIs.Methods;
     using X3Platform.Security;
     using X3Platform.Apps.Model;
+    using System.Web.Caching;
 
     /// <summary></summary>
     public sealed class APIController : Controller
@@ -33,9 +34,22 @@
         {
             if (string.IsNullOrEmpty(methodName)) { return new EmptyResult(); }
 
-            IDictionary<string, APIMethod> dictionary = APIsConfigurationView.Instance.Configuration.APIMethods;
+            if (Request.Browser.Crawler)
+            {
+                KernelContext.Log.Info("crawler:" + Request.UserAgent);
+
+                return Content("{\"message\":{\"returnCode\":1,\"value\":\"ban search-engine spider\"}}");
+            }
+
+            // 限制 IP 访问频次 两个小时 500 次
+            if (HttpRequestLimit.LimitIP())
+            {
+                return Content("{\"message\":{\"returnCode\":1,\"value\":\"发送太频繁，请一小时后再试。\"}}"); ;
+            }
 
             HttpContextBase context = this.HttpContext;
+
+            IDictionary<string, APIMethod> dictionary = APIsConfigurationView.Instance.Configuration.APIMethods;
 
             string responseText = string.Empty;
 
@@ -64,7 +78,7 @@
                 else if (method.EffectScope == 1 || Authenticate(context, methodName))
                 {
                     // 直接执行匿名方法 或者 验证需要身份验证方法
-                
+
                     // 尝试执行 Application Method 中设置的方法.
                     responseText = APIHub.ProcessRequest(context, methodName, logger, MethodInvoker.Invoke);
                 }

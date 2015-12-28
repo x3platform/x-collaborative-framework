@@ -87,5 +87,16 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
+        #region 函数:Unbind(string accountId, string bindingType, string bindingObjectId)
+        /// <summary>解除第三方帐号绑定关系</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <param name="bindingObjectId">绑定对象唯一标识</param>
+        /// <returns></returns>
+        public int Unbind(string accountId, string bindingType, string bindingObjectId)
+        {
+            return this.provider.Unbind(accountId, bindingType, bindingObjectId);
+        }
+        #endregion
     }
 }

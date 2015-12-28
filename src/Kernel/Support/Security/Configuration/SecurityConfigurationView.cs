@@ -6,6 +6,7 @@ namespace X3Platform.Security.Configuration
     using X3Platform.Configuration;
     using X3Platform.Yaml.RepresentationModel;
     using X3Platform.Util;
+    using System;
     #endregion
 
     /// <summary>安全配置视图</summary>
@@ -283,6 +284,80 @@ namespace X3Platform.Security.Configuration
                 }
 
                 return this.m_AESCryptoCiphertextFormat;
+            }
+        }
+        #endregion
+
+        #region 属性:CaptchaMode
+        private string m_CaptchaMode = string.Empty;
+
+        /// <summary>图形验证码状态</summary>
+        public string CaptchaMode
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_CaptchaMode))
+                {
+                    // 读取配置信息
+                    this.m_CaptchaMode = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CaptchaMode", this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_CaptchaMode = StringHelper.NullOrEmptyTo(this.m_CaptchaMode, "Off");
+
+                    this.m_CaptchaMode = this.m_CaptchaMode.ToUpper();
+                }
+
+                return this.m_CaptchaMode;
+            }
+        }
+        #endregion
+
+        #region 属性:DefaultRequestLimitMinutes
+        private int m_DefaultRequestLimitMinutes = -1;
+
+        /// <summary>默认请求限制的时间段 单位:分钟</summary>
+        public int DefaultRequestLimitMinutes
+        {
+            get
+            {
+                if (this.m_DefaultRequestLimitMinutes < 0)
+                {
+                    // 读取配置信息
+                    this.m_DefaultRequestLimitMinutes = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "DefaultRequestLimitMinutes", this.Configuration.Keys));
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    if (this.m_DefaultRequestLimitMinutes < 0)
+                    {
+                        this.m_DefaultRequestLimitMinutes = 0;
+                    }
+                }
+
+                return this.m_DefaultRequestLimitMinutes;
+            }
+        }
+        #endregion
+
+        #region 属性:DefaultRequestLimitCount
+        private int m_DefaultRequestLimitCount = -1;
+
+        /// <summary>默认请求限制的分钟数内请求的次数</summary>
+        public int DefaultRequestLimitCount
+        {
+            get
+            {
+                if (this.m_DefaultRequestLimitCount < 0)
+                {
+                    // 读取配置信息
+                    this.m_DefaultRequestLimitCount = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "DefaultRequestLimitCount", this.Configuration.Keys));
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    if (this.m_DefaultRequestLimitCount < 0)
+                    {
+                        this.m_DefaultRequestLimitCount = 0;
+                    }
+                }
+
+                return this.m_DefaultRequestLimitCount;
             }
         }
         #endregion

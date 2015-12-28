@@ -8,7 +8,6 @@ namespace X3Platform.SMS.Client.DAL.IBatis
     using Common.Logging;
 
     using X3Platform.IBatis.DataMapper;
-    using X3Platform.Storages;
     using X3Platform.Util;
 
     using X3Platform.SMS.Client.Configuration;

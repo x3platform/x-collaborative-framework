@@ -43,16 +43,23 @@ namespace X3Platform.AttachmentStorage
         /// <summary>附件实体类名称</summary>
         public string AttachmentEntityClassName
         {
-            get { return m_AttachmentEntityClassName; }
+            get { return this.m_AttachmentEntityClassName; }
             set
             {
-                if (value.IndexOf(",") == -1)
+                if (value == null)
                 {
-                    m_AttachmentEntityClassName = value;
+                    this.m_AttachmentEntityClassName = string.Empty;
                 }
                 else
                 {
-                    m_AttachmentEntityClassName = value.Substring(0, value.IndexOf(","));
+                    if (value.IndexOf(",") == -1)
+                    {
+                        this.m_AttachmentEntityClassName = value;
+                    }
+                    else
+                    {
+                        this.m_AttachmentEntityClassName = value.Substring(0, value.IndexOf(","));
+                    }
                 }
             }
         }

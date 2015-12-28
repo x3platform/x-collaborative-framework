@@ -96,7 +96,17 @@ namespace X3Platform.Security.VerificationCode.IBLL
         VerificationCodeInfo Create(string objectType, string objectValue, string validationType);
         #endregion
 
-        #region 函数:Create(string objectType, string objectValue, string validationType, int length)
+        #region 函数:Create(string objectType, string objectValue, string validationType, string ip)
+        /// <summary>创建新的验证码</summary>
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <param name="ip">IP 地址</param>
+        /// <returns>验证码对象</returns>
+        VerificationCodeInfo Create(string objectType, string objectValue, string validationType, string ip);
+        #endregion
+        
+        #region 函数:Create(string objectType, string objectValue, string validationType, string ip, int length)
         /// <summary>创建新的验证码</summary>
         /// <param name="objectType">对象类型</param>
         /// <param name="objectValue">对象的值</param>
@@ -104,6 +114,17 @@ namespace X3Platform.Security.VerificationCode.IBLL
         /// <param name="length">验证码长度</param>
         /// <returns>验证码对象</returns>
         VerificationCodeInfo Create(string objectType, string objectValue, string validationType, int length);
+        #endregion
+
+        #region 函数:Create(string objectType, string objectValue, string validationType, string ip, int length)
+        /// <summary>创建新的验证码</summary>
+        /// <param name="objectType">对象类型</param>
+        /// <param name="objectValue">对象的值</param>
+        /// <param name="validationType">验证方式</param>
+        /// <param name="ip">IP 地址</param>
+        /// <param name="length">验证码长度</param>
+        /// <returns>验证码对象</returns>
+        VerificationCodeInfo Create(string objectType, string objectValue, string validationType, string ip, int length);
         #endregion
 
         #region 函数:Validate(string objectType, string objectValue, string validationType, string code)

@@ -20,4 +20,10 @@ keys:
   AESCryptoPadding: PKCS7
   # AES 加密方式的默认密文格式
   AESCryptoCiphertextFormat: Base64String
+  # 图形验证码状态: Off(默认) On
+  CaptchaMode: Off 
+  # 默认请求限制的时间段 单位:分钟
+  DefaultRequestLimitMinutes: 120
+  # 默认请求限制的分钟数内请求的次数
+  DefaultRequestLimitCount: 1000
 ...

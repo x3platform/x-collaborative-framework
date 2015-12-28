@@ -1,4 +1,4 @@
-﻿namespace X3Platform.AttachmentStorage.TestSuite.IBLL
+﻿namespace X3Platform.AttachmentStorage.Tests.IBLL
 {
     using System;
     using System.Text;

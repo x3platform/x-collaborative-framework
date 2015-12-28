@@ -1,140 +1,93 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-//
-// ������¼
-//
-// == 2010-01-01 == 
-//
-// �½�
-//
-
-using System;
-using System.Configuration;
-
-using X3Platform.Configuration;
-
-using X3Platform.Configuration;
-using System.IO;
-
-
 namespace X3Platform.CacheBuffer.Configuration
 {
-    /// <summary>
-    /// ��������������ͼ
-    /// </summary>
-    public class CacheBufferConfigurationView
+    #region Using Libraries
+    using System.IO;
+
+    using X3Platform.Configuration;
+    using X3Platform.Yaml.RepresentationModel;
+    using X3Platform.Util;
+    #endregion
+
+    /// <summary>缓存配置视图</summary>
+    public class CacheBufferConfigurationView : XmlConfigurationView<CacheBufferConfiguration>
     {
         private const string configFile = "config\\X3Platform.CacheBuffer.config";
+        
+        /// <summary>配置信息的全局前缀</summary>
+        private const string configGlobalPrefix = CacheBufferConfiguration.ApplicationName;
 
-        private string configFilePath = null;
+        #region 静态属性:Instance
+        private static volatile CacheBufferConfigurationView instance = null;
 
-        /// <summary>�����ļ�������·��.</summary>
-        public string ConfigFilePath
-        {
-            get { return configFile; }
-        }
+        private static object lockObject = new object();
 
-        /// <summary>�����ļ������޸ĵ�ʱ��</summary>
-        private DateTime lastModifiedTime;
-
-        /// <summary>�����ļ��ļ�����.</summary>
-        private ConfigurationFileWatcher watcher = null;
-
-        private static CacheBufferConfigurationView instance = new CacheBufferConfigurationView();
-
+        /// <summary>实例</summary>
         public static CacheBufferConfigurationView Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new CacheBufferConfigurationView();
+                {
+                    lock (lockObject)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new CacheBufferConfigurationView();
+                        }
+                    }
+                }
 
                 return instance;
             }
         }
+        #endregion
 
-        private IConfigurationSource configurationSource;
-
-        #region ����:Configuration
-        /// <summary>������Ϣ</summary>
-        public CacheBufferConfiguration Configuration
+        #region 构造函数:CacheBufferConfigurationView()
+        /// <summary>构造函数</summary>
+        private CacheBufferConfigurationView()
+            : base(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
         {
-            get { return (CacheBufferConfiguration)configurationSource.GetSection(CacheBufferConfiguration.SectionName); }
+            // 基类初始化后会默认执行 Reload() 函数
         }
         #endregion
 
-        private CacheBufferConfigurationView()
-              : this(Path.Combine(KernelConfigurationView.Instance.ApplicationPathRoot, configFile))
+        #region 属性:Reload()
+        /// <summary>重新加载配置信息</summary>
+        public override void Reload()
         {
+            base.Reload();
+
+            // 将配置信息加载到全局的配置中
+            KernelConfigurationView.Instance.AddKeyValues(configGlobalPrefix, this.Configuration.Keys, false);
         }
+        #endregion
 
-        public CacheBufferConfigurationView(string path)
+        // -------------------------------------------------------
+        // 自定义属性
+        // -------------------------------------------------------
+
+        #region 属性:CacheBufferProvider
+        private string m_CacheBufferProvider = string.Empty;
+
+        /// <summary>缓存提供器, MemoryCache | MemCache</summary>
+        public string CacheBufferProvider
         {
-            this.configFilePath = path;
-
-            Load(path);
-
-            FileSystemEventHandler handler = new FileSystemEventHandler(OnChanged);
-
-            watcher = new ConfigurationFileWatcher(path, handler);
-        }
-
-        /// <summary>Initialize a new instance of the <see cref="CacheBufferConfigurationView" /> with a <see cref="Common.Configuration.IConfigurationSource"/>.</summary>
-        /// <param name="configurationSource">An <see cref="IConfigurationSource"/> object.</param>
-        public CacheBufferConfigurationView(IConfigurationSource configurationSource)
-        {
-            this.configurationSource = configurationSource;
-        }
-
-        /// <summary>
-        /// �����ļ�����ʱ�������¼�. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">A System.IO.FileSystemEventArgs that contains the event data.</param>
-        /// <remarks>���������ļ���������</remarks>
-        protected void OnChanged(object sender, FileSystemEventArgs e)
-        {
-            // ��������������Ϣ.
-            CacheBufferConfigurationView.Instance.Reload();
-
-            // ��¼�����ļ�����ʱ��
-            this.lastModifiedTime = File.GetLastWriteTime(configFilePath);
-        }
-
-        /// <summary>���¼���������Ϣ</summary>
-        public void Reload()
-        {
-            Load(this.configFilePath);
-        }
-
-        /// <summary>����������Ϣ</summary>
-        private void Load(string path)
-        {
-            if (File.Exists(path))
+            get
             {
-                FileConfigurationSource configurationSource = new FileConfigurationSource(path);
+                if (string.IsNullOrEmpty(this.m_CacheBufferProvider))
+                {
+                    // 读取配置信息
+                    this.m_CacheBufferProvider = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CacheBufferProvider", this.Configuration.Keys);
 
-                this.configurationSource = configurationSource;
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_CacheBufferProvider = StringHelper.NullOrEmptyTo(this.m_CacheBufferProvider, "Off");
+
+                    this.m_CacheBufferProvider = this.m_CacheBufferProvider.ToUpper();
+                }
+
+                return this.m_CacheBufferProvider;
             }
         }
-
-        /// <summary>ͨ�������ļ�����ʵ��</summary>
-        /// <param name="fullConfigPath"></param>
-        public static void LoadInstance(string fullConfigPath)
-        {
-            instance = new CacheBufferConfigurationView(fullConfigPath);
-        } 
+        #endregion
     }
 }

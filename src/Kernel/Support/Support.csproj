@@ -107,7 +107,12 @@
     <Compile Include="Ajax\Net\AjaxRequestData.cs" />
     <Compile Include="Ajax\Net\AjaxResponseData.cs" />
     <Compile Include="AsyncMethod.cs" />
+    <Compile Include="CacheBuffer\CachingException.cs" />
+    <Compile Include="CacheBuffer\CachingManager.cs" />
+    <Compile Include="CacheBuffer\Configuration\CacheBufferConfiguration.cs" />
+    <Compile Include="CacheBuffer\Configuration\CacheBufferConfigurationView.cs" />
     <Compile Include="CacheBuffer\ICacheable.cs" />
+    <Compile Include="CacheBuffer\ICacheProvider.cs" />
     <Compile Include="Collections\Algorithms.cs" />
     <Compile Include="Collections\Bag.cs" />
     <Compile Include="Collections\BigList.cs" />
@@ -240,6 +245,7 @@
     <Compile Include="Security\CiphertextFormat.cs" />
     <Compile Include="Security\Configuration\SecurityConfiguration.cs" />
     <Compile Include="Security\Configuration\SecurityConfigurationView.cs" />
+    <Compile Include="Security\HttpRequestLimit.cs" />
     <Compile Include="Util\CommandLineHelper.cs" />
     <Compile Include="CommandLine\Text\CopyrightInfo.cs" />
     <Compile Include="CommandLine\Text\HeadingInfo.cs" />
@@ -1370,6 +1376,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.bat "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)" "MySQL"</PostBuildEvent>
   </PropertyGroup>
 </Project>

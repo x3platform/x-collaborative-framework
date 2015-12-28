@@ -1,4 +1,4 @@
-﻿namespace X3Platform.Apps.Tests
+﻿namespace X3Platform.AttachmentStorage.Tests
 {
     using NUnit.Framework;
 
@@ -9,6 +9,7 @@
 
     using X3Platform.Ajax.Net;
     using X3Platform.Json;
+    using X3Platform.Apps;
 
     /// <summary></summary>
     [TestFixture]
