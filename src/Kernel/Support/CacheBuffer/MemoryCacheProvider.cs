@@ -1,26 +1,12 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :CacheBufferProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.CacheBuffer.DAL.Memory
+namespace X3Platform.CacheBuffer
 {
     using System;
     using System.Collections.Generic;
 
-    /// <summary>�����ṩ��</summary>
-    public class CacheBufferProvider : ICacheBufferProvider
+    /// <summary></summary>
+    public class MemoryCacheProvider : ICacheProvider
     {
-        private CacheStorage<string, CacheItem> cacheStorage = new CacheStorage<string, CacheItem>();
+        private  CacheStorage<string, CacheItem> cacheStorage = new CacheStorage<string, CacheItem>();
 
         /// <summary>���캯��</summary>
         public CacheBufferProvider()
