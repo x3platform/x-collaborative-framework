@@ -20,8 +20,6 @@ call :CopyTargetFiles
 
 if exist "%TargetWebSiteDir%config\" call:CopyConfigFiles
 
-call:CopyCustomizeIBatisFiles
-
 @rem =========================================================
 @rem Build Project Function
 @rem =========================================================
@@ -36,22 +34,11 @@ goto :EOF
 
 :CopyConfigFiles			
 	
-	attrib "%TargetWebSiteDir%config\*.config" -r
+	@rem attrib "%TargetWebSiteDir%config\*.config" -r
 	
 	xcopy "%ProjectDir%config\*.config" "%TargetWebSiteDir%config\" /y
 
-	attrib "%TargetWebSiteDir%config\*.config" +r
+	@rem attrib "%TargetWebSiteDir%config\*.config" +r
 	    
-goto :EOF       
-
-:CopyCustomizeIBatisFiles
-	
-	set TargetIBatisResourceDir=%SrcDir%WebSite\1.0.0\resources\ibatis\Web\Customize\
-
-	attrib "%TargetIBatisResourceDir%*.xml" -r
-	
-	xcopy "%ProjectDir%Customize\DAL\IBatis\*.xml" "%TargetIBatisResourceDir%" /y
-
-	attrib "%TargetIBatisResourceDir%*.xml" +r
-
-goto :EOF       
+goto :EOF
+       
