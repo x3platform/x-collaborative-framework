@@ -227,8 +227,8 @@ main.membership.account.list = {
     outString += '<tr class="table-row-normal-transparent">';
     outString += '<td class="table-body-text" >更新时间</td>';
     outString += '<td class="table-body-input" >';
-    outString += x.date.newTime(param.updateDate).toString('yyyy-MM-dd HH:mm:ss');
-    outString += '<input id="updateDate" name="updateDate" type="hidden" dataType="value" value="' + x.isUndefined(param.updateDateTimestampView, '') + '" />';
+    outString += x.date.newTime(param.modifiedDate).toString('yyyy-MM-dd HH:mm:ss');
+    outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" dataType="value" value="' + x.isUndefined(param.modifiedDateTimestampView, '') + '" />';
     outString += '</td>';
     outString += '<td class="table-body-text" >创建时间</td>';
     outString += '<td class="table-body-input" >';
@@ -514,7 +514,7 @@ main.membership.account.list = {
     // x.util.readonly('certifiedEmail');
 
     // .util.readonly('loginDate');
-    // x.util.readonly('updateDate');
+    // x.util.readonly('modifiedDate');
 
     if(!(typeof (param.id) === 'undefined' || param.id === '0' || param.loginName === ''))
     {
@@ -577,7 +577,7 @@ main.membership.account.list = {
       outString += '<remark><![CDATA[' + $("#remark").val() + ']]></remark>';
       outString += '<ip><![CDATA[' + $("#ip").val() + ']]></ip>';
       outString += '<loginDate><![CDATA[' + $("#loginDate").val() + ']]></loginDate>';
-      outString += '<updateDate><![CDATA[' + $("#updateDate").val() + ']]></updateDate>';
+      outString += '<modifiedDate><![CDATA[' + $("#modifiedDate").val() + ']]></modifiedDate>';
       outString += '<organizationText><![CDATA[' + $("#organizationText").val() + ']]></organizationText>';
       outString += '<roleText><![CDATA[' + $("#roleText").val() + ']]></roleText>';
       outString += '<groupText><![CDATA[' + $("#groupText").val() + ']]></groupText>';

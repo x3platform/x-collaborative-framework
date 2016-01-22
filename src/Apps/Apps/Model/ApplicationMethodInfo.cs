@@ -94,6 +94,17 @@
         }
         #endregion
 
+        #region 属性:DisplayName
+        private string m_DisplayName = string.Empty;
+
+        /// <summary></summary>
+        public string DisplayName
+        {
+            get { return this.m_DisplayName; }
+            set { this.m_DisplayName = value; }
+        }
+        #endregion
+
         #region 属性:Description
         private string m_Description = string.Empty;
 
@@ -102,6 +113,17 @@
         {
             get { return this.m_Description; }
             set { this.m_Description = value; }
+        }
+        #endregion
+
+        #region 属性:Detail
+        private string m_Detail = string.Empty;
+
+        /// <summary></summary>
+        public string Detail
+        {
+            get { return this.m_Detail; }
+            set { this.m_Detail = value; }
         }
         #endregion
 

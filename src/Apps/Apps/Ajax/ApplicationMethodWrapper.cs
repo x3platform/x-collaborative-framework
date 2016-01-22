@@ -99,28 +99,6 @@ namespace X3Platform.Apps.Ajax
         }
         #endregion
 
-        #region 函数:FindAll(XmlDocument doc)
-        /// <summary>获取列表信息</summary>
-        /// <param name="doc">Xml 文档对象</param>
-        /// <returns>返回操作结果</returns>
-        public string FindAll(XmlDocument doc)
-        {
-            StringBuilder outString = new StringBuilder();
-
-            string whereClause = XmlHelper.Fetch("whereClause", doc);
-
-            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
-
-            IList<ApplicationMethodInfo> list = this.service.FindAll(whereClause, length);
-
-            outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMethodInfo>(list) + ",");
-
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
-
-            return outString.ToString();
-        }
-        #endregion
-
         // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------

@@ -59,12 +59,12 @@
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除一组数据记录</summary>
         /// <param name="ids">删除项 Key 的数组</param>
-        public void Delete(string ids)
+        public void Delete(string id)
         {
-            provider.Delete(ids);
+            provider.Delete(id);
         }
         #endregion
 

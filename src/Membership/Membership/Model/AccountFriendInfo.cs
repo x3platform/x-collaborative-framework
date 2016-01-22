@@ -50,6 +50,25 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
+        #region 属性:FriendCertifiedAvatar
+        private string m_FriendCertifiedAvatar;
+
+        /// <summary>好友的头像</summary>
+        public string FriendCertifiedAvatar
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_FriendCertifiedAvatar))
+                {
+                    this.m_FriendCertifiedAvatar = MembershipManagement.Instance.AccountService[this.FriendAccountId].CertifiedAvatar;
+                }
+
+                return this.m_FriendCertifiedAvatar;
+            }
+            set { this.m_FriendCertifiedAvatar = value; }
+        }
+        #endregion
+
         #region 属性:Status
         /// <summary></summary>
         public int Status { get; set; }

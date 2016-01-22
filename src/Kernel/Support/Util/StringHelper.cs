@@ -17,7 +17,7 @@ namespace X3Platform.Util
     public sealed class StringHelper
     {
         #region 函数:UnicodeEncode(string text)
-        /// <summary></summary>
+        /// <summary>将文本信息转为 Unicode 编码</summary>
         /// <param name="text"></param>
         /// <returns></returns>
         public static string UnicodeEncode(string text)
@@ -977,58 +977,142 @@ namespace X3Platform.Util
         }
         #endregion
 
+        #region 函数:ToSID(int length)
+        /// <summary>取得一个类似uuid的随机的十六进制字符串</summary>
+        /// <param Name="length">字符串的长度</param>
+        /// <returns>长为length的随机的字符串</returns>
+        public static string ToSID()
+        {
+            return ToSID(32);
+        }
+        #endregion
+
+        #region 函数:ToSID(int length)
+        /// <summary>取得一个类似uuid的随机的十六进制字符串</summary>
+        /// <param Name="length">字符串的长度</param>
+        /// <returns>长为length的随机的字符串</returns>
+        public static string ToSID(int length)
+        {
+            if (length <= 0) { return string.Empty; }
+
+            // 等待定时器的推进, 避免在时间极短的情况下生成相同的随机数
+            Thread.Sleep(1);
+
+            Random random = new Random();
+
+            int codeLength = 1 + ((length - 1) / 4);
+
+            StringBuilder outString = new StringBuilder();
+
+            for (int i = 0; i < codeLength; i++)
+            {
+                int value = ((int)((1 + random.NextDouble()) * 0x10000) | 0);
+
+                outString.Append(string.Format("{0:X}", value).Substring(1));
+            }
+
+            return outString.ToString(0, length).ToLower();
+        }
+        #endregion
+
         //-------------------------------------------------------
         // Base64 字符串处理
         //-------------------------------------------------------
 
+        /// <summary>加密为 ASCII 编码方式的 Base64 字符串，如果是其他编码方式的请设置 codepage</summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string ToBase64(string text)
         {
-            byte[] buffer = Encoding.Default.GetBytes(text);
+            char[] chars = text.ToCharArray();
 
-            return Convert.ToBase64String(buffer);
+            byte[] bytes = new byte[chars.Length];
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] >= 0 && chars[i] <= 255)
+                {
+                    bytes[i] = (byte)chars[i];
+                }
+            }
+
+            return Convert.ToBase64String(bytes);
         }
 
+        /// <summary>加密为 Base64 字符串</summary>
+        /// <param name="text"></param>
+        /// <param name="codepage"></param>
+        /// <returns></returns>
         public static string ToBase64(string text, string codepage)
         {
-          string encode = string.Empty;
+            string encode = string.Empty;
+            
+            byte[] bytes = Encoding.GetEncoding(codepage).GetBytes(text);
 
-          byte[] bytes = Encoding.GetEncoding(codepage).GetBytes(text);
+            try
+            {
+                encode = Convert.ToBase64String(bytes);
+            }
+            catch
+            {
+                encode = text;
+            }
 
-          try
-          {
-            encode = Convert.ToBase64String(bytes);
-          }
-          catch
-          {
-            encode = text;
-          }
-
-          return encode;
+            return encode;
         }
 
+        /// <summary>解密为 ASCII 编码方式的 Base64 字符串，如果是其他编码方式的请设置 codepage</summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string FromBase64(string base64Text)
         {
-            byte[] buffer = Convert.FromBase64String(base64Text);
-        
-            return Encoding.Default.GetString(buffer);
+            // 补末尾的等号
+            int count = 4 - base64Text.Length % 4;
+
+            for (int i = 0; i < count && count < 4; i++)
+            {
+                base64Text += "=";
+            }
+
+            byte[] bytes = Convert.FromBase64String(base64Text);
+
+            StringBuilder outString = new StringBuilder();
+
+            foreach (byte b in bytes)
+            {
+                if (b >= 0 && b <= 255)
+                {
+                    outString.Append((char)b);
+                }
+            }
+
+            return outString.ToString();
         }
 
         public static string FromBase64(string base64Text, string codepage)
         {
-          string decode = "";
+            // 补末尾的等号
+            int count = 4 - base64Text.Length % 4;
 
-          byte[] bytes = Convert.FromBase64String(base64Text);
+            for (int i = 0; i < count && count < 4; i++)
+            {
+                base64Text += "=";
+            }
 
-          try
-          {
-            decode = Encoding.GetEncoding(codepage).GetString(bytes);
-          }
-          catch
-          {
-            decode = base64Text;
-          }
+            string decode = "";
 
-          return decode;
+            byte[] bytes = Convert.FromBase64String(base64Text);
+
+            try
+            {
+                decode = Encoding.GetEncoding(codepage).GetString(bytes);
+            }
+            catch
+            {
+                decode = base64Text;
+            }
+
+            return decode;
         }
 
         //-------------------------------------------------------

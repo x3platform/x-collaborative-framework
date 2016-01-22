@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Xml;
 using System.IO;
@@ -24,6 +10,8 @@ using X3Platform.IBatis.DataMapper;
 using X3Platform.IBatis.DataMapper.Configuration;
 using X3Platform.Logging;
 using X3Platform.IBatis.Common.Utilities;
+using System.Collections.Generic;
+using X3Platform.Security;
 
 namespace X3Platform.IBatis.DataMapper
 {
@@ -31,6 +19,8 @@ namespace X3Platform.IBatis.DataMapper
     public sealed class ISqlMapHelper
     {
         private static readonly X3Platform.Logging.IInternalLog logger = X3Platform.Logging.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        private static readonly Dictionary<string, ISqlMapper> dict = new Dictionary<string, ISqlMapper>();
 
         /// <summary>创建 SqlMapper</summary>
         /// <param name="ibatisMaping">配置文件路径</param>
@@ -46,6 +36,13 @@ namespace X3Platform.IBatis.DataMapper
         /// <returns></returns>
         public static ISqlMapper CreateSqlMapper(string ibatisMaping, bool throwException)
         {
+            string key = Encrypter.EncryptMD5(ibatisMaping);
+
+            if (dict.ContainsKey(key))
+            {
+                return dict[key];
+            }
+
             ISqlMapper db = null;
 
             try
@@ -79,6 +76,8 @@ namespace X3Platform.IBatis.DataMapper
                 }
 
                 db = builder.Configure(doc);
+
+                dict.Add(key, db);
             }
             catch (Exception ex)
             {

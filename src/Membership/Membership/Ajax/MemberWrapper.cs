@@ -427,7 +427,7 @@ namespace X3Platform.Membership.Ajax
             }
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
-            param.LoginDate = new DateTime(2000, 1, 1);
+            param.LoginDate = new DateTime(1970, 1, 1);
             param.Status = 1;
             param.IP = IPQueryContext.GetClientIP();
 
@@ -538,7 +538,7 @@ namespace X3Platform.Membership.Ajax
                     return "{\"message\":{\"returnCode\":1,\"value\":\"此帐号被禁用，如有问题请联系提供管理员。\"}}";
                 }
 
-                MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now);
 
                 member = this.service.FindOne(account.Id);
 

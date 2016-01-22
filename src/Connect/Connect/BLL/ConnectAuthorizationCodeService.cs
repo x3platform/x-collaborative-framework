@@ -18,16 +18,12 @@ namespace X3Platform.Connect.BLL
 
     public sealed class ConnectAuthorizationCodeService : IConnectAuthorizationCodeService
     {
-        private ConnectConfiguration configuration = null;
-
         private IConnectAuthorizationCodeProvider provider = null;
 
         public ConnectAuthorizationCodeService()
         {
-            this.configuration = ConnectConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = ConnectConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 

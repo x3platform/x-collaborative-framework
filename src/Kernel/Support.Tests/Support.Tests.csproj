@@ -105,6 +105,7 @@
     <Compile Include="Ajax\AjaxUtilTests.cs" />
     <Compile Include="Ajax\Configuration\AjaxConfigurationViewTests.cs" />
     <Compile Include="Ajax\Net\AjaxRequestTests.cs" />
+    <Compile Include="CacheBuffer\CachingManagerTests.cs" />
     <Compile Include="Json\JsonMapperTests.cs" />
     <EmbeddedResource Include="defaults\test_data.default.yaml" />
     <Compile Include="Configuration\KernelConfigurationViewTests.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\JsonHelperTests.cs" />
     <Compile Include="Util\PagingHelperTests.cs" />
+    <Compile Include="Util\RegularExpressionHelperTests.cs" />
     <Compile Include="Util\StringHelperTests.cs" />
     <Compile Include="Util\XmlHelperTests.cs" />
     <Compile Include="Util\FileHelperTests.cs" />
@@ -187,6 +189,7 @@
   <ItemGroup>
     <EmbeddedResource Include="defaults\test_json" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

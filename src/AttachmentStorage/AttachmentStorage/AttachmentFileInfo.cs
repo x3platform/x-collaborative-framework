@@ -46,21 +46,21 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
-        #region 属性:EntityId
-        /// <summary>实体标识</summary>
-        public string EntityId
-        {
-            get { return Parent.EntityId; }
-            set { Parent.EntityId = value; }
-        }
-        #endregion
-
         #region 属性:EntityClassName
         /// <summary>实体类名称</summary>
         public string EntityClassName
         {
             get { return Parent.EntityClassName; }
             set { Parent.EntityClassName = value; }
+        }
+        #endregion
+
+        #region 属性:EntityId
+        /// <summary>实体标识</summary>
+        public string EntityId
+        {
+            get { return Parent.EntityId; }
+            set { Parent.EntityId = value; }
         }
         #endregion
 
@@ -188,6 +188,11 @@ namespace X3Platform.AttachmentStorage
         }
         #endregion
 
+        #region 属性:CreatedBy
+        /// <summary></summary>
+        public string CreatedBy { get; set; }
+        #endregion
+
         #region 属性:CreatedDate
         private DateTime m_CreatedDate;
 
@@ -219,6 +224,7 @@ namespace X3Platform.AttachmentStorage
             this.FileData = null;
             this.FileStatus = temp.FileStatus;
 
+            this.CreatedBy = temp.CreatedBy;
             this.CreatedDate = temp.CreatedDate;
         }
 

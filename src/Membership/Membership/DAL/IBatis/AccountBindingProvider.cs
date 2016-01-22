@@ -159,8 +159,25 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", string.Format(" AccountId = '{0}' ", StringHelper.ToSafeSQL(accountId)));
+            args.Add("OrderBy", "BindingType");
+            args.Add("Length", 0);
 
-            return this.ibatisMapper.QueryForList<AccountBindingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllByAccountId", tableName)), args);
+            return this.ibatisMapper.QueryForList<AccountBindingInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
+
+        #region 函数:FindAllBindingObjectIds(string accountIds, string bindingType)
+        /// <summary>查询相关用户的所有对象标识记录</summary>
+        /// <param name="accountIds">帐号唯一标识, 多个以逗号隔开</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <returns>返回对象标识列表</returns>
+        public IList<string> FindAllBindingObjectIds(string accountIds, string bindingType)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" AccountId IN ('{0}') AND BindingType = '{1}' ", StringHelper.ToSafeSQL(accountIds).Replace(",", "','"), StringHelper.ToSafeSQL(bindingType)));
+
+            return this.ibatisMapper.QueryForList<string>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllBindingObjectIds", tableName)), args);
         }
         #endregion
 
@@ -173,7 +190,7 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
-            string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
+            string orderBy = query.GetOrderBySql(" ModifiedDate DESC ");
 
             args.Add("WhereClause", whereClause);
             args.Add("OrderBy", orderBy);
@@ -196,7 +213,7 @@ namespace X3Platform.Membership.DAL.IBatis
         {
             if (string.IsNullOrEmpty(accountId)) { throw new Exception("实例标识不能为空。"); }
 
-            if (string.IsNullOrEmpty(bindingType)) { throw new Exception("实例标识不能为空。"); }
+            if (string.IsNullOrEmpty(bindingType)) { throw new Exception("绑定类型不能为空。"); }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 

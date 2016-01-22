@@ -20,8 +20,6 @@ namespace X3Platform.Connect.BLL
 
     public sealed class ConnectService : IConnectService
     {
-        private ConnectConfiguration configuration = null;
-
         private IConnectProvider provider = null;
 
         /// <summary>缓存存储</summary>
@@ -29,10 +27,8 @@ namespace X3Platform.Connect.BLL
 
         public ConnectService()
         {
-            this.configuration = ConnectConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = ConnectConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(ConnectConfiguration.ApplicationName, springObjectFile);
 

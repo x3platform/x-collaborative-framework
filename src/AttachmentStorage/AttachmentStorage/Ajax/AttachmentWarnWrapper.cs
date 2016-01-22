@@ -27,7 +27,6 @@
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             AttachmentWarnInfo param = new AttachmentWarnInfo();
@@ -44,12 +43,11 @@
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
             return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
         }
@@ -63,7 +61,6 @@
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -88,7 +85,6 @@
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
         public string GetPaging(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -110,6 +106,5 @@
             return outString.ToString();
         }
         #endregion
-
     }
 }

@@ -104,5 +104,35 @@ namespace X3Platform.Membership.Ajax
             return "{\"message\":{\"returnCode\":0,\"value\":\"已解除绑定。\"}}";
         }
         #endregion
+
+        #region 函数:Me(XmlDocument doc)
+        /// <summary>获取我的绑定信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string Me(XmlDocument doc)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            string accountId = KernelContext.Current.User.Id;
+            string bindingType = XmlHelper.Fetch("bindingType", doc);
+
+            if (string.IsNullOrEmpty(bindingType))
+            {
+                IList<AccountBindingInfo> list = this.service.FindAllByAccountId(accountId);
+
+                outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(list) + ",");
+            }
+            else
+            {
+                AccountBindingInfo param = this.service.FindOne(accountId, bindingType);
+
+                outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(param) + ",");
+            }
+
+            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
     }
 }

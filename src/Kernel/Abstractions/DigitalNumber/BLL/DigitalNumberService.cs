@@ -155,7 +155,7 @@ namespace X3Platform.DigitalNumber.BLL
                     param.Seed = seed;
 
                     // 忽略不需要自增的编号和更新时间的编号
-                    if (DigitalNumberConfigurationView.Instance.IgnoreIncrementSeed.IndexOf(param.Name) == -1)
+                    if (!(DigitalNumberConfigurationView.Instance.IgnoreIncrementSeed.IndexOf(param.Name) > -1 || param.Seed == -1))
                     {
                         Save(param);
                     }

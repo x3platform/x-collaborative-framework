@@ -105,6 +105,7 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Ajax\AccountAvatarWrapper.cs" />
     <Compile Include="Ajax\AccountBindingWrapper.cs" />
     <Compile Include="Ajax\AccountFriendWrapper.cs" />
     <Compile Include="Ajax\AccountGrantWrapper.cs" />

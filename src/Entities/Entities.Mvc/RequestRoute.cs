@@ -16,7 +16,7 @@
     public class RequestRoute : RouteBase
     {
         /// <summary>请求地址的前缀</summary>
-      private const string prefixUrl = "/entities/";
+        private const string prefixUrl = "/entities/";
 
         /// <summary></summary>
         /// <param name="httpContext"></param>
@@ -68,6 +68,12 @@
                     routeData.Values.Add("action", "List");
                     routeData.Values.Add("options", "{\"treeViewId\":\"" + Regex.Match(friendlyUrl, @"^([\w+\-]+)/list\?treeViewId=([\w+\-]+)$").Groups[2].Value + "\"}");
                 }
+                else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/form$"))
+                {
+                    // 表单信息
+                    routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/form$").Groups[1].Value));
+                    routeData.Values.Add("action", "Form");
+                }
                 else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/form\?id=([\w+\-]+)$"))
                 {
                     // 表单信息
@@ -75,13 +81,13 @@
                     routeData.Values.Add("action", "Form");
                     routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?id=([\w+\-]+)$").Groups[2].Value + "\"}");
                 }
-                else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/form\?menuType=([\w+\-]+)&applicationId=([\w+\-]+)&menuId=([\w+\-]+)$"))
+                else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/form\?entitySchemaId=([\w+\-]+)$"))
                 {
                     // 表单信息-新建
-                    match = Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?menuType=([\w+\-]+)&applicationId=([\w+\-]+)&menuId=([\w+\-]+)$");
+                    match = Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?entitySchemaId=([\w+\-]+)$");
                     routeData.Values.Add("controller", FriendlyControllerName(match.Groups[1].Value));
                     routeData.Values.Add("action", "Form");
-                    routeData.Values.Add("options", "{\"menuType\":\"" + match.Groups[2].Value + "\",\"applicationId\":\"" + match.Groups[3].Value + "\",\"menuId\":\"" + match.Groups[4].Value + "\"}");
+                    routeData.Values.Add("options", "{\"entitySchemaId\":\"" + match.Groups[2].Value + "\"}");
                 }
                 else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/setting$"))
                 {
@@ -89,20 +95,6 @@
                     routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/setting$").Groups[1].Value));
                     routeData.Values.Add("action", "Setting");
                     //routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^article\/([\w+\-]+)$").Groups[1].Value + "\"}");
-                }
-                else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/report$"))
-                {
-                    // 报表
-                    routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/report").Groups[1].Value));
-                    routeData.Values.Add("action", "Report");
-                    // routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^article\/([\w+\-]+)$").Groups[1].Value + "\"}");
-                }
-                else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/validator$"))
-                {
-                    // 数据验证
-                    routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/validator$").Groups[1].Value));
-                    routeData.Values.Add("action", "Validator$");
-                    // routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^article\/([\w+\-]+)$").Groups[1].Value + "\"}");
                 }
                 else
                 {

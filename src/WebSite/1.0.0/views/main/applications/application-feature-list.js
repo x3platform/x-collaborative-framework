@@ -105,7 +105,7 @@ main.applications.application.feature.list = {
     var outString = '';
 
     outString += '<input id="id" name="id" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.id, '') + '" />';
-    outString += '<input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.updateDateTimestampView, '') + '" />';
+    outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.modifiedDateTimestampView, '') + '" />';
 
     outString += '<table class="table-style" style="width:100%">';
 
@@ -354,7 +354,7 @@ main.applications.application.feature.list = {
       outString += '<orderId><![CDATA[' + $('#orderId').val() + ']]></orderId>';
       outString += '<status><![CDATA[' + ($('#status')[0].checked ? '1' : '0') + ']]></status>';
       outString += '<remark><![CDATA[' + $('#remark').val() + ']]></remark>';
-      outString += '<updateDate><![CDATA[' + $('#updateDate').val() + ']]></updateDate>';
+      outString += '<modifiedDate><![CDATA[' + $('#modifiedDate').val() + ']]></modifiedDate>';
       outString += '<originalName><![CDATA[' + $('#originalName').val() + ']]></originalName>';
       outString += '</request>';
 

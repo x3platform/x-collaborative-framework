@@ -60,5 +60,19 @@ namespace X3Platform.Tests.Util
             result = StringHelper.ToSafeIds("1234-1234-12345678;,'2000'");
             Assert.AreEqual(result, "1234-1234-12345678,2000");
         }
+
+        [TestMethod]
+        public void TestToSUID()
+        {
+            Debug.WriteLine(StringHelper.ToSID());
+
+            Debug.WriteLine(StringHelper.ToSID(3));
+
+            Debug.WriteLine(StringHelper.ToSID(15));
+
+            Debug.WriteLine(StringHelper.ToSID(16));
+
+            Debug.WriteLine(StringHelper.ToSID(22));
+        }
     }
 }

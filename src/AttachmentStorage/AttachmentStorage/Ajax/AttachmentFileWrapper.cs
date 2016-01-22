@@ -26,30 +26,16 @@
         // 保存 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(XmlDocument doc)
-        /// <summary>保存记录</summary>
-        /// <param name="doc">Xml 文档对象</param>
-        /// <returns>返回操作结果</returns>
-        public string Save(XmlDocument doc)
-        {
-            AttachmentFileInfo param = new AttachmentFileInfo();
-
-            param = (AttachmentFileInfo)AjaxUtil.Deserialize(param, doc);
-
-            this.service.Save(param);
-
-            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
-        }
-        #endregion
-
         #region 函数:Delete(XmlDocument doc)
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string id = XmlHelper.Fetch("id", doc);
+            if (KernelContext.Current.User == null) { return "{\"message\":{\"returnCode\":1,\"value\":\"必须登陆后才能操作。\"}}"; }
 
+            string id = XmlHelper.Fetch("id", doc);
+            
             this.service.Delete(id);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";

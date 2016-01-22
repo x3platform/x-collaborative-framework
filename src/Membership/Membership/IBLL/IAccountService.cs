@@ -336,13 +336,13 @@
         int SetStatus(string accountId, int status);
         #endregion
 
-        #region 函数:SetIPAndLoginDate(string accountId, string ip, string loginDate)
+        #region 函数:SetIPAndLoginDate(string accountId, string ip, DateTime loginDate)
         /// <summary>设置登录名</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="ip">登录名</param>
         /// <param name="loginDate">登录时间</param>
         /// <returns>0 操作成功 | 1 操作失败</returns>
-        int SetIPAndLoginDate(string accountId, string ip, string loginDate);
+        int SetIPAndLoginDate(string accountId, string ip, DateTime loginDate);
         #endregion
 
         // -------------------------------------------------------

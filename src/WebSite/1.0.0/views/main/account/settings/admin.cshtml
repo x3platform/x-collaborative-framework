@@ -1,7 +1,7 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
 <script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
 <script type="text/javascript" id="main-account-settings-admin-script" src="/views/main/account/settings/admin.js"></script>
-@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"我的控制台\帐号设置" } }))
 <div id="window-container" class="window-container">
   <div id="window-main-table" class="table">
     <div class="table-header" style="border-bottom: 1px solid #ccc;height: 36px;">

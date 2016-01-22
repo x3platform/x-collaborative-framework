@@ -15,11 +15,11 @@
         /// <summary>父级对象</summary>
         IAttachmentParentObject Parent { get; }
 
-        /// <summary>父级对象实体标识</summary>
-        string EntityId { get; }
-
         /// <summary>父级对象实体类名称</summary>
         string EntityClassName { get; }
+
+        /// <summary>父级对象实体标识</summary>
+        string EntityId { get; }
 
         /// <summary>附件名称</summary>
         string AttachmentName { get; set; }
@@ -29,7 +29,7 @@
 
         /// <summary>目录规则</summary>
         string FolderRule { get; set; }
-        
+
         /// <summary>文件类型</summary>
         string FileType { get; set; }
 
@@ -42,12 +42,15 @@
         /// <summary>数据</summary>
         byte[] FileData { get; set; }
 
+        /// <summary>创建者唯一标识</summary>
+        string CreatedBy { get; set; }
+
         /// <summary>创建时间</summary>
         DateTime CreatedDate { get; set; }
 
         /// <summary>还原</summary>
         void Restore(string id);
-        
+
         /// <summary>保存</summary>
         void Save();
     }

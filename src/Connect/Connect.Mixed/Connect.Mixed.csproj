@@ -121,6 +121,10 @@
     <Reference Include="X3Platform.Connect">
       <HintPath>..\..\..\bin\X3Platform.Connect.dll</HintPath>
     </Reference>
+    <Reference Include="X3Platform.Location.IPQuery, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>
+    </Reference>
     <Reference Include="X3Platform.Membership">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
     </Reference>

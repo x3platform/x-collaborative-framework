@@ -214,8 +214,8 @@ main.membership.role.list = {
         outString += '<tr class="table-row-normal-transparent">';
         outString += '<td class="table-body-text" >更新时间</td>';
         outString += '<td class="table-body-input" >';
-        outString += x.date.newTime(param.updateDate).toString('yyyy-MM-dd HH:mm:ss');
-        outString += '<input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.updateDateTimestampView, '') + '" />';
+        outString += x.date.newTime(param.modifiedDate).toString('yyyy-MM-dd HH:mm:ss');
+        outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.modifiedDateTimestampView, '') + '" />';
         outString += '</td>';
         outString += '<td class="table-body-text" >创建时间</td>';
         outString += '<td class="table-body-input" >';

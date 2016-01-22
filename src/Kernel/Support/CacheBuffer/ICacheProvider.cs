@@ -18,6 +18,13 @@ namespace X3Platform.CacheBuffer
         bool Contains(string name);
         #endregion
 
+        #region 函数:Set(string name, object value)
+        ///<summary>设置缓存记录</summary>
+        ///<param name="name">名称</param>
+        ///<returns>返回缓存对象的详细信息</returns>
+        void Set(string name, object value);
+        #endregion
+
         #region 函数:Get(string name)
         ///<summary>读取缓存记录</summary>
         ///<param name="name">名称</param>
@@ -27,7 +34,7 @@ namespace X3Platform.CacheBuffer
 
         #region 函数:Add(string name, object value)
         ///<summary>写入缓存记录</summary>
-        ///<param name="key">标志</param>
+        ///<param name="name">标志</param>
         ///<param name="value">RuanYu.CacheBuffer.Model.TaskInfo Id号</param>
         void Add(string name, object value);
         #endregion
@@ -38,8 +45,7 @@ namespace X3Platform.CacheBuffer
 
         #region 函数:Remove(string name)
         ///<summary>查询某条记录</summary>
-        ///<param name="Id">RuanYu.CacheBuffer.Model.TaskInfo Id号</param>
-        ///<returns>返回一个 RuanYu.CacheBuffer.Model.TaskInfo 实例的详细信息</returns>
+        ///<param name="name">名称</param>
         void Remove(string name);
         #endregion
     }

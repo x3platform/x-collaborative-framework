@@ -26,7 +26,7 @@
           <td class="table-body-text" style="width:120px;"><span class="required-text">字段名称</span></td>
           <td class="table-body-input" style="width:160px;"><input id="fieldName" name="fieldName" type="text" x-dom-data-type="value" class="form-control" value="@ViewBag.param.FieldName" style="width:120px;" /></td>
           <td class="table-body-text" style="width:120px;"><span class="required-text">字段类型</span></td>
-          <td class="table-body-input"><input id="fieldType" name="fieldType" type="text" x-dom-data-type="value" value="@ViewBag.param.FieldType" x-dom-feature="combobox" selectedtext="@ViewBag.param.FieldType" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_实体数据管理_字段类型\#\# ) " class="form-control" style="width:120px;" /></td>
+          <td class="table-body-input"><input id="fieldType" name="fieldType" type="text" x-dom-data-type="value" value="@ViewBag.param.FieldType" x-dom-feature="combobox" x-dom-combobox-selectedtext="@ViewBag.param.FieldType" x-dom-xhr-url="/api/application.setting.getCombobox.aspx" x-dom-xhr-params="{applicationSettingGroupName:'应用管理_协同平台_实体数据管理_字段类型'}" class="form-control" style="width:120px;" /></td>
         </tr>
         <tr class="table-row-normal-transparent">
           <td class="table-body-text"><span class="required-text">数据列名称</span></td>
@@ -40,7 +40,7 @@
           <td class="table-body-text">排序</td>
           <td class="table-body-input"><input id="orderId" name="orderId" type="text" x-dom-data-type="value" value="@ViewBag.param.OrderId" class="form-control" style="width:120px;" x-dom-feature="integer" /></td>
           <td class="table-body-text"><span class="required-text">作用范围</span></td>
-          <td class="table-body-input"><input id="effectScope" name="effectScope" type="text" x-dom-data-type="value" value="@ViewBag.param.EffectScope" x-dom-feature="combobox" selectedtext="@ViewBag.param.EffectScopeView" url="/api/application.setting.getCombobox.aspx" comboboxwhereclause=" ApplicationSettingGroupId IN ( SELECT Id FROM tb_Application_SettingGroup WHERE Name = \#\#应用管理_协同平台_实体数据管理_字段作用范围\#\# ) " class="form-control" style="width:120px;" /></td>
+          <td class="table-body-input"><input id="effectScope" name="effectScope" type="text" x-dom-data-type="value" value="@ViewBag.param.EffectScope" x-dom-feature="combobox" x-dom-combobox-selectedtext="@ViewBag.param.EffectScopeView" x-dom-xhr-url="/api/application.setting.getCombobox.aspx" x-dom-xhr-params="{applicationSettingGroupName:'应用管理_协同平台_实体数据管理_字段作用范围'}" class="form-control" style="width:120px;" /></td>
         </tr>
         <tr class="table-row-normal-transparent">
           <td class="table-body-text">启用</td>

@@ -169,7 +169,7 @@ main.applications.application.setting.group.list = {
 
     outString += '<input id="id" name="id" type="hidden" x-dom-data-type="value" value="' + (typeof (param.id) == 'undefined' ? '' : param.id) + '" />';
     outString += '<input id="contentType" name="contentType" type="hidden" x-dom-data-type="value" value="' + (typeof (param.contentType) == 'undefined' ? '0' : param.contentType) + '" />';
-    outString += '<input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="' + (typeof (param.updateDateTimestampView) == 'undefined' ? '' : param.updateDateTimestampView) + '" />';
+    outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" x-dom-data-type="value" value="' + (typeof (param.modifiedDateTimestampView) == 'undefined' ? '' : param.modifiedDateTimestampView) + '" />';
 
     return outString;
   },
@@ -346,7 +346,7 @@ main.applications.application.setting.group.list = {
     //outString += '<orderId><![CDATA[' + $('#orderId').val() + ']]></orderId>';
     //outString += '<status><![CDATA[' + ($('#status')[0].checked ? '1' : '0') + ']]></status>';
     //outString += '<remark><![CDATA[' + $('#remark').val() + ']]></remark>';
-    //outString += '<updateDate><![CDATA[' + $('#updateDate').val() + ']]></updateDate>';
+    //outString += '<modifiedDate><![CDATA[' + $('#modifiedDate').val() + ']]></modifiedDate>';
     //outString += '<originalName><![CDATA[' + $('#originalName').val() + ']]></originalName>';
     //outString += '</ajaxStorage>';
 

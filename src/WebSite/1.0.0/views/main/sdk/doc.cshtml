@@ -1,0 +1,145 @@
+﻿@{
+  ViewBag.Title = "系统接口文档";
+  Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<script src="/resources/javascript/ui/pkg/x.ui.pkg.treeTable.js" type="text/javascript"></script>
+<style>
+  html, body {
+    background-color: #fff;
+    font-size: 16px;
+  }
+
+  blockquote {
+    color: #666;
+    margin: 20px 0 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .table > thead > tr > th:nth-child(3), .table > thead > tr > th:nth-child(4) {
+    width: 30%;
+  }
+
+  .table > thead > tr > th:nth-child(5) {
+    width: 40%;
+  }
+
+  .method-display-name {
+    color: #aaa;
+  }
+</style>
+<script type="text/javascript">
+  x.dom.ready(function()
+  {
+    x.ui.pkg.treeTable.newTreeTableView({ targetName: 'in-table-body', display: 'collapsed', columnOrderId: 3 });
+
+    x.ui.pkg.treeTable.newTreeTableView({ targetName: 'output-table-body', display: 'collapsed', columnOrderId: 3 });
+  });
+</script>
+<div style="margin-bottom:20px;">
+  @if (ViewBag.method != null)
+  {
+    <h1>
+      @ViewBag.method.Name
+      @if (!string.IsNullOrEmpty(ViewBag.method.DisplayName))
+      {
+        <span class="method-display-name">(@ViewBag.method.DisplayName)</span>
+      }
+    </h1>
+    if (ViewBag.method.EffectScope == 1)
+    {
+      <span class="label label-default">不需要授权</span>
+    }
+    else if (ViewBag.method.EffectScope == 2)
+    {
+      <span class="label label-default">授权用户</span>
+    }
+    else if (ViewBag.method.EffectScope == 4)
+    {
+      <span class="label label-default">应用可访问成员</span>
+    }
+    else if (ViewBag.method.EffectScope == 8)
+    {
+      <span class="label label-default">应用审查员</span>
+    }
+    else if (ViewBag.method.EffectScope == 16)
+    {
+      <span class="label label-default">应用管理员</span>
+    }
+
+    if (!string.IsNullOrEmpty(ViewBag.method.Description))
+    {
+      <blockquote>
+        @ViewBag.method.Description
+      </blockquote>
+    }
+
+    @Html.Raw(ViewBag.detail)
+  }
+  else if (ViewBag.methods != null)
+  {
+    <h1>
+      @ViewBag.application.ApplicationName
+      <span class="method-display-name">@ViewBag.application.ApplicationDisplayName</span>
+    </h1>
+    <ul class="list-group">
+      @foreach (var method in ViewBag.methods)
+      {
+        <li class="list-group-item"><a href="/sdk/doc?applicationName=@ViewBag.application.ApplicationName&methodName=@method.Name">@method.Name</a></li>
+      }
+    </ul>
+  }
+  else if (ViewBag.entitySchema != null)
+  {
+    <h1>
+      @ViewBag.entitySchema.EntityClassName
+      <span class="method-display-name">@ViewBag.entitySchema.Name</span>
+    </h1>
+    if (!string.IsNullOrEmpty(ViewBag.entitySchema.Description))
+    {
+      <blockquote>
+        @ViewBag.entitySchema.Description
+      </blockquote>
+    }
+
+
+    if (!string.IsNullOrEmpty(ViewBag.entitySchema.DataTableName))
+    {
+      <p>
+        数据表 <kbd>@ViewBag.entitySchema.DataTableName</kbd>
+        @if (!string.IsNullOrEmpty(ViewBag.entitySchema.DataTableName))
+        {
+          <text>| 主键 <kbd>@ViewBag.entitySchema.DataTablePrimaryKey</kbd></text>
+        }
+      </p>
+  }
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th style="width:20%">字段名称</th>
+        <th style="width:15%">数据类型</th>
+        <th>描述</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var metaData in ViewBag.metaDatas)
+        {
+        <tr>
+          <td>@metaData.FieldName</td>
+          <td>@metaData.FieldType</td>
+          <td>@metaData.Description</td>
+        </tr>
+        }
+    </tbody>
+  </table>
+  }
+  else
+  {
+    <h1>Development Kit</h1>
+    <div class="clearfix" style="margin: 20px 0 0 -15px;">
+      @Html.Raw(ViewBag.detail)
+    </div>
+  }
+</div>

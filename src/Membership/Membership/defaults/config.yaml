@@ -46,6 +46,12 @@ keys:
   DefaultGeneralRoleId: 00000000-0000-0000-0000-000000000000
   # 默认的权限范围
   DefaultScopeText: Role#00000000-0000-0000-0000-000000000000#所有人
+  # 帐号头像文件夹物理路径
+  AvatarPhysicalFolder: ${ApplicationPathRoot}uploads\avatar\
+  # 帐号头像文件夹虚拟路径
+  AvatarVirtualFolder: /uploads/avatar/
+  # 帐号头像的大小
+  AvatarSizes: 180,114,72,57,29
   # 同步服务响应时显示的名称
   PackageServiceDisplayName: 人员及权限数据同步管理系统
   # 同步服务验证安全标识 : 可选的值 1.On 2.Off(默认)

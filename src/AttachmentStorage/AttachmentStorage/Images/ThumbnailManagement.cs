@@ -53,6 +53,19 @@ namespace X3Platform.AttachmentStorage.Images
 
         public static void CreateThumbnail(string thumbnailId, Image image, string fileType, int targetWidth, int targetHeight)
         {
+            CreateThumbnail(thumbnailId, image, fileType, targetWidth, targetHeight,
+                AttachmentStorageConfigurationView.Instance.PhysicalUploadFolder + "thumbnails/" + string.Format("{0}_{1}x{2}{3}", thumbnailId, targetWidth, targetHeight, fileType));
+        }
+
+        public static void CreateThumbnail(string thumbnailId, Stream stream, string fileType, int targetWidth, int targetHeight, string path)
+        {
+            Image image = System.Drawing.Image.FromStream(stream);
+
+            CreateThumbnail(thumbnailId, image, fileType, targetWidth, targetHeight, path);
+        }
+
+        public static void CreateThumbnail(string thumbnailId, Image image, string fileType, int targetWidth, int targetHeight, string path)
+        {
             // 计算缩略图的宽度和高度
             int width = image.Width;
             int height = image.Height;
@@ -90,8 +103,6 @@ namespace X3Platform.AttachmentStorage.Images
 
                     //graphic.DrawImage(thumbnailImage, pasteX, pasteY, thumbnailWidth, thumbnailHeight);
                     graphic.DrawImage(image, pasteX, pasteY, thumbnailWidth, thumbnailHeight);
-
-                    string path = AttachmentStorageConfigurationView.Instance.PhysicalUploadFolder + "thumbnails/" + string.Format("{0}_{1}x{2}{3}", thumbnailId, targetWidth, targetHeight, fileType);
 
                     finalImage.Save(path, ParseImageFormatValue(fileType));
                 }

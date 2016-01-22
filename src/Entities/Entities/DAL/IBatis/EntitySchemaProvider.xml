@@ -10,6 +10,7 @@
       <result property="Name" column="Name" />
       <result property="Description" column="Description" />
       <result property="EntityClassName" column="EntityClassName" />
+      <result property="EntityClassFullName" column="EntityClassName" />
       <result property="DataTableName" column="DataTableName" />
       <result property="DataTablePrimaryKey" column="DataTablePrimaryKey" />
       <result property="Tags" column="Tags" />
@@ -26,6 +27,7 @@
       <result property="Name" column="Name" />
       <result property="Description" column="Description" />
       <result property="EntityClassName" column="EntityClassName" />
+      <result property="EntityClassFullName" column="EntityClassName" />
       <result property="DataTableName" column="DataTableName" />
       <result property="DataTablePrimaryKey" column="DataTablePrimaryKey" />
       <result property="Tags" column="Tags" />
@@ -46,6 +48,7 @@
         Name,
         Description,
         EntityClassName,
+        EntityClassFullName,
         DataTableName,
         DataTablePrimaryKey,
         Tags,
@@ -63,6 +66,7 @@
         #Name#,
         #Description#,
         #EntityClassName#,
+        #EntityClassFullName#,
         #DataTableName#,
         #DataTablePrimaryKey#,
         #Tags#,
@@ -81,6 +85,7 @@
         Name = #Name#,
         Description = #Description#,
         EntityClassName = #EntityClassName#,
+        EntityClassFullName = #EntityClassFullName#,
         DataTableName = #DataTableName#,
         DataTablePrimaryKey = #DataTablePrimaryKey#,
         Tags = #Tags#,

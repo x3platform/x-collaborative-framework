@@ -33,10 +33,10 @@
         ApplicationSettingGroupInfo Save(ApplicationSettingGroupInfo param);
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        void Delete(string ids);
+        /// <param name="id">实例的标识</param>
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------

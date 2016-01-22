@@ -57,6 +57,9 @@
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RazorEngine">
+      <HintPath>..\..\..\lib\RazorEngine\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -77,6 +80,9 @@
     </Reference>
     <Reference Include="X3Platform.Drawing.Captcha">
       <HintPath>..\..\..\bin\X3Platform.Drawing.Captcha.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Entities">
+      <HintPath>..\..\..\bin\X3Platform.Entities.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Location.IPQuery">
       <HintPath>..\..\..\bin\X3Platform.Location.IPQuery.dll</HintPath>

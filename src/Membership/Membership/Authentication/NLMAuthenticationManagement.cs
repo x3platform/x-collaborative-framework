@@ -49,7 +49,7 @@
                         // 记录登录时间
                         if (account.LoginDate.AddHours(8) < DateTime.Now)
                         {
-                            MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                            MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now);
                         }
 
                         return accountIdentity;
@@ -96,7 +96,7 @@
                     // 记录登录时间
                     if (account.LoginDate.AddHours(8) < DateTime.Now)
                     {
-                        MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now);
                     }
                 }
             }

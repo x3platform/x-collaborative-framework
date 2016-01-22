@@ -174,9 +174,9 @@
                 {
                     return "{message:{\"returnCode\":1,\"value\":\"验证码发送失败，不存在的邮箱地址。\"}}";
                 }
-            } 
-            
-            return "{message:{\"returnCode\":2,\"value\":\"必须填写手机号码或邮箱地址。\"}}";                
+            }
+
+            return "{message:{\"returnCode\":2,\"value\":\"必须填写手机号码或邮箱地址。\"}}";
         }
         #endregion
 
@@ -186,23 +186,48 @@
         /// <returns>返回操作结果</returns>
         public string SetPassword(XmlDocument doc)
         {
+            // Registration 注册类型: email | mobile | default
+            string registration = XmlHelper.Fetch("registration", doc);
+            // 手机号码
+            string mobile = XmlHelper.Fetch("mobile", doc);
             // 邮箱地址
             string email = XmlHelper.Fetch("email", doc);
             // 验证码
             string code = XmlHelper.Fetch("code", doc);
+            // 密码
+            string password = XmlHelper.Fetch("password", doc);
 
-            VerificationCodeInfo verificationCode = VerificationCodeContext.Instance.VerificationCodeService.FindOne("Mail", email, "忘记密码");
+            VerificationCodeInfo verificationCode = null;
+
+            IAccountInfo account = null;
+
+            if (registration == "mail")
+            {
+                verificationCode = VerificationCodeContext.Instance.VerificationCodeService.FindOne(VerificationObjectType.Mail.ToString(), email, "忘记密码");
+            }
+            else if (registration == "mobile")
+            {
+                verificationCode = VerificationCodeContext.Instance.VerificationCodeService.FindOne(VerificationObjectType.Mobile.ToString(), mobile, "忘记密码");
+            }
 
             if (verificationCode.Code != code)
             {
-                return "{message:{\"returnCode\":1,\"value\":\"邮件发送失败，不存在的邮箱地址。\"}}";
+                return "{message:{\"returnCode\":2,\"value\":\"验证码错误。\"}}";
             }
 
-            IAccountInfo account = MembershipManagement.Instance.AccountService.FindOneByCertifiedEmail(email);
+            if (registration == "mail")
+            {
+                account = MembershipManagement.Instance.AccountService.FindOneByCertifiedEmail(email);
+            }
+            else if (registration == "mobile")
+            {
+                account = MembershipManagement.Instance.AccountService.FindOneByCertifiedMobile(mobile);
+            }
 
             if (account != null)
             {
                 // 生成一个包含大写字母、小写字母、数字、特殊字符的八位长度的字符串
+                /*
                 string password = Guid.NewGuid().ToString().Substring(0, 5);
 
                 Random random = new Random();
@@ -214,17 +239,21 @@
                 password = password.Insert(random.Next(password.Length), StringHelper.ToRandom("ABCDEFGHJKLMNPQRSTUVWXYZ", 1));
 
                 MembershipManagement.Instance.AccountService.SetPassword(account.Id, Encrypter.EncryptSHA1(password));
+                */
 
                 // 通过了{date}忘记密码功能找回密码
                 // IP 地址
-                EmailClientContext.Instance.Send(email, "密码找回", "新的密码:" + password);
+                // EmailClientContext.Instance.Send(email, "密码找回", "新的密码:" + password);
 
-                return "{message:{\"returnCode\":0,\"value\":\"邮件发送成功。\"}}";
+                MembershipManagement.Instance.AccountService.SetPassword(account.Id, password);
+
+                return "{message:{\"returnCode\":0,\"value\":\"密码设置成功。\"}}";
             }
             else
             {
-                return "{message:{\"returnCode\":1,\"value\":\"邮件发送失败，不存在的邮箱地址。\"}}";
+                return "{message:{\"returnCode\":1,\"value\":\"不存在的用户信息。\"}}";
             }
+
         }
         #endregion
 

@@ -163,14 +163,13 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
-
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例</returns> 
         public IList<IAttachmentFileInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            string whereClause = GetWhereClauseByScenarioName(query);
+            string whereClause = BuildWhereClause(query);
             string orderBy = query.GetOrderBySql(" CreatedDate DESC ");
 
             args.Add("StartIndex", startIndex);
@@ -219,15 +218,54 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         }
         #endregion
 
-        /// <summary>根据查询方案名称生成查询语句</summary>
+        #region 函数:SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append)
+        /// <summary>设置有效的文件信息</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="attachmentFileIds">附件唯一标识，多个附件以逗号隔开</param>
+        /// <param name="append">附加文件</param>
+        public void SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Empty);
+            args.Add("FileStatus", 0);
+            
+            if (!append)
+            {
+                args["WhereClause"] = string.Format(" EntityClassName = '{0}' AND EntityId = '{1}' ", 
+                    StringHelper.ToSafeSQL(entityClassName), 
+                    StringHelper.ToSafeSQL(entityId));
+
+                this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetFileStatus", this.tableName)), args);
+            }
+
+            args["WhereClause"] = string.Format(" EntityClassName = '{0}' AND EntityId = '{1}' AND Id IN ('{2}') ", 
+                StringHelper.ToSafeSQL(entityClassName), 
+                StringHelper.ToSafeSQL(entityId),
+                StringHelper.ToSafeSQL(attachmentFileIds).Replace(",", "','"));
+
+            args["FileStatus"] = 1;
+
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetFileStatus", this.tableName)), args);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 自定义查询条件
+        // -------------------------------------------------------
+
+        #region 属性:BuildWhereClause(DataQuery query)
+        /// <summary>根据场景名称构建查询条件</summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private string GetWhereClauseByScenarioName(DataQuery query)
+        private string BuildWhereClause(DataQuery query)
         {
             string whereClause = string.Empty;
-            string scenario = query.Variables["Scenario"];
 
-            if (string.IsNullOrEmpty(scenario))
+            string scence = query.Variables["scence"];
+
+            if (string.IsNullOrEmpty(scence))
             {
                 // 默认查询方式
                 whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "AttachmentName", "LIKE" } });
@@ -236,20 +274,20 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
             {
                 StringBuilder outString = new StringBuilder();
 
-                // DataQueryBuilder
-                if (scenario == "Query")
+                if (scence == "Query")
                 {
-                    DataQueryBuilder.BindWhereClause(query.Where, "id", outString);
-                    DataQueryBuilder.BindWhereClause(query.Where, "attachmentName", outString);
-                    DataQueryBuilder.BindWhereClause(query.Where, "entityId", outString);
+                    DataQueryBuilder.Equal(query.Where, "id", outString);
+                    DataQueryBuilder.Equal(query.Where, "attachmentName", outString);
+                    DataQueryBuilder.Equal(query.Where, "entityId", outString);
 
-                    DataQueryBuilder.BindWhereBetweenClause(query.Where, "createDate", "beginDate", "endDate", outString);
+                    DataQueryBuilder.Between(query.Where, "createdDate", "beginDate", "endDate", outString);
 
                     return outString.ToString();
                 }
-
             }
+
             return whereClause;
         }
+        #endregion
     }
 }

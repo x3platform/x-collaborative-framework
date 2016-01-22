@@ -64,10 +64,10 @@
         void Update(ApplicationMethodInfo param);
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        void Delete(string ids);
+        /// <param name="id">实例的标识</param>
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
@@ -87,13 +87,26 @@
         /// <returns>返回实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
         ApplicationMethodInfo FindOneByName(string name);
         #endregion
-        
-        #region 函数:FindAll(string whereClause, int length)
+
+        #region 函数:FindAllByApplicationId(string applicationId)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <param name="length">条数</param>
+        /// <param name="applicationId">应用唯一标识</param>
         /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
-        IList<ApplicationMethodInfo> FindAll(string whereClause, int length);
+        IList<ApplicationMethodInfo> FindAllByApplicationId(string applicationId);
+        #endregion
+
+        #region 函数:FindAllByApplicationName(string applicationName)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="applicationName">应用名称</param>
+        /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
+        IList<ApplicationMethodInfo> FindAllByApplicationName(string applicationName);
+        #endregion
+
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
+        IList<ApplicationMethodInfo> FindAll(DataQuery query);
         #endregion
 
         // -------------------------------------------------------

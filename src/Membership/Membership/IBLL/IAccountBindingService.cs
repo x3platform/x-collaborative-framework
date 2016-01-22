@@ -34,6 +34,14 @@ namespace X3Platform.Membership.IBLL
         IList<AccountBindingInfo> FindAllByAccountId(string accountId);
         #endregion
 
+        #region 函数:FindAllBindingObjectIds(string accountIds, string bindingType)
+        /// <summary>查询相关用户的所有对象标识记录</summary>
+        /// <param name="accountIds">帐号唯一标识, 多个以逗号隔开</param>
+        /// <param name="bindingType">绑定类型</param>
+        /// <returns>返回对象标识列表</returns>
+        IList<string> FindAllBindingObjectIds(string accountIds, string bindingType);
+        #endregion
+
         // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
