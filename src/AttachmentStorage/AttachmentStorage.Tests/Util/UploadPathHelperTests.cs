@@ -34,11 +34,11 @@
 
             DateTime datetime = DateTime.Now;
 
-            path = path + datetime.ToString("yyyy\\MM\\dd\\");
+            path = Path.Combine(path, datetime.ToString("yyyy//MM//dd"));
 
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                Directory.CreateDirectory(path);
             }
 
             Assert.IsTrue(Directory.Exists(path));
@@ -56,6 +56,8 @@
                 + attachmentFolder + "/"
                 + datetime.Year + "/" + (((datetime.Month - 1) / 3) + 1) + "Q/" + datetime.Month + "/"
                 + fileName;
+
+            path1 = DirectoryHelper.FormatLocalPath(path1);
 
             string path2 = UploadPathHelper.CombinePhysicalPath(attachmentFolder, fileName);
 
@@ -86,7 +88,7 @@
             string attachmentFolder = "test";
 
             AttachmentFileInfo attachment = new AttachmentFileInfo();
-            
+
             attachment.Id = StringHelper.ToGuid();
             attachment.FileType = ".doc";
             attachment.AttachmentName = "123.doc";
@@ -98,7 +100,7 @@
                 + datetime.Year + "/" + (((datetime.Month - 1) / 3) + 1) + "Q/" + datetime.Month + "/"
                 + attachment.Id
                 + attachment.FileType;
-            
+
             string path2 = UploadPathHelper.GetVirtualPathFormat(attachmentFolder, attachment);
 
             Assert.AreEqual(path1, path2);
