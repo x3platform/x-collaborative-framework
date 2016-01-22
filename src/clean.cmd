@@ -8,3 +8,11 @@
 
 @del StyleCop.Cache /s/f/q
 @del StyleCop.Cache /s/f/q/a:h-s
+
+cd ../bin/
+
+del *.dll
+del *.pdb
+del *.xml
+
+cd ../src/
