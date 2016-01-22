@@ -123,7 +123,7 @@ namespace X3Platform.Entities.DAL.IBatis
 
         #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号隔开.</param>
+        /// <param name="id">标识</param>
         public void Delete(string id)
         {
             if (string.IsNullOrEmpty(id)) { return; }
@@ -172,7 +172,7 @@ namespace X3Platform.Entities.DAL.IBatis
 
         #region 函数:FindOneByEntityClassName(string entityClassName)
         /// <summary>查询某条记录</summary>
-        /// <param name="name">名称</param>
+        /// <param name="entityClassName">实体类名称</param>
         /// <returns>返回实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
         public EntitySchemaInfo FindOneByEntityClassName(string entityClassName)
         {
@@ -181,6 +181,20 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("EntityClassName", StringHelper.ToSafeSQL(entityClassName));
 
             return this.ibatisMapper.QueryForObject<EntitySchemaInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByEntityClassName", this.tableName)), args);
+        }
+        #endregion
+
+        #region 函数:FindOneByEntityClassFullName(string entityClassFullName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="entityClassFullName">实体类全称</param>
+        /// <returns>返回实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
+        public EntitySchemaInfo FindOneByEntityClassFullName(string entityClassFullName)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("EntityClassFullName", StringHelper.ToSafeSQL(entityClassFullName));
+
+            return this.ibatisMapper.QueryForObject<EntitySchemaInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByEntityClassFullName", this.tableName)), args);
         }
         #endregion
 
@@ -232,7 +246,7 @@ namespace X3Platform.Entities.DAL.IBatis
             if (query.Variables["scence"] == "Query")
             {
                 string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
-                
+
                 if (!string.IsNullOrEmpty(searchText))
                 {
                     whereClause = " Name LIKE '" + searchText + "' ";
@@ -271,6 +285,96 @@ namespace X3Platform.Entities.DAL.IBatis
             args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
 
             return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
+        }
+        #endregion
+
+        #region 函数:IsExistCode(string code, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="code">代码</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        public bool IsExistCode(string code, string ignoreIds = null)
+        {
+            if (string.IsNullOrEmpty(code)) { throw new Exception("代码不能为空."); }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = string.Format(" Code = '{0}' ", StringHelper.ToSafeSQL(code));
+
+            if (!string.IsNullOrEmpty(ignoreIds))
+            {
+                whereClause += string.Format(" AND Id NOT IN ('{0}')", StringHelper.ToSafeSQL(ignoreIds).Replace(",", "','"));
+            }
+
+            args.Add("WhereClause", whereClause);
+
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
+        }
+        #endregion
+
+        #region 函数:IsExistName(string name, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">名称</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        public bool IsExistName(string name, string ignoreIds = null)
+        {
+            if (string.IsNullOrEmpty(name)) { throw new Exception("名称不能为空."); }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = string.Format(" Name = '{0}' ", StringHelper.ToSafeSQL(name));
+
+            if (!string.IsNullOrEmpty(ignoreIds))
+            {
+                whereClause += string.Format(" AND Id NOT IN ('{0}')", StringHelper.ToSafeSQL(ignoreIds).Replace(",", "','"));
+            }
+
+            args.Add("WhereClause", whereClause);
+
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
+        }
+        #endregion
+
+        #region 函数:IsExistEntityClassName(string entityClassName, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        public bool IsExistEntityClassName(string entityClassName, string ignoreIds = null)
+        {
+            if (string.IsNullOrEmpty(entityClassName)) { throw new Exception("实体类名称不能为空."); }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = string.Format(" EntityClassName = '{0}' ", StringHelper.ToSafeSQL(entityClassName));
+
+            if (!string.IsNullOrEmpty(ignoreIds))
+            {
+                whereClause += string.Format(" AND Id NOT IN ('{0}')", StringHelper.ToSafeSQL(ignoreIds).Replace(",", "','"));
+            }
+
+            args.Add("WhereClause", whereClause);
+
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", this.tableName)), args)) == 0) ? false : true;
+        }
+        #endregion
+
+        #region 函数:SetCode(string id, string code)
+        /// <summary>设置对象的代码</summary>
+        /// <param name="id">标识</param>
+        /// <param name="code">代码</param>
+        /// <returns>布尔值</returns>
+        public int SetCode(string id, string code)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("Id", StringHelper.ToSafeSQL(id));
+            args.Add("Code", StringHelper.ToSafeSQL(code));
+
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetCode", tableName)), args);
+
+            return 0;
         }
         #endregion
     }

@@ -58,12 +58,12 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        public void Delete(string ids)
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            provider.Delete(ids);
+            provider.Delete(id);
         }
         #endregion
 
@@ -101,13 +101,13 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
-        #region 函数:FindOneByEntityClassName(string entityClassName)
+        #region 函数:FindOneByEntityClassFullName(string entityClassFullName)
         /// <summary>查询某条记录</summary>
         /// <param name="entityClassName">实体类名称</param>
         /// <returns>返回实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
-        public EntitySchemaInfo FindOneByEntityClassName(string entityClassName)
+        public EntitySchemaInfo FindOneByEntityClassFullName(string entityClassFullName)
         {
-            return this.provider.FindOneByEntityClassName(entityClassName);
+            return this.provider.FindOneByEntityClassFullName(entityClassFullName);
         }
         #endregion
 
@@ -178,17 +178,47 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
-        #region 函数:GetEntityClassName(Type type)
-        /// <summary>获取实体类名称</summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public string GetEntityClassName(Type type)
+        #region 函数:IsExistCode(string code, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="code">代码</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        public bool IsExistCode(string code, string ignoreIds = null)
         {
-            string objectType = KernelContext.ParseObjectType(type);
+            return this.provider.IsExistCode(code, ignoreIds);
+        }
+        #endregion
 
-            EntitySchemaInfo param = this.FindOneByEntityClassFullName(objectType);
+        #region 函数:IsExistName(string name, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">名称</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        public bool IsExistName(string name, string ignoreIds = null)
+        {
+            return this.provider.IsExistName(name, ignoreIds);
+        }
+        #endregion
 
-            return param == null ? objectType : param.EntityClassName;
+        #region 函数:IsExistEntityClassName(string entityClassName, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        public bool IsExistEntityClassName(string entityClassName, string ignoreIds = null)
+        {
+            return this.provider.IsExistName(entityClassName, ignoreIds);
+        }
+        #endregion
+
+        #region 函数:SetCode(string id, string code)
+        /// <summary>设置对象的代码</summary>
+        /// <param name="id">标识</param>
+        /// <param name="code">代码</param>
+        /// <returns>布尔值</returns>
+        public int SetCode(string id, string code)
+        {
+            return this.provider.SetCode(id, code);
         }
         #endregion
     }

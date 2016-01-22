@@ -33,10 +33,10 @@ namespace X3Platform.Entities.IBLL
         EntitySchemaInfo Save(EntitySchemaInfo param);
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        void Delete(string ids);
+        /// <param name="id">标识</param>
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
@@ -57,11 +57,18 @@ namespace X3Platform.Entities.IBLL
         EntitySchemaInfo FindOneByName(string name);
         #endregion
 
-        #region 函数:FindOneByName(string entityClassName)
+        #region 函数:FindOneByEntityClassName(string entityClassName)
         /// <summary>查询某条记录</summary>
         /// <param name="entityClassName">实体类名称</param>
         /// <returns>返回实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
         EntitySchemaInfo FindOneByEntityClassName(string entityClassName);
+        #endregion
+
+        #region 函数:FindOneByEntityClassFullName(string entityClassFullName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>返回实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
+        EntitySchemaInfo FindOneByEntityClassFullName(string entityClassFullName);
         #endregion
 
         #region 函数:FindAll()
@@ -111,6 +118,38 @@ namespace X3Platform.Entities.IBLL
         /// <param name="id">标识</param>
         /// <returns>布尔值</returns>
         bool IsExist(string id);
+        #endregion
+
+        #region 函数:IsExistCode(string code, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="code">代码</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        bool IsExistCode(string code, string ignoreIds = null);
+        #endregion
+
+        #region 函数:IsExistName(string name, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">名称</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        bool IsExistName(string name, string ignoreIds = null);
+        #endregion
+
+        #region 函数:IsExistEntityClassName(string entityClassName, string ignoreIds = null)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="ignoreIds">忽略对象的标识，多个以逗号隔开</param>
+        /// <returns>布尔值</returns>
+        bool IsExistEntityClassName(string entityClassName, string ignoreIds = null);
+        #endregion
+
+        #region 函数:SetCode(string id, string code)
+        /// <summary>设置对象的代码</summary>
+        /// <param name="id">标识</param>
+        /// <param name="code">代码</param>
+        /// <returns>布尔值</returns>
+        int SetCode(string id, string code);
         #endregion
     }
 }
