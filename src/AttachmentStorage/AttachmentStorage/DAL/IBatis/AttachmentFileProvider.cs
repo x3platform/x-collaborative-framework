@@ -18,9 +18,6 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
     [DataObject]
     public class AttachmentFileProvider : IAttachmentFileProvider
     {
-        /// <summary>配置</summary>
-        private AttachmentStorageConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -33,9 +30,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         /// <summary></summary>
         public AttachmentFileProvider()
         {
-            this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
-
-            this.ibatisMapping = configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = AttachmentStorageConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }

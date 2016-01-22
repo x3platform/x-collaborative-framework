@@ -17,9 +17,6 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
     [DataObject]
     public class AttachmentDistributedFileProvider : IAttachmentDistributedFileProvider
     {
-        /// <summary>配置</summary>
-        private AttachmentStorageConfiguration configuration = null;
-
         /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
@@ -32,9 +29,7 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         /// <summary></summary>
         public AttachmentDistributedFileProvider()
         {
-            this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
-
-            this.ibatisMapping = this.configuration.Keys["IBatisMapping"].Value;
+            this.ibatisMapping = AttachmentStorageConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
 
             this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
         }
@@ -56,13 +51,13 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
 
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Save", this.tableName)), param);
 
-            return (DistributedFileInfo)param;
+            return param;
         }
         #endregion
 
         #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号隔开</param>
+        /// <param name="id">标识</param>
         public void Delete(string id)
         {
             if (string.IsNullOrEmpty(id)) { return; }
@@ -115,32 +110,6 @@ namespace X3Platform.AttachmentStorage.DAL.IBatis
         // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
-
-        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        /// <summary>分页函数</summary>
-        /// <param name="startIndex">开始行索引数,由0开始统计</param>
-        /// <param name="pageSize">页面大小</param>
-        /// <param name="query">数据查询参数</param>
-        /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例</returns> 
-        public IList<DistributedFileInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        {
-            Dictionary<string, object> args = new Dictionary<string, object>();
-
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
-            args.Add("WhereClause", query.GetWhereSql());
-            args.Add("OrderBy", query.GetOrderBySql(" CreatedDate DESC "));
-
-            args.Add("RowCount", 0);
-
-            IList<DistributedFileInfo> list = this.ibatisMapper.QueryForList<DistributedFileInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
-
-            rowCount = (int)this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", this.tableName)), args);
-
-            return list;
-        }
-        #endregion
 
         #region 函数:IsExist(string id)
         /// <summary>查询是否存在相关的记录</summary>

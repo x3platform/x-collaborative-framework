@@ -14,18 +14,12 @@ namespace X3Platform.AttachmentStorage.BLL
 
     public sealed class AttachmentDistributedFileService : IAttachmentDistributedFileService
     {
-        /// <summary>配置</summary>
-        private AttachmentStorageConfiguration configuration = null;
-
         private IAttachmentDistributedFileProvider provider = null;
 
         public AttachmentDistributedFileService()
         {
-            // 读取配置信息
-            this.configuration = AttachmentStorageConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AttachmentStorageConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AttachmentStorageConfiguration.ApplicationName, springObjectFile);
 
@@ -47,7 +41,7 @@ namespace X3Platform.AttachmentStorage.BLL
         // 保存 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(AccountInfo param)
+        #region 函数:Save(DistributedFileInfo param)
         /// <summary>保存记录</summary>
         /// <param name="param"><see cref="DistributedFileInfo"/>实例详细信息</param>
         /// <param name="message">数据库操作返回的相关信息</param>
@@ -103,20 +97,6 @@ namespace X3Platform.AttachmentStorage.BLL
         // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
-
-        #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        /// <summary>分页函数</summary>
-        /// <param name="startIndex">开始行索引数,由0开始统计</param>
-        /// <param name="pageSize">页面大小</param>
-        /// <param name="query">数据查询参数</param>
-        
-        /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例</returns> 
-        public IList<DistributedFileInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
-        {
-            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
-        }
-        #endregion
 
         #region 函数:IsExist(string id)
         /// <summary>查询是否存在相关的记录</summary>

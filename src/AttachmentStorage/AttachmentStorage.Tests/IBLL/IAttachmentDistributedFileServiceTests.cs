@@ -54,18 +54,5 @@
 
             Assert.IsNotNull(list);
         }
-
-        [Test]
-        public void TestGetPaging()
-        {
-            DataQuery query = new DataQuery();
-
-            int rowCount = -1;
-
-            IList<DistributedFileInfo> list = AttachmentStorageContext.Instance.AttachmentDistributedFileService.GetPaging(0, 10, query, out rowCount);
-
-            Assert.IsNotNull(list);
-        }
-
     }
 }
