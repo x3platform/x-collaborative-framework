@@ -6,4 +6,4 @@ build:
 test:
   categories:
     except:
-    - Manual Testing
+    - ManualTesting
