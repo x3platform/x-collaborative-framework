@@ -26,7 +26,7 @@
         // 测试内容
         //-------------------------------------------------------
 
-        [Category("Manual Testing")]
+        [Category("ManualTesting")]
         [Category("APIs")]
         [Test]
         public void TestFindAll()
@@ -55,7 +55,7 @@
             Assert.AreEqual(0, response.message.returnCode);
         }
 
-        [Category("Manual Testing")]
+        [Category("ManualTesting")]
         [Category("APIs")]
         [Test]
         public void TestUpload()
@@ -65,7 +65,7 @@
 
             AjaxRequestData reqeustData = new AjaxRequestData();
 
-            reqeustData.ActionUri = new Uri(apiHostPrefix + "/api/attachment.upload.aspx");
+            reqeustData.ActionUri = new Uri(apiHostPrefix + "/api/attachment.file.upload.aspx");
 
             var content = ResourceStringLoader.LoadString("X3Platform.AttachmentStorage.Tests.data.api.attachment.upload.json");
 
