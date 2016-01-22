@@ -13,6 +13,7 @@ namespace X3Platform.Entities
     using System.Reflection;
     using X3Platform.Apps.Model;
     using X3Platform.DigitalNumber;
+    using X3Platform.Entities.Model;
     #endregion
 
     /// <summary>实体类管理上下文环境</summary>
@@ -213,6 +214,20 @@ namespace X3Platform.Entities
             this.m_EntityOperationLogService = objectBuilder.GetObject<IEntityOperationLogService>(typeof(IEntityOperationLogService));
             this.m_EntitySchemaService = objectBuilder.GetObject<IEntitySchemaService>(typeof(IEntitySchemaService));
             this.m_EntitySnapshotService = objectBuilder.GetObject<IEntitySnapshotService>(typeof(IEntitySnapshotService));
+        }
+        #endregion
+
+        #region 函数:GetEntityClassName(Type type)
+        /// <summary>获取实体类名称</summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public string GetEntityClassName(Type type)
+        {
+            string objectType = KernelContext.ParseObjectType(type);
+
+            EntitySchemaInfo param = Instance.EntitySchemaService.FindOneByEntityClassFullName(objectType);
+
+            return param == null ? objectType : param.EntityClassName;
         }
         #endregion
     }

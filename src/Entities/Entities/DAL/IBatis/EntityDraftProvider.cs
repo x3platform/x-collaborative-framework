@@ -120,17 +120,16 @@ namespace X3Platform.Entities.DAL.IBatis
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号隔开.</param>
-        public void Delete(string ids)
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids))
-                return;
+            if (string.IsNullOrEmpty(id)) return;
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(ids).Replace(",", "','")));
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }

@@ -322,7 +322,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
