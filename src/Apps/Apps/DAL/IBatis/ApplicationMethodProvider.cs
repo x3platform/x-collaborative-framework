@@ -122,17 +122,16 @@
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">标识,多个以逗号隔开.</param>
-        public void Delete(string ids)
+        /// <param name="id">实例的标识</param>
+        public void Delete(string id)
         {
-            if (string.IsNullOrEmpty(ids))
-                return;
+            if (string.IsNullOrEmpty(id)) { return; }
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(ids).Replace(",", "','")));
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
         }
@@ -174,21 +173,71 @@
         }
         #endregion
 
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAllByApplicationId(string applicationId)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <param name="length">条数</param>
+        /// <param name="applicationId">应用唯一标识</param>
         /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
-        public IList<ApplicationMethodInfo> FindAll(string whereClause, int length)
+        public IList<ApplicationMethodInfo> FindAllByApplicationId(string applicationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-            args.Add("Length", length);
+            args.Add("WhereClause", string.Format(" ApplicationId = '{0}' ", StringHelper.ToSafeSQL(applicationId)));
+            args.Add("OrderBy", "Name");
+            args.Add("Length", 0);
 
-            IList<ApplicationMethodInfo> list = this.ibatisMapper.QueryForList<ApplicationMethodInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            return this.ibatisMapper.QueryForList<ApplicationMethodInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
 
-            return list;
+        #region 函数:FindAllByApplicationName(string applicationName)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="applicationName">应用名称</param>
+        /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
+        public IList<ApplicationMethodInfo> FindAllByApplicationName(string applicationName)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" ApplicationId IN ( SELECT Id FROM tb_Application WHERE ApplicationName = '{0}' ) ", StringHelper.ToSafeSQL(applicationName)));
+            args.Add("OrderBy", "Name");
+            args.Add("Length", 0);
+
+            return this.ibatisMapper.QueryForList<ApplicationMethodInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
+
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有<see cref="ApplicationMethodInfo"/>实例的详细信息</returns>
+        public IList<ApplicationMethodInfo> FindAll(DataQuery query)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = null;
+
+            if (query.Variables["scence"] == "FetchNeededSyncData")
+            {
+                DateTime beginDate = Convert.ToDateTime(query.Where["BeginDate"]);
+                DateTime endDate = Convert.ToDateTime(query.Where["EndDate"]);
+
+                whereClause = string.Format(" ModifiedDate BETWEEN '{0}' AND '{1}' ", beginDate, endDate);
+
+                args.Add("WhereClause", whereClause);
+
+            }
+            else
+            {
+                whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
+
+                args.Add("WhereClause", whereClause);
+            }
+
+            string orderBy = query.GetOrderBySql(" ModifiedDate DESC ");
+
+            args.Add("OrderBy", orderBy);
+            args.Add("Length", query.Length);
+
+            return this.ibatisMapper.QueryForList<ApplicationMethodInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -208,9 +257,9 @@
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             string whereClause = null;
-          
+
             if (query.Variables["scence"] == "Query")
-            {     
+            {
                 string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
 
                 if (!string.IsNullOrEmpty(searchText))
@@ -223,13 +272,13 @@
             else
             {
                 args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            } 
-            
+            }
+
             args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
-            
+
             IList<ApplicationMethodInfo> list = this.ibatisMapper.QueryForList<ApplicationMethodInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));

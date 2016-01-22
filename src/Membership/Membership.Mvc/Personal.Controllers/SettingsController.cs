@@ -14,6 +14,7 @@
     using X3Platform.Web.Mvc.Attributes;
     using X3Platform.Web.Builder;
     using X3Platform.Sessions;
+    using X3Platform.Membership.Configuration;
 
     [LoginFilter]
     public class SettingsController : CustomController
@@ -64,18 +65,18 @@
 
             IAccountInfo account = MembershipManagement.Instance.AccountService[member.Account.Id];
 
-            string avatar_120x120 = string.Empty;
+            string avatar_180x180 = string.Empty;
 
             if (string.IsNullOrEmpty(account.CertifiedAvatar))
             {
-                avatar_120x120 = AttachmentStorageConfigurationView.Instance.VirtualUploadFolder + "avatar/default_120x120.png";
+                avatar_180x180 = MembershipConfigurationView.Instance.AvatarVirtualFolder + "default_120x120.png";
             }
             else
             {
-                avatar_120x120 = account.CertifiedAvatar.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder);
+                avatar_180x180 = account.CertifiedAvatar.Replace("{avatar}", MembershipConfigurationView.Instance.AvatarVirtualFolder).Replace("//", "/");
             }
 
-            ViewBag.avatar_120x120 = avatar_120x120;
+            ViewBag.avatar_180x180 = avatar_180x180;
 
             return View("/views/main/account/settings/profile.cshtml");
         }
@@ -100,18 +101,18 @@
 
             IAccountInfo account = MembershipManagement.Instance.AccountService[member.Account.Id];
 
-            string avatar_120x120 = string.Empty;
+            string avatar_180x180 = string.Empty;
 
             if (string.IsNullOrEmpty(account.CertifiedAvatar))
             {
-                avatar_120x120 = AttachmentStorageConfigurationView.Instance.VirtualUploadFolder + "avatar/default_120x120.png";
+                avatar_180x180 = MembershipConfigurationView.Instance.AvatarVirtualFolder + "default_180x180.png";
             }
             else
             {
-                avatar_120x120 = account.CertifiedAvatar.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder);
+                avatar_180x180 = account.CertifiedAvatar.Replace("{avatar}", MembershipConfigurationView.Instance.AvatarVirtualFolder);
             }
 
-            ViewBag.avatar_120x120 = avatar_120x120;
+            ViewBag.avatar_180x180 = avatar_180x180;
 
             return View("/views/main/account/settings/avatar.cshtml");
         }
@@ -132,7 +133,7 @@
         #region 函数:Contact()
         /// <summary>联系信息</summary>
         /// <returns></returns>
-        public ActionResult contact()
+        public ActionResult Contact()
         {
             // 所属应用信息
             ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];

@@ -17,16 +17,16 @@ namespace X3Platform.Data
         /// <param name="where"></param>
         /// <param name="paramName"></param>
         /// <param name="whereClause"></param>
-        public static void BindWhereClause(Dictionary<string, object> where, string paramName, StringBuilder whereClause)
+        public static void Equal(Dictionary<string, object> where, string paramName, StringBuilder whereClause)
         {
-            BindWhereClause(where, paramName, "=", whereClause);
+            Operate(where, paramName, "=", whereClause);
         }
 
         /// <summary></summary>
         /// <param name="where"></param>
         /// <param name="paramName"></param>
         /// <param name="whereClause"></param>
-        public static void BindWhereClause(Dictionary<string, object> where, string paramName, string op, StringBuilder whereClause)
+        public static void Operate(Dictionary<string, object> where, string paramName, string op, StringBuilder whereClause)
         {
             string temp = null;
 
@@ -35,7 +35,7 @@ namespace X3Platform.Data
 
             temp = paramName + " " + op + " " + FormatValue(where[paramName]) + " ";
 
-            ConcatWhereClause(whereClause, temp);
+            Concat(whereClause, temp);
         }
 
         /// <summary></summary>
@@ -44,7 +44,7 @@ namespace X3Platform.Data
         /// <param name="beginParamName"></param>
         /// <param name="endParamName"></param>
         /// <param name="whereClause"></param>
-        public static void BindWhereBetweenClause(Dictionary<string, object> where, string paramName, string beginParamName, string endParamName, StringBuilder whereClause)
+        public static void Between(Dictionary<string, object> where, string paramName, string beginParamName, string endParamName, StringBuilder whereClause)
         {
             string temp = null;
 
@@ -64,13 +64,13 @@ namespace X3Platform.Data
                 temp = paramName + " <= " + FormatValue(where[endParamName]) + " ";
             }
 
-            ConcatWhereClause(whereClause, temp);
+            Concat(whereClause, temp);
         }
 
         /// <summary>格式化输出</summary>
         /// <param name="whereClause"></param>
         /// <param name="temp"></param>
-        private static void ConcatWhereClause(StringBuilder whereClause, string temp)
+        private static void Concat(StringBuilder whereClause, string temp)
         {
             if (!string.IsNullOrEmpty(temp))
             {

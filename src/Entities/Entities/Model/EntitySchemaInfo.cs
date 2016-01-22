@@ -69,6 +69,17 @@ namespace X3Platform.Entities.Model
         }
         #endregion
 
+        #region 属性:EntityClassFullName
+        private string m_EntityClassFullName = string.Empty;
+
+        /// <summary></summary>
+        public string EntityClassFullName
+        {
+            get { return m_EntityClassFullName; }
+            set { m_EntityClassFullName = value; }
+        }
+        #endregion
+
         #region 属性:DataTableName
         private string m_DataTableName = string.Empty;
 

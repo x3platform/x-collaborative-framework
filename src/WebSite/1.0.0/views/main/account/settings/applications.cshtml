@@ -2,7 +2,20 @@
 <script type="text/javascript" id="main-account-settings-admin-script" src="/views/main/account/settings/applications.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
 <div id="window-container" class="window-container">
-  <div id="window-main-table" class="table" style="width:100%;">
-
+  <div id="window-main-table" class="table">
+    <div id="window-main-table-header" class="table-header x-freeze-height">
+      <div id="toolbar" class="table-toolbar">
+        <a href="/connect/form" class="btn btn-default">新增</a>
+      </div>
+      <span>应用连接器列表</span>
+    </div>
+    <div id="window-main-table-body" class="table-body">
+      <div class="table-row-filter form-inline text-right x-freeze-height">
+        <input id="searchText" type="text" value="" class="form-control input-sm" />
+        <button id="btnFilter" class="btn btn-default btn-sm" title="查询"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+      <div id="window-main-table-container"><span class="tooltip-loading-text "><img src="/resources/images/loading.gif" alt="正在加载..." /></span></div>
+    </div>
+    <div id="window-main-table-footer" class="table-footer x-freeze-height"></div>
   </div>
 </div>

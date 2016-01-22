@@ -20,23 +20,18 @@
     /// <summary></summary>
     public class ApplicationMethodService : IApplicationMethodService
     {
-        /// <summary>配置</summary>
-        private AppsConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IApplicationMethodProvider provider = null;
 
         /// <summary>缓存存储</summary>
-        private Dictionary<string, ApplicationMethodInfo> Dictionary = new Dictionary<string, ApplicationMethodInfo>();
+        private Dictionary<string, ApplicationMethodInfo> dict = new Dictionary<string, ApplicationMethodInfo>();
 
         #region 构造函数:ApplicationMethodService()
         /// <summary>构造函数</summary>
         public ApplicationMethodService()
         {
-            this.configuration = AppsConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AppsConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AppsConfiguration.ApplicationName, springObjectFile);
 
@@ -65,16 +60,31 @@
         /// <returns>实例<see cref="ApplicationMethodInfo"/>详细信息</returns>
         public ApplicationMethodInfo Save(ApplicationMethodInfo param)
         {
-            return this.provider.Save(param);
+            this.provider.Save(param);
+
+            if (param != null && this.dict.ContainsKey(param.Name))
+            {
+                // 同步到缓存
+                this.dict[param.Name] = param;
+            }
+
+            return param;
         }
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
-        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
-        public void Delete(string ids)
+        /// <param name="id">实例的标识</param>
+        public void Delete(string id)
         {
-            provider.Delete(ids);
+            ApplicationMethodInfo param = this.FindOne(id);
+
+            if (param != null && this.dict.ContainsKey(param.Name))
+            {
+                this.dict.Remove(param.Name);
+            }
+
+            provider.Delete(id);
         }
         #endregion
 
@@ -101,27 +111,27 @@
             ApplicationMethodInfo param = null;
 
             // 初始化缓存
-            if (this.Dictionary.Count == 0)
+            if (this.dict.Count == 0)
             {
-                IList<ApplicationMethodInfo> list = this.FindAll();
+                IList<ApplicationMethodInfo> list = this.provider.FindAll(new DataQuery());
 
                 foreach (ApplicationMethodInfo item in list)
                 {
-                    if (this.Dictionary.ContainsKey(item.Name))
+                    if (this.dict.ContainsKey(item.Name))
                     {
                         KernelContext.Log.Warn(string.Format("method:{0}", item.Name) + " is exists.");
                     }
                     else
                     {
-                        this.Dictionary.Add(item.Name, item);
+                        this.dict.Add(item.Name, item);
                     }
                 }
             }
 
             // 查找缓存数据
-            if (this.Dictionary.ContainsKey(name))
+            if (this.dict.ContainsKey(name))
             {
-                param = this.Dictionary[name];
+                param = this.dict[name];
             }
 
             // 如果缓存中未找到相关数据，则查找数据库内容
@@ -129,33 +139,24 @@
         }
         #endregion
 
-        #region 函数:FindAll()
+        #region 函数:FindAllByApplicationId(string applicationId)
         /// <summary>查询所有相关记录</summary>
+        /// <param name="applicationId">应用唯一标识</param>
         /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
-        public IList<ApplicationMethodInfo> FindAll()
+        public IList<ApplicationMethodInfo> FindAllByApplicationId(string applicationId)
         {
-            return FindAll(string.Empty);
+            return this.provider.FindAllByApplicationId(applicationId);
         }
         #endregion
 
-        #region 函数:FindAll(string whereClause)
-        /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
-        public IList<ApplicationMethodInfo> FindAll(string whereClause)
-        {
-            return FindAll(whereClause, 0);
-        }
-        #endregion
 
-        #region 函数:FindAll(string whereClause, int length)
+        #region 函数:FindAllByApplicationName(string applicationName)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="whereClause">SQL 查询条件</param>
-        /// <param name="length">条数</param>
+        /// <param name="applicationName">应用名称</param>
         /// <returns>返回所有实例<see cref="ApplicationMethodInfo"/>的详细信息</returns>
-        public IList<ApplicationMethodInfo> FindAll(string whereClause, int length)
+        public IList<ApplicationMethodInfo> FindAllByApplicationName(string applicationName)
         {
-            return this.provider.FindAll(whereClause, length);
+            return this.provider.FindAllByApplicationName(applicationName);
         }
         #endregion
 
@@ -215,9 +216,14 @@
         ///<param name="param">应用参数信息</param>
         public IList<ApplicationMethodInfo> FetchNeededSyncData(DateTime beginDate, DateTime endDate)
         {
-            string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
+            DataQuery query = new DataQuery();
 
-            return this.provider.FindAll(whereClause, 0);
+            query.Variables["scence"] = "FetchNeededSyncData";
+
+            query.Where.Add("BeginDate", beginDate);
+            query.Where.Add("EndDate", endDate);
+
+            return this.provider.FindAll(query);
         }
         #endregion
 

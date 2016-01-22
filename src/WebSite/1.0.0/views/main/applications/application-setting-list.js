@@ -100,7 +100,7 @@ main.applications.application.setting.list = {
     var outString = '';
 
     outString += '<input id="id" name="id" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.id, '') + '" />';
-    outString += '<input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.updateDateTimestampView, '') + '" />';
+    outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.modifiedDateTimestampView, '') + '" />';
 
     outString += '<table class="table-style" style="width:100%">';
 

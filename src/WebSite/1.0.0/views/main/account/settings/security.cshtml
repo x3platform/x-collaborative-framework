@@ -1,0 +1,35 @@
+﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script type="text/javascript" id="main-account-settings-security-script" src="/views/main/account/settings/security.js"></script>
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+<div id="window-container" class="window-container">
+  <div id="window-main-table" class="table">
+    <div class="table-body">
+      <div class="panel panel-default" style="margin:10px;">
+        <div class="panel-heading">会话管理</div>
+        <div class="panel-body">
+          @foreach (var session in ViewBag.sessions)
+          {
+            <div>@session.IP</div>
+            <div title="@session.HttpUserAgent">
+              @X3Platform.Web.UserAgents.Parser.GetDefault().Parse(session.HttpUserAgent).OS
+            </div>
+          }
+        </div>
+      </div>
+      <div class="panel panel-default" style="margin:10px;">
+        <div class="panel-heading">操作记录</div>
+        <table class="table">
+          <tr>
+            @foreach (var log in ViewBag.logs)
+            {
+            <tr>
+              <td>@log.OperationName</td>
+              <td>@log.Description</td>
+              <td>@log.Date.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            </tr>
+            }
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

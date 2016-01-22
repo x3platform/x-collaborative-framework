@@ -1,6 +1,6 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
 <script type="text/javascript" id="main-account-settings-profile-script" src="/views/main/account/settings/profile.js"></script>
-@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName))
+@Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"我的控制台\基本信息" } }))
 <div id="window-container" class="window-container">
   <div id="window-main-table" class="table" style="width:100%;">
     <div id="window-main-table-header" class="table-header">
@@ -17,7 +17,7 @@
             <td class="table-body-text" style="width:120px">姓名</td>
             <td class="table-body-input" style="width:160px"><input id="name" name="name" type="text" x-dom-data-type="value" x-dom-data-required="1" x-dom-data-required-warning="必须填写【姓名】。" value="@(ViewBag.member.Account.Name)" class="form-control" style="width:160px;" /></td>
             <td class="table-body-text" rowspan="4" style="width:120px">照片</td>
-            <td class="table-body-input" rowspan="4"><img id="avatar" src="@ViewBag.avatar_120x120" style="margin:2px 0 0 0px; border: 4px solid #666;" /></td>
+            <td class="table-body-input" rowspan="4"><img id="avatar" src="@ViewBag.avatar_180x180" style="margin:2px 0 0 0px; border: 4px solid #666;" /></td>
           </tr>
 
           <tr class="table-row-normal-transparent">

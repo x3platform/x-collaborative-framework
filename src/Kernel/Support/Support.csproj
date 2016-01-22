@@ -80,6 +80,7 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Management" />
     <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -113,6 +114,7 @@
     <Compile Include="CacheBuffer\Configuration\CacheBufferConfigurationView.cs" />
     <Compile Include="CacheBuffer\ICacheable.cs" />
     <Compile Include="CacheBuffer\ICacheProvider.cs" />
+    <Compile Include="CacheBuffer\MemoryCacheProvider.cs" />
     <Compile Include="Collections\Algorithms.cs" />
     <Compile Include="Collections\Bag.cs" />
     <Compile Include="Collections\BigList.cs" />
@@ -240,6 +242,14 @@
     <Compile Include="Logging\Util\ILogExtensions.cs" />
     <Compile Include="Logging\Util\PatternStringConverters\EnvironmentFolderPathPatternConverter.cs" />
     <Compile Include="Logging\Util\PropertyEntry.cs" />
+    <Compile Include="Markdown\Extensions\Board\LinkToPost.cs" />
+    <Compile Include="Markdown\Extensions\IExtensionInterface.cs" />
+    <Compile Include="Markdown\Extensions\Mal\Articles.cs" />
+    <Compile Include="Markdown\Extensions\Mal\Profile.cs" />
+    <Compile Include="Markdown\Extensions\Wiki\Articles.cs" />
+    <Compile Include="Markdown\Extensions\Youtube\LinkToTitle.cs" />
+    <Compile Include="Markdown\Markdown.cs" />
+    <Compile Include="Markdown\MarkdownOptions.cs" />
     <Compile Include="Messages\Configuration\MessageQueueConfiguration.cs" />
     <Compile Include="Messages\Configuration\MessageQueueConfigurationView.cs" />
     <Compile Include="Security\CiphertextFormat.cs" />
@@ -1243,6 +1253,7 @@
     <Compile Include="Yaml\Serialization\YamlIgnoreAttribute.cs" />
     <Compile Include="Yaml\Serialization\YamlMember.cs" />
     <None Include="Ajax\config\X3Platform.Ajax.config" />
+    <EmbeddedResource Include="CacheBuffer\defaults\config.yaml" />
     <None Include="Collections\README.md" />
     <None Include="CommandLine\Infrastructure\SR.strings" />
     <None Include="CommandLine\Infrastructure\SR.tt">
@@ -1296,6 +1307,7 @@
     <Compile Include="Web\Util\VirtualPathHelper.cs" />
     <EmbeddedResource Include="Security\defaults\config.yaml" />
     <EmbeddedResource Include="Messages\defaults\config.yaml" />
+    <None Include="Markdown\README.md" />
     <None Include="Security\config\X3Platform.Security.config" />
     <None Include="Web\UrlRewriter\config\X3Platform.Web.UrlRewriter.config" />
     <None Include="Yaml\README.md" />

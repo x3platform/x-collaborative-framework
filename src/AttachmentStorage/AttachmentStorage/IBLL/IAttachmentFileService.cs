@@ -35,7 +35,7 @@ namespace X3Platform.AttachmentStorage.IBLL
         /// <param name="id">标识</param>
         void Delete(string id);
         #endregion
-        
+
         // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
@@ -47,13 +47,7 @@ namespace X3Platform.AttachmentStorage.IBLL
         IAttachmentFileInfo FindOne(string id);
         #endregion
 
-        #region 函数:FindAll()
-        /// <summary>查询所有相关记录</summary>
-        /// <returns>返回所有 实例<see cref="IAttachmentFileInfo"/>的详细信息</returns>
-        IList<IAttachmentFileInfo> FindAll();
-        #endregion
-
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
         /// <param name="length">条数</param>
@@ -68,7 +62,7 @@ namespace X3Platform.AttachmentStorage.IBLL
         /// <returns>返回所有 实例<see cref="IAttachmentFileInfo"/>的详细信息</returns>
         IList<IAttachmentFileInfo> FindAllByEntityId(string entityClassName, string entityId);
         #endregion
-   
+
         // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
@@ -78,7 +72,7 @@ namespace X3Platform.AttachmentStorage.IBLL
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
-        
+
         /// <param name="rowCount">行数</param>
         /// <returns>返回一个列表实例</returns> 
         IList<IAttachmentFileInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
@@ -98,13 +92,31 @@ namespace X3Platform.AttachmentStorage.IBLL
         void Rename(string id, string name);
         #endregion
 
-        #region 函数:Copy(IAttachmentFileInfo param, string entityId, string entityClassName)
+        #region 函数:SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append = false)
+        /// <summary>设置有效的文件信息</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="attachmentFileIds">附件唯一标识，多个附件以逗号隔开</param>
+        /// <param name="append">附加文件</param>
+        void SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append = false);
+        #endregion
+
+        #region 函数:Copy(IAttachmentFileInfo param, string entityClassName, string entityId)
         /// <summary>物理复制全部附件信息到实体类</summary>
         /// <param name="param">实例<see cref="IAttachmentFileInfo"/>详细信息</param>
         /// <param name="entityId">实体标识</param>
         /// <param name="entityClassName">实体类名称</param>
         /// <returns>新的 实例<see cref="IAttachmentFileInfo"/>详细信息</returns>
-        IAttachmentFileInfo Copy(IAttachmentFileInfo param, string entityId, string entityClassName);
+        IAttachmentFileInfo Copy(IAttachmentFileInfo param, string entityClassName, string entityId);
+        #endregion
+
+        #region 函数:Move(IAttachmentFileInfo param, string path)
+        /// <summary>物理移动附件路径</summary>
+        /// <param name="param">实例<see cref="IAttachmentFileInfo"/>详细信息</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>新的 实例<see cref="IAttachmentFileInfo"/>详细信息</returns>
+        IAttachmentFileInfo Move(IAttachmentFileInfo param, string path);
         #endregion
     }
 }

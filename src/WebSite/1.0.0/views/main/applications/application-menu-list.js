@@ -157,7 +157,7 @@ main.applications.application.menu.list = {
         outString += '</table>';
 
         outString += '<input id="id" name="id" type="hidden" value="' + (typeof (param.id) == 'undefined' ? '' : param.id) + '" />';
-        outString += '<input id="updateDate" name="updateDate" type="hidden" value="' + (typeof (param.updateDateTimestampView) == 'undefined' ? '' : param.updateDateTimestampView) + '" />';
+        outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" value="' + (typeof (param.modifiedDateTimestampView) == 'undefined' ? '' : param.modifiedDateTimestampView) + '" />';
 
         return outString;
     },
@@ -325,7 +325,7 @@ main.applications.application.menu.list = {
         outString += '<orderId><![CDATA[' + $('#orderId').val() + ']]></orderId>';
         outString += '<status><![CDATA[' + ($('#status')[0].checked ? '1' : '0') + ']]></status>';
         outString += '<remark><![CDATA[' + $('#remark').val() + ']]></remark>';
-        outString += '<updateDate><![CDATA[' + $('#updateDate').val() + ']]></updateDate>';
+        outString += '<modifiedDate><![CDATA[' + $('#modifiedDate').val() + ']]></modifiedDate>';
         outString += '</ajaxStorage>';
 
         var options = {

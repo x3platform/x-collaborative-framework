@@ -33,13 +33,13 @@ x.ui.windows.newApplicationOptionListWindow = function(name, options)
 
             x.each(list, function(index, node)
             {
-                var name = node.name.replace('.', '-');
+                var name = node.name.replace(/./g, '-');
 
                 outString += '<tr id="' + name + '" >';
                 outString += '<td id="' + name + '-label-view" style="width:200px" ><a href="javascript:' + me.name + '.toggle(\'' + name + '\');" >' + node.label + '</a></td>';
                 outString += '<td id="' + name + '-value-view" style="word-break:break-all;" >' + node.value + '</td>';
                 outString += '<td id="' + name + '-status-view" style="width:60px" >' + x.app.setColorStatusView(node.status) + '</td>';
-                outString += '<td style="width:80px" >' + node.updateDateView + '</td>';
+                outString += '<td style="width:100px" >' + node.modifiedDateView + '</td>';
                 outString += '<td style="width:40px" ><a href="javascript:' + me.name + '.toggle(\'' + name + '\');" title="编辑" ><i class="fa fa-pencil-square-o"></i></a></td>';
                 outString += '</tr>';
 
@@ -79,7 +79,7 @@ x.ui.windows.newApplicationOptionListWindow = function(name, options)
         {
             var outString = '';
 
-            var name = param.name.replace('.', '-');
+            var name = param.name.replace(/./g, '-');
 
             outString += '<table class="table table-borderless" >';
 

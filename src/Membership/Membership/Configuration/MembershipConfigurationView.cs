@@ -881,6 +881,87 @@ namespace X3Platform.Membership.Configuration
         }
         #endregion
 
+        #region 属性:AvatarPhysicalFolder
+        private string m_AvatarPhysicalFolder = string.Empty;
+
+        /// <summary>帐号头像文件夹物理路径</summary>
+        public string AvatarPhysicalFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_AvatarPhysicalFolder))
+                {
+                    this.m_AvatarPhysicalFolder = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "AvatarPhysicalFolder",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (string.IsNullOrEmpty(m_AvatarPhysicalFolder))
+                    {
+                        this.m_AvatarPhysicalFolder = string.Format(@"{0}{1}\", KernelConfigurationView.Instance.ApplicationPathRoot, "uploads\avatar");
+                    }
+                }
+
+                return this.m_AvatarPhysicalFolder;
+            }
+        }
+        #endregion
+
+        #region 属性:AvatarVirtualFolder
+        private string m_AvatarVirtualFolder = string.Empty;
+
+        /// <summary>帐号头像文件夹虚拟路径</summary>
+        public string AvatarVirtualFolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(m_AvatarVirtualFolder))
+                {
+                    this.m_AvatarVirtualFolder = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "AvatarVirtualFolder",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (string.IsNullOrEmpty(m_AvatarVirtualFolder))
+                    {
+                        m_AvatarVirtualFolder = @"/uploads/avatar";
+                    }
+                }
+
+                return m_AvatarVirtualFolder;
+            }
+        }
+        #endregion
+
+        #region 属性:AvatarSizes
+        private string m_AvatarSizes = string.Empty;
+
+        /// <summary>帐号头像文件大小</summary>
+        public string AvatarSizes
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(m_AvatarSizes))
+                {
+                    this.m_AvatarSizes = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "AvatarSizes",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里没有设置，设置一个默认值。
+                    if (string.IsNullOrEmpty(m_AvatarSizes))
+                    {
+                        m_AvatarSizes = "180,120,88";
+                    }
+                }
+
+                return m_AvatarSizes;
+            }
+        }
+        #endregion
+
         #region 属性:PackageServiceDisplayName
         private string m_PackageServiceDisplayName = string.Empty;
 

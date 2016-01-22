@@ -41,13 +41,12 @@
                 {
                     accountIdentity = string.Format("{0}-{1}", account.Id, DigitalNumberContext.Generate("Key_Session"));
 
-
                     HttpAuthenticationCookieSetter.SetUserCookies(accountIdentity);
 
                     // 记录登录时间
                     if (account.LoginDate.AddHours(8) < DateTime.Now)
                     {
-                        MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                        MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, IPQueryContext.GetClientIP(), DateTime.Now);
                     }
                 }
             }

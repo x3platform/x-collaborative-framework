@@ -43,7 +43,7 @@ namespace X3Platform.AttachmentStorage.IDAL
         /// <param name="id">标识</param>
         void Delete(string id);
         #endregion
-        
+
 		// -------------------------------------------------------
 		// 查询
         // -------------------------------------------------------
@@ -55,8 +55,8 @@ namespace X3Platform.AttachmentStorage.IDAL
         IAttachmentFileInfo FindOne(string id);
 		#endregion
 
-		#region 函数:FindAll(string whereClause,int length)
-		/// <summary>查询所有相关记录</summary>
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
 		/// <param name="query">数据查询参数</param>
 		/// <param name="length">条数</param>
 		/// <returns>返回所有 实例<see cref="IAttachmentFileInfo"/>的详细信息</returns>
@@ -97,6 +97,15 @@ namespace X3Platform.AttachmentStorage.IDAL
         /// <param name="id">附件标识</param>
         /// <param name="name">新的附件名称</param>
         void Rename(string id, string name);
+        #endregion
+
+        #region 函数:SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append)
+        /// <summary>设置有效的文件信息</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="attachmentFileIds">附件唯一标识，多个附件以逗号隔开</param>
+        /// <param name="append">附加文件</param>
+        void SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append);
         #endregion
 	}
 }

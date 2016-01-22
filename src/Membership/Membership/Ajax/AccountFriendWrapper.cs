@@ -172,7 +172,6 @@ namespace X3Platform.Membership.Ajax
             foreach (DataRow row in table.Rows)
             {
                 outString.Append("{");
-                outString.Append("\"id\":\"" + row["Id"].ToString() + "\",");
                 outString.Append("\"accountId\":\"" + row["AccountId"].ToString() + "\",");
                 outString.Append("\"friendAccountId\":\"" + row["FriendAccountId"].ToString() + "\",");
                 outString.Append("\"friendAccountName\":\"" + MembershipUtil.GetAccount(row["FriendAccountId"].ToString()).Name + "\",");

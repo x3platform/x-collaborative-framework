@@ -27,6 +27,7 @@ namespace X3Platform.CacheBuffer.Configuration
         }
 
         #region 构造函数:CacheBufferConfiguration()
+        /// <summary></summary>
         public CacheBufferConfiguration()
         {
             using (var stream = typeof(CacheBufferConfiguration).Assembly.GetManifestResourceStream("X3Platform.CacheBuffer.defaults.config.yaml"))

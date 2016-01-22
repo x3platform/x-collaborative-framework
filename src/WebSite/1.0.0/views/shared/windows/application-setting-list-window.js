@@ -95,7 +95,7 @@ x.ui.windows.newApplicationSettingListWindow = function(name, options)
                 outString += '<td><a href="javascript:' + me.name + '.openDialog(\'' + node.id + '\');">' + node.text + '</a></td>';
                 outString += '<td>' + node.value + '</td>';
                 outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-                outString += '<td>' + node.updateDateView + '</td>';
+                outString += '<td>' + node.modifiedDateView + '</td>';
                 outString += '<td><a href="javascript:' + me.name + '.openDialog(\'' + node.id + '\');" title="编辑" ><i class="fa fa-pencil-square-o" ></i></a></td>';
                 // outString += '<td><a href="javascript:' + me.name + '.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');">删除</a></td>';
                 outString += '</tr>';
@@ -131,7 +131,7 @@ x.ui.windows.newApplicationSettingListWindow = function(name, options)
             var outString = '';
 
             outString += '<input id="id" name="id" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.id, '') + '" />';
-            outString += '<input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.updateDateTimestampView, '') + '" />';
+            outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" x-dom-data-type="value" value="' + x.isUndefined(param.modifiedDateTimestampView, '') + '" />';
 
             outString += '<div class="form-horizontal" style="margin:20px;" >';
 

@@ -11,6 +11,8 @@
     using X3Platform.AttachmentStorage.Images;
     using X3Platform.AttachmentStorage.Util;
     using X3Platform.AttachmentStorage.Configuration;
+    using System.Text.RegularExpressions;
+    using System.IO;
     #endregion
 
     /// <summary>图片上传</summary>
@@ -27,14 +29,6 @@
 
         public override void ProcessRequest(HttpContext context)
         {
-            //
-            // 由于Flash在读取FireFox的cookie时存在bug引发以下用户验证代码发生,所以注释. 
-            // [*]寻求别的验证方法替代当前方式. 
-            //
-            // 登录用户才可上传文件
-            if (KernelContext.Current.User == null)
-                return;
-
             HttpRequest request = context.Request;
 
             HttpResponse response = context.Response;
@@ -49,13 +43,25 @@
                 string attachmentEntityClassName = request.Form["attachmentEntityClassName"];
                 string attachmentFolder = request.Form["attachmentFolder"];
 
-                int resize = request.Form["targetWidth"] == null ? 0 : Convert.ToInt32(request.Form["resize"]);
+                // 调整图片大小
+                int resize = request.Form["resize"] == null ? 0 : Convert.ToInt32(request.Form["resize"]);
                 int targetWidth = request.Form["targetWidth"] == null ? 0 : Convert.ToInt32(request.Form["targetWidth"]);
                 int targetHeight = request.Form["targetHeight"] == null ? 0 : Convert.ToInt32(request.Form["targetHeight"]);
 
-                IAttachmentParentObject parent = new AttachmentParentObject(entityId, entityClassName, attachmentEntityClassName, attachmentFolder);
+                // 设置图片缩略图
+                int thumbnail = request.Form["thumbnail"] == null ? 0 : Convert.ToInt32(request.Form["thumbnail"]);
+                int thumbnailWidth = request.QueryString["targetWidth"] == null ? 100 : Convert.ToInt32(request.QueryString["thumbnailWidth"]);
+                int thumbnailHeight = request.QueryString["thumbnailHeight"] == null ? 100 : Convert.ToInt32(request.QueryString["thumbnailHeight"]);
 
-                IAttachmentFileInfo attachment = UploadFileHelper.CreateAttachmentFile(parent, file);
+                // 匿名用户上传文件的文件, 存放在 anonymous 目录
+                if (KernelContext.Current.User == null) { attachmentFolder = "anonymous"; }
+
+                IAttachmentFileInfo attachment = UploadFileHelper.CreateAttachmentFile(
+                    entityId,
+                    entityClassName,
+                    attachmentEntityClassName,
+                    attachmentFolder,
+                    file);
 
                 // Office 在线客户端上传方式
                 // 支持客户端赋值附件标识
@@ -64,7 +70,8 @@
                     if (AttachmentStorageContext.Instance.AttachmentFileService.IsExist(attachmentId))
                     {
                         HttpContext.Current.Response.StatusCode = 500;
-                        HttpContext.Current.Response.Write("Attachment id already exists.");
+                        HttpContext.Current.Response.StatusDescription = "Attachment id already exists.";
+                        HttpContext.Current.Response.End();
                     }
                     else
                     {
@@ -72,18 +79,60 @@
                     }
                 }
 
-                // 调整图片大小
-                if (resize == 1)
+                // 检测文件最小限制
+                if (attachment.FileSize < AttachmentStorageConfigurationView.Instance.AllowMinFileSize)
                 {
-                    Image image = Image.FromStream(ByteHelper.ToStream(attachment.FileData));
-
-                    attachment.FileData = ThumbnailManagement.Resize(image, attachment.FileType, targetWidth, targetHeight);
+                    HttpContext.Current.Response.StatusCode = 500;
+                    HttpContext.Current.Response.StatusDescription = "Attachment file size is too small.";
+                    HttpContext.Current.Response.End();
                 }
 
-                attachment.Save();
+                // 检测文件最大限制
+                if (attachment.FileSize > AttachmentStorageConfigurationView.Instance.AllowMaxFileSize)
+                {
+                    HttpContext.Current.Response.StatusCode = 500;
+                    HttpContext.Current.Response.StatusDescription = "Attachment file size is too big.";
+                    HttpContext.Current.Response.End();
+                }
 
-                HttpContext.Current.Response.StatusCode = 200;
-                HttpContext.Current.Response.Write(attachment.Id);
+                // 检测文件名后缀限制
+                if (!Regex.IsMatch(attachment.FileType, AttachmentStorageConfigurationView.Instance.AllowFileTypes))
+                {
+                    HttpContext.Current.Response.StatusCode = 500;
+                    HttpContext.Current.Response.StatusDescription = "Attachment file type is invalid.";
+                    HttpContext.Current.Response.End();
+                }
+
+                if (HttpContext.Current.Response.StatusCode != 500)
+                {
+                    // 调整图片大小
+                    if (resize == 1)
+                    {
+                        Image image = Image.FromStream(ByteHelper.ToStream(attachment.FileData));
+
+                        attachment.FileData = ThumbnailManagement.Resize(image, attachment.FileType, targetWidth, targetHeight);
+                    }
+
+                    attachment.Save();
+
+                    // 调整图片大小
+                    if (thumbnail == 1)
+                    {
+                        Image image = Image.FromStream(ByteHelper.ToStream(attachment.FileData));
+
+                        attachment.FileData = ThumbnailManagement.Resize(image, attachment.FileType, thumbnailWidth, thumbnailHeight);
+
+                        var fileName = string.Format("{0}_{1}x{2}{3}", attachment.Id, thumbnailWidth, thumbnailHeight, attachment.FileType);
+
+                        Stream stream = ByteHelper.ToStream(attachment.FileData);
+
+                        // 创建缩略图
+                        ThumbnailManagement.CreateThumbnail(attachment.Id, stream, attachment.FileType, thumbnailWidth, thumbnailHeight);
+                    }
+
+                    HttpContext.Current.Response.StatusCode = 200;
+                    HttpContext.Current.Response.Write(attachment.Id);
+                }
             }
             catch (Exception ex)
             {

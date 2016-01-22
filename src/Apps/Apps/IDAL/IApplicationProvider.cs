@@ -68,10 +68,10 @@
         void Update(ApplicationInfo param);
         #endregion
 
-        #region 函数:Delete(string ids)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
         /// <param name="ids">实例的标识信息,多个以逗号分开.</param>
-        void Delete(string ids);
+        void Delete(string id);
         #endregion
 
         // -------------------------------------------------------

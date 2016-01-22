@@ -4,14 +4,14 @@ namespace X3Platform.CacheBuffer
 
     /// <summary>缓存操作异常</summary>
     [Serializable]
-    public class CacheBufferException : Exception
+    public class CachingException : Exception
     {
-        public CacheBufferException(string message)
+        public CachingException(string message)
             : base(message)
         {
         }
 
-        public CacheBufferException(string message, Exception innerException)
+        public CachingException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

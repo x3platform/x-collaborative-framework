@@ -11,6 +11,8 @@ namespace X3Platform.AttachmentStorage.BLL
     using X3Platform.AttachmentStorage.IBLL;
     using X3Platform.AttachmentStorage.IDAL;
     using X3Platform.AttachmentStorage.Util;
+    using X3Platform.Membership;
+    using X3Platform.Apps;
     #endregion
 
     public sealed class AttachmentFileService : IAttachmentFileService
@@ -61,7 +63,21 @@ namespace X3Platform.AttachmentStorage.BLL
         /// <param name="id">标识</param>
         public void Delete(string id)
         {
-            provider.Delete(id);
+            IAccountInfo account = KernelContext.Current.User;
+
+            if (AppsSecurity.IsAdministrator(account, AttachmentStorageConfiguration.ApplicationName))
+            {
+                this.provider.Delete(id);
+            }
+            else
+            {
+                IAttachmentFileInfo file = this.FindOne(id);
+                
+                if (file.CreatedBy == account.Id)
+                {
+                    this.provider.Delete(id);
+                }
+            }
         }
         #endregion
 
@@ -69,7 +85,7 @@ namespace X3Platform.AttachmentStorage.BLL
         // 查询
         // -------------------------------------------------------
 
-        #region 函数:FindOne(int id)
+        #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">AccountInfo Id号</param>
         /// <returns>返回一个 实例<see cref="IAttachmentFileInfo"/>的详细信息</returns>
@@ -78,7 +94,6 @@ namespace X3Platform.AttachmentStorage.BLL
             AttachmentFileInfo param = (AttachmentFileInfo)provider.FindOne(id);
 
             IAttachmentParentObject parent = new AttachmentParentObject();
-
 
             parent.EntityId = param.EntityId;
             parent.EntityClassName = param.EntityClassName;
@@ -91,26 +106,7 @@ namespace X3Platform.AttachmentStorage.BLL
         }
         #endregion
 
-        #region 函数:FindAll()
-        /// <summary>查询所有相关记录</summary>
-        /// <returns>返回所有 实例<see cref="IAttachmentFileInfo"/>的详细信息</returns>
-        public IList<IAttachmentFileInfo> FindAll()
-        {
-            return FindAll(string.Empty);
-        }
-        #endregion
-
-        #region 函数:FindAll(string whereClause)
-        /// <summary>查询所有相关记录</summary>
-        /// <param name="query">数据查询参数</param>
-        /// <returns>返回所有 实例<see cref="IAttachmentFileInfo"/>的详细信息</returns>
-        public IList<IAttachmentFileInfo> FindAll(string whereClause)
-        {
-            return this.FindAll(new DataQuery() { Length = 1000 });
-        }
-        #endregion
-
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
         /// <param name="length">条数</param>
@@ -169,13 +165,25 @@ namespace X3Platform.AttachmentStorage.BLL
         }
         #endregion
 
-        #region 函数:Copy(IAttachmentFileInfo param, string entityId, string entityClassName)
+        #region 函数:SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append = false)
+        /// <summary>设置有效的文件信息</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="attachmentFileIds">附件唯一标识，多个附件以逗号隔开</param>
+        /// <param name="append">附加文件</param>
+        public void SetValid(string entityClassName, string entityId, string attachmentFileIds, bool append = false)
+        {
+            this.provider.SetValid(entityClassName, entityId, attachmentFileIds, append);
+        }
+        #endregion
+
+        #region 函数:Copy(IAttachmentFileInfo param, string entityClassName, string entityId)
         /// <summary>物理复制全部附件信息到实体类</summary>
         /// <param name="param"><see cref="IAttachmentFileInfo" />实例详细信息</param>
         /// <param name="entityId">实体标识</param>
         /// <param name="entityClassName">实体类名称</param>
         /// <returns>新的<see cref="IAttachmentFileInfo" />实例详细信息</returns>
-        public IAttachmentFileInfo Copy(IAttachmentFileInfo param, string entityId, string entityClassName)
+        public IAttachmentFileInfo Copy(IAttachmentFileInfo param, string entityClassName, string entityId)
         {
             IAttachmentParentObject parent = new AttachmentParentObject();
 
@@ -189,6 +197,18 @@ namespace X3Platform.AttachmentStorage.BLL
             attachment.Save();
 
             return attachment;
+        }
+        #endregion
+
+        #region 函数:Move(IAttachmentFileInfo param, string path)
+        /// <summary>物理移动附件路径</summary>
+        /// <param name="param">实例<see cref="IAttachmentFileInfo"/>详细信息</param>
+        /// <param name="entityId">实体标识</param>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>新的 实例<see cref="IAttachmentFileInfo"/>详细信息</returns>
+        public IAttachmentFileInfo Move(IAttachmentFileInfo param, string path)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

@@ -182,8 +182,8 @@ main.membership.standard.organization.list = {
     outString += '<tr class="table-row-normal-transparent">';
     outString += '<td class="table-body-text" >修改时间</td>';
     outString += '<td class="table-body-input" colspan="3" >';
-    outString += (typeof (param.updateDateTimestampView) === 'undefined' ? '' : param.updateDateTimestampView);
-    outString += '<input id="updateDate" name="updateDate" type="hidden" x-dom-data-type="value" value="' + (typeof (param.updateDateTimestampView) === 'undefined' ? '' : param.updateDateTimestampView) + '" />';
+    outString += (typeof (param.modifiedDateTimestampView) === 'undefined' ? '' : param.modifiedDateTimestampView);
+    outString += '<input id="modifiedDate" name="modifiedDate" type="hidden" x-dom-data-type="value" value="' + (typeof (param.modifiedDateTimestampView) === 'undefined' ? '' : param.modifiedDateTimestampView) + '" />';
     outString += '</td>';
     outString += '</tr>';
     outString += '</table>';

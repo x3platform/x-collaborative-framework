@@ -154,7 +154,7 @@
                     routeData.Values.Add("controller", "Account");
                     routeData.Values.Add("action", "SignUp");
                 }
-                else if (Regex.IsMatch(friendlyUrl, @"^sign-up\?registerType=([\w+\-\.\%]+)$"))
+                else if (Regex.IsMatch(friendlyUrl, @"^sign-up\?registration=([\w+\-\.\%]+)$"))
                 {
                     // 注册
                     routeData.Values.Add("controller", "Account");
@@ -183,6 +183,18 @@
                     // 忘记密码
                     routeData.Values.Add("controller", "Account");
                     routeData.Values.Add("action", "ForgotPassword");
+                }
+                else if (Regex.IsMatch(friendlyUrl, @"^forgot-password\?registration=([\w+\-\.\%]+)$"))
+                {
+                    // 忘记密码
+                    routeData.Values.Add("controller", "Account");
+                    routeData.Values.Add("action", "ForgotPassword");
+                }
+                else if (Regex.IsMatch(friendlyUrl, @"^set-password\?registration=([\w+\-\.\%]+)&(email|mobile)=([\w+\-\.\@]+)&code=([\w+]+)$"))
+                {
+                    // 设置密码
+                    routeData.Values.Add("controller", "Account");
+                    routeData.Values.Add("action", "SetPassword");
                 }
                 else
                 {

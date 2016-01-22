@@ -1,0 +1,7 @@
+﻿---
+keys: 
+  # 缓存提供器
+  CacheProvider: X3Platform.CacheBuffer.MemoryCacheProvider,X3Platform.Support
+  # 缓存持续时间 默认 12小时 = 720分钟 单位(分钟)
+  CacheDefaultDuration : 720
+...

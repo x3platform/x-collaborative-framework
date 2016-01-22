@@ -1,7 +1,5 @@
 ﻿(function(x, window)
 {
-    // x.register('main');
-
     var main = {
 
         paging: x.page.newPagingHelper(50),

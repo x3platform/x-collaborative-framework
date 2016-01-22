@@ -855,13 +855,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 函数:SetIPAndLoginDate(string accountId, string ip, string loginDate)
+        #region 函数:SetIPAndLoginDate(string accountId, string ip, DateTime loginDate)
         /// <summary>设置登录名</summary>
         /// <param name="accountId">帐户标识</param>
         /// <param name="ip">登录IP</param>
         /// <param name="loginDate">登录时间</param>
         /// <returns>0 操作成功 | 1 操作失败</returns>
-        public int SetIPAndLoginDate(string accountId, string ip, string loginDate)
+        public int SetIPAndLoginDate(string accountId, string ip, DateTime loginDate)
         {
             return this.provider.SetIPAndLoginDate(accountId, ip, loginDate);
         }

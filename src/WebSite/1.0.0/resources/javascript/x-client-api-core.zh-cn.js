@@ -2,7 +2,7 @@
 // Name     : x-client-api 
 // Version  : 1.0.0 
 // Author   : ruanyu@live.com
-// Date     : 2015-11-24
+// Date     : 2016-01-15
 (function(global, factory) 
 {
     if (typeof module === "object" && typeof module.exports === "object") 
@@ -2419,7 +2419,7 @@
             {
             destination[property] = source[property];
             }
-    
+        
             return destination;
             */
     
@@ -3242,10 +3242,10 @@
         * // 初始化一个计时器
         * var timer = x.newTimer(5, function(timer) {
         *   console.log(new Date());
-        *   // 启动计时器
+        *   // 停止计时器
         *   timer.stop();
         * });
-        * // 停止计时器
+        * // 启动计时器
         * timer.start();
         */
         newTimer: function(interval, callback)
@@ -3411,6 +3411,7 @@
                     //否则，我们需要使用IE的方式来取消事件冒泡
                     window.event.cancelBubble = true;
                 }
+    
                 return false;
             },
             /*#endregion*/
@@ -3556,6 +3557,21 @@
             /*#endregion*/
         },
     
+        /*#region 函数:nonce(length)*/
+        /**
+        * 创建随机数
+        * @method nonce
+        * @memberof x
+        * @param {length} 随机数长度
+        */
+        nonce: function(length)
+        {
+            length = x.isUndefined(length, 6);
+    
+            return Number(x.randomText.create(1, '123456789') + x.randomText.create(length - 1, '0123456789'));
+        },
+        /*#endregion*/
+    
         /**
         * 字符串
         * @namespace string
@@ -3631,7 +3647,7 @@
                 }
                 else
                 {
-                    return text.replace(RegExp('(^' + trimText.replace(/\\/g,'\\\\') + ')', 'gi'), '');
+                    return text.replace(RegExp('(^' + trimText.replace(/\\/g, '\\\\') + ')', 'gi'), '');
                 }
             },
             /*#endregion*/
@@ -3652,7 +3668,7 @@
                 }
                 else
                 {
-                    return text.replace(RegExp('(' + trimText.replace(/\\/g,'\\\\') + '$)', 'gi'), '');
+                    return text.replace(RegExp('(' + trimText.replace(/\\/g, '\\\\') + '$)', 'gi'), '');
                     // return (text.substr(text.length - trimText.length, trimText.length) === trimText) ? text.substr(0, text.length - trimText.length) : text;
                 }
             },
@@ -4251,7 +4267,7 @@
             // 元素特性
             elementExtensions: !!window.HTMLElement,
             specificElementExtensions:
-    		        document.createElement('div')['__proto__']
+                document.createElement('div')['__proto__']
                     && document.createElement('div')['__proto__'] !== document.createElement('form')['__proto__']
         }
     };
@@ -6542,31 +6558,31 @@
             // options.inputName ,options multiSelection
             var input = x.dom(options.inputName);
     
-            if ('[contacts],[corporation],[project]'.indexOf(options.featureName) > -1)
+            if('[contacts],[corporation],[project]'.indexOf(options.featureName) > -1)
             {
                 // 根据data标签的数据内容设置隐藏值和文本信息
                 var data = input.attr('x-dom-data');
     
-                if (typeof (data) !== 'undefined' && data.indexOf('#') > -1)
+                if(typeof (data) !== 'undefined' && data.indexOf('#') > -1)
                 {
                     var selectedValue = '';
                     var selectedText = '';
     
                     var list = x.string.trim(data, ',').split(',');
     
-                    for (var i = 0; i < list.length; i++)
+                    for(var i = 0;i < list.length;i++)
                     {
                         selectedValue += list[i].split('#')[1] + ',';
                         selectedText += list[i].split('#')[2] + ';';
     
                         // 单选时,只取data第一个值
-                        if (options.multiSelection === 0) { break; }
+                        if(options.multiSelection === 0) { break; }
                     }
     
                     selectedValue = x.string.rtrim(selectedValue, ',');
                     selectedText = x.string.rtrim(selectedText, ';');
     
-                    if (options.multiSelection === 1)
+                    if(options.multiSelection === 1)
                     {
                         // 多选
                         input.val(data);
@@ -6612,13 +6628,13 @@
                         warning += x.dom.data.checkDataInput(node, options.tooltip);
                     }
                 }
-                catch (ex)
+                catch(ex)
                 {
                     x.debug.error(ex);
                 }
             });
     
-            if (warning === '')
+            if(warning === '')
             {
                 return false;
             }
@@ -6637,11 +6653,11 @@
         checkDataInput: function(node, warnTooltip)
         {
             // 如果没有id信息，或者为空则不检测
-            if (typeof (node.id) === 'undefined' || node.id === '') { return ''; }
+            if(typeof (node.id) === 'undefined' || node.id === '') { return ''; }
     
             var warning = '';
     
-            if (warnTooltip == 1)
+            if(warnTooltip == 1)
             {
                 x.tooltip.newWarnTooltip({ element: node.id, hide: 1 });
             }
@@ -6649,15 +6665,15 @@
             if($(node).attr('x-dom-data-required'))
             {
                 // 数据必填项验证
-                if ($(node).val().trim() === '')
+                if($(node).val().trim() === '')
                 {
                     var dataVerifyWarning = $(node).attr('x-dom-data-required-warning');
     
                     // x.debug.log('x:' + x.page.getElementLeft(node) + ' y:' + x.page.getElementTop(node));
     
-                    if (dataVerifyWarning)
+                    if(dataVerifyWarning)
                     {
-                        if (warnTooltip == 1)
+                        if(warnTooltip == 1)
                         {
                             x.tooltip.newWarnTooltip({ element: node.id, message: dataVerifyWarning, hide: 0 });
                         }
@@ -6666,11 +6682,11 @@
                     }
                 }
             }
-           
+    
             if($(node).attr('x-dom-data-regexp'))
             {
                 // 数据规则验证
-                if ($(node).val().trim() !== '')
+                if($(node).val().trim() !== '')
                 {
                     if(!x.expressions.exists({ text: $(node).val(), ignoreCase: $(node).attr('x-dom-data-regexp-ignoreCase'), regexpName: $(node).attr('x-dom-data-regexp-name'), regexp: $(node).attr('x-dom-data-regexp') }))
                     {
@@ -6678,9 +6694,9 @@
     
                         // x.debug.log(x.page.getElementTop(node));
     
-                        if (dataRegExpWarning)
+                        if(dataRegExpWarning)
                         {
-                            if (warnTooltip == 1)
+                            if(warnTooltip == 1)
                             {
                                 x.tooltip.newWarnTooltip({ element: node.id, message: dataRegExpWarning, hide: 0 });
                             }
@@ -6701,12 +6717,12 @@
         */
         serialize: function(options)
         {
-            options = x.ext({}, x.dom.data.defaults, options || {});
+            options = x.ext({ scope: '' }, x.dom.data.defaults, options || {});
     
             // 统一格式为大写
             options.storageType = options.storageType.toUpperCase();
     
-            if (x.isUndefined(serializeHooks[options.storageType])) { x.debug.error('Not supported serialize[{"storageType":"' + options.storageType + '"}].'); }
+            if(x.isUndefined(serializeHooks[options.storageType])) { x.debug.error('Not supported serialize[{"storageType":"' + options.storageType + '"}].'); }
     
             return serializeHooks[options.storageType](options);
         }
@@ -6724,19 +6740,21 @@
     {
         var outString = '';
     
-        var list = x.dom('*');
+        var selector = options.scope == '' ? '*' : (options.scope + ' *');
+    
+        var list = x.dom(selector);
     
         x.each(list, function(index, node)
         {
             try
             {
-                if (x.isUndefined(node.id) || node.id === '') { return; }
+                if(x.isUndefined(node.id) || node.id === '') { return; }
     
                 var dataType = x.dom(node).attr(options.dataTypeAttributeName);
     
-                if (!x.isUndefined(dataType) && dataType != null)
+                if(!x.isUndefined(dataType) && dataType != null)
                 {
-                    switch (dataType)
+                    switch(dataType)
                     {
                         case 'value':
                             outString += node.id + '=' + encodeURIComponent(x.dom(node).val().trim()) + '&';
@@ -6749,7 +6767,7 @@
                     }
                 }
             }
-            catch (ex)
+            catch(ex)
             {
                 x.debug.error(ex);
             }
@@ -6771,35 +6789,51 @@
     {
         var outString = '';
     
-        if (options.includeRequestNode)
+        var selector = options.scope == '' ? '*' : (options.scope + ' *');
+    
+        var list = x.dom(selector);
+    
+        if(options.includeRequestNode)
         {
             outString = '{"request":{'
         }
-    
-        var list = x.dom('*');
     
         x.each(list, function(index, node)
         {
             try
             {
-                if (x.isUndefined(node.id) || node.id === '') { return; }
+                var name = '';
+    
+                // 优先取 id 的值，如果没有 id 取 name 的值。
+                if(!x.isUndefined(node.id) && node.id !== '')
+                {
+                    name = node.id;
+                }
+                else if(!x.isUndefined(node.name) && node.name !== '')
+                {
+                    name = node.name;
+                }
+                else
+                {
+                    return;
+                }
     
                 var dataType = x.dom(node).attr(options.dataTypeAttributeName);
     
-                if (!x.isUndefined(dataType) && dataType != null)
+                if(!x.isUndefined(dataType) && dataType != null)
                 {
-                    switch (dataType)
+                    switch(dataType)
                     {
                         case 'value':
-                            outString += '"' + node.id + '":"' + x.toSafeJSON(x.dom(node).val().trim()) + '",';
+                            outString += '"' + name + '":"' + x.toSafeJSON(x.dom(node).val().trim()) + '",';
                             break;
                         case 'html':
-                            outString += '"' + node.id + '":"' + x.toSafeJSON(x.dom(node).html().trim()) + '",';
+                            outString += '"' + name + '":"' + x.toSafeJSON(x.dom(node).html().trim()) + '",';
                             break;
                         case 'checkbox':
-                            outString += '"' + node.id + '":[';
+                            outString += '"' + name + '":[';
     
-                            if ($(document.getElementsByName(node.id)).size() === 0)
+                            if(x.dom('input[name="' + name + '"]').size() === 0)
                             {
                                 outString += '],';
                                 break;
@@ -6809,13 +6843,13 @@
     
                             $(document.getElementsByName(node.id)).each(function(index, node)
                             {
-                                if (checkboxGroupName === node.name && node.type.toLowerCase() === 'checkbox')
+                                if(checkboxGroupName === node.name && node.type.toLowerCase() === 'checkbox')
                                 {
                                     outString += '{"text":"' + $(node).attr('text') + '", "value":"' + x.toSafeJSON($(node).val()) + '", "checked":' + node.checked + '},';
                                 }
                             });
     
-                            if (outString.substr(outString.length - 1, 1) === ',')
+                            if(outString.substr(outString.length - 1, 1) === ',')
                             {
                                 outString = outString.substr(0, outString.length - 1);
                             }
@@ -6825,9 +6859,9 @@
                             break;
     
                         case 'list':
-                            outString += '"' + node.id + '":[';
+                            outString += '"' + name + '":[';
     
-                            if ($(this).find('.list-item').size() === 0)
+                            if($(this).find('.list-item').size() === 0)
                             {
                                 outString += '],';
                                 break;
@@ -6839,7 +6873,7 @@
     
                                 $(this).find('.list-item-colum').each(function(index, node)
                                 {
-                                    if ($(node).hasClass('data-type-html'))
+                                    if($(node).hasClass('data-type-html'))
                                     {
                                         outString += '"' + x.toSafeJSON($(node).html().trim()) + '",';
                                     }
@@ -6849,7 +6883,7 @@
                                     }
                                 });
     
-                                if (outString.substr(outString.length - 1, 1) === ',')
+                                if(outString.substr(outString.length - 1, 1) === ',')
                                 {
                                     outString = outString.substr(0, outString.length - 1);
                                 }
@@ -6857,7 +6891,7 @@
                                 outString += '],';
                             });
     
-                            if (outString.substr(outString.length - 1, 1) === ',')
+                            if(outString.substr(outString.length - 1, 1) === ',')
                             {
                                 outString = outString.substr(0, outString.length - 1);
                             }
@@ -6871,7 +6905,7 @@
     
                             $('#' + node.id).find('tr').each(function(index, node)
                             {
-                                if ($(this).find('.table-td-item').size() === 0)
+                                if($(this).find('.table-td-item').size() === 0)
                                 {
                                     return;
                                 }
@@ -6880,7 +6914,7 @@
     
                                 $(this).find('.table-td-item').each(function(index, node)
                                 {
-                                    if ($(node).hasClass('data-type-html'))
+                                    if($(node).hasClass('data-type-html'))
                                     {
                                         outString += '"' + x.toSafeJSON($(node).html().trim()) + '",';
                                     }
@@ -6890,13 +6924,13 @@
                                     }
                                 });
     
-                                if (outString.substr(outString.length - 1, 1) === ',')
+                                if(outString.substr(outString.length - 1, 1) === ',')
                                     outString = outString.substr(0, outString.length - 1);
     
                                 outString += '],';
                             });
     
-                            if (outString.substr(outString.length - 1, 1) === ',')
+                            if(outString.substr(outString.length - 1, 1) === ',')
                                 outString = outString.substr(0, outString.length - 1);
     
                             outString += '],';
@@ -6907,7 +6941,7 @@
                     }
                 }
             }
-            catch (ex)
+            catch(ex)
             {
                 x.debug.error(ex);
             }
@@ -6916,7 +6950,7 @@
         // 移除最后一个逗号
         outString = x.string.rtrim(outString, ',');
     
-        if (options.includeRequestNode)
+        if(options.includeRequestNode)
         {
             outString += '}}';
         }
@@ -6930,76 +6964,92 @@
     {
         var outString = '';
     
-        if (typeof (options) == 'undefined')
+        var selector = options.scope == '' ? '*' : (options.scope + ' *');
+    
+        var list = x.dom(selector);
+    
+        if(typeof (options) == 'undefined')
         {
             options = { includeRequestNode: false };
         }
     
-        if (options.includeRequestNode)
+        if(options.includeRequestNode)
         {
             outString += '<?xml version="1.0" encoding="utf-8" ?>';
             outString += '<request>';
         }
     
-        var list = x.dom('*');
-    
         x.each(list, function(index, node)
         {
             try
             {
-                if (x.isUndefined(node.id) || node.id === '') { return; }
+                var name = '';
+    
+                // 优先取 id 的值，如果没有 id 取 name 的值。
+                if(!x.isUndefined(node.id) && node.id !== '')
+                {
+                    name = node.id;
+                }
+                else if(!x.isUndefined(node.name) && node.name !== '')
+                {
+                    name = node.name;
+                }
+                else
+                {
+                    return;
+                }
     
                 var dataType = x.dom(node).attr(options.dataTypeAttributeName);
     
-                if (!x.isUndefined(dataType) && dataType != null)
+                if(!x.isUndefined(dataType) && dataType != null)
                 {
-                    switch (dataType)
+                    switch(dataType)
                     {
                         case 'value':
-                            outString += '<' + node.id + '>' + x.cdata(x.dom(node).val().trim()) + '</' + node.id + '>';
+                            outString += '<' + name + '>' + x.cdata(x.dom(node).val().trim()) + '</' + name + '>';
                             break;
                         case 'html':
-                            outString += '<' + node.id + '>' + x.cdata(x.dom(node).html().trim()) + '</' + node.id + '>';
+                            outString += '<' + name + '>' + x.cdata(x.dom(node).html().trim()) + '</' + name + '>';
                             break;
                         case 'select':
     
-                            if ($(node).get(0).selectedIndex !== -1)
+                            if($(node).get(0).selectedIndex !== -1)
                             {
-                                outString += '<' + node.id + '><![CDATA[' + x.toSafeJSON(x.dom(node).get(0)[$(node).get(0).selectedIndex].value.trim()) + ']]></' + node.id + '>';
+                                outString += '<' + name + '><![CDATA[' + x.toSafeJSON(x.dom(node).get(0)[$(node).get(0).selectedIndex].value.trim()) + ']]></' + node.id + '>';
                             }
                             else
                             {
-                                outString += '<' + node.id + '></' + node.id + '>';
+                                outString += '<' + name + '></' + name + '>';
                             }
                             break;
     
                         case 'checkbox':
                             var checkboxs = document.getElementsByName("check" + node.id);
                             var checkboxsResult = "";
-                            for (var i = 0; i < checkboxs.length; i++)
+                            for(var i = 0;i < checkboxs.length;i++)
                             {
-                                if (checkboxs[i].checked)
+                                if(checkboxs[i].checked)
                                 {
                                     checkboxsResult += checkboxs[i].value + ';';
                                 }
                             }
     
-                            if (checkboxsResult !== '')
+                            if(checkboxsResult !== '')
                             {
                                 checkboxsResult = checkboxsResult.substring(0, checkboxsResult.length - 1);
-                                outString += '<' + node.id + '><![CDATA[' + checkboxsResult + ']]></' + node.id + '>';
+                                outString += '<' + name + '><![CDATA[' + checkboxsResult + ']]></' + name + '>';
                             }
                             else
                             {
                                 var notSelectedDefaultValue = $(node).attr('notSelectedDefaultValue');
     
-                                if (notSelectedDefaultValue == undefined)
+                                if(notSelectedDefaultValue == undefined)
                                 {
-                                    outString += '<' + node.id + '>' + x.cdata('') + '</' + node.id + '>';
+                                    outString += '<' + name + '>' + x.cdata('') + '</' + name + '>';
                                 }
                                 else
                                 {
-                                    outString += '<' + node.id + '><![CDATA[' + notSelectedDefaultValue + ']]></' + node.id + '>';
+                                    outString += '<' + name + '><![CDATA[' + notSelectedDefaultValue + ']]></' + name + '>';
                                 }
                             }
                             break;
@@ -7009,13 +7059,13 @@
                     }
                 }
             }
-            catch (ex)
+            catch(ex)
             {
                 x.debug.error(ex);
             }
         });
     
-        if (options.includeRequestNode)
+        if(options.includeRequestNode)
         {
             outString += '</request>';
         }

@@ -207,19 +207,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="apps\admins\modules\applications\application-list-panel.js" />
-    <Content Include="apps\admins\modules\applications\application-method-list-panel.js" />
-    <Content Include="apps\admins\modules\applications\application-option-list-panel.js" />
-    <Content Include="apps\admins\modules\applications\application-setting-list-panel.js" />
-    <Content Include="apps\admins\modules\attachment\attachment-file-list-panel.js" />
-    <Content Include="apps\admins\modules\attachment\attachment-upload-example-panel.js" />
-    <Content Include="apps\admins\modules\attachment\attachment-warn-list-panel.js" />
-    <Content Include="apps\admins\modules\generic\global-config-panel.js" />
-    <Content Include="apps\admins\modules\generic\admin-list-panel.js" />
-    <Content Include="apps\admins\modules\generic\menu-list-panel.js" />
-    <Content Include="apps\admins\modules\generic\menu-setting-panel.js" />
-    <Content Include="apps\admins\modules\platform\authority-setting-panel.js" />
-    <Content Include="apps\admins\modules\platform\digital-number-setting-panel.js" />
     <Content Include="global.asax" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\javascript\ui\pkg\x.ui.pkg.customizes.js" />
+    <Content Include="views\main\account\set-password.js" />
     <Content Include="views\main\account\forgot-password.js" />
     <Content Include="views\main\account\friends\account-friend-detail.js" />
     <Content Include="views\main\account\friends\account-friend-invite.js" />
@@ -456,11 +444,12 @@
     <Content Include="views\main\tasks\task-form.cshtml" />
     <Content Include="views\main\tasks\task-history-list.cshtml" />
     <Content Include="views\main\tasks\task-waiting-list.cshtml" />
+    <Content Include="views\main\account\set-password.cshtml" />
+    <Content Include="views\main\sdk\doc.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="views\admins\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>
   <PropertyGroup>

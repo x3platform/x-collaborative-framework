@@ -2,57 +2,64 @@ namespace X3Platform.CacheBuffer
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Caching;
+    using X3Platform.CacheBuffer.Configuration;
 
     /// <summary></summary>
     public class MemoryCacheProvider : ICacheProvider
     {
-        private  CacheStorage<string, CacheItem> cacheStorage = new CacheStorage<string, CacheItem>();
+        ObjectCache cache = MemoryCache.Default;
 
-        /// <summary>���캯��</summary>
-        public CacheBufferProvider()
+        /// <summary></summary>
+        public MemoryCacheProvider()
         {
         }
 
-        public object this[string key]
+        public object this[string name]
         {
-            get { return this.Read(key); }
-            set { this.Write(key, value); }
-        }
-
-        public bool Contains(string key)
-        {
-            return cacheStorage.ContainsKey(key);
-        }
-
-        public object Read(string key)
-        {
-            return cacheStorage[key].Value;
-        }
-
-        public void Write(string key, object value)
-        {
-            if (!this.Contains(key))
+            get
             {
-                cacheStorage.Add(key, new CacheItem(value));
+                return this.cache.Get(name);
+            }
+            set
+            {
+                this.cache.Set(name, value, DateTime.Now.AddHours(6));
             }
         }
 
-        public void Write(string key, object value, int minutes)
+        public bool Contains(string name)
         {
-            if (!this.Contains(key))
-            {
-                cacheStorage.Add(key, new CacheItem(value, DateTime.Now.AddMinutes(minutes)));
-            }
+            return this.cache.Contains(name);
         }
 
-        public void Delete(string key)
+        public object Get(string name)
         {
-            cacheStorage.Remove(key);
+            return this.cache.Get(name);
         }
 
-        public void Clear()
+        public void Set(string name, object value)
         {
-            cacheStorage.Clear();
+            this.cache.Set(name, value, DateTime.Now.AddHours(6));
+        }
+
+        public void Add(string name, object value)
+        {
+            this.cache.Add(name, value, DateTime.Now.AddHours(6));
+        }
+
+        public void Add(string name, object value, int minutes)
+        {
+            this.cache.Add(name, value, DateTime.Now.AddHours(6));
+        }
+
+        public void Remove(string name)
+        {
+            this.cache.Remove(name);
+        }
+
+        private DateTimeOffset GetAbsoluteExpiration()
+        {
+            return DateTime.Now.AddMilliseconds(CacheBufferConfigurationView.Instance.CacheDefaultDuration);
         }
     }
 }

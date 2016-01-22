@@ -11,6 +11,7 @@ namespace X3Platform.Entities.BLL
     using X3Platform.Entities.IBLL;
     using X3Platform.Entities.IDAL;
     using X3Platform.Entities.Model;
+    using X3Platform.Data;
     #endregion
 
     /// <summary></summary>
@@ -100,6 +101,16 @@ namespace X3Platform.Entities.BLL
         }
         #endregion
 
+        #region 函数:FindOneByEntityClassName(string entityClassName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="entityClassName">实体类名称</param>
+        /// <returns>返回实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
+        public EntitySchemaInfo FindOneByEntityClassName(string entityClassName)
+        {
+            return this.provider.FindOneByEntityClassName(entityClassName);
+        }
+        #endregion
+
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
         /// <returns>返回所有实例<see cref="EntitySchemaInfo"/>的详细信息</returns>
@@ -144,17 +155,16 @@ namespace X3Platform.Entities.BLL
         // 自定义功能
         // -------------------------------------------------------
 
-        #region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         /// <summary>分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
-        /// <param name="whereClause">WHERE 查询条件</param>
-        /// <param name="orderBy">ORDER BY 排序条件</param>
+        /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="EntitySchemaInfo"/></returns>
-        public IList<EntitySchemaInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="EntitySchemaInfo"/></returns> 
+        public IList<EntitySchemaInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
-            return this.provider.GetPaging(startIndex, pageSize, whereClause, orderBy, out rowCount);
+            return this.provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
         #endregion
 
@@ -165,6 +175,20 @@ namespace X3Platform.Entities.BLL
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
+        }
+        #endregion
+
+        #region 函数:GetEntityClassName(Type type)
+        /// <summary>获取实体类名称</summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public string GetEntityClassName(Type type)
+        {
+            string objectType = KernelContext.ParseObjectType(type);
+
+            EntitySchemaInfo param = this.FindOneByEntityClassFullName(objectType);
+
+            return param == null ? objectType : param.EntityClassName;
         }
         #endregion
     }

@@ -36,15 +36,22 @@ x.app.files = {
 
                 if(options.readonly)
                 {
-                    outString = x.app.files.getReadOnlyTable(list, options);
+                    // 获取只读列表
 
-                    $('#' + options.targetViewName).html(outString);
+                    outString = x.app.files.getReadOnlyTable(list, options);
                 }
                 else
                 {
+                    // 获取可编辑的列表
+
                     // setEditableTable
-                    x.app.files.fillTable(list, options.deleteType, options.targetViewName);
+                    // x.app.files.fillTable(list, options.deleteType, options.targetViewName);
+                    outString = x.app.files.getEditableTable(list, options);
+
+                    // $('#' + options.targetViewName).html(outString);
                 }
+
+                $('#' + options.targetViewName).html(outString);
             }
         });
     },
@@ -106,6 +113,79 @@ x.app.files = {
         return outString;
     },
 
+    getEditableTable: function(list, options)
+    {
+        var outString = '';
+
+        if(list.length > 0)
+        {
+            if(typeof (options.prefixText) !== 'undefined')
+            {
+                outString += options.prefixText + ' ';
+            }
+
+            for(var i = 0;i < list.length;i++)
+            {
+                outString += '<div class="window-attachment-item" fileType="' + list[i].fileType + '" attachmentId="' + list[i].id + '" attachmentName="' + list[i].attachmentName + '" deleteType="' + options.deleteType + '">';
+
+                if(options.showIcon === 1)
+                {
+                    outString += '<img style="vertical-align: middle; margin-right:2px" src="/resources/images/icon/' + x.app.files.getfileExtImg(list[i].fileType) + '"/>';
+                }
+
+                // 支持图片在线预览
+                if(list[i].fileType == '.jpg' || list[i].fileType == '.png' || list[i].fileType == '.gif')
+                {
+                    outString += '<a style="vertical-align: bottom;" href="javascript:x.app.files.preview(\'/attachment/archive/' + list[i].id + '\');" >' + list[i].attachmentName + '</a>';
+                }
+                else
+                {
+                    outString += '<a style="vertical-align: bottom;" href="/attachment/archive/' + list[i].id + '" >' + list[i].attachmentName + '</a>';
+                }
+
+                outString += '<span style="vertical-align: middle; margin: 0 10px 0 5px; text-decoration:none" >(' + x.expressions.formatNumberRound2(list[i].fileSize / 1024) + 'KB)</span>';
+
+                outString += '<span style="vertical-align: middle;margin-left:5px;text-decoration:none;color:#000000;cursor:pointer" onclick="x.app.files.confirmDelete(this)">删除</span>';
+
+                outString += '</div>';
+            }
+        }
+
+        return outString;
+        /*
+                var attachmentTable = x.app.files.createTable(tableContainerId);
+        
+                //x.app.files.cleanBlankRow();
+        
+                x.app.files.cleanAttachmentRow(attachmentTable);
+        
+                //呈现
+                if(attachmentTable != null)
+                {
+                    for(var i = 0;i < list.length;i++)
+                    {
+                        var node = list[i];
+        
+                        var newTr = attachmentTable.insertRow(attachmentTable.rows.length);
+                        x.app.files.docObject.setAttributes(newTr, "deleteType", deleteType);
+                        x.app.files.docObject.setAttributes(newTr, "attachmentId", node.id);
+                        x.app.files.docObject.setAttributes(newTr, "attachmentName", node.attachmentName);
+        
+                        var nameTd = newTr.insertCell(0);
+                        nameTd.style.border = '0 solid #ffffff';
+                        nameTd.style.padding = '0 0 4px 0';
+                        var nameTdInnerHtml = "";
+                        nameTdInnerHtml += '<img style="margin-right:2px;vertical-align: middle;" src="/resources/images/icon/' + x.app.files.getfileExtImg(node.fileType) + '"/>';
+                        nameTdInnerHtml += '<a style="vertical-align: middle;text-decoration:none" href="/attachment/archive/' + node.id + '.aspx" >' + node.attachmentName + '</a>';
+                        nameTdInnerHtml += "<span style='vertical-align: middle;margin-left:1px;text-decoration:none'>(" + x.expressions.formatNumberRound2(node.fileSize / 1024) + "KB)</span>";
+        
+                        nameTdInnerHtml += '<span title="删除此附件" style="vertical-align: middle;margin-left:5px;text-decoration:none;color:#000000;cursor:pointer" onclick="x.app.files.confirmDelete(this)">删除</span>';
+        
+                        nameTd.innerHTML = nameTdInnerHtml;
+                    }
+                }*/
+    },
+
     /*#region preview:(virtualPath)*/
     /*
     * 图片类型附件预览
@@ -115,7 +195,7 @@ x.app.files = {
         // 设置图片的最大宽度
         var maxWidth = 800;
 
-        x.ui.wizards.getWizard('category1', {
+        x.ui.wizards.getWizard('x-file-preview', {
             create: function()
             {
                 var outString = '';
@@ -291,12 +371,15 @@ x.app.files = {
 
                 }
                 else
+                {
                     window.location.href = "/attachment/archive/" + nodeId;
+                }
             }
             else
+            {
                 window.location.href = "/attachment/archive/" + nodeId;
+            }
         }
-
     },
 
     isExist: function(fileName)
@@ -411,20 +494,19 @@ x.app.files = {
     {
         if(confirm('确定删除?'))
         {
-            var currentTr = x.app.files.docObject.getParentObj(obj, "TR");
+            var parent = $(obj).parent();
 
-            var deleteType = x.app.files.docObject.getAttributes(currentTr, "deleteType");
-
-            var attachmentId = x.app.files.docObject.getAttributes(currentTr, "attachmentId");
+            var attachmentId = parent.attr('attachmentId');
+            var deleteType = parent.attr('deleteType');
 
             switch(deleteType)
             {
                 case "virtual":
-                    currentTr.parentNode.removeChild(currentTr);
+                    parent.remove();
                     break;
                 case "physical":
                     x.app.files.deleteAttachment(attachmentId);
-                    currentTr.parentNode.removeChild(currentTr);
+                    parent.remove();
                     break;
             }
         }

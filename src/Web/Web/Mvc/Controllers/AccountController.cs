@@ -87,5 +87,26 @@
             return View("/views/" + LocateFolder("main") + "/account/forgot-password.cshtml");
         }
         #endregion
+
+        #region 函数:SetPassword()
+        /// <summary>设置密码</summary>
+        public ActionResult SetPassword()
+        {
+            ViewBag.registration = Request.QueryString["registration"] == null ? MembershipConfigurationView.Instance.DefaultRegistration : Request.QueryString["registration"];
+            
+            if (ViewBag.registration == "mobile")
+            {
+                ViewBag.mobile = Request.QueryString["mobile"];
+            }
+            else
+            {
+                ViewBag.email = Request.QueryString["email"];
+            }
+            
+            ViewBag.code = Request.QueryString["code"];
+            
+            return View("/views/" + LocateFolder("main") + "/account/set-password.cshtml");
+        }
+        #endregion
     }
 }
