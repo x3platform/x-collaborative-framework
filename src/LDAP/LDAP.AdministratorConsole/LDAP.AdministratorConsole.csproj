@@ -68,41 +68,6 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Elane.X, Version=2.0.0.20306, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\bin\Elane.X.dll</HintPath>
-    </Reference>
-    <Reference Include="Elane.X.ActiveDirectory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\bin\Elane.X.ActiveDirectory.dll</HintPath>
-    </Reference>
-    <Reference Include="Elane.X.Apps, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\bin\Elane.X.Apps.dll</HintPath>
-    </Reference>
-    <Reference Include="Elane.X.IBatis.Common, Version=1.6.1.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\bin\Elane.X.IBatis.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Elane.X.IBatis.DataMapper, Version=1.6.1.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <HintPath>..\..\..\bin\Elane.X.IBatis.DataMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Elane.X.Membership, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\bin\Elane.X.Membership.dll</HintPath>
-    </Reference>
-    <Reference Include="Elane.X.Membership.Synchronize">
-      <HintPath>..\..\..\bin\Elane.X.Membership.Synchronize.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\lib\Log4net\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
-      <HintPath>..\..\..\lib\Entlib.v3.1\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
-      <HintPath>..\..\..\lib\Entlib.v3.1\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder">
-      <HintPath>..\..\..\lib\Entlib.v3.1\Microsoft.Practices.ObjectBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="Spring.Core">
       <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
     </Reference>
@@ -153,19 +118,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.longfor.config" />
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="build.publish.bat" />
-    <None Include="App.debug.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.example.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <Content Include="readme.txt" />
-    <Content Include="MappingScript.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
