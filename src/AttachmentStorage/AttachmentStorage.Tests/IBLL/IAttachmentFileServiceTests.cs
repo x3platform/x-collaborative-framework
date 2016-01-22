@@ -12,6 +12,7 @@
     using X3Platform.Data;
     using NUnit.Framework;
     using NMock;
+    using X3Platform.DigitalNumber;
 
     /// <summary></summary>
     [TestFixture]
@@ -57,7 +58,9 @@
 
             IAttachmentFileInfo param = new AttachmentFileInfo(parent);
 
-            param.Id = StringHelper.ToGuid();
+            param.Id = "test-" + DigitalNumberContext.Generate("Key_RunningNumber");
+            param.AttachmentName = "test-" + StringHelper.ToRandom(8);
+            param.FileType = ".tXT";
 
             AttachmentStorageContext.Instance.AttachmentFileService.Save(param);
 

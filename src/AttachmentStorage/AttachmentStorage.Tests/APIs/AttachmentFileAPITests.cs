@@ -1,4 +1,4 @@
-﻿namespace X3Platform.AttachmentStorage.Tests
+﻿namespace X3Platform.AttachmentStorage.Tests.APIs
 {
     using NUnit.Framework;
 
@@ -26,6 +26,8 @@
         // 测试内容
         //-------------------------------------------------------
 
+        [Category("Manual Testing")]
+        [Category("APIs")]
         [Test]
         public void TestFindAll()
         {
@@ -53,6 +55,8 @@
             Assert.AreEqual(0, response.message.returnCode);
         }
 
+        [Category("Manual Testing")]
+        [Category("APIs")]
         [Test]
         public void TestUpload()
         {
