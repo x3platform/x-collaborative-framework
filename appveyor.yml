@@ -1,0 +1,9 @@
+version: 1.0.0.{build}
+platform: Any CPU
+build:
+  project: src\makefile.msbuild
+  verbosity: minimal
+test:
+  categories:
+    except:
+    - Manual Testing
