@@ -14,6 +14,7 @@
   using X3Platform.Plugins.Forum.IBLL;
   using X3Platform.Plugins.Forum.Model;
   using X3Platform.Location.IPQuery;
+    using X3Platform.Globalization;
   #endregion
 
   /// <summary></summary>
@@ -74,7 +75,7 @@
 
       this.service.Delete(id);
 
-      return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+      return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
     }
     #endregion
 
@@ -97,7 +98,7 @@
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<ForumCommentInfo>(param) + ",");
 
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }
@@ -119,7 +120,7 @@
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<ForumCommentInfo>(list) + ",");
 
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }

@@ -35,50 +35,18 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 索引:this[string id]
-        /// <summary>索引</summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public AccountFriendInfo this[string id]
-        {
-            get { return this.FindOne(id); }
-        }
-        #endregion
-
-        // -------------------------------------------------------
-        // 保存 删除
-        // -------------------------------------------------------
-
-        #region 函数:Save(AccountFriendInfo param)
-        /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        /// <returns>实例<see cref="AccountFriendInfo"/>详细信息</returns>
-        public AccountFriendInfo Save(AccountFriendInfo param)
-        {
-            return this.provider.Save(param);
-        }
-        #endregion
-
-        #region 函数:Delete(string id)
-        /// <summary>删除记录</summary>
-        /// <param name="id">标识</param>
-        public void Delete(string id)
-        {
-            this.provider.Delete(id);
-        }
-        #endregion
-
         // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
 
-        #region 函数:FindOne(string id)
+        #region 函数:FindOne(string accountId, string friendAccountId)
         /// <summary>查询某条记录</summary>
-        /// <param name="id">标识</param>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="friendAccountId">好友的帐号唯一标识</param>
         /// <returns>返回实例<see cref="AccountFriendInfo"/>的详细信息</returns>
-        public AccountFriendInfo FindOne(string id)
+        public AccountFriendInfo FindOne(string accountId, string friendAccountId)
         {
-            return this.provider.FindOne(id);
+            return this.provider.FindOne(accountId, friendAccountId);
         }
         #endregion
 
@@ -173,6 +141,18 @@ namespace X3Platform.Membership.BLL
             if (accountId == friendAccountId) { throw new Exception("自己的好友帐号不能为自己本身."); }
 
             return this.provider.Unfriend(accountId, friendAccountId);
+        }
+        #endregion
+
+        #region 函数:SetDisplayName(string accountId, string friendAccountId, string friendDisplayName)
+        /// <summary>设置好友的显示名称</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        /// <param name="friendDisplayName">好友显示名称</param>
+        /// <returns>0:代表成功</returns>
+        public int SetDisplayName(string accountId, string friendAccountId, string friendDisplayName)
+        {
+            return this.provider.SetDisplayName(accountId, friendAccountId, friendDisplayName);
         }
         #endregion
     }

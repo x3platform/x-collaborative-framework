@@ -81,7 +81,7 @@ namespace X3Platform
             {
                 this.resultType = "json";
 
-                ContextUnknownException exception = new ContextUnknownException("message", 1, ex);
+                GenericException exception = new GenericException(-1, ex);
 
                 outString = exception.ToString();
             }

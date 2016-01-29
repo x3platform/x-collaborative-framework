@@ -5,7 +5,19 @@
   <string name="text_please_select">请选择</string>
   <string name="text_paging_tip_format">共有{0}条信息 当前{1}-{2}信息</string>
   <!-- msg -->
-  <string name="msg_are_you_sure_you_want_to_delete">确定删除?</string>
+  <string name="msg_query_success">查询成功。</string>
+  <string name="msg_save_success">保存成功。</string>
+  <string name="msg_delete_success">删除成功。</string>
+  <string name="msg_create_success">创建成功。</string>
+  <string name="msg_modify_success">修改成功。</string>
+  <string name="msg_configure_success">配置成功。</string>
+  <!-- msg long text -->
+  <string name="msg_are_you_sure_you_want_to_delete">确定删除？</string>
+  <string name="msg_the_same_field_already_exists">实例标识不能为空。</string>  
+  <string name="msg_the_same_name_already_exists">已存在相同的名称。</string>
+  <string name="msg_field_is_required">实例标识不能为空。</string>  
+  <string name="msg_id_is_required">实例标识不能为空。</string>
+  <!-- msg net error -->
   <string name="msg_net_error_401">访问被拒绝，客户试图未经授权访问受密码保护的页面。</string>
   <string name="msg_net_error_404">无法找到指定位置的资源。</string>
   <string name="msg_net_error_500">服务器繁忙，请稍候再试。</string>

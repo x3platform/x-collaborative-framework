@@ -5,11 +5,24 @@
   <string name="text_please_select">Please select</string>
   <string name="text_paging_tip_format">total {0} records, {1}-{2} rows</string>
   <!-- msg -->
-  <string name="msg_are_you_sure_you_want_to_delete">确定删除?</string>
+  <string name="msg_query_success">query success.</string>
+  <string name="msg_save_success">save success.</string>
+  <string name="msg_delete_success">delete success.</string>
+  <string name="msg_create_success">create success.</string>
+  <string name="msg_modify_success">modify success.</string>
+  <string name="msg_configure_success">configure success.</string>
+  <!-- msg long text -->
+  <string name="msg_are_you_sure_you_want_to_delete">Are you sure, you want to delete?</string>
+  <string name="msg_the_same_field_already_exists">The same ${field} already exists.</string>  
+  <string name="msg_the_same_name_already_exists">The same name already exists.</string>
+  <string name="msg_field_is_required">${field} is_required.</string>  
+  <string name="msg_id_is_required">Id is_required.</string>
+  <!-- msg net error -->
   <string name="msg_net_error_401">访问被拒绝，客户试图未经授权访问受密码保护的页面。</string>
   <string name="msg_net_error_404">无法找到指定位置的资源。</string>
   <string name="msg_net_error_500">服务器繁忙，请稍候再试。</string>
   <string name="msg_net_error_unkown">系统错误，错误信息【{0}】。</string>
+  <!-- msg net waiting -->
   <string name="msg_net_waiting_loading_tip_text">正在加载数据，请稍后......</string>
   <string name="msg_net_waiting_query_tip_text">正在加载数据，请稍后......</string>
   <string name="msg_net_waiting_commit_tip_text">正在提交数据，请稍后......</string>

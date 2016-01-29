@@ -14,6 +14,7 @@
     using System.Web;
     using System.IO;
     using X3Platform.Apps;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>附件存储信息</summary>
@@ -35,10 +36,10 @@
             if (KernelContext.Current.User == null) { return "{\"message\":{\"returnCode\":1,\"value\":\"必须登陆后才能操作。\"}}"; }
 
             string id = XmlHelper.Fetch("id", doc);
-            
+
             this.service.Delete(id);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -60,7 +61,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IAttachmentFileInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查找成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -104,7 +105,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IAttachmentFileInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -125,7 +126,7 @@
             PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
             // 设置查询方案
-            paging.Query.Variables.Add("Scenario", "Query");
+            paging.Query.Variables["scence"] = "Query";
 
             int rowCount = -1;
 
@@ -137,9 +138,7 @@
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
-            outString.Append("\"success\":1,");
-            outString.Append("\"msg\":\"success\",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查找成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

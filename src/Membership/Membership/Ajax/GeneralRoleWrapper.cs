@@ -11,6 +11,7 @@ namespace X3Platform.Membership.Ajax
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
     using X3Platform.DigitalNumber;
+    using X3Platform.Globalization;
 
     /// <summary></summary>
     public class GeneralRoleWrapper : ContextWrapper
@@ -86,7 +87,7 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -101,7 +102,7 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -124,7 +125,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<GeneralRoleInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -147,7 +148,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<GeneralRoleInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -236,7 +237,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<GeneralRoleInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

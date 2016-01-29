@@ -22,6 +22,7 @@
     using X3Platform.SMS.Client;
     using X3Platform.Security.VerificationCode.Configuration;
     using X3Platform.Security.Configuration;
+    using X3Platform.Globalization;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -64,7 +65,7 @@
             // 记录帐号操作日志
             MembershipManagement.Instance.AccountLogService.Log(account.Id, "hr.general.setMemberCard", "【" + account.Name + "】更新了自己的个人信息，【IP:" + IPQueryContext.GetClientIP() + "】。", account.Id);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
         }
         #endregion
 

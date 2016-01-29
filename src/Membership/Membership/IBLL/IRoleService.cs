@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.IBLL
+﻿namespace X3Platform.Membership.IBLL
 {
     using System;
     using System.Collections.Generic;
@@ -313,7 +299,7 @@ namespace X3Platform.Membership.IBLL
         #endregion
 
         #region 函数:Rename(string id, string name)
-        /// <summary>检测是否存在相关的记录</summary>
+        /// <summary>重命名</summary>
         /// <param name="id">角色标识</param>
         /// <param name="name">角色名称</param>
         /// <returns>0:代表成功 1:代表已存在相同名称</returns>
