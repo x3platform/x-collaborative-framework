@@ -3,18 +3,23 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3BEC5F87-83DA-4790-B412-1B2AC12E8368}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{E24040E2-B609-4563-A75A-949F7A5B03DF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>X3Platform.Location.IPQuery</RootNamespace>
-    <AssemblyName>X3Platform.Location.IPQuery</AssemblyName>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
-    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <OldToolsVersion>3.5</OldToolsVersion>
+    <RootNamespace>X3Platform.Location.Regions.Terminal</RootNamespace>
+    <AssemblyName>region</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -41,7 +46,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\X3Platform.Location.IPQuery.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,43 +55,46 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release\X3Platform.Location.IPQuery.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging.Core">
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.ServiceModel" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\..\..\lib\MySQL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\..\..\lib\Spring.NET\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="X3Platform.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
+    <Reference Include="X3Platform.Abstractions">
       <HintPath>..\..\..\bin\X3Platform.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="X3Platform.Support, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9f4da00116c38ec5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="X3Platform.Location.Regions">
+      <HintPath>..\..\..\bin\X3Platform.Location.Regions.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="Configuration\IPQueryConfiguration.cs" />
-    <Compile Include="Configuration\IPQueryConfigurationView.cs" />
-    <Compile Include="IPQueryContext.cs" />
-    <Compile Include="IPAddressParser.cs" />
-    <Compile Include="IPAddressQueryInfo.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="config\X3Platform.Location.IPQuery.config" />
-    <EmbeddedResource Include="defaults\config.yaml" />
+    <None Include="App.example.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -108,12 +115,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="defaults\Objects.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="db\Init_Script_MySQL.sql" />
+    <Content Include="data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(ProjectDir)App.config" copy "$(ProjectDir)App.example.config" "$(ProjectDir)App.config" /y
+copy "$(ProjectDir)App.config" "$(TargetDir)$(TargetFileName).config" /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -121,7 +131,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)build.publish.cmd "$(ProjectDir)" "$(TargetDir)" "$(TargetName)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>

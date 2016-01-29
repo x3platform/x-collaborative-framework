@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+
+    <!-- 区域信息 -->
+    <object name="X3Platform.Location.Regions.IBLL.IRegionService"
+            type="X3Platform.Location.Regions.BLL.RegionService,X3Platform.Location.Regions"
+            lazy-init="true" />
+
+    <object name="X3Platform.Location.Regions.IDAL.IRegionProvider"
+            type="X3Platform.Location.Regions.DAL.IBatis.RegionProvider,X3Platform.Location.Regions"
+            lazy-init="true" />
+</objects>

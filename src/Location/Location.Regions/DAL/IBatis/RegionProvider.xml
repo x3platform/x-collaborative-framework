@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Location.Regions.DAL.IBatis.RegionProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="RegionInfo" type="X3Platform.Location.Regions.Model.RegionInfo,X3Platform.Location.Regions" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Region_FindOne_Result" class="RegionInfo">
+      <result property="Id" column="Id" />
+      <result property="Name" column="Name" />
+      <result property="Path" column="Path" />
+    </resultMap>
+    <resultMap id="proc_Region_FindAll_Result" class="RegionInfo">
+      <result property="Id" column="Id" />
+      <result property="Name" column="Name" />
+      <result property="Path" column="Path" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Region_Insert" parameterClass="RegionInfo" >
+      INSERT INTO tb_Region
+      (
+        Id,
+        Name,
+        Path
+      )
+      VALUES
+      (
+        #Id#,
+        #Name#,
+        #Path#
+      )
+    </insert>
+    <update id="proc_Region_Update" parameterClass="RegionInfo" >
+      UPDATE tb_Region SET Name = #Name#, Path=#Path# WHERE Id = #Id#
+    </update>
+    <delete id="proc_Region_Delete">
+      DELETE FROM tb_Region WHERE $WhereClause$
+    </delete>
+    <select id="proc_Region_FindOne" parameterClass="RegionInfo" resultMap="proc_Region_FindOne_Result" >
+      SELECT * FROM tb_Region WHERE Id = #Id#
+    </select>
+    <select id="proc_Region_FindAll" resultMap="proc_Region_FindAll_Result" parameterClass="RegionInfo" >
+      SELECT * 
+      
+      FROM tb_Region T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Region_GetPaging" parameterClass="RegionInfo" resultMap="proc_Region_FindAll_Result" >
+      SELECT *
+
+      FROM tb_Region T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      ORDER BY $OrderBy$
+      
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Region_GetRowCount" >
+      SELECT COUNT(*) AS 'RowCount' FROM tb_Region T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Region_IsExist" >
+      SELECT COUNT(*) AS 'Count' FROM tb_Region T WHERE Id = #Id#
+    </select>
+  </statements>
+</sqlMap>
