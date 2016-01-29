@@ -145,23 +145,35 @@ namespace X3Platform.Web.APIs
                         responseText = responseText.Insert(responseText.IndexOf("\"message\":"), "\"clientTargetObject\":\"" + clientTargetObject + "\",");
                     }
                 }
+                catch (GenericException genericException)
+                {
+                    responseText = genericException.ToString();
+                }
                 catch (ThreadAbortException threadAbortException)
                 {
-                    responseText = "{\"success\":0,\"msg\":\"" + StringHelper.ToSafeJson(threadAbortException.Message) + "\",\"message\":{"
-                        + "\"returnCode\":\"2\","
-                        + "\"category\":\"exception\","
-                        + "\"value\":\"" + StringHelper.ToSafeJson(threadAbortException.Message) + "\","
-                        + "\"description\":\"" + StringHelper.ToSafeJson(threadAbortException.ToString()) + "\""
-                        + "}}";
+                    GenericException exception = new GenericException(0, 9999, threadAbortException);
+
+                    responseText = exception.ToString();
+
+                    //responseText = "{\"success\":0,\"msg\":\"" + StringHelper.ToSafeJson(threadAbortException.Message) + "\",\"message\":{"
+                    //    + "\"returnCode\":\"9999\","
+                    //    + "\"category\":\"exception\","
+                    //    + "\"value\":\"" + StringHelper.ToSafeJson(threadAbortException.Message) + "\","
+                    //    + "\"description\":\"" + StringHelper.ToSafeJson(threadAbortException.ToString()) + "\""
+                    //    + "}}";
                 }
-                catch (Exception generalException)
+                catch (Exception ex)
                 {
-                    responseText = "{\"success\":0,\"msg\":\"" + StringHelper.ToSafeJson(generalException.Message) + "\",\"message\":{"
-                        + "\"returnCode\":\"1\","
-                        + "\"category\":\"exception\","
-                        + "\"value\":\"" + StringHelper.ToSafeJson(generalException.Message) + "\","
-                        + "\"description\":\"" + StringHelper.ToSafeJson(generalException.ToString()) + "\""
-                        + "}}";
+                    GenericException exception = new GenericException(0, -1, ex);
+
+                    responseText = exception.ToString();
+
+                    //responseText = "{\"success\":0,\"msg\":\"" + StringHelper.ToSafeJson(ex.Message) + "\",\"message\":{"
+                    //    + "\"returnCode\":\"-1\","
+                    //    + "\"category\":\"exception\","
+                    //    + "\"value\":\"" + StringHelper.ToSafeJson(ex.Message) + "\","
+                    //    + "\"description\":\"" + StringHelper.ToSafeJson(ex.ToString()) + "\""
+                    //    + "}}";
                 }
             }
 
