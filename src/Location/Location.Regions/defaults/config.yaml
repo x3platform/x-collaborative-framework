@@ -1,0 +1,7 @@
+---
+keys: 
+  # Spring.NET : 配置文件
+  SpringObjectFile: assembly://X3Platform.Location.Regions/X3Platform.Location.Regions/defaults.Objects.xml
+  # IBatis : 配置映射文件
+  IBatisMapping: embedded:X3Platform.Location.Regions.defaults.IBatis.SqlMap.xml,X3Platform.Location.Regions
+...
