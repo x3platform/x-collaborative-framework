@@ -12,6 +12,7 @@
 
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary></summary>
@@ -28,7 +29,6 @@
         /// <summary>保存记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("save")]
         public string Save(XmlDocument doc)
         {
             ApplicationFeatureDateLimitInfo param = new ApplicationFeatureDateLimitInfo();
@@ -37,7 +37,7 @@
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -45,14 +45,13 @@
         /// <summary>删除记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("delete")]
         public string Delete(XmlDocument doc)
         {
             string ids = XmlHelper.Fetch("ids", doc);
 
             this.service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -64,7 +63,6 @@
         /// <summary>获取详细信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findOne")]
         public string FindOne(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -75,7 +73,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -85,7 +83,6 @@
         /// <summary>获取列表信息</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("findAll")]
         public string FindAll(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -98,7 +95,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -112,7 +109,6 @@
         /// <summary>获取分页内容</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("getPages")]
         public string GetPages(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -129,7 +125,7 @@
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -139,7 +135,6 @@
         /// <summary>查询是否存在相关的记录</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("isExist")]
         public string IsExist(XmlDocument doc)
         {
             string id = XmlHelper.Fetch("id", doc);
@@ -154,7 +149,6 @@
         /// <summary>创建新的对象</summary>
         /// <param name="doc">Xml 文档对象</param>
         /// <returns>返回操作结果</returns>
-        [AjaxMethod("createNewObject")]
         public string CreateNewObject(XmlDocument doc)
         {
             StringBuilder outString = new StringBuilder();
@@ -169,7 +163,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationFeatureDateLimitInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"创建成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_create_success"], true) + "}");
 
             return outString.ToString();
         }

@@ -17,69 +17,16 @@ namespace X3Platform.Membership.IDAL
     public interface IAccountFriendProvider
     {
         // -------------------------------------------------------
-        // 事务支持
-        // -------------------------------------------------------
-
-        #region 函数:BeginTransaction()
-        /// <summary>启动事务</summary>
-        void BeginTransaction();
-        #endregion
-
-        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>启动事务</summary>
-        /// <param name="isolationLevel">事务隔离级别</param>
-        void BeginTransaction(IsolationLevel isolationLevel);
-        #endregion
-
-        #region 函数:CommitTransaction()
-        /// <summary>提交事务</summary>
-        void CommitTransaction();
-        #endregion
-
-        #region 函数:RollBackTransaction()
-        /// <summary>回滚事务</summary>
-        void RollBackTransaction();
-        #endregion
-
-        // -------------------------------------------------------
-        // 保存 添加 修改 删除
-        // -------------------------------------------------------
-
-		#region 函数:Save(AccountFriendInfo param)
-		/// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        /// <returns>实例<see cref="AccountFriendInfo"/>详细信息</returns>
-        AccountFriendInfo Save(AccountFriendInfo param);
-        #endregion
-
-        #region 函数:Insert(AccountFriendInfo param)
-		/// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        void Insert(AccountFriendInfo param);
-        #endregion
-
-        #region 函数:Update(AccountFriendInfo param)
-		/// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        void Update(AccountFriendInfo param);
-        #endregion
-
-		#region 函数:Delete(string id)
-        /// <summary>删除记录</summary>
-        /// <param name="id">标识</param>
-        void Delete(string id);
-        #endregion
-
-        // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
 
-		#region 函数:FindOne(string id)
-		/// <summary>查询某条记录</summary>
-        /// <param name="id">标识</param>
+        #region 函数:FindOne(string accountId, string friendAccountId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="friendAccountId">好友的帐号唯一标识</param>
         /// <returns>返回实例<see cref="AccountFriendInfo"/>的详细信息</returns>
-        AccountFriendInfo FindOne(string id);
-		#endregion
+        AccountFriendInfo FindOne(string accountId, string friendAccountId);
+        #endregion
         
         #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
@@ -140,6 +87,15 @@ namespace X3Platform.Membership.IDAL
         /// <param name="accountId">帐号标识</param>
         /// <param name="friendAccountId">帐号标识</param>
         int Unfriend(string accountId, string friendAccountId);
+        #endregion
+
+        #region 函数:SetDisplayName(string accountId, string friendAccountId, string friendDisplayName)
+        /// <summary>设置好友的显示名称</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        /// <param name="friendDisplayName">好友显示名称</param>
+        /// <returns>0:代表成功</returns>
+        int SetDisplayName(string accountId, string friendAccountId, string friendDisplayName);
         #endregion
     }
 }

@@ -109,8 +109,8 @@
     <Compile Include="CategoryIndexes\ICategoryIndex.cs" />
     <Compile Include="CategoryIndexes\TextCategoryIndex.cs" />
     <Compile Include="CategoryIndexes\TextValueCategoryIndex.cs" />
-    <Compile Include="ContextUnknownException.cs" />
     <Compile Include="ContextWrapper.cs" />
+    <Compile Include="GenericException.cs" />
     <Compile Include="Security\VerificationCode\BLL\VerificationCodeTemplateService.cs" />
     <Compile Include="Security\VerificationCode\DAL\IBatis\VerificationCodeTemplateProvider.cs" />
     <Compile Include="Security\VerificationCode\IBLL\IVerificationCodeTemplateService.cs" />

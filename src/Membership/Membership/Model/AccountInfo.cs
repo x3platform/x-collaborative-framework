@@ -221,11 +221,11 @@
         }
         #endregion
 
-        #region 属性:CertifiedAvatar
+        #region 属性:CertifiedAvatarView
         /// <summary>已验证的头像虚拟路径</summary>
         public string CertifiedAvatarView
         {
-            get { return this.m_CertifiedAvatar.Replace("{avatar}", MembershipConfigurationView.Instance.AvatarVirtualFolder); }
+            get { return this.CertifiedAvatar.Replace("{avatar}", MembershipConfigurationView.Instance.AvatarVirtualFolder); }
         }
         #endregion
 

@@ -13,6 +13,7 @@ namespace X3Platform.Membership.Ajax
 
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary></summary>
@@ -40,7 +41,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -60,7 +61,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -129,7 +130,7 @@ namespace X3Platform.Membership.Ajax
                 outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(param) + ",");
             }
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

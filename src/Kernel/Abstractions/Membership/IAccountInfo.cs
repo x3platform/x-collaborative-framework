@@ -72,8 +72,13 @@ namespace X3Platform.Membership
         #endregion
 
         #region 属性:CertifiedAvatar
-        /// <summary>已验证的头像</summary>
+        /// <summary>已验证的头像路径</summary>
         string CertifiedAvatar { get; set; }
+        #endregion
+
+        #region 属性:CertifiedAvatarView
+        /// <summary>已验证的头像虚拟路径</summary>
+        string CertifiedAvatarView { get; }
         #endregion
 
         #region 属性:EnableExchangeEmail

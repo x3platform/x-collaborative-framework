@@ -18,6 +18,7 @@
     using X3Platform.Connect.Model;
     using X3Platform.Connect.Configuration;
     using System.IO;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary></summary>
@@ -109,7 +110,7 @@
                     {
                         outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectAccessTokenInfo>(ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id)) + ",");
 
-                        outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+                        outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
                         string callback = XmlHelper.Fetch("callback", doc);
 

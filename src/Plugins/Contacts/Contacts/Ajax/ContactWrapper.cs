@@ -29,6 +29,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
     
     using X3Platform.Plugins.Contacts.IBLL;
     using X3Platform.Plugins.Contacts.Model;
+    using X3Platform.Globalization;
     #endregion
 
     public class ContactWrapper : ContextWrapper
@@ -56,7 +57,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
 
             this.service.Save(param);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"保存成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -70,7 +71,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
 
             this.service.Delete(ids);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -92,7 +93,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ContactInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -110,7 +111,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ContactInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -140,7 +141,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -162,7 +163,7 @@ namespace X3Platform.Plugins.Contacts.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<ContactInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

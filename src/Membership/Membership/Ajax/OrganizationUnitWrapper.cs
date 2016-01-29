@@ -5,9 +5,9 @@ namespace X3Platform.Membership.Ajax
     using System.Collections.Generic;
     using System.Text;
     using System.Xml;
-
     using X3Platform.Ajax;
     using X3Platform.DigitalNumber;
+    using X3Platform.Globalization;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
     using X3Platform.Util;
@@ -98,7 +98,7 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Delete(id);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -120,7 +120,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -140,7 +140,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -160,7 +160,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -180,7 +180,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -200,7 +200,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -271,7 +271,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IOrganizationUnitInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

@@ -21,6 +21,7 @@ namespace X3Platform.Membership.Ajax
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
     using X3Platform.Security.VerificationCode;
+    using X3Platform.Globalization;
 
     /// <summary></summary>
     public sealed class MemberWrapper : ContextWrapper
@@ -59,7 +60,7 @@ namespace X3Platform.Membership.Ajax
 
             this.service.Delete(ids);
 
-            return "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}";
+            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -86,7 +87,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxUtil.Parse<IAccountInfo>(param.Account)));
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -111,7 +112,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Insert(outString.Length - 2, string.Format(",\"account\":{0}", AjaxUtil.Parse<IAccountInfo>(param.Account)));
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -315,7 +316,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<IAccountInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

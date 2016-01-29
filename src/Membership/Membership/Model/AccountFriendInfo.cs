@@ -4,6 +4,7 @@ namespace X3Platform.Membership.Model
     using System;
     using System.Collections.Generic;
     using X3Platform.Membership;
+    using X3Platform.Membership.Configuration;
     #endregion
 
     /// <summary></summary>
@@ -14,11 +15,6 @@ namespace X3Platform.Membership.Model
         public AccountFriendInfo()
         {
         }
-        #endregion
-
-        #region 属性:Id
-        /// <summary></summary>
-        public string Id { get; set; }
         #endregion
 
         #region 属性:AccountId
@@ -66,6 +62,14 @@ namespace X3Platform.Membership.Model
                 return this.m_FriendCertifiedAvatar;
             }
             set { this.m_FriendCertifiedAvatar = value; }
+        }
+        #endregion
+
+        #region 属性:FriendCertifiedAvatarView
+        /// <summary>已验证的头像虚拟路径</summary>
+        public string FriendCertifiedAvatarView
+        {
+            get { return this.FriendCertifiedAvatar.Replace("{avatar}", MembershipConfigurationView.Instance.AvatarVirtualFolder); }
         }
         #endregion
 

@@ -16,39 +16,16 @@ namespace X3Platform.Membership.IBLL
     [SpringObject("X3Platform.Membership.IBLL.IAccountFriendService")]
     public interface IAccountFriendService
     {
-        #region 索引:this[string id]
-        /// <summary>索引</summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        AccountFriendInfo this[string id] { get; }
-        #endregion
-
-        // -------------------------------------------------------
-        // 保存 删除
-        // -------------------------------------------------------
-
-		#region 函数:Save(AccountFriendInfo param)
-		/// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        /// <returns>实例<see cref="AccountFriendInfo"/>详细信息</returns>
-        AccountFriendInfo Save(AccountFriendInfo param);
-        #endregion
-
-		#region 函数:Delete(string id)
-        /// <summary>删除记录</summary>
-        /// <param name="id">标识</param>
-        void Delete(string id);
-        #endregion
-
         // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
 
-		#region 函数:FindOne(string id)
-		/// <summary>查询某条记录</summary>
-        /// <param name="id">标识</param>
+        #region 函数:FindOne(string accountId, string friendAccountId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="friendAccountId">好友的帐号唯一标识</param>
         /// <returns>返回实例<see cref="AccountFriendInfo"/>的详细信息</returns>
-        AccountFriendInfo FindOne(string id);
+        AccountFriendInfo FindOne(string accountId, string friendAccountId);
 		#endregion
         
         #region 函数:FindAll(DataQuery query)
@@ -110,6 +87,15 @@ namespace X3Platform.Membership.IBLL
         /// <param name="accountId">帐号标识</param>
         /// <param name="friendAccountId">帐号标识</param>
         int Unfriend(string accountId, string friendAccountId);
+        #endregion
+
+        #region 函数:SetDisplayName(string accountId, string friendAccountId, string friendDisplayName)
+        /// <summary>设置好友的显示名称</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        /// <param name="friendDisplayName">好友显示名称</param>
+        /// <returns>0:代表成功</returns>
+        int SetDisplayName(string accountId, string friendAccountId, string friendDisplayName);
         #endregion
     }
 }

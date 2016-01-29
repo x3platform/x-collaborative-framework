@@ -39,111 +39,20 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // 事务支持
-        // -------------------------------------------------------
-
-        #region 函数:BeginTransaction()
-        /// <summary>启动事务</summary>
-        public void BeginTransaction()
-        {
-            this.ibatisMapper.BeginTransaction();
-        }
-        #endregion
-
-        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
-        /// <summary>启动事务</summary>
-        /// <param name="isolationLevel">事务隔离级别</param>
-        public void BeginTransaction(IsolationLevel isolationLevel)
-        {
-            this.ibatisMapper.BeginTransaction(isolationLevel);
-        }
-        #endregion
-
-        #region 函数:CommitTransaction()
-        /// <summary>提交事务</summary>
-        public void CommitTransaction()
-        {
-            this.ibatisMapper.CommitTransaction();
-        }
-        #endregion
-
-        #region 函数:RollBackTransaction()
-        /// <summary>回滚事务</summary>
-        public void RollBackTransaction()
-        {
-            this.ibatisMapper.RollBackTransaction();
-        }
-        #endregion
-
-        // -------------------------------------------------------
-        // 添加 删除 修改
-        // -------------------------------------------------------
-
-        #region 函数:Save(AccountFriendInfo param)
-        /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        /// <returns>实例<see cref="AccountFriendInfo"/>详细信息</returns>
-        public AccountFriendInfo Save(AccountFriendInfo param)
-        {
-            if (!IsExist(param.AccountId, param.FriendAccountId))
-            {
-                this.Insert(param);
-            }
-            else
-            {
-                this.Update(param);
-            }
-
-            return param;
-        }
-        #endregion
-
-        #region 函数:Insert(AccountFriendInfo param)
-        /// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        public void Insert(AccountFriendInfo param)
-        {
-            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
-        }
-        #endregion
-
-        #region 函数:Update(AccountFriendInfo param)
-        /// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="AccountFriendInfo"/>详细信息</param>
-        public void Update(AccountFriendInfo param)
-        {
-            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
-        }
-        #endregion
-
-        #region 函数:Delete(string id)
-        /// <summary>删除记录</summary>
-        /// <param name="id">标识</param>
-        public void Delete(string id)
-        {
-            if (string.IsNullOrEmpty(id)) { return; }
-
-            Dictionary<string, object> args = new Dictionary<string, object>();
-
-            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
-
-            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
-        }
-        #endregion
-
-        // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
 
-        #region 函数:FindOne(string id)
+        #region 函数:FindOne(string accountId, string friendAccountId)
         /// <summary>查询某条记录</summary>
-        /// <param name="id">标识</param>
+        /// <param name="accountId">帐号唯一标识</param>
+        /// <param name="friendAccountId">好友的帐号唯一标识</param>
         /// <returns>返回实例<see cref="AccountFriendInfo"/>的详细信息</returns>
-        public AccountFriendInfo FindOne(string id)
+        public AccountFriendInfo FindOne(string accountId, string friendAccountId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("Id", StringHelper.ToSafeSQL(id));
+            args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
+            args.Add("FriendAccountId", StringHelper.ToSafeSQL(friendAccountId));
 
             return this.ibatisMapper.QueryForObject<AccountFriendInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
         }
@@ -288,7 +197,7 @@ namespace X3Platform.Membership.DAL.IBatis
             {
                 // 加入好友
                 this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
-                    new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 0 });
+                    new AccountFriendInfo() { AccountId = accountId, FriendAccountId = friendAccountId, Status = 0 });
 
                 // 加入好友邀请列表
 
@@ -339,7 +248,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
                 // 自动添加对方为好友关系
                 this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)),
-                    new AccountFriendInfo() { Id = DigitalNumberContext.Generate("Key_Guid"), AccountId = accountId, FriendAccountId = friendAccountId, Status = 1 });
+                    new AccountFriendInfo() { AccountId = accountId, FriendAccountId = friendAccountId, Status = 1 });
             }
 
             return 0;
@@ -370,6 +279,26 @@ namespace X3Platform.Membership.DAL.IBatis
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
 
             this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Accept_Delete", tableName)), args);
+
+            return 0;
+        }
+        #endregion
+
+        #region 函数:SetDisplayName(string accountId, string friendAccountId, string friendDisplayName)
+        /// <summary>设置好友的显示名称</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="friendAccountId">帐号标识</param>
+        /// <param name="friendDisplayName">好友显示名称</param>
+        /// <returns>0:代表成功</returns>
+        public int SetDisplayName(string accountId, string friendAccountId, string friendDisplayName)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("AccountId", StringHelper.ToSafeSQL(accountId));
+            args.Add("FriendAccountId", StringHelper.ToSafeSQL(friendAccountId));
+            args.Add("FriendDisplayName", StringHelper.ToSafeSQL(friendDisplayName));
+
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_SetDisplayName", tableName)), args);
 
             return 0;
         }

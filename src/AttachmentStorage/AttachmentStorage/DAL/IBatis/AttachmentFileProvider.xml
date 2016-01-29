@@ -33,29 +33,29 @@
     <insert id="proc_Attachment_File_Save" parameterClass="AttachmentFileInfo" >
       INSERT INTO tb_Attachment_File
       (
-      Id,
-      EntityId,
-      EntityClassName,
-      AttachmentName,
-      VirtualPath,
-      FolderRule,
-      FileType,
-      FileSize,
-      FileStatus,
-      CreatedDate
+        Id,
+        EntityId,
+        EntityClassName,
+        AttachmentName,
+        VirtualPath,
+        FolderRule,
+        FileType,
+        FileSize,
+        FileStatus,
+        CreatedDate
       )
       VALUES
       (
-      #Id#,
-      #EntityId#,
-      #EntityClassName#,
-      #AttachmentName#,
-      #VirtualPath#,
-      #FolderRule#,
-      #FileType#,
-      #FileSize#,
-      #FileStatus#,
-      CURRENT_TIMESTAMP
+        #Id#,
+        #EntityId#,
+        #EntityClassName#,
+        #AttachmentName#,
+        #VirtualPath#,
+        #FolderRule#,
+        #FileType#,
+        #FileSize#,
+        #FileStatus#,
+        CURRENT_TIMESTAMP
       )
     </insert>
     <delete id="proc_Attachment_File_Delete">

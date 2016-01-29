@@ -11,6 +11,7 @@
 
     using X3Platform.TemplateContent.Model;
     using X3Platform.TemplateContent.IBLL;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>模板内容</summary>
@@ -36,7 +37,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<TemplateContentInfo>(param) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

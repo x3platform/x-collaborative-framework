@@ -21,6 +21,7 @@
   using X3Platform.Plugins.Forum.Configuration;
   using X3Platform.Ajax.Net;
   using X3Platform.Data;
+    using X3Platform.Globalization;
   #endregion
 
   /// <summary></summary>
@@ -165,7 +166,7 @@
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<ForumThreadInfo>(param) + ",");
 
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }
@@ -189,7 +190,7 @@
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<ForumThreadQueryInfo>(list) + ",");
 
-      outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }

@@ -52,7 +52,7 @@
             x.each(list, function(index, node)
             {
                 outString += '<tr>';
-                outString += '<td><a href="/admins/friends/detail/' + node.friendAccountId + '" >' + node.friendDisplayName + '</a> ' + (node.status == 0 ? '<span class="label label-default">等待确认</span>' : '') + '</td>';
+                outString += '<td><a href="/account/friends/detail/' + node.friendAccountId + '" >' + node.friendDisplayName + '</a> ' + (node.status == 0 ? '<span class="label label-default">等待确认</span>' : '') + '</td>';
                 outString += '<td><a href="javascript:main.confirmDelete(\'' + node.friendAccountId + '\');">' + i18n.strings.btn_delete + '</a></td>';
                 outString += '</tr>';
 

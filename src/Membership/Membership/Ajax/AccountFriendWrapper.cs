@@ -3,19 +3,20 @@ namespace X3Platform.Membership.Ajax
     #region Using Libraries
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Xml;
     using System.Text;
 
+    using X3Platform;
     using X3Platform.Ajax;
     using X3Platform.Data;
     using X3Platform.DigitalNumber;
+    using X3Platform.Globalization;
     using X3Platform.Util;
 
+    using X3Platform.Membership;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
-    using X3Platform;
-    using X3Platform.Membership;
-    using System.Data;
     #endregion
 
     /// <summary></summary>
@@ -36,13 +37,26 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string id = XmlHelper.Fetch("id", doc);
+            string friendAccountId = XmlHelper.Fetch("friendAccountId", doc);
 
-            AccountFriendInfo param = this.service.FindOne(id);
+            IAccountInfo friendAccount = MembershipManagement.Instance.AccountService[friendAccountId];
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<AccountFriendInfo>(param) + ",");
+            if (friendAccount == null)
+            {
+                return GenericException.Serialize(1, "用户信息不存在。");
+            }
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            AccountFriendInfo param = this.service.FindOne(KernelContext.Current.User.Id, friendAccountId);
+
+            outString.Append("{\"data\":{");
+            outString.Append("\"accountId\":\"" + friendAccount.Id + "\",");
+            outString.Append("\"name\":\"" + friendAccount.Name + "\",");
+            outString.Append("\"displayName\":\"" + ((param == null) ? string.Empty : param.FriendDisplayName) + "\",");
+            outString.Append("\"certifiedAvatarView\":\"" + friendAccount.CertifiedAvatarView + "\",");
+            outString.Append("\"isFriend\":" + ((param == null) ? 0 : 1));
+            outString.Append("},");
+
+            outString.Append(GenericException.Serialize(0, "查询成功。", true) + "}");
 
             return outString.ToString();
         }
@@ -60,25 +74,15 @@ namespace X3Platform.Membership.Ajax
 
             int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-            DataQuery query = new DataQuery();
+            DataQuery query = DataQuery.Create(XmlHelper.Fetch("query", doc, "xml"));
 
-            // 根据实际需要设置当前用户权限
-            // query.Variables["accountId"] = KernelContext.Current.User.Id;
-
-            // if (XmlHelper.Fetch("su", doc) == "1" && AppsSecurity.IsAdministrator(KernelContext.Current.User, IAccountFriendServiceConfiguration.ApplicationName))
-            // {
-            //   query.Variables["elevatedPrivileges"] = "1";
-            // }
-
-            // 根据实际需要设置查询参数
-            // query.Where.Add("Name", searchText);
             query.Length = length;
 
             IList<AccountFriendInfo> list = this.service.FindAll(query);
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountFriendInfo>(list) + ",");
 
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -108,9 +112,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
-            outString.Append("\"success\":1,");
-            outString.Append("\"msg\":\"success\",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -137,11 +139,9 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountFriendInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
-            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
             outString.Append("\"total\":" + paging.RowCount + ",");
-            outString.Append("\"success\":1,");
-            outString.Append("\"msg\":\"success\"}");
+            outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
+            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -171,10 +171,14 @@ namespace X3Platform.Membership.Ajax
 
             foreach (DataRow row in table.Rows)
             {
+                IAccountInfo friend = MembershipUtil.GetAccount(row["FriendAccountId"].ToString());
+
                 outString.Append("{");
                 outString.Append("\"accountId\":\"" + row["AccountId"].ToString() + "\",");
                 outString.Append("\"friendAccountId\":\"" + row["FriendAccountId"].ToString() + "\",");
-                outString.Append("\"friendAccountName\":\"" + MembershipUtil.GetAccount(row["FriendAccountId"].ToString()).Name + "\",");
+                outString.Append("\"friendAccountName\":\"" + friend.Name + "\",");
+                outString.Append("\"friendCertifiedAvatar\":\"" + friend.CertifiedAvatar + "\",");
+                outString.Append("\"friendCertifiedAvatarView\":\"" + friend.CertifiedAvatarView + "\",");
                 outString.Append("\"reason\":\"" + StringHelper.ToSafeJson(row["Reason"].ToString()) + "\",");
                 outString.Append("\"status\":" + row["Status"].ToString() + ",");
                 outString.Append("\"createdDateView\":\"" + ((DateTime)row["CreatedDate"]).ToString("yyyy-MM-dd") + "\"");
@@ -238,6 +242,22 @@ namespace X3Platform.Membership.Ajax
             this.service.Unfriend(accountId, friendAccountId);
 
             return "{\"message\":{\"returnCode\":0,\"value\":\"已成功解除好友关系。\"}}";
+        }
+        #endregion
+
+        #region 函数:SetDisplayName(XmlDocument doc)
+        /// <summary>设置好友的显示名称</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string SetDisplayName(XmlDocument doc)
+        {
+            string accountId = KernelContext.Current.User.Id;
+            string friendAccountId = XmlHelper.Fetch("friendAccountId", doc);
+            string friendDisplayName = XmlHelper.Fetch("friendDisplayName", doc);
+
+            this.service.SetDisplayName(accountId, friendAccountId, friendDisplayName);
+
+            return "{\"message\":{\"returnCode\":0,\"value\":\"设置成功。\"}}";
         }
         #endregion
     }
