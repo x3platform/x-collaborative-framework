@@ -15,7 +15,7 @@ namespace X3Platform
         private int success = 0;
 
         /// <summary>返回的代码</summary>
-        private int returnCode = -1;
+        private string returnCode = "-1";
 
         #region 构造函数:GenericException(string message)
         /// <summary>构造函数</summary>
@@ -26,24 +26,24 @@ namespace X3Platform
         }
         #endregion
 
-        #region 构造函数:GenericException(int returnCode, string message)
+        #region 构造函数:GenericException(string returnCode, string message)
         /// <summary>构造函数</summary>
         /// <param name="returnCode">返回的异常代码</param>
         /// <param name="message">消息</param>
-        public GenericException(int returnCode, string message)
+        public GenericException(string returnCode, string message)
             : base(message)
         {
-            this.success = 1;
+            this.success = 0;
             this.returnCode = returnCode;
         }
         #endregion
 
-        #region 构造函数:GenericException(int success, int returnCode, string message)
+        #region 构造函数:GenericException(int success, string returnCode, string message)
         /// <summary>构造函数</summary>
         /// <param name="success">是否成功执行 0 失败 1 成功</param>
         /// <param name="returnCode">返回的异常代码</param>
         /// <param name="message">消息</param>
-        public GenericException(int success, int returnCode, string message)
+        public GenericException(int success, string returnCode, string message)
             : base(message)
         {
             this.success = success;
@@ -51,11 +51,11 @@ namespace X3Platform
         }
         #endregion
 
-        #region 构造函数:GenericException(int returnCode, Exception innerException)
+        #region 构造函数:GenericException(string returnCode, Exception innerException)
         /// <summary>构造函数</summary>
         /// <param name="returnCode">返回的异常代码</param>
         /// <param name="innerException">内部异常</param>
-        public GenericException(int returnCode, Exception innerException)
+        public GenericException(string returnCode, Exception innerException)
             : base(innerException.Message, innerException)
         {
             this.success = 0;
@@ -63,12 +63,12 @@ namespace X3Platform
         }
         #endregion
 
-        #region 构造函数:GenericException(int success, int returnCode, Exception innerException)
+        #region 构造函数:GenericException(int success, string returnCode, Exception innerException)
         /// <summary>构造函数</summary>
         /// <param name="success">是否成功执行 0 失败 1 成功</param>
         /// <param name="returnCode">返回的异常代码</param>
         /// <param name="innerException">内部异常</param>
-        public GenericException(int success, int returnCode, Exception innerException)
+        public GenericException(int success, string returnCode, Exception innerException)
             : base(innerException.Message, innerException)
         {
             this.success = success;
@@ -129,44 +129,23 @@ namespace X3Platform
         // 静态方法
         // -------------------------------------------------------
 
-        /// <summary>序列化为 JOSN 格式消息</summary>
+        /// <summary>格式化为 JOSN 格式字符串</summary>
         /// <param name="returnCode">返回的异常代码</param>
         /// <param name="message">消息</param>
         /// <returns></returns>
-        public static string Serialize(int returnCode, string message)
+        public static string Stringify(string returnCode, string message)
         {
             return new GenericException(returnCode, message).ToString();
         }
 
-        /// <summary>序列化为 JOSN 格式消息</summary>
-        /// <param name="success">是否成功执行 0 失败 1 成功</param>
-        /// <param name="returnCode">返回的异常代码</param>
-        /// <param name="message">消息</param>
-        /// <returns></returns>
-        public static string Serialize(int success, int returnCode, string message)
-        {
-            return new GenericException(success, returnCode, message).ToString();
-        }
-
-        /// <summary>序列化为 JOSN 格式消息</summary>
+        /// <summary>格式化为 JOSN 格式字符串</summary>
         /// <param name="returnCode">返回的异常代码</param>
         /// <param name="message">消息</param>
         /// <param name="nobrace">对象不包含最外面的大括号</param>
         /// <returns></returns>
-        public static string Serialize(int returnCode, string message, bool nobrace)
+        public static string Stringify(string returnCode, string message, bool nobrace)
         {
             return new GenericException(returnCode, message).ToString(nobrace);
-        }
-
-        /// <summary>序列化为 JOSN 格式消息</summary>
-        /// <param name="success">是否成功执行 0 失败 1 成功</param>
-        /// <param name="returnCode">返回的异常代码</param>
-        /// <param name="message">消息</param>
-        /// <param name="nobrace">对象不包含最外面的大括号</param>
-        /// <returns></returns>
-        public static string Serialize(int success, int returnCode, string message, bool nobrace)
-        {
-            return new GenericException(success, returnCode, message).ToString(nobrace);
         }
     }
 }

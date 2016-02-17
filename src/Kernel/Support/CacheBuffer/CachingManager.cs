@@ -86,6 +86,16 @@ namespace X3Platform.CacheBuffer
         }
         #endregion
 
+        #region 函数:Set(string name, object value)
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static void Set(string name, object value)
+        {
+            Instance.cacheProvider.Set(name, value);
+        }
+        #endregion
+
         #region 函数:Add(string name, object value)
         /// <summary>写入缓存项</summary>
         /// <param name="name">名称</param>

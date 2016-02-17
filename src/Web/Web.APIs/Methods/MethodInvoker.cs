@@ -36,7 +36,7 @@ namespace X3Platform.Web.APIs.Methods
             {
                 logger.Warn("unkown methodName:" + methodName + ", please contact the administrator.");
 
-                throw new GenericException(1, "【" + methodName + "】方法不存在，请联系管理员检查配置信息。");
+                throw new GenericException("1", "【" + methodName + "】方法不存在，请联系管理员检查配置信息。");
 
                 // return "{\"message\":{\"returnCode\":1,\"value\":\"【" + methodName + "】方法不存在，请联系管理员检查配置信息。\"}}";
             }

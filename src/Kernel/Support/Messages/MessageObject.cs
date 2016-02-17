@@ -1,19 +1,3 @@
-#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :MessageObject.cs
-//
-// Description  :��Ϣ����
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
 namespace X3Platform.Messages
 {
     #region Using Libraries
@@ -28,105 +12,27 @@ namespace X3Platform.Messages
     using X3Platform.Util;
     #endregion
 
-    /// <summary>默认消息对象</summary>
-    public sealed class MessageObject : IMessageObject, ICacheable, IDisposable
+    /// <summary>消息对象</summary>
+    public sealed class MessageObject : IMessageObject
     {
-        #region 属性:Value
-        private object m_Value = null;
-
-        /// <summary>返回的值</summary>
-        public object Value
-        {
-            get { return m_Value; }
-            set { m_Value = value; }
-        }
-        #endregion
-
         #region 属性:ReturnCode
-        private string m_ReturnCode = null;
-
         /// <summary>返回的代码</summary>
-        public string ReturnCode
-        {
-            get { return m_ReturnCode; }
-            set { m_ReturnCode = value; }
-        }
+        public string ReturnCode { get; set; }
         #endregion
 
-        #region 属性:Result
-        private object m_Result = null;
-
-        /// <summary>结果</summary>
-        public object Result
-        {
-            get { return m_Result; }
-            set { m_Result = value; }
-        }
+        #region 属性:Value
+        /// <summary>返回的值</summary>
+        public string Value { get; set; }
         #endregion
 
-        #region 属性:Description
-        private string m_Description = string.Empty;
-
-        /// <summary>描述</summary>
-        public string Description
-        {
-            get { return m_Description; }
-            set { m_Description = value; }
-        }
-        #endregion
-
-        #region 属性:Url
-        private string m_Url = string.Empty;
-
-        /// <summary>Url</summary>
-        public string Url
-        {
-            get { return m_Url; }
-            set { m_Url = value; }
-        }
-        #endregion
-
-        #region 函数:Clear()
-        /// <summary>清空信息</summary>
-        public void Clear()
-        {
-            this.Value = null;
-        }
-        #endregion
-
-        #region 函数:Set(string returnCode, object value, object result, string description, string url)
-        /// <summary>设置信息</summary>
-        public void Set(string returnCode, object value)
-        {
-            this.Set(returnCode, value, string.Empty);
-        }
-
-        /// <summary>设置信息</summary>
-        public void Set(string returnCode, object value, object result)
-        {
-            this.Set(returnCode, value, result, string.Empty);
-
-        }
-
-        /// <summary>设置信息</summary>
-        public void Set(string returnCode, object value, object result, string description)
-        {
-            this.Set(returnCode, value, result, description, string.Empty);
-        }
-
+        #region 函数:Set(string returnCode, string value)
         /// <summary>设置信息</summary>
         /// <param name="returnCode"></param>
         /// <param name="value"></param>
-        /// <param name="result"></param>
-        /// <param name="description"></param>
-        /// <param name="url"></param>
-        public void Set(string returnCode, object value, object result, string description, string url)
+        public void Set(string returnCode, string value)
         {
             this.ReturnCode = returnCode;
             this.Value = value;
-            this.Result = result;
-            this.Description = description;
-            this.Url = url;
         }
         #endregion
 
@@ -135,23 +41,43 @@ namespace X3Platform.Messages
         /// <returns></returns>
         public override string ToString()
         {
+            return this.ToString(false);
+        }
+        #endregion
+
+        #region 函数:ToString(bool nobrace)
+        /// <summary>转换为字符串</summary>
+        /// <param name="nobrace">对象不包含最外面的大括号</param>
+        /// <returns></returns>
+        public string ToString(bool nobrace)
+        {
             StringBuilder outString = new StringBuilder();
 
-            outString.Append("{");
-            outString.Append("\"returnCode\":\"" + this.ReturnCode + "\",");
-            outString.Append("\"result\":\"" + this.Result + "\",");
-            outString.Append("\"description\":\"" + this.Description + "\",");
-            outString.Append("\"value\":\"" + this.Value + "\",");
-            outString.Append("\"url\":\"" + this.Url + "\" ");
-            outString.Append("}");
+            if (!nobrace)
+            {
+                outString.Append("{");
+            }
+
+            outString.Append("\"message\":{");
+            outString.AppendFormat("\"returnCode\":\"{0}\",", StringHelper.ToSafeJson(this.ReturnCode));
+            outString.AppendFormat("\"value\":\"{0}\"", StringHelper.ToSafeJson(this.Value));
+            outString.Append("},");
+
+            // 是否成功执行
+            outString.Append("\"success\":1,\"msg\":\"success\"");
+
+            if (!nobrace)
+            {
+                outString.Append("}");
+            }
 
             return outString.ToString();
         }
         #endregion
 
-        //
+        // -------------------------------------------------------
         // 实现 EntityClass 序列化
-        // 
+        // -------------------------------------------------------
 
         #region 函数:Serializable()
         /// <summary>序列化对象</summary>
@@ -171,10 +97,11 @@ namespace X3Platform.Messages
             StringBuilder outString = new StringBuilder();
 
             outString.Append("<response>");
-            outString.Append("<value>" + this.Value + "</value>");
+
             outString.Append("<returnCode>" + this.ReturnCode + "</returnCode>");
-            outString.Append("<description>" + this.Description + "</description>");
-            outString.Append("<url>" + this.Url + "</url>");
+            outString.Append("<value>" + this.Value + "</value>");
+            //outString.Append("<description>" + this.Description + "</description>");
+            //outString.Append("<url>" + this.Url + "</url>");
             outString.Append("</response>");
 
             return outString.ToString();
@@ -188,34 +115,36 @@ namespace X3Platform.Messages
         {
             this.Value = XmlHelper.Fetch("value", element);
             this.ReturnCode = XmlHelper.Fetch("returnCode", element);
-            this.Description = XmlHelper.Fetch("description", element);
-            this.Url = XmlHelper.Fetch("url", element);
+            // this.Description = XmlHelper.Fetch("description", element);
+            // this.Url = XmlHelper.Fetch("url", element);
         }
         #endregion
 
-        //
-        // 显式实现 ICacheable
-        // 
+        // -------------------------------------------------------
+        // 静态方法
+        // -------------------------------------------------------
 
-        #region 属性:Expires
-        private DateTime m_Expires = DateTime.Now.AddHours(1);
-
-        /// <summary>缓存过期时间</summary>
-        DateTime ICacheable.Expires
+        /// <summary>格式化为 JOSN 格式字符串</summary>
+        /// <param name="returnCode">返回的代码</param>
+        /// <param name="value">消息</param>
+        /// <returns></returns>
+        public static string Stringify(string returnCode, string value)
         {
-            get { return m_Expires; }
-            set { m_Expires = value; }
+            MessageObject message = new MessageObject() { ReturnCode = returnCode, Value = value };
+
+            return message.ToString();
         }
-        #endregion
 
-        //
-        // 显式实现 ICacheable
-        // 
-
-        #region 函数:Dispose()
-        void IDisposable.Dispose()
+        /// <summary>格式化为 JOSN 格式字符串</summary>
+        /// <param name="returnCode">返回的代码</param>
+        /// <param name="value">消息</param>
+        /// <param name="nobrace">对象不包含最外面的大括号</param>
+        /// <returns></returns>
+        public static string Stringify(string returnCode, string value, bool nobrace)
         {
+            MessageObject message = new MessageObject() { ReturnCode = returnCode, Value = value };
+
+            return message.ToString(nobrace);
         }
-        #endregion
     }
 }

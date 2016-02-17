@@ -46,7 +46,7 @@ main.account.profile = {
 
             x.net.xhr('/api/hr.officer.setMemberCard.aspx', outString, {
                 waitingMessage: i18n.net.waiting.saveTipText,
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     x.page.refreshParentWindow();

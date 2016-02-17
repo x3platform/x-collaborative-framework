@@ -11,7 +11,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
     using X3Platform.Web.Customizes.Model;
     using X3Platform.Web.Customizes.IBLL;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary>部件实例</summary>
@@ -35,7 +35,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
             service.Save(param);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -49,7 +49,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
             service.Delete(id);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInstanceInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -145,7 +145,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<CustomizeWidgetInstanceInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_create_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_create_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -201,7 +201,7 @@ namespace X3Platform.Web.Customizes.Ajax
 
             outString.Append("{\"data\":\"" + StringHelper.ToSafeJson(optionHtml) + "\",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

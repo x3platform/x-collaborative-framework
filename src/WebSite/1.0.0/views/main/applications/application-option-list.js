@@ -286,8 +286,8 @@ main.applications.application.option.list = {
             outString += '</request>';
 
             x.net.xhr('/api/application.option.save.aspx', outString, {
-                popResultValue: 1,
                 waitingMessage: i18n.net.waiting.saveTipText,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     main.applications.application.option.list.getPaging(main.applications.application.option.list.paging.currentPage);

@@ -7026,7 +7026,7 @@
             // -------------------------------------------------------
             // 可选择参数
             // waitingMessage   等待窗口显示的文本信息。
-            // popResultValue   弹出回调结果。
+            // popCorrectValue   弹出回调结果。
             // callback         回调函数。
             // -------------------------------------------------------
     
@@ -7148,7 +7148,7 @@
                         {
                             case 0:
                                 // 0:正确操作
-                                if(!!options.popResultValue)
+                                if(!!options.popCorrectValue)
                                 {
                                     x.msg(message.value);
                                 }

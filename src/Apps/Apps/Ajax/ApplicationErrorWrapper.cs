@@ -5,20 +5,21 @@
     using System.Text;
     using System.Xml;
     using System.Web;
+    using System.IO;
 
     using X3Platform.Ajax;
     using X3Platform.Ajax.Json;
     using X3Platform.Ajax.Net;
     using X3Platform.Configuration;
     using X3Platform.DigitalNumber;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
     using X3Platform.Membership;
     using X3Platform.Util;
     using X3Platform.Web;
 
     using X3Platform.Connect.Model;
     using X3Platform.Connect.Configuration;
-    using System.IO;
-    using X3Platform.Globalization;
     #endregion
 
     /// <summary></summary>
@@ -110,11 +111,11 @@
                     {
                         outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectAccessTokenInfo>(ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id)) + ",");
 
-                        outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+                        outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
                         string callback = XmlHelper.Fetch("callback", doc);
 
-                        return string.IsNullOrEmpty(callback) 
+                        return string.IsNullOrEmpty(callback)
                             ? outString.ToString()
                             : callback + "(" + outString.ToString() + ")";
                     }
@@ -379,7 +380,7 @@
             outString.Append("<input id=\"originalPassword\" name=\"originalPassword\" maxlength=\"20\" type=\"password\" class=\"window-login-input-style\" value=\"\" />");
             outString.Append("<input id=\"password\" type=\"hidden\" value=\"\" />");
             outString.Append("</div>");
-            
+
             // outString.Append("<div class=\"window-login-form-remember-me\" >");
             // outString.Append("<a href=\"/public/forgot-password.aspx\" target=\"_blank\" >忘记登录密码？</a>");
             // outString.Append("<input id=\"remember\" name=\"remember\" type=\"checkbox\" > <span>记住登录状态</span>");

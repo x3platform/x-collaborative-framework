@@ -11,7 +11,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
     using X3Platform.Util;
 
     using X3Platform.Security.VerificationCode.IBLL;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary>权限</summary>
@@ -35,7 +35,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
 
             this.service.Save(param);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -49,7 +49,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
 
             this.service.Delete(id);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<VerificationCodeInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -91,7 +91,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<VerificationCodeInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -122,7 +122,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"success\":1,");
             outString.Append("\"msg\":\"success\",");
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -144,7 +144,7 @@ namespace X3Platform.Security.VerificationCode.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<VerificationCodeInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_create_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_create_success"], true) + "}");
 
             return outString.ToString();
         }

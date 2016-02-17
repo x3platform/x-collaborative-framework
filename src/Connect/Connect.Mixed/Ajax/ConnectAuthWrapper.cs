@@ -288,17 +288,17 @@
 
             IAccountInfo account = member.Account;
 
-            string certifiedAvatar = account.CertifiedAvatar;
+            //string certifiedAvatar = account.CertifiedAvatar;
 
-            certifiedAvatar = certifiedAvatar
-                .Replace("{uploads}", KernelConfigurationView.Instance.FileHostName + "/uploads/")
-                .Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            //certifiedAvatar = certifiedAvatar
+            //    .Replace("{uploads}", KernelConfigurationView.Instance.FileHostName + "/uploads/")
+            //    .Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
             outString.Append("{");
             outString.Append("id:\"" + StringHelper.ToSafeJson(account.Id) + "\",");
             outString.Append("name:\"" + StringHelper.ToSafeJson(account.Name) + "\",");
             outString.Append("loginName:\"" + StringHelper.ToSafeJson(account.LoginName) + "\",");
-            outString.Append("certifiedAvatar:\"" + StringHelper.ToSafeJson(certifiedAvatar) + "\",");
+            outString.Append("certifiedAvatar:\"" + StringHelper.ToSafeJson(account.CertifiedAvatarView) + "\",");
             outString.Append("status:\"" + account.Status + "\"");
             outString.Append("}");
 

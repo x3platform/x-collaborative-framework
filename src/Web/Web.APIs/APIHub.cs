@@ -151,7 +151,7 @@ namespace X3Platform.Web.APIs
                 }
                 catch (ThreadAbortException threadAbortException)
                 {
-                    GenericException exception = new GenericException(0, 9999, threadAbortException);
+                    GenericException exception = new GenericException("9999", threadAbortException);
 
                     responseText = exception.ToString();
 
@@ -164,7 +164,7 @@ namespace X3Platform.Web.APIs
                 }
                 catch (Exception ex)
                 {
-                    GenericException exception = new GenericException(0, -1, ex);
+                    GenericException exception = new GenericException("-1", ex);
 
                     responseText = exception.ToString();
 

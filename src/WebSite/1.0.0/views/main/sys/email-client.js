@@ -62,7 +62,7 @@ main.sys.email.client = {
     x.net.xhr('/api/email.client.sendMail.aspx', outString, {
       waitingType: 'mini',
       waitingMessage: i18n.net.waiting.commitTipText,
-      popResultValue: 1
+      popCorrectValue: 1
     });
   },
   /*#endregion*/
@@ -97,7 +97,7 @@ main.sys.email.client = {
     x.net.xhr('/api/email.client.testSmtpServer.aspx', outString, {
       waitingType: 'mini',
       waitingMessage: i18n.net.waiting.commitTipText,
-      popResultValue: 1
+      popCorrectValue: 1
     });
   },
   /*#endregion*/

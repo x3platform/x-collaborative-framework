@@ -128,7 +128,7 @@ main.entities.entity.schema.list = {
         outString += '</request>';
 
         x.net.xhr('/api/kernel.entities.schema.query.aspx', outString, {
-            popResultValue: 0,
+            popCorrectValue: 0,
             callback: function(response)
             {
                 var result = x.toJSON(response);
@@ -159,7 +159,7 @@ main.entities.entity.schema.list = {
         if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
         {
             x.net.xhr('/api/kernel.entities.schema.delete.aspx?id=' + id, {
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     main.entities.entity.schema.list.getPaging(main.entities.entity.schema.list.paging.currentPage);

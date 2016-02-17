@@ -14,54 +14,128 @@ namespace X3Platform.Data
     public class DataQueryBuilder
     {
         /// <summary></summary>
-        /// <param name="where"></param>
+        /// <param name="args"></param>
         /// <param name="paramName"></param>
         /// <param name="whereClause"></param>
-        public static void Equal(Dictionary<string, object> where, string paramName, StringBuilder whereClause)
+        public static void Equal(Dictionary<string, object> args, string paramName, StringBuilder whereClause)
         {
-            Operate(where, paramName, "=", whereClause);
+            Operate(args, paramName, "=", whereClause);
         }
 
         /// <summary></summary>
-        /// <param name="where"></param>
+        /// <param name="args"></param>
         /// <param name="paramName"></param>
+        /// <param name="valueName"></param>
         /// <param name="whereClause"></param>
-        public static void Operate(Dictionary<string, object> where, string paramName, string op, StringBuilder whereClause)
+        public static void Equal(Dictionary<string, object> args, string paramName, string valueName, StringBuilder whereClause)
+        {
+            Operate(args, paramName, "=", valueName, whereClause);
+        }
+
+        /// <summary></summary>
+        /// <param name="args"></param>
+        /// <param name="paramName"></param>
+        /// <param name="op"></param>
+        /// <param name="whereClause"></param>
+        public static void Operate(Dictionary<string, object> args, string paramName, string op, StringBuilder whereClause)
+        {
+            Operate(args, paramName, op, paramName, whereClause);
+        }
+
+        /// <summary></summary>
+        /// <param name="args"></param>
+        /// <param name="paramName"></param>
+        /// <param name="op"></param>
+        /// <param name="valueName"></param>
+        /// <param name="whereClause"></param>
+        public static void Operate(Dictionary<string, object> args, string paramName, string op, string valueName, StringBuilder whereClause)
         {
             string temp = null;
 
             // 忽略空值
-            if (string.IsNullOrEmpty(paramName) || !where.ContainsKey(paramName)) return;
+            if (string.IsNullOrEmpty(paramName) || !args.ContainsKey(valueName) || args[valueName] == null) return;
 
-            temp = paramName + " " + op + " " + FormatValue(where[paramName]) + " ";
+            temp = paramName + " " + op + " " + FormatValue(args[valueName]) + " ";
 
             Concat(whereClause, temp);
         }
 
         /// <summary></summary>
-        /// <param name="where"></param>
+        /// <param name="args"></param>
         /// <param name="paramName"></param>
-        /// <param name="beginParamName"></param>
-        /// <param name="endParamName"></param>
         /// <param name="whereClause"></param>
-        public static void Between(Dictionary<string, object> where, string paramName, string beginParamName, string endParamName, StringBuilder whereClause)
+        public static void In(Dictionary<string, object> args, string paramName, StringBuilder whereClause)
+        {
+            In(args, paramName, paramName, whereClause);
+        }
+
+        /// <summary></summary>
+        /// <param name="args"></param>
+        /// <param name="paramName"></param>
+        /// <param name="valueName"></param>
+        /// <param name="whereClause"></param>
+        public static void In(Dictionary<string, object> args, string paramName, string valueName, StringBuilder whereClause)
+        {
+            string temp = null;
+
+            // 忽略空值
+            if (string.IsNullOrEmpty(paramName) || !args.ContainsKey(valueName) || string.IsNullOrEmpty(args[valueName].ToString())) return;
+
+            temp = paramName + " IN (" + args[valueName] + ")";
+
+            Concat(whereClause, temp);
+        }
+
+        /// <summary></summary>
+        /// <param name="args"></param>
+        /// <param name="paramName"></param>
+        /// <param name="whereClause"></param>
+        public static void Like(Dictionary<string, object> args, string paramName, StringBuilder whereClause)
+        {
+            Like(args, paramName, paramName, whereClause);
+        }
+
+        /// <summary></summary>
+        /// <param name="args"></param>
+        /// <param name="paramName"></param>
+        /// <param name="valueName"></param>
+        /// <param name="whereClause"></param>
+        public static void Like(Dictionary<string, object> args, string paramName, string valueName, StringBuilder whereClause)
+        {
+            string temp = null;
+
+            // 忽略空值
+            if (string.IsNullOrEmpty(paramName) || !args.ContainsKey(valueName) || string.IsNullOrEmpty(args[valueName].ToString())) return;
+
+            temp = paramName + " LIKE '%" + args[valueName] + "%'";
+
+            Concat(whereClause, temp);
+        }
+
+        /// <summary></summary>
+        /// <param name="args"></param>
+        /// <param name="paramName"></param>
+        /// <param name="beginValueName"></param>
+        /// <param name="endValueName"></param>
+        /// <param name="whereClause"></param>
+        public static void Between(Dictionary<string, object> args, string paramName, string beginValueName, string endValueName, StringBuilder whereClause)
         {
             string temp = null;
 
             // 忽略空值
             if (string.IsNullOrEmpty(paramName)) return;
 
-            if (where.ContainsKey(beginParamName) && where.ContainsKey(endParamName))
+            if (args.ContainsKey(beginValueName) && args.ContainsKey(endValueName))
             {
-                temp = paramName + " BETWEEN " + FormatValue(where[beginParamName]) + " AND " + FormatValue(where[endParamName]) + " ";
+                temp = paramName + " BETWEEN " + FormatValue(args[beginValueName]) + " AND " + FormatValue(args[endValueName]) + " ";
             }
-            else if (where.ContainsKey(beginParamName))
+            else if (args.ContainsKey(beginValueName))
             {
-                temp = paramName + " >= " + FormatValue(where[beginParamName]) + " ";
+                temp = paramName + " >= " + FormatValue(args[beginValueName]) + " ";
             }
-            else if (where.ContainsKey(endParamName))
+            else if (args.ContainsKey(endValueName))
             {
-                temp = paramName + " <= " + FormatValue(where[endParamName]) + " ";
+                temp = paramName + " <= " + FormatValue(args[endValueName]) + " ";
             }
 
             Concat(whereClause, temp);

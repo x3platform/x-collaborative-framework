@@ -48,7 +48,7 @@ main.forum.thread.form = {
 
       x.net.xhr('/api/forum.thread.save.aspx', outString, {
         waitingMessage: i18n.net.waiting.saveTipText,
-        // popResultValue: 1,
+        // popCorrectValue: 1,
         callback: function(response)
         {
           x.page.refreshParentWindow();

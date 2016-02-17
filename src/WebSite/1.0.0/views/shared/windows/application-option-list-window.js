@@ -235,7 +235,7 @@ x.ui.windows.newApplicationOptionListWindow = function(name, options)
                 var me = this;
 
                 x.net.xhr('/api/application.option.save.aspx', outString, {
-                    // popResultValue: 1,
+                    // popCorrectValue: 1,
                     callback: function(response)
                     {
                         $('#' + name + '-value-view').html($('#' + name + '-value').val());

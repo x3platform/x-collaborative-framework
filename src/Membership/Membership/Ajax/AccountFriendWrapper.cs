@@ -12,6 +12,7 @@ namespace X3Platform.Membership.Ajax
     using X3Platform.Data;
     using X3Platform.DigitalNumber;
     using X3Platform.Globalization;
+    using X3Platform.Messages;
     using X3Platform.Util;
 
     using X3Platform.Membership;
@@ -43,7 +44,7 @@ namespace X3Platform.Membership.Ajax
 
             if (friendAccount == null)
             {
-                return GenericException.Serialize(1, "用户信息不存在。");
+                return MessageObject.Stringify("1", "用户信息不存在。");
             }
 
             AccountFriendInfo param = this.service.FindOne(KernelContext.Current.User.Id, friendAccountId);
@@ -56,7 +57,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("\"isFriend\":" + ((param == null) ? 0 : 1));
             outString.Append("},");
 
-            outString.Append(GenericException.Serialize(0, "查询成功。", true) + "}");
+            outString.Append(MessageObject.Stringify("0", "查询成功。", true) + "}");
 
             return outString.ToString();
         }
@@ -82,7 +83,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountFriendInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -112,7 +113,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -141,7 +142,7 @@ namespace X3Platform.Membership.Ajax
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

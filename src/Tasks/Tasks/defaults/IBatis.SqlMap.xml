@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <settings>
-        <setting useStatementNamespaces="false"/>
-        <setting cacheModelsEnabled="true"/>
-        <setting validateSqlMap="false"/>
-        <setting useReflectionOptimizer="true"/>
-    </settings>
+  <settings>
+    <setting useStatementNamespaces="false"/>
+    <setting cacheModelsEnabled="true"/>
+    <setting validateSqlMap="false"/>
+    <setting useReflectionOptimizer="true"/>
+  </settings>
 
-    <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config"/>
+  <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config"/>
 
-    <database>
-        <provider name="${DatabaseSettings.Provider}" />
-        <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512" />
-    </database>
+  <database>
+    <provider name="${DatabaseSettings.Provider}" />
+    <dataSource name="IBatis" connectionString="server=${DatabaseSettings.DataSource};database=${DatabaseSettings.Database};uid=${DatabaseSettings.LoginName};pwd=${DatabaseSettings.Password};connection reset=false;connection lifetime=10;min pool size=1;max pool size=512" />
+  </database>
 
-    <typeHandlers>
-        <typeHandler type="string" callback="AnsiStringTypeHandler"/>
-    </typeHandlers>
+  <typeHandlers>
+    <typeHandler type="string" callback="AnsiStringTypeHandler"/>
+  </typeHandlers>
 
-    <sqlMaps>
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWorkProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWorkReceiverProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskCategoryProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskHistoryProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWaitingProvider.xml" />
-        <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWaitingReceiverProvider.xml" />
-    </sqlMaps>
+  <sqlMaps>
+    <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWorkProvider.xml" />
+    <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWorkReceiverProvider.xml" />
+    <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskCategoryProvider.xml" />
+    <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskHistoryProvider.xml" />
+    <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWaitingProvider.xml" />
+    <sqlMap embedded="X3Platform.Tasks.DAL.IBatis.TaskWaitingReceiverProvider.xml" />
+  </sqlMaps>
 </sqlMapConfig>

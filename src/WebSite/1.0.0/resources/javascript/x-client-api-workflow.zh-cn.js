@@ -59,7 +59,7 @@ x.workflow = {
       outString += '<tags><![CDATA[' + options.tags + ']]></tags>';
       outString += '</request>';
 
-      x.net.xhr('/api/kernel.entities.operationLog.reminder.aspx', outString, { popResultValue: 1 });
+      x.net.xhr('/api/kernel.entities.operationLog.reminder.aspx', outString, { popCorrectValue: 1 });
     }
   },
   /*#endregion*/

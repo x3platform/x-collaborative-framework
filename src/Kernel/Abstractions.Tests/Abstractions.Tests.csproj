@@ -95,7 +95,7 @@
     <Compile Include="CategoryIndexes\TextCategoryIndexTests.cs" />
     <Compile Include="TemplateContent\Configuration\DigitalNumberConfigurationViewTests.cs" />
     <Compile Include="TemplateContent\DigitalNumberContextTests.cs" />
-    <Compile Include="TemplateContent\IBLL\IDigitalNumberServiceTests.cs" />
+    <Compile Include="TemplateContent\IBLL\ITemplateContentServiceTests.cs" />
     <Compile Include="DigitalNumber\Configuration\DigitalNumberConfigurationViewTests.cs" />
     <Compile Include="DigitalNumber\DigitalNumberContextTests.cs" />
     <Compile Include="DigitalNumber\DigitalNumberScriptTests.cs" />

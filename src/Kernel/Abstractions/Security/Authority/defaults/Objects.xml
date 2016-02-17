@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
-    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+  <description>服务提供者配置信息 | 数据提供者配置信息</description>
+  
+  <!-- 权限 -->
+  <object id="X3Platform.Security.Authority.IBLL.IAuthorityService"
+          type="X3Platform.Security.Authority.BLL.AuthorityService"
+          lazy-init="true" />
 
-    <!-- 权限 -->
-    <object id="X3Platform.Security.Authority.IBLL.IAuthorityService"
-            type="X3Platform.Security.Authority.BLL.AuthorityService"
-            lazy-init="true" />
-
-    <object id="X3Platform.Security.Authority.IDAL.IAuthorityProvider"
-            type="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider"
-            lazy-init="true" />
-
+  <object id="X3Platform.Security.Authority.IDAL.IAuthorityProvider"
+          type="X3Platform.Security.Authority.DAL.IBatis.AuthorityProvider"
+          lazy-init="true" />
 </objects>

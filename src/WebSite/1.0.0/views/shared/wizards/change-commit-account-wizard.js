@@ -55,7 +55,7 @@ x.wizards.newChangeCommitAccountWizard = function(name, options)
             outString += '</ajaxStorage>';
 
             x.net.xhr(this.options.url, outString, {
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response) { }
             });
         },

@@ -82,7 +82,7 @@
         #region 属性:Title
         private string m_Title;
 
-        /// <summary></summary>
+        /// <summary>标题</summary>
         public string Title
         {
             get { return m_Title; }
@@ -93,7 +93,7 @@
         #region 属性:Content
         private string m_Content;
 
-        /// <summary></summary>
+        /// <summary>内容</summary>
         public string Content
         {
             get { return m_Content; }

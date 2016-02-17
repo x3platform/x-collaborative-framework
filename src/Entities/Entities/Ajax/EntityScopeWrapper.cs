@@ -30,7 +30,7 @@ namespace X3Platform.Entities.Ajax
   using X3Platform.Membership.Scope;
   using X3Platform.Membership;
   using X3Platform.Membership.IBLL;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
   #endregion
 
   /// <summary></summary>
@@ -60,7 +60,7 @@ namespace X3Platform.Entities.Ajax
 
       outString.Append("{\"data\":\"" + AjaxUtil.Parse<MembershipAuthorizationScopeObject>(list) + "\",");
 
-      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+      outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }
@@ -83,7 +83,7 @@ namespace X3Platform.Entities.Ajax
 
       outString.Append("{\"data\":\"" + authorizationScopeObjectText + "\",");
 
-      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+      outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }
@@ -106,7 +106,7 @@ namespace X3Platform.Entities.Ajax
 
       outString.Append("{\"data\":\"" + authorizationScopeObjectView + "\",");
 
-      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+      outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }

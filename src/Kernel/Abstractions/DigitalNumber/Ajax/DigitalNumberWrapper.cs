@@ -11,7 +11,7 @@
 
     using X3Platform.DigitalNumber.Model;
     using X3Platform.DigitalNumber.IBLL;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
@@ -49,7 +49,7 @@
 
             this.service.Delete(name);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -71,7 +71,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<DigitalNumberInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -101,7 +101,7 @@
 
             outString.Append("\"paging\":" + paging + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -123,7 +123,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<DigitalNumberInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_create_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_create_success"], true) + "}");
 
             return outString.ToString();
         }

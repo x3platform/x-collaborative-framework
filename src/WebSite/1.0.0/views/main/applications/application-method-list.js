@@ -353,7 +353,7 @@ main.applications.application.method.list = {
         outString += '</request>';
 
         x.net.xhr('/api/application.method.save.aspx', outString, {
-            popResultValue: 1,
+            popCorrectValue: 1,
             callback: function(response)
             {
                 main.applications.application.method.list.getPaging(main.applications.application.method.list.paging.currentPage);

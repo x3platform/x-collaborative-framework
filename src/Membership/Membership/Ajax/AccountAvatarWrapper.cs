@@ -5,23 +5,24 @@ namespace X3Platform.Membership.Ajax
     using System.Collections.Generic;
     using System.Xml;
     using System.Text;
-
+    using System.Web;
+    using System.IO;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
+    
     using X3Platform.Ajax;
+    using X3Platform.Configuration;
     using X3Platform.Data;
     using X3Platform.DigitalNumber;
+    using X3Platform.Location.IPQuery;
+    using X3Platform.Messages;
+    using X3Platform.Sessions;
     using X3Platform.Util;
-
+    
+    using X3Platform.Membership.Configuration;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
-    using System.Web;
-    using System.Drawing;
-    using X3Platform.Configuration;
-    using System.IO;
-    using System.Drawing.Imaging;
-    using X3Platform.Sessions;
-    using X3Platform.Location.IPQuery;
-    using System.Drawing.Drawing2D;
-    using X3Platform.Membership.Configuration;
     #endregion
 
     /// <summary></summary>
@@ -45,7 +46,7 @@ namespace X3Platform.Membership.Ajax
 
             if (account == null)
             {
-                return "{\"message\":{\"returnCode\":1,\"value\":\"必须登陆后才能上传头像。\"}}";
+                return MessageObject.Stringify("1", "必须登陆后才能上传头像。");
             }
 
             string directoryName = this.GetDirectoryName(account.Id);
@@ -77,7 +78,7 @@ namespace X3Platform.Membership.Ajax
             bitmap.Save(filePath, ImageFormat.Png);
 
             // 设置头像记录
-            filePath = account.CertifiedAvatar = "{avatar}/" + directoryName + "/" + account.Id + "_" + height + "x" + width + ".png";
+            filePath = account.CertifiedAvatar = "{avatar}" + directoryName + "/" + account.Id + "_" + height + "x" + width + ".png";
 
             MembershipManagement.Instance.AccountService.SetCertifiedAvatar(account.Id, filePath);
 
@@ -110,6 +111,7 @@ namespace X3Platform.Membership.Ajax
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppRgb);
 
             byte[] buffer = Convert.FromBase64String(strBmp);
+
             using (MemoryStream stream = new MemoryStream(buffer))
             {
                 return new Bitmap(stream);

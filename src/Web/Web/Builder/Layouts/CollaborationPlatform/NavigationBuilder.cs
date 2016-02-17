@@ -7,7 +7,7 @@ namespace X3Platform.Web.Builder.Layouts.CollaborationPlatform
   using System.Text;
   using X3Platform.Apps;
   using X3Platform.Apps.Model;
-  using X3Platform.Globalization;
+  using X3Platform.Globalization; using X3Platform.Messages;
   using X3Platform.Membership;
   using X3Platform.Util;
   using X3Platform.Velocity;

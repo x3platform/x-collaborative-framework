@@ -27,7 +27,7 @@ namespace X3Platform.Entities.Ajax
 
     using X3Platform.Entities.IBLL;
     using X3Platform.Entities.Model;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
@@ -52,7 +52,7 @@ namespace X3Platform.Entities.Ajax
 
             this.service.Save(param);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -66,7 +66,7 @@ namespace X3Platform.Entities.Ajax
 
             this.service.Delete(ids);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -88,7 +88,7 @@ namespace X3Platform.Entities.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<EntityMetaDataInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -110,7 +110,7 @@ namespace X3Platform.Entities.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<EntityMetaDataInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -130,7 +130,7 @@ namespace X3Platform.Entities.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<EntityMetaDataInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -160,7 +160,7 @@ namespace X3Platform.Entities.Ajax
 
             outString.Append("\"paging\":" + paging + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
