@@ -26,6 +26,38 @@ namespace X3Platform.Location.Regions.Model
     {
         public RegionInfo() { }
 
+        #region 属性:ParentId
+        /// <summary>父级对象标识</summary>
+        public string ParentId
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.Id))
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    string id = this.Id.TrimEnd('0');
+
+                    if (id.Length % 2 == 1)
+                    {
+                        id = string.Concat(id, '0');
+                    }
+
+                    string parentId = id.Substring(0, id.Length - 2);
+
+                    if (string.IsNullOrEmpty(parentId))
+                    {
+                        return "0";
+                    }
+
+                    return parentId.PadRight(6, '0');
+                }
+            }
+        }
+        #endregion
+
         #region 属性:Id
         private string m_Id;
 
@@ -58,34 +90,5 @@ namespace X3Platform.Location.Regions.Model
             set { this.m_Path = value; }
         }
         #endregion
-
-        public string ParentId
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.Id))
-                {
-                    return string.Empty;
-                }
-                else
-                {
-                    string id = this.Id.TrimEnd('0');
-
-                    if (id.Length % 2 == 1)
-                    {
-                        id = string.Concat(id, '0');
-                    }
-
-                    string parentId = id.Substring(0, id.Length - 2);
-
-                    if (string.IsNullOrEmpty(parentId))
-                    {
-                        return "0";
-                    }
-
-                    return parentId.PadRight(6, '0');
-                }
-            }
-        }
     }
 }

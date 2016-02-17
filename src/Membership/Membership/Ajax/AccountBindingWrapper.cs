@@ -13,7 +13,7 @@ namespace X3Platform.Membership.Ajax
 
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Model;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
@@ -41,7 +41,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -61,7 +61,7 @@ namespace X3Platform.Membership.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -130,7 +130,7 @@ namespace X3Platform.Membership.Ajax
                 outString.Append("{\"data\":" + AjaxUtil.Parse<AccountBindingInfo>(param) + ",");
             }
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

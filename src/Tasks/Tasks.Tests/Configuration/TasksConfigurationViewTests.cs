@@ -5,18 +5,17 @@
     using System.Configuration;
     using System.Text;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using X3Platform.Tasks.Configuration;
     using X3Platform.IBatis.DataMapper;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class TasksConfigurationViewTests
     {
         /// <summary>测试初始化配置信息是否成功</summary>
-        [TestMethod]
-        [DeploymentItem("MySql.Data.dll")]
+        [Test]
         public void TestInit()
         {
             TasksConfiguration configuration = TasksConfigurationView.Instance.Configuration;
@@ -28,8 +27,7 @@
         }
 
         /// <summary>测试初始化 IBatis 配置信息是否成功</summary>
-        [TestMethod]
-        [DeploymentItem("MySql.Data.dll")]
+        [Test]
         public void TestCreateMapper()
         {
             TasksConfiguration configuration = TasksConfigurationView.Instance.Configuration;

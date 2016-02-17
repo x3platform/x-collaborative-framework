@@ -28,7 +28,7 @@ namespace X3Platform.Plugins.Favorite.Ajax
     
     using X3Platform.Plugins.Favorite.IBLL;
     using X3Platform.Plugins.Favorite.Model;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     public class FavoriteWrapper : ContextWrapper
@@ -57,7 +57,7 @@ namespace X3Platform.Plugins.Favorite.Ajax
 
             this.service.Save(param);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -72,7 +72,7 @@ namespace X3Platform.Plugins.Favorite.Ajax
 
             this.service.Delete(ids);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -95,7 +95,7 @@ namespace X3Platform.Plugins.Favorite.Ajax
 
             outString.Append("{\"ajaxStorage\":" + AjaxUtil.Parse<FavoriteInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -126,7 +126,7 @@ namespace X3Platform.Plugins.Favorite.Ajax
 
             outString.Append("\"pages\":" + pages + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

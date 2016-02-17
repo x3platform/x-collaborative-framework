@@ -21,7 +21,7 @@
   using X3Platform.Plugins.Forum.Configuration;
   using X3Platform.Ajax.Net;
   using X3Platform.Data;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
   #endregion
 
   /// <summary></summary>
@@ -166,7 +166,7 @@
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<ForumThreadInfo>(param) + ",");
 
-      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+      outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }
@@ -190,7 +190,7 @@
 
       outString.Append("{\"data\":" + AjaxUtil.Parse<ForumThreadQueryInfo>(list) + ",");
 
-      outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+      outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
       return outString.ToString();
     }

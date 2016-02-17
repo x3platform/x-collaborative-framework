@@ -22,7 +22,7 @@
     using X3Platform.SMS.Client;
     using X3Platform.Security.VerificationCode.Configuration;
     using X3Platform.Security.Configuration;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
 
     public class GeneralAccountWrapper : ContextWrapper
     {
@@ -65,7 +65,7 @@
             // 记录帐号操作日志
             MembershipManagement.Instance.AccountLogService.Log(account.Id, "hr.general.setMemberCard", "【" + account.Name + "】更新了自己的个人信息，【IP:" + IPQueryContext.GetClientIP() + "】。", account.Id);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 

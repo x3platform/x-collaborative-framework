@@ -357,7 +357,7 @@ x.ui.windows.newApplicationSettingListWindow = function(name, options)
             var me = this;
 
             x.net.xhr('/api/application.setting.save.aspx', outString, {
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     me.getPaging(me.paging.currentPage);

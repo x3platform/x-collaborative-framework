@@ -115,7 +115,7 @@ x.ui.wizards.newTransactWorkflowWizard = function(name, options)
 
       x.net.xhr(this.options.url, outString, {
         waitingMessage: i18n.net.waiting.commitTipText,
-        popResultValue: 1,
+        popCorrectValue: 1,
         callback: function(response)
         {
           x.page.refreshParentWindow();
@@ -368,7 +368,7 @@ x.ui.wizards.newExecuteWorkflowRequestWizard = function(name, options)
     {
       x.net.xhr(url, outString, {
         waitingMessage: i18n.net.waiting.commitTipText,
-        popResultValue: 1,
+        popCorrectValue: 1,
         callback: function(response)
         {
           x.page.refreshParentWindow();
@@ -1272,7 +1272,7 @@ x.ui.wizards.newForcedWorkflowRequestWizard = function(name, options)
 
       x.net.xhr(this.options.url, outString, {
         waitingMessage: i18n.net.waiting.commitTipText,
-        popResultValue: 1,
+        popCorrectValue: 1,
         callback: function(response)
         {
           x.page.refreshParentWindow();
@@ -1489,7 +1489,7 @@ x.ui.wizards.getForcedWorkflowRequestWizard = function(options)
 
         x.net.xhr(this.options.url, outString, {
           waitingMessage: i18n.net.waiting.commitTipText,
-          // popResultValue: 1,
+          // popCorrectValue: 1,
           callback: function(response)
           {
             x.page.refreshParentWindow();
@@ -1722,7 +1722,7 @@ x.ui.wizards.getForcedWorkflowRequestFeedbackWizard = function(options)
 
         x.net.xhr(this.options.url, outString, {
           waitingMessage: i18n.net.waiting.commitTipText,
-          popResultValue: 1,
+          popCorrectValue: 1,
           callback: function(response)
           {
             x.page.refreshParentWindow();

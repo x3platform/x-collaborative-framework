@@ -3,6 +3,7 @@ namespace X3Platform.Location.Regions.BLL
     #region Using Libraries
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using X3Platform.Configuration;
     using X3Platform.Data;
@@ -13,7 +14,7 @@ namespace X3Platform.Location.Regions.BLL
     using X3Platform.Location.Regions.IBLL;
     using X3Platform.Location.Regions.IDAL;
     using X3Platform.CategoryIndexes;
-
+    using X3Platform.CacheBuffer;
     #endregion
 
     public sealed class RegionService : IRegionService
@@ -88,7 +89,16 @@ namespace X3Platform.Location.Regions.BLL
         /// <returns>返回所有 实例<see cref="RegionInfo"/>的详细信息</returns>
         public IList<RegionInfo> FindAll()
         {
-            return this.provider.FindAll(new DataQuery());
+            IList<RegionInfo> data = (IList<RegionInfo>)CachingManager.Get("Location-Regions");
+
+            if (data == null)
+            {
+                data = this.provider.FindAll(new DataQuery() { Length = int.MaxValue });
+
+                CachingManager.Set("Location-Regions", data);
+            }
+
+            return data;
         }
         #endregion
 
@@ -132,7 +142,16 @@ namespace X3Platform.Location.Regions.BLL
         {
             string searchPath = (parentId == "0") ? string.Empty : parentId.Replace(@"$", @"\");
 
-            IList<DynamicTreeNode> list = null; // this.provider.GetDynamicTreeNodes(searchPath, string.Empty);
+            IList<RegionInfo> data = this.FindAll();
+
+            data = data.Where(x => x.ParentId == parentId).ToList();
+
+            IList<DynamicTreeNode> list = new List<DynamicTreeNode>(); // this.provider.GetDynamicTreeNodes(searchPath, string.Empty);
+
+            foreach (RegionInfo d in data)
+            {
+                list.Add(new DynamicTreeNode() { Id = d.Id, Name = d.Name, ParentId = d.ParentId });
+            }
 
             DynamicTreeView treeView = new DynamicTreeView(treeName, parentId);
 

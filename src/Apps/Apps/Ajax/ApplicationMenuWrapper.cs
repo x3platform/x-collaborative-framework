@@ -13,7 +13,7 @@ namespace X3Platform.Apps.Ajax
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
     using X3Platform.Apps.Configuration;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
@@ -41,8 +41,8 @@ namespace X3Platform.Apps.Ajax
             this.service.Save(param);
 
             this.service.BindAuthorizationScopeObjects(param.Id, "应用_通用_查看权限", authorizationReadScopeObjectText);
-
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -56,7 +56,7 @@ namespace X3Platform.Apps.Ajax
 
             this.service.Delete(ids);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -78,7 +78,7 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMenuInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -100,7 +100,7 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

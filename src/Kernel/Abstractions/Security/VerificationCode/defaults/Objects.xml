@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
-    <description>服务提供者配置信息 | 数据提供者配置信息</description>
+  <description>服务提供者配置信息 | 数据提供者配置信息</description>
 
-    <!-- 验证码 -->
-    <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationCodeService"
-            type="X3Platform.Security.VerificationCode.BLL.VerificationCodeService"
-            lazy-init="true" />
+  <!-- 验证码 -->
+  <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationCodeService"
+          type="X3Platform.Security.VerificationCode.BLL.VerificationCodeService"
+          lazy-init="true" />
 
-    <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeProvider"
-            type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider"
-            lazy-init="true" />
-  
-    <!-- 验证码邮件选项 -->
-    <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationCodeTemplateService"
-            type="X3Platform.Security.VerificationCode.BLL.VerificationCodeTemplateService"
-            lazy-init="true" />
+  <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeProvider"
+          type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeProvider"
+          lazy-init="true" />
 
-    <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeTemplateProvider"
-            type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeTemplateProvider"
-            lazy-init="true" />
+  <!-- 验证码邮件选项 -->
+  <object id="X3Platform.Security.VerificationCode.IBLL.IVerificationCodeTemplateService"
+          type="X3Platform.Security.VerificationCode.BLL.VerificationCodeTemplateService"
+          lazy-init="true" />
+
+  <object id="X3Platform.Security.VerificationCode.IDAL.IVerificationCodeTemplateProvider"
+          type="X3Platform.Security.VerificationCode.DAL.IBatis.VerificationCodeTemplateProvider"
+          lazy-init="true" />
 </objects>

@@ -117,7 +117,7 @@ main.entities.entity.metadata.list = {
         outString += '</request>';
 
         x.net.xhr('/api/kernel.entities.metadata.query.aspx', outString, {
-            popResultValue: 0,
+            popCorrectValue: 0,
             callback: function(response)
             {
                 var result = x.toJSON(response);
@@ -148,7 +148,7 @@ main.entities.entity.metadata.list = {
         if(confirm('确定删除?'))
         {
             x.net.xhr('/api/kernel.entities.metadata.delete.aspx?ids=' + ids, {
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     main.entities.entity.metadata.list.getPaging(main.entities.entity.metadata.list.paging.currentPage);

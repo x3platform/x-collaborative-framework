@@ -136,6 +136,7 @@
     <Compile Include="IDAL\ITaskWaitingReceiverProvider.cs" />
     <Compile Include="IDAL\ITaskWorkProvider.cs" />
     <Compile Include="IDAL\ITaskWorkReceiverProvider.cs" />
+    <Compile Include="INotificationProvider.cs" />
     <Compile Include="Model\TaskCategoryInfo.cs" />
     <Compile Include="Model\TaskHistoryItemInfo.cs" />
     <Compile Include="Model\TaskWaitingInfo.cs" />

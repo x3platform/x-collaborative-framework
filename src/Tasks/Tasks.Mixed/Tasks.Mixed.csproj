@@ -7,7 +7,7 @@
     <ProjectGuid>{190476C1-4FE2-4DA1-904E-B060A4D9B7D3}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <RootNamespace>X3Platform.Tasks.Mixed</RootNamespace>
+    <RootNamespace>X3Platform.Tasks</RootNamespace>
     <AssemblyName>X3Platform.Tasks.Mixed</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Licence.snk</AssemblyOriginatorKeyFile>
@@ -126,6 +126,9 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Customizes\TaskWidget.cs" />
+    <Compile Include="NotificationProviders\GetuiNotificationProvider.cs" />
+    <Compile Include="NotificationProviders\WechatNotificationProvider.cs" />
+    <Compile Include="NotificationProviders\SMSNotificationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

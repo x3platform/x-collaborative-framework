@@ -307,7 +307,7 @@ main.tasks.home = {
             outString += '</ajaxStorage>';
 
             x.net.xhr('/api/task.workItem.setStatus.aspx', outString, {
-                popResultValue: 0,
+                popCorrectValue: 0,
                 callback: function(response)
                 {
                     main.tasks.home.getPaging(main.tasks.home.paging.currentPage);
@@ -449,7 +449,7 @@ main.tasks.home = {
             x.net.xhr('/api/task.workItem.setFinished.aspx?taskIds=' + taskIds, {
                 waitingType: 'mini',
                 waitingMessage: i18n.net.waiting.commitTipText,
-                popResultValue: 0,
+                popCorrectValue: 0,
                 callback: function(response)
                 {
                     main.tasks.home.getPaging(main.tasks.home.paging.currentPage);
@@ -469,7 +469,7 @@ main.tasks.home = {
             x.net.xhr('/api/task.workItem.setFinished.aspx?random=' + x.randomText.create(8), {
                 waitingType: 'mini',
                 waitingMessage: i18n.net.waiting.commitTipText,
-                popResultValue: 0,
+                popCorrectValue: 0,
                 callback: function(response)
                 {
                     main.tasks.home.getPaging(main.tasks.home.paging.currentPage);

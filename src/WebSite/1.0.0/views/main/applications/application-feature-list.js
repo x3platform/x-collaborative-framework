@@ -359,7 +359,7 @@ main.applications.application.feature.list = {
       outString += '</request>';
 
       x.net.xhr('/api/application.feature.save.aspx', outString, {
-        popResultValue: 1,
+        popCorrectValue: 1,
         waitingMessage: i18n.net.waiting.saveTipText,
         callback: function(response)
         {

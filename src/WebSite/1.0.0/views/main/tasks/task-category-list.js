@@ -293,7 +293,7 @@ main.tasks.category.list = {
 
             x.net.xhr('/api/task.category.save.aspx', outString, {
                 waitingMessage: i18n.net.commitTipText,
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     main.tasks.category.list.getPaging(main.tasks.category.list.paging.currentPage);

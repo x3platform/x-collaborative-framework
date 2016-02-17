@@ -13,7 +13,7 @@ namespace X3Platform.Plugins.Forum.Ajax
     using X3Platform.Plugins.Forum.IBLL;
     using X3Platform.Plugins.Forum.Model;
     using X3Platform.CategoryIndexes;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
@@ -66,7 +66,7 @@ namespace X3Platform.Plugins.Forum.Ajax
 
             this.service.Delete(id);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 
@@ -89,7 +89,7 @@ namespace X3Platform.Plugins.Forum.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ForumCategoryInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -111,7 +111,7 @@ namespace X3Platform.Plugins.Forum.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ForumCategoryInfo>(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -196,7 +196,7 @@ namespace X3Platform.Plugins.Forum.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ForumCategoryInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_create_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_create_success"], true) + "}");
 
             return outString.ToString();
         }

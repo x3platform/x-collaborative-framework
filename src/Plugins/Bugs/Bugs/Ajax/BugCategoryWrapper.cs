@@ -16,7 +16,7 @@
     using X3Platform.Plugins.Bugs.IBLL;
     using X3Platform.Plugins.Bugs.Model;
     using X3Platform.Plugins.Bugs.Configuration;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
@@ -52,7 +52,7 @@
             this.service.BindAuthorizationScopeObjects(param.Id, "应用_通用_查看权限", authorizationReadScopeObjectText);
             this.service.BindAuthorizationScopeObjects(param.Id, "应用_通用_修改权限", authorizationEditScopeObjectText);
 
-            return GenericException.Serialize(0, I18n.Strings["msg_save_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
 
@@ -68,7 +68,7 @@
             {
                 this.service.Delete(id);
 
-                return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+                return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
             }
             else
             {
@@ -89,7 +89,7 @@
             {
                 this.service.Remove(id);
 
-                return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+                return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
             }
             else
             {
@@ -116,7 +116,7 @@
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<BugCategoryInfo>(param) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -170,7 +170,7 @@
 
             outString.Append("\"paging\":" + paging + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -238,7 +238,7 @@
 
             outString.Append("\"combobox\":\"" + combobox + "\",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -288,7 +288,7 @@
 
             outString.Append("\"combobox\":\"" + combobox + "\",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }
@@ -308,7 +308,7 @@
 
             outString.Append("{\"data\":" + FormatCombobox(list) + ",");
 
-            outString.Append(GenericException.Serialize(0, I18n.Strings["msg_query_success"], true) + "}");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
         }

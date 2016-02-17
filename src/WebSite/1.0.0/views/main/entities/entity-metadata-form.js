@@ -18,7 +18,7 @@ main.entities.entity.metadata.form = {
 
             x.net.xhr('/api/kernel.entities.metadata.save.aspx', outString, {
                 waitingMessage: i18n.net.waiting.saveTipText,
-                popResultValue: 1,
+                popCorrectValue: 1,
                 callback: function(response)
                 {
                     x.page.refreshParentWindow();

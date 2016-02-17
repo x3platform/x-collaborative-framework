@@ -14,7 +14,7 @@
     using X3Platform.Plugins.Forum.IBLL;
     using X3Platform.Plugins.Forum.Model;
     using X3Platform.Location.IPQuery;
-    using X3Platform.Globalization;
+    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
     public class ForumFollowWrapper : ContextWrapper
     {
@@ -131,7 +131,7 @@
                 ForumContext.Instance.ForumMemberService.SetFollowCount(followAccountId, -1);
             }
 
-            return GenericException.Serialize(0, I18n.Strings["msg_delete_success"]);
+            return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
         #endregion
 

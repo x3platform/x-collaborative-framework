@@ -15,7 +15,7 @@
   using X3Platform.DigitalNumber;
   using X3Platform.Util;
   using X3Platform.Web.Configuration;
-  using X3Platform.Globalization;
+  using X3Platform.Globalization; using X3Platform.Messages;
   #endregion
 
   public class CustomController : Controller
