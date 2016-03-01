@@ -141,6 +141,20 @@
         void Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId);
         #endregion
 
+        #region 函数:Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId, string notificationOptions)
+        /// <summary>发送一对一的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者帐号标识</param>
+        /// <param name="receiverId">接收者帐号标识</param>
+        /// <param name="notificationOptions">通知选项</param>
+        void Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId, string notificationOptions);
+        #endregion
+
         #region 函数:SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds)
         /// <summary>发送一对多的待办信息</summary>
         /// <param name="taskCode">任务编号</param>
@@ -154,12 +168,43 @@
         void SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds);
         #endregion
 
+        #region 函数:SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds, string notificationOptions)
+        /// <summary>发送一对多的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者</param>
+        /// <param name="receiverIds">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        void SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds, string notificationOptions);
+        #endregion
+
         #region 函数:SendAppendRange(string applicationId, string taskCode, string receiverIds)
         /// <summary>附加待办信息新的接收人</summary>
         /// <param name="applicationId">第三方系统帐号标识</param>
         /// <param name="taskCode">任务编号</param>
         /// <param name="receiverIds">接收者</param>
         void SendAppendRange(string applicationId, string taskCode, string receiverIds);
+        #endregion
+
+        #region 函数:SendAppendRange(string applicationId, string taskCode, string receiverIds, string notificationOptions)
+        /// <summary>附加待办信息新的接收人</summary>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="receiverIds">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        void SendAppendRange(string applicationId, string taskCode, string receiverIds, string notificationOptions);
+        #endregion
+
+        #region 函数:Notification(TaskWorkInfo task, string receiverIds, string notificationOptions)
+        /// <summary>发送通知</summary>
+        /// <param name="task">任务信息</param>
+        /// <param name="receiverIds">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        void Notification(TaskWorkInfo task, string receiverIds, string notificationOptions);
         #endregion
 
         #region 函数:AsyncReceive()

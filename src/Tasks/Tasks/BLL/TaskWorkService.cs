@@ -15,19 +15,20 @@
     using X3Platform.Tasks.IDAL;
     using X3Platform.Tasks.Model;
     using X3Platform.Tasks.MSMQ;
+    using X3Platform.Json;
     #endregion
 
     /// <summary>任务服务</summary>
-    public class TaskWorkService : ContextBoundObject, ITaskWorkService
+    public class TaskWorkService : ITaskWorkService
     {
         /// <summary>数据提供器</summary>
         private ITaskWorkProvider provider = null;
 
-        private TasksConfiguration configuration = null;
+        /// <summary>提醒程序</summary>
+        private Dictionary<string, INotificationProvider> notifications = new Dictionary<string, INotificationProvider>();
 
-        private Dictionary<string, TaskWorkInfo> Dictionary = new Dictionary<string, TaskWorkInfo>();
-
-        private DateTime actionTime = DateTime.Now;
+        /// <summary></summary>
+        private Dictionary<string, TaskWorkInfo> dictionary = new Dictionary<string, TaskWorkInfo>();
 
         /// <summary>任务队列</summary>
         private TaskQueue queue = new TaskQueue();
@@ -36,15 +37,31 @@
         /// <summary>构造函数:TaskWorkService()</summary>
         public TaskWorkService()
         {
-            configuration = TasksConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = TasksConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(TasksConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据提供器
             this.provider = objectBuilder.GetObject<ITaskWorkProvider>(typeof(ITaskWorkProvider));
+
+            // 创建提醒程序
+            var list = TasksConfigurationView.Instance.Configuration.Notifications;
+
+            for (var i = 0; i < list.AllKeys.Length; i++)
+            {
+                var type = list[list.AllKeys[i]].Value;
+
+                if (!string.IsNullOrEmpty(type))
+                {
+                    var obj = KernelContext.CreateObject(type);
+
+                    if (obj != null && obj is INotificationProvider)
+                    {
+                        this.notifications.Add(list.AllKeys[i], (INotificationProvider)obj);
+                    }
+                }
+            }
         }
         #endregion
 
@@ -154,9 +171,9 @@
 
             foreach (string key in keys)
             {
-                if (Dictionary.ContainsKey(key))
+                if (dictionary.ContainsKey(key))
                 {
-                    Dictionary.Remove(key);
+                    dictionary.Remove(key);
                 }
             }
 
@@ -174,9 +191,9 @@
 
             if (param != null)
             {
-                if (Dictionary.ContainsKey(param.Id))
+                if (dictionary.ContainsKey(param.Id))
                 {
-                    Dictionary.Remove(param.Id);
+                    dictionary.Remove(param.Id);
                 }
 
                 provider.DeleteByTaskCode(applicationId, taskCode);
@@ -195,9 +212,9 @@
 
             if (param != null)
             {
-                if (Dictionary.ContainsKey(param.Id))
+                if (dictionary.ContainsKey(param.Id))
                 {
-                    Dictionary.Remove(param.Id);
+                    dictionary.Remove(param.Id);
                 }
 
                 this.provider.DeleteByTaskCode(applicationId, taskCode, receiverIds);
@@ -217,9 +234,9 @@
         {
             TaskWorkInfo param = null;
 
-            if (Dictionary.ContainsKey(id))
+            if (dictionary.ContainsKey(id))
             {
-                param = Dictionary[id];
+                param = dictionary[id];
             }
             else
             {
@@ -227,7 +244,7 @@
 
                 if (param != null)
                 {
-                    Dictionary.Add(param.Id, param);
+                    dictionary.Add(param.Id, param);
                 }
             }
 
@@ -334,6 +351,23 @@
         /// <param name="receiverId">接收者</param>
         public void Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId)
         {
+            this.Send(applicationId, taskCode, type, title, content, tags, senderId, receiverId, TasksConfigurationView.Instance.NotificationOptions);
+        }
+        #endregion
+
+        #region 函数:Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId, string notificationOptions)
+        /// <summary>发送一对一的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者</param>
+        /// <param name="receiverId">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        public void Send(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverId, string notificationOptions)
+        {
             TaskWorkInfo task = new TaskWorkInfo();
 
             task.Id = StringHelper.ToGuid();
@@ -353,7 +387,10 @@
 
             task.CreateDate = DateTime.Now;
 
-            Save(task);
+            this.Save(task);
+
+            // 发送通知
+            this.Notification(task, receiverId, notificationOptions);
         }
         #endregion
 
@@ -368,6 +405,23 @@
         /// <param name="senderId">发送者</param>
         /// <param name="receiverIds">接收者</param>
         public void SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds)
+        {
+            this.SendRange(applicationId, taskCode, type, title, content, tags, senderId, receiverIds, TasksConfigurationView.Instance.NotificationOptions);
+        }
+        #endregion
+
+        #region 函数:SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds, string notificationOptions)
+        /// <summary>发送一对多的待办信息</summary>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">详细信息地址</param>
+        /// <param name="tags">标签</param>
+        /// <param name="type">类型</param>
+        /// <param name="senderId">发送者</param>
+        /// <param name="receiverIds">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        public void SendRange(string applicationId, string taskCode, string type, string title, string content, string tags, string senderId, string receiverIds, string notificationOptions)
         {
             TaskWorkInfo task = new TaskWorkInfo();
 
@@ -395,6 +449,9 @@
             task.CreateDate = DateTime.Now;
 
             this.Save(task);
+
+            // 发送通知
+            this.Notification(task, receiverIds, notificationOptions);
         }
         #endregion
 
@@ -404,6 +461,18 @@
         /// <param name="taskCode">任务编号</param>
         /// <param name="receiverIds">接收者</param>
         public void SendAppendRange(string applicationId, string taskCode, string receiverIds)
+        {
+            this.SendAppendRange(applicationId, taskCode, receiverIds, TasksConfigurationView.Instance.NotificationOptions);
+        }
+        #endregion
+
+        #region 函数:SendAppendRange(string applicationId, string taskCode, string receiverIds, string notificationOptions)
+        /// <summary>附加待办信息新的接收人</summary>
+        /// <param name="applicationId">第三方系统帐号标识</param>
+        /// <param name="taskCode">任务编号</param>
+        /// <param name="receiverIds">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        public void SendAppendRange(string applicationId, string taskCode, string receiverIds, string notificationOptions)
         {
             TaskWorkInfo task = this.FindOneByTaskCode(applicationId, taskCode);
 
@@ -422,6 +491,28 @@
             task.CreateDate = DateTime.Now;
 
             this.provider.Insert(task);
+
+            // 发送通知
+            this.Notification(task, receiverIds, notificationOptions);
+        }
+        #endregion
+
+        #region 函数:Notification(TaskWorkInfo task, string receiverIds, string notificationOptions)
+        /// <summary>发送通知</summary>
+        /// <param name="task">任务信息</param>
+        /// <param name="receiverIds">接收者</param>
+        /// <param name="notificationOptions">通知选项</param>
+        public void Notification(TaskWorkInfo task, string receiverIds, string notificationOptions)
+        {
+            JsonData data = JsonMapper.ToObject(notificationOptions);
+
+            foreach (string key in data.Keys)
+            {
+                if (this.notifications.ContainsKey(key))
+                {
+                    this.notifications[key].Send(task, receiverIds, data[key].ToJson());
+                }
+            }
         }
         #endregion
 

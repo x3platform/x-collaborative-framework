@@ -65,6 +65,31 @@ namespace X3Platform.Tasks.Configuration
         // 自定义属性
         // -------------------------------------------------------
 
+        #region 属性:NotificationOptions
+        private string m_NotificationOptions = string.Empty;
+
+        /// <summary>消息队列名称</summary>
+        public string NotificationOptions
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_NotificationOptions))
+                {
+                    // 读取配置信息
+                    this.m_NotificationOptions = KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "NotificationOptions",
+                        this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_NotificationOptions = StringHelper.NullOrEmptyTo(this.m_NotificationOptions, "{}");
+                }
+
+                return this.m_NotificationOptions;
+            }
+        }
+        #endregion
+
         #region 属性:PrefixTargetUrl
         private string m_PrefixTargetUrl = string.Empty;
 
@@ -89,7 +114,6 @@ namespace X3Platform.Tasks.Configuration
             }
         }
         #endregion
-
 
         #region 属性:WaitingItemSendingInterval
         private int m_WaitingItemSendingInterval = 0;

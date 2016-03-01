@@ -1,10 +1,9 @@
 namespace X3Platform.Tasks.Configuration
 {
     #region Using Libraries
-    using System.Configuration;
-
-    using X3Platform.Configuration;
     using System.IO;
+    
+    using X3Platform.Configuration;
     using X3Platform.Yaml.RepresentationModel;
     #endregion
 
@@ -23,6 +22,16 @@ namespace X3Platform.Tasks.Configuration
             return SectionName;
         }
 
+        #region 属性:Notifications
+        private NameValueConfigurationCollection m_Notifications = new NameValueConfigurationCollection();
+
+        /// <summary></summary>
+        public NameValueConfigurationCollection Notifications
+        {
+            get { return this.m_Notifications; }
+        }
+        #endregion
+
         #region 构造函数:TasksConfiguration()
         public TasksConfiguration()
         {
@@ -34,6 +43,9 @@ namespace X3Platform.Tasks.Configuration
 
             // 加载 Keys 键值配置信息
             YamlConfiguratonOperator.SetKeyValues(this.Keys, (YamlMappingNode)root.Children[new YamlScalarNode("keys")]);
+
+            // 加载 Notifications 键值配置信息
+            YamlConfiguratonOperator.SetKeyValues(this.Notifications, (YamlMappingNode)root.Children[new YamlScalarNode("notifications")]);
 
             this.Initialized = true;
         }
