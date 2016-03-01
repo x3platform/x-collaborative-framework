@@ -13,7 +13,7 @@ namespace X3Platform.Util
     #endregion
 
     /// <summary>JSON 数据处理辅助类</summary>
-    public sealed class JsonHelper
+    public static class JsonHelper
     {
         // -------------------------------------------------------
         // 将对象转换为Json格式文本
@@ -521,8 +521,9 @@ namespace X3Platform.Util
         // -------------------------------------------------------
 
         #region 函数:GetDataValue(JsonData data, string name)
-        /// <summary></summary>
+        /// <summary>获取数据对象的属性的值</summary>
         /// <param name="data">Json数据对象</param>
+        /// <param name="name">属性名称</param>
         /// <returns></returns>
         public static string GetDataValue(JsonData data, string name)
         {
@@ -531,12 +532,37 @@ namespace X3Platform.Util
         #endregion
 
         #region 函数:GetDataValue(JsonData data, string name, string defaultValue)
-        /// <summary></summary>
+        /// <summary>获取数据对象的属性的值</summary>
         /// <param name="data">Json数据对象</param>
+        /// <param name="name">属性名称</param>
+        /// <param name="defaultValue">如果属性为空，则返回默认值</param>
         /// <returns></returns>
         public static string GetDataValue(JsonData data, string name, string defaultValue)
         {
             return data.Keys.Contains(name) ? data[name].ToString() : defaultValue;
+        }
+        #endregion
+
+        #region 函数:GetValue(this JsonData data, string name, string defaultValue)
+        /// <summary>获取数据对象的属性的值</summary>
+        /// <param name="data">Json数据对象</param>
+        /// <param name="name">属性名称</param>
+        /// <returns></returns>
+        public static string GetValue(this JsonData data, string name)
+        {
+            return GetDataValue(data, name);
+        }
+        #endregion
+
+        #region 函数:GetValue(this JsonData data, string name, string defaultValue)
+        /// <summary>获取数据对象的属性的值</summary>
+        /// <param name="data">Json数据对象</param>
+        /// <param name="name">属性名称</param>
+        /// <param name="defaultValue">如果属性为空，则返回默认值</param>
+        /// <returns></returns>
+        public static string GetValue(this JsonData data, string name, string defaultValue)
+        {
+            return GetDataValue(data, name, defaultValue);
         }
         #endregion
     }

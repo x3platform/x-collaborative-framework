@@ -92,6 +92,12 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GetuiServerApiSDK">
+      <HintPath>..\..\..\lib\Getui\GetuiServerApiSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.ProtocolBuffers">
+      <HintPath>..\..\..\lib\Google\Google.ProtocolBuffers.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -107,6 +113,9 @@
     </Reference>
     <Reference Include="X3Platform.Membership">
       <HintPath>..\..\..\bin\X3Platform.Membership.dll</HintPath>
+    </Reference>
+    <Reference Include="X3Platform.SMS.Client">
+      <HintPath>..\..\..\bin\X3Platform.SMS.Client.dll</HintPath>
     </Reference>
     <Reference Include="X3Platform.Support">
       <HintPath>..\..\..\bin\X3Platform.Support.dll</HintPath>

@@ -195,10 +195,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="config\MySQL\X3Platform.Tasks.IBatis.SqlMap.config" />
-    <None Include="config\MySQL\X3Platform.Tasks.Spring.config" />
-    <Content Include="config\SQLServer\X3Platform.Tasks.IBatis.SqlMap.config" />
-    <None Include="config\SQLServer\X3Platform.Tasks.Spring.config" />
     <None Include="config\X3Platform.Tasks.config" />
   </ItemGroup>
   <ItemGroup />

@@ -16,7 +16,7 @@
     #endregion
 
     /// <summary>定时任务服务</summary>
-    public class TaskWaitingService : ContextBoundObject, ITaskWaitingService
+    public class TaskWaitingService : ITaskWaitingService
     {
         private TasksConfiguration configuration = null;
 

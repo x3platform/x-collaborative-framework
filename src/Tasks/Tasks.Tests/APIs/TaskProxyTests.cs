@@ -28,7 +28,7 @@
             string taskCode = DigitalNumberContext.Generate("Key_Guid");
 
             string xml = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<ajaxStorage>
+<request>
     <applicationId>{0}</applicationId>
     <taskCode>{1}</taskCode>
     <title>测试待办</title>
@@ -77,7 +77,7 @@
     </receivers>
     <!-- 创建时间 -->
     <createDate>{2}</createDate>
-</ajaxStorage>
+</request>
 ", appKey, taskCode, DateTime.Now);
 
             // 发送请求信息
@@ -104,10 +104,10 @@
             Uri actionUri = new Uri(this.apiHostPrefix + "/api/task.delete.aspx?client_id=" + appKey + "&client_secret=" + appSecret);
 
             string xml = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<ajaxStorage>
+<request>
     <applicationId>{0}</applicationId>
     <taskCode>{1}</taskCode>
-</ajaxStorage>
+</request>
 ", appKey, taskCode);
 
             // 发送请求信息
@@ -132,7 +132,7 @@
             string taskCode = DigitalNumberContext.Generate("Key_Guid");
 
             string xml = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<ajaxStorage>
+<request>
     <applicationId>{0}</applicationId>
     <taskCode>{1}</taskCode>
     <title>测试待办</title>
@@ -165,23 +165,16 @@
     </receivers>
     <!-- 创建时间 -->
     <createDate>{2}</createDate>
-</ajaxStorage>
+</request>
 ", appKey, DigitalNumberContext.Generate("Key_Guid"), DateTime.Now);
 
-            try
-            {
-                // 发送请求信息
-                AjaxRequestData reqeustData = new AjaxRequestData();
+            // 发送请求信息
+            AjaxRequestData reqeustData = new AjaxRequestData();
 
-                reqeustData.ActionUri = actionUri;
-                reqeustData.Args.Add("xml", xml);
+            reqeustData.ActionUri = actionUri;
+            reqeustData.Args.Add("xml", xml);
 
-                string result = AjaxRequest.Request(reqeustData);
-            }
-            catch
-            {
-                throw;
-            }
+            string result = AjaxRequest.Request(reqeustData);
         }
 
         [Test]
@@ -192,10 +185,10 @@
             string taskCode = this.SendTestTask();
 
             string xml = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<ajaxStorage>
+<request>
     <applicationId>{0}</applicationId>
     <taskCode>{1}</taskCode>
-</ajaxStorage>
+</request>
 ", appKey, taskCode);
 
             try
@@ -227,7 +220,7 @@
             string taskCode = this.SendTestTask();
 
             string xml = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<ajaxStorage>
+<request>
     <applicationId>{0}</applicationId>
     <taskCode>{1}</taskCode>
     <!-- 接收人范围 -->
@@ -238,7 +231,7 @@
             <loginName>test4</loginName>
         </receiver>
     </receivers>
-</ajaxStorage>
+</request>
 ", appKey, taskCode);
 
             try
@@ -271,28 +264,21 @@
             string taskCode = "48bab272-65a9-4b7f-af6f-4f15561cc74f";
 
             string xml = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<ajaxStorage>
+<request>
     <applicationId>{0}</applicationId>
     <taskCode>{1}</taskCode>
-</ajaxStorage>
+</request>
 ", appKey, taskCode);
 
-            try
-            {
-                // 发送请求信息
-                AjaxRequestData reqeustData = new AjaxRequestData();
+            // 发送请求信息
+            AjaxRequestData reqeustData = new AjaxRequestData();
 
-                reqeustData.ActionUri = actionUri;
-                reqeustData.Args.Add("xml", xml);
+            reqeustData.ActionUri = actionUri;
+            reqeustData.Args.Add("xml", xml);
 
-                string result = AjaxRequest.Request(reqeustData);
+            string result = AjaxRequest.Request(reqeustData);
 
-                Assert.AreEqual(result, "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}");
-            }
-            catch
-            {
-                throw;
-            }
+            Assert.AreEqual(result, "{message:{\"returnCode\":0,\"value\":\"删除成功。\"}}");
         }
     }
 }
