@@ -6,10 +6,14 @@ namespace X3Platform.Connect.Jobs
     using System.Reflection;
     using System.Text;
     using System.Xml;
+
     using Common.Logging;
+
     using Quartz;
+
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
+
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.Model;
     using X3Platform.Json;
@@ -30,6 +34,7 @@ namespace X3Platform.Connect.Jobs
             logger.Info("Fetching...");
 
             ConnectionFactory factory = new ConnectionFactory();
+
             /*
             IMessageQueueObject queue = new RabbitQueueObject<ConnectCallInfo>(ConnectConfigurationView.Instance.MessageQueueHostName,
                 ConnectConfigurationView.Instance.MessageQueuePort,
@@ -37,6 +42,7 @@ namespace X3Platform.Connect.Jobs
                 ConnectConfigurationView.Instance.MessageQueuePassword,
                 ConnectConfigurationView.Instance.MessageQueueName);
             */
+
             factory.HostName = ConnectConfigurationView.Instance.MessageQueueHostName;
             factory.Port = ConnectConfigurationView.Instance.MessageQueuePort;
             factory.UserName = ConnectConfigurationView.Instance.MessageQueueUsername;
@@ -47,7 +53,7 @@ namespace X3Platform.Connect.Jobs
                 using (IModel channel = connection.CreateModel())
                 {
                     ConnectCallInfo data = new ConnectCallInfo();
-                    
+
                     while (true)
                     {
                         BasicGetResult result = channel.BasicGet(ConnectConfigurationView.Instance.MessageQueueName, false);
@@ -82,6 +88,7 @@ namespace X3Platform.Connect.Jobs
                     }
                 }
             }
+
             /*
             queue.Open();
 
