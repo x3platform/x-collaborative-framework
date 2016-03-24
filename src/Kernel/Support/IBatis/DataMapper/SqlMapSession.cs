@@ -32,6 +32,7 @@ using X3Platform.IBatis.Common;
 using X3Platform.IBatis.Common.Logging;
 using X3Platform.IBatis.DataMapper.Exceptions;
 using Common.Logging;
+using System.Text.RegularExpressions;
 
 #endregion
 
@@ -205,8 +206,12 @@ namespace X3Platform.IBatis.DataMapper
                 connectionString = connectionString.Replace("server=", "data source=")
                        .Replace("uid=", "user id=")
                        .Replace("pwd=", "password=")
-                       .Replace("database=;", string.Empty)
                        .Replace("connection reset=false;", string.Empty);
+
+                // 移除 database 关键字及内容
+                connectionString = Regex.Replace(connectionString, @"database\=[\w]*;", string.Empty);
+                // 移除 connection timeout 关键字及内容
+                connectionString = Regex.Replace(connectionString, @"connection timeout\=[\w]*;", string.Empty);
             }
 
             return connectionString;
