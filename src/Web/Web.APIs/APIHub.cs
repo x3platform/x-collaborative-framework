@@ -57,7 +57,7 @@ namespace X3Platform.Web.APIs
                     {
                         if (string.IsNullOrEmpty(context.Request.QueryString.Keys[i])) { continue; }
 
-                        if (context.Request.QueryString.Keys[i] != "xhr-name")
+                        if (context.Request.QueryString.Keys[i] != "xhr-name" && context.Request.QueryString.Keys[i].IndexOf("[") == -1)
                         {
                             XmlElement element = doc.CreateElement(context.Request.QueryString.Keys[i]);
 
@@ -79,7 +79,7 @@ namespace X3Platform.Web.APIs
                     {
                         if (string.IsNullOrEmpty(context.Request.Form.Keys[i])) { continue; }
 
-                        if (context.Request.Form.Keys[i] != "xhr-name" && context.Request.Form.Keys[i] != "xhr-xml")
+                        if (context.Request.Form.Keys[i] != "xhr-name" && context.Request.Form.Keys[i] != "xhr-xml" && context.Request.Form.Keys[i].IndexOf("[") == -1)
                         {
                             XmlElement element = doc.CreateElement(context.Request.Form.Keys[i]);
 
