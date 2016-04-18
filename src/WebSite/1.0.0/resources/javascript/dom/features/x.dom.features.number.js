@@ -19,12 +19,12 @@ x.dom.features.number = {
 
             if (this.value.indexOf('.') > -1 && (event.keyCode == 110 || event.keyCode == 190))
             {
-                x.event.stopPropagation(event);
+                x.event.preventDefault(event);
             }
 
             if (this.value.indexOf('-') > -1 && (event.keyCode == 189 || event.keyCode == 109))
             {
-                x.event.stopPropagation(event);
+                x.event.preventDefault(event);
             }
 
             // x.debug.log(event.keyCode);
@@ -49,7 +49,7 @@ x.dom.features.number = {
                 || (event.keyCode == 9)  // Tab
             ))
             {
-                x.event.stopPropagation(event);
+                x.event.preventDefault(event);
             }
         });
 
