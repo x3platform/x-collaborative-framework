@@ -14,7 +14,7 @@ main.connect.home = {
 
         if($('#searchText').val() !== '')
         {
-            whereClauseValue += ' AND ( T.Code LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.Title LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.Content LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.AccountId IN (SELECT AuthorizationObjectId FROM view_AuthorizationObject_Account WHERE AccountGlobalName LIKE ##%' + $('#searchText').val() + '%## OR AccountLoginName LIKE ##%' + $('#searchText').val() + '%## ) OR T.AssignToAccountId IN (SELECT AuthorizationObjectId FROM view_AuthorizationObject_Account WHERE AccountGlobalName LIKE ##%' + $('#searchText').val() + '%## OR AccountLoginName LIKE ##%' + $('#searchText').val() + '%## ) ) ';
+            whereClauseValue += ' AND ( T.Code LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.Title LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.Content LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.AccountId IN (SELECT AuthorizationObjectId FROM view_AuthObject_Account WHERE AccountGlobalName LIKE ##%' + $('#searchText').val() + '%## OR AccountLoginName LIKE ##%' + $('#searchText').val() + '%## ) OR T.AssignToAccountId IN (SELECT AuthorizationObjectId FROM view_AuthObject_Account WHERE AccountGlobalName LIKE ##%' + $('#searchText').val() + '%## OR AccountLoginName LIKE ##%' + $('#searchText').val() + '%## ) ) ';
         }
 
         // 移除 1 = 1
