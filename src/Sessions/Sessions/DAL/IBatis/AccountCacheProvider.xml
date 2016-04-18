@@ -62,6 +62,36 @@
         CURRENT_TIMESTAMP
       )
     </insert>
+    <insert id="proc_AccountCache_Insert#Oracle" parameterClass="AccountCacheInfo">
+      INSERT INTO tb_AccountCache
+      (
+        AccountIdentity,
+        AppKey,
+        AccountCacheValue,
+        AccountObject,
+        AccountObjectType,
+        IP,
+        Location,
+        HttpUserAgent,
+        ValidFrom,
+        ValidTo,
+        "Date"
+      )
+      VALUES
+      (
+        #AccountIdentity#,
+        #AppKey#,
+        #AccountCacheValue#,
+        #AccountObject#,
+        #AccountObjectType#,
+        #IP#,
+        #Location#,
+        #HttpUserAgent#,
+        #ValidFrom#,
+        #ValidTo#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
     <update id="proc_AccountCache_Update" parameterClass="AccountCacheInfo">
       UPDATE tb_AccountCache SET
 
@@ -69,6 +99,16 @@
         AccountObjectType = #AccountObjectType#,
         ValidTo = #ValidTo#,
         Date = CURRENT_TIMESTAMP
+
+      WHERE AccountIdentity = #AccountIdentity#
+    </update>
+    <update id="proc_AccountCache_Update#Oracle" parameterClass="AccountCacheInfo">
+      UPDATE tb_AccountCache SET
+
+        AccountObject = #AccountObject#,
+        AccountObjectType = #AccountObjectType#,
+        ValidTo = #ValidTo#,
+        "Date" = CURRENT_TIMESTAMP
 
       WHERE AccountIdentity = #AccountIdentity#
     </update>
@@ -94,5 +134,11 @@
     <select id="proc_AccountCache_IsExist" >
       SELECT COUNT(0) AS "Count" FROM tb_AccountCache WHERE $WhereClause$
     </select>
+    <delete id="proc_AccountCache_Clear" >
+      <![CDATA[DELETE FROM tb_AccountCache WHERE ValidTo < '$ExpiryTime$']]>
+    </delete>
+    <delete id="proc_AccountCache_Clear#Oracle" >
+      <![CDATA[DELETE FROM tb_AccountCache WHERE ValidTo < to_date('$ExpiryTime$','yyyy-mm-dd hh24:mi:ss')]]>
+    </delete>
   </statements>
 </sqlMap>

@@ -120,7 +120,7 @@
             </dynamic>
         </select>
         <select id="proc_Entity_OperationLog_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM $CustomTableName$ WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

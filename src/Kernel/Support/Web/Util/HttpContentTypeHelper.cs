@@ -66,6 +66,7 @@ namespace X3Platform.Web
                     case "zip":
                         return "application/x-zip-compressed";
                     case "json":
+                        return "application/json";
                     default:
                         return "text/plain";
                 }

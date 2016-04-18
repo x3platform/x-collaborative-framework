@@ -193,7 +193,7 @@
             // AccountId => tb_Application_Feature
             string whereClause = string.Format(@"
     Id IN ( SELECT ApplicationId FROM [tb_Application_Feature] WHERE Id IN (
-        SELECT DISTINCT EntityId FROM view_AuthorizationObject_Account View1, tb_Application_Feature_Scope Scope
+        SELECT DISTINCT EntityId FROM view_AuthObject_Account View1, tb_Application_Feature_Scope Scope
         WHERE 
             View1.AccountId = ##{0}##
             AND View1.AuthorizationObjectId = Scope.AuthorizationObjectId
@@ -259,8 +259,8 @@
             else
             {
                 args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { 
-               { "Code", "LIKE" }, { "ApplicationName", "LIKE" }, { "ApplicationDisplayName", "LIKE" } 
-        }));
+                    { "Code", "LIKE" }, { "ApplicationName", "LIKE" }, { "ApplicationDisplayName", "LIKE" } 
+                }));
             }
 
             args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));

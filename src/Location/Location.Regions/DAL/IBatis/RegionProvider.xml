@@ -76,7 +76,7 @@
       LIMIT $StartIndex$, $PageSize$
     </select>
     <select id="proc_Region_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Region T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Region T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

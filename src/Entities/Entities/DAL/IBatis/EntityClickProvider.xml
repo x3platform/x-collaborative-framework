@@ -111,7 +111,7 @@
             </dynamic>
         </select>
         <select id="proc_Entity_Click_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM $CustomTableName$ WHERE $WhereClause$
         </select>
         <insert id="proc_Entity_Click_Increment#MySql" >
             INSERT INTO $CustomTableName$ 

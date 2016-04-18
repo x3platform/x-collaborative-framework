@@ -149,7 +149,7 @@
       LIMIT $StartIndex$, $PageSize$
     </select>
     <select id="proc_Attachment_File_GetRowCount" >
-      SELECT COUNT(*) AS "RowCount" FROM tb_Attachment_File T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Attachment_File T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

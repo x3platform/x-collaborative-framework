@@ -46,6 +46,28 @@
         CURRENT_TIMESTAMP
       )
     </insert>
+    <insert id="proc_Account_Log_Insert#Oracle" parameterClass="AccountLogInfo">
+      INSERT INTO tb_Account_Log
+      (
+        Id,
+        AccountId,
+        OriginalObjectValue,
+        OperatedBy,
+        OperationName,
+        Description,
+        "Date"
+      )
+      VALUES
+      (
+        #Id#,
+        #AccountId#,
+        #OriginalObjectValue#,
+        #OperatedBy#,
+        #OperationName#,
+        #Description#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
 
     <update id="proc_Account_Log_Update" parameterClass="AccountLogInfo">
       UPDATE tb_Account_Log SET
@@ -135,7 +157,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Account_Log_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Account_Log T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Account_Log T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -146,7 +168,7 @@
       </dynamic>
     </select>
     <select id="proc_Account_Log_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Account_Log T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Account_Log T WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>

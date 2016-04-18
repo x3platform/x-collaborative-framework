@@ -8,7 +8,7 @@ namespace X3Platform.Web.APIs.Methods
     #endregion
 
     /// <summary></summary>
-    public class RESTMethod : AjaxMethod
+    public class RESTMethod : GenericMethod
     {
         /// <summary>构造函数</summary>
         /// <param name="options">选项</param>
@@ -25,11 +25,6 @@ namespace X3Platform.Web.APIs.Methods
         /// <returns></returns>
         public override object Execute()
         {
-            this.className = this.options["className"];
-
-            this.methodName = this.options["methodName"];
-
-            // entityClassName
             this.target = KernelContext.CreateObject(this.className);
 
             Type type = this.target.GetType();

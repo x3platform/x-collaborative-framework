@@ -65,7 +65,7 @@
         </select>
 
         <select id="proc_Entity_DocObject_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM $CustomTableName$ T WHERE $WhereClause$
         </select>
 
     </statements>

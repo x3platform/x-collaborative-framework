@@ -322,7 +322,7 @@ namespace X3Platform.Plugins.Bugs.DAL.IBatis
 
         if (!string.IsNullOrEmpty(searchText))
         {
-          whereClause += " AND ( T.Code LIKE '%" + searchText + "%' OR T.Title LIKE '%" + searchText + "%' OR T.Content LIKE '%" + searchText + "%' OR T.AccountId IN (SELECT AuthorizationObjectId FROM view_AuthorizationObject_Account WHERE AccountGlobalName LIKE '%" + searchText + "%' OR AccountLoginName LIKE '%" + searchText + "%' ) OR T.AssignToAccountId IN (SELECT AuthorizationObjectId FROM view_AuthorizationObject_Account WHERE AccountGlobalName LIKE '%" + searchText + "%' OR AccountLoginName LIKE '%" + searchText + "%' ) ) ";
+          whereClause += " AND ( T.Code LIKE '%" + searchText + "%' OR T.Title LIKE '%" + searchText + "%' OR T.Content LIKE '%" + searchText + "%' OR T.AccountId IN (SELECT AuthorizationObjectId FROM view_AuthObject_Account WHERE AccountGlobalName LIKE '%" + searchText + "%' OR AccountLoginName LIKE '%" + searchText + "%' ) OR T.AssignToAccountId IN (SELECT AuthorizationObjectId FROM view_AuthObject_Account WHERE AccountGlobalName LIKE '%" + searchText + "%' OR AccountLoginName LIKE '%" + searchText + "%' ) ) ";
         }
 
         if (!string.IsNullOrEmpty(categoryIndex))

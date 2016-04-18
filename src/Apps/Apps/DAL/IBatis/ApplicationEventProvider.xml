@@ -163,7 +163,7 @@
     </select>
 
     <select id="proc_Application_Event_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Event T
+      SELECT COUNT(0) AS "Count" FROM tb_Application_Event T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

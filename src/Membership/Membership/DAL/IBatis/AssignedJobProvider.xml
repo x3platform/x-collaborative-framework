@@ -182,7 +182,7 @@
         </select>
 
         <select id="proc_AssignedJob_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_AssignedJob T
+            SELECT COUNT(0) AS "RowCount" FROM tb_AssignedJob T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -194,7 +194,7 @@
         </select>
 
         <select id="proc_AssignedJob_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_AssignedJob T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_AssignedJob T WHERE $WhereClause$
         </select>
 
         <update id="proc_AssignedJob_Rename" parameterClass="AssignedJobInfo">
@@ -344,7 +344,7 @@
         </delete>
 
         <select id="proc_AssignedJob_HasDefaultRelation" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Account_AssignedJob T WHERE AccountId = '$AccountId$' AND IsDefault = 1
+            SELECT COUNT(0) AS "Count" FROM tb_Account_AssignedJob T WHERE AccountId = '$AccountId$' AND IsDefault = 1
         </select>
 
         <update id="proc_AssignedJob_ResetRelation" >

@@ -47,6 +47,7 @@ using X3Platform.IBatis.DataMapper.TypeHandlers;
 using X3Platform.IBatis.DataMapper.Scope;
 using X3Platform.IBatis.DataMapper.Configuration.Statements;
 using X3Platform.Data;
+using System.Text.RegularExpressions;
 
 #endregion
 
@@ -1873,7 +1874,41 @@ namespace X3Platform.IBatis.DataMapper
         /// <summary>根据ISqlMapper配置信息创建通用Sql命令</summary>
         public GenericSqlCommand CreateGenericSqlCommand()
         {
-            return new GenericSqlCommand(this.DataSource.ConnectionString, this.DataSource.DbProvider.Name);
+            string connectionString = GetNativeConnectionString(this.DataSource.DbProvider.Name, this.DataSource.ConnectionString);
+
+            return new GenericSqlCommand(connectionString, this.DataSource.DbProvider.Name);
+        }
+
+        /// <summary>
+        /// 获得特定类型的数据库连接字符串
+        /// </summary>
+        private string GetNativeConnectionString(string name, string connectionString)
+        {
+            name = name.ToUpper();
+
+            // 需要将 connectionString 的关键字小写
+            if (name.IndexOf("MYSQL") == 0)
+            {
+
+            }
+            else if (name.IndexOf("SQLSERVER") == 0)
+            {
+
+            }
+            else if (name.IndexOf("ORACLE") == 0)
+            {
+                connectionString = connectionString.Replace("server=", "data source=")
+                       .Replace("uid=", "user id=")
+                       .Replace("pwd=", "password=")
+                       .Replace("connection reset=false;", string.Empty);
+
+                // 移除 database 关键字及内容
+                connectionString = Regex.Replace(connectionString, @"database\=[\w]*;", string.Empty);
+                // 移除 connection timeout 关键字及内容
+                connectionString = Regex.Replace(connectionString, @"connection timeout\=[\w]*;", string.Empty);
+            }
+
+            return connectionString;
         }
     }
 }

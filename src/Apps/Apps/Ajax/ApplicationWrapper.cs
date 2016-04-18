@@ -222,7 +222,7 @@ namespace X3Platform.Apps.Ajax
                 outString.Append("\"id\":\"" + item.Id + "\",");
                 outString.Append("\"parentId\":\"" + StringHelper.ToSafeJson((item.ParentId == treeViewRootTreeNodeId || item.ParentId == "00000000-0000-0000-0000-000000000000") ? "0" : item.ParentId) + "\",");
                 outString.Append("\"name\":\"" + StringHelper.ToSafeJson(item.ApplicationDisplayName) + "\",");
-                outString.Append("\"leaf\":" + (item.HasChildren ? 0 : 1) + ",");
+                outString.Append("\"leaf\":" + item.HasChildren  + ",");
                 outString.Append("\"target\":\"_self\"");
                 outString.Append("},");
             }

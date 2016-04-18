@@ -16,33 +16,19 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		junfa|Any CPU = junfa|Any CPU
-		longfor|Any CPU = longfor|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.junfa|Any CPU.ActiveCfg = junfa|Any CPU
-		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.junfa|Any CPU.Build.0 = junfa|Any CPU
-		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.longfor|Any CPU.ActiveCfg = longfor|Any CPU
-		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.longfor|Any CPU.Build.0 = longfor|Any CPU
 		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F09FE39-F06B-4686-9FEF-33589C3F9625}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.junfa|Any CPU.ActiveCfg = junfa|Any CPU
-		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.junfa|Any CPU.Build.0 = junfa|Any CPU
-		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.longfor|Any CPU.ActiveCfg = longfor|Any CPU
-		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.longfor|Any CPU.Build.0 = longfor|Any CPU
 		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E2DC2C0-C5F4-4B23-AB5F-A97E6FAB8FA5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.junfa|Any CPU.ActiveCfg = Release|Any CPU
-		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.junfa|Any CPU.Build.0 = Release|Any CPU
-		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.longfor|Any CPU.ActiveCfg = Release|Any CPU
-		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.longfor|Any CPU.Build.0 = Release|Any CPU
 		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA43FFBB-BCCB-4E34-9305-EA98BB8D43E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

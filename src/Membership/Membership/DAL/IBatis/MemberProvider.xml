@@ -244,7 +244,7 @@
 
         <select id="proc_Member_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Member T
+            SELECT COUNT(0) AS "RowCount" FROM tb_Member T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>

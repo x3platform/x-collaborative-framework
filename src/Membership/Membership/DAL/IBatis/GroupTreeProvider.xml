@@ -131,7 +131,7 @@
         </select>
 
         <select id="proc_GroupTree_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_GroupTree T
+            SELECT COUNT(0) AS "RowCount" FROM tb_GroupTree T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -142,7 +142,7 @@
             </dynamic>
         </select>
         <select id="proc_GroupTree_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_GroupTree T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_GroupTree T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

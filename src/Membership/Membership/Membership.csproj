@@ -56,14 +56,6 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
-    <OutputPath>bin\longfor\</OutputPath>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
-    <OutputPath>bin\junfa\</OutputPath>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
@@ -289,7 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ContactProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\GeneralRoleProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\GroupProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\GroupProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\GroupTreeNodeProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\GroupTreeProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\JobGradeProvider.xml" />
@@ -300,7 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\StandardGeneralRoleProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\StandardRoleProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\OrganizationUnitProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\OrganizationUnitProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\StandardOrganizationUnitProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountBindingProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountFriendProvider.xml" />

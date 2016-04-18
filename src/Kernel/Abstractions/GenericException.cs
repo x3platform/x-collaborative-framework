@@ -3,7 +3,9 @@ namespace X3Platform
     #region Using Libraries
     using System;
     using System.Text;
-
+    using X3Platform.Ajax.Configuration;
+    using X3Platform.Configuration;
+    using X3Platform.Messages;
     using X3Platform.Util;
     #endregion
 
@@ -97,9 +99,16 @@ namespace X3Platform
             {
                 outString.Append("{");
             }
-
+            // messagejsonfoaater
             outString.Append("\"message\":{");
-            outString.AppendFormat("\"returnCode\":\"{0}\",", this.returnCode);
+            if (AjaxConfigurationView.Instance.NamingRule == "underline")
+            {
+                outString.AppendFormat("\"return_code\":\"{0}\",", StringHelper.ToSafeJson(this.returnCode));
+            }
+            else
+            {
+                outString.AppendFormat("\"returnCode\":\"{0}\",", this.returnCode);
+            }
             outString.AppendFormat("\"value\":\"{0}\"", StringHelper.ToSafeJson(this.InnerException == null ? this.Message : this.InnerException.Message));
             outString.Append("},");
 
@@ -121,7 +130,9 @@ namespace X3Platform
                 outString.Append("}");
             }
 
-            return outString.ToString();
+            IMessageObjectFormatter formatter = (IMessageObjectFormatter)KernelContext.CreateObject(KernelConfigurationView.Instance.MessageObjectFormatter);
+
+            return !nobrace ? formatter.Format(outString.ToString(), nobrace) : formatter.Format(string.Concat("{", outString.ToString(), "}"), nobrace);
         }
         #endregion
 

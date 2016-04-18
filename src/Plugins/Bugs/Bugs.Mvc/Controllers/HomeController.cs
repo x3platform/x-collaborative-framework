@@ -95,7 +95,6 @@
             // 加载当前文档编辑模式
             ViewBag.docEditMode = docEditMode;
 
-            // 视图
             return View("/views/main/bugs/bug-form.cshtml");
         }
         #endregion

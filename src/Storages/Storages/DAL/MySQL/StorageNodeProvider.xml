@@ -184,7 +184,7 @@
 		</select>
 
 		<select id="proc_Storage_Node_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM tb_Storage_Node T
+			SELECT COUNT(0) AS "RowCount" FROM tb_Storage_Node T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -196,7 +196,7 @@
 		</select>
 
 		<select id="proc_Storage_Node_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Storage_Node T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Storage_Node T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

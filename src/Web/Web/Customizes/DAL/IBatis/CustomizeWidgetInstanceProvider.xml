@@ -136,7 +136,7 @@
     </select>
     <select id="proc_Customize_WidgetInstance_GetRowCount" >
 
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Customize_WidgetInstance T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Customize_WidgetInstance T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

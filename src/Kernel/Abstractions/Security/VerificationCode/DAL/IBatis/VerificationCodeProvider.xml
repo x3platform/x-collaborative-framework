@@ -134,7 +134,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_VerificationCode_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_VerificationCode T
+      SELECT COUNT(0) AS "Count" FROM tb_VerificationCode T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

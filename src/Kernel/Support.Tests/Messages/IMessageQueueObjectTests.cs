@@ -34,7 +34,7 @@
             {
                 MessageObject message = new MessageObject();
 
-                message.Result = "测试";
+                message.Value = "测试";
 
                 // Expect.Once.On(mockMessageObject).GetProperty("Id").Will(Return.Value("00000000-0000-0000-0000-000000000001"));
 

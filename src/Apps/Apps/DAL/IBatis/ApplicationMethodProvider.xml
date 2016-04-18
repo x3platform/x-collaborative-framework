@@ -1,206 +1,235 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Apps.DAL.IBatis.ApplicationMethodProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="ApplicationMethodInfo" type="X3Platform.Apps.Model.ApplicationMethodInfo,X3Platform.Apps" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_Application_Method_FindOne_Result" class="ApplicationMethodInfo">
-            <result property="Id" column="Id" />
-            <result property="ApplicationId" column="ApplicationId" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="DisplayName" column="DisplayName" />
-            <result property="Description" column="Description" />
-            <result property="Detail" column="Detail" />
-            <result property="Type" column="Type" />
-            <result property="Options" column="Options" />
-            <result property="EffectScope" column="EffectScope" />
-            <result property="Version" column="Version" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_Application_Method_FindAll_Result" class="ApplicationMethodInfo">
-            <result property="Id" column="Id" />
-            <result property="ApplicationId" column="ApplicationId" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="DisplayName" column="DisplayName" />
-            <result property="Description" column="Description" />
-            <result property="Detail" column="Detail" />
-            <result property="Type" column="Type" />
-            <result property="Options" column="Options" />
-            <result property="EffectScope" column="EffectScope" />
-            <result property="Version" column="Version" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-    </resultMaps>
-    <statements>
-        <insert id="proc_Application_Method_Insert" parameterClass="ApplicationMethodInfo">
-            INSERT INTO tb_Application_Method 
-            (
-                Id,
-                ApplicationId,
-                Code,
-                Name,
-                DisplayName,
-                Description,
-                Detail,
-                Type,
-                Options,
-                EffectScope,
-                Version,
-                OrderId,
-                Status,
-                Remark,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES
-            (
-                #Id#,
-                #ApplicationId#,
-                #Code#,
-                #Name#,
-                #DisplayName#,
-                #Description#,
-                #Detail#,
-                #Type#,
-                #Options#,
-                #EffectScope#,
-                #Version#,
-                #OrderId#,
-                #Status#,
-                #Remark#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+  <alias>
+    <typeAlias alias="ApplicationMethodInfo" type="X3Platform.Apps.Model.ApplicationMethodInfo,X3Platform.Apps" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Application_Method_FindOne_Result" class="ApplicationMethodInfo">
+      <result property="Id" column="Id" />
+      <result property="ApplicationId" column="ApplicationId" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="DisplayName" column="DisplayName" />
+      <result property="Description" column="Description" />
+      <result property="Detail" column="Detail" />
+      <result property="Type" column="Type" />
+      <result property="Options" column="Options" />
+      <result property="EffectScope" column="EffectScope" />
+      <result property="Version" column="Version" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_Application_Method_FindAll_Result" class="ApplicationMethodInfo">
+      <result property="Id" column="Id" />
+      <result property="ApplicationId" column="ApplicationId" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="DisplayName" column="DisplayName" />
+      <result property="Description" column="Description" />
+      <result property="Detail" column="Detail" />
+      <result property="Type" column="Type" />
+      <result property="Options" column="Options" />
+      <result property="EffectScope" column="EffectScope" />
+      <result property="Version" column="Version" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Application_Method_Insert" parameterClass="ApplicationMethodInfo">
+      INSERT INTO tb_Application_Method
+      (
+        Id,
+        ApplicationId,
+        Code,
+        Name,
+        DisplayName,
+        Description,
+        Detail,
+        Type,
+        Options,
+        EffectScope,
+        Version,
+        OrderId,
+        Status,
+        Remark,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #ApplicationId#,
+        #Code#,
+        #Name#,
+        #DisplayName#,
+        #Description#,
+        #Detail#,
+        #Type#,
+        #Options#,
+        #EffectScope#,
+        #Version#,
+        #OrderId#,
+        #Status#,
+        #Remark#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
 
-        <update id="proc_Application_Method_Update" parameterClass="ApplicationMethodInfo">
-            UPDATE tb_Application_Method SET
+    <update id="proc_Application_Method_Update" parameterClass="ApplicationMethodInfo">
+      UPDATE tb_Application_Method SET
 
-                ApplicationId = #ApplicationId#,
-                Code = #Code#,
-                Name = #Name#,
-                DisplayName = #DisplayName#,
-                Description = #Description#,
-                Detail = #Detail#,
-                Type = #Type#,
-                Options = #Options#,
-                EffectScope = #EffectScope#,
-                Version = #Version#,
-                OrderId = #OrderId#,
-                Status = #Status#,
-                Remark = #Remark#,
-                ModifiedDate = CURRENT_TIMESTAMP
+        ApplicationId = #ApplicationId#,
+        Code = #Code#,
+        Name = #Name#,
+        DisplayName = #DisplayName#,
+        Description = #Description#,
+        Detail = #Detail#,
+        Type = #Type#,
+        Options = #Options#,
+        EffectScope = #EffectScope#,
+        Version = #Version#,
+        OrderId = #OrderId#,
+        Status = #Status#,
+        Remark = #Remark#,
+        ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id#
-        </update>
+      WHERE Id = #Id#
+    </update>
 
-        <delete id="proc_Application_Method_Delete" >
-            DELETE FROM tb_Application_Method WHERE $WhereClause$
-        </delete>
+    <delete id="proc_Application_Method_Delete" >
+      DELETE FROM tb_Application_Method WHERE $WhereClause$
+    </delete>
 
-        <select id="proc_Application_Method_FindOne" resultMap="proc_Application_Method_FindOne_Result" >
-            SELECT * FROM tb_Application_Method WHERE Id = #Id#
-        </select>
+    <select id="proc_Application_Method_FindOne" resultMap="proc_Application_Method_FindOne_Result" >
+      SELECT * FROM tb_Application_Method WHERE Id = #Id#
+    </select>
 
-        <select id="proc_Application_Method_FindOneByName" resultMap="proc_Application_Method_FindOne_Result" >
-            SELECT * FROM tb_Application_Method WHERE Name = #Name#
-        </select>
+    <select id="proc_Application_Method_FindOneByName" resultMap="proc_Application_Method_FindOne_Result" >
+      SELECT * FROM tb_Application_Method WHERE Name = #Name#
+    </select>
+    <select id="proc_Application_Method_FindAll#MySql" resultMap="proc_Application_Method_FindAll_Result" >
+      SELECT * FROM tb_Application_Method T
 
-        <select id="proc_Application_Method_FindAll#MySql" resultMap="proc_Application_Method_FindAll_Result" >
-            SELECT * FROM tb_Application_Method T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            <dynamic prepend="LIMIT">
-                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
-                    0,$Length$
-                </isNotEqual>
-            </dynamic>
-        </select>
-        <select id="proc_Application_Method_FindAll#SqlServer" resultMap="proc_Application_Method_FindAll_Result" >
-            SELECT
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Application_Method_FindAll#SqlServer" resultMap="proc_Application_Method_FindAll_Result" >
+      SELECT
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            * FROM tb_Application_Method T
+      * FROM tb_Application_Method T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Application_Method_FindAll#Oracle" resultMap="proc_Application_Method_FindAll_Result" >
+      SELECT * FROM tb_Application_Method T
 
-        <select id="proc_Application_Method_GetPaging#MySql" resultMap="proc_Application_Method_FindAll_Result" >
-            SELECT * FROM     tb_Application_Method     T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+        <isNotEqual prepend="AND" property="Length" compareValue = "0">
+          <![CDATA[ROWNUM <= $Length$]]>
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Application_Method_GetPaging#MySql" resultMap="proc_Application_Method_FindAll_Result" >
+      SELECT * FROM tb_Application_Method T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            ORDER BY $OrderBy$
-            
-            LIMIT $StartIndex$, $PageSize$
-        </select>
+      ORDER BY $OrderBy$
 
-        <select id="proc_Application_Method_GetPaging#SqlServer" resultMap="proc_Application_Method_FindAll_Result" >
-            SELECT *
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Application_Method_GetPaging#Oracle" resultMap="proc_Application_Method_FindAll_Result" >
+    SELECT T2.* FROM (   
+       SELECT ROWNUM RowIndex, T1.* FROM (   
+          SELECT * FROM tb_Application_Method T
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
 
-            FROM tb_Application_Method T
+          ORDER BY $OrderBy$
+      
+           ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)   
+    ) T2 WHERE T2.RowIndex &gt; $StartIndex$     
+    </select>
+    <select id="proc_Application_Method_GetPaging#SqlServer" resultMap="proc_Application_Method_FindAll_Result" >
+      SELECT *
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
+      FROM tb_Application_Method T
 
-        <select id="proc_Application_Method_GetRowCount" >
-            SELECT COUNT(*) AS "RowCount" FROM tb_Application_Method T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
 
-        <select id="proc_Application_Method_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_Application_Method WHERE $WhereClause$
-        </select>
-    </statements>
+    <select id="proc_Application_Method_GetRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM tb_Application_Method T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+
+    <select id="proc_Application_Method_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Application_Method WHERE $WhereClause$
+    </select>
+  </statements>
 </sqlMap>

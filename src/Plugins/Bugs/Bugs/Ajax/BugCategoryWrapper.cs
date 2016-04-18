@@ -269,7 +269,7 @@
             {
                 whereClause = string.Format(@" (
 (   Id IN ( 
-        SELECT DISTINCT EntityId FROM view_AuthorizationObject_Account View1, tb_Bug_Category_Scope Scope
+        SELECT DISTINCT EntityId FROM view_AuthObject_Account View1, tb_Bug_Category_Scope Scope
         WHERE 
             View1.AccountId = ##{0}##
             AND View1.AuthorizationObjectId = Scope.AuthorizationObjectId

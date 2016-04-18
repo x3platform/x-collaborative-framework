@@ -67,26 +67,46 @@ namespace X3Platform.Ajax.Configuration
         // 自定义属性
         // -------------------------------------------------------
 
-        #region 属性:CamelStyle
-        private string m_CamelStyle = string.Empty;
+        #region 属性:NamingRule
+        private string m_NamingRule = string.Empty;
 
-        /// <summary>CamelStyle Camel样式, On : 启用 | Off : 禁用</summary>
-        public string CamelStyle
+        /// <summary>命名规则 camel 驼峰命名规则 首字母小写其余单词的首字母大写 | underline 下划线命名规则 所有字母小写加下划线分隔</summary>
+        public string NamingRule
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_CamelStyle))
+                if (string.IsNullOrEmpty(this.m_NamingRule))
                 {
                     // 读取配置信息
-                    this.m_CamelStyle = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "CamelStyle", this.Configuration.Keys);
+                    this.m_NamingRule = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "NamingRule", this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_CamelStyle = StringHelper.NullOrEmptyTo(this.m_CamelStyle, "Off");
-
-                    this.m_CamelStyle = this.m_CamelStyle.ToUpper();
+                    this.m_NamingRule = StringHelper.NullOrEmptyTo(this.m_NamingRule, "camel");
                 }
 
-                return this.m_CamelStyle;
+                return this.m_NamingRule;
+            }
+        }
+        #endregion
+
+        #region 属性:DateTimeSerializer
+        private string m_DateTimeSerializer = string.Empty;
+
+        /// <summary>命名规则 camel 驼峰命名规则 首字母小写其余单词的首字母大写 | underline 下划线命名规则 所有字母小写加下划线分隔</summary>
+        public string DateTimeSerializer
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_DateTimeSerializer))
+                {
+                    // 读取配置信息
+                    this.m_DateTimeSerializer = KernelConfigurationView.Instance.GetKeyValue(configGlobalPrefix, "DateTimeSerializer", this.Configuration.Keys);
+
+                    // 如果配置文件里未设置则设置一个默认值
+                    this.m_DateTimeSerializer = StringHelper.NullOrEmptyTo(this.m_DateTimeSerializer, "X3Platform.Ajax.AjaxDateTimeSerializer,X3Platform.Support");
+                }
+
+                return this.m_DateTimeSerializer;
             }
         }
         #endregion

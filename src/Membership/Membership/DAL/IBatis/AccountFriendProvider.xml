@@ -157,7 +157,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Account_Friend_GetRowCount" >
-      SELECT COUNT(*) AS "RowCount" FROM tb_Account_Friend T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Account_Friend T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -203,7 +203,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Account_Friend_Accept_GetRowCount" >
-      SELECT COUNT(*) AS "RowCount" FROM tb_Account_Friend_Accept T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Account_Friend_Accept T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

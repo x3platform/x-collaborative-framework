@@ -170,7 +170,7 @@
 
         <select id="proc_Contact_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM `tb_Contact` T
+            SELECT COUNT(0) AS "RowCount" FROM `tb_Contact` T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -182,7 +182,7 @@
         </select>
 
         <select id="proc_Contact_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM `tb_Contact` T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM `tb_Contact` T WHERE $WhereClause$
         </select>
 
         <select id="proc_Contact_FetchCategoryIndex" >

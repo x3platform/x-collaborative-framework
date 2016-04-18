@@ -2,14 +2,15 @@ namespace X3Platform.Messages
 {
     #region Using Libraries
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Xml;
-
-    using X3Platform.Ajax;
-    using X3Platform.CacheBuffer;
-    using X3Platform.Util;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Xml;
+using X3Platform.Ajax;
+using X3Platform.Ajax.Configuration;
+using X3Platform.CacheBuffer;
+using X3Platform.Configuration;
+using X3Platform.Util;
     #endregion
 
     /// <summary>消息对象</summary>
@@ -59,7 +60,14 @@ namespace X3Platform.Messages
             }
 
             outString.Append("\"message\":{");
-            outString.AppendFormat("\"returnCode\":\"{0}\",", StringHelper.ToSafeJson(this.ReturnCode));
+            if (AjaxConfigurationView.Instance.NamingRule == "underline")
+            {
+                outString.AppendFormat("\"return_code\":\"{0}\",", StringHelper.ToSafeJson(this.ReturnCode));
+            }
+            else
+            {
+                outString.AppendFormat("\"returnCode\":\"{0}\",", StringHelper.ToSafeJson(this.ReturnCode));
+            }
             outString.AppendFormat("\"value\":\"{0}\"", StringHelper.ToSafeJson(this.Value));
             outString.Append("},");
 
@@ -71,7 +79,9 @@ namespace X3Platform.Messages
                 outString.Append("}");
             }
 
-            return outString.ToString();
+            IMessageObjectFormatter formatter = (IMessageObjectFormatter)Activator.CreateInstance(Type.GetType(KernelConfigurationView.Instance.MessageObjectFormatter));
+
+            return !nobrace ? formatter.Format(outString.ToString(), nobrace) : formatter.Format(string.Concat("{", outString.ToString(), "}"), nobrace);
         }
         #endregion
 

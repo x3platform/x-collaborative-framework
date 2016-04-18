@@ -145,7 +145,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Account_Binding_GetRowCount" >
-      SELECT COUNT(*) AS "RowCount" FROM tb_Account_Binding T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Account_Binding T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

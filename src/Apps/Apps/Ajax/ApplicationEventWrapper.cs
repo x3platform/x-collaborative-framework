@@ -131,11 +131,9 @@ namespace X3Platform.Apps.Ajax
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationEventInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
-            outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
+            outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + ",");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
-            outString.Append("\"total\":" + paging.RowCount + ",");
-            outString.Append("\"success\":1,");
-            outString.Append("\"msg\":\"success\"}");
+            outString.Append("\"total\":" + paging.RowCount + "}");
 
             return outString.ToString();
         }

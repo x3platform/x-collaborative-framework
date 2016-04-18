@@ -44,7 +44,6 @@ namespace X3Platform.Web.APIs.Methods
         /// <returns></returns>
         public virtual object Execute()
         {
-            // entityClassName
             this.target = KernelContext.CreateObject(this.className);
 
             Type type = this.target.GetType();

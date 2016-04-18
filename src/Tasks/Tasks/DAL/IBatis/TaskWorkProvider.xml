@@ -233,7 +233,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Task_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Task_WorkItem T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Task_WorkItem T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

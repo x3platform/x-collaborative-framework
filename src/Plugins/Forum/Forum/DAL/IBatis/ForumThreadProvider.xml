@@ -328,7 +328,7 @@
     </select>
     <select id="proc_Forum_Thread_GetRowCount" >
 
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Thread T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Forum_Thread T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -339,10 +339,10 @@
       </dynamic>
     </select>
     <select id="proc_Forum_Thread_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Thread T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Forum_Thread T WHERE $WhereClause$
     </select>
     <select id="proc_Forum_Thread_IsExistByCategory" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Thread T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Forum_Thread T WHERE $WhereClause$
     </select>
     <update id="proc_Forum_Thread_SetEssential" >
       UPDATE tb_Forum_Thread SET IsEssential = #IsEssential# WHERE Id = #Id#

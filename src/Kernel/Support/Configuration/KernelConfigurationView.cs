@@ -660,6 +660,33 @@ namespace X3Platform.Configuration
         }
         #endregion
 
+        #region 属性:MessageObjectFormatter
+        private string m_MessageObjectFormatter = string.Empty;
+
+        /// <summary>验证管理类型</summary>
+        public string MessageObjectFormatter
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.m_MessageObjectFormatter))
+                {
+                    if (this.Configuration.Keys["MessageObjectFormatter"] == null)
+                    {
+                        this.m_MessageObjectFormatter = "X3Platform.Messages.MessageObjectFormatter,X3Platform.Support";
+
+                        this.Configuration.Keys.Add(new KernelConfigurationKey("MessageObjectFormatter", this.m_MessageObjectFormatter));
+                    }
+                    else
+                    {
+                        this.m_MessageObjectFormatter = this.Configuration.Keys["MessageObjectFormatter"].Value;
+                    }
+                }
+
+                return this.m_MessageObjectFormatter;
+            }
+        }
+        #endregion
+        
         #region 属性:ApplicationPathRoot
         private string m_ApplicationPathRoot = string.Empty;
 

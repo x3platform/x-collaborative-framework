@@ -59,14 +59,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Release\X3Platform.Support.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'longfor|AnyCPU'">
-    <OutputPath>bin\longfor\</OutputPath>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'junfa|AnyCPU'">
-    <OutputPath>bin\junfa\</OutputPath>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
@@ -81,6 +73,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -91,6 +84,8 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Ajax\AjaxMethodAttribute.cs" />
+    <Compile Include="Ajax\AjaxDateTimeSerializer.cs" />
+    <Compile Include="Ajax\IDateTimeSerializer.cs" />
     <Compile Include="Ajax\AjaxMethodParser.cs" />
     <Compile Include="Ajax\AjaxUtil.cs" />
     <Compile Include="Ajax\Configuration\AjaxConfiguration.cs">
@@ -252,6 +247,8 @@
     <Compile Include="Markdown\MarkdownOptions.cs" />
     <Compile Include="Messages\Configuration\MessageQueueConfiguration.cs" />
     <Compile Include="Messages\Configuration\MessageQueueConfigurationView.cs" />
+    <Compile Include="Messages\MessageObjectFormatter.cs" />
+    <Compile Include="Messages\IMessageObjectFormatter.cs" />
     <Compile Include="Security\CiphertextFormat.cs" />
     <Compile Include="Security\Configuration\SecurityConfiguration.cs" />
     <Compile Include="Security\Configuration\SecurityConfigurationView.cs" />

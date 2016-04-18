@@ -303,7 +303,7 @@ namespace X3Platform.Plugins.Forum.DAL.IBatis
       //if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, application.ApplicationName))
       //{
       //    StringBuilder bindScope = new StringBuilder();
-      //    bindScope.Append(string.Format(" Id IN (SELECT distinct EntityId from {0}_Category_Scope S,view_AuthorizationObject_Account A", ForumUtility.ToDataTablePrefix(applicationTag)));
+      //    bindScope.Append(string.Format(" Id IN (SELECT distinct EntityId from {0}_Category_Scope S,view_AuthObject_Account A", ForumUtility.ToDataTablePrefix(applicationTag)));
       //    bindScope.Append(" where  s.AuthorizationObjectId=a.AuthorizationObjectId");
       //    bindScope.Append(" and s.AuthorizationObjectType = a.AuthorizationObjectType");
       //    bindScope.Append(" and a.AccountId = '" + KernelContext.Current.User.Id + "')");

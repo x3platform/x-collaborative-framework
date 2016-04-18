@@ -320,7 +320,7 @@
 
             string scope = string.Format(@" (
 (   T.Id IN ( 
-        SELECT DISTINCT EntityId FROM view_AuthorizationObject_Account View1, tb_Application_Menu_Scope Scope
+        SELECT DISTINCT EntityId FROM view_AuthObject_Account View1, tb_Application_Menu_Scope Scope
         WHERE 
             View1.AccountId = ##{0}##
             AND View1.AuthorizationObjectId = Scope.AuthorizationObjectId

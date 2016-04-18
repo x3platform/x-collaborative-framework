@@ -137,7 +137,7 @@
         </select>
 
         <select id="proc_StandardGeneralRole_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_StandardGeneralRole] T
+            SELECT COUNT(0) AS "RowCount" FROM [tb_StandardGeneralRole] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -149,7 +149,7 @@
         </select>
 
         <select id="proc_StandardGeneralRole_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_StandardGeneralRole] T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM [tb_StandardGeneralRole] T WHERE $WhereClause$
         </select>
 
         <select id="proc_StandardGeneralRole_FindOneMappingRelation" resultMap="proc_StandardGeneralRole_FindAllMappingRelation_Result" >
@@ -213,7 +213,7 @@
         </select>
 
         <select id="proc_StandardGeneralRole_GetMappingRelationRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_StandardGeneralRole_Mapping] T
+            SELECT COUNT(0) AS "RowCount" FROM [tb_StandardGeneralRole_Mapping] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -258,7 +258,7 @@
         </delete>
 
         <select id="proc_StandardGeneralRole_HasMappingRelation" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_StandardGeneralRole_Mapping] T WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' 
+            SELECT COUNT(0) AS "Count" FROM [tb_StandardGeneralRole_Mapping] T WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' 
         </select>
     </statements>
 </sqlMap>

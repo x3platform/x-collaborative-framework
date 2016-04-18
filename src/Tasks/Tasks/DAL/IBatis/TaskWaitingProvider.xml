@@ -177,7 +177,7 @@
         </select>
 
         <select id="proc_TaskWaiting_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM view_Task_WaitingItem T
+            SELECT COUNT(0) AS "RowCount" FROM view_Task_WaitingItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -189,7 +189,7 @@
         </select>
 
         <select id="proc_TaskWaiting_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Task_WaitingItem T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_Task_WaitingItem T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

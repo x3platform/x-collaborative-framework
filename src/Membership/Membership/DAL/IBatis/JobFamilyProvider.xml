@@ -151,7 +151,7 @@
         </select>
 
         <select id="proc_JobFamily_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_JobFamily T
+            SELECT COUNT(0) AS "RowCount" FROM tb_JobFamily T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -163,7 +163,7 @@
         </select>
 
         <select id="proc_JobFamily_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_JobFamily T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_JobFamily T WHERE $WhereClause$
         </select>
 
         <update id="proc_JobFamily_Rename" parameterClass="JobFamilyInfo">

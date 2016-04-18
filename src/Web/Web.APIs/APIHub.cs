@@ -14,6 +14,8 @@ namespace X3Platform.Web.APIs
     using X3Platform.Location.IPQuery;
     using X3Platform.Connect;
     using X3Platform.Connect.Model;
+    using System.Text;
+    using System.Runtime.Serialization.Json;
 
     /// <summary></summary>
     /// <param name="methodName"></param>
@@ -26,16 +28,30 @@ namespace X3Platform.Web.APIs
     sealed class APIHub
     {
         /// <summary>处理请求</summary>
-        public static string ProcessRequest(HttpContextBase context, string methodName, ILog logger, APIInvokeDelegate methodInvoke)
+        public static string ProcessRequest(HttpContextBase context, string methodName, string rawInput, ILog logger, APIInvokeDelegate methodInvoke)
         {
             // 请求响应的内容
             string responseText = string.Empty;
-
+            // clientId
             string clientId = (context.Request["clientId"] == null) ? string.Empty : context.Request["clientId"];
-
+            // accessToken
             string accessToken = (context.Request["accessToken"] == null) ? string.Empty : context.Request["accessToken"];
-
+            // 默认支持 form-data 方式
             string xml = (context.Request.Form["xhr-xml"] == null) ? string.Empty : context.Request.Form["xhr-xml"];
+
+            // 支持 application/xml 请求方式
+            if (context.Request.ContentType == "application/xml" && string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(rawInput))
+            {
+                xml = rawInput;
+            }
+
+            // 支持 application/json 请求方式
+            if (context.Request.ContentType == "application/json" && string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(rawInput))
+            {
+                XmlDocument xmlDoc = JsonHelper.ToXmlDocument(rawInput);
+
+                xml = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<request>" + xmlDoc.DocumentElement.InnerXml + "</request>";
+            }
 
             if (!string.IsNullOrEmpty(xml) || context.Request.QueryString.Count > 0 || (context.Request.HttpMethod == "POST" && context.Request.Form.Count > 0))
             {
@@ -43,7 +59,7 @@ namespace X3Platform.Web.APIs
 
                 if (string.IsNullOrEmpty(xml))
                 {
-                    doc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<data></data>");
+                    doc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<request></request>");
                 }
                 else
                 {
