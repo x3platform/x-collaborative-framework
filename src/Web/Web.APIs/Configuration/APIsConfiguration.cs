@@ -18,7 +18,8 @@ namespace X3Platform.Web.APIs.Configuration
         {
             return SectionName;
         }
-        #region 属性:API 方法
+
+        #region 属性:API 方法类型
         private IDictionary<string, string> m_APIMethodTypes = null;
 
         /// <summary>API 方法</summary>
