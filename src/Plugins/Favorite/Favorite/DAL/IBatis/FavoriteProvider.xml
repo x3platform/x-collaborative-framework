@@ -183,7 +183,7 @@
 
         <select id="proc_Favorite_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM [tb_Favorite] T
+            SELECT COUNT(0) AS "Count" FROM [tb_Favorite] T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -195,7 +195,7 @@
         </select>
 
         <select id="proc_Favorite_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM [tb_Favorite] T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM [tb_Favorite] T WHERE $WhereClause$
         </select>
 
         <update id="proc_Favorite_SetClick">

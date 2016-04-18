@@ -162,7 +162,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Task_Receiver_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM view_Task_WorkItem T
+      SELECT COUNT(0) AS "RowCount" FROM view_Task_WorkItem T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -173,7 +173,7 @@
       </dynamic>
     </select>
     <select id="proc_Task_Receiver_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Task_Receiver T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Task_Receiver T WHERE $WhereClause$
     </select>
     <insert id="proc_Task_Receiver_Copy" >
       IF NOT EXISTS ( SELECT 0 FROM tb_Task_Receiver WHERE ( TaskId = '$TaskId$' AND ReceiverId = '$ToReceiverId$' ) )

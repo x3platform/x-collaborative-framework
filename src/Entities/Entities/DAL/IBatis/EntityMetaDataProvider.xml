@@ -161,7 +161,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Entity_MetaData_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_MetaData T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Entity_MetaData T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -172,7 +172,7 @@
       </dynamic>
     </select>
     <select id="proc_Entity_MetaData_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Entity_MetaData T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Entity_MetaData T WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>

@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Xml;
     using System.Web;
+    using System.Web.Caching;
     using System.Web.Mvc;
 
     using Common.Logging;
@@ -18,7 +19,7 @@
     using X3Platform.Web.APIs.Methods;
     using X3Platform.Security;
     using X3Platform.Apps.Model;
-    using System.Web.Caching;
+    using X3Platform.Json;
 
     /// <summary></summary>
     public sealed class APIController : Controller
@@ -28,9 +29,10 @@
 
         /// <summary></summary>
         /// <param name="methodName"></param>
+        /// <param name="jsonString"></param>
         /// <returns></returns>
         [ValidateInput(false)]
-        public ActionResult Index(string methodName)
+        public ActionResult Index(string methodName, string rawInput)
         {
             if (string.IsNullOrEmpty(methodName)) { return new EmptyResult(); }
 
@@ -58,10 +60,16 @@
                 logger.Debug("methodName:" + methodName);
             }
 
+            // 支持两种格式 connect/auth/authorize 和 connect.auth.authorize, 内部统一使用 connect.auth.authorize 格式
+            if (methodName.IndexOf("/") > -1)
+            {
+                methodName = methodName.Replace("/", ".");
+            }
+
             if (dictionary.ContainsKey(methodName))
             {
                 // 优先执行 WebAPI 配置文件中设置的方法.
-                responseText = APIHub.ProcessRequest(context, methodName, logger, APIMethodInvoke);
+                responseText = APIHub.ProcessRequest(context, methodName, rawInput, logger, APIMethodInvoke);
             }
             else
             {
@@ -80,7 +88,7 @@
                     // 直接执行匿名方法 或者 验证需要身份验证方法
 
                     // 尝试执行 Application Method 中设置的方法.
-                    responseText = APIHub.ProcessRequest(context, methodName, logger, MethodInvoker.Invoke);
+                    responseText = APIHub.ProcessRequest(context, methodName, rawInput, logger, MethodInvoker.Invoke);
                 }
                 else
                 {
@@ -211,7 +219,7 @@
                 return null;
             }
         }
-
+        /*
         /// <summary>处理请求</summary>
         private ActionResult ProcessRequest(HttpContextBase context, string methodName, ILog logger)
         {
@@ -411,12 +419,12 @@
             }
 
             return new EmptyResult();
-            */
+            * /
             context.Response.ContentType = HttpContentTypeHelper.GetValue(true);
 
             return Content(responseText);
         }
-
+    */
         /// <summary></summary>
         /// <returns></returns>
         private string TryFetchRequstValue(HttpContextBase context, string defaultName, string alias)

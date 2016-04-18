@@ -149,7 +149,7 @@
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
         <select id="proc_Authority_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Authority T
+            SELECT COUNT(0) AS "Count" FROM tb_Authority T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -163,7 +163,7 @@
             SELECT COUNT(0) AS "Count" FROM tb_Authority WHERE $WhereClause$
         </select>
         <select id="proc_Authority_HasAuthorizationObject" >
-            SELECT COUNT(0) AS "Count" FROM view_AuthorizationObject_Account T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM view_AuthObject_Account T WHERE $WhereClause$
         </select>
         
     </statements>

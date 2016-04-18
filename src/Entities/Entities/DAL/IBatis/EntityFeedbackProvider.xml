@@ -121,7 +121,7 @@
 
         <select id="proc_Entity_Feedback_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM $CustomTableName$ T
+            SELECT COUNT(0) AS "RowCount" FROM $CustomTableName$ T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -133,7 +133,7 @@
         </select>
 
         <select id="proc_Entity_Feedback_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM $CustomTableName$ T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM $CustomTableName$ T WHERE $WhereClause$
         </select>
 
     </statements>

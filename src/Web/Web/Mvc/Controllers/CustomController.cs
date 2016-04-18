@@ -106,12 +106,6 @@
             Response.Cookies["device-type"].Value = this.m_DeviceType.ToString();
             Response.Cookies["device-type"].HttpOnly = true;
 
-            // 当前年份信息
-            ViewData["year"] = this.initializedTime.Year;
-        }
-
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
             // 系统名称
             ViewData["systemName"] = this.m_SystemName = KernelConfigurationView.Instance.SystemName;
             // 系统状态
@@ -122,7 +116,13 @@
             ViewData["domain"] = KernelConfigurationView.Instance.Domain;
             // 身份标识名称
             ViewData["identityName"] = KernelContext.Current.AuthenticationManagement.IdentityName;
-            // 给Session对象赋值，固定取得SessionID
+         
+            // 当前年份信息
+            ViewData["year"] = this.initializedTime.Year;
+        }
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {   // 给Session对象赋值，固定取得SessionID
             HttpContext.Session["__session__ticket__"] = this.initializedTime;
             // 会话标识
             ViewData["session"] = HttpContext.Session.SessionID;

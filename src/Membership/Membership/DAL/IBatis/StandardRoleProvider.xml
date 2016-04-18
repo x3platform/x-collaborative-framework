@@ -161,7 +161,7 @@
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
         <select id="proc_StandardRole_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_StandardRole T
+            SELECT COUNT(0) AS "RowCount" FROM tb_StandardRole T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -172,7 +172,7 @@
             </dynamic>
         </select>
         <select id="proc_StandardRole_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_StandardRole T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_StandardRole T WHERE $WhereClause$
         </select>
         <update id="proc_StandardRole_Rename" parameterClass="StandardRoleInfo">
             UPDATE tb_StandardRole SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#

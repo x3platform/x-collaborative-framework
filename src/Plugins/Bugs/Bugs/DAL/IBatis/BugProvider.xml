@@ -253,7 +253,7 @@
 
     <select id="proc_Bug_GetRowCount" >
 
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Bug T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Bug T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

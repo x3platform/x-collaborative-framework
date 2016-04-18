@@ -161,7 +161,7 @@
 		</select>
 
 		<select id="proc_Application_FeatureDateLimit_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM tb_Application_FeatureDateLimit T
+			SELECT COUNT(0) AS "RowCount" FROM tb_Application_FeatureDateLimit T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -173,7 +173,7 @@
 		</select>
 
 		<select id="proc_Application_FeatureDateLimit_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Application_FeatureDateLimit T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Application_FeatureDateLimit T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

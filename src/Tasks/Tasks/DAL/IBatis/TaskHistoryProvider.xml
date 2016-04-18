@@ -185,7 +185,7 @@
 		</select>
 
 		<select id="proc_Task_HistoryItem_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Task_HistoryItem T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Task_HistoryItem T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

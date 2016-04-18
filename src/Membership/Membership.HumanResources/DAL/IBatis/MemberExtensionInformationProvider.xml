@@ -301,7 +301,7 @@
 
     <select id="proc_Member_ExtensionInformation_GetRowCount" >
 
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Member_ExtensionInformation T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Member_ExtensionInformation T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -313,7 +313,7 @@
     </select>
 
     <select id="proc_Member_ExtensionInformation_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Member_ExtensionInformation T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Member_ExtensionInformation T WHERE $WhereClause$
     </select>
 
   </statements>

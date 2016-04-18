@@ -25,7 +25,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 静态函数:Create(string xml)
+        #region 静态函数:Create(string xml, string queryXml)
         /// <summary>根据Xml字符串创建对象</summary>
         public static PagingHelper Create(string xml, string queryXml)
         {

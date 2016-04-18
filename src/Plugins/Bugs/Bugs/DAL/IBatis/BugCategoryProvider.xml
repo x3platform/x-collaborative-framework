@@ -268,7 +268,7 @@
 		</select>
 
 		<select id="proc_Bug_Category_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Bug_Category T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Bug_Category T WHERE $WhereClause$
 		</select>
 
 		<update id="proc_Bug_Category_SetStatus">

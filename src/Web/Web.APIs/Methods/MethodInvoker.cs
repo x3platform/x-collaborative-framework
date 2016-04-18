@@ -12,6 +12,7 @@ namespace X3Platform.Web.APIs.Methods
     using X3Platform.Ajax.Json;
     using X3Platform.Membership;
     using X3Platform.Apps;
+    using X3Platform.Web.APIs.Configuration;
     #endregion
 
     /// <summary>方法执行器</summary>
@@ -23,7 +24,7 @@ namespace X3Platform.Web.APIs.Methods
 
         #region 属性:Invoke(string methodName, XmlDocument doc)
         /// <summary>执行方法</summary>
-        /// <param name="name">方法名称</param>
+        /// <param name="methodName">方法名称</param>
         /// <param name="doc">Xml 文档元素</param>
         public static string Invoke(string methodName, XmlDocument doc, ILog logger)
         {
@@ -37,8 +38,6 @@ namespace X3Platform.Web.APIs.Methods
                 logger.Warn("unkown methodName:" + methodName + ", please contact the administrator.");
 
                 throw new GenericException("1", "【" + methodName + "】方法不存在，请联系管理员检查配置信息。");
-
-                // return "{\"message\":{\"returnCode\":1,\"value\":\"【" + methodName + "】方法不存在，请联系管理员检查配置信息。\"}}";
             }
 
             // 应用方法所属的应用信息
@@ -46,7 +45,7 @@ namespace X3Platform.Web.APIs.Methods
 
             if (param.Status == 0)
             {
-                return "{\"message\":{\"returnCode\":1001,\"value\":\"【" + methodName + "】方法 已被禁用。\"}}";
+                throw new GenericException("1001", "【" + methodName + "】方法 已被禁用。");
             }
 
             if (param.EffectScope == 1)
@@ -61,22 +60,26 @@ namespace X3Platform.Web.APIs.Methods
                 if (param.EffectScope == 2 && account == null)
                 {
                     // 需要【登录用户】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":1002,\"value\":\"【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。\"}}";
+                    throw new GenericException("1002", "【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。");
+                    // return "{\"message\":{\"returnCode\":1002,\"value\":\"【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。\"}}";
                 }
                 else if (param.EffectScope == 4 && !(AppsSecurity.IsMember(account, application.ApplicationName) || AppsSecurity.IsReviewer(account, application.ApplicationName) || AppsSecurity.IsAdministrator(account, application.ApplicationName)))
                 {
                     // 需要【应用可访问成员】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":1003,\"value\":\"【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。\"}}";
+                    throw new GenericException("1003", "【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。");
+                    // return "{\"message\":{\"returnCode\":1003,\"value\":\"【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。\"}}";
                 }
                 else if (param.EffectScope == 8 && !(AppsSecurity.IsReviewer(account, application.ApplicationName) || AppsSecurity.IsAdministrator(account, application.ApplicationName)))
                 {
                     // 需要【应用审查员】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":1004,\"value\":\"【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。\"}}";
+                    throw new GenericException("1004", "【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。");
+                    // return "{\"message\":{\"returnCode\":1004,\"value\":\"【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。\"}}";
                 }
                 else if (param.EffectScope == 16 && !AppsSecurity.IsAdministrator(account, application.ApplicationName))
                 {
                     // 需要【应用管理员】以上级别权限才能调用此方法
-                    return "{\"message\":{\"returnCode\":1005,\"value\":\"【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。\"}}";
+                    throw new GenericException("1004", "【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。");
+                    // return "{\"message\":{\"returnCode\":1005,\"value\":\"【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。\"}}";
                 }
             }
 
@@ -89,18 +92,15 @@ namespace X3Platform.Web.APIs.Methods
                 options.Add(key, ((JsonPrimary)optionObjects[key]).Value.ToString());
             }
 
-            switch (param.Type)
+            IDictionary<string, string> types = APIsConfigurationView.Instance.Configuration.APIMethodTypes;
+
+            if (param.Type == "generic")
             {
-                case "generic":
-                    method = new GenericMethod(options, doc);
-                    break;
-
-                case "ajax":
-                    method = new AjaxMethod(options, doc);
-                    break;
-
-                default:
-                    break;
+                method = new GenericMethod(options, doc);
+            }
+            else if (types.ContainsKey(param.Type))
+            {
+                method = (IMethod)KernelContext.CreateObject(types[param.Type], options, doc); ;
             };
 
             if (method != null)

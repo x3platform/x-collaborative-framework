@@ -1,395 +1,396 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Membership.DAL.IBatis.AccountProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="AccountInfo" type="X3Platform.Membership.Model.AccountInfo,X3Platform.Membership" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_Account_FindOne_Result" class="AccountInfo" >
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="GlobalName" column="GlobalName" />
-            <result property="DisplayName" column="DisplayName" />
-            <result property="PinYin" column="PinYin" />
-            <result property="LoginName" column="LoginName" />
-            <result property="IdentityCard" column="IdentityCard" />
-            <result property="Type" column="Type" />
-            <result property="CertifiedMobile" column="CertifiedMobile" />
-            <result property="CertifiedEmail" column="CertifiedEmail" />
-            <result property="CertifiedAvatar" column="CertifiedAvatar" />
-            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
-            <result property="IsDraft" column="IsDraft" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="IP" column="IP" />
-            <result property="LoginDate" column="LoginDate" />
-            <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_Account_FindAll_Result" class="AccountInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="GlobalName" column="GlobalName" />
-            <result property="DisplayName" column="DisplayName" />
-            <result property="PinYin" column="PinYin" />
-            <result property="LoginName" column="LoginName" />
-            <result property="IdentityCard" column="IdentityCard" />
-            <result property="Type" column="Type" />
-            <result property="CertifiedMobile" column="CertifiedMobile" />
-            <result property="CertifiedEmail" column="CertifiedEmail" />
-            <result property="CertifiedAvatar" column="CertifiedAvatar" />
-            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
-            <result property="IsDraft" column="IsDraft" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="IP" column="IP" />
-            <result property="LoginDate" column="LoginDate" />
-            <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-    </resultMaps>
-    <statements>
-        <insert id="proc_Account_Insert" parameterClass="AccountInfo">
-            INSERT INTO tb_Account 
-            (
-                Id,
-                Code,
-                Name,
-                GlobalName,
-                DisplayName,
-                PinYin,
-                LoginName,
-                Password,
-                PasswordChangedDate,
-                IdentityCard,
-                Type,
-                CertifiedMobile,
-                CertifiedEmail,
-                CertifiedAvatar,
-                EnableExchangeEmail,
-                Locking,
-                OrderId,
-                Status,
-                Remark,
-                DistinguishedName,
-                IP,
-                LoginDate,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES
-            (
-                #Id#,
-                #Code#,
-                #Name#,
-                #GlobalName#,
-                #DisplayName#,
-                #PinYin#,
-                #LoginName#,
-                #Password#,
-                CURRENT_TIMESTAMP,
-                #IdentityCard#,
-                #Type#,
-                #CertifiedMobile#,
-                #CertifiedEmail#,
-                #CertifiedAvatar#,
-                #EnableExchangeEmail#,
-                #Locking#,
-                #OrderId#,
-                #Status#,
-                #Remark#,
-                #DistinguishedName#,
-                '',
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
-        <update id="proc_Account_Update" parameterClass="AccountInfo">
-            UPDATE tb_Account SET
+  <alias>
+    <typeAlias alias="AccountInfo" type="X3Platform.Membership.Model.AccountInfo,X3Platform.Membership" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Account_FindOne_Result" class="AccountInfo" >
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="GlobalName" column="GlobalName" />
+      <result property="DisplayName" column="DisplayName" />
+      <result property="PinYin" column="PinYin" />
+      <result property="LoginName" column="LoginName" />
+      <result property="IdentityCard" column="IdentityCard" />
+      <result property="Type" column="Type" />
+      <result property="CertifiedMobile" column="CertifiedMobile" />
+      <result property="CertifiedEmail" column="CertifiedEmail" />
+      <result property="CertifiedAvatar" column="CertifiedAvatar" />
+      <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+      <result property="IsDraft" column="IsDraft" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="IP" column="IP" />
+      <result property="LoginDate" column="LoginDate" />
+      <result property="DistinguishedName" column="DistinguishedName" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_Account_FindAll_Result" class="AccountInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="GlobalName" column="GlobalName" />
+      <result property="DisplayName" column="DisplayName" />
+      <result property="PinYin" column="PinYin" />
+      <result property="LoginName" column="LoginName" />
+      <result property="IdentityCard" column="IdentityCard" />
+      <result property="Type" column="Type" />
+      <result property="CertifiedMobile" column="CertifiedMobile" />
+      <result property="CertifiedEmail" column="CertifiedEmail" />
+      <result property="CertifiedAvatar" column="CertifiedAvatar" />
+      <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+      <result property="IsDraft" column="IsDraft" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="IP" column="IP" />
+      <result property="LoginDate" column="LoginDate" />
+      <result property="DistinguishedName" column="DistinguishedName" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Account_Insert" parameterClass="AccountInfo">
+      INSERT INTO tb_Account
+      (
+        Id,
+        Code,
+        Name,
+        GlobalName,
+        DisplayName,
+        PinYin,
+        LoginName,
+        Password,
+        PasswordChangedDate,
+        IdentityCard,
+        Type,
+        CertifiedMobile,
+        CertifiedEmail,
+        CertifiedAvatar,
+        EnableExchangeEmail,
+        Locking,
+        OrderId,
+        Status,
+        Remark,
+        DistinguishedName,
+        IP,
+        LoginDate,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #Code#,
+        #Name#,
+        #GlobalName#,
+        #DisplayName#,
+        #PinYin#,
+        #LoginName#,
+        #Password#,
+        CURRENT_TIMESTAMP,
+        #IdentityCard#,
+        #Type#,
+        #CertifiedMobile#,
+        #CertifiedEmail#,
+        #CertifiedAvatar#,
+        #EnableExchangeEmail#,
+        #Locking#,
+        #OrderId#,
+        #Status#,
+        #Remark#,
+        #DistinguishedName#,
+        '',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_Account_Update" parameterClass="AccountInfo">
+      UPDATE tb_Account SET
 
-                Code = #Code#,
-                Name = #Name#,
-                GlobalName = #GlobalName#,
-                DisplayName = #DisplayName#,
-                PinYin = #PinYin#,
-                LoginName = #LoginName#,
-                IdentityCard = #IdentityCard#,
-                Type = #Type#,
-                EnableExchangeEmail = #EnableExchangeEmail#,
-                Locking = #Locking#,
-                OrderId = #OrderId#,
-                Status = #Status#,
-                Remark = #Remark#,
-                DistinguishedName = #DistinguishedName#,
-                ModifiedDate = CURRENT_TIMESTAMP
+        Code = #Code#,
+        Name = #Name#,
+        GlobalName = #GlobalName#,
+        DisplayName = #DisplayName#,
+        PinYin = #PinYin#,
+        LoginName = #LoginName#,
+        IdentityCard = #IdentityCard#,
+        Type = #Type#,
+        EnableExchangeEmail = #EnableExchangeEmail#,
+        Locking = #Locking#,
+        OrderId = #OrderId#,
+        Status = #Status#,
+        Remark = #Remark#,
+        DistinguishedName = #DistinguishedName#,
+        ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id#
-        </update>
-        <delete id="proc_Account_Delete">
-            DELETE FROM tb_Account WHERE $WhereClause$
-        </delete>
-        <delete id="proc_Account_Delete_AccountGroup">
-            DELETE FROM tb_Account_Group WHERE AccountId = '$Account$'
-        </delete>
-        <delete id="proc_Account_Delete_AccountRole">
-            DELETE FROM tb_Account_Role WHERE AccountId = '$Account$'
-        </delete>
-        <delete id="proc_Account_Delete_AccountAssignedJob">
-            DELETE FROM tb_Account_AssignedJob WHERE AccountId = '$Account$'
-        </delete>
-        
-        <delete id="proc_Account_Delete_AccountOrganizationUnit">
-            DELETE FROM tb_Account_OrganizationUnit WHERE AccountId = '$Account$'
-        </delete>
-        
-        <delete id="proc_Account_Delete_AccountGrant">
-            DELETE FROM tb_Account_Grant WHERE ( GrantorId = '$Account$' OR GranteeId = '$Account$' )
-        </delete>
+      WHERE Id = #Id#
+    </update>
+    <delete id="proc_Account_Delete">
+      DELETE FROM tb_Account WHERE $WhereClause$
+    </delete>
+    <delete id="proc_Account_Delete_AccountGroup">
+      DELETE FROM tb_Account_Group WHERE AccountId = '$Account$'
+    </delete>
+    <delete id="proc_Account_Delete_AccountRole">
+      DELETE FROM tb_Account_Role WHERE AccountId = '$Account$'
+    </delete>
+    <delete id="proc_Account_Delete_AccountAssignedJob">
+      DELETE FROM tb_Account_AssignedJob WHERE AccountId = '$Account$'
+    </delete>
+    <delete id="proc_Account_Delete_AccountOrganizationUnit">
+      DELETE FROM tb_Account_OrganizationUnit WHERE AccountId = '$Account$'
+    </delete>
+    <delete id="proc_Account_Delete_AccountGrant">
+      DELETE FROM tb_Account_Grant WHERE ( GrantorId = '$Account$' OR GranteeId = '$Account$' )
+    </delete>
+    <delete id="proc_Account_Delete_AccountLog">
+      DELETE FROM tb_Account_Log WHERE AccountId = '$Account$'
+    </delete>
+    <select id="proc_Account_FindOne" resultMap="proc_Account_FindOne_Result" >
+      SELECT * FROM tb_Account WHERE Id = #Id#
+    </select>
+    <select id="proc_Account_FindOneByLoginName" resultMap="proc_Account_FindOne_Result" >
+      SELECT * FROM tb_Account WHERE LoginName = #LoginName#
+    </select>
+    <select id="proc_Account_FindAll#MySql" resultMap="proc_Account_FindAll_Result" >
+      SELECT * FROM tb_Account T
 
-        <delete id="proc_Account_Delete_AccountLog">
-            DELETE FROM tb_Account_Log WHERE AccountId = '$Account$'
-        </delete>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-        <select id="proc_Account_FindOne" resultMap="proc_Account_FindOne_Result" >
-            SELECT * FROM tb_Account WHERE Id = #Id#
-        </select>
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Account_FindAll#Oracle" resultMap="proc_Account_FindAll_Result" >
+      SELECT * FROM tb_Account T
 
-        <select id="proc_Account_FindOneByLoginName" resultMap="proc_Account_FindOne_Result" >
-            SELECT * FROM tb_Account WHERE LoginName = #LoginName#
-        </select>
-	    <select id="proc_Account_FindAll#MySql" resultMap="proc_Account_FindAll_Result" >
-            SELECT * FROM tb_Account T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+        <isNotEqual prepend="AND" property="Length" compareValue = "0">
+          ROWNUM &lt;= $Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Account_FindAll#SqlServer" resultMap="proc_Account_FindAll_Result" >
+      SELECT
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            <dynamic prepend="LIMIT">
-                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
-                    0,$Length$
-                </isNotEqual>
-            </dynamic>
-        </select>
-        <select id="proc_Account_FindAll#SqlServer" resultMap="proc_Account_FindAll_Result" >
-            SELECT
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      * FROM tb_Account T
 
-            * FROM tb_Account T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Account_GetPaging#MySql" parameterClass="AccountInfo" resultMap="proc_Account_FindAll_Result" >
+      SELECT * FROM tb_Account T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_Account_GetPaging#MySql" parameterClass="AccountInfo" resultMap="proc_Account_FindAll_Result" >
-            SELECT * FROM tb_Account T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
+      ORDER BY $OrderBy$
 
-            ORDER BY $OrderBy$
-            
-            LIMIT $StartIndex$, $PageSize$
-        </select>
-        <select id="proc_Account_GetPaging#SqlServer" parameterClass="AccountInfo" resultMap="proc_Account_FindAll_Result" >
-            SELECT *
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Account_GetPaging#Oracle" resultMap="proc_Account_FindAll_Result" >
+      SELECT T2.* FROM (   
+        SELECT ROWNUM RowIndex, T1.* FROM (   
+          SELECT * FROM tb_Account T
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
 
-            FROM tb_Account T
+          ORDER BY $OrderBy$
+      
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
+    <select id="proc_Account_GetPaging#SqlServer" parameterClass="AccountInfo" resultMap="proc_Account_FindAll_Result" >
+      SELECT *
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+      FROM tb_Account T
 
-        </select>
-        <select id="proc_Account_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Account T
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-        <select id="proc_Account_LoginCheck" parameterClass="AccountInfo" resultMap="proc_Account_FindOne_Result" >
-            SELECT * FROM tb_Account WHERE LoginName = #LoginName# AND Password = #Password#
-        </select>
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Account_GetRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM tb_Account T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Account_LoginCheck" parameterClass="AccountInfo" resultMap="proc_Account_FindOne_Result" >
+      SELECT * FROM tb_Account WHERE LoginName = #LoginName# AND Password = #Password#
+    </select>
+    <select id="proc_Account_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Account T WHERE $WhereClause$
+    </select>
+    <update id="proc_Account_Rename" parameterClass="AccountInfo">
+      UPDATE tb_Account SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetGlobalName" >
+      UPDATE tb_Account SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <select id="proc_Account_GetPassword" >
+      SELECT Password FROM tb_Account WHERE LoginName = #LoginName#
+    </select>
+    <update id="proc_Account_SetPassword" >
+      UPDATE tb_Account SET Password = #Password# WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetLoginName" >
+      UPDATE tb_Account SET LoginName = #LoginName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetCertifiedMobile" >
+      UPDATE tb_Account SET CertifiedMobile = #CertifiedMobile#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetCertifiedEmail" >
+      UPDATE tb_Account SET CertifiedEmail = #CertifiedEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetCertifiedAvatar" >
+      UPDATE tb_Account SET CertifiedAvatar = #CertifiedAvatar#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetExchangeStatus" >
+      UPDATE tb_Account SET EnableExchangeEmail = #EnableExchangeEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetStatus" >
+      UPDATE tb_Account SET Status = #Status#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_SetIPAndLoginDate" >
+      UPDATE tb_Account SET IP = #IP# , LoginDate = #LoginDate# WHERE Id = #Id#
+    </update>
+    <select id="proc_Account_CheckPassword" >
+      SELECT COUNT(*) AS 'Count' FROM tb_Account T WHERE LoginName = #LoginName# AND Password=#Password#
+    </select>
+    <update id="proc_Account_ChangePassword" parameterClass="AccountInfo" >
+      UPDATE tb_Account SET Password = #Password# WHERE LoginName = #LoginName#
+    </update>
+    <update id="proc_Account_Refresh_Table_Account" >
+      UPDATE tb_Account SET ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_Account_Refresh_Table_Member" >
+      UPDATE tb_Member SET ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #Id#
+    </update>
+    <select id="proc_Account_GetAuthorizationScopesByAccount" >
+      SELECT * FROM view_AuthObject_Account T WHERE $WhereClause$
+    </select>
+    <insert id="proc_Account_SyncFromPackPage" parameterClass="AccountInfo" >
+      IF EXISTS ( SELECT 0 FROM tb_Account WHERE Id = #Id# )
+      BEGIN
+        UPDATE tb_Account SET
 
-        <select id="proc_Account_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Account T WHERE $WhereClause$
-        </select>
+          Code = #Code#,
+          Name = #Name#,
+          DisplayName = #DisplayName#,
+          PinYin = #PinYin#,
+          Status = #Status#,
+          ModifiedDate = CURRENT_TIMESTAMP
 
-        <update id="proc_Account_Rename" parameterClass="AccountInfo">
-            UPDATE tb_Account SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+        WHERE Id = #Id#
+      END
+      ELSE
+      BEGIN
+        INSERT INTO tb_Account
+        (
+          Id,
+          Code,
+          Name,
+          DisplayName,
+          PinYin,
+          Status,
+          ModifiedDate,
+          CreatedDate
+        )
+        VALUES
+        (
+          #Id#,
+          #Code#,
+          #Name#,
+          #DisplayName#,
+          #PinYin#,
+          #Status#,
+          CURRENT_TIMESTAMP,
+          CURRENT_TIMESTAMP
+        )
+      END
+    </insert>
+    <select id="proc_Account_ParseAuthorizationObject" >
+      SELECT *
 
-        <update id="proc_Account_SetGlobalName" >
-            Update tb_Account SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-        <select id="proc_Account_GetPassword" >
-            SELECT Password FROM tb_Account WHERE LoginName = #LoginName#
-        </select>
+      FROM view_AuthObject_Account T
 
-        <update id="proc_Account_SetPassword" >
-            Update tb_Account SET Password = #Password# WHERE Id = #Id#
-        </update>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-        <update id="proc_Account_SetLoginName" >
-            Update tb_Account SET LoginName = #LoginName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Account_ParseAuthorizationObjectRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM view_AuthObject_Account T
 
-        <update id="proc_Account_SetCertifiedMobile" >
-            Update tb_Account SET CertifiedMobile = #CertifiedMobile#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-
-        <update id="proc_Account_SetCertifiedEmail" >
-            Update tb_Account SET CertifiedEmail = #CertifiedEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-
-        <update id="proc_Account_SetCertifiedAvatar" >
-            Update tb_Account SET CertifiedAvatar = #CertifiedAvatar#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-
-        <update id="proc_Account_SetExchangeStatus" >
-            UPDATE tb_Account SET EnableExchangeEmail = #EnableExchangeEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-        
-        <update id="proc_Account_SetStatus" >
-            Update tb_Account SET Status = #Status#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-
-        <update id="proc_Account_SetIPAndLoginDate" >
-            Update tb_Account SET IP = #IP# , LoginDate = #LoginDate# WHERE Id = #Id#
-        </update>
-
-        <select id="proc_Account_CheckPassword" >
-            SELECT COUNT(*) AS 'Count' FROM tb_Account T WHERE LoginName = #LoginName# AND Password=#Password#
-        </select>
-
-        <update id="proc_Account_ChangePassword" parameterClass="AccountInfo" >
-            UPDATE tb_Account SET Password = #Password# WHERE LoginName = #LoginName#
-        </update>
-
-        <update id="proc_Account_Refresh_Table_Account" >
-            UPDATE tb_Account SET ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-
-        <update id="proc_Account_Refresh_Table_Member" >
-            UPDATE tb_Member SET ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = #Id#
-        </update>
-
-        <select id="proc_Account_GetAuthorizationScopesByAccount" >
-            SELECT * FROM view_AuthorizationObject_Account T WHERE $WhereClause$
-        </select>
-
-        <insert id="proc_Account_SyncFromPackPage" parameterClass="AccountInfo" >
-            IF EXISTS ( SELECT 0 FROM tb_Account WHERE Id = #Id# )
-            BEGIN
-            UPDATE tb_Account SET
-
-                Code = #Code#,
-                Name = #Name#,
-                DisplayName = #DisplayName#,
-                PinYin = #PinYin#,
-                Status = #Status#,
-                ModifiedDate = CURRENT_TIMESTAMP
-
-            WHERE Id = #Id#
-
-            END
-            ELSE
-            BEGIN
-
-            INSERT INTO tb_Account 
-            (
-                Id,
-                Code,
-                Name,
-                DisplayName,
-                PinYin,
-                Status,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES 
-            (
-                #Id#,
-                #Code#,
-                #Name#,
-                #DisplayName#,
-                #PinYin#,
-                #Status#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-            END
-        </insert>
-
-        <select id="proc_Account_ParseAuthorizationObject" >
-            SELECT *
-
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-            FROM view_AuthorizationObject_Account T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
-
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
-        </select>
-
-        <select id="proc_Account_ParseAuthorizationObjectRowCount" >
-
-            SELECT COUNT(*) AS 'RowCount' FROM view_AuthorizationObject_Account T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-    </statements>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+  </statements>
 </sqlMap>

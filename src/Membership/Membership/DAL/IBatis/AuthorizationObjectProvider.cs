@@ -31,7 +31,7 @@ namespace X3Platform.Membership.DAL.IBatis
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "view_AuthorizationObject";
+        private string tableName = "view_AuthObject";
 
         #region 构造函数:AuthorizationObjectProvider()
         /// <summary>构造函数</summary>

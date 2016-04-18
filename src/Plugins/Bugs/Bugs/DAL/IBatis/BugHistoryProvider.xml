@@ -130,7 +130,7 @@
         </select>
         <select id="proc_Bug_History_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Bug_History T
+            SELECT COUNT(0) AS "RowCount" FROM tb_Bug_History T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>

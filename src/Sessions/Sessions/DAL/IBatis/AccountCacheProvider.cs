@@ -203,9 +203,9 @@ namespace X3Platform.Sessions.DAL.IBatis
 
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" ValidTo < '{0}' ", expiryTime.ToString("yyyy-MM-dd HH:mm:ss")));
+            args.Add("ExpiryTime",  expiryTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
-            this.ibatisMappers[storageNode.Name].Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+            this.ibatisMappers[storageNode.Name].Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Clear", tableName)), args);
 
             return 0;
         }

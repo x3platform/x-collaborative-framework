@@ -3,10 +3,10 @@ namespace X3Platform.Web.APIs.Configuration
     using System.Collections.Generic;
     using System.Xml;
     using System.Xml.Serialization;
-    
+
     using X3Platform.Collections;
     using X3Platform.Configuration;
-    
+
     /// <summary>APIs 配置</summary>
     public class APIsConfiguration : XmlConfiguraton
     {
@@ -18,6 +18,15 @@ namespace X3Platform.Web.APIs.Configuration
         {
             return SectionName;
         }
+        #region 属性:API 方法
+        private IDictionary<string, string> m_APIMethodTypes = null;
+
+        /// <summary>API 方法</summary>
+        public IDictionary<string, string> APIMethodTypes
+        {
+            get { return this.m_APIMethodTypes; }
+        }
+        #endregion
 
         #region 属性:API 方法
         private IDictionary<string, APIMethod> m_APIMethods = null;
@@ -34,13 +43,45 @@ namespace X3Platform.Web.APIs.Configuration
         /// <param name="element">配置节点的Xml元素</param>
         public override void Configure(XmlElement element)
         {
+            if (this.m_APIMethodTypes == null)
+            {
+                this.m_APIMethodTypes = new Dictionary<string, string>();
+            }
+
             if (this.m_APIMethods == null)
             {
                 this.m_APIMethods = new Dictionary<string, APIMethod>();
             }
 
+            // 加载 方法类型 配置信息
+            XmlNodeList nodes = element.SelectNodes(@"types/type");
+
+            foreach (XmlNode node in nodes)
+            {
+                APIMethodType type = new APIMethodType();
+
+                foreach (XmlNode childNode in node.ChildNodes)
+                {
+                    if (childNode.NodeType == XmlNodeType.Element)
+                    {
+                        XmlElement childElement = (XmlElement)childNode;
+
+                        XmlConfiguratonOperator.SetParameter(type, (XmlElement)childElement);
+                    }
+                }
+
+                if (this.m_APIMethods.ContainsKey(type.Name))
+                {
+                    this.m_APIMethodTypes[type.Name] = type.ClassName;
+                }
+                else
+                {
+                    this.m_APIMethodTypes.Add(type.Name, type.ClassName);
+                }
+            }
+
             // 加载 Methods 配置信息
-            XmlNodeList nodes = element.SelectNodes(@"api");
+            nodes = element.SelectNodes(@"api");
 
             foreach (XmlNode node in nodes)
             {

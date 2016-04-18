@@ -10,6 +10,7 @@ namespace X3Platform.Util
     using System.Reflection;
     using System.Web.Script.Serialization;
     using X3Platform.Json;
+    using System.Runtime.Serialization.Json;
     #endregion
 
     /// <summary>JSON 数据处理辅助类</summary>
@@ -337,7 +338,12 @@ namespace X3Platform.Util
 
             XmlDocument doc = new XmlDocument();
 
-            doc.LoadXml(string.Format("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n{0}", ToXml(json)));
+            using (XmlDictionaryReader reader = JsonReaderWriterFactory.CreateJsonReader(Encoding.UTF8.GetBytes(json), XmlDictionaryReaderQuotas.Max))
+            {
+                doc.Load(reader);
+
+                reader.Close();
+            }
 
             return doc;
         }
@@ -352,6 +358,10 @@ namespace X3Platform.Util
             if (string.IsNullOrEmpty(json))
                 return string.Empty;
 
+            XmlDocument doc = ToXmlDocument(json);
+
+            return doc.InnerXml;
+
             /*
              * Test case :
              *
@@ -363,7 +373,7 @@ namespace X3Platform.Util
              *
              *  hidden key
              */
-
+            /*
             StringBuilder outString = new StringBuilder();
 
             json = json.Replace("\r", "");
@@ -381,6 +391,7 @@ namespace X3Platform.Util
             //outString = outString.Replace("{&gt;}", ">");
 
             return outString.ToString();
+            */
         }
         #endregion
 

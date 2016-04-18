@@ -1046,7 +1046,7 @@ namespace X3Platform.Util
         public static string ToBase64(string text, string codepage)
         {
             string encode = string.Empty;
-            
+
             byte[] bytes = Encoding.GetEncoding(codepage).GetBytes(text);
 
             try
@@ -1114,6 +1114,34 @@ namespace X3Platform.Util
 
             return decode;
         }
+
+        //-------------------------------------------------------
+        // 命名规则处理 Camel Underline
+        //-------------------------------------------------------
+
+        #region 函数:CamelToUnderline(string text)
+        /// <summary>驼峰命名规则转为下划线命名规则</summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string CamelToUnderline(string text)
+        {
+            StringBuilder outString = new StringBuilder();
+
+            char[] chars = text.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] >= 65 && chars[i] <= 90 && i > 0)
+                {
+                    outString.Append("_");
+                }
+
+                outString.Append(chars[i]);
+            }
+
+            return outString.ToString().ToLower();
+        }
+        #endregion
 
         //-------------------------------------------------------
         // 空字符串处理

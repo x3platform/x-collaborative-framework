@@ -138,7 +138,7 @@ namespace X3Platform.DigitalNumber.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" }, { "Value", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql());
+            args.Add("OrderBy", query.GetOrderBySql(" Name "));
 
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);

@@ -227,7 +227,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Forum_Category_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Category T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Forum_Category T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -238,11 +238,11 @@
       </dynamic>
     </select>
     <select id="proc_Forum_Category_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Category T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Forum_Category T WHERE $WhereClause$
     </select>
     <select id="proc_Forum_Category_IsCategoryAdministrator" >
       SELECT Count(distinct EntityId) AS Count
-      FROM tb_Forum_Category_Scope s,view_AuthorizationObject_Account a
+      FROM tb_Forum_Category_Scope s,view_AuthObject_Account a
       WHERE s.AuthorizationObjectId=a.AuthorizationObjectId
       AND s.AuthorizationObjectType = a.AuthorizationObjectType
       AND a.AccountId = #AccountId#
@@ -251,7 +251,7 @@
     </select>
     <select id="proc_Forum_Category_IsCategoryAuthority" >
       SELECT Count(distinct EntityId) AS Count
-      FROM tb_Forum_Category_Scope s,view_AuthorizationObject_Account a
+      FROM tb_Forum_Category_Scope s,view_AuthObject_Account a
       WHERE s.AuthorizationObjectId=a.AuthorizationObjectId
       AND s.AuthorizationObjectType = a.AuthorizationObjectType
       AND a.AccountId = #AccountId#

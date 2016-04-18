@@ -10,10 +10,11 @@ namespace X3Platform.Web.APIs.Methods
     /// <summary></summary>
     public class WebServiceMethod : AbstractMethod
     {
-        /// <summary>ִ��</summary>
+        /// <summary>执行</summary>
         /// <returns></returns>
         public override object Execute()
         {
+            // http://blog.csdn.net/qkyong/article/details/379194
             return string.Empty;
         }
     }

@@ -161,13 +161,21 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ApplicationFeatureDateLimitProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\ApplicationMenuProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\ApplicationMethodProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationMenuProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\IBatis\ApplicationMethodProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ApplicationOptionProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\ApplicationProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ApplicationEventProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\ApplicationFeatureProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\ApplicationSettingGroupProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ApplicationSettingGroupProvider.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IBatis\ApplicationSettingProvider.xml" />
     <Content Include="db\Init_Script_MySQL.sql" />
     <Content Include="db\Init_Script_SQLServer.sql" />

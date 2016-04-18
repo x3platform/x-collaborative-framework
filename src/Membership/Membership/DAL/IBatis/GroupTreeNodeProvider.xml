@@ -125,7 +125,7 @@
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
         <select id="proc_GroupTreeNode_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_GroupTreeNode T
+            SELECT COUNT(0) AS "RowCount" FROM tb_GroupTreeNode T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -136,7 +136,7 @@
             </dynamic>
         </select>
         <select id="proc_GroupTreeNode_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_GroupTreeNode T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_GroupTreeNode T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

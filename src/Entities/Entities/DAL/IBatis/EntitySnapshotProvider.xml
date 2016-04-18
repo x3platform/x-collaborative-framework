@@ -98,7 +98,7 @@
         </select>
 
         <select id="proc_Entity_Snapshot_GetRowCount" >
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_Snapshot T
+            SELECT COUNT(0) AS "RowCount" FROM tb_Entity_Snapshot T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -110,7 +110,7 @@
         </select>
 
         <select id="proc_Entity_Snapshot_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Entity_Snapshot T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_Entity_Snapshot T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

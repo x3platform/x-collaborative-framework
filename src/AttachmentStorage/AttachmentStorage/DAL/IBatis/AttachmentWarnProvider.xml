@@ -154,7 +154,7 @@
     </select>
 
     <select id="proc_Attachment_Warn_GetRowCount" >
-      SELECT COUNT(0) AS 'RowCount' FROM tb_Attachment_Warn T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Attachment_Warn T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -166,7 +166,7 @@
     </select>
 
     <select id="proc_Attachment_Warn_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Attachment_Warn T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Attachment_Warn T WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>

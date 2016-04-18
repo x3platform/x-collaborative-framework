@@ -123,7 +123,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $pageSize$
     </select>
     <select id="proc_Customize_Layout_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Customize_Layout T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Customize_Layout T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

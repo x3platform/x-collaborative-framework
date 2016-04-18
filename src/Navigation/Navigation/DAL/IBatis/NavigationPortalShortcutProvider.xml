@@ -194,7 +194,7 @@
 		</select>
 
 		<select id="proc_Navigation_Portal_Shortcut_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM [tb_Navigation_Portal_Shortcut] T
+			SELECT COUNT(0) AS "RowCount" FROM [tb_Navigation_Portal_Shortcut] T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -206,7 +206,7 @@
 		</select>
 
 		<select id="proc_Navigation_Portal_Shortcut_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM [tb_Navigation_Portal_Shortcut] T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM [tb_Navigation_Portal_Shortcut] T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

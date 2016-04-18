@@ -66,6 +66,18 @@ namespace X3Platform.Ajax
         /// <returns></returns>
         public static string Parse<T>(T targetObject, List<string> banKeys)
         {
+            return Parse<T>(targetObject, banKeys, AjaxConfigurationView.Instance.NamingRule);
+        }
+        #endregion
+
+        #region 函数:Parse<T>(T targetObject, List<string> banKeys, string namingRule)
+        /// <summary>对象解析为JOSN字符串</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="targetObject"></param>
+        /// <param name="banKeys">禁止转化的键</param>
+        /// <returns></returns>
+        public static string Parse<T>(T targetObject, List<string> banKeys, string namingRule)
+        {
             StringBuilder outString = new StringBuilder();
 
             if (targetObject == null) return "{}";
@@ -101,11 +113,22 @@ namespace X3Platform.Ajax
                     {
                         result = type.InvokeMember(method.Name, BindingFlags.InvokeMethod, null, targetObject, new object[] { });
 
-                        if (AjaxConfigurationView.Instance.CamelStyle == "ON")
+                        if (namingRule == "camel")
                         {
                             if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
                             {
                                 key = StringHelper.ToFirstLower(key);
+                            }
+                            else
+                            {
+                                key = AjaxConfigurationView.Instance.Configuration.SpecialWords[key].Value;
+                            }
+                        }
+                        else if (namingRule == "underline")
+                        {
+                            if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
+                            {
+                                key = StringHelper.CamelToUnderline(key);
                             }
                             else
                             {
@@ -137,12 +160,7 @@ namespace X3Platform.Ajax
                                     break;
 
                                 case "System.DateTime":
-
-                                    value = ((DateTime)result).ToString("yyyy-MM-dd HH:mm:ss.fff");
-
-                                    outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, (string.IsNullOrEmpty(value) ? value : ((DateTime)result).ToString("yyyy,MM,dd,HH,mm,ss"))));
-                                    outString.Append(string.Format(" \"{0}View\" : \"{1}\",", key, StringHelper.ToDate(value)));
-                                    outString.Append(string.Format(" \"{0}TimestampView\" : \"{1}\",", key, value));
+                                    AjaxUtil.SerializeDate(outString, namingRule, key, (DateTime)result);
                                     break;
 
                                 case "System.String":
@@ -217,6 +235,16 @@ namespace X3Platform.Ajax
         /// <returns></returns>
         public static T Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
         {
+            return Deserialize<T>(targetObject, doc, banKeys, AjaxConfigurationView.Instance.NamingRule);
+        }
+        #endregion
+
+        #region 函数:Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys)
+        /// <summary>Xml信息反序列化为实体对象</summary>
+        /// <param name="targetObject"></param>
+        /// <returns></returns>
+        public static T Deserialize<T>(T targetObject, XmlDocument doc, List<string> banKeys, string namingRule)
+        {
             object result = null;
 
             Type type = targetObject.GetType();
@@ -255,11 +283,22 @@ namespace X3Platform.Ajax
                     {
                         result = type.InvokeMember(method.Name, BindingFlags.InvokeMethod, null, targetObject, new object[] { });
 
-                        if (AjaxConfigurationView.Instance.CamelStyle == "ON")
+                        if (namingRule == "camel")
                         {
                             if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
                             {
                                 key = StringHelper.ToFirstLower(key);
+                            }
+                            else
+                            {
+                                key = AjaxConfigurationView.Instance.Configuration.SpecialWords[key].Value;
+                            }
+                        }
+                        else if (namingRule == "underline")
+                        {
+                            if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
+                            {
+                                key = StringHelper.CamelToUnderline(key);
                             }
                             else
                             {
@@ -313,7 +352,7 @@ namespace X3Platform.Ajax
                                     result = (string.IsNullOrEmpty(value)) ? Guid.Empty : new Guid(value);
                                     break;
                                 case "System.DateTime":
-                                    result = (string.IsNullOrEmpty(value)) ? new DateTime(2000, 1, 1) : Convert.ToDateTime(value);
+                                    result = (string.IsNullOrEmpty(value)) ? DateHelper.DefaultTime : Convert.ToDateTime(value);
                                     break;
 
                                 case "System.String":
@@ -336,5 +375,22 @@ namespace X3Platform.Ajax
             return targetObject;
         }
         #endregion
+
+        private static IDateTimeSerializer serializer = null;
+
+        /// <summary>
+        /// 将日期格式的属性序列化为相关的日期的字符串
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        private static void SerializeDate(StringBuilder outString, string namingRule, string key, DateTime date)
+        {
+            if (serializer == null)
+            {
+                serializer = (IDateTimeSerializer)Activator.CreateInstance(Type.GetType(AjaxConfigurationView.Instance.DateTimeSerializer));
+            }
+
+            serializer.Serialize(outString, namingRule, key, date);
+        }
     }
 }

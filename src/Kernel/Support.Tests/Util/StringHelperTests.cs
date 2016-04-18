@@ -74,5 +74,15 @@ namespace X3Platform.Tests.Util
 
             Debug.WriteLine(StringHelper.ToSID(22));
         }
+
+        /// <summary></summary>
+        [TestMethod]
+        public void TestCamelToUnderline()
+        {
+            string result = string.Empty;
+
+            result = StringHelper.CamelToUnderline("TestToSafeIds");
+            Assert.AreEqual(result, "test_to_safe_ids");
+        }
     }
 }

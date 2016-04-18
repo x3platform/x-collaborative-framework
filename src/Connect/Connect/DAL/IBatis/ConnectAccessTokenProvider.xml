@@ -1,135 +1,131 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Connect.DAL.IBatis.ConnectAccessTokenProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="ConnectAccessTokenInfo" type="X3Platform.Connect.Model.ConnectAccessTokenInfo, X3Platform.Connect" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_Connect_AccessToken_FindOne_Result" class="ConnectAccessTokenInfo">
-            <result property="Id" column="Id" />
-            <result property="AppKey" column="AppKey" />
-            <result property="AccountId" column="AccountId" />
-            <result property="ExpireDate" column="ExpireDate" />
-            <result property="RefreshToken" column="RefreshToken" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_Connect_AccessToken_FindAll_Result" class="ConnectAccessTokenInfo">
-            <result property="Id" column="Id" />
-            <result property="AppKey" column="AppKey" />
-            <result property="AccountId" column="AccountId" />
-            <result property="ExpireDate" column="ExpireDate" />
-            <result property="RefreshToken" column="RefreshToken" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-    </resultMaps>
+  <alias>
+    <typeAlias alias="ConnectAccessTokenInfo" type="X3Platform.Connect.Model.ConnectAccessTokenInfo, X3Platform.Connect" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Connect_AccessToken_FindOne_Result" class="ConnectAccessTokenInfo">
+      <result property="Id" column="Id" />
+      <result property="AppKey" column="AppKey" />
+      <result property="AccountId" column="AccountId" />
+      <result property="ExpireDate" column="ExpireDate" />
+      <result property="RefreshToken" column="RefreshToken" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_Connect_AccessToken_FindAll_Result" class="ConnectAccessTokenInfo">
+      <result property="Id" column="Id" />
+      <result property="AppKey" column="AppKey" />
+      <result property="AccountId" column="AccountId" />
+      <result property="ExpireDate" column="ExpireDate" />
+      <result property="RefreshToken" column="RefreshToken" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
 
-    <statements>
-        <insert id="proc_Connect_AccessToken_Insert" parameterClass="ConnectAccessTokenInfo" >
-            INSERT INTO tb_Connect_AccessToken
-            (
-                Id,
-                AppKey,
-                AccountId,
-                ExpireDate,
-                RefreshToken,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES
-            (
-                #Id#,
-                #AppKey#,
-                #AccountId#,
-                #ExpireDate#,
-                #RefreshToken#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+  <statements>
+    <insert id="proc_Connect_AccessToken_Insert" parameterClass="ConnectAccessTokenInfo" >
+      INSERT INTO tb_Connect_AccessToken
+      (
+        Id,
+        AppKey,
+        AccountId,
+        ExpireDate,
+        RefreshToken,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #AppKey#,
+        #AccountId#,
+        #ExpireDate#,
+        #RefreshToken#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_Connect_AccessToken_Update" parameterClass="ConnectAccessTokenInfo" >
+      UPDATE tb_Connect_AccessToken SET
 
-        <update id="proc_Connect_AccessToken_Update" parameterClass="ConnectAccessTokenInfo" >
-            UPDATE tb_Connect_AccessToken SET
+        ExpireDate = #ExpireDate#,
+        ModifiedDate = CURRENT_TIMESTAMP
 
-                ExpireDate = #ExpireDate#,
-                ModifiedDate = CURRENT_TIMESTAMP
+      WHERE AccountId = #AccountId# AND AppKey = #AppKey#
+    </update>
+    <delete id="proc_Connect_AccessToken_Delete">
+      DELETE FROM tb_Connect_AccessToken WHERE Id = #Id#
+    </delete>
+    <select id="proc_Connect_AccessToken_FindOne" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
+      SELECT * FROM tb_Connect_AccessToken WHERE Id = #Id#
+    </select>
+    <select id="proc_Connect_AccessToken_FindOneByAccountId#MySql" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
+      SELECT * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND AccountId = #AccountId# AND ExpireDate > CURRENT_TIMESTAMP LIMIT 1
+    </select>
+    <select id="proc_Connect_AccessToken_FindOneByAccountId#Oracle" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
+      SELECT * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND AccountId = #AccountId# AND ExpireDate > CURRENT_TIMESTAMP AND ROWNUM = 1
+    </select>
+    <select id="proc_Connect_AccessToken_FindOneByAccountId#SqlServer" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
+      SELECT TOP 1 * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND AccountId = #AccountId# AND ExpireDate > CURRENT_TIMESTAMP
+    </select>
+    <select id="proc_Connect_AccessToken_FindAll" resultMap="proc_Connect_AccessToken_FindAll_Result" parameterClass="ConnectAccessTokenInfo" >
+      SELECT
 
-            WHERE AccountId = #AccountId# AND AppKey = #AppKey#
-        </update>
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-        <delete id="proc_Connect_AccessToken_Delete">
-            DELETE FROM tb_Connect_AccessToken WHERE Id = #Id#
-        </delete>
+      * FROM tb_Connect_AccessToken T
 
-        <select id="proc_Connect_AccessToken_FindOne" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
-            SELECT * FROM tb_Connect_AccessToken WHERE Id = #Id#
-        </select>
-        
-        <select id="proc_Connect_AccessToken_FindOneByAccountId#MySql" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
-            SELECT * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND AccountId = #AccountId# AND ExpireDate > CURRENT_TIMESTAMP LIMIT 1
-        </select>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Connect_AccessToken_GetPaging" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindAll_Result" >
+      SELECT *
 
-        <select id="proc_Connect_AccessToken_FindOneByAccountId#SqlServer" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
-            SELECT * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND AccountId = #AccountId# AND ExpireDate > CURRENT_TIMESTAMP LIMIT 1
-        </select>
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-        <select id="proc_Connect_AccessToken_FindAll" resultMap="proc_Connect_AccessToken_FindAll_Result" parameterClass="ConnectAccessTokenInfo" >
-            SELECT
+      FROM tb_Connect_AccessToken T
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            * FROM tb_Connect_AccessToken T
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+    </select>
+    <select id="proc_Connect_AccessToken_GetRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM tb_Connect_AccessToken T
 
-        <select id="proc_Connect_AccessToken_GetPaging" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindAll_Result" >
-            SELECT *
-
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
-
-            FROM tb_Connect_AccessToken T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
-
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-
-        </select>
-
-        <select id="proc_Connect_AccessToken_GetRowCount" >
-            SELECT COUNT(*) AS "RowCount" FROM tb_Connect_AccessToken T
-
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        
-        <select id="proc_Connect_AccessToken_IsExist" >
-            SELECT COUNT(*) AS "Count" FROM tb_Connect_AccessToken WHERE $WhereClause$
-        </select>
-        
-        <update id="proc_Connect_AccessToken_Refresh" >
-            UPDATE tb_Connect_AccessToken SET ExpireDate = '$ExpireDate$', RefreshToken = '$NextRefreshToken$', ModifiedDate = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$'
-        </update>
-    </statements>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Connect_AccessToken_IsExist" >
+      SELECT COUNT(*) AS "Count" FROM tb_Connect_AccessToken WHERE $WhereClause$
+    </select>
+    <update id="proc_Connect_AccessToken_Refresh" >
+      UPDATE tb_Connect_AccessToken SET ExpireDate = '$ExpireDate$', RefreshToken = '$NextRefreshToken$', ModifiedDate = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$'
+    </update>
+    <update id="proc_Connect_AccessToken_Refresh#Oracle" >
+      UPDATE tb_Connect_AccessToken SET ExpireDate = to_date('$ExpireDate$','yyyy-mm-dd hh24:mi:ss'), RefreshToken = '$NextRefreshToken$', ModifiedDate = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$'
+    </update>
+  </statements>
 </sqlMap>

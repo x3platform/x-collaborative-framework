@@ -208,7 +208,7 @@
 			WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
 		</select>
 		<select id="proc_Application_Error_GetRowCount" >
-			SELECT COUNT(0) AS 'RowCount' FROM tb_Application_Error T
+			SELECT COUNT(0) AS "RowCount" FROM tb_Application_Error T
 
 			<dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -219,7 +219,7 @@
 			</dynamic>
 		</select>
 		<select id="proc_Application_Error_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Application_Error T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Application_Error T WHERE $WhereClause$
 		</select>
 	</statements>
 </sqlMap>

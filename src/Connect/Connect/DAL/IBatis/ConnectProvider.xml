@@ -40,7 +40,7 @@
       <result property="ModifiedDate" column="ModifiedDate" />
       <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
-    <resultMap id="proc_ConnectQueryInfo_FindAll_Result" class="ConnectQueryInfo">
+    <resultMap id="proc_Connect_FindAllQueryObject_Result" class="ConnectQueryInfo">
       <result property="Id" column="Id" />
       <result property="AccountId" column="AccountId" />
       <result property="AccountName" column="AccountName" />
@@ -116,11 +116,8 @@
     <select id="proc_Connect_FindOne" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
       SELECT * FROM tb_Connect WHERE Id = #Id#
     </select>
-    <select id="proc_Connect_FindOneByAppKey#MySql" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
-      SELECT * FROM tb_Connect WHERE AppKey = #AppKey# LIMIT 0, 1
-    </select>
-    <select id="proc_Connect_FindOneByAppKey#SqlServer" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
-      SELECT Top 1 * FROM tb_Connect WHERE AppKey = #AppKey#
+    <select id="proc_Connect_FindOneByAppKey" parameterClass="ConnectInfo" resultMap="proc_Connect_FindOne_Result" >
+      SELECT * FROM tb_Connect WHERE AppKey = #AppKey#
     </select>
     <select id="proc_Connect_FindAll#MySql" resultMap="proc_Connect_FindAll_Result" >
       SELECT * FROM tb_Connect T
@@ -147,7 +144,29 @@
         </isNotEqual>
       </dynamic>
     </select>
-    <select id="proc_Connect_FindAll#SqlServer" resultMap="proc_Connect_FindAll_Result" parameterClass="ConnectInfo" >
+    <select id="proc_Connect_FindAll#Oracle" resultMap="proc_Connect_FindAll_Result" >
+      SELECT * FROM tb_Connect T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+        <isNotEqual prepend="AND" property="Length" compareValue = "0">
+          ROWNUM &lt;= $Length$
+        </isNotEqual>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="OrderBy" >
+            $OrderBy$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Connect_FindAll#SqlServer" resultMap="proc_Connect_FindAll_Result" >
       SELECT
 
       <dynamic prepend="TOP">
@@ -162,6 +181,14 @@
         <isParameterPresent>
           <isNotEmpty prepend="AND" property="WhereClause" >
             $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="OrderBy" >
+            $OrderBy$
           </isNotEmpty>
         </isParameterPresent>
       </dynamic>
@@ -198,7 +225,7 @@
 
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
-    <select id="proc_Connect_GetQueryObjectPaging#MySql"  resultMap="proc_ConnectQueryInfo_FindAll_Result" >
+    <select id="proc_Connect_GetQueryObjectPaging#MySql"  resultMap="proc_Connect_FindAllQueryObject_Result" >
       SELECT * FROM tb_Connect T
 
       <dynamic prepend="WHERE">
@@ -213,7 +240,25 @@
 
       LIMIT $StartIndex$, $PageSize$
     </select>
-    <select id="proc_Connect_GetQueryObjectPaging#SqlServer" resultMap="proc_ConnectQueryInfo_FindAll_Result" >
+    <select id="proc_Connect_GetQueryObjectPaging#Oracle" resultMap="proc_Connect_FindAllQueryObject_Result" >
+    SELECT T2.* FROM (   
+       SELECT ROWNUM RowIndex, T1.* FROM (   
+          SELECT * FROM tb_Connect T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
+
+          ORDER BY $OrderBy$
+      
+           ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+    ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
+    <select id="proc_Connect_GetQueryObjectPaging#SqlServer" resultMap="proc_Connect_FindAllQueryObject_Result" >
       SELECT *
 
       FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
@@ -231,7 +276,7 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
     <select id="proc_Connect_GetRowCount" >
-      SELECT COUNT(*) AS "RowCount" FROM tb_Connect T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Connect T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>

@@ -479,8 +479,8 @@ CREATE TABLE IF NOT EXISTS `tb_StandardRole`(
 -- 设置主键: `Id`
 ALTER TABLE `tb_StandardRole` ADD CONSTRAINT `PK_tb_StandardRole` PRIMARY KEY CLUSTERED (`Id`);
 
--- 创建视图: `view_AuthorizationObject_Account_Temp` 
-CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
+-- 创建视图: `view_AuthObject_Account_Temp` 
+CREATE VIEW `view_AuthObject_Account_Temp` AS
 	
 	-- 用户 => 授权帐号 的关系
 	SELECT 
@@ -569,8 +569,8 @@ CREATE VIEW `view_AuthorizationObject_Account_Temp` AS
 		tb_Account AS tb_Everyone
 ;
 
--- 创建视图: `view_AuthorizationObject_Account` 
-CREATE VIEW `view_AuthorizationObject_Account` AS
+-- 创建视图: `view_AuthObject_Account` 
+CREATE VIEW `view_AuthObject_Account` AS
 	
 	SELECT 
 		T.AuthorizationObjectId, 
@@ -582,7 +582,7 @@ CREATE VIEW `view_AuthorizationObject_Account` AS
 		CASE IFNULL(`Grant`.GranteeId,'') WHEN '' then Account.Id ELSE `Grant`.GranteeId END AS GranteeId,
 		CASE IFNULL(`Grant`.GranteeId,'') WHEN '' then Account.GlobalName ELSE ( SELECT GlobalName FROM tb_Account WHERE Id = `Grant`.GranteeId ) END AS GranteeGlobalName
 
-	FROM view_AuthorizationObject_Account_Temp T
+	FROM view_AuthObject_Account_Temp T
 		INNER JOIN tb_Account AS Account ON Account.Id = T.AccountId 
 		LEFT JOIN tb_Account_Grant AS `Grant` ON (
 			`Grant`.GrantorId = Account.Id AND DataQueryGrantMode = 1

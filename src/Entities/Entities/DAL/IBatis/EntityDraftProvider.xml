@@ -102,7 +102,7 @@
 
 		<select id="proc_Entity_Draft_GetRowCount" >
 
-		  SELECT COUNT(*) AS 'RowCount' FROM tb_Entity_Draft T
+		  SELECT COUNT(0) AS "RowCount" FROM tb_Entity_Draft T
 
 		  <dynamic prepend="WHERE">
 			<isParameterPresent>
@@ -114,7 +114,7 @@
 		</select>
 
 		<select id="proc_Entity_Draft_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Entity_Draft T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Entity_Draft T WHERE $WhereClause$
 		</select>
 
 	</statements>

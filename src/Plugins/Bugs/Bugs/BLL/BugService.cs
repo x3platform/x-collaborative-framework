@@ -381,7 +381,7 @@ namespace X3Platform.Plugins.Bugs.BLL
       // 项目的成员 也可以看到此问题的信息
       string scope = string.Format(@" (
 (   ( LENGTH(T.ProjectId) = 0 OR T.ProjectId IN (
-        SELECT DISTINCT EntityId FROM view_AuthorizationObject_Account View1, {1}tb_Project_Scope Scope
+        SELECT DISTINCT EntityId FROM view_AuthObject_Account View1, {1}tb_Project_Scope Scope
         WHERE
             View1.GranteeId = ##{0}##
             AND View1.AuthorizationObjectId = Scope.AuthorizationObjectId

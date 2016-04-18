@@ -244,10 +244,10 @@
         #endregion
 
         #region 属性:HasChildren
-        private bool m_HasChildren = true;
+        private int m_HasChildren = 0;
 
         /// <summary>是否有叶子节点</summary>
-        public bool HasChildren
+        public int HasChildren
         {
             get { return m_HasChildren; }
             set { m_HasChildren = value; }
@@ -310,10 +310,10 @@
         #endregion
 
         #region 属性:Hidden
-        private bool m_Hidden;
+        private int m_Hidden;
 
         /// <summary>显示为菜单列表时是否隐藏。</summary>
-        public bool Hidden
+        public int Hidden
         {
             get { return m_Hidden; }
             set { m_Hidden = value; }

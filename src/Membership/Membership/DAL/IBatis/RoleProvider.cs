@@ -202,9 +202,7 @@ namespace X3Platform.Membership.DAL.IBatis
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<IRoleInfo> list = this.ibatisMapper.QueryForList<IRoleInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
-
-            return list;
+            return this.ibatisMapper.QueryForList<IRoleInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 

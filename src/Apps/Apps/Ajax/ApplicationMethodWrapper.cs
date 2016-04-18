@@ -124,8 +124,6 @@ namespace X3Platform.Apps.Ajax
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"total\":" + paging.RowCount + ",");
             outString.Append("\"metaData\":{\"root\":\"data\",\"idProperty\":\"id\",\"totalProperty\":\"total\",\"successProperty\":\"success\",\"messageProperty\": \"message\"},");
-            outString.Append("\"success\":1,");
-            outString.Append("\"msg\":\"success\",");
             outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
             return outString.ToString();
@@ -186,7 +184,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("hi")]
         public string Hi(XmlDocument doc)
         {
             return "{\"message\":{\"returnCode\":0,\"value\":\"【时间 " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】Hi()方法调用成功。\"}}";
@@ -197,7 +194,6 @@ namespace X3Platform.Apps.Ajax
         /// <summary></summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        [AjaxMethod("throw")]
         public string Throw(XmlDocument doc)
         {
             throw new Exception("这是一个测试抛出异常的方法。");

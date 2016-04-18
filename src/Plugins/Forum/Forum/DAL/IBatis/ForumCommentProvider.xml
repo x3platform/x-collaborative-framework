@@ -282,7 +282,7 @@
     </select>
 
     <select id="proc_Forum_Comment_GetRowCount" >
-      SELECT COUNT(*) AS 'RowCount' FROM tb_Forum_Comment T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Forum_Comment T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -294,7 +294,7 @@
     </select>
 
     <select id="proc_Forum_Comment_IsExist" >
-      SELECT COUNT(0) AS 'Count' FROM tb_Forum_Comment T WHERE $WhereClause$
+      SELECT COUNT(0) AS "Count" FROM tb_Forum_Comment T WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>

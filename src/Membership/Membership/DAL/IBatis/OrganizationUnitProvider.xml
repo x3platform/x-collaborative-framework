@@ -1,399 +1,408 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Membership.DAL.IBatis.OrganizationUnitProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="OrganizationUnitInfo" type="X3Platform.Membership.Model.OrganizationUnitInfo,X3Platform.Membership" />
-        <typeAlias alias="AccountOrganizationUnitRelationInfo" type="X3Platform.Membership.Model.AccountOrganizationUnitRelationInfo,X3Platform.Membership" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_OrganizationUnit_FindOne_Result" class="OrganizationUnitInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="GlobalName" column="GlobalName" />
-            <result property="FullName" column="FullName" />
-            <result property="PinYin" column="PinYin" />
-            <result property="Type" column="Type" />
-            <result property="Level" column="Level" />
-            <result property="ParentId" column="ParentId" />
-            <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
-            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
-            <result property="EffectScope" column="EffectScope" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="FullPath" column="FullPath" />
-            <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_OrganizationUnit_FindAll_Result" class="OrganizationUnitInfo" >
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="GlobalName" column="GlobalName" />
-            <result property="FullName" column="FullName" />
-            <result property="PinYin" column="PinYin" />
-            <result property="Type" column="Type" />
-            <result property="Level" column="Level" />
-            <result property="ParentId" column="ParentId" />
-            <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
-            <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
-            <result property="EffectScope" column="EffectScope" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="FullPath" column="FullPath" />
-            <result property="DistinguishedName" column="DistinguishedName" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_OrganizationUnit_FindAllRelation_Result" class="AccountOrganizationUnitRelationInfo" >
-            <result property="AccountId" column="AccountId" />
-            <result property="AccountGlobalName" column="AccountGlobalName" />
-            <result property="OrganizationUnitId" column="OrganizationUnitId" />
-            <result property="OrganizationUnitGlobalName" column="OrganizationUnitGlobalName" />
-            <result property="IsDefault" column="IsDefault" />
-            <result property="BeginDate" column="BeginDate" />
-            <result property="EndDate" column="EndDate" />
-        </resultMap>
-    </resultMaps>
+  <alias>
+    <typeAlias alias="OrganizationUnitInfo" type="X3Platform.Membership.Model.OrganizationUnitInfo,X3Platform.Membership" />
+    <typeAlias alias="AccountOrganizationUnitRelationInfo" type="X3Platform.Membership.Model.AccountOrganizationUnitRelationInfo,X3Platform.Membership" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_OrganizationUnit_FindOne_Result" class="OrganizationUnitInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="GlobalName" column="GlobalName" />
+      <result property="FullName" column="FullName" />
+      <result property="PinYin" column="PinYin" />
+      <result property="Type" column="Type" />
+      <result property="Level" column="Level" />
+      <result property="ParentId" column="ParentId" />
+      <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
+      <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+      <result property="EffectScope" column="EffectScope" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="FullPath" column="FullPath" />
+      <result property="DistinguishedName" column="DistinguishedName" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_OrganizationUnit_FindAll_Result" class="OrganizationUnitInfo" >
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="GlobalName" column="GlobalName" />
+      <result property="FullName" column="FullName" />
+      <result property="PinYin" column="PinYin" />
+      <result property="Type" column="Type" />
+      <result property="Level" column="Level" />
+      <result property="ParentId" column="ParentId" />
+      <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
+      <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
+      <result property="EffectScope" column="EffectScope" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="FullPath" column="FullPath" />
+      <result property="DistinguishedName" column="DistinguishedName" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_OrganizationUnit_FindAllRelation_Result" class="AccountOrganizationUnitRelationInfo" >
+      <result property="AccountId" column="AccountId" />
+      <result property="AccountGlobalName" column="AccountGlobalName" />
+      <result property="OrganizationUnitId" column="OrganizationUnitId" />
+      <result property="OrganizationUnitGlobalName" column="OrganizationUnitGlobalName" />
+      <result property="IsDefault" column="IsDefault" />
+      <result property="BeginDate" column="BeginDate" />
+      <result property="EndDate" column="EndDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_OrganizationUnit_Insert" parameterClass="OrganizationUnitInfo" >
+      INSERT INTO tb_OrganizationUnit
+      (
+        Id,
+        Code,
+        Name,
+        GlobalName,
+        FullName,
+        PinYin,
+        Type,
+        ParentId,
+        StandardOrganizationUnitId,
+        EnableExchangeEmail,
+        EffectScope,
+        Locking,
+        OrderId,
+        Status,
+        Remark,
+        FullPath,
+        DistinguishedName,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #Code#,
+        #Name#,
+        #GlobalName#,
+        #FullName#,
+        #PinYin#,
+        #Type#,
+        #ParentId#,
+        #StandardOrganizationUnitId#,
+        #EnableExchangeEmail#,
+        #EffectScope#,
+        #Locking#,
+        #OrderId#,
+        #Status#,
+        #Remark#,
+        #FullPath#,
+        #DistinguishedName#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
 
-    <statements>
+    <update id="proc_OrganizationUnit_Update" parameterClass="OrganizationUnitInfo" >
+      UPDATE tb_OrganizationUnit SET
 
-        <insert id="proc_OrganizationUnit_Insert" parameterClass="OrganizationUnitInfo" >
-            INSERT INTO tb_OrganizationUnit 
-            (
-                Id,
-                Code,
-                Name,
-                GlobalName,
-                FullName,
-                PinYin,
-                Type,
-                ParentId,
-                StandardOrganizationUnitId,
-                EnableExchangeEmail,
-                EffectScope,
-                Locking,
-                OrderId,
-                Status,
-                Remark,
-                FullPath,
-                DistinguishedName,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES 
-            (
-                #Id#,
-                #Code#,
-                #Name#,
-                #GlobalName#,
-                #FullName#,
-                #PinYin#,
-                #Type#,
-                #ParentId#,
-                #StandardOrganizationUnitId#,
-                #EnableExchangeEmail#,
-                #EffectScope#,
-                #Locking#,
-                #OrderId#,
-                #Status#,
-                #Remark#,
-                #FullPath#,
-                #DistinguishedName#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+        Code = #Code#,
+        Name = #Name#,
+        GlobalName = #GlobalName#,
+        FullName = #FullName#,
+        PinYin = #PinYin#,
+        Type = #Type#,
+        Level = #Level#,
+        ParentId = #ParentId#,
+        StandardOrganizationUnitId = #StandardOrganizationUnitId#,
+        EnableExchangeEmail = #EnableExchangeEmail#,
+        EffectScope = #EffectScope#,
+        Locking = #Locking#,
+        OrderId = #OrderId#,
+        Status = #Status#,
+        Remark = #Remark#,
+        FullPath = #FullPath#,
+        DistinguishedName = #DistinguishedName#,
+        ModifiedDate = CURRENT_TIMESTAMP
 
-        <update id="proc_OrganizationUnit_Update" parameterClass="OrganizationUnitInfo" >
-            UPDATE tb_OrganizationUnit SET
+      WHERE Id = #Id#
+    </update>
+    <delete id="proc_OrganizationUnit_Delete">
+      DELETE FROM tb_OrganizationUnit WHERE $WhereClause$
+    </delete>
+    <select id="proc_OrganizationUnit_FindOne" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_OrganizationUnit WHERE Id = #Id#
+    </select>
+    <select id="proc_OrganizationUnit_FindOneByRoleId#MySql" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_OrganizationUnit WHERE Id IN ( SELECT func_GetDepartmentIdByOrganizationUnitId( OrganizationUnitId , $Level$ ) FROM tb_Role WHERE Id = '$RoleId$' ) LIMIT 0,1
+    </select>
+    <select id="proc_OrganizationUnit_FindOneByRoleId#SqlServer" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT TOP 1 * FROM tb_OrganizationUnit WHERE Id IN ( SELECT dbo.func_GetDepartmentIdByOrganizationUnitId( OrganizationUnitId , $Level$ ) FROM tb_Role WHERE Id = '$RoleId$' )
+    </select>
+    <select id="proc_OrganizationUnit_FindCorporationByOrganizationUnitId#MySql" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_OrganizationUnit WHERE Id IN ( func_GetCorporationIdByOrganizationUnitId(#OrganizationUnitId#) )
+    </select>
+    <select id="proc_OrganizationUnit_FindCorporationByOrganizationUnitId#SqlServer" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_OrganizationUnit WHERE Id IN ( dbo.func_GetCorporationIdByOrganizationUnitId(#OrganizationUnitId#) )
+    </select>
+    <select id="proc_OrganizationUnit_FindDepartmentByOrganizationUnitId#MySql" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_OrganizationUnit WHERE Id IN ( func_GetDepartmentIdByOrganizationUnitId(#OrganizationUnitId#,#Level#) )
+    </select>
+    <select id="proc_OrganizationUnit_FindDepartmentByOrganizationUnitId#SqlServer" resultMap="proc_OrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_OrganizationUnit WHERE Id IN ( dbo.func_GetDepartmentIdByOrganizationUnitId(#OrganizationUnitId#,#Level#) )
+    </select>
+    <select id="proc_OrganizationUnit_FindAll#MySql" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindAll_Result" >
+      SELECT * FROM tb_OrganizationUnit T
 
-                Code = #Code#,
-                Name = #Name#,
-                GlobalName = #GlobalName#,
-                FullName = #FullName#,
-                PinYin = #PinYin#,
-                Type = #Type#,
-                Level = #Level#,
-                ParentId = #ParentId#,
-                StandardOrganizationUnitId = #StandardOrganizationUnitId#,
-                EnableExchangeEmail = #EnableExchangeEmail#,
-                EffectScope = #EffectScope#,
-                Locking = #Locking#,
-                OrderId = #OrderId#,
-                Status = #Status#,
-                Remark = #Remark#,
-                FullPath = #FullPath#,
-                DistinguishedName = #DistinguishedName#,
-                ModifiedDate = CURRENT_TIMESTAMP
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            WHERE Id = #Id#
-        </update>
-        <delete id="proc_OrganizationUnit_Delete">
-            DELETE FROM tb_OrganizationUnit WHERE $WhereClause$
-        </delete>
-        <select id="proc_OrganizationUnit_FindOne" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_OrganizationUnit WHERE Id = #Id#
-        </select>
-        <select id="proc_OrganizationUnit_FindOneByRoleId#MySql" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_OrganizationUnit WHERE Id IN ( SELECT func_GetDepartmentIdByOrganizationUnitId( OrganizationUnitId , $Level$ ) FROM tb_Role WHERE Id = '$RoleId$' ) LIMIT 0,1
-        </select>
-        <select id="proc_OrganizationUnit_FindOneByRoleId#SqlServer" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT TOP 1 * FROM tb_OrganizationUnit WHERE Id IN ( SELECT dbo.func_GetDepartmentIdByOrganizationUnitId( OrganizationUnitId , $Level$ ) FROM tb_Role WHERE Id = '$RoleId$' )
-        </select>
-        <select id="proc_OrganizationUnit_FindCorporationByOrganizationUnitId#MySql" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_OrganizationUnit WHERE Id IN ( func_GetCorporationIdByOrganizationUnitId(#OrganizationUnitId#) )  
-        </select>
-        <select id="proc_OrganizationUnit_FindCorporationByOrganizationUnitId#SqlServer" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_OrganizationUnit WHERE Id IN ( dbo.func_GetCorporationIdByOrganizationUnitId(#OrganizationUnitId#) )  
-        </select>
-        <select id="proc_OrganizationUnit_FindDepartmentByOrganizationUnitId#MySql" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_OrganizationUnit WHERE Id IN ( func_GetDepartmentIdByOrganizationUnitId(#OrganizationUnitId#,#Level#) )  
-        </select>
-        <select id="proc_OrganizationUnit_FindDepartmentByOrganizationUnitId#SqlServer" resultMap="proc_OrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_OrganizationUnit WHERE Id IN ( dbo.func_GetDepartmentIdByOrganizationUnitId(#OrganizationUnitId#,#Level#) )
-        </select>
-        <select id="proc_OrganizationUnit_FindAll#MySql" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindAll_Result" >
-            SELECT * FROM tb_OrganizationUnit T
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_OrganizationUnit_FindAll#Oracle" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindAll_Result" >
+      SELECT * FROM tb_OrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            <dynamic prepend="LIMIT">
-                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
-                    0,$Length$
-                </isNotEqual>
-            </dynamic>
-        </select>
-        <select id="proc_OrganizationUnit_FindAll#SqlServer" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindAll_Result" >
-            SELECT
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+        <isNotEqual prepend="AND" property="Length" compareValue = "0">
+          ROWNUM &lt;= $Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_OrganizationUnit_FindAll#SqlServer" parameterClass="OrganizationUnitInfo" resultMap="proc_OrganizationUnit_FindAll_Result" >
+      SELECT
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            * FROM tb_OrganizationUnit T
+      * FROM tb_OrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_OrganizationUnit_GetPaging#MySql" resultMap="proc_OrganizationUnit_FindAll_Result" >
-            SELECT * FROM tb_OrganizationUnit T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_OrganizationUnit_GetPaging#MySql" resultMap="proc_OrganizationUnit_FindAll_Result" >
+      SELECT * FROM tb_OrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            ORDER BY $OrderBy$
-            
-            LIMIT $StartIndex$, $PageSize$
-        </select>
+      ORDER BY $OrderBy$
 
-        <select id="proc_OrganizationUnit_GetPaging#SqlServer" resultMap="proc_OrganizationUnit_FindAll_Result" >
-            SELECT *
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_OrganizationUnit_GetPaging#SqlServer" resultMap="proc_OrganizationUnit_FindAll_Result" >
+      SELECT *
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM tb_OrganizationUnit T
+      FROM tb_OrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
-        <select id="proc_OrganizationUnit_GetRowCount" >
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_OrganizationUnit_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM tb_OrganizationUnit T
+      SELECT COUNT(0) AS "RowCount" FROM tb_OrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_OrganizationUnit_IsExist" >
-            SELECT COUNT(*) AS 'Count' FROM tb_OrganizationUnit T WHERE $WhereClause$
-        </select>
-        <update id="proc_OrganizationUnit_Rename" parameterClass="OrganizationUnitInfo">
-            UPDATE tb_OrganizationUnit SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_OrganizationUnit_IsExist" >
+      SELECT COUNT(*) AS 'Count' FROM tb_OrganizationUnit T WHERE $WhereClause$
+    </select>
+    <update id="proc_OrganizationUnit_Rename" parameterClass="OrganizationUnitInfo">
+      UPDATE tb_OrganizationUnit SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
 
-        <update id="proc_OrganizationUnit_SetGlobalName" >
-            Update tb_OrganizationUnit SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+    <update id="proc_OrganizationUnit_SetGlobalName" >
+      Update tb_OrganizationUnit SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
 
-        <update id="proc_OrganizationUnit_SetParentId" >
-            UPDATE tb_OrganizationUnit SET ParentId = #ParentId#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+    <update id="proc_OrganizationUnit_SetParentId" >
+      UPDATE tb_OrganizationUnit SET ParentId = #ParentId#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
 
-        <update id="proc_OrganizationUnit_SetExchangeStatus" >
-            UPDATE tb_OrganizationUnit SET EnableExchangeEmail = #EnableExchangeEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
+    <update id="proc_OrganizationUnit_SetExchangeStatus" >
+      UPDATE tb_OrganizationUnit SET EnableExchangeEmail = #EnableExchangeEmail#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
 
-        <insert id="proc_OrganizationUnit_SyncFromPackPage" parameterClass="OrganizationUnitInfo" >
-            IF EXISTS(SELECT 0 FROM tb_OrganizationUnit WHERE Id = #Id#)
-            BEGIN
-                UPDATE tb_OrganizationUnit SET
+    <insert id="proc_OrganizationUnit_SyncFromPackPage" parameterClass="OrganizationUnitInfo" >
+      IF EXISTS(SELECT 0 FROM tb_OrganizationUnit WHERE Id = #Id#)
+      BEGIN
+        UPDATE tb_OrganizationUnit SET
 
-                    Code = #Code#,
-                    Name = #Name#,
-                    Type = #Type#,
-                    ParentId = #ParentId#,
-                    OrderId = #OrderId#,
-                    Status = #Status#,
-                    Remark = #Remark#,
-                    ModifiedDate = CURRENT_TIMESTAMP
+          Code = #Code#,
+          Name = #Name#,
+          Type = #Type#,
+          ParentId = #ParentId#,
+          OrderId = #OrderId#,
+          Status = #Status#,
+          Remark = #Remark#,
+          ModifiedDate = CURRENT_TIMESTAMP
 
-                WHERE Id = #Id#
+        WHERE Id = #Id#
+      END
+      ELSE
+      BEGIN
+        INSERT INTO tb_OrganizationUnit
+        (
+          Id,
+          Code,
+          Name,
+          Type,
+          ParentId,
+          OrderId,
+          Status,
+          Remark,
+          ModifiedDate,
+          CreatedDate
+        )
+        VALUES
+        (
+          #Id#,
+          #Code#,
+          #Name#,
+          #Type#,
+          #ParentId#,
+          #OrderId#,
+          #Status#,
+          #Remark#,
+          CURRENT_TIMESTAMP,
+          CURRENT_TIMESTAMP
+        )
+      END
+    </insert>
+    <select id="proc_OrganizationUnit_FindAllRelation" resultMap="proc_OrganizationUnit_FindAllRelation_Result" >
+      SELECT
+        AccountId,
+        tb_Account.GlobalName AS AccountGlobalName,
+        OrganizationUnitId,
+        tb_OrganizationUnit.GlobalName AS OrganizationUnitGlobalName,
+        IsDefault,
+        BeginDate,
+        EndDate
+      FROM
+        tb_Account_OrganizationUnit
+        INNER JOIN tb_Account ON tb_Account_OrganizationUnit.AccountId = tb_Account.Id
+        INNER JOIN tb_OrganizationUnit ON tb_Account_OrganizationUnit.OrganizationUnitId = tb_OrganizationUnit.Id
+      WHERE
+        $WhereClause$
+    </select>
+    <insert id="proc_OrganizationUnit_AddRelation#MySql" parameterClass="AccountOrganizationUnitRelationInfo" >
+      INSERT INTO tb_Account_OrganizationUnit
+      (
+        AccountId,
+        OrganizationUnitId,
+        IsDefault,
+        BeginDate,
+        EndDate
+      )
+      VALUES
+      (
+        '$AccountId$',
+        '$RoleId$',
+        $IsDefault$,
+        '$BeginDate$',
+        '$EndDate$'
+      )
+      ON DUPLICATE KEY UPDATE
+        IsDefault = $IsDefault$,
+        BeginDate = '$BeginDate$',
+        EndDate = '$EndDate$'
+    </insert>
+    <insert id="proc_OrganizationUnit_AddRelation#SqlServer" parameterClass="AccountOrganizationUnitRelationInfo" >
+      IF EXISTS ( SELECT 0 FROM tb_Account_OrganizationUnit WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$OrganizationUnitId$' )
+      BEGIN
+        UPDATE tb_Account_OrganizationUnit SET
 
-            END
-            ELSE
-            BEGIN
+          IsDefault = '$IsDefault$',
+          BeginDate = '$BeginDate$',
+          EndDate = '$EndDate$'
 
-                INSERT INTO tb_OrganizationUnit 
-                (
-                    Id,
-                    Code,
-                    Name,
-                    Type,
-                    ParentId,
-                    OrderId,
-                    Status,
-                    Remark,
-                    ModifiedDate,
-                    CreatedDate
-                )
-                VALUES 
-                (
-                    #Id#,
-                    #Code#,
-                    #Name#,
-                    #Type#,
-                    #ParentId#,
-                    #OrderId#,
-                    #Status#,
-                    #Remark#,
-                    CURRENT_TIMESTAMP,
-                    CURRENT_TIMESTAMP
-                )
-            END
-        </insert>
-        <select id="proc_OrganizationUnit_FindAllRelation" resultMap="proc_OrganizationUnit_FindAllRelation_Result" >
-            SELECT 
-	            AccountId, 
-	            tb_Account.GlobalName AS AccountGlobalName, 
-	            OrganizationUnitId,
-	            tb_OrganizationUnit.GlobalName AS OrganizationUnitGlobalName, 
-	            IsDefault, 
-	            BeginDate,
-	            EndDate 
-            FROM 
-	            tb_Account_OrganizationUnit
-		            INNER JOIN tb_Account ON tb_Account_OrganizationUnit.AccountId = tb_Account.Id
-		            INNER JOIN tb_OrganizationUnit ON tb_Account_OrganizationUnit.OrganizationUnitId = tb_OrganizationUnit.Id
-            WHERE 
-                $WhereClause$
-        </select>
-        <insert id="proc_OrganizationUnit_AddRelation#MySql" parameterClass="AccountOrganizationUnitRelationInfo" >
-            INSERT INTO tb_Account_OrganizationUnit
-            (
-                AccountId,
-                OrganizationUnitId,
-                IsDefault,
-                BeginDate,
-                EndDate
-            )
-            VALUES
-            (
-                '$AccountId$',
-                '$RoleId$',
-                $IsDefault$,
-                '$BeginDate$',
-                '$EndDate$'
-            ) 
-            ON DUPLICATE KEY UPDATE 
-                IsDefault = $IsDefault$,
-                BeginDate = '$BeginDate$',
-                EndDate = '$EndDate$'
-        </insert>
-        <insert id="proc_OrganizationUnit_AddRelation#SqlServer" parameterClass="AccountOrganizationUnitRelationInfo" >
-            IF EXISTS ( SELECT 0 FROM tb_Account_OrganizationUnit WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$OrganizationUnitId$' )
-            BEGIN
-                UPDATE tb_Account_OrganizationUnit SET
-
-                    IsDefault = '$IsDefault$',
-                    BeginDate = '$BeginDate$',
-                    EndDate = '$EndDate$'
-
-                WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$OrganizationUnitId$'
-            END
-            ELSE
-            BEGIN
-                INSERT INTO tb_Account_OrganizationUnit 
-                (
-                    AccountId,
-                    OrganizationUnitId,
-                    IsDefault,
-                    BeginDate,
-                    EndDate
-                )
-                VALUES
-                (
-                    '$AccountId$',
-                    '$OrganizationUnitId$',
-                    '$IsDefault$',
-                    '$BeginDate$',
-                    '$EndDate$'
-                )
-            END
-        </insert>
-        <update id="proc_OrganizationUnit_ExtendRelation" >
-            UPDATE tb_Account_OrganizationUnit SET EndDate = '$EndDate$' WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$OrganizationUnitId$'
-        </update>
-        <delete id="proc_OrganizationUnit_RemoveRelation" >
-            DELETE FROM tb_Account_OrganizationUnit WHERE $WhereClause$
-        </delete>
-        <select id="proc_OrganizationUnit_HasDefaultRelation" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Account_OrganizationUnit T WHERE AccountId = '$AccountId$' AND IsDefault = 1
-        </select>
-        <update id="proc_OrganizationUnit_ResetRelation" >
-            UPDATE tb_Account_OrganizationUnit SET IsDefault = 0 WHERE AccountId = '$AccountId$'
-        </update>
-        <update id="proc_OrganizationUnit_SetDefaultRelationIsDefault" >
-            UPDATE tb_Account_OrganizationUnit SET IsDefault = 1 WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$RoleId$'
-        </update>
-        <update id="proc_OrganizationUnit_SetDefaultRelation" >
-            UPDATE tb_Member SET OrganizationUnitId = '$OrganizationUnitId$', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
-        </update>
-        <update id="proc_OrganizationUnit_SetNullDefaultRelation" >
-            UPDATE tb_Member SET RoleId = '', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
-        </update>
-    </statements>
+        WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$OrganizationUnitId$'
+      END
+      ELSE
+      BEGIN
+        INSERT INTO tb_Account_OrganizationUnit
+        (
+          AccountId,
+          OrganizationUnitId,
+          IsDefault,
+          BeginDate,
+          EndDate
+        )
+        VALUES
+        (
+          '$AccountId$',
+          '$OrganizationUnitId$',
+          '$IsDefault$',
+          '$BeginDate$',
+          '$EndDate$'
+        )
+      END
+    </insert>
+    <update id="proc_OrganizationUnit_ExtendRelation" >
+      UPDATE tb_Account_OrganizationUnit SET EndDate = '$EndDate$' WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$OrganizationUnitId$'
+    </update>
+    <delete id="proc_OrganizationUnit_RemoveRelation" >
+      DELETE FROM tb_Account_OrganizationUnit WHERE $WhereClause$
+    </delete>
+    <select id="proc_OrganizationUnit_HasDefaultRelation" >
+      SELECT COUNT(0) AS "Count" FROM tb_Account_OrganizationUnit T WHERE AccountId = '$AccountId$' AND IsDefault = 1
+    </select>
+    <update id="proc_OrganizationUnit_ResetRelation" >
+      UPDATE tb_Account_OrganizationUnit SET IsDefault = 0 WHERE AccountId = '$AccountId$'
+    </update>
+    <update id="proc_OrganizationUnit_SetDefaultRelationIsDefault" >
+      UPDATE tb_Account_OrganizationUnit SET IsDefault = 1 WHERE AccountId = '$AccountId$' AND OrganizationUnitId = '$RoleId$'
+    </update>
+    <update id="proc_OrganizationUnit_SetDefaultRelation" >
+      UPDATE tb_Member SET OrganizationUnitId = '$OrganizationUnitId$', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+    </update>
+    <update id="proc_OrganizationUnit_SetNullDefaultRelation" >
+      UPDATE tb_Member SET RoleId = '', ModifiedDate = CURRENT_TIMESTAMP WHERE AccountId = '$AccountId$'
+    </update>
+  </statements>
 </sqlMap>

@@ -183,7 +183,7 @@
 			</dynamic>
 		</select>
 		<select id="proc_Task_Category_IsExist" >
-			SELECT COUNT(0) AS 'Count' FROM tb_Task_Category T WHERE $WhereClause$
+			SELECT COUNT(0) AS "Count" FROM tb_Task_Category T WHERE $WhereClause$
 		</select>
 		<update id="proc_Task_Category_SetStatus">
 			UPDATE tb_Task_Category SET Status = #Status#, UpdateDate = CURRENT_TIMESTAMP WHERE Id = #Id#

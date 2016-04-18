@@ -135,7 +135,7 @@
         </select>
         <select id="proc_StandardOrganizationUnit_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM tb_StandardOrganizationUnit T
+            SELECT COUNT(0) AS "RowCount" FROM tb_StandardOrganizationUnit T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -146,7 +146,7 @@
             </dynamic>
         </select>
         <select id="proc_StandardOrganizationUnit_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_StandardOrganizationUnit T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_StandardOrganizationUnit T WHERE $WhereClause$
         </select>
         <update id="proc_StandardOrganizationUnit_Rename" parameterClass="StandardOrganizationUnitInfo">
             UPDATE tb_StandardOrganizationUnit SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#

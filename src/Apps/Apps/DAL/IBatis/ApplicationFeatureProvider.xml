@@ -183,7 +183,7 @@
         </select>
         <select id="proc_Application_Feature_GetRowCount" >
 
-            SELECT COUNT(*) AS 'RowCount' FROM tb_Application_Feature T
+            SELECT COUNT(0) AS "Count" FROM tb_Application_Feature T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -194,7 +194,7 @@
             </dynamic>
         </select>
         <select id="proc_Application_Feature_IsExist" >
-            SELECT COUNT(0) AS 'Count' FROM tb_Application_Feature T WHERE $WhereClause$
+            SELECT COUNT(0) AS "Count" FROM tb_Application_Feature T WHERE $WhereClause$
         </select>
         <select id="proc_Application_Feature_Scope_GetRelations#MySql" >
             SELECT

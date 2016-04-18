@@ -1,6 +1,7 @@
 ﻿namespace X3Platform.Web.APIs.Mvc
 {
     using System;
+    using System.IO;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -22,7 +23,7 @@
                 // 符合规定的地址规则 /api/methodName，截取后面的methodName
                 string methodName = virtualPath.Substring(5).Trim('/');
 
-                if (methodName.LastIndexOf(".aspx") == (methodName.Length - 5)) 
+                if (methodName.LastIndexOf(".aspx") == (methodName.Length - 5))
                 {
                     methodName = methodName.Substring(0, methodName.Length - 5);
                 }
@@ -36,7 +37,17 @@
                 routeData.Values.Add("controller", "API");
                 routeData.Values.Add("action", "Index");
                 routeData.Values.Add("methodName", methodName);
-                
+
+                if (httpContext.Request.ContentType == "application/xml" || httpContext.Request.ContentType == "application/json")
+                {
+                    using (StreamReader reader = new StreamReader(httpContext.Request.InputStream))
+                    {
+                        routeData.Values.Add("rawInput", reader.ReadToEnd());
+
+                        reader.Close();
+                    }
+                }
+
                 return routeData;
             }
             else

@@ -48,7 +48,7 @@
                 if (string.IsNullOrEmpty(methodName))
                 {
                     // 查看某个应用下的方法列表
-                    ViewBag.methods = AppsContext.Instance.ApplicationMethodService.FindAllByApplicationName(applicationName);
+                    ViewBag.methods = AppsContext.Instance.ApplicationMethodService.FindAllByApplicationName(applicationName).OrderBy(x => x.Id);
                 }
                 else
                 {

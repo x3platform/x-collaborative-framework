@@ -7,7 +7,7 @@
     <setting useReflectionOptimizer="true"/>
   </settings>
 
-  <providers embedded="X3Platform.IBatis.defaults.X3Platform.IBatis.Providers.config,X3Platform.Support" />
+  <providers resource="${ApplicationPathRoot}config/X3Platform.IBatis.Providers.config" />
 
   <database>
     <provider name="${DatabaseSettings.Provider}" />
