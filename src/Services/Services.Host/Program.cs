@@ -13,9 +13,9 @@ namespace X3Platform.Services.Host
     {
         static void Main(string[] args)
         {
-            //
+            // -------------------------------------------------------
             // 创建服务跟踪对象
-            //
+            // -------------------------------------------------------
 
             BinaryClientFormatterSinkProvider clientSinkProvider = new BinaryClientFormatterSinkProvider();
 
@@ -41,7 +41,6 @@ namespace X3Platform.Services.Host
             {
                 configure.Service<ServicesManagement>(callback =>
                 {
-                    // callback.SetServiceName(ServicesConfigurationView.Instance.ServiceName);
                     callback.ConstructUsing(instance => new ServicesManagement());
                     callback.WhenStarted(instance => instance.Start());
                     callback.WhenStopped(instance => instance.Stop());
@@ -57,26 +56,5 @@ namespace X3Platform.Services.Host
                 configure.SetDescription(ServicesConfigurationView.Instance.ServiceDescription);
             });
         }
-
-        /*
-        static class Program
-        {
-            /// <summary>
-            /// 应用程序的主入口点。
-            /// </summary>
-            static void Main()
-            {
-                ServiceBase[] ServicesToRun;
-
-                // 同一进程中可以运行多个用户服务。若要将
-                // 另一个服务添加到此进程中，请更改下行以
-                // 创建另一个服务对象。例如，
-                //
-                //   ServicesToRun = new ServiceBase[] {new Service1(), new MySecondUserService()};
-                //
-                ServicesToRun = new ServiceBase[] { new ServicesManagement() };
-
-                ServiceBase.Run(ServicesToRun);
-            }*/
     }
 }

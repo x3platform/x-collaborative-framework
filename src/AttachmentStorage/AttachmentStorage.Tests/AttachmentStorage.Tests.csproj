@@ -55,6 +55,10 @@
     <Reference Include="Common.Logging">
       <HintPath>..\..\..\lib\Common.Logging\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Common.Logging\Common.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\lib\MySQL\MySql.Data.dll</HintPath>
@@ -99,6 +103,9 @@
   <ItemGroup>
     <EmbeddedResource Include="data\api.attachment.upload.json" />
     <None Include="App.example.config" />
+    <None Include="config\X3Platform.IBatis.Providers.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
