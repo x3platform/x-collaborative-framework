@@ -165,6 +165,5 @@
         <select id="proc_Authority_HasAuthorizationObject" >
             SELECT COUNT(0) AS "Count" FROM view_AuthObject_Account T WHERE $WhereClause$
         </select>
-        
     </statements>
 </sqlMap>

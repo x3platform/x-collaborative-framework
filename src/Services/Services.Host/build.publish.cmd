@@ -4,8 +4,6 @@ set SolutionDir=..\..\..\..\..\
 
 set BinDir=%SolutionDir%bin\
 
-set ServicePublishDir=D:\X3Platform.Applications\services\X3Platform.services.host\
-
 set ProjectDir=%1
 
 set TargetDir=%2
@@ -16,7 +14,7 @@ echo Deploy project files - %TargetName%
 
 call :CopyTargetFiles
 
-if exist "%ServicePublishDir%" call :CopyServicePublishFiles
+@rem if exist "%ServicePublishDir%" call :CopyServicePublishFiles
 
 @rem =========================================================
 @rem Build Project Function
