@@ -51,16 +51,6 @@ namespace X3Platform.Sessions
 
         private static Timer timer = new Timer();
 
-        #region 属性:Configuration
-        private SessionsConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public SessionsConfiguration Configuration
-        {
-            get { return this.configuration; }
-        }
-        #endregion
-
         #region 属性:AccountCacheService
         private IAccountCacheService m_AccountCacheService = null;
 
@@ -79,6 +69,9 @@ namespace X3Platform.Sessions
         }
         #endregion
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
@@ -87,10 +80,14 @@ namespace X3Platform.Sessions
             try
             {
                 this.Reload();
+
+                // 自增重启次数计数器
+                this.restartCount++;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                KernelContext.Log.Error(ex.Message, ex);
+                throw ex;
             }
 
             return 0;
@@ -101,10 +98,8 @@ namespace X3Platform.Sessions
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            this.configuration = SessionsConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = SessionsConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(SessionsConfiguration.ApplicationName, springObjectFile);
 

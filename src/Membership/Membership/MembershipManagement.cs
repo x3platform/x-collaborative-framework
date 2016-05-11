@@ -11,6 +11,7 @@ namespace X3Platform.Membership
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.Passwords;
+    using X3Platform.Globalization;
 
     /// <summary>人员关系管理</summary>
     public sealed class MembershipManagement : CustomPlugin
@@ -318,8 +319,14 @@ namespace X3Platform.Membership
         {
             if (this.restartCount > 0)
             {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_reloading"], MembershipConfiguration.ApplicationName));
+
                 // 重新加载配置信息
                 MembershipConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_loading"], MembershipConfiguration.ApplicationName));
             }
 
             // 创建对象构建器(Spring.NET)
@@ -353,6 +360,8 @@ namespace X3Platform.Membership
             this.m_SettingService = objectBuilder.GetObject<ISettingService>(typeof(ISettingService));
             this.m_GroupTreeService = objectBuilder.GetObject<IGroupTreeService>(typeof(IGroupTreeService));
             this.m_GroupTreeNodeService = objectBuilder.GetObject<IGroupTreeNodeService>(typeof(IGroupTreeNodeService));
+
+            KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], MembershipConfiguration.ApplicationName));
         }
         #endregion
     }

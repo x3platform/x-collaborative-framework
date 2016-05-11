@@ -9,6 +9,7 @@ namespace X3Platform.Apps
     using X3Platform.Apps.Configuration;
     using X3Platform.Apps.IBLL;
     using Common.Logging;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>应用上下文环境</summary>
@@ -186,9 +187,14 @@ namespace X3Platform.Apps
         private void Reload()
         {
             if (this.restartCount > 0)
-            {
+            {   KernelContext.Log.Info(string.Format(I18n.Strings["application_is_reloading"], AppsConfiguration.ApplicationName));
+           
                 // 重新加载配置信息
                 AppsConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_loading"], AppsConfiguration.ApplicationName));
             }
 
             // 创建对象构建器(Spring.NET)
@@ -207,6 +213,8 @@ namespace X3Platform.Apps
             this.m_ApplicationSettingGroupService = objectBuilder.GetObject<IApplicationSettingGroupService>(typeof(IApplicationSettingGroupService));
             this.m_ApplicationMenuService = objectBuilder.GetObject<IApplicationMenuService>(typeof(IApplicationMenuService));
             this.m_ApplicationMethodService = objectBuilder.GetObject<IApplicationMethodService>(typeof(IApplicationMethodService));
+
+            KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], AppsConfiguration.ApplicationName));
         }
         #endregion
     }

@@ -22,9 +22,6 @@
     /// <summary>应用配置服务</summary>
     public class ApplicationService : IApplicationService
     {
-        /// <summary>配置</summary>
-        private AppsConfiguration configuration = null;
-
         /// <summary>数据提供器</summary>
         private IApplicationProvider provider = null;
 
@@ -35,10 +32,8 @@
         /// <summary>构造函数</summary>
         public ApplicationService()
         {
-            this.configuration = AppsConfigurationView.Instance.Configuration;
-
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AppsConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AppsConfiguration.ApplicationName, springObjectFile);
 

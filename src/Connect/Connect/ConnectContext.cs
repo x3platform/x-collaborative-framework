@@ -11,13 +11,12 @@ namespace X3Platform.Connect
 
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.IBLL;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>应用连接器管理上下文环境</summary>
     public sealed class ConnectContext : CustomPlugin
     {
-        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
-
         #region 属性:Name
         public override string Name
         {
@@ -116,8 +115,7 @@ namespace X3Platform.Connect
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
-
+                KernelContext.Log.Error(ex.Message, ex);
                 throw ex;
             }
 
@@ -131,8 +129,14 @@ namespace X3Platform.Connect
         {
             if (this.restartCount > 0)
             {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_reloading"], ConnectConfiguration.ApplicationName));
+
                 // 重新加载配置信息
                 ConnectConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_loading"], ConnectConfiguration.ApplicationName));
             }
 
             // 创建对象构建器(Spring.NET)
@@ -145,6 +149,8 @@ namespace X3Platform.Connect
             this.m_ConnectAccessTokenService = objectBuilder.GetObject<IConnectAccessTokenService>(typeof(IConnectAccessTokenService));
             this.m_ConnectAuthorizationCodeService = objectBuilder.GetObject<IConnectAuthorizationCodeService>(typeof(IConnectAuthorizationCodeService));
             this.m_ConnectCallService = objectBuilder.GetObject<IConnectCallService>(typeof(IConnectCallService));
+
+            KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], ConnectConfiguration.ApplicationName));
         }
         #endregion
     }

@@ -12,6 +12,7 @@ namespace X3Platform.Storages
     using System.Collections.Generic;
     using X3Platform.Configuration;
     using Common.Logging;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>存储应用上下文环境</summary>
@@ -54,16 +55,6 @@ namespace X3Platform.Storages
         }
         #endregion
 
-        #region 属性:Configuration
-        private StoragesConfiguration configuration = null;
-
-        /// <summary>配置</summary>
-        public StoragesConfiguration Configuration
-        {
-            get { return configuration; }
-        }
-        #endregion
-
         #region 属性:StorageSchemaService
         private IStorageSchemaService m_StorageSchemaService;
 
@@ -92,6 +83,9 @@ namespace X3Platform.Storages
         }
         #endregion
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回服务. =0代表重启成功, >0代表重启失败.</returns>
@@ -99,11 +93,15 @@ namespace X3Platform.Storages
         {
             try
             {
-                Reload();
+                this.Reload();
+
+                // 自增重启次数计数器
+                this.restartCount++;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                KernelContext.Log.Error(ex.Message, ex);
+                throw ex;
             }
 
             return 0;
@@ -114,16 +112,28 @@ namespace X3Platform.Storages
         /// <summary>重新加载</summary>
         private void Reload()
         {
-            this.configuration = StoragesConfigurationView.Instance.Configuration;
+            if (this.restartCount > 0)
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_reloading"], StoragesConfiguration.ApplicationName));
+
+                // 重新加载配置信息
+                StoragesConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_loading"], StoragesConfiguration.ApplicationName));
+            }
 
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = StoragesConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(StoragesConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据服务对象
             this.m_StorageSchemaService = objectBuilder.GetObject<IStorageSchemaService>(typeof(IStorageSchemaService));
             this.m_StorageNodeService = objectBuilder.GetObject<IStorageNodeService>(typeof(IStorageNodeService));
+
+            KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], StoragesConfiguration.ApplicationName));
         }
         #endregion
 

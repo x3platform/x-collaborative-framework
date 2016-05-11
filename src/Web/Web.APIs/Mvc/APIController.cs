@@ -20,6 +20,7 @@
     using X3Platform.Security;
     using X3Platform.Apps.Model;
     using X3Platform.Json;
+    using System.Text;
 
     /// <summary></summary>
     public sealed class APIController : Controller
@@ -29,7 +30,7 @@
 
         /// <summary></summary>
         /// <param name="methodName"></param>
-        /// <param name="jsonString"></param>
+        /// <param name="rawInput"></param>
         /// <returns></returns>
         [ValidateInput(false)]
         public ActionResult Index(string methodName, string rawInput)
@@ -55,15 +56,23 @@
 
             string responseText = string.Empty;
 
-            if (logger.IsDebugEnabled)
-            {
-                logger.Debug("methodName:" + methodName);
-            }
-
             // 支持两种格式 connect/auth/authorize 和 connect.auth.authorize, 内部统一使用 connect.auth.authorize 格式
             if (methodName.IndexOf("/") > -1)
             {
                 methodName = methodName.Replace("/", ".");
+            }
+
+            if (context.Request.QueryString["xhr-debug"] == "1")
+            {
+                logger.Info("methodName:" + methodName);
+
+                logger.Info(RequestHelper.Dump(context.Request, rawInput));
+            }
+
+            // 输出请求信息
+            if (logger.IsDebugEnabled)
+            {
+                logger.Debug("methodName:" + methodName);
             }
 
             if (dictionary.ContainsKey(methodName))
