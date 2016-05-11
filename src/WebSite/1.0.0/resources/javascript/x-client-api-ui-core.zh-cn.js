@@ -2373,7 +2373,7 @@ x.ui.wizards = {
                 this.create_callback = options.create_callback || x.noop;
 
                 // 设置保存后回调函数
-                this.save_callback = options.save_callback || x.save_callback;
+                this.save_callback = options.save_callback || x.noop;
 
                 // 设置取消回调函数
                 this.cancel_callback = options.cancel_callback || x.noop;
@@ -2651,8 +2651,8 @@ x.ui.dialogs = {
 				$borderHeight = options.showTitle != true ? 0 : 10;
                 $boxDialogHeight = options.button != "" ? 45 : 0;
                 $boxDialogBorder = $boxDialogHeight == "0" ? "0" : "1";
-                var $width = parseInt(options.width) > 1000 ? 1000 : parseInt(options.width),
-				$height = parseInt(options.height) > 550 ? 550 : parseInt(options.height);
+                var $width = parseInt(options.width) > x.page.getViewWidth() ? x.page.getViewWidth() : parseInt(options.width),
+				$height = parseInt(options.height) > x.page.getViewHeight() ? x.page.getViewHeight() : parseInt(options.height);
                 var $boxDom = "<div id=\"" + options.id + "\" class=\"x-ui-dialogs\">";
                 $boxDom += "<div class=\"boxWrap\">";
                 $boxDom += "<div class=\"box-title\"><h3></h3><span class=\"box-close-btn\">关闭</span></div>";
@@ -2680,11 +2680,12 @@ x.ui.dialogs = {
                     position: "relative",
                     top: "5px",
                     margin: "0 auto",
-                    width: $width + 2 + "px",
+                    width: $width + "px",
                     height: $height + $titleHeight + $boxDialogHeight + 1 + "px",
                     overflow: "hidden",
                     zIndex: "20590"
                 });
+                
                 var $boxContent = $(".boxContent", $box);
                 $boxContent.css({
                     position: "relative",
@@ -2718,7 +2719,7 @@ x.ui.dialogs = {
                     background: options.boxBdColor,
                     zIndex: "10715"
                 });
-                var $title = $(".boxTitle>h3", $box);
+                var $title = $(".box-title>h3", $box);
                 $title.html(options.title);
                 $title.parent().css({
                     position: "relative",
@@ -2736,12 +2737,12 @@ x.ui.dialogs = {
                         $(this).removeClass("hover");
                     });
                 };
-                if (options.showTitle != true) { $(".boxTitle", $box).remove(); }
+                if (options.showTitle != true) { $(".box-title", $box).remove(); }
                 if (options.showBoxbg != true)
                 {
                     $(".box-bd", $box).remove();
                     $box.css({
-                        width: $width + 2 + "px",
+                        width: $width + "px",
                         height: $height + $titleHeight + $boxDialogHeight + 1 + "px"
                     });
                     $boxWrap.css({ left: "0", top: "0" });
@@ -3226,7 +3227,7 @@ x.ui.dialogs = {
 
                 if (options.showbg != "" && options.showbg == true)
                 {
-                    x.dom.append(document.body, "<div id=\"x-ui-dialogs-window-bg\" style=\"position:absolute;background:" + options.windowBgColor + ";filter:alpha(opacity=0);opacity:0;width:100%;left:0;top:0;z-index:870618\"><iframe src=\"about:blank\" style=\"width=100%;height:" + $(document).height() + "px;filter:alpha(opacity=0);opacity:0;scrolling=no;z-index:870610\"></iframe></div>");
+                    x.dom.append(document.body, '<div id="x-ui-dialogs-window-bg" style="position:absolute;background:' + options.windowBgColor + ';filter:alpha(opacity='+ options.windowBgOpacity +');opacity:'+ options.windowBgOpacity +';width:100%;left:0;top:0;z-index:870618"><iframe src="about:blank" style="width=100%;height:' + $(document).height() + 'px;filter:alpha(opacity=0);opacity:0;scrolling=no;z-index:870610"></iframe></div>');
 
                     // var $boxBgDom = "<div id=\"x-ui-dialogs-window-bg\" style=\"position:absolute;background:" + options.windowBgColor + ";filter:alpha(opacity=0);opacity:0;width:100%;left:0;top:0;z-index:870618\"><iframe src=\"about:blank\" style=\"width=100%;height:" + $(document).height() + "px;filter:alpha(opacity=0);opacity:0;scrolling=no;z-index:870610\"></iframe></div>";
                     // $($boxBgDom).appendTo("body").animate({ opacity: options.windowBgOpacity }, 200);

@@ -441,6 +441,7 @@
     <Content Include="views\main\tasks\task-waiting-list.cshtml" />
     <Content Include="views\main\account\set-password.cshtml" />
     <Content Include="views\main\sdk\doc.cshtml" />
+    <Content Include="views\main\sdk\base64image.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>
