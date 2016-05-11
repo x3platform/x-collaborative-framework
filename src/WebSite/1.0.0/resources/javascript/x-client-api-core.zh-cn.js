@@ -2,7 +2,7 @@
 // Name     : x-client-api 
 // Version  : 1.0.0 
 // Author   : ruanyu@live.com
-// Date     : 2016-01-28
+// Date     : 2016-05-03
 (function(global, factory) 
 {
     if (typeof module === "object" && typeof module.exports === "object") 
@@ -2355,7 +2355,7 @@
             {
             destination[property] = source[property];
             }
-        
+    
             return destination;
             */
     
@@ -2711,12 +2711,12 @@
         * @memberof x
         * @param {string} name 名称
         * @example
-        * // 将路径中的[$./\]符号替换为[-]符号
+        * // 将路径中的[$./\:?=]符号替换为[-]符号
         * console.log(x.getFriendlyName(location.pathname));
         */
         getFriendlyName: function(name)
         {
-            return x.camelCase(('x-' + name).replace(/[\#\$\.\/\\]/g, '-').replace(/[-]+/g, '-'));
+            return x.camelCase(('x-' + name).replace(/[\#\$\.\/\\\:\?\=]/g, '-').replace(/[-]+/g, '-'));
         },            /**
         * 哈希表
         * @class HashTable 哈希表
@@ -3117,7 +3117,7 @@
                     y: event.pageY || (event.clientY + (docElement.scrollTop || body.scrollTop) - (docElement.clientTop || 0))
                 };
             },                /**
-            * 停止事件传播
+            * 取消事件的默认动作
             * @method preventDefault
             * @memberof x.event
             * @param {event} event 事件对象
@@ -6699,7 +6699,7 @@
             {
                 // 设置默认选项参数
                 options = x.ext({
-                    type: 'default',                        // 窗口类型
+                    type: 'default',                                    // 窗口类型
                     text: i18n.net.waiting.commitTipText    // 提示信息
                 }, options || {});
     
@@ -6785,11 +6785,9 @@
                             options: options,
                             // 容器
                             container: null,
-                            // 消息框
-                            message: null,
                                 create: function(text)
                             {
-                                // 
+                                this.options.text = text;
                             },                                /*
                             * 显示
                             */
@@ -7026,7 +7024,8 @@
             // -------------------------------------------------------
             // 可选择参数
             // waitingMessage   等待窗口显示的文本信息。
-            // popCorrectValue   弹出回调结果。
+            // popCorrectValue  弹出正确回调结果。
+            // popIncorrectValue  弹出错误回调结果。
             // callback         回调函数。
             // -------------------------------------------------------
     
@@ -7078,31 +7077,40 @@
     
             var type = x.isUndefined(options.type, 'POST');
     
+            var contentType = x.isUndefined(options.contentType, 'text/html');
+    
             var async = x.isUndefined(options.async, true);
     
             // 设置 data 值
             var data = x.ext({}, options.data || {});
     
-            var xml = x.toXML(xhrDataValue, 1);
-    
-            if(xhrDataValue != '' && xml)
+            if(x.type(xhrDataValue) === 'object')
             {
-                data[options.xhrDataKey] = xhrDataValue;
+                // JSON 格式数据
+                data = x.ext(data, xhrDataValue);
             }
-            else if(!xml && xhrDataValue.indexOf('=') > 0)
+            else
             {
-                // 非Xml字符格式, 普通的POST数据
-                var list = xhrDataValue.split('&');
-    
-                x.each(list, function(index, node)
+                var xml = x.toXML(xhrDataValue, 1);
+                if(xhrDataValue != '' && xml)
                 {
-                    var items = node.split('=');
+                    data[options.xhrDataKey] = xhrDataValue;
+                }
+                else if(!xml && xhrDataValue.indexOf('=') > 0)
+                {
+                    // 非Xml字符格式, 普通的POST数据
+                    var list = xhrDataValue.split('&');
     
-                    if(items.length == 2)
+                    x.each(list, function(index, node)
                     {
-                        data[items[0]] = decodeURIComponent(items[1]);
-                    }
-                });
+                        var items = node.split('=');
+    
+                        if(items.length == 2)
+                        {
+                            data[items[0]] = decodeURIComponent(items[1]);
+                        }
+                    });
+                }
             }
     
             if(x.isFunction(options.getAccessToken) && options.getAccessToken() != '')
@@ -7125,6 +7133,7 @@
             x.net.ajax({
                 type: type,
                 url: url,
+                contentType: contentType,
                 data: data,
                 async: async,
                 success: function(response)
@@ -7142,29 +7151,40 @@
     
                         var result = x.toJSON(response);
     
-                        var message = result.message;
-    
-                        switch(Number(message.returnCode))
+                        if(x.isUndefined(result) || x.isUndefined(result.message))
                         {
-                            case 0:
-                                // 0:正确操作
-                                if(!!options.popCorrectValue)
-                                {
+                            x.call(options.callback, x.toJSON(response));
+                        }
+                        else
+                        {
+                            var message = result.message;
+    
+                            // 支持内置 message 对象的处理
+                            switch(Number(message.returnCode))
+                            {
+                                case -1:
+                                    // -1:异常信息
                                     x.msg(message.value);
-                                }
+                                    break;
+                                case 0:
+                                    // 0:正确操作
+                                    if(!!options.popCorrectValue)
+                                    {
+                                        x.msg(message.value);
+                                    }
     
-                                x.call(options.callback, x.toJSON(response));
-                                break;
+                                    x.call(options.callback, x.toJSON(response));
+                                    break;
+                                default:
+                                    // 其他错误操作
+                                    if(!!options.popIncorrectValue)
+                                    {
+                                        x.msg(message.value);
+                                    }
     
-                            case -1:
-                            case 1:
-                                // -1:异常信息 | 1:错误信息
-                                x.msg(message.value);
-                                break;
-                            default:
-                                // 其他操作
-                                x.call(options.callback, x.toJSON(response));
-                                break;
+                                    x.call(options.callback, x.toJSON(response));
+                                    break;
+                            }
                         }
                     }
                     else
@@ -7173,7 +7193,7 @@
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown)
-                {    
+                {    
                     if(x.isFunction(options.error))
                     {
                         options.error(XMLHttpRequest, textStatus, errorThrown);
@@ -7217,7 +7237,7 @@
             }, options || {});
     
             if(options.id != '' && x.net.requireLoaded[options.id])
-            {    
+            {    
                 x.call(options.callback);
     
                 return true;
@@ -7229,7 +7249,7 @@
                 url: options.path,
                 async: options.async,
                 success: function(responseText)
-                {    
+                {    
                     var head = document.getElementsByTagName("HEAD").item(0);
     
                     if(options.fileType == 'template')
@@ -7526,6 +7546,11 @@
         */
         close: function()
         {
+            if(window != top)
+            {
+                x.page.closeIframe();
+            }
+    
             try
             {
                 window.opener = null;
@@ -7565,6 +7590,26 @@
             // }
     
             window.opener.window$refresh$callback();
+        },            /**
+        * 关闭 iframe 窗口
+        * @method closeIframe
+        * @memberof x.page
+        */
+        closeIframe: function()
+        {
+            if(window.parent == null)
+            {
+                x.debug.warn('未定义父级窗口。');
+                return
+            }
+    
+            if(!x.isFunction(window.parent.window$iframe$close))
+            {
+                x.debug.warn('父级窗口未定义 window$iframe$close() 函数。');
+                return
+            }
+    
+            window.parent.window$iframe$close();
         },    
         /**
         * 获取页面范围信息
@@ -8159,7 +8204,7 @@
     
                     outString += '<li><a href="' + format.replace('{0}', this.firstPage) + '" aria-label="首页"><span class="glyphicon glyphicon-step-backward"></span></a></li>';
                     outString += '<li><a href="' + format.replace('{0}', this.previousPage) + '" aria-label="上一页"><span class="glyphicon glyphicon-triangle-left"></span></a></li>';
-                    outString += this.getPagesNumber(format, this.currentPage, 2)
+                    outString += this.getPagesNumber(format, this.currentPage, 2);
                     outString += '<li><a href="' + format.replace('{0}', this.nextPage) + '" aria-label="下一页"><span class="glyphicon glyphicon-triangle-right"></span></a></li> ';
                     outString += '<li><a href="' + format.replace('{0}', this.lastPage) + '" aria-label="末页"><span class="glyphicon glyphicon-step-forward"></span></a></li> ';
     

@@ -17,12 +17,12 @@ x.dom.features.number = {
         {
             var event = x.event.getEvent(event);
 
-            if (this.value.indexOf('.') > -1 && (event.keyCode == 110 || event.keyCode == 190))
+            if(this.value.indexOf('.') > -1 && (event.keyCode == 110 || event.keyCode == 190))
             {
                 x.event.preventDefault(event);
             }
 
-            if (this.value.indexOf('-') > -1 && (event.keyCode == 189 || event.keyCode == 109))
+            if(this.value.indexOf('-') > -1 && (event.keyCode == 189 || event.keyCode == 109))
             {
                 x.event.preventDefault(event);
             }
@@ -36,7 +36,7 @@ x.dom.features.number = {
 
             // 考虑小键盘上的数字键 
             // 只允许按Delete键和Backspace键
-            if (!((event.keyCode >= 48 && event.keyCode <= 57) // 小键盘区的数字
+            if(!((event.keyCode >= 48 && event.keyCode <= 57) // 小键盘区的数字
                 || (event.keyCode >= 96 && event.keyCode <= 105) // 主键盘区的数字
                 || (event.keyCode == 110 || event.keyCode == 190) // 小键盘区和主键盘区的小数
                 || (event.keyCode == 189 || event.keyCode == 109) // 小键盘区和主键盘区的负号
@@ -56,12 +56,12 @@ x.dom.features.number = {
         input.bind('keyup', function()
         {
             // 去除右边的负号
-            if (this.value.length > 1 && this.value.lastIndexOf('-') == this.value.length - 1)
+            if(this.value.length > 1 && this.value.lastIndexOf('-') == this.value.length - 1)
             {
                 this.value = x.string.rtrim(this.value, '-');
             }
 
-            if (this.value !== '' && this.value.exists(x.expressions.rules['non-number']))
+            if(this.value !== '' && this.value.exists(x.expressions.rules['non-number']))
             {
                 this.value = x.expressions.formatNumber(this.value);
             }
