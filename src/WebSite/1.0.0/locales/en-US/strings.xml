@@ -51,4 +51,10 @@
   <string name="date_dateformat_fulldayvalue">yyyyMMdd</string>
   <string name="date_dateformat_Md">M/d (W)</string>
   <string name="date_dateformat_Md3">M月d日</string>
+  <!-- application -->
+  <string name="application_start">应用:{0} 启动</string>
+  <string name="application_stop">应用:{0} 停止</string>
+  <string name="application_is_loading">应用:{0} 正在加载。</string>
+  <string name="application_is_reloading">应用:{0} 正在重新加载。</string>
+  <string name="application_is_successfully_loaded">应用:{0} 已成功加载。</string>
 </resources>

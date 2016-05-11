@@ -13,9 +13,9 @@
   <string name="msg_configure_success">配置成功。</string>
   <!-- msg long text -->
   <string name="msg_are_you_sure_you_want_to_delete">确定删除？</string>
-  <string name="msg_the_same_field_already_exists">实例标识不能为空。</string>  
+  <string name="msg_the_same_field_already_exists">实例标识不能为空。</string>
   <string name="msg_the_same_name_already_exists">已存在相同的名称。</string>
-  <string name="msg_field_is_required">实例标识不能为空。</string>  
+  <string name="msg_field_is_required">实例标识不能为空。</string>
   <string name="msg_id_is_required">实例标识不能为空。</string>
   <!-- msg net error -->
   <string name="msg_net_error_401">访问被拒绝，客户试图未经授权访问受密码保护的页面。</string>
@@ -50,4 +50,10 @@
   <string name="date_dateformat_fulldayvalue">yyyyMMdd</string>
   <string name="date_dateformat_Md">M/d (W)</string>
   <string name="date_dateformat_Md3">M月d日</string>
+  <!-- application -->
+  <string name="application_start">应用 {0} 启动</string>
+  <string name="application_stop">应用 {0} 停止</string>
+  <string name="application_is_loading">应用 {0} 正在加载。</string>
+  <string name="application_is_reloading">应用 {0} 正在重新加载。</string>
+  <string name="application_is_successfully_loaded">应用 {0} 已成功加载。</string>
 </resources>
