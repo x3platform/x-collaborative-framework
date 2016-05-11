@@ -102,6 +102,8 @@
         }
         #endregion
 
+        private object lockDictObject = new object();
+
         #region 函数:FindOneByName(string name)
         /// <summary>查询某条记录</summary>
         /// <param name="name">名称</param>
@@ -109,21 +111,27 @@
         public ApplicationMethodInfo FindOneByName(string name)
         {
             ApplicationMethodInfo param = null;
-
+            
             // 初始化缓存
             if (this.dict.Count == 0)
             {
-                IList<ApplicationMethodInfo> list = this.provider.FindAll(new DataQuery());
-
-                foreach (ApplicationMethodInfo item in list)
+                lock (lockDictObject)
                 {
-                    if (this.dict.ContainsKey(item.Name))
+                    if (this.dict.Count == 0)
                     {
-                        KernelContext.Log.Warn(string.Format("method:{0}", item.Name) + " is exists.");
-                    }
-                    else
-                    {
-                        this.dict.Add(item.Name, item);
+                        IList<ApplicationMethodInfo> list = this.provider.FindAll(new DataQuery());
+
+                        foreach (ApplicationMethodInfo item in list)
+                        {
+                            if (this.dict.ContainsKey(item.Name))
+                            {
+                                KernelContext.Log.Warn(string.Format("method:{0}", item.Name) + " is exists.");
+                            }
+                            else
+                            {
+                                this.dict.Add(item.Name, item);
+                            }
+                        }
                     }
                 }
             }

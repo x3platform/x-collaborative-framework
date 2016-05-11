@@ -33,9 +33,9 @@ namespace X3Platform.Services.Host
 
             ObjRef serviceTraceRefObject = RemotingServices.Marshal(ServiceTrace.Instance, "X3Platform.Services.ServiceTrace");
 
-            //
+            // -------------------------------------------------------
             // 创建服务宿主对象
-            //
+            // -------------------------------------------------------
 
             HostFactory.Run(configure =>
             {

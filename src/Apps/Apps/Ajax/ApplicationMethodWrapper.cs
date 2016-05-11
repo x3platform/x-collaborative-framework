@@ -140,7 +140,7 @@ namespace X3Platform.Apps.Ajax
 
             bool result = this.service.IsExist(id);
 
-            return "{\"message\":{\"returnCode\":0,\"value\":\"" + result.ToString().ToLower() + "\"}}";
+            return MessageObject.Stringify("0", result.ToString().ToLower());
         }
         #endregion
 
@@ -186,7 +186,7 @@ namespace X3Platform.Apps.Ajax
         /// <returns></returns>
         public string Hi(XmlDocument doc)
         {
-            return "{\"message\":{\"returnCode\":0,\"value\":\"【时间 " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "】Hi()方法调用成功。\"}}";
+            return MessageObject.Stringify("0", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " hi.");
         }
         #endregion
 

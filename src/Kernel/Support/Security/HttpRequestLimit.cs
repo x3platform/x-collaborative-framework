@@ -62,6 +62,9 @@ namespace X3Platform.Security
         /// <param name="count">次数</param>
         public static bool LimitContent(string content, int minutes, int count)
         {
+            // 如果 minutes = 0 表示不限制请求 
+            if (minutes == 0) return false;
+
             HttpContext context = HttpContext.Current;
 
             // 限制 IP 访问频次 两个小时 500 次

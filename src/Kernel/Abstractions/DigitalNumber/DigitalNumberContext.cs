@@ -10,6 +10,7 @@ namespace X3Platform.DigitalNumber
     using X3Platform.DigitalNumber.Configuration;
     using X3Platform.DigitalNumber.IBLL;
     using Common.Logging;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>流水号上下文环境</summary>
@@ -73,7 +74,7 @@ namespace X3Platform.DigitalNumber
         {
             try
             {
-                Reload();
+                this.Reload();
 
                 // 自增重启次数计数器
                 this.restartCount++;
@@ -92,8 +93,14 @@ namespace X3Platform.DigitalNumber
         {
             if (this.restartCount > 0)
             {
+                KernelContext.Log.InfoFormat(I18n.Strings["application_is_loading"], DigitalNumberConfiguration.ApplicationName);
+
                 // 重新加载配置信息
                 DigitalNumberConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.InfoFormat(I18n.Strings["application_is_reloading"], DigitalNumberConfiguration.ApplicationName);
             }
 
             // 创建对象构建器(Spring.NET)
@@ -103,6 +110,8 @@ namespace X3Platform.DigitalNumber
 
             // 创建数据服务对象
             this.m_DigitalNumberService = objectBuilder.GetObject<IDigitalNumberService>(typeof(IDigitalNumberService));
+
+            KernelContext.Log.InfoFormat(I18n.Strings["application_successfully_loaded"], DigitalNumberConfiguration.ApplicationName);
         }
 
         /// <summary>生成通用的流水编号</summary>
