@@ -5,7 +5,7 @@
     using System.Configuration;
     using System.Text;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using X3Platform.IBatis.DataMapper;
 
@@ -14,7 +14,7 @@
     using System.Diagnostics;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class VerificationCodeConfigurationViewTests
     {
         //-------------------------------------------------------
@@ -22,7 +22,7 @@
         //-------------------------------------------------------
 
         /// <summary>测试初始化配置信息是否成功</summary>
-        [TestMethod]
+        [Test]
         public void TestInit()
         {
             VerificationCodeConfiguration configuration = VerificationCodeConfigurationView.Instance.Configuration;
@@ -34,7 +34,7 @@
         }
 
         /// <summary>测试初始化 IBatis 配置信息是否成功</summary>
-        [TestMethod]
+        [Test]
         public void TestCreateMapper()
         {
             VerificationCodeConfiguration configuration = VerificationCodeConfigurationView.Instance.Configuration;

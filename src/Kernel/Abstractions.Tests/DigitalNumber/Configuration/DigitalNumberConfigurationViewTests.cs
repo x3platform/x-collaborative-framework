@@ -5,14 +5,14 @@
     using System.Configuration;
     using System.Text;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using X3Platform.IBatis.DataMapper;
 
     using X3Platform.DigitalNumber.Configuration;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class DigitalNumberConfigurationViewTests
     {
         //-------------------------------------------------------
@@ -20,7 +20,7 @@
         //-------------------------------------------------------
 
         /// <summary>测试初始化配置信息是否成功</summary>
-        [TestMethod]
+        [Test]
         public void TestInit()
         {
             DigitalNumberConfiguration configuration = DigitalNumberConfigurationView.Instance.Configuration;
@@ -32,8 +32,8 @@
         }
 
         /// <summary>测试初始化 IBatis 配置信息是否成功</summary>
-        [TestMethod]
-        [DeploymentItem("MySql.Data.dll")]
+        [Test]
+        // [DeploymentItem("MySql.Data.dll")]
         public void TestCreateMapper()
         {
             DigitalNumberConfiguration configuration = DigitalNumberConfigurationView.Instance.Configuration;

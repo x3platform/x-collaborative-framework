@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Security.Cryptography;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using NMock;
 
@@ -14,11 +14,11 @@
     using X3Platform.Membership;
 
     /// <summary>权限检测</summary>
-    [TestClass]
+    [TestFixture]
     public class AuthorityCheckerTestSuite
     {
         /// <summary>测试DES加密</summary>
-        [TestMethod]
+        [Test]
         public void TestCheck()
         {
             /*
@@ -55,7 +55,7 @@
        */ }
 
         /// <summary>测试DES加密</summary>
-        [TestMethod]
+        [Test]
         public void TestGetAuthorities()
         {
             // IAccountInfo account = null;
