@@ -55,9 +55,9 @@ namespace X3Platform.Connect.Model
 
         #region 属性:ExpiresIn
         /// <summary>过期时间(单位:秒)</summary>
-        public double ExpiresIn
+        public long ExpiresIn
         {
-            get { return new TimeSpan(DateTime.Now.Ticks).Subtract(new TimeSpan(this.ExpireDate.Ticks)).Duration().TotalSeconds; }
+            get { return Convert.ToInt64(new TimeSpan(DateTime.Now.Ticks).Subtract(new TimeSpan(this.ExpireDate.Ticks)).Duration().TotalSeconds); }
         }
         #endregion
 

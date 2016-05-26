@@ -89,6 +89,13 @@
                     routeData.Values.Add("action", "Form");
                     routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?id=([\w+\-]+)$").Groups[2].Value + "\"}");
                 }
+                else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/form\?applicationName=([\w+\-]+)$"))
+                {
+                    // 表单信息
+                    routeData.Values.Add("controller", FriendlyControllerName(Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?applicationName=([\w+\-]+)$").Groups[1].Value));
+                    routeData.Values.Add("action", "Form");
+                    routeData.Values.Add("options", "{\"applicationName\":\"" + Regex.Match(friendlyUrl, @"^([\w+\-]+)/form\?applicationName=([\w+\-]+)$").Groups[2].Value + "\"}");
+                }
                 else
                 {
                     return null;

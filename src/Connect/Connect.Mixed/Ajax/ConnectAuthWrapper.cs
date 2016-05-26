@@ -5,21 +5,21 @@
     using System.Text;
     using System.Xml;
     using System.Web;
+    using System.IO;
 
     using X3Platform.Ajax;
     using X3Platform.Ajax.Json;
     using X3Platform.Ajax.Net;
     using X3Platform.Configuration;
     using X3Platform.DigitalNumber;
+    using X3Platform.Location.IPQuery;
     using X3Platform.Membership;
+    using X3Platform.Membership.Authentication;
     using X3Platform.Util;
     using X3Platform.Web;
 
     using X3Platform.Connect.Model;
     using X3Platform.Connect.Configuration;
-    using System.IO;
-    using X3Platform.Membership.Authentication;
-    using X3Platform.Location.IPQuery;
     #endregion
 
     /// <summary></summary>
@@ -35,16 +35,6 @@
         /// <returns>返回操作结果</returns>
         public string GetAuthorizeCode(XmlDocument doc)
         {
-            // 地址示例
-            // http://local.x3platform.com/api/connect.auth.authorize.aspx?clientId=52cf89ba-7db5-4e64-9c64-3c868b6e7a99
-            // &redirectUri=https://x10.x3platform.com/api/connect.oauth.token.aspx
-            // &responseType=code
-            // &scope=public,news_read,tasks_read
-
-            // http://local.x3platform.com/api/connect.auth.authorize.aspx?client_id=05ce2febad3eeaab116a8fc307bcc001&redirect_uri=https://x10.x3platform.com/api/connect.connect.oauth.token.aspx
-            // &response_type=code
-            // &scope=oauth,news,tasks
-
             StringBuilder outString = new StringBuilder();
 
             string clientId = XmlHelper.Fetch("clientId", doc);
@@ -70,7 +60,7 @@
 
                 if (account == null)
                 {
-                    if (responseType == "json")
+                    if (string.IsNullOrEmpty(responseType))
                     {
                         outString.Append("{\"message\":{\"returnCode\":1,\"value\":\"帐号或者密码错误。\"}}");
 
@@ -122,15 +112,8 @@
 
                     string code = ConnectContext.Instance.ConnectAuthorizationCodeService.GetAuthorizationCode(clientId, account);
 
-                    if (responseType == "code")
-                    {
-                        HttpContext.Current.Response.Redirect(CombineUrlAndAuthorizationCode(redirectUri, code));
-                    }
-                    else if (responseType == "token")
-                    {
-                        HttpContext.Current.Response.Redirect(CombineUrlAndAccessToken(redirectUri, token));
-                    }
-                    else if (responseType == "json")
+                    // responseType == null 则输出令牌信息 
+                    if (string.IsNullOrEmpty(responseType))
                     {
                         outString.Append("{\"data\":" + AjaxUtil.Parse<ConnectAccessTokenInfo>(token) + ",");
 
@@ -141,6 +124,14 @@
                         return string.IsNullOrEmpty(callback)
                             ? outString.ToString()
                             : callback + "(" + outString.ToString() + ")";
+                    }
+                    else if (responseType == "code")
+                    {
+                        HttpContext.Current.Response.Redirect(CombineUrlAndAuthorizationCode(redirectUri, code));
+                    }
+                    else if (responseType == "token")
+                    {
+                        HttpContext.Current.Response.Redirect(CombineUrlAndAccessToken(redirectUri, token));
                     }
                     else
                     {
@@ -226,6 +217,47 @@
             outString.Append("expiresIn:\"" + accessTokenInfo.ExpiresIn + "\",");
             outString.Append("refreshToken:\"" + accessTokenInfo.RefreshToken + "\" ");
             outString.Append("},\"message\":{\"returnCode\":0,\"value\":\"query success\"}}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 接口地址:/api/connect.oauth2.refresh.aspx
+        // -------------------------------------------------------
+
+        #region 函数:RefreshAccessToken(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string RefreshAccessToken(XmlDocument doc)
+        {
+            // http://x10.x3platform.com/api/connect.oauth2.refresh.aspx?refresh_token=28f35bf4743030ae
+
+            string clientId = XmlHelper.Fetch("client_id", doc);
+            string refreshToken = XmlHelper.Fetch("refresh_token", doc);
+
+            DateTime expireDate = DateTime.Now.AddSeconds(ConnectConfigurationView.Instance.SessionTimeLimit);
+
+            ConnectAccessTokenInfo accessTokenInfo = ConnectContext.Instance.ConnectAccessTokenService.FindOneByRefreshToken(clientId, refreshToken);
+
+            if (accessTokenInfo == null)
+            {
+                return "{\"message\":{\"returnCode\":1,\"value\":\"access token not find\"}}";
+            }
+
+            ConnectContext.Instance.ConnectAccessTokenService.Refesh(clientId, refreshToken, expireDate);
+
+            accessTokenInfo = ConnectContext.Instance.ConnectAccessTokenService.FindOne(accessTokenInfo.Id);
+
+            StringBuilder outString = new StringBuilder();
+
+            outString.Append("{\"data\":{");
+            outString.Append("\"accessToken\":\"" + accessTokenInfo.Id + "\",");
+            outString.Append("\"tokenType\":\"bearer\",");
+            outString.Append("\"expiresIn\":\"" + accessTokenInfo.ExpiresIn + "\",");
+            outString.Append("\"refreshToken\":\"" + accessTokenInfo.RefreshToken + "\" ");
+            outString.Append("},\"message\":{\"returnCode\":0,\"value\":\"refresh success\"}}");
 
             return outString.ToString();
         }

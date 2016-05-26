@@ -70,6 +70,9 @@
     <select id="proc_Connect_AccessToken_FindOneByAccountId#SqlServer" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
       SELECT TOP 1 * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND AccountId = #AccountId# AND ExpireDate > CURRENT_TIMESTAMP
     </select>
+    <select id="proc_Connect_AccessToken_FindOneByRefreshToken" parameterClass="ConnectAccessTokenInfo" resultMap="proc_Connect_AccessToken_FindOne_Result" >
+      SELECT * FROM tb_Connect_AccessToken WHERE AppKey = #AppKey# AND RefreshToken = #RefreshToken# AND ExpireDate > CURRENT_TIMESTAMP
+    </select>
     <select id="proc_Connect_AccessToken_FindAll" resultMap="proc_Connect_AccessToken_FindAll_Result" parameterClass="ConnectAccessTokenInfo" >
       SELECT
 

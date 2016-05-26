@@ -90,6 +90,17 @@ namespace X3Platform.Connect.BLL
         }
         #endregion
 
+        #region 函数:FindOneByRefreshToken(string appKey, string refreshToken)
+        /// <summary>查询某条记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="refreshToken">刷新令牌</param>
+        /// <returns>返回一个实例<see cref="ConnectAccessTokenInfo"/>的详细信息</returns>
+        public ConnectAccessTokenInfo FindOneByRefreshToken(string appKey, string refreshToken)
+        {
+            return this.provider.FindOneByRefreshToken(appKey, refreshToken);
+        }
+        #endregion
+
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
         /// <returns>返回所有实例<see cref="ConnectAccessTokenInfo"/>的详细信息</returns>
