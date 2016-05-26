@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Kernel -->
+  <exception name="code_kernel_param_is_null">100000</exception>
+  <exception name="text_kernel_param_is_null">参数 {0} 为空</exception>
+  <exception name="code_kernel_param_is_required">100001</exception>
+  <exception name="text_kernel_param_is_required">参数 {0} 必须填写</exception>
+  <exception name="code_kernel_object_is_null">100002</exception>
+  <exception name="text_kernel_object_is_null">{0} 为空</exception>
+  <exception name="code_kernel_object_is_required">100005</exception>
+  <exception name="text_kernel_object_is_required">{0} 必须填写</exception>
+  <exception name="code_kernel_text_is_null">100003</exception>
+  <exception name="text_kernel_text_is_null">文本信息为空</exception>
+  <exception name="code_kernel_property_is_null">100004</exception>
+  <exception name="text_kernel_property_is_null">对象属性 {0} 为空</exception>
+  <exception name="code_kernel_property_is_required">100005</exception>
+  <exception name="text_kernel_property_is_required">对象属性 {0} 必须填写</exception>
+  <!-- Applications -->
+  <!-- Memebership -->
+</resources>
