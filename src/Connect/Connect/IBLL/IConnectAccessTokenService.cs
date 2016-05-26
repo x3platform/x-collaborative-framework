@@ -41,13 +41,21 @@ namespace X3Platform.Connect.IBLL
         ConnectAccessTokenInfo FindOneByAccountId(string appKey, string accountId);
         #endregion
 
+        #region 函数:FindOneByRefreshToken(string appKey, string refreshToken)
+        /// <summary>查询某条记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="refreshToken">刷新令牌</param>
+        /// <returns>返回一个实例<see cref="ConnectAccessTokenInfo"/>的详细信息</returns>
+        ConnectAccessTokenInfo FindOneByRefreshToken(string appKey, string refreshToken);
+        #endregion
+
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
         /// <returns>返回所有 <see cref="ConnectAccessTokenInfo"/>实例的详细信息</returns>
         IList<ConnectAccessTokenInfo> FindAll();
         #endregion
 
-        #region 函数:FindAll(string whereClause,int length)
+        #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
         /// <param name="length">条数</param>

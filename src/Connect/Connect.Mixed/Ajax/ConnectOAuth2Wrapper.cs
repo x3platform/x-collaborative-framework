@@ -12,7 +12,9 @@
     using X3Platform.Ajax.Net;
     using X3Platform.Configuration;
     using X3Platform.DigitalNumber;
+    using X3Platform.Location.IPQuery;
     using X3Platform.Membership;
+    using X3Platform.Membership.Authentication;
     using X3Platform.Sessions;
     using X3Platform.Util;
     using X3Platform.Web;
@@ -28,9 +30,13 @@
         // -------------------------------------------------------
         // OAuth 2.0 验证
         // -------------------------------------------------------
-
-        // http://tools.ietf.org/html/draft-ietf-oauth-v2-31
-
+        //
+        // The OAuth 2.0 Authorization Framework
+        // https://tools.ietf.org/html/rfc6749
+        //
+        // The OAuth 2.0 Authorization Framework: Bearer Token Usage
+        // https://tools.ietf.org/html/rfc6750
+        //
         // -------------------------------------------------------
         // 接口地址:/api/connect.oauth2.authorize.aspx
         // -------------------------------------------------------
@@ -41,27 +47,14 @@
         /// <returns>返回操作结果</returns>
         public string GetAuthorizeCode(XmlDocument doc)
         {
-            // 地址示例
-            // http://x10.x3platform.com/api/connect.connect.oauth.authorize.aspx
-            // ?client_id=05ce2febad3eeaab116a8fc307bcc001
-            // &redirect_uri=https://x10.x3platform.com/api/connect.connect.oauth.token.aspx
-            // &response_type=code
-            // &scope=public,news_read,tasks_read
-
-            // http://x10.x3platform.com/api/connect.connect.auth.authorize.aspx?client_id=05ce2febad3eeaab116a8fc307bcc001&redirect_uri=https://x10.x3platform.com/api/connect.connect.oauth.token.aspx
-            // &response_type=code
-            // &scope=oauth,news,tasks
-
             StringBuilder outString = new StringBuilder();
 
-            string clientId = XmlHelper.Fetch("clientId", doc);
+            string clientId = XmlHelper.Fetch("client_id", doc);
             string redirectUri = XmlHelper.Fetch("redirect_uri", doc);
             string responseType = XmlHelper.Fetch("response_type", doc);
             string scope = XmlHelper.Fetch("scope", doc);
 
-            string display = XmlHelper.Fetch("display", doc);
-
-            string loginName = XmlHelper.Fetch("loginName", doc);
+            string loginName = XmlHelper.Fetch("username", doc);
             string password = XmlHelper.Fetch("password", doc);
 
             if (string.IsNullOrEmpty(loginName) || string.IsNullOrEmpty(password))
@@ -102,16 +95,44 @@
                     // 设置访问令牌
                     ConnectContext.Instance.ConnectAccessTokenService.Write(clientId, account.Id);
 
+                    // 设置会话信息
+                    ConnectAccessTokenInfo token = ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id);
+
+                    // 记录日志
+                    string ip = IPQueryContext.GetClientIP();
+
+                    MembershipManagement.Instance.AccountService.SetIPAndLoginDate(account.Id, ip, DateTime.Now);
+
+                    MembershipManagement.Instance.AccountLogService.Log(account.Id, "connect.auth.authorize", string.Format("【{0}】在 {1} 登录了系统。【IP:{2}】", account.Name, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), ip));
+
+                    string sessionId = token.AccountId + "-" + token.Id;
+
+                    KernelContext.Current.AuthenticationManagement.AddSession(clientId, sessionId, account);
+
+                    HttpAuthenticationCookieSetter.SetUserCookies(sessionId);
+
                     string code = ConnectContext.Instance.ConnectAuthorizationCodeService.GetAuthorizationCode(clientId, account);
 
-                    if (responseType == "code")
+                    // responseType == null 则输出令牌信息 
+                    if (string.IsNullOrEmpty(responseType))
+                    {
+                        outString.Append("{\"access_token\":\"" + token.Id + "\",");
+                        outString.Append("\"token_type\":\"bearer\",");
+                        outString.Append("\"expires_in\":\"" + token.ExpiresIn + "\",");
+                        outString.Append("\"refresh_token\":\"" + token.AppKey + "\"}");
+
+                        string callback = XmlHelper.Fetch("callback", doc);
+
+                        return string.IsNullOrEmpty(callback)
+                            ? outString.ToString()
+                            : callback + "(" + outString.ToString() + ")";
+                    }
+                    else if (responseType == "code")
                     {
                         HttpContext.Current.Response.Redirect(CombineUrlAndAuthorizationCode(redirectUri, code));
                     }
                     else if (responseType == "token")
                     {
-                        ConnectAccessTokenInfo token = ConnectContext.Instance.ConnectAccessTokenService.FindOneByAccountId(clientId, account.Id);
-
                         HttpContext.Current.Response.Redirect(CombineUrlAndAccessToken(redirectUri, token));
                     }
                     else
@@ -121,7 +142,7 @@
                 }
             }
 
-            outString.Append("{\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
+            outString.Append("{\"message\":{\"returnCode\":0,\"value\":\"执行成功。\"}}");
 
             return outString.ToString();
         }
@@ -198,9 +219,51 @@
             StringBuilder outString = new StringBuilder();
 
             outString.Append("{");
-            outString.Append("access_token:\"" + accessTokenInfo.Id + "\",");
-            outString.Append("expires_in:\"" + accessTokenInfo.ExpiresIn + "\",");
-            outString.Append("refresh_token:\"" + accessTokenInfo.RefreshToken + "\" ");
+            outString.Append("\"access_token\":\"" + accessTokenInfo.Id + "\",");
+            outString.Append("\"token_type\":\"bearer\",");
+            outString.Append("\"expires_in\":\"" + accessTokenInfo.ExpiresIn + "\",");
+            outString.Append("\"refresh_token\":\"" + accessTokenInfo.RefreshToken + "\" ");
+            outString.Append("}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 接口地址:/api/connect.oauth2.refresh.aspx
+        // -------------------------------------------------------
+
+        #region 函数:RefreshAccessToken(XmlDocument doc)
+        /// <summary>获取详细信息</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string RefreshAccessToken(XmlDocument doc)
+        {
+            // http://x10.x3platform.com/api/connect.oauth2.refresh.aspx?refresh_token=28f35bf4743030ae
+
+            string clientId = XmlHelper.Fetch("client_id", doc);
+            string refreshToken = XmlHelper.Fetch("refresh_token", doc);
+
+            DateTime expireDate = DateTime.Now.AddSeconds(ConnectConfigurationView.Instance.SessionTimeLimit);
+
+            ConnectAccessTokenInfo accessTokenInfo = ConnectContext.Instance.ConnectAccessTokenService.FindOneByRefreshToken(clientId, refreshToken);
+
+            if (accessTokenInfo == null)
+            {
+                return "{error:1,descriptiopn:\"not find\"}";
+            }
+
+            ConnectContext.Instance.ConnectAccessTokenService.Refesh(clientId, refreshToken, expireDate);
+
+            accessTokenInfo = ConnectContext.Instance.ConnectAccessTokenService.FindOne(accessTokenInfo.Id);
+
+            StringBuilder outString = new StringBuilder();
+            
+            outString.Append("{");
+            outString.Append("\"access_token\":\"" + accessTokenInfo.Id + "\",");
+            outString.Append("\"token_type\":\"bearer\",");
+            outString.Append("\"expires_in\":\"" + accessTokenInfo.ExpiresIn + "\",");
+            outString.Append("\"refresh_token\":\"" + accessTokenInfo.RefreshToken + "\" ");
             outString.Append("}");
 
             return outString.ToString();

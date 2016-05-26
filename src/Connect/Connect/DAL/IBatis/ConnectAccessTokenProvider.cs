@@ -189,6 +189,22 @@ namespace X3Platform.Connect.DAL.IBatis
         }
         #endregion
 
+        #region 函数:FindOneByRefreshToken(string appKey, string refreshToken)
+        /// <summary>查询某条记录</summary>
+        /// <param name="appKey">应用标识</param>
+        /// <param name="refreshToken">刷新令牌</param>
+        /// <returns>返回一个实例<see cref="ConnectAccessTokenInfo"/>的详细信息</returns>
+        public ConnectAccessTokenInfo FindOneByRefreshToken(string appKey, string refreshToken)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("AppKey", StringHelper.ToSafeSQL(appKey, true));
+            args.Add("RefreshToken", StringHelper.ToSafeSQL(refreshToken, true));
+
+            return this.ibatisMapper.QueryForObject<ConnectAccessTokenInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOneByRefreshToken", this.tableName)), args);
+        }
+        #endregion
+
         #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>

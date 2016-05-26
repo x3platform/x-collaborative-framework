@@ -217,12 +217,41 @@ namespace X3Platform.Connect.DAL.IBatis
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
-            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            string whereClause = null;
+
+            if (query.Variables["scence"] == "Query")
+            {
+                string status = StringHelper.ToSafeSQL(query.Where["Status"].ToString(), true);
+
+                if (!string.IsNullOrEmpty(status))
+                {
+                    whereClause += " AND T.Status IN (" + status + ") ";
+                }
+            }
+            else if (query.Variables["scence"] == "QueryMyList")
+            {
+                string accountId = query.Variables["accountId"];
+
+                string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+                whereClause += " T.AccountId = '" + accountId + "' ";
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    whereClause += " AND T.Name LIKE '%" + searchText + "%'  OR T.Code LIKE '%" + searchText + "%' ";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            }
+
             args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
-            args.Add("RowCount", 0);
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
 
             IList<ConnectInfo> list = this.ibatisMapper.QueryForList<ConnectInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", this.tableName)), args);
 
@@ -243,12 +272,43 @@ namespace X3Platform.Connect.DAL.IBatis
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("StartIndex", startIndex);
-            args.Add("PageSize", pageSize);
-            args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            string whereClause = null;
+
+            if (query.Variables["scence"] == "Query")
+            {
+                string status = StringHelper.ToSafeSQL(query.Where["Status"].ToString(), true);
+
+                if (!string.IsNullOrEmpty(status))
+                {
+                    whereClause += " AND T.Status IN (" + status + ") ";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else if (query.Variables["scence"] == "QueryMyList")
+            {
+                string accountId = query.Variables["accountId"];
+
+                string searchText = StringHelper.ToSafeSQL(query.Where["SearchText"].ToString());
+
+                whereClause += " T.AccountId = '" + accountId + "' ";
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    whereClause += " AND T.Name LIKE '%" + searchText + "%'  OR T.Code LIKE '%" + searchText + "%' ";
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            }
+
             args.Add("OrderBy", query.GetOrderBySql(" ModifiedDate DESC "));
 
-            args.Add("RowCount", 0);
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
 
             IList<ConnectQueryInfo> list = this.ibatisMapper.QueryForList<ConnectQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetQueryObjectPaging", this.tableName)), args);
 

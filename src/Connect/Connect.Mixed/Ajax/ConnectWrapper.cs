@@ -13,7 +13,10 @@
 
     using X3Platform.Connect.IBLL;
     using X3Platform.Connect.Model;
-    using X3Platform.Globalization; using X3Platform.Messages;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
+    using Apps;
+    using Configuration;
     #endregion
 
     /// <summary></summary>
@@ -120,10 +123,16 @@
 
             PagingHelper paging = PagingHelper.Create(XmlHelper.Fetch("paging", doc, "xml"), XmlHelper.Fetch("query", doc, "xml"));
 
+            // 设置当前用户权限
+            if (XmlHelper.Fetch("su", doc) == "1" && AppsSecurity.IsAdministrator(KernelContext.Current.User, ConnectConfiguration.ApplicationName))
+            {
+                paging.Query.Variables["elevatedPrivileges"] = "1";
+            }
+
+            paging.Query.Variables["accountId"] = KernelContext.Current.User.Id;
+
             IAccountInfo account = KernelContext.Current.User;
-
-            // paging.WhereClause = paging.WhereClause + (string.IsNullOrEmpty(paging.WhereClause) ? string.Empty : " AND ") + " ( AccountId = ##" + account.Id + "## ) ";
-
+            
             int rowCount = -1;
 
             IList<ConnectQueryInfo> list = this.service.GetQueryObjectPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
