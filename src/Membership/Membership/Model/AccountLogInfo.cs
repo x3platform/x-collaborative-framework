@@ -98,14 +98,14 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:Date
-        private DateTime m_Date;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime Date
+        public DateTime CreatedDate
         {
-            get { return this.m_Date; }
-            set { this.m_Date = value; }
+            get { return this.m_CreatedDate; }
+            set { this.m_CreatedDate = value; }
         }
         #endregion
     }

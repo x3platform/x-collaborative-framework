@@ -202,6 +202,7 @@ namespace X3Platform.Configuration
         #region 函数:AddKeyValue(string name, string value)
         /// <summary></summary>
         /// <param name="name"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public void AddKeyValue(string name, string value)
         {
@@ -686,7 +687,7 @@ namespace X3Platform.Configuration
             }
         }
         #endregion
-        
+
         #region 属性:ApplicationPathRoot
         private string m_ApplicationPathRoot = string.Empty;
 
@@ -701,7 +702,7 @@ namespace X3Platform.Configuration
                     // System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase
                     if (this.Configuration.Keys["ApplicationPathRoot"] == null)
                     {
-                        this.m_ApplicationPathRoot = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+                        this.m_ApplicationPathRoot = DirectoryHelper.FormatLocalPath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + Path.DirectorySeparatorChar);
 
                         this.Configuration.Keys.Add(new KernelConfigurationKey("ApplicationPathRoot", this.m_ApplicationPathRoot));
                     }

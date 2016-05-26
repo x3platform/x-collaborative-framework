@@ -35,7 +35,7 @@ namespace X3Platform.Membership.HumanResources.DAL.IBatis
     private ISqlMapper ibatisMapper = null;
 
     /// <summary>数据表名</summary>
-    private string tableName = "tb_Member_ExtensionInformation";
+    private string tableName = "tb_Member_Ext";
 
     #region 构造函数:MemberExtensionInformationProvider()
     /// <summary>构造函数</summary>

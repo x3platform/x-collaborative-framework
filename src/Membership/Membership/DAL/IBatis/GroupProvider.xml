@@ -179,18 +179,22 @@
       LIMIT $StartIndex$, $PageSize$
     </select>
     <select id="proc_Group_GetPaging#Oracle" resultMap="proc_Group_FindAll_Result" >
-      SELECT * FROM tb_Group T
+      SELECT T2.* FROM (
+        SELECT ROWNUM RowIndex, T1.* FROM (
+          SELECT * FROM tb_Group T
 
-      <dynamic prepend="WHERE">
-        <isParameterPresent>
-          <isNotEmpty prepend="AND" property="WhereClause" >
-            $WhereClause$
-          </isNotEmpty>
-        </isParameterPresent>
-        <isNotEqual prepend="AND" property="Length" compareValue = "0">
-          ROWNUM &lt;= $Length$
-        </isNotEqual>
-      </dynamic>
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
+
+          ORDER BY $OrderBy$
+
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
     </select>
     <select id="proc_Group_GetPaging#SqlServer" resultMap="proc_Group_FindAll_Result" >
       SELECT *

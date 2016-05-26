@@ -48,10 +48,10 @@ namespace X3Platform.IBatis.DataMapper.SessionStore
 			}
 			else
 			{
-                return new WebSessionStore(sqlMapperId);
-			}
-		}
-
+                // return new WebSessionStore(sqlMapperId);
+                return new HybridWebThreadSessionStore(sqlMapperId);
+            }
+        }
 	}
 }
 

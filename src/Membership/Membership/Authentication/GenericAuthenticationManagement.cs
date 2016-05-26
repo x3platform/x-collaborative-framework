@@ -13,6 +13,7 @@
 
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.Model;
+    using Web;
     #endregion
 
     /// <summary>通用的验证请求管理</summary>
@@ -76,7 +77,8 @@
         /// <summary></summary>
         public virtual string GetAccessToken()
         {
-            return (HttpContext.Current.Request["accessToken"] == null) ? string.Empty : HttpContext.Current.Request["accessToken"];
+            // return (HttpContext.Current.Request["accessToken"] == null) ? string.Empty : HttpContext.Current.Request["accessToken"];
+            return RequestHelper.Fetch("accessToken", "access_token");
         }
 
         /// <summary>获取认证的用户信息</summary>

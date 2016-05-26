@@ -63,7 +63,7 @@ namespace X3Platform.Web
 
                     foreach (string key in request.Form.AllKeys)
                     {
-                        outString.AppendLine(key + ":" + (request.Form[key].Length < 4000? request.Form[key] : "[Long String] " + request.Form[key].Length));
+                        outString.AppendLine(key + ":" + (request.Form[key].Length < 4000 ? request.Form[key] : "[Long String] " + request.Form[key].Length));
                     }
                 }
             }
@@ -71,5 +71,65 @@ namespace X3Platform.Web
             return outString.ToString();
         }
         #endregion
+
+        /// <summary></summary>
+        /// <returns></returns>
+        public static string Fetch(string defaultName)
+        {
+            return Fetch(defaultName, new string[] { });
+        }
+
+        /// <summary></summary>
+        /// <returns></returns>
+        public static string Fetch(string defaultName, string alias)
+        {
+            return Fetch(defaultName, new string[] { alias });
+        }
+
+        /// <summary></summary>
+        /// <returns></returns>
+        public static string Fetch(string defaultName, string[] alias)
+        {
+            HttpRequestBase request = new HttpRequestWrapper(HttpContext.Current.Request);
+
+            return Fetch(request, defaultName, alias);
+        }
+
+        /// <summary></summary>
+        /// <returns></returns>
+        public static string Fetch(HttpRequestBase request, string defaultName, string[] alias)
+        {
+            // GET 方式
+            string value = request.QueryString[defaultName];
+
+            // POST 方式
+            if (string.IsNullOrEmpty(value))
+            {
+                value = request.Form[defaultName];
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                // 其他兼容的名称
+                foreach (string item in alias)
+                {
+                    if (!string.IsNullOrEmpty(request.QueryString[item]))
+                    {
+                        return request.QueryString[item];
+                    }
+
+                    if (!string.IsNullOrEmpty(request.Form[item]))
+                    {
+                        return request.Form[item];
+                    }
+                }
+
+                return string.Empty;
+            }
+            else
+            {
+                return value;
+            }
+        }
     }
 }

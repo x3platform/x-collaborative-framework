@@ -11,7 +11,7 @@
       <result property="OperatedBy" column="OperatedBy" />
       <result property="OperationName" column="OperationName" />
       <result property="Description" column="Description" />
-      <result property="Date" column="Date" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Account_Log_FindAll_Result" class="AccountLogInfo">
       <result property="Id" column="Id" />
@@ -20,7 +20,7 @@
       <result property="OperatedBy" column="OperatedBy" />
       <result property="OperationName" column="OperationName" />
       <result property="Description" column="Description" />
-      <result property="Date" column="Date" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -33,7 +33,7 @@
         OperatedBy,
         OperationName,
         Description,
-        Date
+        CreatedDate
       )
       VALUES
       (
@@ -55,7 +55,7 @@
         OperatedBy,
         OperationName,
         Description,
-        "Date"
+        CreatedDate
       )
       VALUES
       (
@@ -78,7 +78,7 @@
         OperatedBy = #OperatedBy#,
         OperationName = #OperationName#,
         Description = #Description#,
-        Date = CURRENT_TIMESTAMP
+        CreatedDate = CURRENT_TIMESTAMP
 
       WHERE Id = #Id#
     </update>
@@ -103,6 +103,26 @@
         <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
           0,$Length$
         </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Account_Log_FindAll#Oracle" resultMap="proc_Account_Log_FindAll_Result" >
+      SELECT * FROM tb_Account_Log T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+          <isNotEqual prepend="AND" property="Length" compareValue = "0">
+            ROWNUM &lt;= $Length$
+          </isNotEqual>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
       </dynamic>
     </select>
     <select id="proc_Account_Log_FindAll#SqlServer" resultMap="proc_Account_Log_FindAll_Result" >
@@ -138,6 +158,24 @@
       ORDER BY $OrderBy$
 
       LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Account_Log_GetPaging#Oracle" resultMap="proc_Account_Log_FindAll_Result" >
+      SELECT T2.* FROM (
+        SELECT ROWNUM RowIndex, T1.* FROM (
+          SELECT * FROM tb_Account_Log T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
+
+          ORDER BY $OrderBy$
+
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
     </select>
     <select id="proc_Account_Log_GetPaging#SqlServer" resultMap="proc_Account_Log_FindAll_Result" >
       SELECT *

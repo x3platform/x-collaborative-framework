@@ -126,6 +126,29 @@
         }
         #endregion
 
+        #region 函数:ChangeLoginName(XmlDocument doc)
+        /// <summary>修改密码</summary>
+        /// <param name="doc">Xml 文档对象</param>
+        /// <returns>返回操作结果</returns>
+        public string ChangeLoginName(XmlDocument doc)
+        {
+            string password = XmlHelper.Fetch("password", doc);
+
+            string originalPassword = XmlHelper.Fetch("originalPassword", doc);
+
+            int result = 0; //service.ChangeLoginName(loginName);
+
+            if (result == 0)
+            {
+                return MessageObject.Stringify("0", "修改成功");
+            }
+            else
+            {
+                return "{message:{\"returnCode\":1,\"value\":\"修改失败, 用户或密码错误.\"}}";
+            }
+        }
+        #endregion
+
         #region 函数:ForgotPassword(XmlDocument doc)
         /// <summary>忘记密码</summary>
         /// <param name="doc">Xml 文档对象</param>

@@ -280,7 +280,7 @@
       SELECT COUNT(*) AS "Count" FROM tb_Application T WHERE $WhereClause$
     </select>
     <select id="proc_Application_HasAuthority" >
-      SELECT COUNT(*) AS 'Count' FROM view_AuthObject_Account View1, tb_Application_Scope Scope
+      SELECT COUNT(*) AS "Count" FROM view_AuthObject_Account View1, tb_Application_Scope Scope
       WHERE
         View1.AccountId = #AccountId#
         AND View1.AuthorizationObjectId = Scope.AuthorizationObjectId
@@ -304,68 +304,68 @@
     <insert id="proc_Application_SyncFromPackPage" parameterClass="ApplicationInfo" >
       IF EXISTS(SELECT 0 FROM tb_Application WHERE Id = #Id#)
       BEGIN
-      UPDATE tb_Application SET
+        UPDATE tb_Application SET
 
-        ParentId = #ParentId#,
-        Code = #Code#,
-        ApplicationName = #ApplicationName#,
-        ApplicationDisplayName = #ApplicationDisplayName#,
-        ModifiedDate = CURRENT_TIMESTAMP
+          ParentId = #ParentId#,
+          Code = #Code#,
+          ApplicationName = #ApplicationName#,
+          ApplicationDisplayName = #ApplicationDisplayName#,
+          ModifiedDate = CURRENT_TIMESTAMP
 
-      WHERE Id = #Id#
+        WHERE Id = #Id#
       END
       ELSE
       BEGIN
-      INSERT INTO tb_Application
-      (
-        Id,
-        AccountId,
-        ParentId,
-        Code,
-        ApplicationName,
-        ApplicationDisplayName,
-        ApplicationKey,
-        ApplicationSecret,
-        PinYin,
-        Description,
-        AdministratorEmail,
-        IconPath,
-        BigIconPath,
-        HelpUrl,
-        LicenseStatus,
-        Hidden,
-        Locking,
-        OrderId,
-        Status,
-        Remark,
-        ModifiedDate,
-        CreatedDate
-      )
-      VALUES
-      (
-        #Id#,
-        #AccountId#,
-        #ParentId#,
-        #Code#,
-        #ApplicationName#,
-        #ApplicationDisplayName#,
-        #ApplicationKey#,
-        #ApplicationSecret#,
-        #PinYin#,
-        #Description#,
-        #AdministratorEmail#,
-        #IconPath#,
-        #BigIconPath#,
-        #HelpUrl#,
-        #LicenseStatus#,
-        #Hidden#,
-        #Locking#,
-        #OrderId#,
-        #Status#,
-        #Remark#,
-        CURRENT_TIMESTAMP,
-        CURRENT_TIMESTAMP
-      )
+        INSERT INTO tb_Application
+        (
+          Id,
+          AccountId,
+          ParentId,
+          Code,
+          ApplicationName,
+          ApplicationDisplayName,
+          ApplicationKey,
+          ApplicationSecret,
+          PinYin,
+          Description,
+          AdministratorEmail,
+          IconPath,
+          BigIconPath,
+          HelpUrl,
+          LicenseStatus,
+          Hidden,
+          Locking,
+          OrderId,
+          Status,
+          Remark,
+          ModifiedDate,
+          CreatedDate
+        )
+        VALUES
+        (
+          #Id#,
+          #AccountId#,
+          #ParentId#,
+          #Code#,
+          #ApplicationName#,
+          #ApplicationDisplayName#,
+          #ApplicationKey#,
+          #ApplicationSecret#,
+          #PinYin#,
+          #Description#,
+          #AdministratorEmail#,
+          #IconPath#,
+          #BigIconPath#,
+          #HelpUrl#,
+          #LicenseStatus#,
+          #Hidden#,
+          #Locking#,
+          #OrderId#,
+          #Status#,
+          #Remark#,
+          CURRENT_TIMESTAMP,
+          CURRENT_TIMESTAMP
+        )
       END
     </insert>
   </statements>

@@ -47,7 +47,7 @@
 
         private I18nScript() { }
 
-        private string[] ignoreFiles = new string[] { "menu.xml" };
+        private string[] ignoreFiles = new string[] { "menu", "exceptions" };
 
         /// <summary>初始化多语言脚本</summary>
         public void Init()
@@ -61,6 +61,8 @@
 
             XmlDocument i18nDoc = new XmlDocument();
 
+            string ignoreFileFilter = string.Join(",", ignoreFiles);
+
             foreach (var directory in directories)
             {
                 // Console.WriteLine(directory);
@@ -73,8 +75,12 @@
 
                 foreach (var file in files)
                 {
+                    // 
+                    string text = Path.GetFileNameWithoutExtension(file);
+                    text = text.IndexOf(".") == -1 ? text : text.Substring(0, text.IndexOf("."));
+
                     // 过滤忽略的文件
-                    if (ignoreFiles.Contains(Path.GetFileName(file))) { continue; }
+                    if (ignoreFileFilter.IndexOf(text) > -1) { continue; }
 
                     outString.Append(Path.GetFileNameWithoutExtension(file) + ":");
 

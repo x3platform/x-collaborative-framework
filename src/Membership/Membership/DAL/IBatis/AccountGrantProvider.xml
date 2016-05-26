@@ -1,253 +1,278 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Membership.DAL.IBatis.AccountGrantProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="AccountGrantInfo" type="X3Platform.Membership.Model.AccountGrantInfo,X3Platform.Membership" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_Account_Grant_FindOne_Result" class="AccountGrantInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="GrantorId" column="GrantorId" />
-            <result property="GranteeId" column="GranteeId" />
-            <result property="GrantedTimeFrom" column="GrantedTimeFrom" />
-            <result property="GrantedTimeTo" column="GrantedTimeTo" />
-            <result property="WorkflowGrantMode" column="WorkflowGrantMode" />
-            <result property="DataQueryGrantMode" column="DataQueryGrantMode" />
-            <result property="IsAborted" column="IsAborted" />
-            <result property="ApprovedUrl" column="ApprovedUrl" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_Account_Grant_FindAll_Result" class="AccountGrantInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="GrantorId" column="GrantorId" />
-            <result property="GranteeId" column="GranteeId" />
-            <result property="GrantedTimeFrom" column="GrantedTimeFrom" />
-            <result property="GrantedTimeTo" column="GrantedTimeTo" />
-            <result property="WorkflowGrantMode" column="WorkflowGrantMode" />
-            <result property="DataQueryGrantMode" column="DataQueryGrantMode" />
-            <result property="IsAborted" column="IsAborted" />
-            <result property="ApprovedUrl" column="ApprovedUrl" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-    </resultMaps>
-    <statements>
-        <insert id="proc_Account_Grant_Insert" parameterClass="AccountGrantInfo">
-            INSERT INTO tb_Account_Grant 
-            (
-                Id,
-                Code,
-                GrantorId,
-                GranteeId,
-                GrantedTimeFrom,
-                GrantedTimeTo,
-                WorkflowGrantMode,
-                DataQueryGrantMode,
-                IsAborted,
-                ApprovedUrl,
-                Status,
-                Remark,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES
-            (
-                #Id#,
-                #Code#,
-                #GrantorId#,
-                #GranteeId#,
-                #GrantedTimeFrom#,
-                #GrantedTimeTo#,
-                #WorkflowGrantMode#,
-                #DataQueryGrantMode#,
-                #IsAborted#,
-                #ApprovedUrl#,
-                #Status#,
-                #Remark#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+  <alias>
+    <typeAlias alias="AccountGrantInfo" type="X3Platform.Membership.Model.AccountGrantInfo,X3Platform.Membership" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Account_Grant_FindOne_Result" class="AccountGrantInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="GrantorId" column="GrantorId" />
+      <result property="GranteeId" column="GranteeId" />
+      <result property="GrantedTimeFrom" column="GrantedTimeFrom" />
+      <result property="GrantedTimeTo" column="GrantedTimeTo" />
+      <result property="WorkflowGrantMode" column="WorkflowGrantMode" />
+      <result property="DataQueryGrantMode" column="DataQueryGrantMode" />
+      <result property="IsAborted" column="IsAborted" />
+      <result property="ApprovedUrl" column="ApprovedUrl" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_Account_Grant_FindAll_Result" class="AccountGrantInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="GrantorId" column="GrantorId" />
+      <result property="GranteeId" column="GranteeId" />
+      <result property="GrantedTimeFrom" column="GrantedTimeFrom" />
+      <result property="GrantedTimeTo" column="GrantedTimeTo" />
+      <result property="WorkflowGrantMode" column="WorkflowGrantMode" />
+      <result property="DataQueryGrantMode" column="DataQueryGrantMode" />
+      <result property="IsAborted" column="IsAborted" />
+      <result property="ApprovedUrl" column="ApprovedUrl" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Account_Grant_Insert" parameterClass="AccountGrantInfo">
+      INSERT INTO tb_Account_Grant
+      (
+      Id,
+      Code,
+      GrantorId,
+      GranteeId,
+      GrantedTimeFrom,
+      GrantedTimeTo,
+      WorkflowGrantMode,
+      DataQueryGrantMode,
+      IsAborted,
+      ApprovedUrl,
+      Status,
+      Remark,
+      ModifiedDate,
+      CreatedDate
+      )
+      VALUES
+      (
+      #Id#,
+      #Code#,
+      #GrantorId#,
+      #GranteeId#,
+      #GrantedTimeFrom#,
+      #GrantedTimeTo#,
+      #WorkflowGrantMode#,
+      #DataQueryGrantMode#,
+      #IsAborted#,
+      #ApprovedUrl#,
+      #Status#,
+      #Remark#,
+      CURRENT_TIMESTAMP,
+      CURRENT_TIMESTAMP
+      )
+    </insert>
 
-        <update id="proc_Account_Grant_Update" parameterClass="AccountGrantInfo">
-            UPDATE tb_Account_Grant SET
+    <update id="proc_Account_Grant_Update" parameterClass="AccountGrantInfo">
+      UPDATE tb_Account_Grant SET
 
-                Code = #Code#,
-                GrantorId = #GrantorId#,
-                GranteeId = #GranteeId#,
-                GrantedTimeFrom = #GrantedTimeFrom#,
-                GrantedTimeTo = #GrantedTimeTo#,
-                WorkflowGrantMode = #WorkflowGrantMode#,
-                DataQueryGrantMode = #DataQueryGrantMode#,
-                IsAborted = #IsAborted#,
-                ApprovedUrl = #ApprovedUrl#,
-                Status = #Status#,
-                Remark = #Remark#,
-                ModifiedDate = CURRENT_TIMESTAMP
+      Code = #Code#,
+      GrantorId = #GrantorId#,
+      GranteeId = #GranteeId#,
+      GrantedTimeFrom = #GrantedTimeFrom#,
+      GrantedTimeTo = #GrantedTimeTo#,
+      WorkflowGrantMode = #WorkflowGrantMode#,
+      DataQueryGrantMode = #DataQueryGrantMode#,
+      IsAborted = #IsAborted#,
+      ApprovedUrl = #ApprovedUrl#,
+      Status = #Status#,
+      Remark = #Remark#,
+      ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id#
-        </update>
-        <delete id="proc_Account_Grant_Delete" parameterClass="AccountGrantInfo">
-            DELETE FROM tb_Account_Grant WHERE $WhereClause$
-        </delete>
-        <select id="proc_Account_Grant_FindOne" resultMap="proc_Account_Grant_FindOne_Result" >
-            SELECT * FROM tb_Account_Grant WHERE Id = #Id#
-        </select>
-        <select id="proc_Account_Grant_FindAll#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
-            SELECT * FROM tb_Account_Grant T
+      WHERE Id = #Id#
+    </update>
+    <delete id="proc_Account_Grant_Delete" parameterClass="AccountGrantInfo">
+      DELETE FROM tb_Account_Grant WHERE $WhereClause$
+    </delete>
+    <select id="proc_Account_Grant_FindOne" resultMap="proc_Account_Grant_FindOne_Result" >
+      SELECT * FROM tb_Account_Grant WHERE Id = #Id#
+    </select>
+    <select id="proc_Account_Grant_FindAll#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
+      SELECT * FROM tb_Account_Grant T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-            
-            <dynamic prepend="LIMIT">
-                <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
-                    0,$Length$
-                </isNotEqual>
-            </dynamic>
-        </select>
-        <select id="proc_Account_Grant_FindAll#SqlServer" resultMap="proc_Account_Grant_FindAll_Result" >
-            SELECT
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
+          0,$Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Account_Grant_FindAll#SqlServer" resultMap="proc_Account_Grant_FindAll_Result" >
+      SELECT
 
-            * FROM tb_Account_Grant
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_Account_Grant_GetPaging#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
-            SELECT * FROM tb_Account_Grant T
+      * FROM tb_Account_Grant
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Account_Grant_GetPaging#MySql" resultMap="proc_Account_Grant_FindAll_Result" >
+      SELECT * FROM tb_Account_Grant T
 
-            ORDER BY $OrderBy$
-            
-            LIMIT $StartIndex$, $PageSize$
-        </select>
-        <select id="proc_Account_Grant_GetPaging#SqlServer" resultMap="proc_Account_Grant_FindAll_Result" >
-            SELECT *
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+      ORDER BY $OrderBy$
 
-            FROM tb_Account_Grant T
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Account_Grant_GetPaging#Oracle" resultMap="proc_Account_Grant_FindAll_Result" >
+      SELECT T2.* FROM (
+        SELECT ROWNUM RowIndex, T1.* FROM (
+          SELECT * FROM tb_Account_Grant T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
-            
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
-        <select id="proc_Account_Grant_GetRowCount" >
-            SELECT COUNT(0) AS "RowCount" FROM tb_Account_Grant T
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_Account_Grant_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_Account_Grant T WHERE $WhereClause$
-        </select>
-        <update id="proc_Account_Grant_Abort" parameterClass="AccountGrantInfo">
-            UPDATE tb_Account_Grant SET
+          ORDER BY $OrderBy$
 
-                IsAborted = 1,
-                GrantedTimeTo = CURRENT_TIMESTAMP,
-                ModifiedDate = CURRENT_TIMESTAMP
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
+    <select id="proc_Account_Grant_GetPaging#SqlServer" resultMap="proc_Account_Grant_FindAll_Result" >
+      SELECT *
 
-            WHERE Id = #Id#
-        </update>
-        <insert id="proc_Account_Grant_SyncFromPackPage" parameterClass="AccountGrantInfo" >
-            IF EXISTS ( SELECT 0 FROM tb_Account_Grant WHERE Id = #Id# )
-            BEGIN
-                UPDATE tb_Account_Grant SET
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-                Code = #Code#,
-                GrantorId = #GrantorId#,
-                GranteeId = #GranteeId#,
-                GrantedTimeFrom = #GrantedTimeFrom#,
-                GrantedTimeTo = #GrantedTimeTo#,
-                WorkflowGrantMode = #WorkflowGrantMode#,
-                DataQueryGrantMode = #DataQueryGrantMode#,
-                IsAborted = #IsAborted#,
-                Status = #Status#,
-                Remark = #Remark#,
-                ModifiedDate = CURRENT_TIMESTAMP
+      FROM tb_Account_Grant T
 
-                WHERE Id = #Id#
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            END
-            ELSE
-            BEGIN
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Account_Grant_GetRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM tb_Account_Grant T
 
-                INSERT INTO tb_Account_Grant (
-                    Id,
-                    Code,
-                    GrantorId,
-                    GranteeId,
-                    GrantedTimeFrom,
-                    GrantedTimeTo,
-                    WorkflowGrantMode,
-                    DataQueryGrantMode,
-                    IsAborted,
-                    ApprovedUrl,
-                    Status,
-                    Remark,
-                    ModifiedDate,
-                    CreatedDate
-                )
-                VALUES
-                (
-                    #Id#,
-                    #Code#,
-                    #GrantorId#,
-                    #GranteeId#,
-                    #GrantedTimeFrom#,
-                    #GrantedTimeTo#,
-                    #WorkflowGrantMode#,
-                    #DataQueryGrantMode#,
-                    #IsAborted#,
-                    #ApprovedUrl#,
-                    #Status#,
-                    #Remark#,
-                    CURRENT_TIMESTAMP,
-                    CURRENT_TIMESTAMP
-                )
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Account_Grant_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Account_Grant T WHERE $WhereClause$
+    </select>
+    <update id="proc_Account_Grant_Abort" parameterClass="AccountGrantInfo">
+      UPDATE tb_Account_Grant SET
 
-            END
-        </insert>
-    </statements>
+        IsAborted = 1,
+        GrantedTimeTo = CURRENT_TIMESTAMP,
+        ModifiedDate = CURRENT_TIMESTAMP
+
+      WHERE Id = #Id#
+    </update>
+    <insert id="proc_Account_Grant_SyncFromPackPage" parameterClass="AccountGrantInfo" >
+      IF EXISTS ( SELECT 0 FROM tb_Account_Grant WHERE Id = #Id# )
+      BEGIN
+        UPDATE tb_Account_Grant SET
+
+          Code = #Code#,
+          GrantorId = #GrantorId#,
+          GranteeId = #GranteeId#,
+          GrantedTimeFrom = #GrantedTimeFrom#,
+          GrantedTimeTo = #GrantedTimeTo#,
+          WorkflowGrantMode = #WorkflowGrantMode#,
+          DataQueryGrantMode = #DataQueryGrantMode#,
+          IsAborted = #IsAborted#,
+          Status = #Status#,
+          Remark = #Remark#,
+          ModifiedDate = CURRENT_TIMESTAMP
+
+        WHERE Id = #Id#
+
+      END
+      ELSE
+      BEGIN
+
+      INSERT INTO tb_Account_Grant 
+      (
+        Id,
+        Code,
+        GrantorId,
+        GranteeId,
+        GrantedTimeFrom,
+        GrantedTimeTo,
+        WorkflowGrantMode,
+        DataQueryGrantMode,
+        IsAborted,
+        ApprovedUrl,
+        Status,
+        Remark,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #Code#,
+        #GrantorId#,
+        #GranteeId#,
+        #GrantedTimeFrom#,
+        #GrantedTimeTo#,
+        #WorkflowGrantMode#,
+        #DataQueryGrantMode#,
+        #IsAborted#,
+        #ApprovedUrl#,
+        #Status#,
+        #Remark#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+
+      END
+    </insert>
+  </statements>
 </sqlMap>

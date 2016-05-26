@@ -50,7 +50,7 @@
                 return this[name, StringCase.Default];
             }
         }
-
+        
         /// <summary></summary>
         /// <param name="name"></param>
         /// <param name="stringCase"></param>
