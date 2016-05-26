@@ -8,24 +8,12 @@ main.connect.home = {
     /*
     * 查询
     */
-    filter: function()
+    filter: function ()
     {
-        var whereClauseValue = ' 1 = 1 ';
+        main.connect.home.paging.query.scence = 'QueryMyList';
+        main.connect.home.paging.query.where.SearchText = $('#searchText').val().trim();
 
-        if($('#searchText').val() !== '')
-        {
-            whereClauseValue += ' AND ( T.Code LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.Title LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.Content LIKE ##%' + x.toSafeLike($('#searchText').val()) + '%## OR T.AccountId IN (SELECT AuthorizationObjectId FROM view_AuthObject_Account WHERE AccountGlobalName LIKE ##%' + $('#searchText').val() + '%## OR AccountLoginName LIKE ##%' + $('#searchText').val() + '%## ) OR T.AssignToAccountId IN (SELECT AuthorizationObjectId FROM view_AuthObject_Account WHERE AccountGlobalName LIKE ##%' + $('#searchText').val() + '%## OR AccountLoginName LIKE ##%' + $('#searchText').val() + '%## ) ) ';
-        }
-
-        // 移除 1 = 1
-        if(whereClauseValue.indexOf(' 1 = 1  AND ') > -1)
-        {
-            whereClauseValue = whereClauseValue.replace(' 1 = 1  AND ', '');
-        }
-
-        main.connect.home.paging.whereClause = whereClauseValue;
-
-        main.connect.home.paging.orders = ' T.UpdateDate DESC ';
+        main.connect.home.paging.orders = ' T.ModifiedDate DESC ';
 
         main.connect.home.getPaging(1);
     },
@@ -35,7 +23,7 @@ main.connect.home = {
     /*
     * 创建对象列表的视图
     */
-    getObjectsView: function(list, maxCount)
+    getObjectsView: function (list, maxCount)
     {
         var outString = '';
 
@@ -47,7 +35,7 @@ main.connect.home = {
         outString += '<table class="table" >';
         outString += '<thead>';
         outString += '<tr>';
-        outString += '<th style="width:160px">名称</th>';
+        outString += '<th style="width:200px">名称</th>';
         outString += '<th >描述</th>';
         outString += '<th style="width:60px" title="状态" >状态</th>';
         outString += '<th style="width:60px" title="编辑" ><i class="fa fa-edit" ></i></th>';
@@ -60,21 +48,20 @@ main.connect.home = {
         outString += '<div class="table-freeze-body">';
         outString += '<table class="table table-striped">';
         outString += '<colgroup>';
-        outString += '<col style="width:160px" />';
+        outString += '<col style="width:200px" />';
         outString += '<col />';
         outString += '<col style="width:60px" />';
         outString += '<col style="width:60px" />';
         outString += '</colgroup>';
         outString += '<tbody>';
 
-        x.each(list, function(index, node)
+        x.each(list, function (index, node)
         {
             outString += '<tr>';
             outString += '<td><strong>' + node.name + '</strong></td>';
             outString += '<td>' + node.description + '</td>';
-            outString += '<td>' + node.status + '</td>';
-            outString += '<td><a href="/connect/overview/' + node.id + '" >编辑</a></td>';
-            // outString += '<td><a href="javascript:main.connect.home.confirmDelete(\'' + node.id + '\');">删除</a></td>';
+            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td><a href="/connect/overview/' + node.id + '" ><i class="fa fa-edit" ></i></a></td>';
             outString += '</tr>';
 
             counter++;
@@ -82,7 +69,7 @@ main.connect.home = {
 
         // 补全
 
-        while(counter < maxCount)
+        while (counter < maxCount)
         {
             outString += '<tr><td colspan="8" >&nbsp;</td></tr>';
 
@@ -101,7 +88,7 @@ main.connect.home = {
     /*
     * 分页
     */
-    getPaging: function(currentPage)
+    getPaging: function (currentPage)
     {
         var paging = main.connect.home.paging;
 
@@ -116,7 +103,7 @@ main.connect.home = {
         x.net.xhr('/api/connect.queryMyList.aspx', outString, {
             waitingType: 'mini',
             waitingMessage: '正在查询数据，请稍后......',
-            callback: function(response)
+            callback: function (response)
             {
                 var result = x.toJSON(response);
 
@@ -144,12 +131,12 @@ main.connect.home = {
     /*
     * 删除对象
     */
-    confirmDelete: function(id)
+    confirmDelete: function (id)
     {
-        if(confirm('确定删除?'))
+        if (confirm('确定删除?'))
         {
             x.net.xhr('/api/connect.delete.aspx?id=' + id, {
-                callback: function(response)
+                callback: function (response)
                 {
                     main.connect.home.getPaging(main.connect.home.paging.currentPage);
                 }
@@ -159,10 +146,10 @@ main.connect.home = {
     /*#endregion*/
 
     /*#region 函数:getCategoryWizard()*/
-    getCategoryWizard: function()
+    getCategoryWizard: function ()
     {
         x.wizards.getWizard('category', {
-            create: function()
+            create: function ()
             {
                 main.connect.home.categoryWizardName = this.name;
 
@@ -196,7 +183,7 @@ main.connect.home = {
                 return outString;
             },
 
-            save_callback: function()
+            save_callback: function ()
             {
                 main.connect.home.setCategoryIndex(x.form.query(this.name + '$wizardResultValue').val());
 
@@ -209,7 +196,7 @@ main.connect.home = {
     /*#endregion*/
 
     /*#region 函数:setCategoryIndex(value)*/
-    setCategoryIndex: function(value)
+    setCategoryIndex: function (value)
     {
         x.form.query('categoryName').val(x.string.trim(value.replace(/\\/g, '-'), '-'));
         x.form.query('categoryIndex').val(value);
@@ -217,7 +204,7 @@ main.connect.home = {
     /*#endregion*/
 
     /*#region 函数:getTreeView()*/
-    getTreeView: function()
+    getTreeView: function ()
     {
         var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
@@ -251,7 +238,7 @@ main.connect.home = {
     /*#endregion*/
 
     /*#region 函数:setTreeViewNode(value)*/
-    setTreeViewNode: function(value)
+    setTreeViewNode: function (value)
     {
         var wizardName = main.connect.home.categoryWizardName;
 
@@ -264,7 +251,7 @@ main.connect.home = {
     /*
     * 页面加载事件
     */
-    load: function()
+    load: function ()
     {
         main.connect.home.filter();
 
@@ -272,12 +259,12 @@ main.connect.home = {
         // 绑定事件
         // -------------------------------------------------------
 
-        $('#btnCategoryWizard').bind('click', function()
+        $('#btnCategoryWizard').bind('click', function ()
         {
             main.connect.home.getCategoryWizard()
         });
 
-        $('#btnFilter').bind('click', function()
+        $('#btnFilter').bind('click', function ()
         {
             main.connect.home.filter();
         });

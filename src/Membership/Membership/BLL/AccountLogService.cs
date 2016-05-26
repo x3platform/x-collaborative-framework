@@ -200,7 +200,7 @@ namespace X3Platform.Membership.BLL
             param.OperationName = optionName;
             param.OriginalObjectValue = originalObject == null ? string.Empty : originalObject.Serializable();
             param.Description = description;
-            param.Date = DateTime.Now;
+            param.CreatedDate = DateTime.Now;
 
             param = this.Save(param);
 

@@ -17,7 +17,16 @@ namespace X3Platform
         private int success = 0;
 
         /// <summary>返回的代码</summary>
-        private string returnCode = "-1";
+        private string m_ReturnCode = "-1";
+
+        /// <summary>返回的代码</summary>
+        public string ReturnCode
+        {
+            get
+            {
+                return this.m_ReturnCode;
+            }
+        }
 
         #region 构造函数:GenericException(string message)
         /// <summary>构造函数</summary>
@@ -36,7 +45,7 @@ namespace X3Platform
             : base(message)
         {
             this.success = 0;
-            this.returnCode = returnCode;
+            this.m_ReturnCode = returnCode;
         }
         #endregion
 
@@ -49,7 +58,7 @@ namespace X3Platform
             : base(message)
         {
             this.success = success;
-            this.returnCode = returnCode;
+            this.m_ReturnCode = returnCode;
         }
         #endregion
 
@@ -61,7 +70,7 @@ namespace X3Platform
             : base(innerException.Message, innerException)
         {
             this.success = 0;
-            this.returnCode = returnCode;
+            this.m_ReturnCode = returnCode;
         }
         #endregion
 
@@ -74,7 +83,7 @@ namespace X3Platform
             : base(innerException.Message, innerException)
         {
             this.success = success;
-            this.returnCode = returnCode;
+            this.m_ReturnCode = returnCode;
         }
         #endregion
 
@@ -103,11 +112,11 @@ namespace X3Platform
             outString.Append("\"message\":{");
             if (AjaxConfigurationView.Instance.NamingRule == "underline")
             {
-                outString.AppendFormat("\"return_code\":\"{0}\",", StringHelper.ToSafeJson(this.returnCode));
+                outString.AppendFormat("\"return_code\":\"{0}\",", StringHelper.ToSafeJson(this.m_ReturnCode));
             }
             else
             {
-                outString.AppendFormat("\"returnCode\":\"{0}\",", this.returnCode);
+                outString.AppendFormat("\"returnCode\":\"{0}\",", this.m_ReturnCode);
             }
             outString.AppendFormat("\"value\":\"{0}\"", StringHelper.ToSafeJson(this.InnerException == null ? this.Message : this.InnerException.Message));
             outString.Append("},");

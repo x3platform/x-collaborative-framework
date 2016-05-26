@@ -33,9 +33,9 @@ namespace X3Platform.Web.APIs
             // 请求响应的内容
             string responseText = string.Empty;
             // clientId
-            string clientId = (context.Request["clientId"] == null) ? string.Empty : context.Request["clientId"];
+            string clientId = RequestHelper.Fetch("clientId", "client_id");
             // accessToken
-            string accessToken = (context.Request["accessToken"] == null) ? string.Empty : context.Request["accessToken"];
+            string accessToken = RequestHelper.Fetch("accessToken", "access_token");
             // 默认支持 form-data 方式
             string xml = (context.Request.Form["xhr-xml"] == null) ? string.Empty : context.Request.Form["xhr-xml"];
 
@@ -180,7 +180,16 @@ namespace X3Platform.Web.APIs
                 }
                 catch (Exception ex)
                 {
-                    GenericException exception = new GenericException("-1", ex);
+                    GenericException exception = null;
+
+                    if (ex.InnerException is GenericException)
+                    {
+                        exception = (GenericException)ex.InnerException;
+                    }
+                    else
+                    {
+                        exception = new GenericException("-1", ex);
+                    }
 
                     responseText = exception.ToString();
 

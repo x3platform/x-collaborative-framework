@@ -4,7 +4,7 @@
     <typeAlias alias="MemberExtensionInformation" type="X3Platform.Membership.HumanResources.Model.MemberExtensionInformation,X3Platform.Membership.HumanResources" />
   </alias>
   <resultMaps>
-    <resultMap id="proc_Member_ExtensionInformation_FindOne_Result" class="MemberExtensionInformation">
+    <resultMap id="proc_Member_Ext_FindOne_Result" class="MemberExtensionInformation">
       <result property="Id" column="Id" />
       <result property="AccountId" column="AccountId" />
       <result property="Country" column="Country" />
@@ -34,7 +34,7 @@
       <result property="UpdateDate" column="UpdateDate" />
       <result property="CreateDate" column="CreateDate" />
     </resultMap>
-    <resultMap id="proc_Member_ExtensionInformation_FindAll_Result" class="MemberExtensionInformation">
+    <resultMap id="proc_Member_Ext_FindAll_Result" class="MemberExtensionInformation">
       <result property="Id" column="Id" />
       <result property="AccountId" column="AccountId" />
       <result property="Country" column="Country" />
@@ -67,8 +67,8 @@
   </resultMaps>
   <statements>
 
-    <insert id="proc_Member_ExtensionInformation_Insert" parameterClass="MemberExtensionInformation">
-      INSERT INTO tb_Member_ExtensionInformation (
+    <insert id="proc_Member_Ext_Insert" parameterClass="MemberExtensionInformation">
+      INSERT INTO tb_Member_Ext (
       Id,
       AccountId,
       Country,
@@ -131,8 +131,8 @@
       )
     </insert>
 
-    <update id="proc_Member_ExtensionInformation_Update" parameterClass="MemberExtensionInformation">
-      UPDATE tb_Member_ExtensionInformation SET
+    <update id="proc_Member_Ext_Update" parameterClass="MemberExtensionInformation">
+      UPDATE tb_Member_Ext SET
 
       Country = #Country#,
       National = #National#,
@@ -162,10 +162,10 @@
 
       WHERE AccountId = #AccountId#
     </update>
-    <insert id="proc_Member_ExtensionInformation_Save" parameterClass="MemberExtensionInformation">
-      IF EXISTS(SELECT 0 FROM tb_Member_ExtensionInformation WHERE AccountId = #AccountId#)
+    <insert id="proc_Member_Ext_Save" parameterClass="MemberExtensionInformation">
+      IF EXISTS(SELECT 0 FROM tb_Member_Ext WHERE AccountId = #AccountId#)
       BEGIN
-      UPDATE tb_Member_ExtensionInformation SET
+      UPDATE tb_Member_Ext SET
 
       Country = #Country#,
       National = #National#,
@@ -197,7 +197,7 @@
       END
       ELSE
       BEGIN
-      INSERT INTO tb_Member_ExtensionInformation(
+      INSERT INTO tb_Member_Ext(
       Id,
       AccountId,
       Country,
@@ -260,15 +260,15 @@
       )
       END
     </insert>
-    <delete id="proc_Member_ExtensionInformation_Delete" parameterClass="MemberExtensionInformation">
-      DELETE FROM tb_Member_ExtensionInformation WHERE Id IN($Ids$)
+    <delete id="proc_Member_Ext_Delete" parameterClass="MemberExtensionInformation">
+      DELETE FROM tb_Member_Ext WHERE Id IN($Ids$)
     </delete>
-    <select id="proc_Member_ExtensionInformation_FindOneByAccountId" resultMap="proc_Member_ExtensionInformation_FindOne_Result" >
-      SELECT * FROM tb_Member_ExtensionInformation
+    <select id="proc_Member_Ext_FindOneByAccountId" resultMap="proc_Member_Ext_FindOne_Result" >
+      SELECT * FROM tb_Member_Ext
       WHERE AccountId = #AccountId#
     </select>
 
-    <select id="proc_Member_ExtensionInformation_FindAll" resultMap="proc_Member_ExtensionInformation_FindAll_Result" >
+    <select id="proc_Member_Ext_FindAll" resultMap="proc_Member_Ext_FindAll_Result" >
       SELECT
 
       <dynamic prepend="TOP">
@@ -277,15 +277,15 @@
         </isNotEqual>
       </dynamic>
 
-      * FROM tb_Member_ExtensionInformation
+      * FROM tb_Member_Ext
     </select>
 
-    <select id="proc_Member_ExtensionInformation_GetPages" resultMap="proc_Member_ExtensionInformation_FindAll_Result" >
+    <select id="proc_Member_Ext_GetPages" resultMap="proc_Member_Ext_FindAll_Result" >
       SELECT *
 
       FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-      FROM tb_Member_ExtensionInformation T
+      FROM tb_Member_Ext T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -299,9 +299,9 @@
 
     </select>
 
-    <select id="proc_Member_ExtensionInformation_GetRowCount" >
+    <select id="proc_Member_Ext_GetRowCount" >
 
-      SELECT COUNT(0) AS "RowCount" FROM tb_Member_ExtensionInformation T
+      SELECT COUNT(0) AS "RowCount" FROM tb_Member_Ext T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -312,8 +312,8 @@
       </dynamic>
     </select>
 
-    <select id="proc_Member_ExtensionInformation_IsExist" >
-      SELECT COUNT(0) AS "Count" FROM tb_Member_ExtensionInformation T WHERE $WhereClause$
+    <select id="proc_Member_Ext_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Member_Ext T WHERE $WhereClause$
     </select>
 
   </statements>

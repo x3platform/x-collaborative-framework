@@ -1,203 +1,223 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Membership.DAL.IBatis.StandardOrganizationUnitProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="StandardOrganizationUnitInfo" type="X3Platform.Membership.Model.StandardOrganizationUnitInfo,X3Platform.Membership" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_StandardOrganizationUnit_FindOne_Result" class="StandardOrganizationUnitInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="GlobalName" column="GlobalName" />
-            <result property="ParentId" column="ParentId" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_StandardOrganizationUnit_FindAll_Result" class="StandardOrganizationUnitInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="GlobalName" column="GlobalName" />
-            <result property="ParentId" column="ParentId" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-    </resultMaps>
-    <statements>
-        <insert id="proc_StandardOrganizationUnit_Insert" parameterClass="StandardOrganizationUnitInfo">
-            INSERT INTO tb_StandardOrganizationUnit (
-                Id,
-                Code,
-                Name,
-                GlobalName,
-                ParentId,
-                Locking,
-                OrderId,
-                Status,
-                Remark,
-                ModifiedDate,
-                CreatedDate
-            )
-            VALUES
-            (
-                #Id#,
-                #Code#,
-                #Name#,
-                #GlobalName#,
-                #ParentId#,
-                #Locking#,
-                #OrderId#,
-                #Status#,
-                #Remark#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
-        <update id="proc_StandardOrganizationUnit_Update" parameterClass="StandardOrganizationUnitInfo">
-            UPDATE tb_StandardOrganizationUnit SET
+  <alias>
+    <typeAlias alias="StandardOrganizationUnitInfo" type="X3Platform.Membership.Model.StandardOrganizationUnitInfo,X3Platform.Membership" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_StandardOrganizationUnit_FindOne_Result" class="StandardOrganizationUnitInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="GlobalName" column="GlobalName" />
+      <result property="ParentId" column="ParentId" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_StandardOrganizationUnit_FindAll_Result" class="StandardOrganizationUnitInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="GlobalName" column="GlobalName" />
+      <result property="ParentId" column="ParentId" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_StandardOrganizationUnit_Insert" parameterClass="StandardOrganizationUnitInfo">
+      INSERT INTO tb_StandardOrganizationUnit 
+      (
+        Id,
+        Code,
+        Name,
+        GlobalName,
+        ParentId,
+        Locking,
+        OrderId,
+        Status,
+        Remark,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #Code#,
+        #Name#,
+        #GlobalName#,
+        #ParentId#,
+        #Locking#,
+        #OrderId#,
+        #Status#,
+        #Remark#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_StandardOrganizationUnit_Update" parameterClass="StandardOrganizationUnitInfo">
+      UPDATE tb_StandardOrganizationUnit SET
 
-                Code = #Code#,
-                Name = #Name#,
-                GlobalName = #GlobalName#,
-                ParentId = #ParentId#,
-                Locking = #Locking#,
-                OrderId = #OrderId#,
-                Status = #Status#,
-                Remark = #Remark#,
-                ModifiedDate = CURRENT_TIMESTAMP
+        Code = #Code#,
+        Name = #Name#,
+        GlobalName = #GlobalName#,
+        ParentId = #ParentId#,
+        Locking = #Locking#,
+        OrderId = #OrderId#,
+        Status = #Status#,
+        Remark = #Remark#,
+        ModifiedDate = CURRENT_TIMESTAMP
 
-            WHERE Id = #Id#
-        </update>
-        <delete id="proc_StandardOrganizationUnit_Delete" >
-            DELETE FROM tb_StandardOrganizationUnit WHERE $WhereClause$
-        </delete>
-        <select id="proc_StandardOrganizationUnit_FindOne" resultMap="proc_StandardOrganizationUnit_FindOne_Result" >
-            SELECT * FROM tb_StandardOrganizationUnit T WHERE Id = #Id#
-        </select>
-        <select id="proc_StandardOrganizationUnit_FindAll" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
-            SELECT
+      WHERE Id = #Id#
+    </update>
+    <delete id="proc_StandardOrganizationUnit_Delete" >
+      DELETE FROM tb_StandardOrganizationUnit WHERE $WhereClause$
+    </delete>
+    <select id="proc_StandardOrganizationUnit_FindOne" resultMap="proc_StandardOrganizationUnit_FindOne_Result" >
+      SELECT * FROM tb_StandardOrganizationUnit T WHERE Id = #Id#
+    </select>
+    <select id="proc_StandardOrganizationUnit_FindAll" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
+      SELECT
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            * FROM tb_StandardOrganizationUnit T
+      * FROM tb_StandardOrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_StandardOrganizationUnit_GetPaging#MySql" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
-            SELECT * FROM tb_StandardOrganizationUnit T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_StandardOrganizationUnit_GetPaging#MySql" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
+      SELECT * FROM tb_StandardOrganizationUnit T
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
 
-            ORDER BY $OrderBy$
-            
-            LIMIT $StartIndex$, $PageSize$
-        </select>
-        <select id="proc_StandardOrganizationUnit_GetPaging#SqlServer" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
-            SELECT *
+      ORDER BY $OrderBy$
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_StandardOrganizationUnit_GetPaging#Oracle" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
+      SELECT T2.* FROM (
+        SELECT ROWNUM RowIndex, T1.* FROM (
+          SELECT * FROM tb_StandardOrganizationUnit T
 
-            FROM tb_StandardOrganizationUnit T
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+          ORDER BY $OrderBy$
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
-        <select id="proc_StandardOrganizationUnit_GetRowCount" >
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
+    <select id="proc_StandardOrganizationUnit_GetPaging#SqlServer" resultMap="proc_StandardOrganizationUnit_FindAll_Result" >
+      SELECT *
 
-            SELECT COUNT(0) AS "RowCount" FROM tb_StandardOrganizationUnit T
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        <select id="proc_StandardOrganizationUnit_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_StandardOrganizationUnit T WHERE $WhereClause$
-        </select>
-        <update id="proc_StandardOrganizationUnit_Rename" parameterClass="StandardOrganizationUnitInfo">
-            UPDATE tb_StandardOrganizationUnit SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-        <update id="proc_StandardOrganizationUnit_SetGlobalName" >
-            Update tb_StandardOrganizationUnit SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-        <update id="proc_StandardOrganizationUnit_SetParentId" >
-            UPDATE tb_StandardOrganizationUnit SET ParentId = #ParentId#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
-        </update>
-        <insert id="proc_StandardOrganizationUnit_SyncFromPackPage" parameterClass="StandardOrganizationUnitInfo" >
-            IF EXISTS(SELECT 0 FROM tb_StandardOrganizationUnit WHERE Id = #Id#)
-            BEGIN
-            UPDATE tb_StandardOrganizationUnit SET
+      FROM tb_StandardOrganizationUnit T
 
-            Code = #Code#,
-            Name = #Name#,
-            ParentId = #ParentId#,
-            OrderId = #OrderId#,
-            Status = #Status#,
-            Remark = #Remark#,
-            ModifiedDate = CURRENT_TIMESTAMP
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            WHERE Id = #Id#
-            END
-            ELSE
-            BEGIN
-            INSERT INTO tb_StandardOrganizationUnit (
-            Id,
-            Code,
-            Name,
-            ParentId,
-            OrderId,
-            Status,
-            Remark,
-            ModifiedDate,
-            CreatedDate
-            )
-            VALUES
-            (
-            #Id#,
-            #Code#,
-            #Name#,
-            #ParentId#,
-            #OrderId#,
-            #Status#,
-            #Remark#,
-            CURRENT_TIMESTAMP,
-            CURRENT_TIMESTAMP
-            )
-            END
-        </insert>
-    </statements>
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_StandardOrganizationUnit_GetRowCount" >
+
+      SELECT COUNT(0) AS "RowCount" FROM tb_StandardOrganizationUnit T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_StandardOrganizationUnit_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_StandardOrganizationUnit T WHERE $WhereClause$
+    </select>
+    <update id="proc_StandardOrganizationUnit_Rename" parameterClass="StandardOrganizationUnitInfo">
+      UPDATE tb_StandardOrganizationUnit SET Name = #Name#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_StandardOrganizationUnit_SetGlobalName" >
+      Update tb_StandardOrganizationUnit SET GlobalName = #GlobalName#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <update id="proc_StandardOrganizationUnit_SetParentId" >
+      UPDATE tb_StandardOrganizationUnit SET ParentId = #ParentId#, ModifiedDate = CURRENT_TIMESTAMP WHERE Id = #Id#
+    </update>
+    <insert id="proc_StandardOrganizationUnit_SyncFromPackPage" parameterClass="StandardOrganizationUnitInfo" >
+      IF EXISTS(SELECT 0 FROM tb_StandardOrganizationUnit WHERE Id = #Id#)
+      BEGIN
+        UPDATE tb_StandardOrganizationUnit SET
+
+          Code = #Code#,
+          Name = #Name#,
+          ParentId = #ParentId#,
+          OrderId = #OrderId#,
+          Status = #Status#,
+          Remark = #Remark#,
+          ModifiedDate = CURRENT_TIMESTAMP
+
+        WHERE Id = #Id#
+      END
+      ELSE
+      BEGIN
+        INSERT INTO tb_StandardOrganizationUnit 
+        (
+          Id,
+          Code,
+          Name,
+          ParentId,
+          OrderId,
+          Status,
+          Remark,
+          ModifiedDate,
+          CreatedDate
+        )
+        VALUES
+        (
+          #Id#,
+          #Code#,
+          #Name#,
+          #ParentId#,
+          #OrderId#,
+          #Status#,
+          #Remark#,
+          CURRENT_TIMESTAMP,
+          CURRENT_TIMESTAMP
+        )
+      END
+    </insert>
+  </statements>
 </sqlMap>

@@ -204,6 +204,7 @@
     <Compile Include="Spring\SpringContext.cs" />
     <Compile Include="Spring\SpringObjectAttribute.cs" />
     <Compile Include="Spring\SpringObjectBuilder.cs" />
+    <Compile Include="Util\ValidationHelper.cs" />
     <Compile Include="WorkflowPlus\IWorkflowActorInfo.cs" />
     <Compile Include="WorkflowPlus\IWorkflowClient.cs" />
     <Compile Include="WorkflowPlus\IWorkflowClientContext.cs" />

@@ -14,11 +14,16 @@
     /// <summary>本地化设置对象</summary>
     public class I18n
     {
+        static Dictionary<string, object> lockObjects = new Dictionary<string, object>() {
+            { "translates", new object() },
+            { "strings", new object() },
+            { "menu", new object() },
+            { "exceptions", new object() }
+        };
+
         #region 属性:Translates
         private static volatile Localization values = null;
-
-        private static object lockTranslatesObject = new object();
-
+        
         /// <summary>本地化的翻译信息</summary>
         public static Localization Translates
         {
@@ -26,7 +31,7 @@
             {
                 if (values == null)
                 {
-                    lock (lockTranslatesObject)
+                    lock (lockObjects["translates"])
                     {
                         if (values == null)
                         {
@@ -42,9 +47,7 @@
 
         #region 属性:Strings
         private static volatile Localization strings = null;
-
-        private static object lockStringsObject = new object();
-
+        
         /// <summary>本地化的文本信息 系统提示信息 警告信息 错误信息</summary>
         public static Localization Strings
         {
@@ -52,7 +55,7 @@
             {
                 if (strings == null)
                 {
-                    lock (lockStringsObject)
+                    lock (lockObjects["strings"])
                     {
                         if (strings == null)
                         {
@@ -68,9 +71,7 @@
 
         #region 属性:Menu
         private static volatile Localization menu = null;
-
-        private static object lockMenuObject = new object();
-
+        
         /// <summary>本地化的菜单信息</summary>
         public static Localization Menu
         {
@@ -78,7 +79,7 @@
             {
                 if (menu == null)
                 {
-                    lock (lockMenuObject)
+                    lock (lockObjects["menu"])
                     {
                         if (menu == null)
                         {
@@ -88,6 +89,30 @@
                 }
 
                 return menu;
+            }
+        }
+        #endregion
+
+        #region 属性:Exceptions
+        private static volatile Localization m_Exceptions = null;
+
+        /// <summary>本地化的异常信息</summary>
+        public static Localization Exceptions
+        {
+            get
+            {
+                if (m_Exceptions == null)
+                {
+                    lock (lockObjects["exceptions"])
+                    {
+                        if (m_Exceptions == null)
+                        {
+                            m_Exceptions = new Localization("exceptions.xml", "exception");
+                        }
+                    }
+                }
+
+                return m_Exceptions;
             }
         }
         #endregion

@@ -10,6 +10,7 @@ namespace X3Platform.Sessions
 
     using X3Platform.Sessions.Configuration;
     using X3Platform.Sessions.IBLL;
+    using X3Platform.Globalization;
     #endregion
 
     /// <summary>会话上下文环境</summary>
@@ -98,6 +99,18 @@ namespace X3Platform.Sessions
         /// <summary>重新加载</summary>
         private void Reload()
         {
+            if (this.restartCount > 0)
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_reloading"], SessionsConfiguration.ApplicationName));
+
+                // 重新加载配置信息
+                SessionsConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_loading"], SessionsConfiguration.ApplicationName));
+            }
+
             // 创建对象构建器(Spring.NET)
             string springObjectFile = SessionsConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
@@ -112,19 +125,20 @@ namespace X3Platform.Sessions
             // -------------------------------------------------------
             // 设置定时器
             // -------------------------------------------------------
-            
+
             // 由数据库来定时任务来清理过期会话 
-            // timer.Enabled = true;
+            timer.Enabled = true;
 
-            // timer.Interval = SessionsConfigurationView.Instance.SessionTimerInterval * 60 * 1000;
+            timer.Interval = SessionsConfigurationView.Instance.SessionTimerInterval * 60 * 1000;
 
-            // timer.Elapsed += delegate(object sender, ElapsedEventArgs e)
-            // {
+            timer.Elapsed += delegate (object sender, ElapsedEventArgs e)
+            {
+                SessionContext.Instance.AccountCacheService.Clear(DateTime.Now.AddHours(-SessionsConfigurationView.Instance.SessionTimeLimit));
+            };
 
-                // SessionContext.Instance.AccountCacheService.Clear(DateTime.Now.AddHours(-SessionsConfigurationView.Instance.SessionTimeLimit));
-            // };
+            timer.Start();
 
-            // timer.Start();
+            KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], SessionsConfiguration.ApplicationName));
         }
         #endregion
 

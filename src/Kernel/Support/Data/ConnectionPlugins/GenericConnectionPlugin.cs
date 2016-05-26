@@ -7,6 +7,9 @@ namespace X3Platform.Data.ConnectionPlugins
     /// <summary>通常的数据库连接信息</summary>
     public class GenericConnectionPlugin : IConnectionPlugin
     {
+        // 参数说明
+        // http://www.connectionstrings.com/oracle/
+
         protected const string PREFIX_KEY = "DatabaseSettings.";
 
         protected IDictionary<string, string> dictionary = null;
@@ -48,7 +51,12 @@ namespace X3Platform.Data.ConnectionPlugins
                         ";database=", Database,
                         ";uid=", LoginName,
                         ";pwd=", Password,
-                        ";pooling=true;connection reset=false;connection lifetime=10;min pool size=1;max pool size=100;connection timeout=30;");
+                        ";pooling=", Pooling,
+                        ";connection reset=", ConnectionReset,
+                        ";connection lifetime=", ConnectionLifetime,
+                        ";min pool size=", MinPoolSize,
+                        ";max pool size=", MaxPoolSize,
+                        ";connection timeout=", ConnectionTimeout, ";");
                 }
                 else if (Provider == "SqlServer")
                 {
@@ -56,14 +64,20 @@ namespace X3Platform.Data.ConnectionPlugins
                         ";database=", Database,
                         ";user id=", LoginName,
                         ";password=", Password,
-                        ";connection reset=false;connection lifetime=10;min pool size=1;max pool size=100;connection timeout=30;");
+                        ";connection reset=", ConnectionReset,
+                        ";connection lifetime=", ConnectionLifetime,
+                        ";min pool size=", MinPoolSize,
+                        ";max pool size=", MaxPoolSize,
+                        ";connection timeout=", ConnectionTimeout, ";");
                 }
                 else if (Provider == "Oracle")
                 {
                     return string.Concat("data source=", DataSource,
                         ";user id=", LoginName,
                         ";password=", Password,
-                        ";connection lifetime=10;min pool size=1;max pool size=100");
+                        ";connection lifetime=", ConnectionLifetime,
+                        ";min pool size=", MinPoolSize,
+                        ";max pool size=", MaxPoolSize, ";");
                 }
 
                 return string.Empty;
@@ -106,6 +120,60 @@ namespace X3Platform.Data.ConnectionPlugins
 
                 return password;
                 // return Encrypter.EncryptAES(password);
+            }
+        }
+
+        /// <summary>连接池化</summary>
+        public virtual string Pooling
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "Pooling", "true");
+            }
+        }
+
+        /// <summary>连接重置</summary>
+        public virtual string ConnectionReset
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "ConnectionReset", "false");
+            }
+        }
+
+        /// <summary>连接回收时间 单位:秒</summary>
+        public virtual string ConnectionLifetime
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "ConnectionLifetime", "10");
+            }
+        }
+
+        /// <summary>连接池最小数量</summary>
+        public virtual string MinPoolSize
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "MinPoolSize", "1");
+            }
+        }
+
+        /// <summary>连接池最大数量</summary>
+        public virtual string MaxPoolSize
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "MaxPoolSize", "100");
+            }
+        }
+
+        /// <summary>连接超时时间 单位:秒</summary>
+        public virtual string ConnectionTimeout
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "ConnectionTimeout", "120");
             }
         }
 

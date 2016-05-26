@@ -12,6 +12,7 @@ using X3Platform.Logging;
 using X3Platform.IBatis.Common.Utilities;
 using System.Collections.Generic;
 using X3Platform.Security;
+using X3Platform.IBatis.DataMapper.SessionStore;
 
 namespace X3Platform.IBatis.DataMapper
 {
@@ -27,14 +28,28 @@ namespace X3Platform.IBatis.DataMapper
         /// <returns></returns>
         public static ISqlMapper CreateSqlMapper(string ibatisMaping)
         {
-            return CreateSqlMapper(ibatisMaping, false);
+            return CreateSqlMapper(ibatisMaping, true);
         }
 
         /// <summary>创建 SqlMapper</summary>
         /// <param name="ibatisMaping">配置文件路径</param>
         /// <param name="throwException">是否抛出异常信息</param>
         /// <returns></returns>
+        public static ISqlMapper CreateSqlMapper(string ibatisMaping, ISessionStore sessionStore)
+        {
+            return CreateSqlMapper(ibatisMaping, sessionStore, true);
+        }
+
         public static ISqlMapper CreateSqlMapper(string ibatisMaping, bool throwException)
+        {
+            return CreateSqlMapper(ibatisMaping, null, throwException);
+        }
+
+        /// <summary>创建 SqlMapper</summary>
+        /// <param name="ibatisMaping">配置文件路径</param>
+        /// <param name="throwException">是否抛出异常信息</param>
+        /// <returns></returns>
+        public static ISqlMapper CreateSqlMapper(string ibatisMaping, ISessionStore sessionStore, bool throwException)
         {
             string key = Encrypter.EncryptMD5(ibatisMaping);
 
@@ -76,6 +91,11 @@ namespace X3Platform.IBatis.DataMapper
                 }
 
                 db = builder.Configure(doc);
+
+                if (sessionStore != null)
+                {
+                    db.SessionStore = sessionStore;
+                }
 
                 dict.Add(key, db);
             }

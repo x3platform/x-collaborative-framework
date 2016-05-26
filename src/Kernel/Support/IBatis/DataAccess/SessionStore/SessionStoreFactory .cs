@@ -52,8 +52,10 @@ namespace X3Platform.IBatis.DataAccess.SessionStore
 			}
 			else
 			{
-				return new WebSessionStore(daoManagerName);
-			}
+                // 修改 WebSessionStore 为 HybridWebThreadSessionStore 支持多线程之间调用
+                // return new WebSessionStore(daoManagerName);
+                return new HybridWebThreadSessionStore(daoManagerName);
+            }
 		}
 
 	}

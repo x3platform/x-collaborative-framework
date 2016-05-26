@@ -155,22 +155,22 @@
         <select id="proc_StandardGeneralRole_FindOneMappingRelation" resultMap="proc_StandardGeneralRole_FindAllMappingRelation_Result" >
             SELECT TOP 1     
                 T.StandardGeneralRoleId,
-		        tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
-		        T.OrganizationUnitId,
-		        tb_OrganizationUnit.Name AS OrganizationUnitName,
-		        T.RoleId,
-		        tb_Role.Name AS RoleName,
-		        T.StandardRoleId,
-		        ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex
-	        FROM 
+            tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
+            T.OrganizationUnitId,
+            tb_OrganizationUnit.Name AS OrganizationUnitName,
+            T.RoleId,
+            tb_Role.Name AS RoleName,
+            T.StandardRoleId,
+            ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex
+          FROM 
                 [tb_StandardGeneralRole_Mapping] T,
-	            [tb_StandardGeneralRole],
-	            [tb_OrganizationUnit],
-	            [tb_Role]          
-	        WHERE
-	            T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
-	            AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
-	            AND T.RoleId = [tb_Role].Id
+              [tb_StandardGeneralRole],
+              [tb_OrganizationUnit],
+              [tb_Role]          
+          WHERE
+              T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
+              AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
+              AND T.RoleId = [tb_Role].Id
             <dynamic prepend="AND">
                 <isParameterPresent>
                     <isNotEmpty prepend="AND" property="WhereClause" >
@@ -184,23 +184,23 @@
             SELECT *
 
             FROM (SELECT 
-		            T.StandardGeneralRoleId,
-		            tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
-		            T.OrganizationUnitId, 
-		            tb_OrganizationUnit.Name AS OrganizationUnitName, 
-		            T.RoleId, 
-		            tb_Role.Name AS RoleName, 
-		            T.StandardRoleId, 
-		            ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex                
-	            FROM 
+                T.StandardGeneralRoleId,
+                tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
+                T.OrganizationUnitId, 
+                tb_OrganizationUnit.Name AS OrganizationUnitName, 
+                T.RoleId, 
+                tb_Role.Name AS RoleName, 
+                T.StandardRoleId, 
+                ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex                
+              FROM 
                     [tb_StandardGeneralRole_Mapping] T,
-	                [tb_StandardGeneralRole],
-	                [tb_OrganizationUnit],
-	                [tb_Role]          
-	            WHERE  
-	                T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
-	                AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
-	                AND T.RoleId = [tb_Role].Id
+                  [tb_StandardGeneralRole],
+                  [tb_OrganizationUnit],
+                  [tb_Role]          
+              WHERE  
+                  T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
+                  AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
+                  AND T.RoleId = [tb_Role].Id
             <dynamic prepend="AND">
                 <isParameterPresent>
                     <isNotEmpty prepend="AND" property="WhereClause" >

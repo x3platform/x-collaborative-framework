@@ -220,6 +220,24 @@
 
       LIMIT $StartIndex$, $PageSize$
     </select>
+    <select id="proc_OrganizationUnit_GetPaging#Oracle" resultMap="proc_OrganizationUnit_FindAll_Result" >
+      SELECT T2.* FROM (
+        SELECT ROWNUM RowIndex, T1.* FROM (
+          SELECT * FROM tb_OrganizationUnit T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
+
+          ORDER BY $OrderBy$
+
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
     <select id="proc_OrganizationUnit_GetPaging#SqlServer" resultMap="proc_OrganizationUnit_FindAll_Result" >
       SELECT *
 

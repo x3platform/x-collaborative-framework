@@ -249,6 +249,7 @@
     <Content Include="views\main\connect\connect-overview.js" />
     <Content Include="views\main\connect\connect-form.js" />
     <Content Include="views\main\connect\connect-list.js" />
+    <Content Include="views\main\connect\my-connect-list.js" />
     <Content Include="views\main\customizes\customize-content-form.js" />
     <Content Include="views\main\customizes\customize-content-list.js" />
     <Content Include="views\main\customizes\customize-layout-form.js" />
@@ -442,6 +443,7 @@
     <Content Include="views\main\account\set-password.cshtml" />
     <Content Include="views\main\sdk\doc.cshtml" />
     <Content Include="views\main\sdk\base64image.cshtml" />
+    <Content Include="views\main\connect\my-connect-list.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>

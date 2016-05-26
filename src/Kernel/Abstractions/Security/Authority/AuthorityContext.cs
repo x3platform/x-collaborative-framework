@@ -7,15 +7,13 @@ using X3Platform.Plugins;
 using X3Platform.Spring;
 using X3Platform.Security.Authority.Configuration;
 using X3Platform.Security.Authority.IBLL;
+using X3Platform.Globalization;
 
 namespace X3Platform.Security.Authority
 {
     /// <summary>权限引擎</summary>
     public sealed class AuthorityContext : CustomPlugin
     {
-        /// <summary>日志记录器</summary>
-        private static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         #region 静态属性:Instance
         private static volatile AuthorityContext instance = null;
 
@@ -78,6 +76,9 @@ namespace X3Platform.Security.Authority
         }
         #endregion
 
+        /// <summary>重启次数计数器</summary>
+        private int restartCount = 0;
+
         #region 函数:Restart()
         /// <summary>重启插件</summary>
         /// <returns>返回信息. =0代表重启成功, >0代表重启失败.</returns>
@@ -89,7 +90,7 @@ namespace X3Platform.Security.Authority
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message, ex);
+                KernelContext.Log.Error(ex.Message, ex);
                 throw ex;
             }
 
@@ -101,15 +102,29 @@ namespace X3Platform.Security.Authority
         /// <summary>重新加载</summary>
         private void Reload()
         {
+            if (this.restartCount > 0)
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_reloading"], AuthorityConfiguration.ApplicationName));
+
+                // 重新加载配置信息
+                AuthorityConfigurationView.Instance.Reload();
+            }
+            else
+            {
+                KernelContext.Log.Info(string.Format(I18n.Strings["application_is_loading"], AuthorityConfiguration.ApplicationName));
+            }
+
             this.configuration = AuthorityConfigurationView.Instance.Configuration;
 
             // 创建对象构建器(Spring.NET)
-            string springObjectFile = this.configuration.Keys["SpringObjectFile"].Value;
+            string springObjectFile = AuthorityConfigurationView.Instance.Configuration.Keys["SpringObjectFile"].Value;
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(AuthorityConfiguration.ApplicationName, springObjectFile);
 
             // 创建数据服务对象
             this.m_AuthorityService = objectBuilder.GetObject<IAuthorityService>(typeof(IAuthorityService));
+
+            KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], AuthorityConfiguration.ApplicationName));
         }
         #endregion
     }

@@ -310,7 +310,7 @@
       UPDATE tb_Account SET IP = #IP# , LoginDate = #LoginDate# WHERE Id = #Id#
     </update>
     <select id="proc_Account_CheckPassword" >
-      SELECT COUNT(*) AS 'Count' FROM tb_Account T WHERE LoginName = #LoginName# AND Password=#Password#
+      SELECT COUNT(*) AS "Count" FROM tb_Account T WHERE LoginName = #LoginName# AND Password=#Password#
     </select>
     <update id="proc_Account_ChangePassword" parameterClass="AccountInfo" >
       UPDATE tb_Account SET Password = #Password# WHERE LoginName = #LoginName#

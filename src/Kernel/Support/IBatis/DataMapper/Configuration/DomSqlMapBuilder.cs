@@ -1701,6 +1701,12 @@ namespace X3Platform.IBatis.DataMapper.Configuration
                 _configScope.Properties.Add("DatabaseSettings.Database", connection.Database);
                 _configScope.Properties.Add("DatabaseSettings.LoginName", connection.LoginName);
                 _configScope.Properties.Add("DatabaseSettings.Password", connection.Password);
+                _configScope.Properties.Add("DatabaseSettings.ConnectionReset", connection.ConnectionReset);
+                _configScope.Properties.Add("DatabaseSettings.ConnectionLifetime", connection.ConnectionLifetime);
+                _configScope.Properties.Add("DatabaseSettings.MinPoolSize", connection.MinPoolSize);
+                _configScope.Properties.Add("DatabaseSettings.MaxPoolSize", connection.MaxPoolSize);
+                _configScope.Properties.Add("DatabaseSettings.Pooling", connection.Pooling);
+                _configScope.Properties.Add("DatabaseSettings.ConnectionTimeout", connection.ConnectionTimeout);
                 _configScope.Properties.Add("DatabaseSettings.Provider", connection.Provider);
                 _configScope.Properties.Add("DatabaseSettings.IBatisSqlMapFilePathRoot", connection.IBatisSqlMapFilePathRoot);
             }

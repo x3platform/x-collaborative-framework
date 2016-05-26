@@ -23,6 +23,24 @@ namespace X3Platform.Data.ConnectionPlugins
 
         /// <summary>数据库的登录密码</summary>
         string Password { get; }
+        
+        /// <summary>连接池化</summary>
+        string Pooling { get; }
+
+        /// <summary>连接重置</summary>
+        string ConnectionReset { get; }
+
+        /// <summary>连接回收时间 单位:秒</summary>
+        string ConnectionLifetime { get; }
+
+        /// <summary>连接池最小数量</summary>
+        string MinPoolSize { get; }
+
+        /// <summary>连接池最大数量</summary>
+        string MaxPoolSize { get; }
+
+        /// <summary>连接超时时间 单位:秒</summary>
+        string ConnectionTimeout { get; }
 
         /// <summary>数据库的提供器名称</summary>
         string Provider { get; }

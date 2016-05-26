@@ -194,7 +194,7 @@ namespace X3Platform.Membership.DAL.IBatis
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
-            args.Add("WhereClause", string.Format(" AccountId = '{0}' ORDER BY DATE DESC", StringHelper.ToSafeSQL(accountId)));
+            args.Add("WhereClause", string.Format(" AccountId = '{0}' ORDER BY CREATEDDATE DESC", StringHelper.ToSafeSQL(accountId)));
             args.Add("Length", 0);
 
             return this.ibatisMapper.QueryForList<AccountLogInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
