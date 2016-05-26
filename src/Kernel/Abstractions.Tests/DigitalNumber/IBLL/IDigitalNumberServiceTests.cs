@@ -7,7 +7,7 @@
     using System.Text;
     using System.Xml;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using X3Platform.IBatis.Common.Utilities;
     using X3Platform.IBatis.DataMapper;
@@ -24,7 +24,7 @@
     using X3Platform.Util;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class IDigitalNumberServiceTests
     {
         //-------------------------------------------------------
@@ -32,7 +32,7 @@
         //-------------------------------------------------------
 
         /// <summary>测试 加载</summary>
-        [TestMethod]
+        [Test]
         public void TestFindAll()
         {
             IList<DigitalNumberInfo> list = DigitalNumberContext.Instance.DigitalNumberService.FindAll();
@@ -41,7 +41,7 @@
         }
 
         /// <summary>测试 保存</summary>
-        [TestMethod]
+        [Test]
         public void TestSave()
         {
             DigitalNumberInfo param = new DigitalNumberInfo();
@@ -54,7 +54,7 @@
         }
 
         /// <summary>测试 保存</summary>
-        [TestMethod]
+        [Test]
         public void TestGenerate()
         {
             string result = null;
@@ -86,7 +86,7 @@
         }
 
         /// <summary>测试 保存</summary>
-        [TestMethod]
+        [Test]
         public void TestGenerateCodeByPrefixCode()
         {
             string result = null;
@@ -103,7 +103,7 @@
         }
 
         /// <summary>测试 保存</summary>
-        [TestMethod]
+        [Test]
         public void TestGenerateCodeByCategoryId()
         {
             string result = null;

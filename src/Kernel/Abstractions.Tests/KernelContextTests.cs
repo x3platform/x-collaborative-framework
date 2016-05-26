@@ -2,14 +2,14 @@
 {
   using System;
 
-  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using NUnit.Framework;
 
   /// <summary></summary>
-  [TestClass]
+  [TestFixture]
   public class KernelContextTests
   {
     /// <summary>测试 有权限的方法</summary>
-    [TestMethod]
+    [Test]
     public void TestInit()
     {
       Assert.IsNotNull(KernelContext.Current.AuthenticationManagement);

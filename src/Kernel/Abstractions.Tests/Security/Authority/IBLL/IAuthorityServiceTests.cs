@@ -7,7 +7,7 @@
     using System.Text;
     using System.Xml;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
 
     using X3Platform.IBatis.Common.Utilities;
     using X3Platform.IBatis.DataMapper;
@@ -26,14 +26,14 @@
     using X3Platform.Data;
 
     /// <summary></summary>
-    [TestClass]
+    [TestFixture]
     public class IAuthorityServiceTests
     {
         //-------------------------------------------------------
         // 测试内容
         //-------------------------------------------------------
 
-        [TestMethod]
+        [Test]
         public void FindAll()
         {
             IList<AuthorityInfo> list = AuthorityContext.Instance.AuthorityService.FindAll();
@@ -41,7 +41,7 @@
             Assert.IsNotNull(list);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGetPaging()
         {
             int rowCount = -1;

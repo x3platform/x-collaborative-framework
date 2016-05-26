@@ -5,18 +5,18 @@
   using System.Collections.Generic;
   using System.Security.Cryptography;
 
-  using Microsoft.VisualStudio.TestTools.UnitTesting;
+  using NUnit.Framework;
 
   using X3Platform.Security;
   using X3Platform.Security.Authority;
   using X3Platform.Membership;
 
   /// <summary>加密解密测试</summary>
-  [TestClass]
+  [TestFixture]
   public class SecurityClassTests
   {/*
     /// <summary>测试 有权限的方法</summary>
-    [TestMethod]
+    [Test]
     public void TestSecurityMethod()
     {
       AuthorityTicketTestClass target = new AuthorityTicketTestClass();
@@ -29,7 +29,7 @@
     }
 
     /// <summary>测试 有权限的方法</summary>
-    [TestMethod]
+    [Test]
     [ExpectedException(typeof(SecurityException))]
     public void TestUnSecurityMethod()
     {
