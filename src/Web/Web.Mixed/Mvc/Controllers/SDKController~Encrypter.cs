@@ -58,6 +58,7 @@
         {
             return View("/views/main/sdk/base64.cshtml");
         }
+        #endregion
 
         #region 函数:Base64Image()
         /// <summary>Base64 加密</summary>
