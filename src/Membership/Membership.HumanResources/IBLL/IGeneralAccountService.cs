@@ -15,7 +15,7 @@
         /// <returns></returns>
         void SetMemberCard(MemberInfo member);
         #endregion
-        
+
         #region 函数:GetCertifiedAvatar(string accountId)
         ///<summary>获取相关帐号的头像信息</summary>
         ///<param name="accountId">实例的详细信息</param>
@@ -30,11 +30,17 @@
 
         #region 函数:ChangePassword(string password, string originalPassword)
         /// <summary>修改密码</summary>
-        /// <param name="loginName">登录名</param>
         /// <param name="newPassword">新密码</param>
         /// <param name="originalPassowrd">原始密码</param>
         /// <returns>修改成功, 返回 0, 旧密码不匹配, 返回 1.</returns>
         int ChangePassword(string password, string originalPassword);
+        #endregion
+
+        #region 函数:ChangePassword(string password, string originalPassword)
+        /// <summary>修改密码</summary>
+        /// <param name="loginName">登录名</param>
+        /// <returns>修改成功, 返回 0, 错误, 返回 1.</returns>
+        int ChangeLoginName(string loginName);
         #endregion
     }
 }

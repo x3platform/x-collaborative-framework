@@ -132,11 +132,9 @@
         /// <returns>返回操作结果</returns>
         public string ChangeLoginName(XmlDocument doc)
         {
-            string password = XmlHelper.Fetch("password", doc);
-
-            string originalPassword = XmlHelper.Fetch("originalPassword", doc);
-
-            int result = 0; //service.ChangeLoginName(loginName);
+            string loginName = XmlHelper.Fetch("loginName", doc);
+            
+            int result = service.ChangeLoginName(loginName);
 
             if (result == 0)
             {

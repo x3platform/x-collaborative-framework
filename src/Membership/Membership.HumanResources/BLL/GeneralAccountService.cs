@@ -75,5 +75,29 @@
             return MembershipManagement.Instance.AccountService.ChangePassword(account.LoginName, password, originalPassword);
         }
         #endregion
+
+        #region 函数:ChangeLoginName(string loginName)
+        public int ChangeLoginName(string loginName)
+        {
+            IAccountInfo account = KernelContext.Current.User;
+
+            IAccountInfo newAccount = MembershipManagement.Instance.AccountService.FindOneByLoginName(loginName);
+
+            if (newAccount == null)
+            {
+                MembershipManagement.Instance.AccountService.SetLoginName(account.Id, loginName);
+            }
+            else if (newAccount.Id == account.Id)
+            {
+                // 当前登陆名和 不进行操作
+            }
+            else
+            {
+                throw new GenericException("1", "已存在登陆名");
+            }
+
+            return 0;
+        }
+        #endregion
     }
 }

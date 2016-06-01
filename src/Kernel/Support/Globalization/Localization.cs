@@ -1,10 +1,12 @@
 ﻿namespace X3Platform.Globalization
 {
+    using Common.Logging;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -15,6 +17,8 @@
     /// <summary>本地化信息</summary>
     public class Localization
     {
+        private ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType.ToString());
+
         /// <summary>默认本土化缓存信息</summary>
         Localizer defaultLocalizer = null;
 
@@ -50,7 +54,7 @@
                 return this[name, StringCase.Default];
             }
         }
-        
+
         /// <summary></summary>
         /// <param name="name"></param>
         /// <param name="stringCase"></param>
@@ -62,6 +66,11 @@
                 string text = this.GetLocalizer().GetText(name);
 
                 text = text == null ? this.defaultLocalizer.GetText(name) : text;
+
+                if (text == null)
+                {
+                    logger.Warn(string.Format("locale file node {0} name {1} is null", this.nodeName, name));
+                }
 
                 return ToStringCase(text, stringCase);
             }
@@ -91,6 +100,11 @@
                 string text = this.GetLocalizer().GetText(applicationName, name);
 
                 text = text == null ? this.defaultLocalizer.GetText(applicationName, name) : text;
+
+                if (text == null)
+                {
+                    logger.Warn(string.Format("locale file node {0} name {1} is null", this.nodeName, name));
+                }
 
                 return ToStringCase(text, stringCase);
             }
