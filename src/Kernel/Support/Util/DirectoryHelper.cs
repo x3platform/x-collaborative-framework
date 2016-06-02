@@ -118,11 +118,11 @@ namespace X3Platform.Util
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
             {
-                return path.Replace("\\", "/");
+                return path.Replace("\\", "/").Replace("//", "/");
             }
             else
             {
-                return path.Replace("/", "\\");
+                return path.Replace("/", "\\").Replace("\\\\", "\\");
             }
         }
         #endregion
