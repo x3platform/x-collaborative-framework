@@ -28,14 +28,25 @@
         private string fileName;
         private string nodeName;
 
+        /// <summary>空值警告</summary>
+        private bool warnNullValue;
         /// <summary></summary>
         /// <param name="fileName"></param>
         /// <param name="nodeName"></param>
         public Localization(string fileName, string nodeName)
+            : this(fileName, nodeName, true)
+        {
+        }
+        /// <summary></summary>
+        /// <param name="fileName"></param>
+        /// <param name="nodeName"></param>
+        public Localization(string fileName, string nodeName, bool warnNullValue)
         {
             // 设置文件名称和节点名称
             this.fileName = fileName;
             this.nodeName = nodeName;
+
+            this.warnNullValue = warnNullValue;
 
             // 初始化默认翻译
             this.defaultLocalizer = new Localizer(KernelConfigurationView.Instance.ApplicationPathRoot + "locales/" + KernelConfigurationView.Instance.CultureName + "/" + fileName, nodeName);
@@ -67,7 +78,7 @@
 
                 text = text == null ? this.defaultLocalizer.GetText(name) : text;
 
-                if (text == null)
+                if (this.warnNullValue && text == null)
                 {
                     logger.Warn(string.Format("locale file node {0} name {1} is null", this.nodeName, name));
                 }
@@ -101,7 +112,7 @@
 
                 text = text == null ? this.defaultLocalizer.GetText(applicationName, name) : text;
 
-                if (text == null)
+                if (this.warnNullValue && text == null)
                 {
                     logger.Warn(string.Format("locale file node {0} name {1} is null", this.nodeName, name));
                 }
