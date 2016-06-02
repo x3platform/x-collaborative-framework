@@ -25,7 +25,7 @@
 
         #region 属性:Translates
         private static volatile Localization values = null;
-        
+
         /// <summary>本地化的翻译信息</summary>
         public static Localization Translates
         {
@@ -49,7 +49,7 @@
 
         #region 属性:Strings
         private static volatile Localization strings = null;
-        
+
         /// <summary>本地化的文本信息 系统提示信息 警告信息 错误信息</summary>
         public static Localization Strings
         {
@@ -73,7 +73,7 @@
 
         #region 属性:Menu
         private static volatile Localization menu = null;
-        
+
         /// <summary>本地化的菜单信息</summary>
         public static Localization Menu
         {
@@ -85,7 +85,7 @@
                     {
                         if (menu == null)
                         {
-                            menu = new Localization("menu.xml", "menu");
+                            menu = new Localization("menu.xml", "menu", false);
                         }
                     }
                 }
