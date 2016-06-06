@@ -117,7 +117,7 @@ main.connect.list = {
 
     x.net.xhr('/api/connect.queryMyList.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var result = x.toJSON(response);

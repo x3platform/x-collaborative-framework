@@ -31,6 +31,8 @@ namespace X3Platform.WebSiteV10
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.IgnoreRoute("{*favorite}", new { favorite = @"(.*/)?(favorite|favicon)?.ico(/.*)?" });
+
             // 配置内置的路由 包括: /customizes/ | /account/
             routes.Add("inner-route", new X3Platform.Web.Mvc.RequestRoute());
             // 配置 /api/ 路由

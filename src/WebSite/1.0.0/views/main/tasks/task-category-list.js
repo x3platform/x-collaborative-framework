@@ -310,7 +310,7 @@ main.tasks.category.list = {
         {
             x.net.xhr('/api/task.category.delete.aspx?id=' + id, {
                 waitingType: 'mini',
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.tasks.category.list.getPaging(main.tasks.category.list.paging.currentPage);
