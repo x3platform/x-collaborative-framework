@@ -1,4 +1,5 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
+<script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
 <script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
 <script type="text/javascript" src="/views/shared/wizards/contacts-wizard.js"></script>
 <script type="text/javascript" src="/views/main/membership/account-list.js"></script>
@@ -9,6 +10,7 @@
       <span>帐号管理</span>
     </div>
     <div id="window-main-table-body" class="table-body">
+        <input id="defaultPassword" name="defaultPassword" type="hidden" value="888888" />
       <table class="table table-nopadding">
         <tr>
           <td class="table-sidebar">

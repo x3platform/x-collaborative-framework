@@ -190,7 +190,7 @@ main.applications.application.setting.list = {
 
         x.net.xhr('/api/application.setting.query.aspx', outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var result = x.toJSON(response);
@@ -254,7 +254,7 @@ main.applications.application.setting.list = {
 
         x.net.xhr(url, outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var param = x.toJSON(response).data;
@@ -325,7 +325,7 @@ main.applications.application.setting.list = {
 
             x.net.xhr('/api/application.setting.save.aspx', outString, {
                 popCorrectValue: 1,
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 callback: function(response)
                 {
                     main.applications.application.setting.list.getPaging(main.applications.application.setting.list.paging.currentPage);
@@ -344,7 +344,7 @@ main.applications.application.setting.list = {
         if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
         {
             x.net.xhr('/api/application.setting.delete.aspx?id=' + id, {
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.applications.application.setting.list.getPaging(main.applications.application.setting.list.paging.currentPage);

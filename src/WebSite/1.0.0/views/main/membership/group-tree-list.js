@@ -191,7 +191,7 @@ main.membership.group.tree.list = {
 
         x.net.xhr('/api/membership.groupTree.query.aspx', outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var result = x.toJSON(response);
@@ -253,7 +253,7 @@ main.membership.group.tree.list = {
 
         x.net.xhr(url, outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var param = x.toJSON(response).data;
@@ -342,7 +342,7 @@ main.membership.group.tree.list = {
             outString += '</request>';
 
             x.net.xhr('/api/membership.groupTree.save.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 callback: function(response)
                 {
                     main.membership.group.tree.list.getPaging(main.membership.group.tree.list.paging.currentPage);
@@ -361,7 +361,7 @@ main.membership.group.tree.list = {
         if(confirm('确定删除?'))
         {
             x.net.xhr('/api/membership.groupTree.delete.aspx?id=' + id, {
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.membership.organization.list.getPaging(main.membership.organization.list.paging.currentPage);
