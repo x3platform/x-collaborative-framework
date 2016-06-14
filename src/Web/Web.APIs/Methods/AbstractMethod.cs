@@ -20,11 +20,13 @@ namespace X3Platform.Web.APIs.Methods
 
         /// <summary>构造函数</summary>
         /// <param name="options">选项</param>
-        /// <param name="doc">Xml文档</param>
         public AbstractMethod(Dictionary<string, string> options)
         {
             this.options = options;
         }
+
+        /// <summary>执行</summary>
+        public abstract void Validate();
 
         /// <summary>执行</summary>
         /// <returns></returns>

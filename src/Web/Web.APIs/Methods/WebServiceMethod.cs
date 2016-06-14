@@ -10,6 +10,11 @@ namespace X3Platform.Web.APIs.Methods
     /// <summary></summary>
     public class WebServiceMethod : AbstractMethod
     {
+        /// <summary>验证必填参数</summary>
+        public override void Validate()
+        {
+        }
+
         /// <summary>执行</summary>
         /// <returns></returns>
         public override object Execute()
