@@ -241,7 +241,7 @@ main.membership.standard.organization.list = {
 
     x.net.xhr('/api/membership.standardOrganization.query.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var result = x.toJSON(response);
@@ -308,7 +308,7 @@ main.membership.standard.organization.list = {
 
     x.net.xhr(url, outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var param = x.toJSON(response).data;
@@ -398,7 +398,7 @@ main.membership.standard.organization.list = {
       outString += '</request>';
 
       x.net.xhr('/api/membership.standardOrganization.save.aspx', outString, {
-        waitingMessage: i18n.net.waiting.saveTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
         callback: function(response)
         {
           main.membership.standard.organization.list.getPaging(main.membership.standard.organization.list.paging.currentPage);
@@ -417,7 +417,7 @@ main.membership.standard.organization.list = {
     if(confirm(i18n.msg.ARE_YOU_SURE_YOU_WANT_TO_DELETE))
     {
       x.net.xhr('/api/membership.standardOrganization.delete.aspx?id=' + id, {
-        waitingMessage: i18n.net.waiting.deleteTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
         callback: function(response)
         {
           main.membership.standard.organization.list.getPaging(main.membership.standard.organization.list.paging.currentPage);

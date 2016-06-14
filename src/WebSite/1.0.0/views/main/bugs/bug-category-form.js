@@ -17,7 +17,7 @@ main.bugs.bug.category.form = {
             outString += '</request>';
 
             x.net.xhr('/api/bug.category.save.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 callback: function(response)
                 {
                     x.page.refreshParentWindow();

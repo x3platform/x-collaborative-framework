@@ -10,7 +10,7 @@ main.sys.email.client = {
   {
     x.net.xhr('/api/email.client.getSmtpServer.aspx?token=' + x.randomText.create(8), {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var param = x.toJSON(response).data;

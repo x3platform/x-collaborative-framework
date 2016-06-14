@@ -29,7 +29,7 @@ main.applications.application.menu.form = {
             outString += '</request>';
 
             x.net.xhr('/api/application.menu.save.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 callback: function(response)
                 {
                     var result = x.toJSON(response).message;

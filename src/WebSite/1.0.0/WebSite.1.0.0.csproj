@@ -211,7 +211,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\javascript\ui\pkg\x.ui.pkg.customizes.js" />
     <Content Include="views\main\account\set-password.js" />
     <Content Include="views\main\account\forgot-password.js" />
     <Content Include="views\main\account\friends\account-friend-detail.js" />
@@ -448,6 +447,7 @@
     <Content Include="web.example.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="resources\" />
     <Folder Include="views\templates\internal\oauth\" />
   </ItemGroup>
   <PropertyGroup>

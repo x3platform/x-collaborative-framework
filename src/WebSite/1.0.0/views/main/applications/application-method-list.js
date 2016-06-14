@@ -371,7 +371,7 @@ main.applications.application.method.list = {
         if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
         {
             x.net.xhr('/api/application.method.delete.aspx?id=' + id, {
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.applications.application.method.list.getPaging(main.applications.application.method.list.paging.currentPage);

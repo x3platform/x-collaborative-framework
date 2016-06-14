@@ -45,7 +45,7 @@ main.account.profile = {
             outString += '</ajaxStorage>';
 
             x.net.xhr('/api/hr.officer.setMemberCard.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 popCorrectValue: 1,
                 callback: function(response)
                 {

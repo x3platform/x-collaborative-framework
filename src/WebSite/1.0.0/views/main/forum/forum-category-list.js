@@ -115,7 +115,7 @@ main.forum.category.list = {
 
     x.net.xhr('/api/forum.category.query.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var result = x.toJSON(response);
@@ -146,7 +146,7 @@ main.forum.category.list = {
     if(confirm('您确定删除?'))
     {
       x.net.xhr('/api/forum.category.delete.aspx?id=' + id, {
-        waitingMessage: i18n.net.waiting.deleteTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
         callback: function(response)
         {
           main.forum.category.list.getPaging(main.forum.category.list.paging.currentPage);

@@ -190,7 +190,7 @@ main.applications.application.setting.group.list = {
 
         x.net.xhr('/api/application.settingGroup.query.aspx', outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var result = x.toJSON(response);
@@ -264,7 +264,7 @@ main.applications.application.setting.group.list = {
 
         x.net.xhr(url, outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var param = x.toJSON(response).data;
@@ -318,7 +318,7 @@ main.applications.application.setting.group.list = {
             outString += '</request>';
 
             x.net.xhr('/api/application.settingGroup.save.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 callback: function(response)
                 {
                     var treeViewRootTreeNodeId = $('#searchApplicationId').val();
@@ -370,7 +370,7 @@ main.applications.application.setting.group.list = {
         if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
         {
             x.net.xhr('/api/application.settingGroup.delete.aspx?id=' + id, {
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.applications.application.setting.group.list.getPaging(1);

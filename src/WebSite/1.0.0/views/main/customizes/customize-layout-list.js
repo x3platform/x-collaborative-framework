@@ -109,7 +109,7 @@ main.customizes.customize.widget.list = {
 
     x.net.xhr('/api/web.customizes.customizeLayout.query.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var result = x.toJSON(response);
@@ -143,7 +143,7 @@ main.customizes.customize.widget.list = {
     if(confirm(i18n.msg.ARE_YOU_SURE_YOU_WANT_TO_DELETE))
     {
       x.net.xhr('/api/web.customizes.customizeLayout.delete.aspx?id=' + id, {
-        waitingMessage: i18n.net.waiting.deleteTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
         callback: function(response)
         {
           main.customizes.customize.widget.list.getPaging(main.customizes.customize.widget.list.paging.currentPage);
