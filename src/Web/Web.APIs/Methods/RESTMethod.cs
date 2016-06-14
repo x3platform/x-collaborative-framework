@@ -1,5 +1,6 @@
 namespace X3Platform.Web.APIs.Methods
 {
+    using Messages;
     #region Using Libraries
     using System;
     using System.Collections.Generic;
@@ -29,6 +30,17 @@ namespace X3Platform.Web.APIs.Methods
 
             Type type = this.target.GetType();
 
+            try
+            {
+                // 验证必填参数
+                this.Validate();
+            }
+            catch (GenericException genericException)
+            {
+                return MessageObject.Stringify(genericException.ReturnCode, genericException.Message);
+            }
+
+            // 执行方法
             return type.InvokeMember(this.methodName, BindingFlags.InvokeMethod, null, target, new object[] { doc });
         }
     }

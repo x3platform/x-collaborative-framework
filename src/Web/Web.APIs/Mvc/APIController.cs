@@ -62,6 +62,7 @@
                 methodName = methodName.Replace("/", ".");
             }
 
+            // 调试情况下记录输入参数
             if (context.Request.QueryString["xhr-debug"] == "1")
             {
                 logger.Info("methodName:" + methodName);
@@ -105,17 +106,12 @@
                 }
             }
 
-            //try
-            //{
-            //    if (Response.StatusCode == 200)
-            //    {
-            //        Response.ContentType = HttpContentTypeHelper.GetValue(true);
-            //    }
-            //}
-            //catch
-            //{
-            //}
-
+            // 调试情况下记录输出参数
+            if (context.Request.QueryString["xhr-debug"] == "1")
+            {
+                KernelContext.Log.Info(responseText);
+            }
+            
             return Content(responseText);
         }
 
