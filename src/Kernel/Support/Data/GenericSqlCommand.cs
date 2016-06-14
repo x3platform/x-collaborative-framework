@@ -71,11 +71,11 @@ namespace X3Platform.Data
             }
             catch (Exception ex)
             {
-                logger.Error("{connectionString:" + connectionString + ", providerName:" + providerName + "}");
+                logger.Error("{connectionString:" + connectionString + ", providerName:" + GetProviderName(providerName) + ", originalProviderName:" + providerName + "}");
 
                 logger.Error(ex);
 
-                throw new GenericSqlConnectionException("connectionString:" + connectionString + ", providerName:" + providerName + ", " + ex.Message);
+                throw new GenericSqlConnectionException("connectionString:" + connectionString + ", providerName:" + GetProviderName(providerName) + ", originalProviderName:" + providerName + "," + ex.Message);
             }
         }
         #endregion
