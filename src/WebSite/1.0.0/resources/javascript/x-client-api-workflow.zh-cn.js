@@ -558,7 +558,7 @@ x.workflow.template = {
 
         x.net.xhr(options.url, outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var outString = '';
@@ -1607,7 +1607,7 @@ x.workflow.instance = {
 
       x.net.xhr('/api/membership.role.findAllByAccountId.aspx?accountId=' + accountId, {
         waitingType: 'mini',
-        waitingMessage: i18n.net.waiting.queryTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
         callback: function(response)
         {
           var outString = '';
@@ -3126,7 +3126,7 @@ x.workflow.node = {
 
     x.net.xhr('/api/workflow.client.getExpectedActors.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var list = x.toJSON(response).data;

@@ -225,7 +225,7 @@ main.account.admin = {
 
       x.net.xhr('/api/hr.general.changePassword.aspx', outString, {
         waitingType: 'mini',
-        waitingMessage: i18n.net.waiting.saveTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
         popCorrectValue: 1,
         callback: function(response)
         {
@@ -254,7 +254,7 @@ main.account.admin = {
 
       x.net.xhr('/api/hr.general.changeLoginName.aspx', outString, {
         waitingType: 'mini',
-        waitingMessage: i18n.net.waiting.saveTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
         popCorrectValue: 1,
         callback: function(response)
         {
@@ -276,7 +276,7 @@ main.account.admin = {
     {
       x.net.xhr('/api/hr.general.disableAccount.aspx', outString, {
         waitingType: 'mini',
-        waitingMessage: i18n.net.waiting.saveTipText,
+        waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
         popCorrectValue: 1,
         callback: function(response)
         {

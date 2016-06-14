@@ -41,7 +41,7 @@ main.applications.application.feature.setting = {
 
     x.net.xhr('/api/application.feature.getTreeTableView.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var outString = '';
@@ -125,7 +125,7 @@ main.applications.application.feature.setting = {
 
     x.net.xhr('/api/application.feature.setTreeTableView.aspx', outString, {
       waitingType: 'mini',
-      waitingMessage: i18n.net.waiting.queryTipText,
+      waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
       callback: function(response)
       {
         var result = x.toJSON(response).message;

@@ -286,7 +286,7 @@ main.applications.application.option.list = {
             outString += '</request>';
 
             x.net.xhr('/api/application.option.save.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 popCorrectValue: 1,
                 callback: function(response)
                 {
@@ -306,7 +306,7 @@ main.applications.application.option.list = {
         if(confirm(i18n.msg.are_you_sure_you_want_to_delete))
         {
             x.net.xhr('/api/application.option.delete.aspx?id=' + id, {
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.applications.application.option.list.getPaging(main.applications.application.option.list.paging.currentPage);

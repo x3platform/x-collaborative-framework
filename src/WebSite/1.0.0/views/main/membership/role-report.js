@@ -278,7 +278,7 @@ main.membership.role.list = {
 
         x.net.xhr('/api/membership.role.query.aspx', outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var result = x.toJSON(response);
@@ -355,7 +355,7 @@ main.membership.role.list = {
 
         x.net.xhr(url, outString, {
             waitingType: 'mini',
-            waitingMessage: i18n.net.waiting.queryTipText,
+            waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
             callback: function(response)
             {
                 var param = x.toJSON(response).data;
@@ -445,7 +445,7 @@ main.membership.role.list = {
             outString += '</request>';
 
             x.net.xhr('/api/membership.role.save.aspx', outString, {
-                waitingMessage: i18n.net.waiting.saveTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_save_tip_text,
                 callback: function(response)
                 {
                     main.membership.role.list.getPaging(main.membership.role.list.paging.currentPage);
@@ -464,7 +464,7 @@ main.membership.role.list = {
         if(confirm('确定删除?'))
         {
             x.net.xhr('/api/membership.role.delete.aspx?id=' + id, {
-                waitingMessage: i18n.net.waiting.deleteTipText,
+                waitingMessage: i18n.strings.msg_net_waiting_delete_tip_text,
                 callback: function(response)
                 {
                     main.membership.role.list.getPaging(main.membership.role.list.paging.currentPage);
