@@ -10,6 +10,8 @@
   <string name="msg_delete_success">删除成功。</string>
   <string name="msg_create_success">创建成功。</string>
   <string name="msg_modify_success">修改成功。</string>
+  <string name="msg_copy_success">复制成功。</string>
+  <string name="msg_commit_success">提交成功。</string>
   <string name="msg_configure_success">配置成功。</string>
   <!-- msg long text -->
   <string name="msg_are_you_sure_you_want_to_delete">确定删除？</string>

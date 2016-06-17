@@ -119,7 +119,7 @@
                         outString.Append("{\"access_token\":\"" + token.Id + "\",");
                         outString.Append("\"token_type\":\"bearer\",");
                         outString.Append("\"expires_in\":\"" + token.ExpiresIn + "\",");
-                        outString.Append("\"refresh_token\":\"" + token.AppKey + "\"}");
+                        outString.Append("\"refresh_token\":\"" + token.RefreshToken + "\"}");
 
                         string callback = XmlHelper.Fetch("callback", doc);
 

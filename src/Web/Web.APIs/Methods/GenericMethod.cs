@@ -1,6 +1,7 @@
 namespace X3Platform.Web.APIs.Methods
 {
     using Globalization;
+    using Json;
     using Messages;
     #region Using Libraries
     using System;
@@ -56,15 +57,52 @@ namespace X3Platform.Web.APIs.Methods
 
                     XmlNodeList nodes = doc.DocumentElement.ChildNodes;
 
+                    bool exists = false;
+
                     foreach (string paramName in paramNames)
                     {
+                        exists = false;
+
                         foreach (XmlNode node in nodes)
                         {
-                            if (node.Name == paramName && !string.IsNullOrEmpty(node.InnerText)) { break; }
+                            if (node.Name == paramName && !string.IsNullOrEmpty(node.InnerText))
+                            {
+                                exists = true;
+                                break;
+                            }
                         }
 
-                        throw new GenericException(I18n.Exceptions["code_kernel_param_is_required"],
-                            string.Format(I18n.Exceptions["text_kernel_param_is_required"], paramName));
+                        if (!exists)
+                        {
+                            throw new GenericException(I18n.Exceptions["code_kernel_param_is_required"],
+                              string.Format(I18n.Exceptions["text_kernel_param_is_required"], paramName));
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>验证必填参数</summary>
+        public virtual void Mapping()
+        {
+            if (this.options.ContainsKey("mappingParams"))
+            {
+                JsonData data = JsonMapper.ToObject(this.options["mappingParams"]);
+
+                XmlNodeList nodes = doc.DocumentElement.ChildNodes;
+
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    if (data.Keys.Contains(nodes[i].Name))
+                    {
+                        // 创建节点
+                        XmlNode mappingNode = doc.CreateElement(data[nodes[i].Name].ToString());
+
+                        mappingNode.InnerXml = nodes[i].InnerXml;
+
+                        doc.DocumentElement.InsertBefore(mappingNode, nodes[i]);
+
+                        doc.DocumentElement.RemoveChild(nodes[i]);
                     }
                 }
             }
@@ -87,6 +125,9 @@ namespace X3Platform.Web.APIs.Methods
             {
                 return MessageObject.Stringify(genericException.ReturnCode, genericException.Message);
             }
+
+            // 设置映射参数
+            Mapping();
 
             // 执行方法
             return type.InvokeMember(this.methodName, BindingFlags.InvokeMethod, null, target, new object[] { doc });

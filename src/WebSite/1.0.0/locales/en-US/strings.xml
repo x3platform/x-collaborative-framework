@@ -10,12 +10,14 @@
   <string name="msg_delete_success">delete success.</string>
   <string name="msg_create_success">create success.</string>
   <string name="msg_modify_success">modify success.</string>
+  <string name="msg_copy_success">copy success.</string>
+  <string name="msg_commit_success">commit success.</string>
   <string name="msg_configure_success">configure success.</string>
   <!-- msg long text -->
   <string name="msg_are_you_sure_you_want_to_delete">Are you sure, you want to delete?</string>
-  <string name="msg_the_same_field_already_exists">The same ${field} already exists.</string>  
+  <string name="msg_the_same_field_already_exists">The same ${field} already exists.</string>
   <string name="msg_the_same_name_already_exists">The same name already exists.</string>
-  <string name="msg_field_is_required">${field} is_required.</string>  
+  <string name="msg_field_is_required">${field} is_required.</string>
   <string name="msg_id_is_required">Id is_required.</string>
   <!-- msg net error -->
   <string name="msg_net_error_401">访问被拒绝，客户试图未经授权访问受密码保护的页面。</string>

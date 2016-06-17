@@ -13,6 +13,9 @@ namespace X3Platform.Web.APIs.Methods
     using X3Platform.Membership;
     using X3Platform.Apps;
     using X3Platform.Web.APIs.Configuration;
+    using System.Text;
+    using X3Platform.Util;
+    using Globalization;
     #endregion
 
     /// <summary>方法执行器</summary>
@@ -26,6 +29,7 @@ namespace X3Platform.Web.APIs.Methods
         /// <summary>执行方法</summary>
         /// <param name="methodName">方法名称</param>
         /// <param name="doc">Xml 文档元素</param>
+        /// <param name="logger">日志对象</param>
         public static string Invoke(string methodName, XmlDocument doc, ILog logger)
         {
             IMethod method = null;
@@ -35,9 +39,10 @@ namespace X3Platform.Web.APIs.Methods
 
             if (param == null)
             {
-                logger.Warn("unkown methodName:" + methodName + ", please contact the administrator.");
+                logger.Warn(string.Format(I18n.Exceptions["text_web_api_method_not_exists"], methodName));
 
-                throw new GenericException("1", "【" + methodName + "】方法不存在，请联系管理员检查配置信息。");
+                throw new GenericException(I18n.Exceptions["code_web_api_method_not_exists"],
+                   string.Format(I18n.Exceptions["text_web_api_method_not_exists"], methodName));
             }
 
             // 应用方法所属的应用信息
@@ -45,7 +50,8 @@ namespace X3Platform.Web.APIs.Methods
 
             if (param.Status == 0)
             {
-                throw new GenericException("1001", "【" + methodName + "】方法 已被禁用。");
+                throw new GenericException(I18n.Exceptions["code_web_api_method_is_disabled"],
+                   string.Format(I18n.Exceptions["text_web_api_method_is_disabled"], methodName));
             }
 
             if (param.EffectScope == 1)
@@ -60,26 +66,26 @@ namespace X3Platform.Web.APIs.Methods
                 if (param.EffectScope == 2 && account == null)
                 {
                     // 需要【登录用户】以上级别权限才能调用此方法
-                    throw new GenericException("1002", "【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。");
-                    // return "{\"message\":{\"returnCode\":1002,\"value\":\"【" + methodName + "】此方法需要【登录用户】级别才能调用此方法。\"}}";
+                    throw new GenericException(I18n.Exceptions["code_web_api_method_need_elevated_privileges"],
+                       string.Format(I18n.Exceptions["text_web_api_method_need_elevated_privileges"], methodName, "登录用户"));
                 }
                 else if (param.EffectScope == 4 && !(AppsSecurity.IsMember(account, application.ApplicationName) || AppsSecurity.IsReviewer(account, application.ApplicationName) || AppsSecurity.IsAdministrator(account, application.ApplicationName)))
                 {
                     // 需要【应用可访问成员】以上级别权限才能调用此方法
-                    throw new GenericException("1003", "【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。");
-                    // return "{\"message\":{\"returnCode\":1003,\"value\":\"【" + methodName + "】此方法需要【应用可访问成员】以上级别权限才能调用此方法。\"}}";
+                    throw new GenericException(I18n.Exceptions["code_web_api_method_need_elevated_privileges"],
+                       string.Format(I18n.Exceptions["text_web_api_method_need_elevated_privileges"], methodName, "应用可访问成员"));
                 }
                 else if (param.EffectScope == 8 && !(AppsSecurity.IsReviewer(account, application.ApplicationName) || AppsSecurity.IsAdministrator(account, application.ApplicationName)))
                 {
                     // 需要【应用审查员】以上级别权限才能调用此方法
-                    throw new GenericException("1004", "【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。");
-                    // return "{\"message\":{\"returnCode\":1004,\"value\":\"【" + methodName + "】此方法需要【应用审查员】以上级别权限才能调用此方法。\"}}";
+                    throw new GenericException(I18n.Exceptions["code_web_api_method_need_elevated_privileges"],
+                       string.Format(I18n.Exceptions["text_web_api_method_need_elevated_privileges"], methodName, "应用审查员"));
                 }
                 else if (param.EffectScope == 16 && !AppsSecurity.IsAdministrator(account, application.ApplicationName))
                 {
                     // 需要【应用管理员】以上级别权限才能调用此方法
-                    throw new GenericException("1004", "【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。");
-                    // return "{\"message\":{\"returnCode\":1005,\"value\":\"【" + methodName + "】此方法需要【应用管理员】以上级别权限才能调用此方法。\"}}";
+                    throw new GenericException(I18n.Exceptions["code_web_api_method_need_elevated_privileges"],
+                       string.Format(I18n.Exceptions["text_web_api_method_need_elevated_privileges"], methodName, "应用管理员"));
                 }
             }
 
@@ -89,7 +95,55 @@ namespace X3Platform.Web.APIs.Methods
 
             foreach (string key in optionObjects.Keys)
             {
-                options.Add(key, ((JsonPrimary)optionObjects[key]).Value.ToString());
+                if (optionObjects[key] is JsonPrimary)
+                {
+                    options.Add(key, ((JsonPrimary)optionObjects[key]).Value.ToString());
+                }
+                else if (optionObjects[key] is JsonObject)
+                {
+                    StringBuilder outString = new StringBuilder();
+
+                    JsonObject obj = (JsonObject)optionObjects[key];
+
+                    outString.Append("{");
+
+                    foreach (string objkey in obj.Keys)
+                    {
+                        outString.AppendFormat("\"{0}\":\"{1}\",", objkey, ((JsonPrimary)obj[objkey]).Value.ToString());
+                    }
+
+                    outString = StringHelper.TrimEnd(outString, ",");
+
+                    outString.Append("}");
+
+                    options.Add(key, outString.ToString());
+                }
+                else if (optionObjects[key] is JsonArray)
+                {
+                    StringBuilder outString = new StringBuilder();
+
+                    JsonArray list = (JsonArray)optionObjects[key];
+
+                    outString.Append("[");
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        if (list[i] is String || list[i] is DateTime)
+                        {
+                            outString.AppendFormat("\"{0}\",", list[i].ToString());
+                        }
+                        else
+                        {
+                            outString.AppendFormat("{0},", list[i].ToString());
+                        }
+                    }
+
+                    outString = StringHelper.TrimEnd(outString, ",");
+
+                    outString.Append("]");
+
+                    options.Add(key, outString.ToString());
+                }
             }
 
             IDictionary<string, string> types = APIsConfigurationView.Instance.Configuration.APIMethodTypes;

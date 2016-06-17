@@ -13,8 +13,6 @@ namespace X3Platform.Services
 
         public ServicesManagement()
         {
-            InitializeComponent();
-
             this.ServiceName = ServicesConfigurationView.Instance.ServiceName;
         }
 

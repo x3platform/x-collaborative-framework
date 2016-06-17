@@ -12,6 +12,7 @@ namespace X3Platform.Connect
     using X3Platform.Connect.Configuration;
     using X3Platform.Connect.IBLL;
     using X3Platform.Globalization;
+    using System.Timers;
     #endregion
 
     /// <summary>应用连接器管理上下文环境</summary>
@@ -23,6 +24,8 @@ namespace X3Platform.Connect
             get { return "Connect"; }
         }
         #endregion
+
+        private Timer timer = new Timer();
 
         #region 属性:Instance
         private static volatile ConnectContext instance = null;
@@ -149,6 +152,22 @@ namespace X3Platform.Connect
             this.m_ConnectAccessTokenService = objectBuilder.GetObject<IConnectAccessTokenService>(typeof(IConnectAccessTokenService));
             this.m_ConnectAuthorizationCodeService = objectBuilder.GetObject<IConnectAuthorizationCodeService>(typeof(IConnectAuthorizationCodeService));
             this.m_ConnectCallService = objectBuilder.GetObject<IConnectCallService>(typeof(IConnectCallService));
+
+            // -------------------------------------------------------
+            // 设置定时器
+            // -------------------------------------------------------
+
+            // 由数据库来定时任务来清理过期会话 
+            timer.Enabled = true;
+
+            timer.Interval = ConnectConfigurationView.Instance.SessionTimerInterval * 60 * 1000;
+
+            timer.Elapsed += delegate (object sender, ElapsedEventArgs e)
+            {
+                 ConnectContext.Instance.ConnectAccessTokenService.Clear(DateTime.Now.AddHours(-ConnectConfigurationView.Instance.SessionTimeLimit));
+            };
+
+            timer.Start();
 
             KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], ConnectConfiguration.ApplicationName));
         }
