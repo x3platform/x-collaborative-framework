@@ -50,7 +50,7 @@ namespace X3Platform.Sessions
         }
         #endregion
 
-        private static Timer timer = new Timer();
+        private Timer timer = new Timer();
 
         #region 属性:AccountCacheService
         private IAccountCacheService m_AccountCacheService = null;

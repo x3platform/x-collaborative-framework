@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!-- Kernel -->
+  <!-- 
+  编码规则 
+  小于 100000 为具体业务系统内部编码 
+  -->
+  <!-- Kernel 100000 - 100599 -->
   <exception name="code_kernel_param_is_null">100000</exception>
   <exception name="text_kernel_param_is_null">参数 {0} 为空</exception>
   <exception name="code_kernel_param_is_required">100001</exception>
   <exception name="text_kernel_param_is_required">参数 {0} 必须填写</exception>
   <exception name="code_kernel_object_is_null">100002</exception>
   <exception name="text_kernel_object_is_null">{0} 为空</exception>
-  <exception name="code_kernel_object_is_required">100005</exception>
+  <exception name="text_kernel_object_is_null_default">对象为空</exception>
+  <exception name="code_kernel_object_is_required">100003</exception>
   <exception name="text_kernel_object_is_required">{0} 必须填写</exception>
-  <exception name="code_kernel_text_is_null">100003</exception>
-  <exception name="text_kernel_text_is_null">文本信息为空</exception>
   <exception name="code_kernel_property_is_null">100004</exception>
   <exception name="text_kernel_property_is_null">对象属性 {0} 为空</exception>
   <exception name="code_kernel_property_is_required">100005</exception>
   <exception name="text_kernel_property_is_required">对象属性 {0} 必须填写</exception>
-  <!-- Applications -->
-  <!-- Memebership -->
+  <exception name="code_kernel_text_is_null">100006</exception>
+  <exception name="text_kernel_text_is_null">文本信息为空</exception>
+  <exception name="code_kernel_file_not_exists">100007</exception>
+  <exception name="text_kernel_file_not_exists">文件 {0} 不存在</exception>
+  <exception name="code_kernel_file_already_exists">100008</exception>
+  <exception name="text_kernel_file_already_exists">文件 {0} 已存在</exception>
+  <exception name="code_kernel_image_not_exists">100006</exception>
+  <exception name="text_kernel_image_not_exists">文件 {0} 不存在</exception>
+  <exception name="code_kernel_image_format_invalid">100006</exception>
+  <exception name="text_kernel_image_format_invalid">图像 {0} 格式错误</exception>
+  <exception name="text_kernel_image_format_invalid_default">图像格式错误</exception>
+  <!-- Web API 100600 - 100604 -->
+  <exception name="code_web_api_method_not_exists">100600</exception>
+  <exception name="text_web_api_method_not_exists">【{0}】方法不存在，请联系管理员检查配置信息。</exception>
+  <exception name="code_web_api_method_is_disabled">100601</exception>
+  <exception name="text_web_api_method_is_disabled">【{0}】方法被禁用。</exception>
+  <exception name="code_web_api_method_need_elevated_privileges">100602</exception>
+  <exception name="text_web_api_method_need_elevated_privileges">【{0}】此方法需要【{1}】级别才能调用此方法。</exception>
+  <exception name="code_web_api_request_exceed_limit">100603</exception>
+  <exception name="text_web_api_request_exceed_limit">您发送的请求太频繁，请稍后再试。</exception>
+  <exception name="code_web_api_ban_search_engine_spider">100604</exception>
+  <exception name="text_web_api_ban_search_engine_spider">Web APIs 禁止爬虫机器人调用</exception>
+  <!-- Applications 101000 - 101999 -->
+  <!-- Memebership  102000 - 102999 -->
+  <!-- Connect      113000 - 113999 -->
 </resources>

@@ -5,7 +5,9 @@ keys:
   # IBatis : 配置映射文件
   IBatisMapping: embedded:defaults.IBatis.SqlMap.xml,X3Platform.Connect
   # API主机名
-  ApiHostName: "${HostName}"
+  ApiHostName: "${HostName}"  
+  # 会话定时器执行时间间隔(单位:分钟)
+  SessionTimerInterval : 15
   # 会话时间限制 (单位:秒)
   SessionTimeLimit: 86400
   # 跟踪调用信息 : On | Off(默认)

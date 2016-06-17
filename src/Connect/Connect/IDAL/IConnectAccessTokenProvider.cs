@@ -104,5 +104,11 @@ namespace X3Platform.Connect.IDAL
         /// <returns></returns>
         int Refesh(string appKey, string refreshToken, DateTime expireDate);
         #endregion
+        
+        #region 函数:Clear(DateTime expiryTime)
+        /// <summary>清理过期时间之前的缓存记录</summary>
+        /// <param name="expiryTime">过期时间</param>
+        int Clear(DateTime expiryTime);
+        #endregion
     }
 }

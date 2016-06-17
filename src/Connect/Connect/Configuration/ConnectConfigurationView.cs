@@ -95,18 +95,46 @@ namespace X3Platform.Connect.Configuration
         }
         #endregion
 
+        #region 属性:SessionTimerInterval
+        private int m_SessionTimerInterval = -1;
+
+        /// <summary>会话定时器执行时间间隔(单位:分钟)</summary>
+        public int SessionTimerInterval
+        {
+            get
+            {
+                if (this.m_SessionTimerInterval == -1)
+                {
+                    // 读取配置信息
+                    this.m_SessionTimerInterval = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
+                        configGlobalPrefix,
+                        "SessionTimerInterval",
+                        this.Configuration.Keys));
+
+                    if (this.m_SessionTimerInterval == -1)
+                    {
+                        // 如果配置文件里没有设置，设置一个默认值。
+                        this.m_SessionTimerInterval = 15;
+                    }
+                }
+
+                return this.m_SessionTimerInterval;
+            }
+        }
+        #endregion
+
         #region 属性:SessionTimeLimit
-        private int m_SessionTimeLimit = 0;
+        private double m_SessionTimeLimit = 0;
 
         /// <summary>会话时间限制 (单位:秒)</summary>
-        public int SessionTimeLimit
+        public double SessionTimeLimit
         {
             get
             {
                 if (this.m_SessionTimeLimit == 0)
                 {
                     // 读取配置信息
-                    this.m_SessionTimeLimit = Convert.ToInt32(KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_SessionTimeLimit = Convert.ToDouble(KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
                         "SessionTimeLimit",
                         this.Configuration.Keys));

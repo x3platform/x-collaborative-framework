@@ -200,5 +200,22 @@ namespace X3Platform.Connect.BLL
             return this.provider.Refesh(appKey, refreshToken, expireDate);
         }
         #endregion
+        
+        #region 函数:Clear(DateTime expiryTime)
+        /// <summary>清理过期时间之前的缓存记录</summary>
+        /// <param name="expiryTime">过期时间</param>
+        public int Clear(DateTime expiryTime)
+        {
+            return this.provider.Clear(expiryTime);
+        }
+        #endregion
+
+        #region 函数:Clear()
+        ///<summary>清空缓存记录</summary>
+        public int Clear()
+        {
+            return this.provider.Clear(DateTime.Now);
+        }
+        #endregion
     }
 }

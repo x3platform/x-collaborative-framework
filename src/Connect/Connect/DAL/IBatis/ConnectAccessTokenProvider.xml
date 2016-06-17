@@ -130,5 +130,11 @@
     <update id="proc_Connect_AccessToken_Refresh#Oracle" >
       UPDATE tb_Connect_AccessToken SET ExpireDate = to_date('$ExpireDate$','yyyy-mm-dd hh24:mi:ss'), RefreshToken = '$NextRefreshToken$', ModifiedDate = CURRENT_TIMESTAMP WHERE AppKey = '$AppKey$' AND RefreshToken = '$RefreshToken$'
     </update>
+    <delete id="proc_Connect_AccessToken_Clear" >
+      <![CDATA[DELETE FROM tb_Connect_AccessToken WHERE ExpireDate < '$ExpiryTime$']]>
+    </delete>
+    <delete id="proc_Connect_AccessToken_Clear#Oracle" >
+      <![CDATA[DELETE FROM tb_Connect_AccessToken WHERE ExpireDate < to_date('$ExpiryTime$','yyyy-mm-dd hh24:mi:ss')]]>
+    </delete>
   </statements>
 </sqlMap>

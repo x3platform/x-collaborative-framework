@@ -21,7 +21,7 @@
     using X3Platform.Apps.Model;
     using X3Platform.Json;
     using System.Text;
-
+    using Globalization;
     /// <summary></summary>
     public sealed class APIController : Controller
     {
@@ -41,13 +41,15 @@
             {
                 KernelContext.Log.Info("crawler:" + Request.UserAgent);
 
-                return Content(GenericException.Stringify("1", "ban search-engine spider"));
+                return Content(GenericException.Stringify(I18n.Exceptions["code_web_api_ban_search_engine_spider"],
+                   I18n.Exceptions["text_web_api_ban_search_engine_spider"]));
             }
 
             // 限制 IP 访问频次 两个小时 500 次
             if (HttpRequestLimit.LimitIP())
             {
-                return Content(GenericException.Stringify("1", "您发送的请求太频繁，请稍后再试。"));
+                return Content(GenericException.Stringify(I18n.Exceptions["code_web_api_request_exceed_limit"],
+                   I18n.Exceptions["text_web_api_request_exceed_limit"]));
             }
 
             HttpContextBase context = this.HttpContext;
@@ -89,9 +91,10 @@
 
                 if (method == null)
                 {
-                    logger.Warn("unkown methodName:" + methodName + ", please contact the administrator.");
-
-                    responseText = GenericException.Stringify("1", "【" + methodName + "】方法不存在，请联系管理员检查配置信息。");
+                    logger.Warn(string.Format(I18n.Exceptions["text_web_api_method_not_exists"], methodName));
+                    
+                    responseText = GenericException.Stringify(I18n.Exceptions["code_web_api_method_not_exists"],
+                       string.Format(I18n.Exceptions["text_web_api_method_not_exists"], methodName));
                 }
                 else if (method.EffectScope == 1 || Authenticate(context, methodName))
                 {
@@ -111,7 +114,7 @@
             {
                 KernelContext.Log.Info(responseText);
             }
-            
+
             return Content(responseText);
         }
 
