@@ -93,16 +93,18 @@ namespace X3Platform.Web.APIs.Methods
 
                 for (int i = 0; i < nodes.Count; i++)
                 {
+                    XmlNode node = nodes[i];
+
                     if (data.Keys.Contains(nodes[i].Name))
                     {
                         // 创建节点
-                        XmlNode mappingNode = doc.CreateElement(data[nodes[i].Name].ToString());
+                        XmlNode mappingNode = doc.CreateElement(data[node.Name].ToString());
 
-                        mappingNode.InnerXml = nodes[i].InnerXml;
+                        mappingNode.InnerXml = node.InnerXml;
 
-                        doc.DocumentElement.InsertBefore(mappingNode, nodes[i]);
+                        doc.DocumentElement.InsertBefore(mappingNode, node);
 
-                        doc.DocumentElement.RemoveChild(nodes[i]);
+                        doc.DocumentElement.RemoveChild(node);
                     }
                 }
             }
