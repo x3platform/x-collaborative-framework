@@ -159,7 +159,9 @@ namespace X3Platform.Web.APIs.Methods
 
             if (method != null)
             {
-                return method.Execute().ToString();
+                object result = method.Execute();
+
+                return result == null ? string.Empty : result.ToString();
             }
 
             return string.Empty;
