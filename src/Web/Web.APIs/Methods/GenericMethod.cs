@@ -12,12 +12,8 @@ namespace X3Platform.Web.APIs.Methods
     #endregion
 
     /// <summary></summary>
-    public class GenericMethod : IMethod
+    public class GenericMethod : AbstractMethod
     {
-        /// <summary>选项</summary>
-        protected Dictionary<string, string> options;
-        /// <summary>Xml文档</summary>
-        protected XmlDocument doc;
         /// <summary>目标对象</summary>
         protected object target;
         /// <summary>类名称</summary>
@@ -43,90 +39,17 @@ namespace X3Platform.Web.APIs.Methods
 
             this.methodName = this.options["methodName"];
         }
-
-        /// <summary>验证必填参数</summary>
-        public virtual void Validate()
-        {
-            if (this.options.ContainsKey("requiredParams"))
-            {
-                string requiredParams = this.options["requiredParams"];
-
-                if (!string.IsNullOrEmpty(requiredParams))
-                {
-                    string[] paramNames = requiredParams.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    XmlNodeList nodes = doc.DocumentElement.ChildNodes;
-
-                    bool exists = false;
-
-                    foreach (string paramName in paramNames)
-                    {
-                        exists = false;
-
-                        foreach (XmlNode node in nodes)
-                        {
-                            if (node.Name == paramName && !string.IsNullOrEmpty(node.InnerText))
-                            {
-                                exists = true;
-                                break;
-                            }
-                        }
-
-                        if (!exists)
-                        {
-                            throw new GenericException(I18n.Exceptions["code_kernel_param_is_required"],
-                              string.Format(I18n.Exceptions["text_kernel_param_is_required"], paramName));
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>验证必填参数</summary>
-        public virtual void Mapping()
-        {
-            if (this.options.ContainsKey("mappingParams"))
-            {
-                JsonData data = JsonMapper.ToObject(this.options["mappingParams"]);
-
-                XmlNodeList nodes = doc.DocumentElement.ChildNodes;
-
-                for (int i = 0; i < nodes.Count; i++)
-                {
-                    XmlNode node = nodes[i];
-
-                    if (data.Keys.Contains(nodes[i].Name))
-                    {
-                        // 创建节点
-                        XmlNode mappingNode = doc.CreateElement(data[node.Name].ToString());
-
-                        mappingNode.InnerXml = node.InnerXml;
-
-                        doc.DocumentElement.InsertBefore(mappingNode, node);
-
-                        doc.DocumentElement.RemoveChild(node);
-                    }
-                }
-            }
-        }
-
+        
         /// <summary>执行</summary>
         /// <returns></returns>
-        public virtual object Execute()
+        public override object Execute()
         {
             this.target = KernelContext.CreateObject(this.className);
 
             Type type = this.target.GetType();
 
-            try
-            {
-                // 验证必填参数
-                this.Validate();
-            }
-            catch (GenericException genericException)
-            {
-                return MessageObject.Stringify(genericException.ReturnCode, genericException.Message);
-            }
+            // 验证必填参数
+            Validate();
 
             // 设置映射参数
             Mapping();
