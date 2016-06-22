@@ -147,8 +147,10 @@ namespace X3Platform.Data
                 {
                     this.connection.Open();
                 }
-                catch
+                catch (Exception ex)
                 {
+                    logger.Error(ex);
+
                     throw new GenericSqlConnectionException("连接数据库失败，请检查数据库配置信息.");
                 }
             }
