@@ -61,7 +61,7 @@ main.connect.home = {
             outString += '<td><strong>' + node.name + '</strong></td>';
             outString += '<td>' + node.description + '</td>';
             outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-            outString += '<td><a href="/connect/overview/' + node.id + '" ><i class="fa fa-edit" ></i></a></td>';
+            outString += '<td><a href="/connect/overview/' + node.id + '?applicationName=PersonalSettings" ><i class="fa fa-edit" ></i></a></td>';
             outString += '</tr>';
 
             counter++;
