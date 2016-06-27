@@ -1,0 +1,69 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / sign.css
+
+**********************************************************/
+
+.border-4{
+	border: 0px solid #fff;
+}
+.border-top{
+	border-top: 1px solid #ccc;
+}
+.border-top-none{
+	border-top: none;
+}
+.border-bottom
+{
+	border-bottom: 1px solid #ccc;
+}
+.border-bottom-none{
+	border-bottom: none;
+}
+.border-bottom-grey-line
+{
+	border-bottom:1px solid #666;
+}
+.border-left-grey-line
+{
+	border-left:1px solid #666;
+}
+.border-right-grey-line
+{
+	border-right:1px solid #ccc;
+}
+
+/* 
+ * light color 
+ */
+.color-yellow {background:#f2bc00;}
+.color-white  {background:#dfdfdf;}
+.color-green  {background:#8dc100;}
+
+.color-yellow h3,
+.color-white h3,
+.color-green h3 
+{
+	color:#000;
+}
+/* 
+ * dark color
+ */
+.color-red    {background:#dd0000;}
+.color-blue   {background:#148ea4;}
+.color-orange {background:#f66e00;}
+
+.color-red h3,
+.color-blue h3,
+.color-orange h3
+{ 
+	color:#FFF;
+}
+
+/**********************************************************
+
+user defined
+
+**********************************************************/

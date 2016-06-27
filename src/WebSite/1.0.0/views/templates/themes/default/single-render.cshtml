@@ -1,0 +1,69 @@
+﻿<!DOCTYPE HTML>
+@* theme: default *@
+<html>
+<head>
+  <title>@ViewBag.Title</title>
+  <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="utf-8" />
+  <meta name="Robots" content="all" />
+  <meta name="Author" content="ruanyu@x3platform.com" />
+  <meta name="Copyright" content="ruanyu (C) @(ViewData["Year"])" />
+  <meta name="Keywords" content="@ViewBag.Keywords" />
+  <meta name="Description" content="@ViewBag.Description" />
+  @RenderSection("head", false)
+  <link rel="shortcut icon" href="/favorite.ico" />
+
+  @if (ViewBag.SystemStatus == "Debug")
+  {
+  <link rel="stylesheet" media="all" href="/resources/bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" media="all" href="/resources/font-awesome/css/font-awesome.css" type="text/css" />
+  <link rel="stylesheet" media="all" href="/views/templates/themes/@(ViewBag.ThemeName)/styles/styles.css" type="text/css" />
+  }
+  else
+  {
+  <link rel="stylesheet" media="all" href="/resources/bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" media="all" href="/resources/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" media="all" href="/views/templates/themes/@(ViewBag.ThemeName)/styles/styles.min.css" type="text/css" />
+  }
+  @RenderSection("styles", false)
+  @if (ViewBag.SystemStatus == "Debug")
+  {
+  <script type="text/javascript" src="/resources/scripts/jquery-1.11.2.js" ></script>
+  <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.js"></script>
+  <script type="text/javascript" src="/resources/scripts/x-client-api-core.zh-cn.js"></script>
+  <script type="text/javascript" src="/resources/scripts/x-client-api-ui.zh-cn.js"></script> 
+  }
+  else
+  {
+  <script type="text/javascript" src="/resources/scripts/jquery-1.11.2.min.js" ></script>
+  <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/resources/scripts/x-client-api-core.zh-cn.min.js"></script>
+  <script type="text/javascript" src="/resources/scripts/x-client-api-ui.min.zh-cn.js"></script>
+  <script type="text/javascript" src="/resources/scripts/baidu-tongji.js"></script>
+  }
+  <script type="text/javascript" src="/views/templates/themes/@(ViewBag.ThemeName)/masterpage.js" ></script>
+  @RenderSection("scripts", false)
+  <style type="text/css">
+  html, body { background-color:#f5f5f5; }
+  #window-main-table-header { background-color:#f0f0f0; }
+  </style>
+</head>
+@* 页面主体内容 *@
+<body>
+<div class="web-body" >
+<div class="web-container" >
+@RenderBody()
+</div>
+@* 以下隐藏元素为需要推送的前端的系统变量的值 *@
+<input id="session-domain" name="session-domain" type="hidden" value="@ViewBag.Domain" />
+<input id="session-id" name="session-session" type="hidden" value="@ViewBag.Session" />
+<input id="session-identity-name" name="session-identity-name" type="hidden" value="@ViewBag.IdentityName" />
+<input id="session-client-id" name="session-client-id" type="hidden" value="@ViewBag.ClientId" />
+<input id="session-client-signature" name="session-client-signature" type="hidden" value="@ViewBag.ClientSignature" />
+<input id="session-timestamp" name="session-timestamp" type="hidden" value="@ViewBag.Timestamp" />
+<input id="session-nonce" name="session-nonce" type="hidden" value="@ViewBag.Nonce" />
+<input id="session-timespan" name="session-timespan" type="hidden" value="@(ViewBag.TimeSpan)ms" />
+</div>
+</body>
+</html>

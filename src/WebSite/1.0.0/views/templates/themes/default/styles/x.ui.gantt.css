@@ -1,0 +1,102 @@
+﻿/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.menu.css
+
+**********************************************************/
+
+/**
+ *gatt diagram
+ */
+
+.ajax-gatt-wrapper
+{
+	font-family:tahoma, arial, verdana;
+	font-size:11px;
+	position: relative;
+}
+.ajax-gatt-wrapper div
+{
+	
+}
+
+.ajax-gatt-wrapper table
+{
+	border-collapse:collapse;
+	background-color:#fff;
+	border:1px solid #ccc;
+}
+.ajax-gatt-wrapper table td
+{
+	border:1px solid #ccc;
+}
+.ajax-gatt-wrapper table td div
+{
+	line-height:100%;
+}
+
+.ajax-gatt-task-title
+{
+	font-family:tahoma, arial, verdana;
+	font-size:12px;
+	font-weight:bold;
+	height:200%;
+	width:200px;
+	*padding-top:10px;
+
+}
+
+.ajax-gatt-month
+{
+	padding-left:5px;
+	font-size:11px;
+	font-weight:bold;	
+}
+
+.ajax-gatt-today
+{
+	background-color: #FDFDE0;	
+}
+
+.ajax-gatt-weekend
+{
+	font-family:tahoma, arial, verdana;
+	font-size:11px;
+	background-color:#F5F5F5;
+	text-align:center;
+}
+
+.ajax-gatt-day
+{
+	font-family:tahoma, arial, verdana;
+	font-size:11px;
+	text-align:center;
+}
+
+.ajax-gatt-task
+{
+	border-top:1px solid #CACACA;
+	border-bottom:1px solid #CACACA;
+	height:14px;
+	background-color:#AAA8CB;
+	po
+}
+.ajax-gatt-task-resource
+{
+	font-size:12px;
+	margin:-3px 0 0 4px;
+}
+
+.ajax-gatt-task-text
+{
+	font-size:12px;
+}
+
+.ajax-gatt-progress
+{
+	background-color:#fff;
+	height:2px;
+	overflow: hidden;
+	margin-top:6px;
+}

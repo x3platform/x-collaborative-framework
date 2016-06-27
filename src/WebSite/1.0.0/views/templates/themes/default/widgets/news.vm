@@ -1,0 +1,66 @@
+﻿##
+## /apps/templates/web/customize/widgets/news.vm
+##
+<style type="text/css">
+.windows-widgets-news-container {padding: 0 0 10px 10px;}
+.windows-widgets-news-item {padding-top: 10px;}
+</style>
+
+<script type="text/javascript" >
+//<![CDATA[
+$(document).ready(function()
+{
+    // 本地服务器状态不可用或者当前用户为匿名用户时退出脚本
+    if(x.cookies.find('session$local$status') == 0 || x.cookies.find('session$local$account') == 'anonymous') { return; }
+   
+    var account = x.toJSON(x.cookies.find('session$local$account'));
+    
+    var maxRowCount = x.form.query('${widgetRuntimeId}\$maxRowCount').val();
+    
+    var outString = '<?xml version="1.0" encoding="utf-8" ?>';
+
+    outString += '<ajaxStorage>';
+    outString += '<categoryIndex>' + x.form.query('${widgetRuntimeId}\$categoryIndex').val() + '</categoryIndex>';
+    outString += '<maxRowCount>' + x.form.query('${widgetRuntimeId}\$maxRowCount').val() + '</maxRowCount>';
+    outString += '<maxLength>' + x.form.query('${widgetRuntimeId}\$maxLength').val() + '</maxLength>';
+    outString += '</ajaxStorage>';
+    
+    x.net.xhr('/api/news.getWidget.aspx', outString, {
+        waitingType: 'mini',
+        waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
+        outputException: 'console',
+        callback: function(response)
+        {
+            var result = x.toJSON(response);
+
+            var list = result.ajaxStorage;
+                    
+            var outString = '';
+
+            var counter = 0;
+
+            list.each(function(node, index)
+            {
+                outString += '<div class="windows-widgets-news-item" ><a href="/news/archive/' + node.id + '.aspx" target="_blank" >' + node.title + '</a></div>';
+                counter ++;
+            });
+
+            while(counter < maxRowCount)
+            {
+                outString += '<div class="windows-widgets-news-item" >&nbsp;</div>';
+                counter ++;
+            }
+
+            x.form.query('${widgetRuntimeId}$container').html(outString);
+        }
+    });
+});
+//]]>
+</script>
+
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="${height} ${width}" >
+<input id="${widgetRuntimeId}\$categoryIndex" type="hidden" value="${categoryIndex}" />
+<input id="${widgetRuntimeId}\$maxRowCount" type="hidden" value="${maxRowCount}" />
+<input id="${widgetRuntimeId}\$maxLength" type="hidden" value="${maxLength}" />
+<div id="${widgetRuntimeId}-container" class="windows-widgets-news-container" ></div>
+</div>

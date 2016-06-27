@@ -1,0 +1,125 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / text.css
+
+**********************************************************/
+
+.text-left {
+	text-align: left;
+}
+.text-center {
+	text-align: center;
+}
+.text-right {
+	text-align: right;
+}
+
+/***********************************************************
+default font style
+***********************************************************/
+
+.link-text {
+	text-decoration: underline;
+	color: #FF9900;
+}
+.link-help {
+	cursor: help;
+}
+.light-text {
+	color: #f90;
+}
+.blue-text {
+	color: blue;
+}
+.maroon-text {
+	color: maroon;
+}
+.maroon-text a {
+	color: maroon;
+}
+.red-text {
+	color: red;
+}
+.red-text a {
+	color: red;
+}
+.green-text {
+	color: green;
+}
+.green-text a {
+	color: green;
+}
+.gray-text {
+	color: #808080;
+}
+.gray-text a {
+	color: #808080;
+}
+.gainsboro-text {
+	color: #CCCCCC;
+}
+.rating-text {
+    color: #FFF;
+    background: #333;
+    padding: 0 4px 0 4px;
+}
+.small-text {
+	font-size: 12px;
+	font-weight: normal;
+	letter-spacing: normal;
+}
+.underline-text {
+	text-decoration: underline;
+}
+.normal-text {
+	letter-spacing: 0px;
+}
+.bold-text {
+	font-weight: bold;
+}
+.error-text {
+	color: #FF3535;
+	font-weight: bold;
+}
+.required-text
+{
+	background-image:url(images/shield_yellow_14x14.gif);
+	background-repeat:no-repeat;
+	padding:0 0 0 16px;
+}
+
+/**********************************************************
+
+user defined
+
+**********************************************************/
+
+.notice-text {
+    color:#a15300; 
+    background-color:#fcffca;
+    border-top:1px solid #c75400;
+    border-bottom:1px solid #c75400; 
+    line-height:150%; 
+    font-size:12px;
+}
+.notice-text span {    
+    padding: 0 4px 0 4px; 
+}
+.message-none-text {
+	padding: 4px 8px 6px 8px;
+	text-align: center;
+	color: #ccc;
+}
+.message-none-text a {
+	color: #ccc;
+}
+.tooltip-loading-text {
+	padding: 20px;
+	font-size: 12px;
+	font-style: italic;
+	text-align: center;
+	letter-spacing: 1px;
+	display: block;
+}

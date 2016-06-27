@@ -1,0 +1,47 @@
+﻿##
+##
+##
+<div style="padding:10px;" class="x-ui-pkg-customize-widget-whitebox" >
+
+<input id="${widgetRuntimeId}_ip" type="text" style="width:200px;" /> <br />
+
+<input id="${widgetRuntimeId}_btn" type="button" value="查询IP信息" style="margin:10px 0 0 0;"  />
+
+<div id="${widgetRuntimeId}"></div>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	var widget = '${widgetRuntimeId}';
+
+	$('#' + widget + '_btn').bind('click', function(){
+		
+		var url = '/services/Elane/X/Location/Spy/Ajax.IPWrapper.aspx';
+		
+		var outString = '';
+	    
+		outString += '<ajaxStorage>';
+		outString += '<action><![CDATA[getLocation]]></action>';
+		outString += '<ip><![CDATA['+ $('#' + widget + '_ip').val() + ']]></ip>';
+		outString += '</ajaxStorage>';
+
+		var options = {
+			resultType: 'json',
+			xml: outString
+		};
+	    
+		jQuery.post( url, options, function(response) {
+					
+					x.net.fetchException(response);
+	        
+					var result = x.toJSON(response).ajaxStorage;
+					
+					$('#${widgetRuntimeId}').html('<div style="padding:6px 0 4px 0;"><strong>IP:</strong> ' + result.ip + '</div><div><strong>所在地:</strong> ' + result.location+ '</div>');
+				}
+		);    
+	});
+});
+</script>
+
+</div>

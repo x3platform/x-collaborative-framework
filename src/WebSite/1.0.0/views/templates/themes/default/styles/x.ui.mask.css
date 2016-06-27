@@ -1,0 +1,34 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / styles.debug.css
+
+**********************************************************/
+
+
+/* ajax-silver-wrapper */
+.ajax-mask-context{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	text-align: center;
+	line-height: 0;
+}
+.ajax-mask-wrapper{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 90;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+}
+
+/* ajax-popup-wrapper */
+.ajax-mask-popup-wrapper{
+	z-index : 100;
+    padding : 20px;
+    background-color : #fff;
+}

@@ -1,0 +1,16 @@
+﻿##
+##
+##
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="${height} ${width}" >
+<div style="padding:0 10px 10px 10px;">
+##
+#foreach($item in $list)
+##
+##
+##
+<div style="padding:6px 0 0 0 ;" ><a href="${item.Url}" target="_blank" title="${item.Description}" >${item.Title}</a></div>
+##
+#end
+##
+</div>
+</div>

@@ -1,0 +1,46 @@
+/**********************************************************
+
+CSS Document 2.0
+
+x-ui / x.ui.combobox.css
+
+**********************************************************/
+
+/* 
+ * x-ui-pkg-combobox
+ */
+.x-ui-pkg-combobox-wrapper
+{
+	clear:both;
+	border-top:0;
+	margin-top:0;
+}
+.x-ui-pkg-combobox
+{
+	background-color: #fff;
+	margin:0px 0 0;
+  max-height: 200px;
+  overflow:auto;
+}
+.x-ui-pkg-combobox ul
+{
+    padding:0;
+    margin:0;
+}
+.x-ui-combobox ul li
+{
+    list-style:none;
+}
+.x-ui-pkg-combobox ul li a
+{
+	display: block;
+	padding: 2px 0 2px 8px;
+	text-decoration: none;
+	color: #000;
+}
+.x-ui-pkg-combobox ul li a:hover
+{
+	text-decoration: none;
+	color: #000;
+	background-color: #d6e8ff;
+}

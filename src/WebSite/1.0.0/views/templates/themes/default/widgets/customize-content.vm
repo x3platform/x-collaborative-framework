@@ -1,0 +1,33 @@
+﻿##
+## /widgets/customize-content.vm
+##
+<style type="text/css">
+.windows-widgets-customize-content-container {padding:6px 10px 10px 10px;}
+</style>
+
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="${height} ${width}" >
+<input id="${widgetRuntimeId}-contentName" type="hidden" value="${contentName}" />
+<div id="${widgetRuntimeId}-container" class="windows-widgets-customize-content-container" ></div>
+</div>
+<script type="text/javascript" >
+$(document).ready(function()
+{
+    var contentName = $('#${widgetRuntimeId}-contentName').val();
+    
+    console.log(contentName);
+
+    x.net.xhr('/api/web.customizes.customizeContent.findOneByName.aspx?name=' + contentName, {
+        waitingType: 'mini',
+        waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
+        outputException: 'console',
+        callback: function(response)
+        {
+            var result = x.toJSON(response);
+
+            var param = result.data;
+
+            $('#${widgetRuntimeId}-container').html(param.html);
+        }
+    });
+});
+</script>

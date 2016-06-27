@@ -1,0 +1,31 @@
+﻿/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.tooltip.css
+
+**********************************************************/
+
+/* ajax-tooltip */
+.ajax-tooltip {
+	color:#fff;
+	margin: 0;
+    padding: 4px;
+    font-size:12px;
+	background-repeat: no-repeat;
+	/* background-image:url('/resources/images/common/tooltip_left.gif'); */
+}
+.ajax-tooltip span{
+	padding: 4px;
+    _padding: 6px 6px 3px 6px; /* Fixd IE6 */
+	display:black;
+	margin-bottom: 4px;
+	background-repeat: repeat;
+	background-image:url('/resources/images/common/tooltip_right.gif');
+}
+.ajax-tooltip div,
+.ajax-tooltip img 
+{
+    height: 6px;
+    line-height: 6px;
+}

@@ -1,0 +1,215 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / default.css
+
+**********************************************************/
+
+/*#region {class.web-body}*/
+.web-body{
+	padding:0;
+	margin:0 auto 0 auto;
+	text-align: left;
+}
+/*#endregion */
+
+.web-container{
+	width:100%;
+	border: 0px;
+    display:table;
+}
+
+.web-container-padding{
+	padding:12px 8px 12px 8px;
+}
+
+.web-container-window{
+	float:left;
+	width:772px; /* 772 + 8 = 780 */
+	margin: 8px 0 0 8px !important;
+	margin: 8px 0 0 4px; /* fix ie 6. */
+	min-height: 400px !important;/* min-height */
+	height: auto;
+	_height: 380px;
+}
+
+.web-layout{
+	width:100%;
+}
+
+.web-layout-left{
+	width:230px;
+	vertical-align: top;
+}
+
+.web-layout-right{
+}
+.panel-body textarea.form-control {
+  border:none !important;
+  padding:0;
+}
+/***********************************************************
+
+************************************************************/
+
+/**
+ * 导航条的留白
+ */
+.navbar-inverse .navbar-text,
+.navbar-nav > li > a 
+{
+    color:#fff !important;
+}
+.navbar-padding 
+{
+    padding: 0 20px 0 0;
+}
+
+/*.nav-pager-1{
+	float: right;
+	padding:0 0px 0 0;
+}
+
+.nav-pager-1 span{
+	padding:0 0 0 0px;
+}
+.nav-pager-1 a
+{
+}
+.nav-pager-1 *{
+	/ * vertical-align: bottom; * /
+}
+.nav-pager-message-1{
+	float: right;
+	padding: 10px 0 0 0;
+}
+.nav-pager-2{
+	text-align: left;
+	border-top: 1px solid #ccc;
+	padding: 6px 8px 2px 8px;
+	margin: auto;
+}*/
+
+
+/*****************************************************
+
+******************************************************/
+
+.min-height{
+	min-height: 400px !important;
+	height: auto;
+	*height: 400px;
+}
+.margin-bottom{
+	margin-bottom:14px !important;
+}
+.padding-bottom{
+	padding-bottom:14px !important;
+}
+.float-left{
+	float: left;
+}
+.float-right{
+	float: right;
+}
+.align-left { text-align:left; }
+.align-right { text-align:right; }
+.align-center { text-align:center; }
+.alpha{
+	opacity: 0.75;
+	filter:alpha(opacity=75);
+}
+.clear{
+	border-top:0px solid transparent !important;
+	/*margin-top:-1px !important;*/
+	border-top:0;
+	margin-top:0;
+	clear:both;
+	visibility:hidden;
+}
+.icon {
+    display: inline-block;
+    height: 16px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 16px;
+}
+.hidden{
+	display: none;
+}
+
+.vertical-top *{
+	vertical-align: top;
+}
+
+.vertical-middle *{
+	vertical-align: middle;
+}
+
+.vertical-bottom *{
+	vertical-align: baseline;
+}
+/* 水平置中 */
+.fixed-center{
+    width:100px;
+    height:100px;
+    position:fixed;
+    top:50%;
+    left:50%;
+
+    /* 上邊界計算 */
+    /* -(border-top-width + padding-top + (height/2) ) */
+    /* 或者是整體高除以二(offsetHeight/2) */
+    margin-top:-52px;
+    /* 左邊界計算 */
+    /* -(border-left-width + padding-left + (width/2) ) */
+    /* 或者是整體寬除以二(offsetWidth/2) */
+    margin-left:-52px;
+
+    /* position fixed for IE6 */
+    _position: absolute;
+    _margin-top:0;
+    /* clientHeight:不包含邊匡的區塊高度( padding + height ) */
+    /* offsetHeight:包含邊匡的區塊高度( border + padding + height ) */
+    _top:expression(
+    documentElement.scrollTop +
+        ( documentElement.clientHeight-this.offsetHeight )/2
+    );
+}
+
+.fixed-top-center{
+    width:100px;
+    height:100px;
+    position:fixed;
+    top:0;
+    left:50%;
+    margin-left:-52px;
+
+    /* position fixed for IE6 */
+    _position: absolute;
+    _top:expression(documentElement.scrollTop);
+}
+
+.fixed-bottom-center{
+    width:100px;
+    height:100px;
+    position:fixed;
+
+    bottom:0;
+    left:50%;
+    margin-left:-52px;
+
+    /* position fixed for IE6 */
+    _position: absolute;
+    _top:expression(
+        documentElement.scrollTop +
+        documentElement.clientHeight-this.offsetHeight
+    );
+}
+
+.preview-image-width
+{	
+	/* fixed ie 6 img width */
+    _width:expression((this.offsetWidth > 720) ? (720 + "px") : this.offsetWidth + "px" );
+}

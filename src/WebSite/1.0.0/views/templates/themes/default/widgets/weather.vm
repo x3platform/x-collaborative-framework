@@ -1,0 +1,35 @@
+﻿##
+##
+##
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="padding:0px 0 0 10px;" >
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var url = '/services/Elane/X/Location/Spy/Ajax.WeatherWrapper.aspx';
+	
+	var outString = '';
+    
+    outString += '<ajaxStorage>';
+    outString += '<action><![CDATA[getTodayWeather]]></action>';
+    outString += '<city><![CDATA[重庆]]></city>';
+    outString += '</ajaxStorage>';
+
+    var options = {
+        resultType: 'json',
+        xml: outString
+    };
+    
+    jQuery.post( url, options, function(response) {
+				
+				x.net.fetchException(response);
+        
+				var result = x.toJSON(response).ajaxStorage;
+				
+				$('#${widgetRuntimeId}').html(result.weather);
+			}
+	);        
+});
+</script>
+</div>

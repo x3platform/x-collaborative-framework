@@ -1,0 +1,40 @@
+﻿##
+##
+##
+<style tyle="text/css">
+.today { padding:14px 0 0 0px;  height:30px; text-align:center; }
+.today * { vertical-align:top; }
+</style>
+
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox today" >
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var url = '/services/Elane/X/Location/Spy/Ajax.CalendarWrapper.aspx';
+	
+	var outString = '';
+    
+    outString += '<ajaxStorage>';
+    outString += '<action><![CDATA[getCalendar]]></action>';
+    outString += '<date><![CDATA['+ x.date.newTime(new Date()).toString('yyyy-MM-dd') + ']]></date>';
+    outString += '</ajaxStorage>';
+
+    var options = {
+        resultType: 'json',
+        xml: outString
+    };
+    
+    jQuery.post( url, options, function(response) {
+				
+				x.net.fetchException(response);
+        
+				var result = x.toJSON(response).ajaxStorage;
+				
+				$('#${widgetRuntimeId}').html(result.calendar);
+			}
+	);        
+});
+</script>
+</div>
