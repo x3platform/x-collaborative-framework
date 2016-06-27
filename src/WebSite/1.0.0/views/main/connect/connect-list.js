@@ -28,7 +28,7 @@ main.connect.list = {
     main.connect.list.paging.query.scence = 'Query';
     // main.connect.list.paging.query.where.SearchText = $('#searchText').val().trim();
 
-    main.connect.list.paging.query.orders = ' T.UpdateDate DESC ';
+    main.connect.list.paging.query.orders = ' T.ModifiedDate DESC ';
 
     main.connect.list.getPaging(1);
   },
