@@ -115,7 +115,7 @@ namespace X3Platform.Web.Util
                 if (!parameters.GenerateInMemory)
                 {
                     // 可以指定你所需的任何文件名。
-                    parameters.OutputAssembly = namespaceRoot + "." + className;
+                    parameters.OutputAssembly = namespaceRoot + "." + className + ".dll";
                 }
 
                 //编译代理类  
