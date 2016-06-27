@@ -1,7 +1,7 @@
 ---
 keys: 
-  # 命名规则 Camel 驼峰命名规则 首字母小写其余单词的首字母大写 | Underline 下划线命名规则 所有字母小写加下划线分隔
-  NamingRule: Camel
+  # 命名规则 camel 驼峰命名规则 首字母小写其余单词的首字母大写 | underline 下划线命名规则 所有字母小写加下划线分隔
+  NamingRule: camel
 specialWords: 
   IP: ip
   MSN: msn

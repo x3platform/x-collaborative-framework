@@ -1,5 +1,5 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script type="text/javascript" src="/resources/scripts/app/x.app.js"></script>
 <script type="text/javascript" src="/views/main/entities/entity-schema-list.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"应用管理\应用配置管理" } }))
 <div id="window-container" class="window-container">
