@@ -56,24 +56,48 @@
                 }
                 else if (Regex.IsMatch(friendlyUrl, @"^form$"))
                 {
-                  // 表单信息
-                  routeData.Values.Add("controller", "Home");
-                  routeData.Values.Add("action", "Form");
-                  routeData.Values.Add("options", "{}");
+                    // 表单信息
+                    routeData.Values.Add("controller", "Home");
+                    routeData.Values.Add("action", "Form");
+                    routeData.Values.Add("options", "{}");
                 }
                 else if (Regex.IsMatch(friendlyUrl, @"^form\?id=([\w+\-]+)$"))
                 {
-                  // 表单信息
-                  routeData.Values.Add("controller", "Home");
-                  routeData.Values.Add("action", "Form");
-                  routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^form\?id=([\w+\-]+)$").Groups[1].Value + "\"}");
+                    // 表单信息
+                    routeData.Values.Add("controller", "Home");
+                    routeData.Values.Add("action", "Form");
+                    routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^form\?id=([\w+\-]+)$").Groups[1].Value + "\"}");
                 }
                 else if (Regex.IsMatch(friendlyUrl, @"^overview/([\w+\-]+)$"))
                 {
-                  // 概述信息
-                  routeData.Values.Add("controller", "Home");
-                  routeData.Values.Add("action", "Overview");
-                  routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^overview/([\w+\-]+)$").Groups[1].Value + "\"}");
+                    // 概述信息
+                    routeData.Values.Add("controller", "Home");
+                    routeData.Values.Add("action", "Overview");
+                    routeData.Values.Add("options", "{\"id\":\"" + Regex.Match(friendlyUrl, @"^overview/([\w+\-]+)$").Groups[1].Value + "\"}");
+                }
+                else if (Regex.IsMatch(friendlyUrl, @"^overview/([\w+\-]+)\?applicationName=([\w+\-]+)$"))
+                {
+                    // 概述信息
+                    match = Regex.Match(friendlyUrl, @"^overview/([\w+\-]+)\?applicationName=([\w+\-]+)$");
+
+                    routeData.Values.Add("controller", "Home");
+                    routeData.Values.Add("action", "Overview");
+                    routeData.Values.Add("options", "{\"id\":\"" + match.Groups[1].Value + "\",\"applicationName\":\"" + match.Groups[2].Value + "\"}");
+                }
+                else if (Regex.IsMatch(friendlyUrl, @"^form\?applicationName=([\w+\-]+)$"))
+                {
+                    // 表单信息
+                    routeData.Values.Add("controller", "Home");
+                    routeData.Values.Add("action", "Form");
+                    routeData.Values.Add("options", "{\"applicationName\":\"" + Regex.Match(friendlyUrl, @"^form\?applicationName=([\w+\-]+)$").Groups[1].Value + "\"}");
+                }
+                else if (Regex.IsMatch(friendlyUrl, @"^form\?id=([\w+\-]+)&applicationName=([\w+\-]+)$"))
+                {
+                    // 表单信息
+                    match = Regex.Match(friendlyUrl, @"^form\?id=([\w+\-]+)&applicationName=([\w+\-]+)$");
+                    routeData.Values.Add("controller", "Home");
+                    routeData.Values.Add("action", "Form");
+                    routeData.Values.Add("options", "{\"id\":\"" + match.Groups[1].Value + "\",\"applicationName\":\"" + match.Groups[2].Value + "\"}");
                 }
                 else if (Regex.IsMatch(friendlyUrl, @"^([\w+\-]+)/list$"))
                 {
