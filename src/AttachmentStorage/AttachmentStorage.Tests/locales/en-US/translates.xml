@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Common -->
+  <translate name="AutomaticNumbering">Automatic numbering</translate>
+  <translate name="Keywords">Keywords</translate>
+  <translate name="Name">Name</translate>
+  <translate name="SubmittedBy">Submitted by</translate>
+  <translate name="Attachments">Attachments</translate>
+  <translate name="UploadFile">Upload</translate>
+  <translate name="Tag">Tag</translate>
+  <translate name="Status">Status</translate>
+  <translate name="ModifiedDate">Modified Date</translate>
+  <translate name="CreatedDate">Created Date</translate>
+  <!-- Membership -->
+  <application name="Membership">
+    <translate name="MyProfile">My Profile</translate>
+    <translate name="MyTasks">My Tasks</translate>
+    <translate name="MyFriends">My Friends</translate>
+    <translate name="ChangePassword">Change password</translate>
+    <translate name="RememberLoginName">Remember login name</translate>
+    <translate name="ForgotLoginPassword">Forgot login password</translate>
+    <translate name="CreateNewAccount">Create new account</translate>
+    <translate name="Settings">Settings</translate>
+    <translate name="SignIn">Sign in</translate>
+    <translate name="SignUp">Sign up</translate>
+    <translate name="SignOut">Sign out</translate>
+  </application>
+  <!-- Bugs -->
+  <application name="Bugs">
+    <translate name="Bugs">Bugs</translate>
+    <translate name="Bug">Bug</translate>
+    <translate name="Code">Code</translate>
+    <translate name="Title">Title</translate>
+    <translate name="Category">Category</translate>
+    <translate name="Content">Content</translate>
+    <translate name="Project">Project</translate>
+    <translate name="Status">Status</translate>
+    <translate name="AssignTo">Assign To</translate>
+    <translate name="Priority">Priority</translate>
+    <translate name="SimilarBugs">Similar Bugs</translate>
+    <translate name="Comment">Comment</translate>
+    <translate name="History">History</translate>
+  </application>
+</resources>
