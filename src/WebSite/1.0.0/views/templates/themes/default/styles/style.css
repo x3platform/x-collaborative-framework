@@ -1,0 +1,90 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / style.css
+
+**********************************************************/
+
+html, body
+{
+	color: #000;
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	font-family: tahoma, helvetica, arial, "Hiragino Sans GB", "Microsoft YaHei", "SimSun", sans-serif;
+	/* font: 16px/1.5 tahoma, helvetica, arial, "Hiragino Sans GB", "Microsoft YaHei", "SimSun", sans-serif;*/
+}
+
+div
+{
+	border: 0 solid #000;
+}
+
+table { border-collapse:separate; border-spacing: 0;}      
+th, td { text-align: left; font-weight: normal;}
+
+table,tr,td{
+	border-collapse: collapse;
+}
+
+td{
+	color: #000;
+	line-height:150%;
+}
+
+img{
+   border: 0;
+   margin: 0;
+	padding: 0;
+}
+
+ol, ul{
+	margin:0;
+	padding: 0;
+	list-style: none;
+}
+
+li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+:focus { outline: 0; }      
+
+a{
+	color: #003399;
+	text-decoration: underline;
+}
+
+a:hover{
+	color: #f00;
+	text-decoration: underline;
+}
+
+a, a:link, a:visited, a:hover, a:active 
+{
+	text-decoration:none
+}   
+
+strong{
+	font-weight: bold;
+}
+
+form{
+	margin: 0 ;
+	padding: 0 ;
+}
+
+input, textarea, select, button {
+	font-size: 100%; font-family: inherit;
+} 
+     
+select { margin: inherit;}     
+
+hr {margin: 0;padding: 0;border: 0;color: #000;background-color: #000;height: 1px}
+
+img, iframe {
+	 border: none; text-decoration:none;
+}      

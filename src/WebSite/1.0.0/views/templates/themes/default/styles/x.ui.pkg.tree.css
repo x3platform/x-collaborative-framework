@@ -1,0 +1,64 @@
+﻿/**********************************************************
+
+CSS Document 3.0
+
+x-ui / x.ui.tree.css
+
+**********************************************************/
+
+/* x-ui-pkg-tree */
+.x-ui-pkg-tree {
+	font-size: 12px;
+	color: #666;
+	white-space: nowrap;
+}
+.x-ui-pkg-tree * {
+    font-size: 12px;
+    vertical-align: middle;
+}
+.x-ui-pkg-tree a {
+    font-size: 12px;
+}
+.x-ui-pkg-tree div{
+	line-height:100%;
+}
+.x-ui-pkg-tree div a 
+{
+	display:inline;
+	background-image:none;
+	border:none;
+}
+.x-ui-pkg-tree div a:hover
+{
+	display:inline;
+	background-image:none;
+	border:none;
+}
+.x-ui-pkg-tree img {
+	border: 0px;
+	vertical-align: middle;
+}
+.x-ui-pkg-tree a {
+	color: #333;
+	text-decoration: none;
+}
+.x-ui-pkg-tree a.node, .x-ui-pkg-tree a.nodeSel {
+	white-space: nowrap;
+	padding: 1px 2px 1px 2px;
+}
+.x-ui-pkg-tree a.node:hover, .x-ui-pkg-tree a.nodeSel:hover {
+	color: #333;
+	text-decoration: underline;
+}
+.x-ui-pkg-tree a.node-selected {
+	background-color: #c0d2ec;
+}
+.x-ui-pkg-tree .clip {
+	/* overflow: hidden; */
+}
+.x-ui-pkg-tree-node {
+    height: auto;
+}
+.x-ui-pkg-tree-node * {
+    vertical-align: middle;
+}

@@ -1,0 +1,76 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.dialog.css
+
+**********************************************************/
+
+/*#region x-ui-dialog-wrapper*/
+.x-ui-dialog-wrapper
+{
+	border:1px solid #ccc;
+}
+/*#endregion*/
+
+/*#region x-ui-dialog-mask-wrapper*/
+.x-ui-dialog-mask-wrapper
+{
+	background-color: #000;
+  position: absolute;
+  z-index: 110;
+  clear: both;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+/*#endregion*/
+
+/*#region x-ui-dialog-waiting-window-container*/
+.x-ui-dialog-waiting-window-container
+{
+	overflow: hidden;
+	position: absolute;
+	border:2px solid #e5e5e5;
+  border-radius:5px;
+	padding:10px;
+	height:90px;
+	width:280px;
+	background-color:#fff;
+	z-index: 120;
+}
+
+.x-ui-dialog-waiting-window-text {
+	background:url("/resources/images/common/gears_an.gif") no-repeat;
+	height:70px;
+	width:260px;
+	padding-top: 25px;
+	padding-left: 80px;
+	font-weight:bolder;
+	font-size:14px;
+	z-index: 31;
+	background-color:#fff;
+}
+/*#endregion*/
+
+.x-ui-dialog-waiting-mini-window-container
+{
+	overflow: hidden;
+	position: absolute;
+	z-index: 120;
+	background-color:#fff;
+	border:1px solid #eee;
+	border-bottom:2px solid #eee;
+	padding:6px  0 4px 10px;
+}
+
+.x-ui-dialog-waiting-mini-window-text {
+	background:url("/resources/images/common/loading.gif") no-repeat;
+	padding-left: 20px;
+	padding-right: 8px;
+	font-weight:bolder;
+	font-size:12px;
+	z-index: 31;
+	background-color:#fff;
+}

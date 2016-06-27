@@ -1,0 +1,160 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.editor.css
+
+**********************************************************/
+
+/*#region ajax-editor*/
+.ajax-editor
+{
+	border:1px solid #ccc;
+}
+.ajax-editor-ui-icon
+{
+    background-image: url("/resources/images/editor/icons.png");
+    width:20px;
+    height:20px;
+}
+/*#endregion*/
+.ajax-editor-toolbars
+{
+    padding:3px 2px 2px 2px;
+	border-bottom:1px solid #ccc;
+	background-color: #f9f9f9;
+    clear:both;
+}
+/*#region ajax-editor*/
+.ajax-editor-toolbar
+{
+}
+/*#endregion*/
+.ajax-editor-toolbar-button
+{   
+    float:left;
+}
+.ajax-editor-toolbar-button-state
+{
+    padding: 1px;
+}
+.ajax-editor-toolbar-button-state-hover
+{
+    background-color: #fff5d4;
+    border: 1px solid #dcac6c;
+    padding: 0;
+}
+.ajax-editor-toolbar-button-state-checked 
+{
+    background-color: #ffe69f;
+    border: 1px solid #dcac6c;
+    padding: 0;
+}
+.ajax-editor-toolbar-combox
+{   
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-right: 4px;
+    float:left;
+}
+.ajax-editor-toolbar-combox-text
+{
+    display: inline-block;
+    display: block;
+    float:left;
+    height: 20px;
+    width: 60px;
+}
+.ajax-editor-toolbar-combox-splitborder
+{
+    display: inline-block;
+    display: block;
+    float:left;
+}
+.ajax-editor-toolbar-combox-arrow
+{ 
+    display: inline-block;
+    display: block;
+    float:left;
+    border-left: 1px solid #ccc;
+    background: url("/resources/images/editor/icons.png") repeat scroll -741px 0 transparent;
+    height: 20px;
+    width: 9px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    vertical-align: top;
+    cursor: default;
+}
+.ajax-editor-ui-separator
+{
+    background: url("/resources/images/editor/icons.png") repeat scroll -180px 0 transparent;
+    height: 20px;
+    margin: 2px 4px 2px 3px;
+    width: 2px;
+}
+.ajax-editor-iframe-holder textarea
+{
+    position: static;
+}
+.ajax-editor-for-source .ajax-editor-ui-icon
+{
+    background-position: -260px 0;
+}
+.ajax-editor-for-bold .ajax-editor-ui-icon
+{
+    background-position: 0 0;
+}
+.ajax-editor-for-italic .ajax-editor-ui-icon
+{
+    background-position: -60px 0;
+}
+.ajax-editor-for-underline .ajax-editor-ui-icon
+{
+    background-position: -140px 0;
+}
+.ajax-editor-for-strikethrough .ajax-editor-ui-icon
+{
+    background-position: -120px 0;
+}
+.ajax-editor-for-justifyleft .ajax-editor-ui-icon
+{
+    background-position: -460px 0;
+}
+.ajax-editor-for-justifycenter .ajax-editor-ui-icon
+{
+    background-position: -420px 0;
+}
+.ajax-editor-for-justifyright .ajax-editor-ui-icon
+{
+    background-position: -480px 0;
+}
+.ajax-editor-for-justifyjustify .ajax-editor-ui-icon
+{
+    background-position: -440px 0;
+}
+.ajax-editor-for-imageautoupload .ajax-editor-ui-icon
+{
+    background-position: -380px 0;
+}
+.ajax-editor-for-link .ajax-editor-ui-icon
+{
+    background-position: -500px 0;
+}
+.ajax-editor-for-undo .ajax-editor-ui-icon
+{
+    background-position: -160px 0;
+}
+.ajax-editor-for-redo .ajax-editor-ui-icon
+{
+    background-position: -100px 0;
+}
+.ajax-editor-for-preview .ajax-editor-ui-icon
+{
+    background-position: -420px -20px;
+}
+.ajax-editor-for-fullscreen .ajax-editor-ui-icon
+{
+    background-position: -100px -20px;
+}

@@ -1,0 +1,70 @@
+﻿##
+## /apps/templates/web/customize/widgets/forum.vm
+##
+<style type="text/css">
+.windows-widgets-forum-container {padding:0px 10px 10px 10px; border:0px solid #ccc;}
+.windows-widgets-forum-item a {text-decoration:none; display:block; padding:6px 0 0 0;}
+.windows-widgets-forum-item a * {vertical-align:middle;}
+</style>
+
+<script type="text/javascript" >
+//<![CDATA[ 
+$(document).ready(function()
+{
+    // 本地服务器状态不可用或者当前用户为匿名用户时退出脚本
+    // if(x.cookies.find('session$local$status') == 0 || x.cookies.find('session$local$account') == 'anonymous') { return; }
+    
+    // var account = x.toJSON(x.cookies.find('session$local$account'));
+    
+    var maxRowCount = $('#${widgetRuntimeId}-maxRowCount').val();
+    
+    var outString = '<?xml version="1.0" encoding="utf-8" ?>';
+
+    outString += '<request>';
+    outString += '<query>';
+    outString += '<where><key name="CategoryIndex" >' + $('#${widgetRuntimeId}-categoryIndex').val() + '</key></where>';
+    outString += '<orders>IsTop, ModifiedDate DESC</orders>';
+    outString += '<length>' + $('#${widgetRuntimeId}-maxRowCount').val() + '</length>';
+    outString += '</query>';
+    outString += '</request>';
+    
+    x.net.xhr('/api/forum.thread.findAll.aspx', outString, {
+        waitingType: 'mini',
+        waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
+        outputException: 'console',
+        callback: function(response)
+        {
+            var result = x.toJSON(response);
+
+            var list = result.data;
+                   
+            var outString = '';
+
+            var counter = 0;
+            
+            // 标题 作者 浏览 回复 更新
+            x.each(list, function(index, node)
+            {
+                outString += '<div class="windows-widgets-forum-item" ><a href="/forum/detail/' + node.id + '" target="_blank" >' + node.title + '</a></div>';
+                counter ++;
+            });
+
+            while(counter < maxRowCount)
+            {
+                outString += '<div class="windows-widgets-forum-item" >&nbsp;</div>';
+                counter ++;
+            }
+
+            $('#${widgetRuntimeId}-container').html(outString);
+        }
+    });
+});
+//]]>
+</script>
+
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="${height} ${width}" >
+<input id="${widgetRuntimeId}-categoryIndex" type="hidden" value="${categoryIndex}" />
+<input id="${widgetRuntimeId}-maxRowCount" type="hidden" value="${maxRowCount}" />
+<input id="${widgetRuntimeId}-maxLength" type="hidden" value="${maxLength}" />
+<div id="${widgetRuntimeId}-container" class="windows-widgets-forum-container" ></div>
+</div>

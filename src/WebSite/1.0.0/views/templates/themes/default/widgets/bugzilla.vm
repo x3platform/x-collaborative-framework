@@ -1,0 +1,23 @@
+﻿##
+##
+##
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" >
+
+<div class="ajax-tabs-view-wrapper">
+<div class="ajax-tabs-view-links" ><a href="/bugzilla/default.aspx">更多</a></div>
+<div class="ajax-tabs-view-item-over" ><strong>未解决</strong></div>
+<div class="ajax-tabs-view-item" ><a href="/bugzilla/default.aspx">全部</a></div>
+</div>
+
+<div style="padding:0 10px 10px 10px;">
+##
+#foreach($item in $list)
+##
+##
+##
+<div style="padding:10px 0 0 0 ;" ><a href="/bugzilla/archive/${item.Id}.aspx" target="_blank" >${item.Title}</a></div>
+##
+#end
+##
+</div>
+</div>

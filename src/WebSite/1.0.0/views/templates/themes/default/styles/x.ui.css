@@ -1,0 +1,24 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / x.ui.css
+
+**********************************************************/
+
+@import url(x.ui.accordion.css);
+@import url(x.ui.contextMenu.css);
+@import url(x.ui.dialog.css);
+@import url(x.ui.editor.css);
+@import url(x.ui.gantt.css);
+@import url(x.ui.mask.css);
+@import url(x.ui.tooltip.css);
+@import url(x.ui.upload.css);
+@import url(x.ui.workflow.css);
+@import url(x.ui.pkg.calendar.css);
+@import url(x.ui.pkg.combobox.css);
+@import url(x.ui.pkg.menu.css);
+@import url(x.ui.pkg.tabs.css);
+@import url(x.ui.pkg.tree.css);
+@import url(x.ui.pkg.customize.css);
+/*@import url(x.ui.pkg.tree.css);*/

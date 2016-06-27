@@ -1,0 +1,6 @@
+﻿##
+##
+##
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="${height} ${width}" >
+${widgetHtml}
+</div>

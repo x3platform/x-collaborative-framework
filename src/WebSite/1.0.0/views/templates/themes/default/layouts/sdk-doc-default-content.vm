@@ -1,0 +1,5 @@
+﻿#foreach ($application in $applications)
+  <div class="col-md-3">
+    <a class="btn btn-default" href="/sdk/doc?applicationName=$application.ApplicationName" role="button" style="width:100%; margin-bottom:15px; text-align:left;"><span class="label label-default">$application.Code</span> $application.ApplicationDisplayName</a>
+  </div>
+#end

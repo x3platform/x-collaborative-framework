@@ -1,0 +1,329 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / form.css
+
+**********************************************************/
+
+.input-group a 
+{
+    color:#000 !important;
+}
+
+input, button, select, textarea{ outline: none;} /* Fixed Chrome */
+
+textarea
+{
+	border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Fixed Chrome */
+} 
+/*
+input[type="text"]
+{
+	background-color: #fff;
+	border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.input-important{
+	background-color: #FCF1DC;
+	border: 1px solid #ccc;
+	padding:4px 0px 2px 0px;
+}
+.input-over{
+	background-color: #DDEEBB;
+	border: 1px solid #ccc;
+	padding:4px 0 2px 0;
+}
+
+.textarea{
+	font-size: 12px;
+	background-color:#fff;
+	overflow: auto;
+	border: 1px solid #ccc ;
+	padding:4px 0 2px 0;
+}
+
+.textarea-normal{
+	font-size: 12px;
+	width: 300px;
+	height: 60px;
+	background-color:#fff;
+	overflow: auto;
+	border: 1px solid #ccc;
+	padding:4px 0 2px 0;
+}
+.textarea-over{
+	font-size: 12px;
+	width: 300px;
+	height: 60px;
+	background-color: #DDEEBB;
+	overflow: auto;
+	border: 1px solid #ccc;
+	padding:4px 0 2px 0;
+}
+
+.select{
+	font-size:12px;
+	border: 1px solid #ccc ;
+	background-color:#fff;
+}
+.select-important{
+	width: 80px;
+	font-size:12px;
+	border-top: 1px solid #333 ;
+	border-right: 1px solid #DCDCDC ;
+	border-bottom: 1px solid #DCDCDC ;
+	border-left: 1px solid #333 ;
+	background-color:#FCF1DC;
+}
+
+.checkbox-wrapper{
+	padding:0;
+	margin:0;
+	vertical-align: middle;
+	height:12px;
+	line-height:100%;
+}
+.checkbox-wrapper input,
+.checkbox-wrapper label
+{
+}
+.checkbox-wrapper input 
+{
+	padding:0;
+	margin:0;
+	height:12px;
+	line-height:100%;
+	overflow:hidden;
+	margin:2px 0 0 0;
+	vertical-align:-3px; / * fixed firefox * /
+	*margin:0;
+	*vertical-align:0px; / * Fixed IE7 * /
+}
+.checkbox-wrapper label
+{
+	margin:0 10px 0 4px;
+	font-size:12px;
+	height:12px;
+	line-height:100%;
+	overflow:hidden;
+}
+.radio-wrapper{
+	height:14px;
+	overflow:hidden;
+	padding:0;
+	margin:0;
+}
+.radio-wrapper input{
+	padding:0;
+	margin:0;
+}
+*/
+.button{
+	color: #000;
+	font-weight: bold;
+	height: 22px;
+	padding: 2px 8px 0 8px;
+	background-color: #DFDFDF;
+	border-top: 1px solid #DCDCDC ;
+	border-right: 1px solid #333 ;
+	border-bottom: 1px solid #333 ;
+	border-left: 1px solid #DCDCDC;
+	cursor: pointer;
+	font-size: 12px;
+	font-family: "ËÎÌו";
+}
+/*
+ * custom image button
+ */
+
+.button-2font-wrapper
+{
+}
+.button-2font-wrapper a.button-text
+{
+	color:#333;
+	text-decoration:none;
+	background-image:url(images/btn_bg_2font.png); 
+	background-position:0 -25px;
+	width:60px; 
+	height:20px; 
+	display:block;
+	text-decoration:none;
+	padding:5px 0 0 0 ;
+	text-align:center;
+}
+
+.button-2font-wrapper a.button-text:hover
+{
+	color:#000; 
+	background-image:url(images/btn_bg_2font.png); 
+	background-position:0 0; 
+	text-decoration:none;
+}
+.button-4font-wrapper
+{
+}
+.button-4font-wrapper a.button-text
+{
+	color:#333;
+	background-image:url(images/btn_bg_4font.png); 
+	background-position:0 -25px;
+	width:90px; 
+	height:20px; 
+	display:block;
+	text-decoration:none;
+	padding:5px 0 0 0 ;
+	text-align:center;
+}
+.button-4font-wrapper a.button-text:hover
+{
+	color:#000; 
+	background-image:url(images/btn_bg_4font.png); 
+	background-position:0 0; 
+	text-decoration:none;
+}
+
+.button-6font-wrapper
+{
+}
+.button-6font-wrapper a
+{
+}
+.button-6font-wrapper a.button-text
+{
+	color:#333;
+	text-decoration:none;
+	background-image:url(images/btn_bg_6font.png); 
+	background-position:0 -25px;
+	width:120px; 
+	height:20px; 
+	display:block;
+	text-decoration:none;
+	padding:5px 0 0 0 ;
+	text-align:center;
+}
+.button-6font-wrapper a.button-text:hover
+{
+	color:#000; 
+	background-image:url(images/btn_bg_6font.png); 
+	background-position:0 0; 
+	text-decoration:none;
+}
+.button-default-focus {
+	font-weight:bold;
+}
+
+/*#region input-checkbox*/
+/*
+input[type="checkbox"],
+input[type="radio"]
+{
+    position: absolute;
+    padding: 0 0 0 0;
+    width: 19px;
+    height: 19px;
+    margin: 0 0 0 0;
+    float: left;
+    cursor: default;
+}
+
+*/
+.input-checkbox-wrapper {
+    display: inline-block;
+    height: 13px;
+}
+.input-checkbox-container {
+    display: inline-block;
+	height: 13px;
+	width: 13px;
+	background: url(/resources/images/x-ajax-controls.png) -3px -41px no-repeat;
+}
+.input-checkbox-ticked {
+    display: inline-block;
+	height: 13px;
+	width: 13px;
+}
+/*#endregion*/
+
+/*#region input-background*/
+.input-background-days{
+	background-image: url(/resources/images/unit/unit_days.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-m2{
+	background-image: url(/resources/images/unit/unit_m2.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-yuanm2{
+	background-image:  url(/resources/images/unit/unit_yuanm2.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-wanyuan{
+	background-image: url(/resources/images/unit/unit_wanyuan.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-yuanmonth{
+	background-image: url(/resources/images/unit/unit_yuanmonth.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-yuanday{
+	background-image: url(/resources/images/unit/unit_yuanday.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-yuan{
+	background-image: url(/resources/images/unit/unit_yuan.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-floor{
+	background-image: url(/resources/images/unit/unit_floor.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.input-background-totalfloor{
+	background-image: url(/resources/images/unit/unit_totalfloor.gif);
+	background-position:2px 2px;
+	background-repeat: no-repeat;
+	padding: 2px 0 0 20px;
+	width: 45px;
+}
+/*#endregion*/
+
+/* round-button */
+.round-button { 
+    display:inline-block; 
+    border-width:1px 0; 
+    border-color:#bbbbbb; 
+    border-style:solid; 
+    vertical-align:middle;
+} 
+.round-button-back {
+    float:left; 
+    background:#e3e3e3; 
+    border-width:0 1px; 
+    border-color:#bbbbbb; 
+    border-style:solid; 
+    margin:0 -1px; 
+    position:relative;
+} 
+.round-button-front {
+    display:block; 
+    line-height:0.6em; 
+    background:#f9f9f9; 
+    border-bottom:2px solid #eeeeee;
+} 
+.round-button-text{ 
+    display:block; 
+    padding:0.1em 0.6em; 
+    margin-top:-0.6em; 
+    cursor:pointer;
+}

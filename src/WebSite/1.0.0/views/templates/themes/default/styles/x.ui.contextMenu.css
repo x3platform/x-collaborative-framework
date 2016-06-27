@@ -1,0 +1,64 @@
+﻿/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.menu.css
+
+**********************************************************/
+
+/**
+ *slide menu
+ */
+
+.ajax-context-menu-target
+{
+	cursor:default;
+}
+
+.ajax-context-menu-wrapper
+{
+	position:absolute;
+	display:none;
+	top:0px;
+	left:0px;
+	width:200px;
+	margin:0px;
+	padding:2px;
+	border:1px solid #cccccc;
+	background-color:#fff;
+	opacity: 0.9;
+	filter:alpha(opacity=90);
+}
+.ajax-context-menu-wrapper li
+{
+	cursor:pointer;
+}
+.ajax-context-menu-item
+{
+	list-style:none;
+	margin:0px;
+	padding:2px 0 0 10px;
+	height:25px;
+	line-height:25px;
+	display:block;
+	padding-left:10px;
+}
+
+.ajax-context-menu-item-over 
+{
+	cursor:default;
+	padding:2px 0 0 10px;
+	background-color:#c7dfff;
+	color:#000;
+}
+
+.ajax-context-menu-item-separator
+{
+	height:1px;
+	line-height:1px;
+	border-bottom:1px solid #cccccc;
+	margin:0px 2px 1px 2px;
+	*margin: -8px 2px -7px 2px ;
+	padding:0px;
+	overflow:hidden;
+}

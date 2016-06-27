@@ -1,0 +1,18 @@
+﻿##
+##
+##
+##
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" >
+
+<div style="padding:0 10px 10px 10px;">
+##
+#foreach($item in $list)
+##
+##
+##
+<div style="padding:10px 0 0 0 ;" ><a href="/event/archive/${item.Id}.aspx" target="_blank" >${item.Title}</a></div>
+##
+#end
+##
+</div>
+</div>

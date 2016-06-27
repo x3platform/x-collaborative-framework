@@ -1,0 +1,88 @@
+/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.accordion.css
+
+**********************************************************/
+
+
+/* 
+ * ajax-accordion
+ */
+.ajax-accordion-container 
+{
+	width:137px;
+	/* margin:4px 0 0 5px; */
+	
+	/* fixed set */
+	position:fixed;
+	z-index:15;
+	top:136px;
+	left:5px;
+	/* position fixed for IE6 */
+    _position: absolute;
+    _top:136px;
+    _left:5px;
+}
+.ajax-accordion-placeholder 
+{
+	width:132px;
+	_width:128px; /* fix ie 6 */
+	margin:4px 0 0 5px;
+}
+.ajax-accordion-wrapper
+{
+	width: 100%;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	color: #369;
+	background: #f2f8ff;
+	/*border-right:1px solid #ccc;
+	border-bottom:1px solid #ccc;*/
+	border:1px solid #6593cf;
+	padding:1px 0 0 0;
+	_padding:0; /* fixed ie 6 */
+} 
+.ajax-accordion
+{
+	overflow: hidden;
+	border-bottom:1px solid #add1ff;
+}
+
+.ajax-accordion div
+{
+    _width:137px; /* fixed ie 6 */
+}
+
+.ajax-accordion a
+{
+	text-decoration: none;
+}
+
+.ajax-accordion a:hover
+{
+	text-decoration: none;
+}
+
+.ajax-accordion-header
+{
+	background: url(images/x_slide_menu_title_bg.png);
+	border:0px solid #6593cf;
+	color: #003399;
+    cursor: pointer;
+	display:block;
+	height:15px;
+	font-weight: bold;
+	padding: 7px 10px 6px 14px;
+	_padding: 5px 5px 4px 7px;
+}
+a.ajax-accordion-header:hover
+{
+	color: #000;
+}
+.ajax-accordion-wrapper .ajax-accordion .begin 
+{
+	/*background: url(toptitle.gif) no-repeat;*/
+	margin:-1px  0 0 0;
+}

@@ -1,0 +1,15 @@
+﻿/**********************************************************
+
+CSS Document 2.0
+
+default / ajax.workflow.css
+
+**********************************************************/
+
+/*
+ * workflow
+ */
+.ajax-workflow-node-current
+{
+	background-color:#ffe9e9;
+}

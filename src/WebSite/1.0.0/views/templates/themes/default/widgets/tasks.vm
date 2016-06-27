@@ -1,0 +1,128 @@
+﻿##
+## /apps/templates/web/customize/widgets/tasks.vm
+##
+<style type="text/css">
+.windows-widgets-tasks-unfinished-quantities {background-color:#ffffe0;border-bottom:1px solid #ccc;padding:6px 10px 4px 10px;height:18px;}
+.windows-widgets-tasks-unfinished-quantities-view strong {color:red;}
+.windows-widgets-tasks-unfinished-workItems {padding:0px 10px 10px 10px; border:0px solid #ccc; height:140px;}
+.windows-widgets-tasks-unfinished-workItems-item-link a {text-decoration:none; display:block; padding:6px 0 0 0;}
+.windows-widgets-tasks-unfinished-workItems-item-link a:hover {text-decoration:underline; color:maroon;}
+.windows-widgets-tasks-unfinished-workItems-item-link a * {vertical-align:middle;}
+</style>
+
+<script type="text/javascript" >
+//<![CDATA[
+$(document).ready(function()
+{
+    // 本地服务器状态不可用或者当前用户为匿名用户时退出脚本
+    if(x.cookies.find('session$local$status') == 0 || x.cookies.find('session$local$account') == 'anonymous') { return; }
+   
+    var clientId = '${application.Id}';    
+    var clientSecret = '${application.ApplicationSecretSignal}';
+
+    var account = x.toJSON(x.cookies.find('session$local$account'));
+    
+    x.net.xhr('/api/task.workItem.getUnfinishedQuantities.aspx?receiverId=' + account.id + '&clientId=' + clientId + '&clientSecret=' + clientSecret, {
+        waitingType: 'mini',
+        waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
+        outputException: 'console',
+        callback: function(response)
+        {
+            var result = x.toJSON(response);
+
+            var list = result.ajaxStorage;
+
+            // 设置未完成数量
+            var unfinishedQuantities = [0, 0];
+
+            for (var i = 0; i < list.length; i++)
+            {
+                // 审批催办 
+                if (list[i].key == '1' || list[i].key == '8' || list[i].key == '264')
+                {
+                    unfinishedQuantities[0] += Number(list[i].value);
+                }
+
+                if (list[i].key == "2" || list[i].key == "4")
+                {
+                    unfinishedQuantities[1] += Number(list[i].value);
+                }
+            }
+            
+            x.form.query('${widgetRuntimeId}_unfinishedQuantitiesView').html('您有<strong>' + unfinishedQuantities[0] + '</strong>条待办和<strong>' + unfinishedQuantities[1] + '</strong>条通知.');
+            
+            var outString = '<?xml version="1.0" encoding="utf-8" ?>';
+
+            outString += '<ajaxStorage>';
+            outString += '<whereClause>Type IN (1,8,264) AND Status = 0 ORDER BY CreateDate DESC</whereClause>';
+            outString += '<length>20</length>';
+            outString += '</ajaxStorage>';
+
+            x.net.xhr('/api/task.workItem.findAllByReceiverId.aspx?receiverId=' + account.id, outString, {
+                waitingType: 'mini',
+                waitingMessage: i18n.strings.msg_net_waiting_query_tip_text,
+                outputException: 'console',
+                callback: function(response)
+                {
+                    // x.debug.log(response);
+                    
+                    var result = x.toJSON(response);
+
+                    var list = result.ajaxStorage;
+                    
+                    var outString = '';
+
+                    outString += '<marquee scrolldelay="3" scrollamount="2" onmouseout="this.start()" onmouseover="this.stop()" direction="up">';
+
+                    list.each(function(node,index)
+                    {
+                        outString += '<div class="windows-widgets-tasks-unfinished-workItems-item-link">';
+                        switch(node.type)
+                        {
+                            case '1':
+                                outString += '<a href="/api/task.redirect.aspx?taskId=' + node.id + '&receiverId=' + node.receiverId + '&clientId=' + clientId + '&clientSecret=' + clientSecret + '" ';
+                                outString += 'title="【审批】' + node.tags + '" target="_blank" >';
+                                break;
+                            case '2':
+                                outString += '<a href="/apps/pages/tasks/task-view.aspx?id=' + node.id + '" ';
+                                outString += 'title="【消息】' + node.tags + '" target="_blank" >';
+                                break;
+                            case '4':
+                                outString += '<a href="/api/task.redirect.aspx?taskId=' + node.id + '&receiverId=' + node.receiverId + '&clientId=' + clientId + '&clientSecret=' + clientSecret + '" ';
+                                outString += 'title="【通知】' + node.tags + '" target="_blank" >';
+                                break;
+                            case '8':
+                                outString += '<a href="/api/task.redirect.aspx?taskId=' + node.id + '&receiverId=' + node.receiverId + '&clientId=' + clientId + '&clientSecret=' + clientSecret + '" ';
+                                outString += 'title="【消息】' + node.tags + '" target="_blank" >';
+                                break;
+                            case '266':
+                                outString += '<a href="/api/task.redirect.aspx?taskId=' + node.id + '&receiverId=' + node.receiverId + '&clientId=' + clientId + '&clientSecret=' + clientSecret + '" ';
+                                outString += 'title="【消息】' + node.tags + '" target="_blank" >';
+                                break;
+                        }
+                                
+                        outString += '<img src="/resources/images/tasks/icon-task-type-' + node.type + '.gif" alt="' + node.tags + '" style="margin:0 4px 0 0;" />';
+                        outString += node.title + '</a>';
+                        outString += '</div>';
+                    });
+
+                    outString += '</marquee>';
+
+                    x.form.query('${widgetRuntimeId}_unfinishedWorkItems').html(outString);
+                }
+            });
+        }
+    });
+});
+//]]>
+</script>
+
+<div id="${widgetRuntimeId}" class="x-ui-pkg-customize-widget-whitebox" style="${height} ${width}" >
+<div class="windows-widgets-tasks-unfinished-quantities" >
+    <div class="float-right"><a href="/apps/pages/tasks/">查看全部</a></div>
+    <div id="${widgetRuntimeId}_unfinishedQuantitiesView" class="windows-widgets-tasks-unfinished-quantities-view" ></div>
+</div>
+<div id="${widgetRuntimeId}_unfinishedWorkItems" class="windows-widgets-tasks-unfinished-workItems" >
+    <div style="padding:4px 0 0 0px;" >正在加载中...</div>
+</div>
+</div>
