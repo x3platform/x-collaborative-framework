@@ -1,6 +1,6 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-<script id="crypto-sha1-script" type="text/javascript" src="/resources/javascript/crypto/rollups/sha1.js"></script>
-<script type="text/javascript" src="/resources/javascript/app/x.app.js"></script>
+<script id="crypto-sha1-script" type="text/javascript" src="/resources/scripts/crypto/rollups/sha1.js"></script>
+<script type="text/javascript" src="/resources/scripts/app/x.app.js"></script>
 <script type="text/javascript" src="/views/shared/wizards/contacts-wizard.js"></script>
 <script type="text/javascript" src="/views/main/membership/account-list.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"人员及权限管理\帐号管理" } }))

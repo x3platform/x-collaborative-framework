@@ -54,6 +54,6 @@
         <ProjectToBuild Include="Plugins\Forum\Forum.Mvc\Forum.Mvc.csproj" />
     </ItemGroup>
     <Target Name="Build">
-        <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release;WarningLevel=0" />
+        <MSBuild Projects="@(ProjectToBuild)" Properties="Configuration=Release;WarningLevel=0;DefineConstants=TRACE;PLATFORM_64BIT" />
     </Target>
 </Project>

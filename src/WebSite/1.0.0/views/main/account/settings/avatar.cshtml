@@ -1,5 +1,5 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-<script type="text/javascript" src="/resources/javascript/cropbox/cropbox.js"></script>
+<script type="text/javascript" src="/resources/scripts/cropbox/cropbox.js"></script>
 <script type="text/javascript" src="/views/main/account/settings/avatar.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"我的控制台\头像信息" } }))
 <style type="text/css">
