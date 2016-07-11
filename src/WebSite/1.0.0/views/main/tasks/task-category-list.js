@@ -56,7 +56,7 @@ main.tasks.category.list = {
             outString += '<tr class="' + classNameValue + '" >';
             outString += '<td><a href="javascript:main.tasks.category.list.openDialog(\'' + node.id + '\');" target="_blank" >' + node.categoryIndex + '</a></td>';
             outString += '<td>' + node.accountName + '</td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
             outString += '<td>' + node.updateDateView + '</td>';
             outString += '<td><a href="javascript:main.tasks.category.list.confirmDelete(\'' + node.id + '\');" >删除</a></td>';
             outString += '</tr>';

@@ -35,7 +35,7 @@ main.applications.home = {
         outString += '<tr>';
         outString += '<th style="width:80px">应用代码</th>';
         outString += '<th >应用名称(应用显示名称)</th>';
-        outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
+        outString += '<th style="width:50px" >状态</th>';
         outString += '<th style="width:100px">修改日期</th>';
         outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
         outString += '<th class="table-freeze-head-padding" ></th>';
@@ -60,9 +60,9 @@ main.applications.home = {
             outString += '<tr>';
             outString += '<td>' + node.code + '</td>';
             outString += '<td><a href="/applications/application/form?id=' + node.id + '" target="_blank" >' + node.applicationName + '(' + node.applicationDisplayName + ')</a></td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-            outString += '<td>' + node.modifiedDateView + '</td>';
-            if(node.locking == 1)
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td>' + x.date.newTime(node.modifiedDateView).toString('yyyy-MM-dd') + '</td>';
+            if (node.locking == 1)
             {
                 outString += '<td><a href="javascript:main.applications.home.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
             }
@@ -77,7 +77,7 @@ main.applications.home = {
 
         // 补全
 
-        while(counter < maxCount)
+        while (counter < maxCount)
         {
             outString += '<tr>';
             outString += '<td colspan="8" ><img src="/resources/images/transparent.gif" alt="" style="height:18px;" /></td>';
@@ -143,7 +143,7 @@ main.applications.home = {
     */
     confirmDelete: function(ids)
     {
-        if(confirm('确定删除?'))
+        if (confirm('确定删除?'))
         {
             var outString = '<?xml version="1.0" encoding="utf-8" ?>';
 
@@ -166,7 +166,7 @@ main.applications.home = {
 
         var result = x.toJSON(response).message;
 
-        switch(Number(result.returnCode))
+        switch (Number(result.returnCode))
         {
             case 0:
                 alert(result.value);

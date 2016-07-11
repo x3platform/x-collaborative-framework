@@ -79,7 +79,7 @@ main.entities.entity.schema.list = {
             outString += '<td>' + node.code + '</td>';
             outString += '<td><a href="/entities/entity-schema/form?id=' + node.id + '" target="_blank">' + node.name + '</a></td>';
             outString += '<td>' + node.entityClassName + '</td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
             outString += '<td>' + node.modifiedDateView + '</td>';
             if(node.locking === '1')
             {

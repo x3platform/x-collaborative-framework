@@ -35,7 +35,7 @@ main.applications.home = {
     outString += '<tr>';
     outString += '<th style="width:80px">应用代码</th>';
     outString += '<th >应用名称(应用显示名称)</th>';
-    outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
+    outString += '<th style="width:50px" >状态</th>';
     outString += '<th style="width:100px">修改日期</th>';
     outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
     outString += '<th class="table-freeze-head-padding" ></th>';
@@ -60,7 +60,7 @@ main.applications.home = {
       outString += '<tr>';
       outString += '<td>' + node.code + '</td>';
       outString += '<td><a href="/applications/application/form?id=' + node.id + '" target="_blank" >' + node.applicationName + '(' + node.applicationDisplayName + ')</a></td>';
-      outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+      outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.modifiedDateView + '</td>';
       if(node.locking == 1)
       {

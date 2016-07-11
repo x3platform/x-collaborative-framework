@@ -36,7 +36,7 @@ main.applications.application.method.list = {
         outString += '<tr>';
         outString += '<th style="width:160px">方法代码</th>';
         outString += '<th >名称</th>';
-        outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
+        outString += '<th style="width:50px" >状态</th>';
         outString += '<th style="width:100px">修改日期</th>';
         outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
         outString += '<th class="table-freeze-head-padding" ></th>';
@@ -50,7 +50,7 @@ main.applications.application.method.list = {
         outString += '<colgroup>';
         outString += '<col style="width:160px" />';
         outString += '<col />';
-        outString += '<col style="width:40px" />';
+        outString += '<col style="width:50px" />';
         outString += '<col style="width:100px" />';
         outString += '<col style="width:30px" />';
         outString += '</colgroup>';
@@ -61,8 +61,8 @@ main.applications.application.method.list = {
             outString += '<tr>';
             outString += '<td>' + node.code + '</td>';
             outString += '<td><a href="javascript:main.applications.application.method.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-            outString += '<td>' + node.modifiedDateView + '</td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td>' + x.date.newTime(node.modifiedDateView).toString('yyyy-MM-dd') + '</td>';
             outString += '<td><a href="javascript:main.applications.application.method.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除"><i class="fa fa-trash" ></i></a></td>';
             outString += '</tr>';
 

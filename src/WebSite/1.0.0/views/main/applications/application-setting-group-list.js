@@ -40,10 +40,9 @@ main.applications.application.setting.group.list = {
         outString += '<tr>';
         outString += '<th style="width:80px">分组代码</th>';
         outString += '<th >分组名称</th>';
-        outString += '<th style="width:60px" >状态</th>';
+        outString += '<th style="width:50px" >状态</th>';
         outString += '<th style="width:100px">修改日期</th>';
-        outString += '<th style="width:50px">编辑</th>';
-        outString += '<th style="width:50px">删除</th>';
+        outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></th>';
         outString += '<th class="table-freeze-head-padding" ><a href="javascript:window$refresh$callback();"><small><span class="glyphicon glyphicon-refresh"></span></small></a></th>';
         outString += '</tr>';
         outString += '</thead>';
@@ -57,8 +56,7 @@ main.applications.application.setting.group.list = {
         outString += '<col />';
         outString += '<col style="width:60px" />';
         outString += '<col style="width:100px" />';
-        outString += '<col style="width:50px" />';
-        outString += '<col style="width:50px" />';
+        outString += '<col style="width:30px" />';
         outString += '</colgroup>';
         outString += '<tbody>';
 
@@ -67,10 +65,9 @@ main.applications.application.setting.group.list = {
             outString += '<tr>';
             outString += '<td>' + node.code + '</td>';
             outString += '<td><a href="javascript:main.applications.application.setting.group.list.openDialog(\'' + node.id + '\');">' + node.name + '</a></td>';
-            outString += '<td>' + (node.status == '1' ? '<span class="green-text">启用</span>' : '<span class="red-text">禁用</span>') + '</td>';
-            outString += '<td>' + node.modifiedDateView + '</td>';
-            outString += '<td><a href="javascript:main.applications.application.setting.group.list.openDialog(\'' + node.id + '\');">编辑</a></td>';
-            outString += '<td><a href="javascript:main.applications.application.setting.group.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');">删除</a></td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td>' + x.date.newTime(node.modifiedDateView).toString('yyyy-MM-dd') + '</td>';
+            outString += '<td><a href="javascript:main.applications.application.setting.group.list.confirmDelete(\'' + node.id + '\',\'' + node.applicationName + '\');" title="删除"><i class="fa fa-trash" ></i></a></td>';
             outString += '</tr>';
 
             counter++;

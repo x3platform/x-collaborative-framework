@@ -78,7 +78,7 @@ main.bugs.bug.category.list = {
       outString += '<tr>';
       outString += '<td><a href="/bugs/bug-category/form?id=' + node.id + '" target="_blank">' + node.categoryIndex + '</a></td>';
       outString += '<td>' + node.accountName + '</td>';
-      outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+      outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td>' + ($('#isAdminToken').val().toLowerCase() === 'true' ? ('<a href="javascript:main.bugs.bug.category.list.confirmDelete(\'' + node.id + '\');" title="删除" ><i class="fa fa-trash" ></i></a>') : '<span class="gray-text" title="删除" ><i class="fa fa-trash" ></i></span>') + '</td>';
       outString += '</tr>';
