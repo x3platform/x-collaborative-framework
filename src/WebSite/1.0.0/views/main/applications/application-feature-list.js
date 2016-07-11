@@ -43,10 +43,9 @@ main.applications.application.feature.list = {
     outString += '<th style="width:100px" >功能代码</th>';
     outString += '<th >功能名称</th>';
     outString += '<th style="width:100px" >类型</th>';
-    outString += '<th style="width:60px" >状态</th>';
+    outString += '<th style="width:50px" >状态</th>';
     outString += '<th style="width:100px" >修改日期</th>';
-    outString += '<th style="width:50px" >编辑</th>';
-    outString += '<th style="width:50px">删除</th>';
+    outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
     outString += '<th class="table-freeze-head-padding" ><a href="javascript:window$refresh$callback();"><small><span class="glyphicon glyphicon-refresh"></span></small></a></th>';
     outString += '</tr>';
     outString += '</thead>';
@@ -59,10 +58,9 @@ main.applications.application.feature.list = {
     outString += '<col style="width:100px" />';
     outString += '<col />';
     outString += '<col style="width:100px" />';
-    outString += '<col style="width:60px" />';
+    outString += '<col style="width:50px" />';
     outString += '<col style="width:100px" />';
-    outString += '<col style="width:50px" />';
-    outString += '<col style="width:50px" />';
+    outString += '<col style="width:30px" />';
     outString += '</colgroup>';
     outString += '<tbody>';
 
@@ -72,10 +70,9 @@ main.applications.application.feature.list = {
       outString += '<td>' + node.code + '</td>';
       outString += '<td><a href="javascript:main.applications.application.feature.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + (node.type == 'function' ? '功能点' : '动作点') + '</td>';
-      outString += '<td>' + (node.status == '1' ? '<span class="green-text">启用</span>' : '<span class="red-text">禁用</span>') + '</td>';
-      outString += '<td>' + node.modifiedDateView + '</td>';
-      outString += '<td><a href="javascript:main.applications.application.feature.list.openDialog(\'' + node.id + '\');" >编辑</a></td>';
-      outString += '<td><a href="javascript:main.applications.application.feature.list.confirmDelete(\'' + node.id + '\',\'' + node.name + '\');" >删除</a></td>';
+      outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
+      outString += '<td>' + x.date.newTime(node.modifiedDateView).toString('yyyy-MM-dd') + '</td>';
+      outString += '<td><a href="javascript:main.applications.application.feature.list.confirmDelete(\'' + node.id + '\',\'' + node.name + '\');"  title="删除"><i class="fa fa-trash" ></i></a></td>';
       outString += '</tr>';
 
       counter++;

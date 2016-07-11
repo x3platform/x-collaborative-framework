@@ -45,7 +45,7 @@ main.forum.category.list = {
     outString += '<tr>';
     outString += '<th >名称</th>';
     outString += '<th style="width:100px" >创建人</th>';
-    outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
+    outString += '<th style="width:50px" >状态</th>';
     outString += '<th style="width:100px">更新时间</th>';
     outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
     outString += '<th class="table-freeze-head-padding" ></th>';
@@ -70,7 +70,7 @@ main.forum.category.list = {
       outString += '<tr>';
       outString += '<td><a href="/forum/forum-category/form?id=' + node.id + '" target="_blank" >' + node.categoryIndex + '</a></td>';
       outString += '<td>' + node.accountName + '</td>';
-      outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+      outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
       outString += '<td>' + node.modifiedDateView + '</td>';
       outString += '<td><a href="javascript:main.forum.category.list.confirmDelete(\'' + node.id + '\');" title="删除" ><i class="fa fa-trash" ></i></a></td>';
       outString += '</tr>';

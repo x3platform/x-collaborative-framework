@@ -104,7 +104,7 @@
                 </td>
                 <td class="table-body-text">隐藏此应用</td>
                 <td class="table-body-input">
-                  <input id="hidden" name="hidden" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@(ViewBag.param.Hidden?1:0)" />
+                  <input id="hidden" name="hidden" type="checkbox" x-dom-data-type="value" x-dom-feature="checkbox" value="@ViewBag.param.Hidden" />
                 </td>
               </tr>
               <tr class="table-row-normal-transparent">
@@ -178,7 +178,7 @@
                 <td class="table-body-input">
                   <textarea id="administratorScopeView" name="administratorScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.AdministratorScopeView</textarea>
                   <input id="administratorScopeText" name="administratorScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.AdministratorScopeText" />
-                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('administratorScopeView','administratorScopeText','default');">编辑</a></div>
+                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizard({ targetViewName: 'administratorScopeView', targetValueName: 'administratorScopeText', contactType: 'default' });">编辑</a></div>
                 </td>
               </tr>
               <tr class="table-row-normal-transparent">
@@ -186,7 +186,7 @@
                 <td class="table-body-input">
                   <textarea id="reviewerScopeView" name="reviewerScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.ReviewerScopeView</textarea>
                   <input id="reviewerScopeText" name="reviewerScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.ReviewerScopeText" />
-                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('reviewerScopeView','reviewerScopeText','default');">编辑</a></div>
+                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizard({ targetViewName: 'reviewerScopeView', targetValueName: 'reviewerScopeText', contactType: 'default' });">编辑</a></div>
                 </td>
               </tr>
               <tr class="table-row-normal">
@@ -194,7 +194,7 @@
                 <td class="table-body-input">
                   <textarea id="memberScopeView" name="memberScopeView" type="text" class="textarea-normal" style="height:60px;width:460px;">@ViewBag.param.MemberScopeView</textarea>
                   <input id="memberScopeText" name="memberScopeText" type="hidden" x-dom-data-type="value" value="@ViewBag.param.MemberScopeText" />
-                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizardSingleton('memberScopeView','memberScopeText','default');">编辑</a></div>
+                  <div class="text-right" style="width:460px;"><a href="javascript:x.ui.wizards.getContactsWizard({ targetViewName: 'memberScopeView', targetValueName: 'memberScopeText', contactType: 'default' });">编辑</a></div>
                 </td>
               </tr>
             </table>

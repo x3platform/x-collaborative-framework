@@ -69,7 +69,7 @@ main.entities.entity.metadata.list = {
             outString += '<tr>';
             outString += '<td><a href="/entities/entity-metadata/form?id=' + node.id + '" target="_blank">' + node.fieldName + '</a></td>';
             outString += '<td>' + node.fieldType + '</td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
             outString += '<td>' + node.modifiedDateView + '</td>';
             if(node.locking === '1')
             {

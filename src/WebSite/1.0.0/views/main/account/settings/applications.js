@@ -60,7 +60,7 @@ main.connect.home = {
             outString += '<tr>';
             outString += '<td><strong>' + node.name + '</strong></td>';
             outString += '<td>' + node.description + '</td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
             outString += '<td><a href="/connect/overview/' + node.id + '?applicationName=PersonalSettings" ><i class="fa fa-edit" ></i></a></td>';
             outString += '</tr>';
 
