@@ -1,4 +1,8 @@
 using System;
+using System.Diagnostics;
+
+using Common.Logging;
+using Common.Logging.Factory;
 
 using X3Platform.Logging.Core;
 
@@ -14,13 +18,13 @@ namespace X3Platform.Logging
     /// was called. To do this we need to use the X3Platform.Logging.ILog.Logger.Log method and pass in a Type telling
     /// X3Platform.Logging where in the stack to begin looking for location information.
     /// </remarks>
-    public class Logger : Common.Logging.ILog
+    public class Logger : AbstractLogger
     {
         #region Fields
 
         private ILogger logger = null;
 
-        private readonly static Type declaringType = typeof(Logger);
+        private static Type callerStackBoundaryType = null;
 
         #endregion
 
@@ -38,7 +42,7 @@ namespace X3Platform.Logging
         /// <summary>
         /// 
         /// </summary>
-        public bool IsInfoEnabled
+        public override bool IsInfoEnabled
         {
             get { return this.logger.IsEnabledFor(Level.Info); }
         }
@@ -46,7 +50,7 @@ namespace X3Platform.Logging
         /// <summary>
         /// 
         /// </summary>
-        public bool IsWarnEnabled
+        public override bool IsWarnEnabled
         {
             get { return this.logger.IsEnabledFor(Level.Warn); }
         }
@@ -54,7 +58,7 @@ namespace X3Platform.Logging
         /// <summary>
         /// 
         /// </summary>
-        public bool IsErrorEnabled
+        public override bool IsErrorEnabled
         {
             get { return this.logger.IsEnabledFor(Level.Error); }
         }
@@ -62,7 +66,7 @@ namespace X3Platform.Logging
         /// <summary>
         /// 
         /// </summary>
-        public bool IsFatalEnabled
+        public override bool IsFatalEnabled
         {
             get { return this.logger.IsEnabledFor(Level.Fatal); }
         }
@@ -70,7 +74,7 @@ namespace X3Platform.Logging
         /// <summary>
         /// 
         /// </summary>
-        public bool IsDebugEnabled
+        public override bool IsDebugEnabled
         {
             get { return this.logger.IsEnabledFor(Level.Debug); }
         }
@@ -78,379 +82,102 @@ namespace X3Platform.Logging
         /// <summary>
         /// 
         /// </summary>
-        public bool IsTraceEnabled
+        public override bool IsTraceEnabled
         {
             get { return this.logger.IsEnabledFor(Level.Trace); }
         }
 
         /// <summary>
-        /// 
+        /// Actually sends the message to the underlying log system.
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="e"></param>
-        public void Info(object message, Exception e)
+        /// <param name="logLevel">the level of this log event.</param>
+        /// <param name="message">the message to log</param>
+        /// <param name="exception">the exception to log (may be null)</param>
+        protected override void WriteInternal(LogLevel logLevel, object message, Exception exception)
         {
-            this.logger.Log(declaringType, Level.Info, message, e);
+            // determine correct caller - this might change due to jit optimizations with method inlining
+            if (callerStackBoundaryType == null)
+            {
+                lock (this.GetType())
+                {
+                    StackTrace stack = new StackTrace();
+                    Type thisType = this.GetType();
+
+                    callerStackBoundaryType = typeof(AbstractLogger);
+
+                    for (int i = 1; i < stack.FrameCount; i++)
+                    {
+                        if (!IsInTypeHierarchy(thisType, stack.GetFrame(i).GetMethod().DeclaringType))
+                        {
+                            callerStackBoundaryType = stack.GetFrame(i - 1).GetMethod().DeclaringType;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            Level level = GetLevel(logLevel);
+
+            logger.Log(callerStackBoundaryType, level, message, exception);
+        }
+
+        private bool IsInTypeHierarchy(Type currentType, Type checkType)
+        {
+            while (currentType != null && currentType != typeof(object))
+            {
+                if (currentType == checkType)
+                {
+                    return true;
+                }
+
+                currentType = currentType.BaseType;
+            }
+            return false;
         }
 
         /// <summary>
-        /// 
+        /// Maps <see cref="logLevel"/> to log4net's <see cref="Level"/>
         /// </summary>
-        /// <param name="message"></param>
-        public void Info(object message)
+        /// <param name="logLevel"></param>
+        public static Level GetLevel(LogLevel logLevel)
         {
-            this.logger.Log(declaringType, Level.Info, message, null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="e"></param>
-        public void Debug(object message, Exception e)
-        {
-            this.logger.Log(declaringType, Level.Debug, message, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public void Debug(object message)
-        {
-            this.logger.Log(declaringType, Level.Debug, message, null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="e"></param>
-        public void Warn(object message, Exception e)
-        {
-            this.logger.Log(declaringType, Level.Warn, message, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public void Warn(object message)
-        {
-            this.logger.Log(declaringType, Level.Warn, message, null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="e"></param>
-        public void Trace(object message, Exception e)
-        {
-            this.logger.Log(declaringType, Level.Trace, message, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public void Trace(object message)
-        {
-            this.logger.Log(declaringType, Level.Trace, message, null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="e"></param>
-        public void Fatal(object message, Exception e)
-        {
-            this.logger.Log(declaringType, Level.Fatal, message, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public void Fatal(object message)
-        {
-            this.logger.Log(declaringType, Level.Fatal, message, null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="e"></param>
-        public void Error(object message, Exception e)
-        {
-            this.logger.Log(declaringType, Level.Error, message, e);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public void Error(object message)
-        {
-            this.logger.Log(declaringType, Level.Error, message, null);
+            switch (logLevel)
+            {
+                case LogLevel.All:
+                    return Level.All;
+                case LogLevel.Trace:
+                    return Level.Trace;
+                case LogLevel.Debug:
+                    return Level.Debug;
+                case LogLevel.Info:
+                    return Level.Info;
+                case LogLevel.Warn:
+                    return Level.Warn;
+                case LogLevel.Error:
+                    return Level.Error;
+                case LogLevel.Fatal:
+                    return Level.Fatal;
+                default:
+                    throw new ArgumentOutOfRangeException("logLevel", logLevel, "unknown log level");
+            }
         }
 
         #endregion
 
-        #region ILog Members
-
-        public void Debug(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
+        /// <summary>
+        /// Returns the global context for variables
+        /// </summary>
+        public override IVariablesContext GlobalVariablesContext
         {
-            throw new NotImplementedException();
+            get { return new GlobalVariablesContext(); }
         }
 
-        public void Debug(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
+        /// <summary>
+        /// Returns the thread-specific context for variables
+        /// </summary>
+        public override IVariablesContext ThreadVariablesContext
         {
-            throw new NotImplementedException();
+            get { return new ThreadVariablesContext(); }
         }
-
-        public void Debug(Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Debug(Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DebugFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DebugFormat(string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DebugFormat(string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Error(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Error(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Error(Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Error(Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ErrorFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ErrorFormat(string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ErrorFormat(string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Fatal(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Fatal(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Fatal(Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Fatal(Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FatalFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FatalFormat(string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FatalFormat(string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Common.Logging.IVariablesContext GlobalVariablesContext
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public void Info(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Info(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Info(Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Info(Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InfoFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InfoFormat(string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InfoFormat(string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Common.Logging.IVariablesContext ThreadVariablesContext
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public void Trace(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Trace(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Trace(Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Trace(Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TraceFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TraceFormat(IFormatProvider formatProvider, string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TraceFormat(string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TraceFormat(string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Warn(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Warn(IFormatProvider formatProvider, Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Warn(Action<Common.Logging.FormatMessageHandler> formatMessageCallback, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Warn(Action<Common.Logging.FormatMessageHandler> formatMessageCallback)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WarnFormat(IFormatProvider formatProvider, string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WarnFormat(string format, Exception exception, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WarnFormat(string format, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

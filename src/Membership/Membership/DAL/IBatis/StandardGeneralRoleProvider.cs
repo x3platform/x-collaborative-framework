@@ -160,13 +160,13 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:FindAllByCatalogItemId(string CatalogItemId)
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="groupTreeNodeId">�����ڵ���ʶ</param>
+        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
         /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
-        public IList<IStandardGeneralRoleInfo> FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        public IList<IStandardGeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId)
         {
-            string whereClause = string.Format(" GroupTreeNodeId = ##{0}## ORDER BY OrderId ", groupTreeNodeId);
+            string whereClause = string.Format(" CatalogItemId = ##{0}## ORDER BY OrderId ", CatalogItemId);
 
             return this.FindAll(whereClause, 0);
         }

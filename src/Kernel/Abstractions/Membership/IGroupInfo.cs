@@ -22,9 +22,9 @@ namespace X3Platform.Membership
         string PinYin { get; set; }
         #endregion
 
-        #region 属性:GroupTreeNodeId
+        #region 属性:CatalogItemId
         /// <summary>分组类别节点标识</summary>
-        string GroupTreeNodeId { get; set; }
+        string CatalogItemId { get; set; }
         #endregion
 
         #region 属性:EnableExchangeEmail

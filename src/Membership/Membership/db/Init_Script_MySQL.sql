@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `tb_GeneralRole`(
 	`Name` varchar(50) NULL,
 	`GlobalName` varchar(100) NULL,
 	`PinYin` varchar(50) NULL,
-	`GroupTreeNodeId` varchar(36) NULL,
+	`CatalogItemId` varchar(36) NULL,
 	`EnableExchangeEmail` int NULL,
 	`Locking` int NULL,
 	`OrderId` varchar(50) NULL,
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `tb_Group`(
 	`GlobalName` varchar(100) NULL,
 	`PinYin` varchar(50) NULL,
 	`Type` varchar(50) NULL,
-	`GroupTreeNodeId` varchar(36) NULL,
+	`CatalogItemId` varchar(36) NULL,
 	`EnableExchangeEmail` int NULL,
 	`EffectScope` int NULL,
 	`Locking` int NULL,
@@ -198,8 +198,8 @@ CREATE TABLE IF NOT EXISTS `tb_Group`(
 -- 设置主键: `Id`
 ALTER TABLE `tb_Group` ADD CONSTRAINT `PK_tb_Group` PRIMARY KEY CLUSTERED (`Id`);
 
--- 创建表: `tb_GroupTree`
-CREATE TABLE IF NOT EXISTS `tb_GroupTree`(
+-- 创建表: `tb_Catalog`
+CREATE TABLE IF NOT EXISTS `tb_Catalog`(
 	`Id` varchar(36) NOT NULL,
 	`Name` varchar(50) NULL,
 	`DisplayType` varchar(30) NULL,
@@ -212,10 +212,10 @@ CREATE TABLE IF NOT EXISTS `tb_GroupTree`(
 );
 
 -- 设置主键: `Id`
-ALTER TABLE `tb_GroupTree` ADD CONSTRAINT `PK_tb_GroupTree` PRIMARY KEY CLUSTERED (`Id`);
+ALTER TABLE `tb_Catalog` ADD CONSTRAINT `PK_tb_Catalog` PRIMARY KEY CLUSTERED (`Id`);
 
--- 创建表: `tb_GroupTreeNode`
-CREATE TABLE IF NOT EXISTS `tb_GroupTreeNode`(
+-- 创建表: `tb_CatalogItem`
+CREATE TABLE IF NOT EXISTS `tb_CatalogItem`(
 	`Id` varchar(36) NOT NULL,
 	`ParentId` varchar(36) NULL,
 	`Name` varchar(50) NULL,
@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `tb_GroupTreeNode`(
 );
 
 -- 设置主键: `Id`
-ALTER TABLE `tb_GroupTreeNode` ADD CONSTRAINT `PK_tb_GroupTreeNode` PRIMARY KEY CLUSTERED (`Id`);
+ALTER TABLE `tb_CatalogItem` ADD CONSTRAINT `PK_tb_CatalogItem` PRIMARY KEY CLUSTERED (`Id`);
 
 -- 创建表: `tb_Job`
 CREATE TABLE IF NOT EXISTS `tb_Job`(
@@ -415,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `tb_StandardGeneralRole`(
 	`Id` varchar(36) NOT NULL,
 	`Code` varchar(10) NULL,
 	`Name` varchar(50) NULL,
-	`GroupTreeNodeId` varchar(36) NULL,
+	`CatalogItemId` varchar(36) NULL,
 	`Locking` int NULL,
 	`OrderId` varchar(20) NULL,
 	`Status` int NULL,
@@ -465,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `tb_StandardRole`(
 	`Type` int NULL,
 	`Priority` int NULL,
 	`StandardOrganizationUnitId` varchar(36) NULL,
-	`GroupTreeNodeId` varchar(36) NULL,
+	`CatalogItemId` varchar(36) NULL,
 	`IsKey` bit NULL,
 	`IsDraft` bit NULL,
 	`Locking` int NULL,
@@ -676,10 +676,10 @@ INSERT `tb_StandardOrganizationUnit` (`Id`, `ParentId`, `Code`, `Name`, `GlobalN
 INSERT `tb_StandardOrganizationUnit` (`Id`, `ParentId`, `Code`, `Name`, `GlobalName`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000005', N'00000000-0000-0000-0000-000000000001', N'10000', N'集团总部', N'集团总部', 1, N'10001', 1, N'', '2000-01-01', '2000-01-01');
 
 -- tb_StandardRole
-INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `GroupTreeNodeId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000001', N'00000000-0000-0000-0000-000000000000', N'99999', N'默认标准角色', 0, 0, '00000000-0000-0000-0000-000000000002', N'', 0, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
-INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `GroupTreeNodeId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000002', N'00000000-0000-0000-0000-000000000000', N'10003', N'项目负责人', 2, 0, '00000000-0000-0000-0000-000000000003', N'', 1, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
-INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `GroupTreeNodeId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000003', N'00000000-0000-0000-0000-000000000000', N'10002', N'地区分公司经理', 1, 80, '00000000-0000-0000-0000-000000000004', N'', 1, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
-INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `GroupTreeNodeId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000004', N'00000000-0000-0000-0000-000000000000', N'10001', N'集团董事长', 0, 90, '00000000-0000-0000-0000-000000000005', N'', 1, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
+INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `CatalogItemId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000001', N'00000000-0000-0000-0000-000000000000', N'99999', N'默认标准角色', 0, 0, '00000000-0000-0000-0000-000000000002', N'', 0, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
+INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `CatalogItemId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000002', N'00000000-0000-0000-0000-000000000000', N'10003', N'项目负责人', 2, 0, '00000000-0000-0000-0000-000000000003', N'', 1, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
+INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `CatalogItemId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000003', N'00000000-0000-0000-0000-000000000000', N'10002', N'地区分公司经理', 1, 80, '00000000-0000-0000-0000-000000000004', N'', 1, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
+INSERT `tb_StandardRole` (`Id`, `ParentId`, `Code`, `Name`, `Type`, `Priority`, `StandardOrganizationUnitId`, `CatalogItemId`, `IsKey`, `IsDraft`, `Locking`, `OrderId`, `Status`, `Remark`, `ModifiedDate`, `CreatedDate`) VALUES (N'00000000-0000-0000-0000-000000000004', N'00000000-0000-0000-0000-000000000000', N'10001', N'集团董事长', 0, 90, '00000000-0000-0000-0000-000000000005', N'', 1, 0, 1, N'', 1, N'', '2000-01-01', '2000-01-01');
 
 -- tb_JobFamily
 INSERT INTO `tb_JobFamily` (`Id`, `Name`, `Status`, `ModifiedDate`, `CreatedDate`) VALUES ('00000000-0000-0000-0000-000000000001','管理', 1, '2000-01-01', '2000-01-01');
@@ -790,7 +790,7 @@ INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Descrip
 INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E09-M15','00000000-0000-0000-0000-000000000100','01-05-E09-M15','membership.standardGeneralRole.addMappingRelation','','generic','{className:"X3Platform.Membership.Ajax.StandardGeneralRoleWrapper,X3Platform.Membership",methodName:"AddMappingRelation"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
 INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E09-M16','00000000-0000-0000-0000-000000000100','01-05-E09-M16','membership.standardGeneralRole.removeMappingRelation','','generic','{className:"X3Platform.Membership.Ajax.StandardGeneralRoleWrapper,X3Platform.Membership",methodName:"RemoveMappingRelation"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
 INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E09-M17','00000000-0000-0000-0000-000000000100','01-05-E09-M17','membership.standardGeneralRole.hasMappingRelation','','generic','{className:"X3Platform.Membership.Ajax.StandardGeneralRoleWrapper,X3Platform.Membership",methodName:"HasMappingRelation"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
-INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E10-M11','00000000-0000-0000-0000-000000000100','01-05-E10-M11','membership.groupTree.getDynamicTreeView','','generic','{className:"X3Platform.Membership.Ajax.GroupTreeWrapper,X3Platform.Membership",methodName:"GetDynamicTreeView"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
+INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E10-M11','00000000-0000-0000-0000-000000000100','01-05-E10-M11','membership.Catalog.getDynamicTreeView','','generic','{className:"X3Platform.Membership.Ajax.CatalogWrapper,X3Platform.Membership",methodName:"GetDynamicTreeView"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
 INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E11-M01','00000000-0000-0000-0000-000000000100','01-05-E11-M01','membership.accountGrant.query','','generic','{className:"X3Platform.Membership.Ajax.AccountGrantWrapper,X3Platform.Membership",methodName:"GetPages"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
 INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E12-M01','00000000-0000-0000-0000-000000000100','01-05-E12-M01','membership.accountLog.query','','generic','{className:"X3Platform.Membership.Ajax.AccountLogWrapper,X3Platform.Membership",methodName:"GetPages"}',1,1,'10001',1,'','2000-01-01','2000-01-01');
 INSERT INTO `tb_Application_Method` (`Id`,`ApplicationId`,`Code`,`Name`,`Description`,`Type`,`Options`,`EffectScope`,`Version`,`OrderId`,`Status`,`Remark`,`ModifiedDate`,`CreatedDate`) VALUES ('01-05-E12-M06','00000000-0000-0000-0000-000000000100','01-05-E12-M016','membership.accountLog.delete','','generic','{className:"X3Platform.Membership.Ajax.AccountLogWrapper,X3Platform.Membership",methodName:"Delete"}',1,1,'10001',1,'','2000-01-01','2000-01-01');

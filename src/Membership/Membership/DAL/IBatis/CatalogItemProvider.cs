@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :IGroupTreeNodeProvider.cs
+// FileName     :ICatalogItemProvider.cs
 //
 // Description  :
 //
@@ -28,7 +28,7 @@ namespace X3Platform.Membership.DAL.IBatis
 {
     /// <summary></summary>
     [DataObject]
-    public class GroupTreeNodeProvider : IGroupTreeNodeProvider
+    public class CatalogItemProvider : ICatalogItemProvider
     {
         /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
@@ -40,11 +40,11 @@ namespace X3Platform.Membership.DAL.IBatis
         private ISqlMapper ibatisMapper = null;
 
         /// <summary>数据表名</summary>
-        private string tableName = "tb_GroupTreeNode";
+        private string tableName = "tb_CatalogItem";
 
-        #region 构造函数:GroupTreeNodeProvider()
+        #region 构造函数:CatalogItemProvider()
         /// <summary>构造函数</summary>
-        public GroupTreeNodeProvider()
+        public CatalogItemProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -58,11 +58,11 @@ namespace X3Platform.Membership.DAL.IBatis
         // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 函数:Save(GroupTreeNodeInfo param)
+        #region 函数:Save(CatalogItemInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        /// <returns>实例<see cref="GroupTreeNodeInfo"/>详细信息</returns>
-        public GroupTreeNodeInfo Save(GroupTreeNodeInfo param)
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        /// <returns>实例<see cref="CatalogItemInfo"/>详细信息</returns>
+        public CatalogItemInfo Save(CatalogItemInfo param)
         {
             if (!IsExist(param.Id))
             {
@@ -73,23 +73,23 @@ namespace X3Platform.Membership.DAL.IBatis
                 Update(param);
             }
 
-            return (GroupTreeNodeInfo)param;
+            return (CatalogItemInfo)param;
         }
         #endregion
 
-        #region 函数:Insert(GroupTreeNodeInfo param)
+        #region 函数:Insert(CatalogItemInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        public void Insert(GroupTreeNodeInfo param)
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        public void Insert(CatalogItemInfo param)
         {
             this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
         }
         #endregion
 
-        #region 函数:Update(GroupTreeNodeInfo param)
+        #region 函数:Update(CatalogItemInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        public void Update(GroupTreeNodeInfo param)
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        public void Update(CatalogItemInfo param)
         {
             this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
@@ -118,14 +118,14 @@ namespace X3Platform.Membership.DAL.IBatis
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        public GroupTreeNodeInfo FindOne(string id)
+        /// <returns>返回实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        public CatalogItemInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("Id", StringHelper.ToSafeSQL(id));
 
-            GroupTreeNodeInfo param = this.ibatisMapper.QueryForObject<GroupTreeNodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+            CatalogItemInfo param = this.ibatisMapper.QueryForObject<CatalogItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
 
             return param;
         }
@@ -135,15 +135,15 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        public IList<GroupTreeNodeInfo> FindAll(string whereClause, int length)
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        public IList<CatalogItemInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<GroupTreeNodeInfo> list = this.ibatisMapper.QueryForList<GroupTreeNodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+            IList<CatalogItemInfo> list = this.ibatisMapper.QueryForList<CatalogItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
 
             return list;
         }
@@ -152,12 +152,12 @@ namespace X3Platform.Membership.DAL.IBatis
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询所有相关记录</summary>
         /// <param name="parentId">父节点标识</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        public IList<GroupTreeNodeInfo> FindAllByParentId(string parentId)
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        public IList<CatalogItemInfo> FindAllByParentId(string parentId)
         {
             string whereClause = string.Format(" ParentId = ##{0}## ORDER BY OrderId ", parentId);
 
-            IList<GroupTreeNodeInfo> list = FindAll(whereClause, 0);
+            IList<CatalogItemInfo> list = FindAll(whereClause, 0);
 
             return list;
         }
@@ -173,8 +173,8 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="GroupTreeNodeInfo"/></returns>
-        public IList<GroupTreeNodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="CatalogItemInfo"/></returns>
+        public IList<CatalogItemInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
 
@@ -185,7 +185,7 @@ namespace X3Platform.Membership.DAL.IBatis
 
             args.Add("RowCount", 0);
 
-            IList<GroupTreeNodeInfo> list = this.ibatisMapper.QueryForList<GroupTreeNodeInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+            IList<CatalogItemInfo> list = this.ibatisMapper.QueryForList<CatalogItemInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
 
             rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
 

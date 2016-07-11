@@ -159,13 +159,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:FindAllByCatalogItemId(string CatalogItemId)
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="groupTreeNodeId">�����ڵ���ʶ</param>
+        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
         /// <returns>��������ʵ��<see cref="IStandardRoleInfo"/>����ϸ��Ϣ</returns>
-        public IList<IStandardRoleInfo> FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        public IList<IStandardRoleInfo> FindAllByCatalogItemId(string CatalogItemId)
         {
-            return provider.FindAllByGroupTreeNodeId(groupTreeNodeId);
+            return provider.FindAllByCatalogItemId(CatalogItemId);
         }
         #endregion
 

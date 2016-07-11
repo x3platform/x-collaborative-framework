@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :GeneralRoleService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -83,14 +69,14 @@ namespace X3Platform.Membership.BLL
                     originalObject = param;
                 }
 
-                this.SyncToLDAP(param, originalObject.GlobalName, originalObject.GroupTreeNodeId);
+                this.SyncToLDAP(param, originalObject.GlobalName, originalObject.CatalogItemId);
             }
 
             // ������֯ȫ·��
-            param.FullPath = this.CombineFullPath(param.Name, param.GroupTreeNodeId);
+            param.FullPath = this.CombineFullPath(param.Name, param.CatalogItemId);
 
             // ����Ψһʶ������
-            param.DistinguishedName = this.CombineDistinguishedName(param.Name, param.GroupTreeNodeId);
+            param.DistinguishedName = this.CombineDistinguishedName(param.Name, param.CatalogItemId);
 
             return provider.Save(param);
         }
@@ -149,13 +135,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:FindAllByCatalogItemId(string CatalogItemId)
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="groupTreeNodeId">�����ڵ���ʶ</param>
+        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
         /// <returns>��������ʵ��<see cref="GeneralRoleInfo"/>����ϸ��Ϣ</returns>
-        public IList<GeneralRoleInfo> FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        public IList<GeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId)
         {
-            return provider.FindAllByGroupTreeNodeId(groupTreeNodeId);
+            return provider.FindAllByCatalogItemId(CatalogItemId);
         }
         #endregion
 
@@ -217,27 +203,27 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CombineFullPath(string name, string groupTreeNodeId)
+        #region 属性:CombineFullPath(string name, string CatalogItemId)
         /// <summary>��ɫȫ·��</summary>
         /// <param name="name">ͨ�ý�ɫ����</param>
-        /// <param name="groupTreeNodeId">����������ʶ</param>
+        /// <param name="CatalogItemId">����������ʶ</param>
         /// <returns></returns>
-        public string CombineFullPath(string name, string groupTreeNodeId)
+        public string CombineFullPath(string name, string CatalogItemId)
         {
-            string path = MembershipManagement.Instance.GroupTreeNodeService.GetGroupTreeNodePathByGroupTreeNodeId(groupTreeNodeId);
+            string path = MembershipManagement.Instance.CatalogItemService.GetCatalogItemPathByCatalogItemId(CatalogItemId);
 
             return string.Format(@"{0}{1}", path, name);
         }
         #endregion
 
-        #region 属性:CombineDistinguishedName(string name, string groupTreeNodeId)
+        #region 属性:CombineDistinguishedName(string name, string CatalogItemId)
         /// <summary>ͨ�ý�ɫΨһ����</summary>
         /// <param name="name">ͨ�ý�ɫ����</param>
-        /// <param name="groupTreeNodeId">����������ʶ</param>
+        /// <param name="CatalogItemId">����������ʶ</param>
         /// <returns></returns>
-        public string CombineDistinguishedName(string name, string groupTreeNodeId)
+        public string CombineDistinguishedName(string name, string CatalogItemId)
         {
-            string path = MembershipManagement.Instance.GroupTreeNodeService.GetLDAPOUPathByGroupTreeNodeId(groupTreeNodeId);
+            string path = MembershipManagement.Instance.CatalogItemService.GetLDAPOUPathByCatalogItemId(CatalogItemId);
 
             return string.Format("CN={0},{1}{2}", name, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
@@ -330,16 +316,16 @@ namespace X3Platform.Membership.BLL
         /// <param name="param">��ɫ��Ϣ</param>
         public int SyncToLDAP(GeneralRoleInfo param)
         {
-            return SyncToLDAP(param, param.GlobalName, param.GroupTreeNodeId);
+            return SyncToLDAP(param, param.GlobalName, param.CatalogItemId);
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IGroupInfo param, string originalGlobalName, string originalGroupTreeNodeId)
+        #region 属性:SyncToLDAP(IGroupInfo param, string originalGlobalName, string originalCatalogItemId)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">��ɫ��Ϣ</param>
         /// <param name="originalGlobalName">ԭʼ��ȫ������</param>
-        /// <param name="originalGroupTreeNodeId">ԭʼ�ķ�����ʶ</param>
-        public int SyncToLDAP(GeneralRoleInfo param, string originalGlobalName, string originalGroupTreeNodeId)
+        /// <param name="originalCatalogItemId">ԭʼ�ķ�����ʶ</param>
+        public int SyncToLDAP(GeneralRoleInfo param, string originalGlobalName, string originalCatalogItemId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
@@ -366,18 +352,18 @@ namespace X3Platform.Membership.BLL
                             LDAPManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
                         }
 
-                        if (param.GroupTreeNodeId != originalGroupTreeNodeId)
+                        if (param.CatalogItemId != originalCatalogItemId)
                         {
                             // ��ɫ��${Name}����������֯�����仯��
                             LDAPManagement.Instance.Group.MoveTo(param.GlobalName,
-                                MembershipManagement.Instance.GroupTreeNodeService.GetLDAPOUPathByGroupTreeNodeId(param.GroupTreeNodeId));
+                                MembershipManagement.Instance.CatalogItemService.GetLDAPOUPathByCatalogItemId(param.CatalogItemId));
                         }
 
                         return 0;
                     }
                     else
                     {
-                        string parentPath = MembershipManagement.Instance.GroupTreeNodeService.GetLDAPOUPathByGroupTreeNodeId(param.GroupTreeNodeId);
+                        string parentPath = MembershipManagement.Instance.CatalogItemService.GetLDAPOUPathByCatalogItemId(param.CatalogItemId);
 
                         LDAPManagement.Instance.Group.Add(param.GlobalName, parentPath);
 

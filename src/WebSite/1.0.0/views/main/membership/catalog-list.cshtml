@@ -1,17 +1,11 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-<script id="x-main" type="text/javascript">
-  x.require({
-    files: [
-        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
-        { fileType: 'script', id: 'main-membership-organization-list-script', path: '/views/main/membership/group-tree-list.js' }
-    ]
-  });
-</script>
+<script type="text/javascript" id="x-app-script" src="/resources/scripts/app/x.app.js"></script>
+<script type="text/javascript" id="main-membership-catalog-list-script" src="/views/main/membership/catalog-list.js"></script>
 @Html.Raw(X3Platform.Web.Builder.BuilderContext.Instance.MenuManagement.GetMenu(ViewBag.account, ViewBag.application.ApplicationName, new Dictionary<string, string> { { "currentMenuFullPath", @"人员及权限管理\分组类别设置" } }))
 <div id="window-container" class="window-container">
   <div id="window-main-table" class="table">
     <div id="window-main-table-header" class="table-header x-freeze-height">
-      <span>分组类别设置</span>
+      <span>目录设置</span>
     </div>
     <div id="window-main-table-body" class="table-body">
       <div class="table-row-filter form-inline text-right x-freeze-height">

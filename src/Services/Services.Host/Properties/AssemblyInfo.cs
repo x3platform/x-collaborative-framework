@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Elane")]
-[assembly: AssemblyDescription("Elane")]
+[assembly: AssemblyTitle("X3Platform.Services.Host")]
+[assembly: AssemblyDescription("X3 服务宿主程序")]
 
 
 // 将 ComVisible 设置为 false 使此程序集中的类型

@@ -4,53 +4,70 @@ using System.Text;
 using System.Xml;
 
 using X3Platform.Configuration;
+using X3Platform.Util;
 
 namespace X3Platform.Services.Configuration
 {
-    public class ServiceObserverConfiguration : NameTypeConfigurationElement
+    public class ServiceObserverConfigurationElement : NameTypeConfigurationElement
     {
         private const string argsProperty = "args";
 
         private const string nextRunTimeProperty = "nextRunTime";
 
         /// <summary>
-        /// Initialize a new instance of the <see cref="EmailClientProviderData"/> class.
+        /// Initialize a new instance of the <see cref="ServiceObserverConfigurationElement"/> class.
         /// </summary>
-        public ServiceObserverConfiguration() { }
+        public ServiceObserverConfigurationElement() { }
 
         /// <summary>
-        /// Intializes a new instance of the <see cref="EmailClientProviderData"/> class.
+        /// Intializes a new instance of the <see cref="ServiceObserverConfigurationElement"/> class.
         /// </summary>
         /// <param name="name">The name of the provider.</param>
-        public ServiceObserverConfiguration(string name)
-            : base(name, typeof(ServiceObserverConfiguration))
-        { }
+        public ServiceObserverConfigurationElement(string name)
+            : base(name, typeof(ServiceObserverConfigurationElement))
+        {
+        }
 
         /// <summary>
-        /// Intializes a new instance of the <see cref="EmailClientProviderData"/> class.
+        /// Intializes a new instance of the <see cref="ServiceObserverConfigurationElement"/> class.
         /// </summary>
         /// <param name="name">The name of the provider.</param>
-        public ServiceObserverConfiguration(string name, Type type)
-            : base(name, type)
-        { }
+        public ServiceObserverConfigurationElement(string name, string typeName)
+            : base(name, typeof(ServiceObserverConfigurationElement))
+        {
+            this.TypeName = typeName;
+        }
 
         /// <summary>
-        /// Gets or sets the default EmailClient of the provider. This EmailClient will be used when
-        /// no message can be found for the user specified by the caller.
+        /// Intializes a new instance of the <see cref="ServiceObserverConfiguration"/> class.
         /// </summary>
-        [ConfigurationProperty(argsProperty, IsRequired = true)]
+        /// <param name="name">The name of the provider.</param>
+        public ServiceObserverConfigurationElement(string name, string typeName, string args, string nextRunTime)
+            :base(name,typeof(ServiceObserverConfigurationElement))
+        {
+            this.TypeName = typeName;
+            this.Args = args;
+            this.NextRunTime = Convert.ToDateTime(nextRunTime);
+        }
+        
+        private string m_Args = null;
+
+        /// <summary></summary>
+        [ConfigurationProperty(argsProperty)]
         public string Args
         {
-            get { return (base[argsProperty] == null) ? string.Empty : base[argsProperty].ToString(); }
-            set { base[argsProperty] = value; }
+            get { return (this.m_Args == null) ? string.Empty : this.m_Args; }
+            set { this.m_Args = value; }
         }
+
+        private DateTime m_NextRunTime = DateHelper.DefaultTime;
 
         /// <summary></summary>
         [ConfigurationProperty(nextRunTimeProperty)]
         public DateTime NextRunTime
         {
-            get { return (base[nextRunTimeProperty] == null) ? new DateTime(2000, 1, 1) : DateTime.Parse(base[nextRunTimeProperty].ToString()); }
-            set { base[nextRunTimeProperty] = value.ToString("yyyy-MM-dd HH:mm:ss"); }
+            get { return this.m_NextRunTime; }
+            set { this.m_NextRunTime = value; }
         }
     }
 }

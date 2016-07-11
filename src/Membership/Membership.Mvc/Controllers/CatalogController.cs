@@ -13,7 +13,7 @@
     using X3Platform.Web.Mvc.Attributes;
 
     [LoginFilter]
-    public class GroupTreeController : CustomController
+    public class CatalogController : CustomController
     {
         private string APPLICATION_NAME = "Membership";
 
@@ -26,7 +26,7 @@
             ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
 
             // 角色
-            return View("/views/main/membership/group-tree-list.cshtml");
+            return View("/views/main/membership/catalog-list.cshtml");
         }
         #endregion
     }

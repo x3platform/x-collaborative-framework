@@ -21,7 +21,7 @@
             {
                 ServicesConfiguration configuration = ServicesConfigurationView.Instance.Configuration;
 
-                foreach (ServiceObserverConfiguration observer in configuration.Observers)
+                foreach (ServiceObserverConfigurationElement observer in configuration.Observers)
                 {
                     IServiceObserver serviceObserver = (IServiceObserver)Assembly.Load(observer.TypeName.Substring(observer.TypeName.IndexOf(",") + 1).Trim()).CreateInstance(observer.TypeName.Substring(0, observer.TypeName.IndexOf(",")).Trim(), false, BindingFlags.Default, null, new object[] { observer.Name, observer.Args }, null, null);
 

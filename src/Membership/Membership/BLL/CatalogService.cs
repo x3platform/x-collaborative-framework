@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :GroupTreeService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership.BLL
 {
     using System;
@@ -27,17 +13,17 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Data;
 
     /// <summary></summary>
-    public class GroupTreeService : IGroupTreeService
+    public class CatalogService : ICatalogService
     {
         /// <summary>����</summary>
         private MembershipConfiguration configuration = null;
 
         /// <summary>�����ṩ��</summary>
-        private IGroupTreeProvider provider = null;
+        private ICatalogProvider provider = null;
 
-        #region ���캯��:GroupTreeService()
+        #region ���캯��:CatalogService()
         /// <summary>���캯��</summary>
-        public GroupTreeService()
+        public CatalogService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -47,7 +33,7 @@ namespace X3Platform.Membership.BLL
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
             // ���������ṩ��
-            this.provider = objectBuilder.GetObject<IGroupTreeProvider>(typeof(IGroupTreeProvider));
+            this.provider = objectBuilder.GetObject<ICatalogProvider>(typeof(ICatalogProvider));
         }
         #endregion
 
@@ -55,7 +41,7 @@ namespace X3Platform.Membership.BLL
         /// <summary>����</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public GroupTreeInfo this[string id]
+        public CatalogInfo this[string id]
         {
             get { return this.FindOne(id); }
         }
@@ -65,18 +51,18 @@ namespace X3Platform.Membership.BLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region 属性:Save(GroupTreeInfo param)
+        #region 属性:Save(CatalogInfo param)
         /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="GroupTreeInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="GroupTreeInfo"/>��ϸ��Ϣ</returns>
-        public GroupTreeInfo Save(GroupTreeInfo param)
+        /// <param name="param">ʵ��<see cref="CatalogInfo"/>��ϸ��Ϣ</param>
+        /// <returns>ʵ��<see cref="CatalogInfo"/>��ϸ��Ϣ</returns>
+        public CatalogInfo Save(CatalogInfo param)
         {
             if (string.IsNullOrEmpty(param.Id))
             {
                 throw new ApplicationException("�����������ı�ʶ����Ϊ�ա�");
             }
 
-            GroupTreeNodeInfo node = new GroupTreeNodeInfo();
+            CatalogItemInfo node = new CatalogItemInfo();
 
             node.Id = param.Id;
 
@@ -86,9 +72,9 @@ namespace X3Platform.Membership.BLL
 
             node.IsKey = true;
 
-            MembershipManagement.Instance.GroupTreeNodeService.Save(node);
+            MembershipManagement.Instance.CatalogItemService.Save(node);
 
-            param.RootTreeNodeId = param.Id;
+            param.RootCatalogItemId = param.Id;
 
             provider.Save(param);
 
@@ -112,8 +98,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="GroupTreeInfo"/>����ϸ��Ϣ</returns>
-        public GroupTreeInfo FindOne(string id)
+        /// <returns>����ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        public CatalogInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
@@ -121,8 +107,8 @@ namespace X3Platform.Membership.BLL
 
         #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="GroupTreeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeInfo> FindAll()
+        /// <returns>��������ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
@@ -131,8 +117,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="GroupTreeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeInfo> FindAll(string whereClause)
+        /// <returns>��������ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
@@ -142,8 +128,8 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="GroupTreeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeInfo> FindAll(string whereClause, int length)
+        /// <returns>��������ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
         }
@@ -159,8 +145,8 @@ namespace X3Platform.Membership.BLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="GroupTreeInfo"/></returns>
-        public IList<GroupTreeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="CatalogInfo"/></returns>
+        public IList<CatalogInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             return provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }

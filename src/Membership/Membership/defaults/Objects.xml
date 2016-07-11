@@ -156,21 +156,21 @@
             lazy-init="true" />
 
     <!-- 群组分类 -->
-    <object name="X3Platform.Membership.IBLL.IGroupTreeService"
-            type="X3Platform.Membership.BLL.GroupTreeService"
+    <object name="X3Platform.Membership.IBLL.ICatalogService"
+            type="X3Platform.Membership.BLL.CatalogService"
             lazy-init="true" />
 
-    <object name="X3Platform.Membership.IDAL.IGroupTreeProvider"
-            type="X3Platform.Membership.DAL.IBatis.GroupTreeProvider"
+    <object name="X3Platform.Membership.IDAL.ICatalogProvider"
+            type="X3Platform.Membership.DAL.IBatis.CatalogProvider"
             lazy-init="true" />
 
     <!-- 群组分类子节点 -->
-    <object name="X3Platform.Membership.IBLL.IGroupTreeNodeService"
-            type="X3Platform.Membership.BLL.GroupTreeNodeService"
+    <object name="X3Platform.Membership.IBLL.ICatalogItemService"
+            type="X3Platform.Membership.BLL.CatalogItemService"
             lazy-init="true" />
 
-    <object name="X3Platform.Membership.IDAL.IGroupTreeNodeProvider"
-            type="X3Platform.Membership.DAL.IBatis.GroupTreeNodeProvider"
+    <object name="X3Platform.Membership.IDAL.ICatalogItemProvider"
+            type="X3Platform.Membership.DAL.IBatis.CatalogItemProvider"
             lazy-init="true" />
 
     <!-- 外部联系人信息 -->

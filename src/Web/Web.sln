@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kernel", "Kernel", "{D417AE64-5C73-4844-8BC6-B96BD9020B0E}"
 EndProject
@@ -44,6 +44,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{81716389-9A87-44FC-9276-5130BD835916}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks.Mixed", "..\Tasks\Tasks.Mixed\Tasks.Mixed.csproj", "{190476C1-4FE2-4DA1-904E-B060A4D9B7D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttachmentStorage", "..\AttachmentStorage\AttachmentStorage\AttachmentStorage.csproj", "{C7B42323-11A4-4F0C-8F5F-E9FB9DBE079C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{190476C1-4FE2-4DA1-904E-B060A4D9B7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{190476C1-4FE2-4DA1-904E-B060A4D9B7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{190476C1-4FE2-4DA1-904E-B060A4D9B7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7B42323-11A4-4F0C-8F5F-E9FB9DBE079C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B42323-11A4-4F0C-8F5F-E9FB9DBE079C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B42323-11A4-4F0C-8F5F-E9FB9DBE079C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B42323-11A4-4F0C-8F5F-E9FB9DBE079C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

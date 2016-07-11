@@ -75,11 +75,11 @@ namespace X3Platform.Membership.IDAL
         IList<IStandardGeneralRoleInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 属性:FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:FindAllByCatalogItemId(string CatalogItemId)
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="groupTreeNodeId">�����ڵ���ʶ</param>
+        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
         /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
-        IList<IStandardGeneralRoleInfo> FindAllByGroupTreeNodeId(string groupTreeNodeId);
+        IList<IStandardGeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId);
         #endregion
 
         // -------------------------------------------------------

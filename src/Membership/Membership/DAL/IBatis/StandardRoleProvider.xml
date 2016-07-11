@@ -12,7 +12,7 @@
       <result property="Priority" column="Priority" />
       <result property="ParentId" column="ParentId" />
       <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
-      <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+      <result property="CatalogItemId" column="CatalogItemId" />
       <result property="IsKey" column="IsKey" />
       <result property="IsDraft" column="IsDraft" />
       <result property="Locking" column="Locking" />
@@ -30,7 +30,7 @@
       <result property="Priority" column="Priority" />
       <result property="ParentId" column="ParentId" />
       <result property="StandardOrganizationUnitId" column="StandardOrganizationUnitId" />
-      <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+      <result property="CatalogItemId" column="CatalogItemId" />
       <result property="IsKey" column="IsKey" />
       <result property="IsDraft" column="IsDraft" />
       <result property="Locking" column="Locking" />
@@ -52,7 +52,7 @@
         Priority,
         ParentId,
         StandardOrganizationUnitId,
-        GroupTreeNodeId,
+        CatalogItemId,
         IsKey,
         IsDraft,
         Locking,
@@ -71,7 +71,7 @@
         #Priority#,
         #ParentId#,
         #StandardOrganizationUnitId#,
-        #GroupTreeNodeId#,
+        #CatalogItemId#,
         #IsKey#,
         #IsDraft#,
         #Locking#,
@@ -91,7 +91,7 @@
         Priority = #Priority#,
         ParentId = #ParentId#,
         StandardOrganizationUnitId = #StandardOrganizationUnitId#,
-        GroupTreeNodeId = #GroupTreeNodeId#,
+        CatalogItemId = #CatalogItemId#,
         IsKey =  #IsKey#,
         IsDraft =  #IsDraft#,
         Locking =  #Locking#,
@@ -206,7 +206,7 @@
           ParentId = #ParentId#,
           StandardOrganizationUnitId = #StandardOrganizationUnitId#,
           IsKey =  #IsKey#,
-          GroupTreeNodeId = #GroupTreeNodeId#,
+          CatalogItemId = #CatalogItemId#,
           OrderId = #OrderId#,
           Status = #Status#,
           Remark = #Remark#,
@@ -225,7 +225,7 @@
           ParentId,
           StandardOrganizationUnitId,
           IsKey,
-          GroupTreeNodeId,
+          CatalogItemId,
           OrderId,
           Status,
           Remark,
@@ -241,7 +241,7 @@
           #ParentId#,
           #StandardOrganizationUnitId#,
           #IsKey#,
-          #GroupTreeNodeId#,
+          #CatalogItemId#,
           #OrderId#,
           #Status#,
           #Remark#,

@@ -210,23 +210,23 @@ namespace X3Platform.Membership
         }
         #endregion
 
-        #region 属性:GroupTreeService
-        private IGroupTreeService m_GroupTreeService = null;
+        #region 属性:CatalogService
+        private ICatalogService m_CatalogService = null;
 
         /// <summary>群组分类树形信息</summary>
-        public IGroupTreeService GroupTreeService
+        public ICatalogService CatalogService
         {
-            get { return this.m_GroupTreeService; }
+            get { return this.m_CatalogService; }
         }
         #endregion
 
-        #region 属性:GroupTreeNodeService
-        private IGroupTreeNodeService m_GroupTreeNodeService = null;
+        #region 属性:CatalogItemService
+        private ICatalogItemService m_CatalogItemService = null;
 
         /// <summary>群组分类树形节点信息</summary>
-        public IGroupTreeNodeService GroupTreeNodeService
+        public ICatalogItemService CatalogItemService
         {
-            get { return this.m_GroupTreeNodeService; }
+            get { return this.m_CatalogItemService; }
         }
         #endregion
 
@@ -350,16 +350,16 @@ namespace X3Platform.Membership
             this.m_StandardRoleService = objectBuilder.GetObject<IStandardRoleService>(typeof(IStandardRoleService));
             this.m_StandardOrganizationUnitService = objectBuilder.GetObject<IStandardOrganizationUnitService>(typeof(IStandardOrganizationUnitService));
             this.m_GroupService = objectBuilder.GetObject<IGroupService>(typeof(IGroupService));
-            this.m_GroupTreeService = objectBuilder.GetObject<IGroupTreeService>(typeof(IGroupTreeService));
-            this.m_GroupTreeNodeService = objectBuilder.GetObject<IGroupTreeNodeService>(typeof(IGroupTreeNodeService));
+            this.m_CatalogService = objectBuilder.GetObject<ICatalogService>(typeof(ICatalogService));
+            this.m_CatalogItemService = objectBuilder.GetObject<ICatalogItemService>(typeof(ICatalogItemService));
             this.m_ContactService = objectBuilder.GetObject<IContactService>(typeof(IContactService));
             this.m_AssignedJobService = objectBuilder.GetObject<IAssignedJobService>(typeof(IAssignedJobService));
             this.m_JobFamilyService = objectBuilder.GetObject<IJobFamilyService>(typeof(IJobFamilyService));
             this.m_JobGradeService = objectBuilder.GetObject<IJobGradeService>(typeof(IJobGradeService));
             this.m_JobService = objectBuilder.GetObject<IJobService>(typeof(IJobService));
             this.m_SettingService = objectBuilder.GetObject<ISettingService>(typeof(ISettingService));
-            this.m_GroupTreeService = objectBuilder.GetObject<IGroupTreeService>(typeof(IGroupTreeService));
-            this.m_GroupTreeNodeService = objectBuilder.GetObject<IGroupTreeNodeService>(typeof(IGroupTreeNodeService));
+            this.m_CatalogService = objectBuilder.GetObject<ICatalogService>(typeof(ICatalogService));
+            this.m_CatalogItemService = objectBuilder.GetObject<ICatalogItemService>(typeof(ICatalogItemService));
 
             KernelContext.Log.Info(string.Format(I18n.Strings["application_is_successfully_loaded"], MembershipConfiguration.ApplicationName));
         }

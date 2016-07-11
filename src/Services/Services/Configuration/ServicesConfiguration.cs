@@ -22,7 +22,7 @@ namespace X3Platform.Services.Configuration
         public const string ApplicationName = "Services";
 
         /// <summary>配置区的名称</summary>
-        public const string SectionName = "servicesConfiguration";
+        public const string SectionName = "services";
 
         /// <summary>获取配置区的名称</summary>
         public override string GetSectionName()
@@ -38,12 +38,11 @@ namespace X3Platform.Services.Configuration
         public NamedConfigurationElementCollection<NameTypeConfigurationElement> Services
         {
             get { return this.m_Services; }
-            set { this.m_Services = value; }
         }
 
-        private NamedConfigurationElementCollection<ServiceObserverConfiguration> m_Observers = new NamedConfigurationElementCollection<ServiceObserverConfiguration>();
+        private NamedConfigurationElementCollection<ServiceObserverConfigurationElement> m_Observers = new NamedConfigurationElementCollection<ServiceObserverConfigurationElement>();
 
-        public NamedConfigurationElementCollection<ServiceObserverConfiguration> Observers
+        public NamedConfigurationElementCollection<ServiceObserverConfigurationElement> Observers
         {
             get { return this.m_Observers; }
         }

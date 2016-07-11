@@ -1,10 +1,7 @@
 ﻿@{ Layout = "~/views/templates/themes/" + ViewBag.ThemeName + "/render.cshtml"; }
-<script id="x-main" type="text/javascript" >
-    x.require({ files: [
-        { fileType: 'script', id: 'x-app-script', path: x.dir() + 'app/x.app.js' },
-        { fileType: 'script', id: 'main-membership-group-tree-node-list-script', path: '/views/main/membership/group-tree-node-list.js' }
-    ]});
-</script>
+<script type="text/javascript" id="x-client-api-template-script" src="/resources/scripts/x-client-api-template.zh-cn.min.js"></script>
+<script type="text/javascript" id="x-app-script" src="/resources/scripts/app/x.app.js"></script>
+<script type="text/javascript" id="main-membership-catalog-item-list-script" src="/views/main/membership/catalog-item-list.js"></script>
 <script id="template-list" type="text/template">
 <table class="table-style" style="width:100%">
 <tbody>
@@ -93,11 +90,14 @@
             <tr>
                 <td class="table-sidebar">
                     <div id="window-main-table-sidebar">
-                        <div class="table-sidebar-search"><input id="searchText" type="text" value="" class="table-sidebar-search-text" /> <button id="btnFilter" class="table-sidebar-search-button">查询</button></div>
+                        <div class="table-sidebar-search form-inline">
+                            <input id="searchText" type="text" value="" class="table-sidebar-search-text form-control input-sm" placeholder="名称\全局名称" />
+                            <button id="btnFilter" class="btn btn-default btn-sm" title="查询"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                         <div id="treeViewContainer" class="table-sidebar-tree-view"></div>
                         <input id="treeViewId" name="treeViewId" type="hidden" value="@ViewBag.tree.Id" />
                         <input id="treeViewName" name="treeViewName" type="hidden" value="@ViewBag.tree.Name" />
-                        <input id="treeViewRootTreeNodeId" name="treeViewRootTreeNodeId" type="hidden" value="@ViewBag.tree.RootTreeNodeId" />
+                        <input id="treeViewRootTreeNodeId" name="treeViewRootTreeNodeId" type="hidden" value="@ViewBag.tree.RootCatalogItemId" />
                     </div>
                 </td>
                 <td>

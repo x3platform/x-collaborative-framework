@@ -10,25 +10,25 @@ using X3Platform.Data;
 namespace X3Platform.Membership.IBLL
 {
     /// <summary></summary>
-    [SpringObject("X3Platform.Membership.IBLL.IGroupTreeNodeService")]
-    public interface IGroupTreeNodeService
+    [SpringObject("X3Platform.Membership.IBLL.ICatalogItemService")]
+    public interface ICatalogItemService
     {
         #region 索引:this[string id]
         /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        GroupTreeNodeInfo this[string id] { get; }
+        CatalogItemInfo this[string id] { get; }
         #endregion
 
         // -------------------------------------------------------
         // 保存 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(GroupTreeNodeInfo param)
+        #region 函数:Save(CatalogItemInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        /// <returns>实例<see cref="GroupTreeNodeInfo"/>详细信息</returns>
-        GroupTreeNodeInfo Save(GroupTreeNodeInfo param);
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        /// <returns>实例<see cref="CatalogItemInfo"/>详细信息</returns>
+        CatalogItemInfo Save(CatalogItemInfo param);
         #endregion
 
         #region 函数:Delete(string ids)
@@ -44,36 +44,36 @@ namespace X3Platform.Membership.IBLL
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        GroupTreeNodeInfo FindOne(string id);
+        /// <returns>返回实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        CatalogItemInfo FindOne(string id);
         #endregion
 
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        IList<GroupTreeNodeInfo> FindAll();
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        IList<CatalogItemInfo> FindAll();
         #endregion
 
         #region 函数:FindAll(string whereClause)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        IList<GroupTreeNodeInfo> FindAll(string whereClause);
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        IList<CatalogItemInfo> FindAll(string whereClause);
         #endregion
 
         #region 函数:FindAll(string whereClause, int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        IList<GroupTreeNodeInfo> FindAll(string whereClause, int length);
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        IList<CatalogItemInfo> FindAll(string whereClause, int length);
         #endregion
 
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询所有相关记录</summary>
         /// <param name="parentId">父节点标识</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        IList<GroupTreeNodeInfo> FindAllByParentId(string parentId);
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        IList<CatalogItemInfo> FindAllByParentId(string parentId);
         #endregion
 
         // -------------------------------------------------------
@@ -86,8 +86,8 @@ namespace X3Platform.Membership.IBLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="GroupTreeNodeInfo"/></returns>
-        IList<GroupTreeNodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        /// <returns>返回一个列表实例<see cref="CatalogItemInfo"/></returns>
+        IList<CatalogItemInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)
@@ -97,18 +97,18 @@ namespace X3Platform.Membership.IBLL
         bool IsExist(string id);
         #endregion
 
-        #region 函数:GetGroupTreeNodePathByGroupTreeNodeId(string groupTreeNodeId)
+        #region 函数:GetCatalogItemPathByCatalogItemId(string CatalogItemId)
         /// <summary>根据分组类别节点标识计算类别的全路径</summary>
-        /// <param name="groupTreeNodeId">分组类别节点标识</param>
+        /// <param name="CatalogItemId">分组类别节点标识</param>
         /// <returns></returns>
-        string GetGroupTreeNodePathByGroupTreeNodeId(string groupTreeNodeId);
+        string GetCatalogItemPathByCatalogItemId(string CatalogItemId);
         #endregion
 
-        #region 函数:GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId)
+        #region 函数:GetLDAPOUPathByCatalogItemId(string CatalogItemId)
         /// <summary>根据分组类别节点标识计算 Active Directory OU 路径</summary>
-        /// <param name="groupTreeNodeId">分组类别节点标识</param>
+        /// <param name="CatalogItemId">分组类别节点标识</param>
         /// <returns></returns>
-        string GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId);
+        string GetLDAPOUPathByCatalogItemId(string CatalogItemId);
         #endregion
 
         #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
