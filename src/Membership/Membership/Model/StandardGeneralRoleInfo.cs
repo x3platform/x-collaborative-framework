@@ -75,39 +75,39 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:GroupTreeNodeId
-        private string m_GroupTreeNodeId;
+        #region 属性:CatalogItemId
+        private string m_CatalogItemId;
 
         /// <summary></summary>
-        public string GroupTreeNodeId
+        public string CatalogItemId
         {
-            get { return m_GroupTreeNodeId; }
-            set { m_GroupTreeNodeId = value; }
+            get { return m_CatalogItemId; }
+            set { m_CatalogItemId = value; }
         }
         #endregion
 
-        #region 属性:GroupTreeNodeName
+        #region 属性:CatalogItemName
         /// <summary>标准角色名称</summary>
-        public string GroupTreeNodeName
+        public string CatalogItemName
         {
-            get { return this.GroupTreeNode == null ? string.Empty : this.GroupTreeNode.Name; }
+            get { return this.CatalogItem == null ? string.Empty : this.CatalogItem.Name; }
         }
         #endregion
 
-        #region 属性:GroupTreeNode
-        private GroupTreeNodeInfo m_GroupTreeNode = null;
+        #region 属性:CatalogItem
+        private CatalogItemInfo m_CatalogItem = null;
 
         /// <summary>所属的标准组织</summary>
-        public GroupTreeNodeInfo GroupTreeNode
+        public CatalogItemInfo CatalogItem
         {
             get
             {
-                if (m_GroupTreeNode == null && !string.IsNullOrEmpty(this.GroupTreeNodeId))
+                if (m_CatalogItem == null && !string.IsNullOrEmpty(this.CatalogItemId))
                 {
-                    m_GroupTreeNode = MembershipManagement.Instance.GroupTreeNodeService[this.GroupTreeNodeId];
+                    m_CatalogItem = MembershipManagement.Instance.CatalogItemService[this.CatalogItemId];
                 }
 
-                return m_GroupTreeNode;
+                return m_CatalogItem;
             }
         }
         #endregion

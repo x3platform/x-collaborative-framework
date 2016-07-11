@@ -37,6 +37,9 @@
             {
                 HttpPostedFile file = request.Files["fileData"];
 
+                // 输出类型 id uri base64
+                string outputType = request.Form["outputType"];
+
                 string attachmentId = request.Form["attachmentId"];
                 string entityId = request.Form["entityId"];
                 string entityClassName = request.Form["entityClassName"];
@@ -113,25 +116,45 @@
                         attachment.FileData = ThumbnailManagement.Resize(image, attachment.FileType, targetWidth, targetHeight);
                     }
 
-                    attachment.Save();
-
-                    // 调整图片大小
-                    if (thumbnail == 1)
+                    if (outputType == "base64")
                     {
-                        Image image = Image.FromStream(ByteHelper.ToStream(attachment.FileData));
+                        // 输出 Base64
+                        HttpContext.Current.Response.StatusCode = 200;
 
-                        attachment.FileData = ThumbnailManagement.Resize(image, attachment.FileType, thumbnailWidth, thumbnailHeight);
-
-                        var fileName = string.Format("{0}_{1}x{2}{3}", attachment.Id, thumbnailWidth, thumbnailHeight, attachment.FileType);
-
-                        Stream stream = ByteHelper.ToStream(attachment.FileData);
-
-                        // 创建缩略图
-                        ThumbnailManagement.CreateThumbnail(attachment.Id, stream, attachment.FileType, thumbnailWidth, thumbnailHeight);
+                        HttpContext.Current.Response.Write(ByteHelper.ToBase64(attachment.FileData));
                     }
+                    else
+                    {
+                        attachment.Save();
 
-                    HttpContext.Current.Response.StatusCode = 200;
-                    HttpContext.Current.Response.Write(attachment.Id);
+                        // 调整图片大小
+                        if (thumbnail == 1)
+                        {
+                            Image image = Image.FromStream(ByteHelper.ToStream(attachment.FileData));
+
+                            attachment.FileData = ThumbnailManagement.Resize(image, attachment.FileType, thumbnailWidth, thumbnailHeight);
+
+                            var fileName = string.Format("{0}_{1}x{2}{3}", attachment.Id, thumbnailWidth, thumbnailHeight, attachment.FileType);
+
+                            Stream stream = ByteHelper.ToStream(attachment.FileData);
+
+                            // 创建缩略图
+                            ThumbnailManagement.CreateThumbnail(attachment.Id, stream, attachment.FileType, thumbnailWidth, thumbnailHeight);
+                        }
+
+                        HttpContext.Current.Response.StatusCode = 200;
+
+                        if (outputType == "uri")
+                        {
+                            // 输出 uri
+                            HttpContext.Current.Response.Write(attachment.VirtualPath.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder));
+                        }
+                        else
+                        { 
+                            // 输出 id
+                            HttpContext.Current.Response.Write(attachment.Id);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

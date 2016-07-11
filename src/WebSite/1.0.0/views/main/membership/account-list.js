@@ -68,9 +68,9 @@ main.membership.account.list = {
             outString += '<tr>';
             outString += '<td><a href="javascript:main.membership.account.list.openDialog(\'' + node.id + '\');" >' + node.name + (node.loginName == '' ? '</a> <span class="red-text">待初始化帐号</span>' : '(' + node.loginName + ')</a>') + '</td>';
             outString += '<td>' + node.globalName + '</td>';
-            outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
+            outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
             // outString += '<td>' + x.date.newTime(node.loginDate).toString('yyyy-MM-dd HH:mm:ss') + '</td>';
-            outString += '<td>' + node.modifiedDateView + '</td>';
+            outString += '<td>' + x.date.newTime(node.modifiedDateView).toString('yyyy-MM-dd') + '</td>';
             outString += '<td><a href="/membership/account/validator?accountId=' + node.id + '" target="_blank" >数据验证</a></td>';
             if (node.locking === '1')
             {

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<sqlMap namespace="X3Platform.Membership.DAL.IBatis.GroupTreeProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.CatalogProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   <alias>
-    <typeAlias alias="GroupTreeInfo" type="X3Platform.Membership.Model.GroupTreeInfo,X3Platform.Membership" />
+    <typeAlias alias="CatalogInfo" type="X3Platform.Membership.Model.CatalogInfo,X3Platform.Membership" />
   </alias>
   <resultMaps>
-    <resultMap id="proc_GroupTree_FindOne_Result" class="GroupTreeInfo">
+    <resultMap id="proc_Catalog_FindOne_Result" class="CatalogInfo">
       <result property="Id" column="Id" />
       <result property="Name" column="Name" />
       <result property="DisplayType" column="DisplayType" />
-      <result property="RootTreeNodeId" column="RootTreeNodeId" />
+      <result property="RootCatalogItemId" column="RootCatalogItemId" />
       <result property="OrderId" column="OrderId" />
       <result property="Remark" column="Remark" />
       <result property="Status" column="Status" />
       <result property="ModifiedDate" column="ModifiedDate" />
       <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
-    <resultMap id="proc_GroupTree_FindAll_Result" class="GroupTreeInfo">
+    <resultMap id="proc_Catalog_FindAll_Result" class="CatalogInfo">
       <result property="Id" column="Id" />
       <result property="Name" column="Name" />
       <result property="DisplayType" column="DisplayType" />
-      <result property="RootTreeNodeId" column="RootTreeNodeId" />
+      <result property="RootCatalogItemId" column="RootCatalogItemId" />
       <result property="OrderId" column="OrderId" />
       <result property="Remark" column="Remark" />
       <result property="Status" column="Status" />
@@ -29,12 +29,12 @@
   </resultMaps>
   <statements>
 
-    <insert id="proc_GroupTree_Insert" parameterClass="GroupTreeInfo">
-      INSERT INTO tb_GroupTree (
+    <insert id="proc_Catalog_Insert" parameterClass="CatalogInfo">
+      INSERT INTO tb_Catalog (
       Id,
       Name,
       DisplayType,
-      RootTreeNodeId,
+      RootCatalogItemId,
       OrderId,
       Remark,
       Status,
@@ -46,7 +46,7 @@
       #Id#,
       #Name#,
       #DisplayType#,
-      #RootTreeNodeId#,
+      #RootCatalogItemId#,
       #OrderId#,
       #Remark#,
       #Status#,
@@ -55,12 +55,12 @@
       )
     </insert>
 
-    <update id="proc_GroupTree_Update" parameterClass="GroupTreeInfo">
-      UPDATE tb_GroupTree SET
+    <update id="proc_Catalog_Update" parameterClass="CatalogInfo">
+      UPDATE tb_Catalog SET
 
       Name = #Name#,
       DisplayType = #DisplayType#,
-      RootTreeNodeId = #RootTreeNodeId#,
+      RootCatalogItemId = #RootCatalogItemId#,
       OrderId = #OrderId#,
       Remark = #Remark#,
       Status = #Status#,
@@ -69,16 +69,16 @@
       WHERE Id = #Id#
     </update>
 
-    <delete id="proc_GroupTree_Delete" parameterClass="GroupTreeInfo">
-      DELETE FROM tb_GroupTree WHERE $WhereClause$
+    <delete id="proc_Catalog_Delete" parameterClass="CatalogInfo">
+      DELETE FROM tb_Catalog WHERE $WhereClause$
     </delete>
 
-    <select id="proc_GroupTree_FindOne" resultMap="proc_GroupTree_FindOne_Result" >
-      SELECT * FROM tb_GroupTree T
+    <select id="proc_Catalog_FindOne" resultMap="proc_Catalog_FindOne_Result" >
+      SELECT * FROM tb_Catalog T
       WHERE Id = #Id#
     </select>
 
-    <select id="proc_GroupTree_FindAll" resultMap="proc_GroupTree_FindAll_Result" >
+    <select id="proc_Catalog_FindAll" resultMap="proc_Catalog_FindAll_Result" >
       SELECT
 
       <dynamic prepend="TOP">
@@ -87,7 +87,7 @@
         </isNotEqual>
       </dynamic>
 
-      * FROM tb_GroupTree T
+      * FROM tb_Catalog T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -97,8 +97,8 @@
         </isParameterPresent>
       </dynamic>
     </select>
-    <select id="proc_GroupTree_GetPaging#MySql" resultMap="proc_GroupTree_FindAll_Result" >
-      SELECT * FROM tb_GroupTree T
+    <select id="proc_Catalog_GetPaging#MySql" resultMap="proc_Catalog_FindAll_Result" >
+      SELECT * FROM tb_Catalog T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -112,10 +112,10 @@
 
       LIMIT $StartIndex$, $PageSize$
     </select>
-    <select id="proc_GroupTree_GetPaging#Oracle" resultMap="proc_GroupTree_FindAll_Result" >
+    <select id="proc_Catalog_GetPaging#Oracle" resultMap="proc_Catalog_FindAll_Result" >
       SELECT T2.* FROM (
         SELECT ROWNUM RowIndex, T1.* FROM (
-          SELECT * FROM tb_GroupTree T
+          SELECT * FROM tb_Catalog T
 
           <dynamic prepend="WHERE">
             <isParameterPresent>
@@ -130,12 +130,12 @@
         ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
       ) T2 WHERE T2.RowIndex &gt; $StartIndex$
     </select>
-    <select id="proc_GroupTree_GetPaging#SqlServer" resultMap="proc_GroupTree_FindAll_Result" >
+    <select id="proc_Catalog_GetPaging#SqlServer" resultMap="proc_Catalog_FindAll_Result" >
       SELECT *
 
       FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-      FROM tb_GroupTree T
+      FROM tb_Catalog T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -148,8 +148,8 @@
       WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
     </select>
 
-    <select id="proc_GroupTree_GetRowCount" >
-      SELECT COUNT(0) AS "RowCount" FROM tb_GroupTree T
+    <select id="proc_Catalog_GetRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM tb_Catalog T
 
       <dynamic prepend="WHERE">
         <isParameterPresent>
@@ -159,8 +159,8 @@
         </isParameterPresent>
       </dynamic>
     </select>
-    <select id="proc_GroupTree_IsExist" >
-      SELECT COUNT(0) AS "Count" FROM tb_GroupTree T WHERE $WhereClause$
+    <select id="proc_Catalog_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Catalog T WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>

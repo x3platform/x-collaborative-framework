@@ -16,10 +16,10 @@ namespace X3Platform.Membership.Ajax
     #endregion
 
     /// <summary></summary>
-    public class GroupTreeNodeWrapper : ContextWrapper
+    public class CatalogWrapper : ContextWrapper
     {
         /// <summary>数据服务</summary>
-        private IGroupTreeNodeService service = MembershipManagement.Instance.GroupTreeNodeService;
+        private ICatalogService service = MembershipManagement.Instance.CatalogService;
 
         // -------------------------------------------------------
         // 保存 删除
@@ -31,9 +31,9 @@ namespace X3Platform.Membership.Ajax
         /// <returns>返回操作结果</returns>
         public string Save(XmlDocument doc)
         {
-            GroupTreeNodeInfo param = new GroupTreeNodeInfo();
+            CatalogInfo param = new CatalogInfo();
 
-            param = (GroupTreeNodeInfo)AjaxUtil.Deserialize(param, doc);
+            param = (CatalogInfo)AjaxUtil.Deserialize(param, doc);
 
             this.service.Save(param);
 
@@ -47,9 +47,9 @@ namespace X3Platform.Membership.Ajax
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string id = XmlHelper.Fetch("id", doc);
+            string ids = XmlHelper.Fetch("ids", doc);
 
-            this.service.Delete(id);
+            this.service.Delete(ids);
 
             return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
@@ -69,9 +69,9 @@ namespace X3Platform.Membership.Ajax
 
             string id = XmlHelper.Fetch("id", doc);
 
-            GroupTreeNodeInfo param = this.service.FindOne(id);
+            CatalogInfo param = this.service.FindOne(id);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<GroupTreeNodeInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<CatalogInfo>(param) + ",");
 
             outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
@@ -91,9 +91,9 @@ namespace X3Platform.Membership.Ajax
 
             int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
 
-            IList<GroupTreeNodeInfo> list = this.service.FindAll(whereClause, length);
+            IList<CatalogInfo> list = this.service.FindAll(whereClause, length);
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<GroupTreeNodeInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<CatalogInfo>(list) + ",");
 
             outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
 
@@ -125,11 +125,11 @@ namespace X3Platform.Membership.Ajax
 
             int rowCount = -1;
 
-            IList<GroupTreeNodeInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
+            IList<CatalogInfo> list = this.service.GetPaging(paging.RowIndex, paging.PageSize, paging.Query, out rowCount);
 
             paging.RowCount = rowCount;
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<GroupTreeNodeInfo>(list) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<CatalogInfo>(list) + ",");
             outString.Append("\"paging\":" + paging + ",");
             outString.Append("\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"},");
             // 兼容 ExtJS 设置
@@ -164,23 +164,71 @@ namespace X3Platform.Membership.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
-
-            string parentId = XmlHelper.Fetch("parentId", doc);
-
-            GroupTreeNodeInfo param = new GroupTreeNodeInfo();
+            CatalogInfo param = new CatalogInfo();
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
-
-            param.ParentId = string.IsNullOrEmpty(parentId) ? treeViewId : parentId;
 
             param.Status = 1;
 
             param.ModifiedDate = param.CreatedDate = DateTime.Now;
 
-            outString.Append("{\"data\":" + AjaxUtil.Parse<GroupTreeNodeInfo>(param) + ",");
+            outString.Append("{\"data\":" + AjaxUtil.Parse<CatalogInfo>(param) + ",");
 
             outString.Append(MessageObject.Stringify("0", I18n.Strings["msg_query_success"], true) + "}");
+
+            return outString.ToString();
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 树形菜单
+        // -------------------------------------------------------
+
+        #region 函数:GetDynamicTreeView(XmlDocument doc)
+        /// <summary></summary>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public string GetDynamicTreeView(XmlDocument doc)
+        {
+            // 必填字段
+            string tree = XmlHelper.Fetch("tree", doc);
+            string parentId = XmlHelper.Fetch("parentId", doc);
+
+            // 附加属性
+            string treeViewId = XmlHelper.Fetch("treeViewId", doc);
+            string treeViewName = XmlHelper.Fetch("treeViewName", doc);
+            string treeViewRootTreeNodeId = XmlHelper.Fetch("treeViewRootTreeNodeId", doc);
+
+            string url = XmlHelper.Fetch("url", doc);
+
+            // 树形控件默认根节点标识为0, 需要特殊处理.
+            parentId = (string.IsNullOrEmpty(parentId) || parentId == "0") ? treeViewRootTreeNodeId : parentId;
+
+            IList<CatalogItemInfo> list = MembershipManagement.Instance.CatalogItemService.FindAllByParentId(parentId);
+
+            StringBuilder outString = new StringBuilder();
+
+            outString.Append("{\"data\":");
+            outString.Append("{\"tree\":\"" + tree + "\",");
+            outString.Append("\"parentId\":\"" + parentId + "\",");
+            outString.Append("childNodes:[");
+
+            foreach (CatalogItemInfo item in list)
+            {
+                outString.Append("{");
+                outString.Append("\"id\":\"" + item.Id + "\",");
+                outString.Append("\"parentId\":\"" + StringHelper.ToSafeJson(item.ParentId == treeViewRootTreeNodeId ? "0" : item.ParentId) + "\",");
+                outString.Append("\"name\":\"" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"title\":\"" + StringHelper.ToSafeJson(item.Name) + "\",");
+                outString.Append("\"url\":\"" + StringHelper.ToSafeJson(url.Replace("{treeNodeId}", item.Id).Replace("{treeNodeName}", item.Name)) + "\",");
+                outString.Append("\"target\":\"_self\"");
+                outString.Append("},");
+            }
+
+            if (outString.ToString().Substring(outString.Length - 1, 1) == ",")
+                outString = outString.Remove(outString.Length - 1, 1);
+
+            outString.Append("]},\"message\":{\"returnCode\":0,\"value\":\"查询成功。\"}}");
 
             return outString.ToString();
         }

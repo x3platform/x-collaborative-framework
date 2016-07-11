@@ -104,12 +104,12 @@
     <Compile Include="Ajax\AccountLogWrapper.cs" />
     <Compile Include="Ajax\AccountWrapper.cs" />
     <Compile Include="Ajax\AssignedJobWrapper.cs" />
+    <Compile Include="Ajax\CatalogItemWrapper.cs" />
+    <Compile Include="Ajax\CatalogWrapper.cs" />
     <Compile Include="Ajax\ContactsWrapper.cs" />
     <Compile Include="Ajax\JobFamilyWrapper.cs" />
     <Compile Include="Ajax\OrganizationUnitWrapper.cs" />
     <Compile Include="Ajax\StandardGeneralRoleWrapper.cs" />
-    <Compile Include="Ajax\GroupTreeWrapper.cs" />
-    <Compile Include="Ajax\GroupTreeNodeWrapper.cs" />
     <Compile Include="Ajax\JobGradeWrapper.cs" />
     <Compile Include="Ajax\JobWrapper.cs" />
     <Compile Include="Ajax\StandardRoleWrapper.cs" />
@@ -122,6 +122,8 @@
     <Compile Include="BLL\AccountGrantService.cs" />
     <Compile Include="BLL\AccountLogService.cs" />
     <Compile Include="BLL\AccountService.cs" />
+    <Compile Include="BLL\CatalogItemService.cs" />
+    <Compile Include="BLL\CatalogService.cs" />
     <Compile Include="BLL\JobFamilyService.cs" />
     <Compile Include="BLL\OrganizationUnitService.cs" />
     <Compile Include="BLL\SettingService.cs" />
@@ -130,8 +132,6 @@
     <Compile Include="BLL\ContactService.cs" />
     <Compile Include="BLL\GeneralRoleService.cs" />
     <Compile Include="BLL\GroupService.cs" />
-    <Compile Include="BLL\GroupTreeNodeService.cs" />
-    <Compile Include="BLL\GroupTreeService.cs" />
     <Compile Include="BLL\JobGradeService.cs" />
     <Compile Include="BLL\JobService.cs" />
     <Compile Include="BLL\MemberService.cs" />
@@ -146,6 +146,8 @@
     <Compile Include="DAL\IBatis\AccountGrantProvider.cs" />
     <Compile Include="DAL\IBatis\AccountLogProvider.cs" />
     <Compile Include="DAL\IBatis\AccountProvider.cs" />
+    <Compile Include="DAL\IBatis\CatalogItemProvider.cs" />
+    <Compile Include="DAL\IBatis\CatalogProvider.cs" />
     <Compile Include="DAL\IBatis\JobFamilyProvider.cs" />
     <Compile Include="DAL\IBatis\OrganizationUnitProvider.cs" />
     <Compile Include="DAL\IBatis\SettingProvider.cs" />
@@ -154,8 +156,6 @@
     <Compile Include="DAL\IBatis\ContactProvider.cs" />
     <Compile Include="DAL\IBatis\GeneralRoleProvider.cs" />
     <Compile Include="DAL\IBatis\GroupProvider.cs" />
-    <Compile Include="DAL\IBatis\GroupTreeNodeProvider.cs" />
-    <Compile Include="DAL\IBatis\GroupTreeProvider.cs" />
     <Compile Include="DAL\IBatis\JobGradeProvider.cs" />
     <Compile Include="DAL\IBatis\JobProvider.cs" />
     <Compile Include="DAL\IBatis\MemberProvider.cs" />
@@ -168,6 +168,8 @@
     <Compile Include="IBLL\IAccountGrantService.cs" />
     <Compile Include="IBLL\IAccountLogService.cs" />
     <Compile Include="IBLL\IAccountService.cs" />
+    <Compile Include="IBLL\ICatalogNodeService.cs" />
+    <Compile Include="IBLL\ICatalogService.cs" />
     <Compile Include="IBLL\IJobFamilyService.cs" />
     <Compile Include="IBLL\IOrganizationUnitService.cs" />
     <Compile Include="IBLL\ISettingService.cs" />
@@ -176,8 +178,6 @@
     <Compile Include="IBLL\IContactService.cs" />
     <Compile Include="IBLL\IGeneralRoleService.cs" />
     <Compile Include="IBLL\IGroupService.cs" />
-    <Compile Include="IBLL\IGroupTreeNodeService.cs" />
-    <Compile Include="IBLL\IGroupTreeService.cs" />
     <Compile Include="IBLL\IJobGradeService.cs" />
     <Compile Include="IBLL\IJobService.cs" />
     <Compile Include="IBLL\IMemberService.cs" />
@@ -190,6 +190,8 @@
     <Compile Include="IDAL\IAccountGrantProvider.cs" />
     <Compile Include="IDAL\IAccountLogProvider.cs" />
     <Compile Include="IDAL\IAccountProvider.cs" />
+    <Compile Include="IDAL\ICatalogItemProvider.cs" />
+    <Compile Include="IDAL\ICatalogProvider.cs" />
     <Compile Include="IDAL\IJobFamilyProvider.cs" />
     <Compile Include="IDAL\IOrganizationUnitProvider.cs" />
     <Compile Include="IDAL\ISettingProvider.cs" />
@@ -198,8 +200,6 @@
     <Compile Include="IDAL\IContactProvider.cs" />
     <Compile Include="IDAL\IGeneralRoleProvider.cs" />
     <Compile Include="IDAL\IGroupProvider.cs" />
-    <Compile Include="IDAL\IGroupTreeNodeProvider.cs" />
-    <Compile Include="IDAL\IGroupTreeProvider.cs" />
     <Compile Include="IDAL\IJobGradeProvider.cs" />
     <Compile Include="IDAL\IJobProvider.cs" />
     <Compile Include="IDAL\IMemberProvider.cs" />
@@ -284,8 +284,6 @@
     <EmbeddedResource Include="DAL\IBatis\GroupProvider.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\IBatis\GroupTreeNodeProvider.xml" />
-    <EmbeddedResource Include="DAL\IBatis\GroupTreeProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\JobGradeProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\JobProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\MemberProvider.xml" />
@@ -300,6 +298,8 @@
     <EmbeddedResource Include="DAL\IBatis\StandardOrganizationUnitProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountBindingProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\AccountFriendProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\CatalogItemProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\CatalogProvider.xml" />
     <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationUnitId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationUnitId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentLevelByOrganizationUnitId.sql" />

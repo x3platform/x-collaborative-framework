@@ -109,8 +109,8 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Controllers\GroupTreeNodeController.cs" />
-    <Compile Include="Controllers\GroupTreeController.cs" />
+    <Compile Include="Controllers\CatalogController.cs" />
+    <Compile Include="Controllers\CatalogItemController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\GeneralRoleController.cs" />

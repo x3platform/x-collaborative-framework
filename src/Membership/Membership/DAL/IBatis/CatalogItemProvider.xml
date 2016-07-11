@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<sqlMap namespace="X3Platform.Membership.DAL.IBatis.GroupTreeNodeProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.CatalogItemProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <alias>
-        <typeAlias alias="GroupTreeNodeInfo" type="X3Platform.Membership.Model.GroupTreeNodeInfo,X3Platform.Membership" />
+        <typeAlias alias="CatalogItemInfo" type="X3Platform.Membership.Model.CatalogItemInfo,X3Platform.Membership" />
     </alias>
     <resultMaps>
-        <resultMap id="proc_GroupTreeNode_FindOne_Result" class="GroupTreeNodeInfo">
+        <resultMap id="proc_CatalogItem_FindOne_Result" class="CatalogItemInfo">
             <result property="Id" column="Id" />
             <result property="ParentId" column="ParentId" />
             <result property="Name" column="Name" />
@@ -15,7 +15,7 @@
             <result property="ModifiedDate" column="ModifiedDate" />
             <result property="CreatedDate" column="CreatedDate" />
         </resultMap>
-        <resultMap id="proc_GroupTreeNode_FindAll_Result" class="GroupTreeNodeInfo">
+        <resultMap id="proc_CatalogItem_FindAll_Result" class="CatalogItemInfo">
             <result property="Id" column="Id" />
             <result property="ParentId" column="ParentId" />
             <result property="Name" column="Name" />
@@ -28,8 +28,8 @@
         </resultMap>
     </resultMaps>
     <statements>
-        <insert id="proc_GroupTreeNode_Insert" parameterClass="GroupTreeNodeInfo">
-            INSERT INTO tb_GroupTreeNode 
+        <insert id="proc_CatalogItem_Insert" parameterClass="CatalogItemInfo">
+            INSERT INTO tb_CatalogItem 
             (
                 Id,
                 ParentId,
@@ -54,8 +54,8 @@
                 CURRENT_TIMESTAMP
             )
         </insert>
-        <update id="proc_GroupTreeNode_Update" parameterClass="GroupTreeNodeInfo">
-            UPDATE tb_GroupTreeNode SET
+        <update id="proc_CatalogItem_Update" parameterClass="CatalogItemInfo">
+            UPDATE tb_CatalogItem SET
 
                 ParentId = #ParentId#,
                 Name = #Name#,
@@ -67,13 +67,13 @@
 
             WHERE Id = #Id#
         </update>
-        <delete id="proc_GroupTreeNode_Delete" parameterClass="GroupTreeNodeInfo">
-            DELETE FROM tb_GroupTreeNode WHERE $WhereClause$
+        <delete id="proc_CatalogItem_Delete" parameterClass="CatalogItemInfo">
+            DELETE FROM tb_CatalogItem WHERE $WhereClause$
         </delete>
-        <select id="proc_GroupTreeNode_FindOne" resultMap="proc_GroupTreeNode_FindOne_Result" >
-            SELECT * FROM tb_GroupTreeNode T WHERE Id = #Id#
+        <select id="proc_CatalogItem_FindOne" resultMap="proc_CatalogItem_FindOne_Result" >
+            SELECT * FROM tb_CatalogItem T WHERE Id = #Id#
         </select>
-        <select id="proc_GroupTreeNode_FindAll" resultMap="proc_GroupTreeNode_FindAll_Result" >
+        <select id="proc_CatalogItem_FindAll" resultMap="proc_CatalogItem_FindAll_Result" >
             SELECT
 
             <dynamic prepend="TOP">
@@ -82,7 +82,7 @@
                 </isNotEqual>
             </dynamic>
 
-            * FROM tb_GroupTreeNode T
+            * FROM tb_CatalogItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -92,8 +92,8 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        <select id="proc_GroupTreeNode_GetPaging#MySql" resultMap="proc_GroupTreeNode_FindAll_Result" >
-            SELECT * FROM tb_GroupTreeNode T
+        <select id="proc_CatalogItem_GetPaging#MySql" resultMap="proc_CatalogItem_FindAll_Result" >
+            SELECT * FROM tb_CatalogItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -107,12 +107,12 @@
             
             LIMIT $StartIndex$, $PageSize$
         </select>
-        <select id="proc_GroupTreeNode_GetPaging#SqlServer" resultMap="proc_GroupTreeNode_FindAll_Result" >
+        <select id="proc_CatalogItem_GetPaging#SqlServer" resultMap="proc_CatalogItem_FindAll_Result" >
             SELECT *
 
             FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM tb_GroupTreeNode T
+            FROM tb_CatalogItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -124,8 +124,8 @@
 
             WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
         </select>
-        <select id="proc_GroupTreeNode_GetRowCount" >
-            SELECT COUNT(0) AS "RowCount" FROM tb_GroupTreeNode T
+        <select id="proc_CatalogItem_GetRowCount" >
+            SELECT COUNT(0) AS "RowCount" FROM tb_CatalogItem T
 
             <dynamic prepend="WHERE">
                 <isParameterPresent>
@@ -135,8 +135,8 @@
                 </isParameterPresent>
             </dynamic>
         </select>
-        <select id="proc_GroupTreeNode_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM tb_GroupTreeNode T WHERE $WhereClause$
+        <select id="proc_CatalogItem_IsExist" >
+            SELECT COUNT(0) AS "Count" FROM tb_CatalogItem T WHERE $WhereClause$
         </select>
     </statements>
 </sqlMap>

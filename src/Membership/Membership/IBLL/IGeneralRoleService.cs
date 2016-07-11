@@ -69,11 +69,11 @@ namespace X3Platform.Membership.IBLL
         IList<GeneralRoleInfo> FindAll(string whereClause, int length);
         #endregion
 
-        #region 函数:FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        #region 函数:FindAllByCatalogItemId(string CatalogItemId)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="groupTreeNodeId">分类节点标识</param>
+        /// <param name="CatalogItemId">分类节点标识</param>
         /// <returns>返回所有实例<see cref="GeneralRoleInfo"/>的详细信息</returns>
-        IList<GeneralRoleInfo> FindAllByGroupTreeNodeId(string groupTreeNodeId);
+        IList<GeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId);
         #endregion
 
         // -------------------------------------------------------

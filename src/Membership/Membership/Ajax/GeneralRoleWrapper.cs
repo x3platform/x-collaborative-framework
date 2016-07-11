@@ -73,7 +73,7 @@ namespace X3Platform.Membership.Ajax
 
                 if (param.Name != originalName)
                 {
-                    IList<IGroupInfo> list = MembershipManagement.Instance.GroupService.FindAllByGroupTreeNodeId(param.GroupTreeNodeId);
+                    IList<IGroupInfo> list = MembershipManagement.Instance.GroupService.FindAllByCatalogItemId(param.CatalogItemId);
 
                     foreach (IGroupInfo item in list)
                     {
@@ -221,13 +221,13 @@ namespace X3Platform.Membership.Ajax
 
             string treeViewId = XmlHelper.Fetch("treeViewId", doc);
 
-            string groupTreeNodeId = XmlHelper.Fetch("groupTreeNodeId", doc);
+            string CatalogItemId = XmlHelper.Fetch("CatalogItemId", doc);
 
             GeneralRoleInfo param = new GeneralRoleInfo();
 
             param.Id = DigitalNumberContext.Generate("Key_Guid");
 
-            param.GroupTreeNodeId = string.IsNullOrEmpty(groupTreeNodeId) ? treeViewId : groupTreeNodeId;
+            param.CatalogItemId = string.IsNullOrEmpty(CatalogItemId) ? treeViewId : CatalogItemId;
           
             param.Locking = 1;
 

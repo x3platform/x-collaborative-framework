@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "BASE64 图片在线加密解密工具";
+    Layout = "~/views/templates/internal/sdk/render.cshtml";
+}
+<script type="text/javascript" src="/resources/scripts/jquery-file-upload/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/resources/scripts/jquery-file-upload/jquery.fileupload.js"></script>
+<form id="form1" method="post">
+    <script type="text/javascript">
+        x.dom.ready(function()
+        {
+            $('#fileupload').fileupload({
+                url: '/api/attachmentStorage.util.image.upload.aspx',
+                formData: {
+                    // name: $('#filename').val(),
+                    // entityClassName: entityClassName,
+                    // attachmentEntityClassName: '',
+                    // attachmentFolder: 'bugs'
+                },
+                // 返回结果类型
+                dataType: 'text',
+                //
+                change: function(e, data)
+                {
+                    $.each(data.files, function(index, file)
+                    {
+                        data.formData = { name: file.name, outputType: 'base64' };
+                        // x.debug.log('Selected file: ' + file.name);
+                    });
+                },
+                done: function(e, data)
+                {
+                    // x.debug.log(data.result);
+
+                    $('#ciphertext').val(data.result);
+
+                    var preview = $('#preview');
+
+                    preview[0].style = 'display:block';
+                    preview[0].src = 'data:image/jpeg;base64,' + data.result
+                },
+                progressall: function(e, data)
+                {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    x.debug.log('progress:' + progress);
+                }
+            });
+
+            // 解密
+            x.dom("#btnDecrypt").on('click', function()
+            {
+                var base64String = $('#ciphertext').val();
+
+                $('#preview')[0].style = 'display:block';
+                $('#preview')[0].src = 'data:image/jpeg;base64,' + base64String;
+            });
+        });
+    </script>
+    <div class="form-container">
+        <div class="form-top">
+            <h3>BASE64 图片在线加密工具</h3>
+        </div>
+        <div class="form-main">
+            <dl class="form-cell">
+                <dt class="input-label">上传文件</dt>
+                <dd>
+                    <input id="fileupload" name="fileData" type="file" style="left: 0; font-size: 20px; width: 200px;">
+                    <input id="filename" name="filename" type="hidden" value="" />
+                </dd>
+            </dl>
+            <dl class="form-cell">
+                <dt class="input-label">Base64 图片编码</dt>
+                <dd>
+                    <textarea id="ciphertext" name="ciphertext" type="text" x-dom-data-type="value" x-dom-feature="text" rows="16" style="width:100%;">@ViewBag.Ciphertext</textarea>
+                </dd>
+            </dl>
+            <div class="form-actions">
+                <div class="button-submit button primary"><a id="btnDecrypt" href="javascript:void(0);">解密</a></div>
+            </div>
+            <dl class="form-cell" >
+                <dt class="input-label">图片预览</dt>
+                <dd>
+                    <img id="preview" alt="预览图片" src="" style="display:none;" />
+                </dd>
+            </dl>
+            <input id="methodName" name="methodName" type="hidden" x-dom-data-type="value" value="@HttpContext.Current.Request["methodName"]" />
+        </div>
+        <div class="form-bottom"><a href="/sdk/">在线软件开发工具集</a></div>
+    </div>
+</form>

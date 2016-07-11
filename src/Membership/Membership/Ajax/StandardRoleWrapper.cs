@@ -280,11 +280,11 @@ namespace X3Platform.Membership.Ajax
 
         //    if (parentId == "70000000-0000-0000-0000-000000000000")
         //    {
-        //        IList<GroupTreeNodeInfo> list = MembershipManagement.Instance.GroupTreeNodeService.FindAllByParentId(parentId);
+        //        IList<CatalogItemInfo> list = MembershipManagement.Instance.CatalogItemService.FindAllByParentId(parentId);
 
-        //        foreach (GroupTreeNodeInfo item in list)
+        //        foreach (CatalogItemInfo item in list)
         //        {
-        //            token = "[GroupTreeNode]" + item.Id;
+        //            token = "[CatalogItem]" + item.Id;
 
         //            outString.Append("{");
         //            outString.Append("\"id\":\"" + token + "\",");
@@ -300,15 +300,15 @@ namespace X3Platform.Membership.Ajax
         //    {
         //        IList<IStandardRoleInfo> list = null;
 
-        //        if (parentId.IndexOf("[GroupTreeNode]") == 0)
+        //        if (parentId.IndexOf("[CatalogItem]") == 0)
         //        {
-        //            string whereClause = string.Format(" GroupTreeNodeId = ##{0}## AND ( ParentId IS NULL OR ParentId = ##00000000-0000-0000-0000-000000000000## ) ORDER BY OrderId ", parentId.Replace("[GroupTreeNode]", ""));
+        //            string whereClause = string.Format(" CatalogItemId = ##{0}## AND ( ParentId IS NULL OR ParentId = ##00000000-0000-0000-0000-000000000000## ) ORDER BY OrderId ", parentId.Replace("[CatalogItem]", ""));
 
         //            list = MembershipManagement.Instance.StandardRoleService.FindAll(whereClause);
 
         //            foreach (IStandardRoleInfo item in list)
         //            {
-        //                token = "[StandardRole]" + item.Id + "[GroupTreeNode]" + item.GroupTreeNodeId;
+        //                token = "[StandardRole]" + item.Id + "[CatalogItem]" + item.CatalogItemId;
 
         //                outString.Append("{");
         //                outString.Append("\"id\":\"" + token + "\",");
@@ -326,7 +326,7 @@ namespace X3Platform.Membership.Ajax
                   
         //            foreach (IStandardRoleInfo item in list)
         //            {
-        //                token = "[StandardRole]" + item.Id + "[GroupTreeNode]" + item.GroupTreeNodeId;
+        //                token = "[StandardRole]" + item.Id + "[CatalogItem]" + item.CatalogItemId;
 
         //                outString.Append("{");
         //                outString.Append("\"id\":\"" + token + "\",");

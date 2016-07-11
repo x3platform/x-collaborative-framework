@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :GroupTreeNodeService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership.BLL
 {
     using System;
@@ -30,17 +16,17 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Data;
 
     /// <summary></summary>
-    public class GroupTreeNodeService : IGroupTreeNodeService
+    public class CatalogItemService : ICatalogItemService
     {
         /// <summary>����</summary>
         private MembershipConfiguration configuration = null;
 
         /// <summary>�����ṩ��</summary>
-        private IGroupTreeNodeProvider provider = null;
+        private ICatalogItemProvider provider = null;
 
-        #region ���캯��:GroupTreeNodeService()
+        #region ���캯��:CatalogItemService()
         /// <summary>���캯��</summary>
-        public GroupTreeNodeService()
+        public CatalogItemService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
 
@@ -50,7 +36,7 @@ namespace X3Platform.Membership.BLL
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
             // ���������ṩ��
-            this.provider = objectBuilder.GetObject<IGroupTreeNodeProvider>(typeof(IGroupTreeNodeProvider));
+            this.provider = objectBuilder.GetObject<ICatalogItemProvider>(typeof(ICatalogItemProvider));
         }
         #endregion
 
@@ -58,7 +44,7 @@ namespace X3Platform.Membership.BLL
         /// <summary>����</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public GroupTreeNodeInfo this[string id]
+        public CatalogItemInfo this[string id]
         {
             get { return this.FindOne(id); }
         }
@@ -68,15 +54,15 @@ namespace X3Platform.Membership.BLL
         // ���� ɾ��
         // -------------------------------------------------------
 
-        #region 属性:Save(GroupTreeNodeInfo param)
+        #region 属性:Save(CatalogItemInfo param)
         /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="GroupTreeNodeInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="GroupTreeNodeInfo"/>��ϸ��Ϣ</returns>
-        public GroupTreeNodeInfo Save(GroupTreeNodeInfo param)
+        /// <param name="param">ʵ��<see cref="CatalogItemInfo"/>��ϸ��Ϣ</param>
+        /// <returns>ʵ��<see cref="CatalogItemInfo"/>��ϸ��Ϣ</returns>
+        public CatalogItemInfo Save(CatalogItemInfo param)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
-                GroupTreeNodeInfo originalObject = FindOne(param.Id);
+                CatalogItemInfo originalObject = FindOne(param.Id);
 
                 if (originalObject == null)
                     originalObject = param;
@@ -107,8 +93,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindOne(string id)
         /// <summary>��ѯĳ����¼</summary>
         /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="GroupTreeNodeInfo"/>����ϸ��Ϣ</returns>
-        public GroupTreeNodeInfo FindOne(string id)
+        /// <returns>����ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        public CatalogItemInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
@@ -116,8 +102,8 @@ namespace X3Platform.Membership.BLL
 
         #region 属性:FindAll()
         /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="GroupTreeNodeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeNodeInfo> FindAll()
+        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogItemInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
@@ -126,8 +112,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAll(string whereClause)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="GroupTreeNodeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeNodeInfo> FindAll(string whereClause)
+        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogItemInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
@@ -137,8 +123,8 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="whereClause">SQL ��ѯ����</param>
         /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="GroupTreeNodeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeNodeInfo> FindAll(string whereClause, int length)
+        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogItemInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
         }
@@ -147,8 +133,8 @@ namespace X3Platform.Membership.BLL
         #region 属性:FindAllByParentId(string parentId)
         /// <summary>��ѯ�������ؼ�¼</summary>
         /// <param name="parentId">���ڵ���ʶ</param>
-        /// <returns>��������ʵ��<see cref="GroupTreeNodeInfo"/>����ϸ��Ϣ</returns>
-        public IList<GroupTreeNodeInfo> FindAllByParentId(string parentId)
+        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        public IList<CatalogItemInfo> FindAllByParentId(string parentId)
         {
             return provider.FindAllByParentId(parentId);
         }
@@ -164,8 +150,8 @@ namespace X3Platform.Membership.BLL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="GroupTreeNodeInfo"/></returns>
-        public IList<GroupTreeNodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <returns>返回一个列表实例<see cref="CatalogItemInfo"/></returns>
+        public IList<CatalogItemInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
         {
             return provider.GetPaging(startIndex, pageSize, query, out rowCount);
         }
@@ -181,13 +167,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:GetGroupTreeNodePathByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:GetCatalogItemPathByCatalogItemId(string CatalogItemId)
         /// <summary>���ݷ��������ڵ���ʶ����������ȫ·��</summary>
-        /// <param name="groupTreeNodeId">���������ڵ���ʶ</param>
+        /// <param name="CatalogItemId">���������ڵ���ʶ</param>
         /// <returns></returns>
-        public string GetGroupTreeNodePathByGroupTreeNodeId(string groupTreeNodeId)
+        public string GetCatalogItemPathByCatalogItemId(string CatalogItemId)
         {
-            string path = FormatGroupTreeNodePath(groupTreeNodeId);
+            string path = FormatCatalogItemPath(CatalogItemId);
 
             return string.Format(@"{0}\", path);
         }
@@ -197,7 +183,7 @@ namespace X3Platform.Membership.BLL
         /// <summary>��ʽ����֯·��</summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private string FormatGroupTreeNodePath(string id)
+        private string FormatCatalogItemPath(string id)
         {
             string path = string.Empty;
 
@@ -205,7 +191,7 @@ namespace X3Platform.Membership.BLL
 
             string name = null;
 
-            GroupTreeNodeInfo param = FindOne(id);
+            CatalogItemInfo param = FindOne(id);
 
             if (param == null)
             {
@@ -224,7 +210,7 @@ namespace X3Platform.Membership.BLL
                 {
                     if (!string.IsNullOrEmpty(parentId) && parentId != Guid.Empty.ToString())
                     {
-                        path = FormatGroupTreeNodePath(parentId);
+                        path = FormatCatalogItemPath(parentId);
                     }
 
                     path = string.IsNullOrEmpty(path) ? name : string.Format(@"{0}\{1}", path, name);
@@ -244,27 +230,27 @@ namespace X3Platform.Membership.BLL
         /// <returns></returns>
         public string CombineDistinguishedName(string name, string parentId)
         {
-            string path = GetLDAPOUPathByGroupTreeNodeId(parentId);
+            string path = GetLDAPOUPathByCatalogItemId(parentId);
 
             return string.Format("OU={0},{1}{2}", name, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
         #endregion
 
-        #region 属性:GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId)
+        #region 属性:GetLDAPOUPathByCatalogItemId(string CatalogItemId)
         /// <summary>���ݷ��������ڵ���ʶ���� Active Directory OU ·��</summary>
-        /// <param name="groupTreeNodeId">���������ڵ���ʶ</param>
+        /// <param name="CatalogItemId">���������ڵ���ʶ</param>
         /// <returns></returns>
-        public string GetLDAPOUPathByGroupTreeNodeId(string groupTreeNodeId)
+        public string GetLDAPOUPathByCatalogItemId(string CatalogItemId)
         {
-            return FormatLDAPPath(groupTreeNodeId);
+            return FormatLDAPPath(CatalogItemId);
         }
         #endregion
 
         #region ˽�к���:FormatLDAPPath(string id)
         /// <summary>��ʽ�� Active Directory ·��</summary>
-        /// <param name="groupTreeNodeId"></param>
+        /// <param name="CatalogItemId"></param>
         /// <returns></returns>
-        private string FormatLDAPPath(string groupTreeNodeId)
+        private string FormatLDAPPath(string CatalogItemId)
         {
             string path = string.Empty;
 
@@ -273,7 +259,7 @@ namespace X3Platform.Membership.BLL
             // OU������
             string name = null;
 
-            GroupTreeNodeInfo param = FindOne(groupTreeNodeId);
+            CatalogItemInfo param = FindOne(CatalogItemId);
 
             if (param == null)
             {
@@ -284,7 +270,7 @@ namespace X3Platform.Membership.BLL
                 name = param.Name;
 
                 // ��֯�ṹ�ĸ��ڵ�OU���⴦�� Ĭ��Ϊ��֯�ṹ
-                //if (groupTreeNodeId == tree.RootTreeNodeId)
+                //if (CatalogItemId == tree.RootTreeNodeId)
                 //{
                 //    name = tree.Name;
                 //}
@@ -317,18 +303,18 @@ namespace X3Platform.Membership.BLL
 
             string whereClause = string.Format(" ModifiedDate BETWEEN ##{0}## AND ##{1}## ", beginDate, endDate);
 
-            IList<GroupTreeNodeInfo> list = MembershipManagement.Instance.GroupTreeNodeService.FindAll(whereClause);
+            IList<CatalogItemInfo> list = MembershipManagement.Instance.CatalogItemService.FindAll(whereClause);
 
-            outString.AppendFormat("<package packageType=\"groupTree\" beginDate=\"{0}\" endDate=\"{1}\">", beginDate, endDate);
+            outString.AppendFormat("<package packageType=\"Catalog\" beginDate=\"{0}\" endDate=\"{1}\">", beginDate, endDate);
 
-            outString.Append("<groupTree>");
+            outString.Append("<Catalog>");
 
-            foreach (GroupTreeNodeInfo item in list)
+            foreach (CatalogItemInfo item in list)
             {
                 outString.Append(item.Serializable());
             }
 
-            outString.Append("</groupTree>");
+            outString.Append("</Catalog>");
 
             outString.Append("</package>");
 
@@ -339,7 +325,7 @@ namespace X3Platform.Membership.BLL
         #region 属性:SyncToLDAP(IRoleInfo param)
         /// <summary>ͬ����Ϣ�� Active Directory</summary>
         /// <param name="param">��ɫ��Ϣ</param>
-        public int SyncToLDAP(GroupTreeNodeInfo param)
+        public int SyncToLDAP(CatalogItemInfo param)
         {
             return SyncToLDAP(param, param.Name, param.ParentId);
         }
@@ -350,7 +336,7 @@ namespace X3Platform.Membership.BLL
         /// <param name="param">����������Ϣ</param>
         /// <param name="originalName">ԭʼ������</param>
         /// <param name="originalParentId">ԭʼ�ĸ�����ʶ</param>
-        public int SyncToLDAP(GroupTreeNodeInfo param, string originalName, string originalParentId)
+        public int SyncToLDAP(CatalogItemInfo param, string originalName, string originalParentId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
@@ -361,7 +347,7 @@ namespace X3Platform.Membership.BLL
                 }
                 else
                 {
-                    string parentPath = this.GetLDAPOUPathByGroupTreeNodeId(originalParentId);
+                    string parentPath = this.GetLDAPOUPathByCatalogItemId(originalParentId);
 
                     // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
                     // 2.Active Directory �������ض�����
@@ -373,7 +359,7 @@ namespace X3Platform.Membership.BLL
                             // ����������${Name}�������Ʒ����ı䡣
                             LDAPManagement.Instance.OrganizationUnit.Rename(
                                     originalName,
-                                    this.GetLDAPOUPathByGroupTreeNodeId(originalParentId),
+                                    this.GetLDAPOUPathByCatalogItemId(originalParentId),
                                     param.Name);
                         }
 
@@ -381,15 +367,15 @@ namespace X3Platform.Membership.BLL
                         {
                             // ����������${Name}���ĸ����ڵ㷢���ı䡣
                             LDAPManagement.Instance.OrganizationUnit.MoveTo(
-                                this.GetLDAPOUPathByGroupTreeNodeId(param.Id),
-                                this.GetLDAPOUPathByGroupTreeNodeId(param.ParentId));
+                                this.GetLDAPOUPathByCatalogItemId(param.Id),
+                                this.GetLDAPOUPathByCatalogItemId(param.ParentId));
                         }
 
                         return 0;
                     }
                     else
                     {
-                        LDAPManagement.Instance.OrganizationUnit.Add(param.Name, this.GetLDAPOUPathByGroupTreeNodeId(param.ParentId));
+                        LDAPManagement.Instance.OrganizationUnit.Add(param.Name, this.GetLDAPOUPathByCatalogItemId(param.ParentId));
 
                         // ����������${Name}�������ɹ���
                         return 0;

@@ -123,12 +123,9 @@ namespace X3Platform.Services.Configuration
         {
             if (File.Exists(path))
             {
-                //FileConfigurationSource configurationSource = new FileConfigurationSource(path);
-
-                //this.configurationSource = configurationSource;
                 ServicesConfiguration configuration = new ServicesConfiguration();
 
-                using (XmlTextReader reader = new XmlTextReader(this.ConfigFilePath))
+                using (XmlTextReader reader = new XmlTextReader(path))
                 {
                     XmlDocument doc = new XmlDocument();
 
@@ -147,7 +144,15 @@ namespace X3Platform.Services.Configuration
 
                     foreach (XmlNode node in nodes)
                     {
-                        configuration.Services.Add(new NameTypeConfigurationElement(node.Attributes["name"].Value, node.Attributes["value"].Value));
+                        configuration.Services.Add(new NameTypeConfigurationElement(node.Attributes["name"].Value, node.Attributes["type"].Value));
+                    }
+
+                    // º”‘ÿºØ∫œ:SpecialWords
+                    nodes = doc.SelectNodes(string.Format(@"configuration/{0}/observers/add", ServicesConfiguration.SectionName));
+
+                    foreach (XmlNode node in nodes)
+                    {
+                        configuration.Observers.Add(new ServiceObserverConfigurationElement(node.Attributes["name"].Value, node.Attributes["type"].Value, node.Attributes["args"].Value, node.Attributes["nextRunTime"].Value));
                     }
 
                     reader.Close();

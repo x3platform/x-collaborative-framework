@@ -10,7 +10,7 @@
             <result property="Code" column="Code" />
             <result property="Name" column="Name" />
             <result property="Suffix" column="Suffix" />
-            <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+            <result property="CatalogItemId" column="CatalogItemId" />
             <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
@@ -23,7 +23,7 @@
             <result property="Code" column="Code" />
             <result property="Name" column="Name" />
             <result property="Suffix" column="Suffix" />
-            <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+            <result property="CatalogItemId" column="CatalogItemId" />
             <result property="Locking" column="Locking" />
             <result property="OrderId" column="OrderId" />
             <result property="Status" column="Status" />
@@ -50,7 +50,7 @@
                 [Code],
                 [Name],
                 [Suffix],
-                [GroupTreeNodeId], 
+                [CatalogItemId], 
                 [Locking],
                 [OrderId],
                 [Status],
@@ -64,7 +64,7 @@
                 #Code#,
                 #Name#,
                 #Suffix#,
-                #GroupTreeNodeId#,
+                #CatalogItemId#,
                 #Locking#,
                 #OrderId#,
                 #Status#,
@@ -80,7 +80,7 @@
                 [Code] = #Code#,
                 [Name] = #Name#,
                 [Suffix] = #Suffix#,
-                [GroupTreeNodeId] = #GroupTreeNodeId#,
+                [CatalogItemId] = #CatalogItemId#,
                 [Locking] = #Locking#,
                 [OrderId] = #OrderId#,
                 [Status] = #Status#,

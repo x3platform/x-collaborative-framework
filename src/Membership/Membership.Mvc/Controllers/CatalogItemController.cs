@@ -13,7 +13,7 @@
     using X3Platform.Web.Mvc.Attributes;
 
     [LoginFilter]
-    public class GroupTreeNodeController : CustomController
+    public class CatalogItemController : CustomController
     {
         private string APPLICATION_NAME = "Membership";
 
@@ -29,10 +29,10 @@
 
             string treeViewId = !request.Keys.Contains("treeViewId") ? string.Empty : request["treeViewId"].ToString();
 
-            ViewBag.tree = MembershipManagement.Instance.GroupTreeService.FindOne(treeViewId);
+            ViewBag.tree = MembershipManagement.Instance.CatalogService.FindOne(treeViewId);
 
             // 角色
-            return View("/views/main/membership/group-tree-node-list.cshtml");
+            return View("/views/main/membership/catalog-item-list.cshtml");
         }
         #endregion
     }

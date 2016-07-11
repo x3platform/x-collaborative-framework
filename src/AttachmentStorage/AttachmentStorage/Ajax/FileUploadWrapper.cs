@@ -49,6 +49,9 @@
 
                 HttpPostedFile file = request.Files["fileData"];
 
+                // 输出类型 id uri base64
+                string outputType = request.Form["outputType"];
+
                 string attachmentId = request.Form["attachmentId"];
                 string entityId = request.Form["entityId"];
                 string entityClassName = request.Form["entityClassName"];
@@ -114,7 +117,17 @@
                     KernelContext.Log.Info("attachment id: " + attachment.Id);
 
                     HttpContext.Current.Response.StatusCode = 200;
-                    HttpContext.Current.Response.Write(attachment.Id);
+
+                    if (outputType == "uri")
+                    {
+                        // 输出 uri
+                        HttpContext.Current.Response.Write(attachment.VirtualPath.Replace("{uploads}", AttachmentStorageConfigurationView.Instance.VirtualUploadFolder));
+                    }
+                    else
+                    {
+                        // 输出 id
+                        HttpContext.Current.Response.Write(attachment.Id);
+                    }
                 }
             }
             catch (Exception ex)

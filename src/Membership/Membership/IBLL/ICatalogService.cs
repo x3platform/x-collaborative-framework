@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IGroupTreeProvider.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,33 +7,28 @@ using X3Platform.Spring;
 using X3Platform.Membership.Model;
 using X3Platform.Data;
 
-namespace X3Platform.Membership.IDAL
+namespace X3Platform.Membership.IBLL
 {
     /// <summary></summary>
-    [SpringObject("X3Platform.Membership.IDAL.IGroupTreeProvider")]
-    public interface IGroupTreeProvider
+    [SpringObject("X3Platform.Membership.IBLL.ICatalogService")]
+    public interface ICatalogService
     {
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        CatalogInfo this[string id] { get; }
+        #endregion
+
         // -------------------------------------------------------
-        // 保存 添加 修改 删除
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(GroupTreeInfo param)
+        #region 函数:Save(CatalogInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeInfo"/>详细信息</param>
-        /// <returns>实例<see cref="GroupTreeInfo"/>详细信息</returns>
-        GroupTreeInfo Save(GroupTreeInfo param);
-        #endregion
-
-        #region 函数:Insert(GroupTreeInfo param)
-        /// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeInfo"/>详细信息</param>
-        void Insert(GroupTreeInfo param);
-        #endregion
-
-        #region 函数:Update(GroupTreeInfo param)
-        /// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeInfo"/>详细信息</param>
-        void Update(GroupTreeInfo param);
+        /// <param name="param">实例<see cref="CatalogInfo"/>详细信息</param>
+        /// <returns>实例<see cref="CatalogInfo"/>详细信息</returns>
+        CatalogInfo Save(CatalogInfo param);
         #endregion
 
         #region 函数:Delete(string ids)
@@ -63,16 +44,29 @@ namespace X3Platform.Membership.IDAL
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="GroupTreeInfo"/>的详细信息</returns>
-        GroupTreeInfo FindOne(string id);
+        /// <returns>返回实例<see cref="CatalogInfo"/>的详细信息</returns>
+        CatalogInfo FindOne(string id);
+        #endregion
+
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="CatalogInfo"/>的详细信息</returns>
+        IList<CatalogInfo> FindAll();
+        #endregion
+
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="CatalogInfo"/>的详细信息</returns>
+        IList<CatalogInfo> FindAll(string whereClause);
         #endregion
 
         #region 函数:FindAll(string whereClause, int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="GroupTreeInfo"/>的详细信息</returns>
-        IList<GroupTreeInfo> FindAll(string whereClause, int length);
+        /// <returns>返回所有实例<see cref="CatalogInfo"/>的详细信息</returns>
+        IList<CatalogInfo> FindAll(string whereClause, int length);
         #endregion
 
         // -------------------------------------------------------
@@ -85,8 +79,8 @@ namespace X3Platform.Membership.IDAL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="GroupTreeInfo"/></returns>
-        IList<GroupTreeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        /// <returns>返回一个列表实例<see cref="CatalogInfo"/></returns>
+        IList<CatalogInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)

@@ -22,7 +22,7 @@
     using X3Platform.Json;
     using System.Text;
     using Globalization;
-    /// <summary></summary>
+    using X3Platform.Util;    /// <summary></summary>
     public sealed class APIController : Controller
     {
         /// <summary>日志记录器</summary>
@@ -52,6 +52,8 @@
                    I18n.Exceptions["text_web_api_request_exceed_limit"]));
             }
 
+            DateTime timestamp = DateTime.Now;
+
             HttpContextBase context = this.HttpContext;
 
             IDictionary<string, APIMethod> dictionary = APIsConfigurationView.Instance.Configuration.APIMethods;
@@ -67,15 +69,9 @@
             // 调试情况下记录输入参数
             if (context.Request.QueryString["xhr-debug"] == "1")
             {
-                logger.Info("methodName:" + methodName);
+                logger.Info("api:" + methodName + " start.");
 
                 logger.Info(RequestHelper.Dump(context.Request, rawInput));
-            }
-
-            // 输出请求信息
-            if (logger.IsDebugEnabled)
-            {
-                logger.Debug("methodName:" + methodName);
             }
 
             if (dictionary.ContainsKey(methodName))
@@ -92,7 +88,7 @@
                 if (method == null)
                 {
                     logger.Warn(string.Format(I18n.Exceptions["text_web_api_method_not_exists"], methodName));
-                    
+
                     responseText = GenericException.Stringify(I18n.Exceptions["code_web_api_method_not_exists"],
                        string.Format(I18n.Exceptions["text_web_api_method_not_exists"], methodName));
                 }
@@ -112,6 +108,8 @@
             // 调试情况下记录输出参数
             if (context.Request.QueryString["xhr-debug"] == "1")
             {
+                KernelContext.Log.Info("api " + methodName + " finished, timespan:" + DateHelper.GetTimeSpan(timestamp).TotalSeconds + "s.");
+
                 KernelContext.Log.Info(responseText);
             }
 

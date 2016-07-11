@@ -40,7 +40,7 @@ main.membership.role.list = {
     outString += '<tr>';
     outString += '<th >名称</th>';
     outString += '<th style="width:160px" >全局名称</th>';
-    outString += '<th style="width:40px" title="状态" ><i class="fa fa-dot-circle-o"></i></th>';
+    outString += '<th style="width:50px" >状态</th>';
     outString += '<th style="width:100px" >更新日期</th>';
     outString += '<th style="width:100px" >数据验证</th>';
     outString += '<th style="width:30px" title="删除" ><i class="fa fa-trash" ></i></th>';
@@ -67,9 +67,9 @@ main.membership.role.list = {
       outString += '<tr>';
       outString += '<td><a href="javascript:main.membership.role.list.openDialog(\'' + node.id + '\');" >' + node.name + '</a></td>';
       outString += '<td>' + node.globalName + '</td>';
-      outString += '<td>' + x.app.setColorStatusView(node.status) + '</td>';
-      outString += '<td>' + node.modifiedDateView + '</td>';
-      outString += '<td><a href="/apps/paging/membership/role-validator.aspx?roleId=' + node.id + '" target="_blank" >数据验证</a></td>';
+      outString += '<td class="text-center" >' + x.app.setColorStatusView(node.status) + '</td>';
+      outString += '<td>' + x.date.newTime(node.modifiedDateView).toString('yyyy-MM-dd') + '</td>';
+      outString += '<td><a href="/membership/role-validator.aspx?roleId=' + node.id + '" target="_blank" >数据验证</a></td>';
       if(node.locking === '1')
       {
         outString += '<td><span class="gray-text" title="删除" ><i class="fa fa-trash" ></i></span></td>';

@@ -227,14 +227,14 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:GroupTreeNodeId
-        private string m_GroupTreeNodeId;
+        #region 属性:CatalogItemId
+        private string m_CatalogItemId;
 
         /// <summary></summary>
-        public string GroupTreeNodeId
+        public string CatalogItemId
         {
-            get { return m_GroupTreeNodeId; }
-            set { m_GroupTreeNodeId = value; }
+            get { return m_CatalogItemId; }
+            set { m_CatalogItemId = value; }
         }
         #endregion
 
@@ -388,7 +388,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<isKey><![CDATA[{0}]]></isKey>", this.IsKey);
             if (displayComment)
                 outString.Append("<!-- 分类标识(兼容门户系统，可以忽略。) (字符串) (nvarchar(36)) -->");
-            outString.AppendFormat("<groupTreeNodeId><![CDATA[{0}]]></groupTreeNodeId>", this.GroupTreeNodeId);
+            outString.AppendFormat("<CatalogItemId><![CDATA[{0}]]></CatalogItemId>", this.CatalogItemId);
             if (displayComment)
                 outString.Append("<!-- 排序编号(字符串) (nvarchar(20)) -->");
             outString.AppendFormat("<orderId><![CDATA[{0}]]></orderId>", this.OrderId);
@@ -420,7 +420,7 @@ namespace X3Platform.Membership.Model
             this.Type = Convert.ToInt32(element.SelectSingleNode("type").InnerText);
             this.Priority = Convert.ToInt32(element.SelectSingleNode("priority").InnerText);
             this.IsKey = Convert.ToBoolean(element.SelectSingleNode("isKey").InnerText);
-            this.GroupTreeNodeId = element.SelectSingleNode("groupTreeNodeId").InnerText;
+            this.CatalogItemId = element.SelectSingleNode("CatalogItemId").InnerText;
             this.OrderId = element.SelectSingleNode("orderId").InnerText;
             this.Status = Convert.ToInt32(element.SelectSingleNode("status").InnerText);
             this.Remark = element.SelectSingleNode("remark").InnerText;

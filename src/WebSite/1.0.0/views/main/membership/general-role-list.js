@@ -496,7 +496,7 @@ main.membership.general.role.list = {
             icon: '/resources/images/tree/tree_icon.gif'
         });
 
-        tree.load('/api/membership.groupTree.getDynamicTreeView.aspx', false, outString);
+        tree.load('/api/membership.catalog.getDynamicTreeView.aspx', false, outString);
 
         main.membership.general.role.list.tree = tree;
 

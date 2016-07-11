@@ -79,11 +79,11 @@ namespace X3Platform.Membership.IDAL
         IList<IGroupInfo> FindAllByAccountId(string accountId);
         #endregion
 
-        #region 函数:FindAllByGroupTreeNodeId(string groupTreeNodeId)
+        #region 函数:FindAllByCatalogItemId(string CatalogItemId)
         /// <summary>查询所有相关记录</summary>
-        /// <param name="groupTreeNodeId">分类节点标识</param>
+        /// <param name="CatalogItemId">分类节点标识</param>
         /// <returns>返回所有实例<see cref="IGroupInfo"/>的详细信息</returns>
-        IList<IGroupInfo> FindAllByGroupTreeNodeId(string groupTreeNodeId);
+        IList<IGroupInfo> FindAllByCatalogItemId(string CatalogItemId);
         #endregion
 
         // -------------------------------------------------------

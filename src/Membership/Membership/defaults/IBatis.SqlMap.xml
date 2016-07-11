@@ -33,8 +33,8 @@
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardGeneralRoleProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.StandardOrganizationUnitProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupProvider.xml,X3Platform.Membership"/>
-    <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupTreeProvider.xml,X3Platform.Membership"/>
-    <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupTreeNodeProvider.xml,X3Platform.Membership"/>
+    <sqlMap embedded="X3Platform.Membership.DAL.IBatis.CatalogProvider.xml,X3Platform.Membership"/>
+    <sqlMap embedded="X3Platform.Membership.DAL.IBatis.CatalogItemProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.ContactProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AssignedJobProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.JobGradeProvider.xml,X3Platform.Membership"/>

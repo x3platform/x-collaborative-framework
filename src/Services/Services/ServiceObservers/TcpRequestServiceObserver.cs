@@ -126,15 +126,15 @@ namespace X3Platform.Services.ServiceObservers
                 try
                 {
                     //取得客户端的连接
-                    using (TcpClient tcpClient = tcpListener.AcceptTcpClient())
+                    using (TcpClient client = tcpListener.AcceptTcpClient())
                     {
                         //取得客户端发过来的字节流
-                        using (NetworkStream networkStream = tcpClient.GetStream())
+                        using (NetworkStream stream = client.GetStream())
                         {
                             // 把字节流读入字节数组
                             byte[] buffer = new byte[10];
 
-                            networkStream.Read(buffer, 0, buffer.Length);
+                            stream.Read(buffer, 0, buffer.Length);
 
                             // 不可以在此直接设置this.Text,线程问题.
                             string requestData = System.Text.Encoding.Unicode.GetString(buffer);
@@ -144,12 +144,12 @@ namespace X3Platform.Services.ServiceObservers
                             // 向客户端发送数据
                             buffer = System.Text.Encoding.Unicode.GetBytes(string.Format("服务器时间:{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")).ToCharArray());
 
-                            networkStream.Write(buffer, 0, buffer.Length);
+                            stream.Write(buffer, 0, buffer.Length);
 
-                            networkStream.Close();
+                            stream.Close();
                         }
 
-                        tcpClient.Close();
+                        client.Close();
                     }
                 }
                 catch (Exception ex)

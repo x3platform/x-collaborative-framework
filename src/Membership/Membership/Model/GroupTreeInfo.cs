@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :GroupTreeInfo.cs
+// FileName     :CatalogInfo.cs
 //
 // Description  :
 //
@@ -19,11 +19,11 @@ using System.Text;
 namespace X3Platform.Membership.Model
 {
     /// <summary></summary>
-    public class GroupTreeInfo
+    public class CatalogInfo
     {
-        #region 构造函数:GroupTreeInfo()
+        #region 构造函数:CatalogInfo()
         /// <summary>默认构造函数</summary>
-        public GroupTreeInfo() { }
+        public CatalogInfo() { }
         #endregion
 
         #region 属性:Id
@@ -59,14 +59,14 @@ namespace X3Platform.Membership.Model
         }
         #endregion
 
-        #region 属性:RootTreeNodeId
-        private string m_RootTreeNodeId;
+        #region 属性:RootCatalogItemId
+        private string m_RootCatalogItemId;
 
         /// <summary></summary>
-        public string RootTreeNodeId
+        public string RootCatalogItemId
         {
-            get { return m_RootTreeNodeId; }
-            set { m_RootTreeNodeId = value; }
+            get { return m_RootCatalogItemId; }
+            set { m_RootCatalogItemId = value; }
         }
         #endregion
 

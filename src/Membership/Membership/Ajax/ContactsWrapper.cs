@@ -342,7 +342,7 @@ namespace X3Platform.Membership.Ajax
             // 包含被禁止的对象
             int includeProhibited = Convert.ToInt32(XmlHelper.Fetch("includeProhibited", doc));
 
-            string groupTreeNodeId = XmlHelper.Fetch("groupTreeNodeId", doc);
+            string CatalogItemId = XmlHelper.Fetch("CatalogItemId", doc);
 
             // 0 全部 1 2 4 8;
 
@@ -351,33 +351,33 @@ namespace X3Platform.Membership.Ajax
             switch (groupType)
             {
                 case "group":
-                    outString.Append(FormatGroup(MembershipManagement.Instance.GroupService.FindAllByGroupTreeNodeId(groupTreeNodeId), includeProhibited));
+                    outString.Append(FormatGroup(MembershipManagement.Instance.GroupService.FindAllByCatalogItemId(CatalogItemId), includeProhibited));
                     break;
                 case "general-role":
-                    outString.Append(FormatGeneralRole(MembershipManagement.Instance.GeneralRoleService.FindAllByGroupTreeNodeId(groupTreeNodeId)));
+                    outString.Append(FormatGeneralRole(MembershipManagement.Instance.GeneralRoleService.FindAllByCatalogItemId(CatalogItemId)));
                     break;
                 case "standard-role":
                     IList<IStandardOrganizationUnitInfo> standardOrganizationUnits = null;
 
-                    if (groupTreeNodeId.IndexOf("[GroupTreeNode]") == 0)
+                    if (CatalogItemId.IndexOf("[CatalogItem]") == 0)
                     {
-                        string whereClause = string.Format(" GroupTreeNodeId = ##{0}## AND ( ParentId IS NULL OR ParentId = ##00000000-0000-0000-0000-000000000000## )  ", groupTreeNodeId.Replace("[GroupTreeNode]", ""));
+                        string whereClause = string.Format(" CatalogItemId = ##{0}## AND ( ParentId IS NULL OR ParentId = ##00000000-0000-0000-0000-000000000000## )  ", CatalogItemId.Replace("[CatalogItem]", ""));
 
                         standardOrganizationUnits = MembershipManagement.Instance.StandardOrganizationUnitService.FindAll(whereClause);
                     }
                     else
                     {
-                        standardOrganizationUnits = MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(groupTreeNodeId.Replace("[StandardRole]", ""));
+                        standardOrganizationUnits = MembershipManagement.Instance.StandardOrganizationUnitService.FindAllByParentId(CatalogItemId.Replace("[StandardRole]", ""));
                     }
 
                     outString.Append(FormatStandardOrganizationUnit(standardOrganizationUnits));
 
                     break;
                 case "standard-general-role":
-                    outString.Append(FormatStandardGeneralRole(MembershipManagement.Instance.StandardGeneralRoleService.FindAllByGroupTreeNodeId(groupTreeNodeId)));
+                    outString.Append(FormatStandardGeneralRole(MembershipManagement.Instance.StandardGeneralRoleService.FindAllByCatalogItemId(CatalogItemId)));
                     break;
                 case "workflow-role":
-                    outString.Append(FormatWorkflowRole(groupTreeNodeId));
+                    outString.Append(FormatWorkflowRole(CatalogItemId));
                     break;
             }
 
@@ -718,15 +718,15 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        #region 私有函数:FormatWorkflowRole(string groupTreeNodeId)
+        #region 私有函数:FormatWorkflowRole(string CatalogItemId)
         /// <summary>格式化数据</summary>
-        /// <param name="groupTreeNodeId"></param>
+        /// <param name="CatalogItemId"></param>
         /// <returns>返回操作结果</returns>
-        private string FormatWorkflowRole(string groupTreeNodeId)
+        private string FormatWorkflowRole(string CatalogItemId)
         {
             StringBuilder outString = new StringBuilder();
 
-            switch (groupTreeNodeId)
+            switch (CatalogItemId)
             {
                 case "60000000-0000-0000-0001-000000000000":
 
@@ -1007,7 +1007,7 @@ namespace X3Platform.Membership.Ajax
 
                 case "group":
                 case "general-role":
-                    outString.Append(GetTreeViewWithGroupTreeNode(parentId, url, treeViewRootTreeNodeId));
+                    outString.Append(GetTreeViewWithCatalogItem(parentId, url, treeViewRootTreeNodeId));
                     break;
                 case "standard-organization":
                     outString.Append(GetTreeViewWithStandardOrganizationUnitTreeNode(parentId, url, treeViewRootTreeNodeId));
@@ -1016,7 +1016,7 @@ namespace X3Platform.Membership.Ajax
                     outString.Append(GetTreeViewWithStandardOrganizationUnitTreeNode(parentId, url, treeViewRootTreeNodeId));
                     break;
                 case "standard-general-role":
-                    outString.Append(GetTreeViewWithGroupTreeNode(parentId, url, treeViewRootTreeNodeId));
+                    outString.Append(GetTreeViewWithCatalogItem(parentId, url, treeViewRootTreeNodeId));
                     break;
                 case "workflow-role":
                     outString.Append(GetTreeViewWithWorkflowRole(parentId, url, treeViewRootTreeNodeId));
@@ -1038,13 +1038,13 @@ namespace X3Platform.Membership.Ajax
         }
         #endregion
 
-        private string GetTreeViewWithGroupTreeNode(string parentId, string url, string treeViewRootTreeNodeId)
+        private string GetTreeViewWithCatalogItem(string parentId, string url, string treeViewRootTreeNodeId)
         {
-            IList<GroupTreeNodeInfo> list = MembershipManagement.Instance.GroupTreeNodeService.FindAllByParentId(parentId);
+            IList<CatalogItemInfo> list = MembershipManagement.Instance.CatalogItemService.FindAllByParentId(parentId);
 
             StringBuilder outString = new StringBuilder();
 
-            foreach (GroupTreeNodeInfo item in list)
+            foreach (CatalogItemInfo item in list)
             {
                 if (item.Status == 0) { continue; }
 

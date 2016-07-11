@@ -275,11 +275,11 @@
     <Content Include="views\main\forum\my-forum-thread-list.js" />
     <Content Include="views\main\membership\account-grant-list.js" />
     <Content Include="views\main\membership\account-list.js" />
+    <Content Include="views\main\membership\catalog-item-list.js" />
+    <Content Include="views\main\membership\catalog-list.js" />
     <Content Include="views\main\membership\default.js" />
     <Content Include="views\main\membership\general-role-list.js" />
     <Content Include="views\main\membership\group-list.js" />
-    <Content Include="views\main\membership\group-tree-list.js" />
-    <Content Include="views\main\membership\group-tree-node-list.js" />
     <Content Include="views\main\membership\organization-list.js" />
     <Content Include="views\main\membership\organization-validator.js" />
     <Content Include="views\main\membership\role-list.js" />
@@ -377,8 +377,6 @@
     <Content Include="views\main\membership\default.cshtml" />
     <Content Include="views\main\membership\general-role-list.cshtml" />
     <Content Include="views\main\membership\group-list.cshtml" />
-    <Content Include="views\main\membership\group-tree-list.cshtml" />
-    <Content Include="views\main\membership\group-tree-node-list.cshtml" />
     <Content Include="views\main\membership\organization-list.cshtml" />
     <Content Include="views\main\membership\organization-validator.cshtml" />
     <Content Include="views\main\membership\role-list.cshtml" />
@@ -443,6 +441,8 @@
     <Content Include="views\main\sdk\doc.cshtml" />
     <Content Include="views\main\sdk\base64image.cshtml" />
     <Content Include="views\main\connect\my-connect-list.cshtml" />
+    <Content Include="views\main\membership\catalog-item-list.cshtml" />
+    <Content Include="views\main\membership\catalog-list.cshtml" />
     <None Include="views\templates\internal\sdk\styles\style.less" />
     <Content Include="web.example.config" />
   </ItemGroup>

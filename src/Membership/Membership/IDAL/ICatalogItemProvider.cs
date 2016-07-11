@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :IGroupTreeNodeProvider.cs
+// FileName     :ICatalogItemProvider.cs
 //
 // Description  :
 //
@@ -24,30 +24,30 @@ using X3Platform.Data;
 namespace X3Platform.Membership.IDAL
 {
     /// <summary></summary>
-    [SpringObject("X3Platform.Membership.IDAL.IGroupTreeNodeProvider")]
-    public interface IGroupTreeNodeProvider
+    [SpringObject("X3Platform.Membership.IDAL.ICatalogItemProvider")]
+    public interface ICatalogItemProvider
     {
         // -------------------------------------------------------
         // 保存 添加 修改 删除
         // -------------------------------------------------------
 
-        #region 函数:Save(GroupTreeNodeInfo param)
+        #region 函数:Save(CatalogItemInfo param)
         /// <summary>保存记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        /// <returns>实例<see cref="GroupTreeNodeInfo"/>详细信息</returns>
-        GroupTreeNodeInfo Save(GroupTreeNodeInfo param);
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        /// <returns>实例<see cref="CatalogItemInfo"/>详细信息</returns>
+        CatalogItemInfo Save(CatalogItemInfo param);
         #endregion
 
-        #region 函数:Insert(GroupTreeNodeInfo param)
+        #region 函数:Insert(CatalogItemInfo param)
         /// <summary>添加记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        void Insert(GroupTreeNodeInfo param);
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        void Insert(CatalogItemInfo param);
         #endregion
 
-        #region 函数:Update(GroupTreeNodeInfo param)
+        #region 函数:Update(CatalogItemInfo param)
         /// <summary>修改记录</summary>
-        /// <param name="param">实例<see cref="GroupTreeNodeInfo"/>详细信息</param>
-        void Update(GroupTreeNodeInfo param);
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        void Update(CatalogItemInfo param);
         #endregion
 
         #region 函数:Delete(string ids)
@@ -63,23 +63,23 @@ namespace X3Platform.Membership.IDAL
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
-        /// <returns>返回实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        GroupTreeNodeInfo FindOne(string id);
+        /// <returns>返回实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        CatalogItemInfo FindOne(string id);
         #endregion
 
         #region 函数:FindAll(string whereClause, int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        IList<GroupTreeNodeInfo> FindAll(string whereClause, int length);
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        IList<CatalogItemInfo> FindAll(string whereClause, int length);
         #endregion
 
         #region 函数:FindAllByParentId(string parentId)
         /// <summary>查询所有相关记录</summary>
         /// <param name="parentId">父节点标识</param>
-        /// <returns>返回所有实例<see cref="GroupTreeNodeInfo"/>的详细信息</returns>
-        IList<GroupTreeNodeInfo> FindAllByParentId(string parentId);
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
+        IList<CatalogItemInfo> FindAllByParentId(string parentId);
         #endregion
 
         // -------------------------------------------------------
@@ -92,8 +92,8 @@ namespace X3Platform.Membership.IDAL
         /// <param name="pageSize">页面大小</param>
         /// <param name="query">数据查询参数</param>
         /// <param name="rowCount">行数</param>
-        /// <returns>返回一个列表实例<see cref="GroupTreeNodeInfo"/></returns>
-        IList<GroupTreeNodeInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
+        /// <returns>返回一个列表实例<see cref="CatalogItemInfo"/></returns>
+        IList<CatalogItemInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
         #region 函数:IsExist(string id)

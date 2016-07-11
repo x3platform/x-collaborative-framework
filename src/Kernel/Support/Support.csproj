@@ -224,6 +224,7 @@
     <Compile Include="Logging\Core\MethodItem.cs" />
     <Compile Include="Logging\Core\StackFrameItem.cs" />
     <Compile Include="Logging\Core\TimeEvaluator.cs" />
+    <Compile Include="Logging\GlobalVariablesContext.cs" />
     <Compile Include="Logging\Layout\DynamicPatternLayout.cs" />
     <Compile Include="Logging\Layout\Pattern\AspNetCachePatternConverter.cs" />
     <Compile Include="Logging\Layout\Pattern\AspNetContextPatternConverter.cs" />
@@ -233,6 +234,7 @@
     <Compile Include="Logging\Layout\Pattern\StackTraceDetailPatternConverter.cs" />
     <Compile Include="Logging\Layout\Pattern\StackTracePatternConverter.cs" />
     <Compile Include="Logging\Repository\ConfigurationChangedEventArgs.cs" />
+    <Compile Include="Logging\ThreadVariablesContext.cs" />
     <Compile Include="Logging\Util\ConverterInfo.cs" />
     <Compile Include="Logging\Util\ILogExtensions.cs" />
     <Compile Include="Logging\Util\PatternStringConverters\EnvironmentFolderPathPatternConverter.cs" />

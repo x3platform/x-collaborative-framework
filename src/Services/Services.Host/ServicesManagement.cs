@@ -4,12 +4,10 @@ using X3Platform.Services.Configuration;
 
 namespace X3Platform.Services
 {
-    /// <summary>
-    /// 服务管理者
-    /// </summary>
-    partial class ServicesManagement : ServiceBase
+    /// <summary>服务管理者</summary>
+    partial class ServicesManagement
     {
-        // private ServicesConfiguration configuration = null;
+        private string ServiceName = null;
 
         public ServicesManagement()
         {
@@ -38,15 +36,11 @@ namespace X3Platform.Services
 
             // 关闭所有的WCF服务
             ServiceHostManagement.Close();
-
-            this.OnStop();
         }
 
         public void Pause()
         {
             EventLogHelper.Write(string.Format("{0} 服务被暂停。", this.ServiceName));
-
-            this.OnPause();
         }
     }
 }

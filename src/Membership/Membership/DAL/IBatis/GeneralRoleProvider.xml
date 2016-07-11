@@ -10,7 +10,7 @@
             <result property="Name" column="Name" />
             <result property="GlobalName" column="GlobalName" />
             <result property="PinYin" column="PinYin" />
-            <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+            <result property="CatalogItemId" column="CatalogItemId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
             <result property="Locking" column="Locking" />
             <result property="Status" column="Status" />
@@ -27,7 +27,7 @@
             <result property="Name" column="Name" />
             <result property="GlobalName" column="GlobalName" />
             <result property="PinYin" column="PinYin" />
-            <result property="GroupTreeNodeId" column="GroupTreeNodeId" />
+            <result property="CatalogItemId" column="CatalogItemId" />
             <result property="EnableExchangeEmail" column="EnableExchangeEmail" />
             <result property="Locking" column="Locking" />
             <result property="Status" column="Status" />
@@ -48,7 +48,7 @@
                 Name,
                 GlobalName,
                 PinYin,
-                GroupTreeNodeId,
+                CatalogItemId,
                 EnableExchangeEmail,
                 Locking,
                 Status,
@@ -66,7 +66,7 @@
                 #Name#,
                 #GlobalName#,
                 #PinYin#,
-                #GroupTreeNodeId#,
+                #CatalogItemId#,
                 #EnableExchangeEmail#,
                 #Locking#,
                 #Status#,
@@ -85,7 +85,7 @@
                 Name = #Name#,
                 GlobalName = #GlobalName#,
                 PinYin = #PinYin#,
-                GroupTreeNodeId = #GroupTreeNodeId#,
+                CatalogItemId = #CatalogItemId#,
                 EnableExchangeEmail = #EnableExchangeEmail#,
                 Locking = #Locking#,
                 Status = #Status#,

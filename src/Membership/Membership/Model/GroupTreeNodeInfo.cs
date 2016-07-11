@@ -2,7 +2,7 @@
 //
 // Copyright (c) ruanyu@live.com
 //
-// FileName     :GroupTreeNodeInfo.cs
+// FileName     :CatalogItemInfo.cs
 //
 // Description  :
 //
@@ -20,11 +20,11 @@ namespace X3Platform.Membership.Model
     using System.Xml;
 
     /// <summary></summary>
-    public class GroupTreeNodeInfo
+    public class CatalogItemInfo
     {
-        #region 构造函数:GroupTreeNodeInfo()
+        #region 构造函数:CatalogItemInfo()
         /// <summary>默认构造函数</summary>
-        public GroupTreeNodeInfo() { }
+        public CatalogItemInfo() { }
         #endregion
 
         #region 属性:Id
@@ -167,7 +167,7 @@ namespace X3Platform.Membership.Model
             StringBuilder outString = new StringBuilder();
 
             outString.Append("<!-- 树形分组节点对象 -->");
-            outString.Append("<groupTreeNode>");
+            outString.Append("<CatalogItem>");
             outString.Append("<!-- 组织标识 (字符串) (nvarchar(36)) -->");
             outString.AppendFormat("<id><![CDATA[{0}]]></id>", this.Id);
             outString.Append("<!-- 名称 (字符串) (nvarchar(50)) -->");
@@ -182,7 +182,7 @@ namespace X3Platform.Membership.Model
             outString.AppendFormat("<remark><![CDATA[{0}]]></remark>", this.Remark);
             outString.Append("<!-- 最后更新时间 (时间) (datetime) -->");
             outString.AppendFormat("<updateDate><![CDATA[{0}]]></updateDate>", this.ModifiedDate);
-            outString.Append("</groupTreeNode>");
+            outString.Append("</CatalogItem>");
 
             return outString.ToString();
         }
