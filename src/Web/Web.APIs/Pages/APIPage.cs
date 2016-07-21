@@ -164,7 +164,7 @@ namespace X3Platform.Web.APIs.Pages
                 try
                 {
                     // 记录
-                    if (ConnectConfigurationView.Instance.TrackingCall == "ON")
+                    if (ConnectConfigurationView.Instance.EnableCallLog == "ON")
                     {
                         ConnectCallInfo call = new ConnectCallInfo(clientId, context.Request.RawUrl, doc.InnerXml);
 

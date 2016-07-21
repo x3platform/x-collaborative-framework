@@ -62,11 +62,11 @@ namespace X3Platform.Web.APIs.Methods
         /// <returns></returns>
         public override object Execute()
         {
-            // 验证必填参数
-            Validate();
-
             // 设置映射参数
             Mapping();
+
+            // 验证必填参数
+            Validate();
 
             if (paramType == "xml")
             {

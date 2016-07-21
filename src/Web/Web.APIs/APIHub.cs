@@ -5,7 +5,9 @@ namespace X3Platform.Web.APIs
     using System.Collections.Specialized;
     using System.Web;
     using System.Xml;
+    using System.Runtime.Serialization.Json;
     using System.Threading;
+    using System.Text;
 
     using Common.Logging;
 
@@ -14,8 +16,6 @@ namespace X3Platform.Web.APIs
     using X3Platform.Location.IPQuery;
     using X3Platform.Connect;
     using X3Platform.Connect.Model;
-    using System.Text;
-    using System.Runtime.Serialization.Json;
 
     /// <summary></summary>
     /// <param name="methodName"></param>
@@ -33,7 +33,7 @@ namespace X3Platform.Web.APIs
             // 请求响应的内容
             string responseText = string.Empty;
             // clientId
-            string clientId = RequestHelper.Fetch("clientId", "client_id");
+            string clientId = RequestHelper.Fetch("clientId", new string[] { "client_id", "app_key", "appKey" });
             // accessToken
             string accessToken = RequestHelper.Fetch("accessToken", "access_token");
             // 默认支持 form-data 方式
@@ -118,9 +118,11 @@ namespace X3Platform.Web.APIs
                 try
                 {
                     // 记录
-                    if (ConnectConfigurationView.Instance.TrackingCall == "ON")
+                    if (ConnectConfigurationView.Instance.EnableCallLog == "ON")
                     {
                         ConnectCallInfo call = new ConnectCallInfo(clientId, context.Request.RawUrl, doc.InnerXml);
+
+                        call.AccessToken = accessToken;
 
                         try
                         {
@@ -128,7 +130,17 @@ namespace X3Platform.Web.APIs
 
                             var responseObject = methodInvoke(methodName, doc, logger);
 
-                            responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
+                            responseText = call.ResponseData = (responseObject == null) ? string.Empty : responseObject.ToString();
+
+                            if (call.RequestData.Length > 2048)
+                            {
+                                call.RequestData = "[Long String] " + call.RequestData.Length ;
+                            }
+
+                            if (call.ResponseData.Length > 2048)
+                            {
+                                call.ResponseData = "[Long String] " + call.ResponseData.Length ;
+                            }
 
                             call.ReturnCode = 0;
                         }
@@ -170,13 +182,6 @@ namespace X3Platform.Web.APIs
                     GenericException exception = new GenericException("9999", threadAbortException);
 
                     responseText = exception.ToString();
-
-                    //responseText = "{\"success\":0,\"msg\":\"" + StringHelper.ToSafeJson(threadAbortException.Message) + "\",\"message\":{"
-                    //    + "\"returnCode\":\"9999\","
-                    //    + "\"category\":\"exception\","
-                    //    + "\"value\":\"" + StringHelper.ToSafeJson(threadAbortException.Message) + "\","
-                    //    + "\"description\":\"" + StringHelper.ToSafeJson(threadAbortException.ToString()) + "\""
-                    //    + "}}";
                 }
                 catch (Exception ex)
                 {
@@ -192,13 +197,6 @@ namespace X3Platform.Web.APIs
                     }
 
                     responseText = exception.ToString();
-
-                    //responseText = "{\"success\":0,\"msg\":\"" + StringHelper.ToSafeJson(ex.Message) + "\",\"message\":{"
-                    //    + "\"returnCode\":\"-1\","
-                    //    + "\"category\":\"exception\","
-                    //    + "\"value\":\"" + StringHelper.ToSafeJson(ex.Message) + "\","
-                    //    + "\"description\":\"" + StringHelper.ToSafeJson(ex.ToString()) + "\""
-                    //    + "}}";
                 }
             }
 

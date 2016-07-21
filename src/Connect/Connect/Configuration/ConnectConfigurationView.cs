@@ -151,29 +151,29 @@ namespace X3Platform.Connect.Configuration
         }
         #endregion
 
-        #region 属性:TrackingCall
-        private string m_TrackingCall = string.Empty;
+        #region 属性:EnableCallLog
+        private string m_EnableCallLog = string.Empty;
 
-        /// <summary>跟踪连接调用</summary>
-        public string TrackingCall
+        /// <summary>启用调用日志</summary>
+        public string EnableCallLog
         {
             get
             {
-                if (string.IsNullOrEmpty(this.m_TrackingCall))
+                if (string.IsNullOrEmpty(this.m_EnableCallLog))
                 {
                     // 读取配置信息
-                    this.m_TrackingCall = KernelConfigurationView.Instance.GetKeyValue(
+                    this.m_EnableCallLog = KernelConfigurationView.Instance.GetKeyValue(
                         configGlobalPrefix,
-                        "TrackingCall",
+                        "EnableCallLog",
                         this.Configuration.Keys);
 
                     // 如果配置文件里未设置则设置一个默认值
-                    this.m_TrackingCall = StringHelper.NullOrEmptyTo(this.m_TrackingCall, "NO");
+                    this.m_EnableCallLog = StringHelper.NullOrEmptyTo(this.m_EnableCallLog, "NO");
 
-                    this.m_TrackingCall = this.m_TrackingCall.ToUpper();
+                    this.m_EnableCallLog = this.m_EnableCallLog.ToUpper();
                 }
 
-                return this.m_TrackingCall;
+                return this.m_EnableCallLog;
             }
         }
         #endregion

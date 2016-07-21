@@ -6,18 +6,21 @@
   <resultMaps>
     <resultMap id="proc_Connect_Call_FindOne_Result" class="ConnectCallInfo">
       <result property="Id" column="Id" />
+      <result property="AccessToken" column="AccessToken" />
       <result property="AppKey" column="AppKey" />
       <result property="RequestUri" column="RequestUri" />
       <result property="RequestData" column="RequestData" />
+      <result property="ResponseData" column="ResponseData" />
       <result property="StartTime" column="StartTime" />
       <result property="FinishTime" column="FinishTime" />
       <result property="TimeSpan" column="TimeSpan" />
       <result property="IP" column="IP" />
       <result property="ReturnCode" column="ReturnCode" />
-      <result property="Date" column="Date" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
     <resultMap id="proc_Connect_Call_FindAll_Result" class="ConnectCallInfo">
       <result property="Id" column="Id" />
+      <result property="AccessToken" column="AccessToken" />
       <result property="AppKey" column="AppKey" />
       <result property="RequestUri" column="RequestUri" />
       <result property="StartTime" column="StartTime" />
@@ -25,7 +28,7 @@
       <result property="TimeSpan" column="TimeSpan" />
       <result property="IP" column="IP" />
       <result property="ReturnCode" column="ReturnCode" />
-      <result property="Date" column="Date" />
+      <result property="CreatedDate" column="CreatedDate" />
     </resultMap>
   </resultMaps>
   <statements>
@@ -34,59 +37,66 @@
       BEGIN
       INSERT INTO tb_Connect_Call
       (
-      Id,
-      AppKey,
-      RequestUri,
-      RequestData,
-      StartTime,
-      FinishTime,
-      TimeSpan,
-      IP,
-      ReturnCode,
-      Date
+        Id,
+        AccessToken,
+        AppKey,
+        RequestUri,
+        RequestData,
+        ResponseData,
+        StartTime,
+        FinishTime,
+        TimeSpan,
+        IP,
+        ReturnCode,
+        CreatedDate
       )
       VALUES
       (
-      #Id#,
-      #AppKey#,
-      #RequestUri#,
-      #RequestData#,
-      #StartTime#,
-      #FinishTime#,
-      #TimeSpan#,
-      #IP#,
-      #ReturnCode#,
-      CURRENT_TIMESTAMP
+        #Id#,
+        #AccessToken#,
+        #AppKey#,
+        #RequestUri#,
+        #RequestData#,
+        #ResponseData#,
+        #StartTime#,
+        #FinishTime#,
+        #TimeSpan#,
+        #IP#,
+        #ReturnCode#,
+        CURRENT_TIMESTAMP
       )
       END
     </insert>
     <insert id="proc_Connect_Call_Save#MySql" parameterClass="ConnectCallInfo">
       INSERT INTO tb_Connect_Call
       (
-      Id,
-      AppKey,
-      RequestUri,
-      RequestData,
-      StartTime,
-      FinishTime,
-      TimeSpan,
-      IP,
-      ReturnCode,
-      Date
+        Id,
+        AccessToken,
+        AppKey,
+        RequestUri,
+        RequestData,
+        ResponseData,
+        StartTime,
+        FinishTime,
+        TimeSpan,
+        IP,
+        ReturnCode,
+        CreatedDate
       )
       SELECT
-      #Id#,
-      #AppKey#,
-      #RequestUri#,
-      #RequestData#,
-      #StartTime#,
-      #FinishTime#,
-      #TimeSpan#,
-      #IP#,
-      #ReturnCode#,
-      CURRENT_TIMESTAMP
-      FROM DUAL
-      WHERE NOT EXISTS ( SELECT * FROM tb_Connect_Call WHERE Id = #Id#)
+        #Id#,
+        #AccessToken#,
+        #AppKey#,
+        #RequestUri#,
+        #RequestData#,
+        #ResponseData#,
+        #StartTime#,
+        #FinishTime#,
+        #TimeSpan#,
+        #IP#,
+        #ReturnCode#,
+        CURRENT_TIMESTAMP
+      FROM DUAL WHERE NOT EXISTS ( SELECT * FROM tb_Connect_Call WHERE Id = #Id#)
     </insert>
     <update id="proc_Connect_Call_Update" parameterClass="ConnectCallInfo" >
       -- 记录不允许修改
