@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>x-collaborative-framework</id>
+    <version>1.0.0</version>
+    <title>x-collaborative-framework</title>
+    <authors>ruanyu</authors>
+    <owners>ruanyu</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/x3platform/x-collaborative-framework</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>X3 development framework</description>
+    <copyright>Copyright 2015</copyright>
+    <dependencies>
+      <dependency id="Common.Logging" version="3.0.0" />
+      <dependency id="Spring.Core" version="2.0.0" />
+    </dependencies>
+  </metadata>
+  <!-- 包含指定文件, 否则将打包整个项目-->
+  <files>
+    <file src="..\bin\*.dll" target="lib\net-40" />
+  </files>
+</package>
