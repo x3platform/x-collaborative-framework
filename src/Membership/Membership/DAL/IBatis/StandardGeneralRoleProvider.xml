@@ -1,264 +1,263 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <sqlMap namespace="X3Platform.Membership.DAL.IBatis.StandardGeneralRoleProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
-    <alias>
-        <typeAlias alias="StandardGeneralRoleInfo" type="X3Platform.Membership.Model.StandardGeneralRoleInfo,X3Platform.Membership" />
-        <typeAlias alias="StandardGeneralRoleMappingRelationInfo" type="X3Platform.Membership.Model.StandardGeneralRoleMappingRelationInfo,X3Platform.Membership" />
-    </alias>
-    <resultMaps>
-        <resultMap id="proc_StandardGeneralRole_FindOne_Result" class="StandardGeneralRoleInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="Suffix" column="Suffix" />
-            <result property="CatalogItemId" column="CatalogItemId" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_StandardGeneralRole_FindAll_Result" class="StandardGeneralRoleInfo">
-            <result property="Id" column="Id" />
-            <result property="Code" column="Code" />
-            <result property="Name" column="Name" />
-            <result property="Suffix" column="Suffix" />
-            <result property="CatalogItemId" column="CatalogItemId" />
-            <result property="Locking" column="Locking" />
-            <result property="OrderId" column="OrderId" />
-            <result property="Status" column="Status" />
-            <result property="Remark" column="Remark" />
-            <result property="ModifiedDate" column="ModifiedDate" />
-            <result property="CreatedDate" column="CreatedDate" />
-        </resultMap>
-        <resultMap id="proc_StandardGeneralRole_FindAllMappingRelation_Result" class="StandardGeneralRoleMappingRelationInfo">
-            <result property="StandardGeneralRoleId" column="StandardGeneralRoleId" />
-            <result property="StandardGeneralRoleName" column="StandardGeneralRoleName" />
-            <result property="OrganizationUnitId" column="OrganizationUnitId" />
-            <result property="OrganizationUnitName" column="OrganizationUnitName" />
-            <result property="RoleId" column="RoleId" />
-            <result property="RoleName" column="RoleName" />
-            <result property="StandardRoleId" column="StandardRoleId" />
-        </resultMap>
-    </resultMaps>
-    <statements>
+  <alias>
+    <typeAlias alias="StandardGeneralRoleInfo" type="X3Platform.Membership.Model.StandardGeneralRoleInfo,X3Platform.Membership" />
+    <typeAlias alias="StandardGeneralRoleMappingRelationInfo" type="X3Platform.Membership.Model.StandardGeneralRoleMappingRelationInfo,X3Platform.Membership" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_StandardGeneralRole_FindOne_Result" class="StandardGeneralRoleInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="Suffix" column="Suffix" />
+      <result property="CatalogItemId" column="CatalogItemId" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_StandardGeneralRole_FindAll_Result" class="StandardGeneralRoleInfo">
+      <result property="Id" column="Id" />
+      <result property="Code" column="Code" />
+      <result property="Name" column="Name" />
+      <result property="Suffix" column="Suffix" />
+      <result property="CatalogItemId" column="CatalogItemId" />
+      <result property="Locking" column="Locking" />
+      <result property="OrderId" column="OrderId" />
+      <result property="Status" column="Status" />
+      <result property="Remark" column="Remark" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_StandardGeneralRole_FindAllMappingRelation_Result" class="StandardGeneralRoleMappingRelationInfo">
+      <result property="StandardGeneralRoleId" column="StandardGeneralRoleId" />
+      <result property="StandardGeneralRoleName" column="StandardGeneralRoleName" />
+      <result property="OrganizationUnitId" column="OrganizationUnitId" />
+      <result property="OrganizationUnitName" column="OrganizationUnitName" />
+      <result property="RoleId" column="RoleId" />
+      <result property="RoleName" column="RoleName" />
+      <result property="StandardRoleId" column="StandardRoleId" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_StandardGeneralRole_Insert" parameterClass="StandardGeneralRoleInfo">
+      INSERT INTO [tb_StandardGeneralRole]
+      (
+      [Id],
+      [Code],
+      [Name],
+      [Suffix],
+      [CatalogItemId],
+      [Locking],
+      [OrderId],
+      [Status],
+      [Remark],
+      [ModifiedDate],
+      [CreatedDate]
+      )
+      VALUES
+      (
+      #Id#,
+      #Code#,
+      #Name#,
+      #Suffix#,
+      #CatalogItemId#,
+      #Locking#,
+      #OrderId#,
+      #Status#,
+      #Remark#,
+      CURRENT_TIMESTAMP,
+      CURRENT_TIMESTAMP
+      )
+    </insert>
 
-        <insert id="proc_StandardGeneralRole_Insert" parameterClass="StandardGeneralRoleInfo">
-            INSERT INTO [tb_StandardGeneralRole] 
-            (
-                [Id],
-                [Code],
-                [Name],
-                [Suffix],
-                [CatalogItemId], 
-                [Locking],
-                [OrderId],
-                [Status],
-                [Remark],
-                [ModifiedDate],
-                [CreatedDate]
-            )
-            VALUES
-            (
-                #Id#,
-                #Code#,
-                #Name#,
-                #Suffix#,
-                #CatalogItemId#,
-                #Locking#,
-                #OrderId#,
-                #Status#,
-                #Remark#,
-                CURRENT_TIMESTAMP,
-                CURRENT_TIMESTAMP
-            )
-        </insert>
+    <update id="proc_StandardGeneralRole_Update" parameterClass="StandardGeneralRoleInfo">
+      UPDATE [tb_StandardGeneralRole] SET
 
-        <update id="proc_StandardGeneralRole_Update" parameterClass="StandardGeneralRoleInfo">
-            UPDATE [tb_StandardGeneralRole] SET
+      [Code] = #Code#,
+      [Name] = #Name#,
+      [Suffix] = #Suffix#,
+      [CatalogItemId] = #CatalogItemId#,
+      [Locking] = #Locking#,
+      [OrderId] = #OrderId#,
+      [Status] = #Status#,
+      [Remark] = #Remark#,
+      [ModifiedDate] = CURRENT_TIMESTAMP
 
-                [Code] = #Code#,
-                [Name] = #Name#,
-                [Suffix] = #Suffix#,
-                [CatalogItemId] = #CatalogItemId#,
-                [Locking] = #Locking#,
-                [OrderId] = #OrderId#,
-                [Status] = #Status#,
-                [Remark] = #Remark#,
-                [ModifiedDate] = CURRENT_TIMESTAMP
+      WHERE [Id] = #Id#
+    </update>
 
-            WHERE [Id] = #Id#
-        </update>
+    <delete id="proc_StandardGeneralRole_Delete" >
+      DELETE FROM [tb_StandardGeneralRole] WHERE $WhereClause$
+    </delete>
 
-        <delete id="proc_StandardGeneralRole_Delete" >
-            DELETE FROM [tb_StandardGeneralRole] WHERE $WhereClause$
-        </delete>
+    <select id="proc_StandardGeneralRole_FindOne" resultMap="proc_StandardGeneralRole_FindOne_Result" >
+      SELECT * FROM [tb_StandardGeneralRole] T WHERE [Id] = #Id#
+    </select>
 
-        <select id="proc_StandardGeneralRole_FindOne" resultMap="proc_StandardGeneralRole_FindOne_Result" >
-            SELECT * FROM [tb_StandardGeneralRole] T WHERE [Id] = #Id#
-        </select>
+    <select id="proc_StandardGeneralRole_FindAll" resultMap="proc_StandardGeneralRole_FindAll_Result" >
+      SELECT
 
-        <select id="proc_StandardGeneralRole_FindAll" resultMap="proc_StandardGeneralRole_FindAll_Result" >
-            SELECT
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
 
-            <dynamic prepend="TOP">
-                <isNotEqual prepend="TOP" property="Length" compareValue = "0">
-                    $Length$
-                </isNotEqual>
-            </dynamic>
+      * FROM [tb_StandardGeneralRole] T
 
-            * FROM [tb_StandardGeneralRole] T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+    <select id="proc_StandardGeneralRole_GetPages" resultMap="proc_StandardGeneralRole_FindAll_Result" >
+      SELECT *
 
-        <select id="proc_StandardGeneralRole_GetPages" resultMap="proc_StandardGeneralRole_FindAll_Result" >
-            SELECT *
+      FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
 
-            FROM (SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+      FROM [tb_StandardGeneralRole] T
 
-            FROM [tb_StandardGeneralRole] T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
+    <select id="proc_StandardGeneralRole_GetRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM [tb_StandardGeneralRole] T
 
-        <select id="proc_StandardGeneralRole_GetRowCount" >
-            SELECT COUNT(0) AS "RowCount" FROM [tb_StandardGeneralRole] T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+    <select id="proc_StandardGeneralRole_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM [tb_StandardGeneralRole] T WHERE $WhereClause$
+    </select>
 
-        <select id="proc_StandardGeneralRole_IsExist" >
-            SELECT COUNT(0) AS "Count" FROM [tb_StandardGeneralRole] T WHERE $WhereClause$
-        </select>
+    <select id="proc_StandardGeneralRole_FindOneMappingRelation" resultMap="proc_StandardGeneralRole_FindAllMappingRelation_Result" >
+      SELECT TOP 1
+      T.StandardGeneralRoleId,
+      tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
+      T.OrganizationUnitId,
+      tb_OrganizationUnit.Name AS OrganizationUnitName,
+      T.RoleId,
+      tb_Role.Name AS RoleName,
+      T.StandardRoleId,
+      ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex
+      FROM
+      [tb_StandardGeneralRole_Mapping] T,
+      [tb_StandardGeneralRole],
+      [tb_OrganizationUnit],
+      [tb_Role]
+      WHERE
+      T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
+      AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
+      AND T.RoleId = [tb_Role].Id
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
 
-        <select id="proc_StandardGeneralRole_FindOneMappingRelation" resultMap="proc_StandardGeneralRole_FindAllMappingRelation_Result" >
-            SELECT TOP 1     
-                T.StandardGeneralRoleId,
-            tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
-            T.OrganizationUnitId,
-            tb_OrganizationUnit.Name AS OrganizationUnitName,
-            T.RoleId,
-            tb_Role.Name AS RoleName,
-            T.StandardRoleId,
-            ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex
-          FROM 
-                [tb_StandardGeneralRole_Mapping] T,
-              [tb_StandardGeneralRole],
-              [tb_OrganizationUnit],
-              [tb_Role]          
-          WHERE
-              T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
-              AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
-              AND T.RoleId = [tb_Role].Id
-            <dynamic prepend="AND">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
+    <select id="proc_StandardGeneralRole_GetMappingRelationPages" resultMap="proc_StandardGeneralRole_FindAllMappingRelation_Result" >
+      SELECT *
 
-        <select id="proc_StandardGeneralRole_GetMappingRelationPages" resultMap="proc_StandardGeneralRole_FindAllMappingRelation_Result" >
-            SELECT *
+      FROM (SELECT
+      T.StandardGeneralRoleId,
+      tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
+      T.OrganizationUnitId,
+      tb_OrganizationUnit.Name AS OrganizationUnitName,
+      T.RoleId,
+      tb_Role.Name AS RoleName,
+      T.StandardRoleId,
+      ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex
+      FROM
+      [tb_StandardGeneralRole_Mapping] T,
+      [tb_StandardGeneralRole],
+      [tb_OrganizationUnit],
+      [tb_Role]
+      WHERE
+      T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
+      AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
+      AND T.RoleId = [tb_Role].Id
+      <dynamic prepend="AND">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>) TableIndex
 
-            FROM (SELECT 
-                T.StandardGeneralRoleId,
-                tb_StandardGeneralRole.Name AS StandardGeneralRoleName,
-                T.OrganizationUnitId, 
-                tb_OrganizationUnit.Name AS OrganizationUnitName, 
-                T.RoleId, 
-                tb_Role.Name AS RoleName, 
-                T.StandardRoleId, 
-                ROW_NUMBER() OVER(ORDER BY tb_Role.Name) AS RowIndex                
-              FROM 
-                    [tb_StandardGeneralRole_Mapping] T,
-                  [tb_StandardGeneralRole],
-                  [tb_OrganizationUnit],
-                  [tb_Role]          
-              WHERE  
-                  T.StandardGeneralRoleId = [tb_StandardGeneralRole].Id
-                  AND T.OrganizationUnitId = [tb_OrganizationUnit].Id
-                  AND T.RoleId = [tb_Role].Id
-            <dynamic prepend="AND">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>) TableIndex
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
 
-            WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
-        </select>
+    <select id="proc_StandardGeneralRole_GetMappingRelationRowCount" >
+      SELECT COUNT(0) AS "RowCount" FROM [tb_StandardGeneralRole_Mapping] T
 
-        <select id="proc_StandardGeneralRole_GetMappingRelationRowCount" >
-            SELECT COUNT(0) AS "RowCount" FROM [tb_StandardGeneralRole_Mapping] T
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
 
-            <dynamic prepend="WHERE">
-                <isParameterPresent>
-                    <isNotEmpty prepend="AND" property="WhereClause" >
-                        $WhereClause$
-                    </isNotEmpty>
-                </isParameterPresent>
-            </dynamic>
-        </select>
-        
-        <insert id="proc_StandardGeneralRole_AddMappingRelation" >
-            IF EXISTS ( SELECT 0 FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' )
-            BEGIN
-                UPDATE [tb_StandardGeneralRole_Mapping] SET
+    <insert id="proc_StandardGeneralRole_AddMappingRelation" >
+      IF EXISTS ( SELECT 0 FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' )
+      BEGIN
+      UPDATE [tb_StandardGeneralRole_Mapping] SET
 
-                    [RoleId] = '$RoleId$',
-                    [StandardRoleId] = '$StandardRoleId$'
-                    
-                WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$'
-            END
-            ELSE
-            BEGIN
-                INSERT INTO [tb_StandardGeneralRole_Mapping] 
-                (
-                    [StandardGeneralRoleId],
-                    [OrganizationUnitId],
-                    [RoleId],
-                    [StandardRoleId]
-                )
-                VALUES
-                (
-                    '$StandardGeneralRoleId$',
-                    '$OrganizationUnitId$',
-                    '$RoleId$',
-                    '$StandardRoleId$'
-                )
-            END
-        </insert>
+      [RoleId] = '$RoleId$',
+      [StandardRoleId] = '$StandardRoleId$'
 
-        <delete id="proc_StandardGeneralRole_RemoveMappingRelation" >
-            DELETE FROM [tb_StandardGeneralRole_Mapping] WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$'
-        </delete>
+      WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$'
+      END
+      ELSE
+      BEGIN
+      INSERT INTO [tb_StandardGeneralRole_Mapping]
+      (
+      [StandardGeneralRoleId],
+      [OrganizationUnitId],
+      [RoleId],
+      [StandardRoleId]
+      )
+      VALUES
+      (
+      '$StandardGeneralRoleId$',
+      '$OrganizationUnitId$',
+      '$RoleId$',
+      '$StandardRoleId$'
+      )
+      END
+    </insert>
 
-        <select id="proc_StandardGeneralRole_HasMappingRelation" >
-            SELECT COUNT(0) AS "Count" FROM [tb_StandardGeneralRole_Mapping] T WHERE [StandardGeneralRoleId] = '$StandardGeneralRoleId$' AND [OrganizationUnitId] = '$OrganizationUnitId$' 
-        </select>
-    </statements>
+    <delete id="proc_StandardGeneralRole_RemoveMappingRelation" >
+      DELETE FROM tb_StandardGeneralRole_Mapping WHERE StandardGeneralRoleId = '$StandardGeneralRoleId$' AND OrganizationUnitId = '$OrganizationUnitId$'
+    </delete>
+
+    <select id="proc_StandardGeneralRole_HasMappingRelation" >
+      SELECT COUNT(0) AS "Count" FROM tb_StandardGeneralRole_Mapping T WHERE StandardGeneralRoleId = '$StandardGeneralRoleId$' AND OrganizationUnitId = '$OrganizationUnitId$'
+    </select>
+  </statements>
 </sqlMap>

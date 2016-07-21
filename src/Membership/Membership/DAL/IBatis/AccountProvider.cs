@@ -257,21 +257,12 @@ namespace X3Platform.Membership.DAL.IBatis
         /// <returns>返回所有 IAccountInfo 实例的详细信息</returns>
         public IList<IAccountInfo> FindAll(string whereClause, int length)
         {
-            IList<IAccountInfo> results = new List<IAccountInfo>();
-
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<AccountInfo> list = this.ibatisMapper.QueryForList<AccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
-
-            foreach (IAccountInfo item in list)
-            {
-                results.Add(item);
-            }
-
-            return results;
+            return this.ibatisMapper.QueryForList<IAccountInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -414,11 +405,11 @@ Id IN ( SELECT AccountId FROM tb_Account_Role WHERE Role IN (
                 {
                     args.Add("WhereClause", " ( T.CertifiedMobile = '" + searchText + "' ) ");
                 }
-                else if(RegularExpressionHelper.IsEmail(searchText))
+                else if (RegularExpressionHelper.IsEmail(searchText))
                 {
                     args.Add("WhereClause", " ( T.CertifiedEmail = '" + searchText + "' ) ");
                 }
-                else 
+                else
                 {
                     args.Add("WhereClause", " ( T.Name = '" + searchText + "' OR T.GlobalName = '" + searchText + "' OR T.LoginName = '" + searchText + "' ) ");
                 }
