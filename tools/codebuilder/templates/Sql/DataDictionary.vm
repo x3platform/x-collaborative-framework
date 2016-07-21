@@ -1,0 +1,22 @@
+## 数据字典生成模板
+##
+## 可选参数:
+## - ${namespace}
+## - ${className}
+## - ${fields}
+数据字典
+Data Dictionary  
+  
+#foreach($table in $tables)
+
+**Table Name: ${table.Name}**  
+#if($table.Description != '')
+_${table.Description}_  
+#end
+
+| 列名<br />Column Name      | 类型（长度）<br />Type(Length)    | 默认值<br />Default   | 描述<br />Description   | 主键<br />PK   | 外键<br />FK   | 索引<br />Index |  
+| :--              | :--             | :--       | :---          | :--  | :--  | :--   |  
+#foreach($column in $table.Columns)
+| ${column.Name} | ${column.NativeType} | ${column.DefaultValue} | ${column.Description} | #if(${column.PrimaryKey})√#end | #if(${column.ForeignKey})√#end |  
+#end
+#end

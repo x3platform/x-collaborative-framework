@@ -1,0 +1,211 @@
+## 数据存储提供器类生成模板
+##
+## 参数:
+## - ${namespacePrefix}
+## - ${namespace}
+## - ${className}
+## - ${entityClass}
+## - ${applicationName}
+## - ${dataAccessInterface}
+## - ${dataTableName}
+## - ${dataProcedurePrefix}
+## - ${fields}
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="${namespace}.${className}" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="${entityClass}" type="${namespacePrefix}.Model.${entityClass},${namespacePrefix}" />
+  </alias>
+  <resultMaps>
+    <resultMap id="${dataProcedurePrefix}_FindOne_Result" class="${entityClass}">
+#foreach($field in $fields)
+      <result property="${field.Name}" column="${field.DataColumnName}" />
+#end
+    </resultMap>
+    <resultMap id="${dataProcedurePrefix}_FindAll_Result" class="${entityClass}">
+#foreach($field in $fields)
+      <result property="${field.Name}" column="${field.DataColumnName}" />
+#end
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="${dataProcedurePrefix}_Insert" parameterClass="${entityClass}">
+      INSERT INTO ${dataTableName} 
+      (
+#set ($i = 0)
+#foreach($field in $fields)
+#if($i < $fields.Count - 1)
+        ${field.DataColumnName},
+#else
+        ${field.DataColumnName}
+#end
+#set($i = $i+1)
+#end
+      )
+      VALUES
+      (
+#set ($i = 0)
+#foreach($field in $fields)
+#if($i < $fields.Count - 1)
+        #${field.Name}#,
+#else
+        #${field.Name}#
+#end
+#set($i = $i+1)
+#end
+      )
+    </insert>
+    <update id="${dataProcedurePrefix}_Update" parameterClass="${entityClass}">
+      UPDATE ${dataTableName} SET
+
+#set ($i = 0)
+#foreach($field in $fields)
+#if($i < $fields.Count - 1)
+        ${field.DataColumnName} = #${field.Name}#,
+#else
+        ${field.DataColumnName} = #${field.Name}#
+#end
+#set($i = $i+1)
+#end
+
+      WHERE Id = #Id#
+    </update>
+    <delete id="${dataProcedurePrefix}_Delete" >
+      DELETE FROM ${dataTableName} WHERE $WhereClause$
+    </delete>
+    <select id="${dataProcedurePrefix}_FindOne" resultMap="${dataProcedurePrefix}_FindOne_Result" >
+      SELECT * FROM ${dataTableName} WHERE Id = #Id#
+    </select>
+    <select id="${dataProcedurePrefix}_FindAll#MySql" resultMap="${dataProcedurePrefix}_FindAll_Result" >
+      SELECT * FROM ${dataTableName} T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue="0">
+          0, $Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="${dataProcedurePrefix}_FindAll#MySql" resultMap="${dataProcedurePrefix}_FindAll_Result" >
+      SELECT * FROM ${dataTableName} T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    <select id="${dataProcedurePrefix}_FindAll#SqlServer" resultMap="${dataProcedurePrefix}_FindAll_Result" >
+      SELECT
+
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
+
+      * FROM ${dataTableName} T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>      
+    </select>
+    <select id="${dataProcedurePrefix}_GetPaging#MySql"  resultMap="${dataProcedurePrefix}_FindAll_Result" >
+      SELECT * FROM ${dataTableName} T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="${dataProcedurePrefix}_GetPaging#Oracle"  resultMap="${dataProcedurePrefix}_FindAll_Result" >
+      SELECT T2.* FROM (   
+        SELECT ROWNUM RowIndex, T1.* FROM (   
+          SELECT * FROM ${dataTableName} T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
+
+          ORDER BY $OrderBy$
+      
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
+    <select id="${dataProcedurePrefix}_GetPaging#SqlServer" resultMap="${dataProcedurePrefix}_FindAll_Result" >
+      SELECT * 
+      FROM (
+           SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+           FROM ${dataTableName} T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="${dataProcedurePrefix}_GetRowCount" >
+      SELECT COUNT(*) AS "RowCount" FROM ${dataTableName} T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="${dataProcedurePrefix}_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM ${dataTableName} WHERE $WhereClause$
+    </select>
+  </statements>
+</sqlMap>
