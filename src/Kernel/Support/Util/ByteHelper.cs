@@ -41,9 +41,7 @@ namespace X3Platform.Util
         /// <returns></returns>
         public static Stream ToStream(byte[] buffer)
         {
-            Stream stream = new MemoryStream(buffer);
-
-            return stream;
+            return new MemoryStream(buffer);
         }
         #endregion
 

@@ -97,6 +97,13 @@ namespace X3Platform.Web
 
         /// <summary></summary>
         /// <returns></returns>
+        public static string Fetch(HttpRequestBase request, string defaultName, string alias)
+        {
+            return Fetch(request, defaultName, new string[] { alias });
+        }
+
+        /// <summary></summary>
+        /// <returns></returns>
         public static string Fetch(HttpRequestBase request, string defaultName, string[] alias)
         {
             // GET ·½Ê½

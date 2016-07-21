@@ -178,9 +178,7 @@
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<ApplicationInfo> list = this.ibatisMapper.QueryForList<ApplicationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
-
-            return list;
+            return this.ibatisMapper.QueryForList<ApplicationInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
         }
         #endregion
 
@@ -258,8 +256,8 @@
             }
             else
             {
-                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { 
-                    { "Code", "LIKE" }, { "ApplicationName", "LIKE" }, { "ApplicationDisplayName", "LIKE" } 
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() {
+                    { "Code", "LIKE" }, { "ApplicationName", "LIKE" }, { "ApplicationDisplayName", "LIKE" }
                 }));
             }
 
