@@ -314,36 +314,7 @@ Id IN (
             return list;
         }
         #endregion
-
-        //#region 函数:GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        ///// <summary>分页函数</summary>
-        ///// <param name="startIndex">开始行索引数,由0开始统计</param>
-        ///// <param name="pageSize">页面大小</param>
-        ///// <param name="whereClause">WHERE 查询条件</param>
-        ///// <param name="orderBy">ORDER BY 排序条件</param>
-        ///// <param name="rowCount">记录行数</param>
-        ///// <returns>返回一个列表</returns>
-        //public IList<IOrganizationUnitInfo> GetPaging(int startIndex, int pageSize, string whereClause, string orderBy, out int rowCount)
-        //{
-        //    Dictionary<string, object> args = new Dictionary<string, object>();
-
-        //    orderBy = string.IsNullOrEmpty(orderBy) ? " ModifiedDate DESC " : orderBy;
-
-        //    args.Add("StartIndex", startIndex);
-        //    args.Add("PageSize", pageSize);
-        //    args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
-        //    args.Add("OrderBy", StringHelper.ToSafeSQL(orderBy));
-
-        //    args.Add("RowCount", 0);
-
-        //    IList<IOrganizationUnitInfo> list = this.ibatisMapper.QueryForList<IOrganizationUnitInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
-
-        //    rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
-
-        //    return list;
-        //}
-        //#endregion
-
+        
         #region 函数:IsExist(string id)
         /// <summary>检测是否存在相关的记录</summary>
         /// <param name="id">群组标识</param>
