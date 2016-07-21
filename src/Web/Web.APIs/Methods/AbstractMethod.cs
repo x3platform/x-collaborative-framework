@@ -19,7 +19,7 @@ namespace X3Platform.Web.APIs.Methods
 
         /// <summary>构造函数</summary>
         public AbstractMethod()
-        { 
+        {
         }
 
         /// <summary>构造函数</summary>
@@ -29,7 +29,7 @@ namespace X3Platform.Web.APIs.Methods
             this.options = options;
             this.doc = doc;
         }
-        
+
         /// <summary>验证必填参数</summary>
         public virtual void Validate()
         {
@@ -49,9 +49,10 @@ namespace X3Platform.Web.APIs.Methods
                     {
                         exists = false;
 
-                        foreach (XmlNode node in nodes)
+                        foreach (XmlElement node in nodes)
                         {
-                            if (node.Name == paramName && !string.IsNullOrEmpty(node.InnerText))
+                            if ((node.Name == paramName || node.GetAttribute("originalName") == paramName)
+                                && !string.IsNullOrEmpty(node.InnerText))
                             {
                                 exists = true;
                                 break;
@@ -84,7 +85,9 @@ namespace X3Platform.Web.APIs.Methods
                     if (data.Keys.Contains(nodes[i].Name))
                     {
                         // 创建节点
-                        XmlNode mappingNode = doc.CreateElement(data[node.Name].ToString());
+                        XmlElement mappingNode = doc.CreateElement(data[node.Name].ToString());
+
+                        mappingNode.SetAttribute("originalName", node.Name);
 
                         mappingNode.InnerXml = node.InnerXml;
 

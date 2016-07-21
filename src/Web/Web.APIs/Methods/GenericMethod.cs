@@ -48,11 +48,11 @@ namespace X3Platform.Web.APIs.Methods
 
             Type type = this.target.GetType();
 
-            // 验证必填参数
-            Validate();
-
             // 设置映射参数
             Mapping();
+
+            // 验证必填参数
+            Validate();
 
             // 执行方法
             return type.InvokeMember(this.methodName, BindingFlags.InvokeMethod, null, target, new object[] { doc });

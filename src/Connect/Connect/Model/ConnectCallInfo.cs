@@ -36,6 +36,17 @@ namespace X3Platform.Connect.Model
         }
         #endregion
 
+        #region 属性:AccessToken
+        private string m_AccessToken;
+
+        /// <summary>访问令牌</summary>
+        public string AccessToken
+        {
+            get { return this.m_AccessToken; }
+            set { this.m_AccessToken = value; }
+        }
+        #endregion
+
         #region 属性:AppKey
         private string m_AppKey;
 
@@ -66,6 +77,17 @@ namespace X3Platform.Connect.Model
         {
             get { return this.m_RequestData; }
             set { this.m_RequestData = value; }
+        }
+        #endregion
+
+        #region 属性:ResponseData
+        private string m_ResponseData = string.Empty;
+
+        /// <summary>响应的数据信息</summary>
+        public string ResponseData
+        {
+            get { return this.m_ResponseData; }
+            set { this.m_ResponseData = value; }
         }
         #endregion
 
@@ -124,14 +146,14 @@ namespace X3Platform.Connect.Model
         }
         #endregion
 
-        #region 属性:Date
-        private DateTime m_Date;
+        #region 属性:CreatedDate
+        private DateTime m_CreatedDate;
 
         /// <summary></summary>
-        public DateTime Date
+        public DateTime CreatedDate
         {
-            get { return m_Date; }
-            set { m_Date = value; }
+            get { return m_CreatedDate; }
+            set { m_CreatedDate = value; }
         }
         #endregion
 
@@ -139,14 +161,10 @@ namespace X3Platform.Connect.Model
         // 计算时间运行时间
         // -------------------------------------------------------
 
-        private TimeSpan timeSpan;
-
         /// <summary></summary>
         public void Start()
         {
             this.StartTime = DateTime.Now;
-
-            this.timeSpan = new TimeSpan(DateTime.Now.Ticks);
         }
 
         /// <summary></summary>
@@ -154,7 +172,8 @@ namespace X3Platform.Connect.Model
         {
             this.FinishTime = DateTime.Now;
 
-            this.TimeSpan = this.timeSpan.Subtract(new TimeSpan(this.FinishTime.Ticks)).Duration().TotalSeconds;
+            // this.TimeSpan = this.timeSpan.Subtract(new TimeSpan(this.FinishTime.Ticks)).Duration().TotalSeconds;
+            this.TimeSpan = DateHelper.GetTimeSpan(StartTime, FinishTime).TotalSeconds;
         }
 
         // -------------------------------------------------------
@@ -177,7 +196,7 @@ namespace X3Platform.Connect.Model
             this.TimeSpan = Convert.ToDouble(element.SelectSingleNode("timeSpan").InnerText);
             this.IP = element.SelectSingleNode("ip").InnerText;
             this.ReturnCode = Convert.ToInt32(element.SelectSingleNode("returnCode").InnerText);
-            this.Date = Convert.ToDateTime(element.SelectSingleNode("date").InnerText);
+            this.CreatedDate = Convert.ToDateTime(element.SelectSingleNode("createdDate").InnerText);
         }
         #endregion
 
@@ -209,7 +228,7 @@ namespace X3Platform.Connect.Model
             outString.AppendFormat("<timeSpan><![CDATA[{0}]]></timeSpan>", this.TimeSpan);
             outString.AppendFormat("<ip><![CDATA[{0}]]></ip>", this.IP);
             outString.AppendFormat("<returnCode><![CDATA[{0}]]></returnCode>", this.ReturnCode);
-            outString.AppendFormat("<date><![CDATA[{0}]]></date>", this.Date);
+            outString.AppendFormat("<createdDate><![CDATA[{0}]]></createdDate>", this.CreatedDate);
             outString.Append("</connectCall>");
 
             return outString.ToString();
