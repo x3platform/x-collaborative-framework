@@ -1,0 +1,271 @@
+## 数据存储提供器类生成模板
+##
+## 参数:
+## - ${namespacePrefix}
+## - ${namespace}
+## - ${className}
+## - ${entityClass}
+## - ${applicationName}
+## - ${dataAccessInterface}
+## - ${dataTableName}
+## - ${fields}
+namespace ${namespace}
+{
+    #region Using Libraries
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+
+    using X3Platform.Data;
+    using X3Platform.IBatis.DataMapper;
+    using X3Platform.Util;
+
+    using ${namespacePrefix}.Configuration;
+    using ${namespacePrefix}.IDAL;
+    using ${namespacePrefix}.Model;
+    #endregion
+
+    /// <summary></summary>
+    public class ${className} : ${dataAccessInterface}
+    {
+        /// <summary>IBatis映射文件</summary>
+        private string ibatisMapping = null;
+
+        /// <summary>IBatis映射对象</summary>
+        private ISqlMapper ibatisMapper = null;
+
+        /// <summary>数据表名</summary>
+        private string tableName = "${dataTableName}";
+
+        #region 构造函数:${className}()
+        /// <summary>构造函数</summary>
+        public ${className}()
+        {
+            this.ibatisMapping = ${applicationName}ConfigurationView.Instance.Configuration.Keys["IBatisMapping"].Value;
+
+            this.ibatisMapper = ISqlMapHelper.CreateSqlMapper(this.ibatisMapping, true);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 事务支持
+        // -------------------------------------------------------
+
+        #region 函数:BeginTransaction()
+        /// <summary>启动事务</summary>
+        public void BeginTransaction()
+        {
+            this.ibatisMapper.BeginTransaction();
+        }
+        #endregion
+
+        #region 函数:BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>启动事务</summary>
+        /// <param name="isolationLevel">事务隔离级别</param>
+        public void BeginTransaction(IsolationLevel isolationLevel)
+        {
+            this.ibatisMapper.BeginTransaction(isolationLevel);
+        }
+        #endregion
+
+        #region 函数:CommitTransaction()
+        /// <summary>提交事务</summary>
+        public void CommitTransaction()
+        {
+            this.ibatisMapper.CommitTransaction();
+        }
+        #endregion
+
+        #region 函数:RollBackTransaction()
+        /// <summary>回滚事务</summary>
+        public void RollBackTransaction()
+        {
+            this.ibatisMapper.RollBackTransaction();
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 添加 删除 修改
+        // -------------------------------------------------------
+
+        #region 函数:Save(${entityClass} param)
+		/// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="${entityClass}"/>详细信息</param>
+        /// <returns>实例<see cref="${entityClass}"/>详细信息</returns>
+        public ${entityClass} Save(${entityClass} param)
+        {
+            if (!IsExist(param.Id))
+            {
+                this.Insert(param);
+            }
+            else
+            {
+                this.Update(param);
+            }
+
+            return param;
+        }
+        #endregion
+
+		#region 函数:Insert(${entityClass} param)
+		/// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="${entityClass}"/>详细信息</param>
+        public void Insert(${entityClass} param)
+        {
+            this.ibatisMapper.Insert(StringHelper.ToProcedurePrefix(string.Format("{0}_Insert", tableName)), param);
+        }
+		#endregion
+
+		#region 函数:Update(${entityClass} param)
+		/// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="${entityClass}"/>详细信息</param>
+        public void Update(${entityClass} param)
+        {
+            this.ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
+        }
+        #endregion
+
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public void Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id)) { return; }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" Id IN ('{0}') ", StringHelper.ToSafeSQL(id).Replace(",", "','")));
+
+            this.ibatisMapper.Delete(StringHelper.ToProcedurePrefix(string.Format("{0}_Delete", tableName)), args);
+        }
+        #endregion
+
+        // -------------------------------------------------------
+        // 查询
+        // -------------------------------------------------------
+
+		#region 函数:FindOne(string id)
+		/// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="${entityClass}"/>的详细信息</returns>
+        public ${entityClass} FindOne(string id)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("Id", StringHelper.ToSafeSQL(id));
+
+            return this.ibatisMapper.QueryForObject<${entityClass}>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindOne", tableName)), args);
+        }
+		#endregion
+
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有<see cref="${entityClass}"/>实例的详细信息</returns>
+        public IList<${entityClass}> FindAll(DataQuery query)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
+            string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
+
+            args.Add("WhereClause", whereClause);
+            args.Add("OrderBy", orderBy);
+            args.Add("Length", query.Length);
+
+            return this.ibatisMapper.QueryForList<${entityClass}>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
+
+		// -------------------------------------------------------
+        // 自定义功能
+        // -------------------------------------------------------
+
+		#region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        /// <summary>分页函数</summary>
+        /// <param name="startIndex">开始行索引数,由0开始统计</param>
+        /// <param name="pageSize">页面大小</param>
+        /// <param name="query">数据查询参数</param>
+        /// <param name="rowCount">行数</param>
+        /// <returns>返回一个列表实例<see cref="${entityClass}"/></returns>
+        public IList<${entityClass}> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
+            string orderBy = query.GetOrderBySql(" ModifiedDate DESC ");
+
+#if($supportAuthorization == "ON")
+            if (query.Variables["ElevatedPrivileges"] == "1")
+            {
+                // 提升权限后忽略授权范围
+            }
+            else
+            {
+                // 根据实际情况设置数据授权范围
+                // whereClause = this.BindAuthorizationScopeSQL(query.Variables, whereClause);
+            }
+
+#end
+            args.Add("StartIndex", startIndex);
+            args.Add("PageSize", pageSize);
+            args.Add("WhereClause", whereClause);
+            args.Add("OrderBy", orderBy);
+
+            IList<${entityClass}> list = this.ibatisMapper.QueryForList<${entityClass}>(StringHelper.ToProcedurePrefix(string.Format("{0}_GetPaging", tableName)), args);
+
+            rowCount = Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_GetRowCount", tableName)), args));
+
+            return list;
+        }
+        #endregion
+
+		#region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
+        public bool IsExist(string id)
+        {
+            if (string.IsNullOrEmpty(id)){ throw new Exception("实例标识不能为空。"); }
+
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            args.Add("WhereClause", string.Format(" Id = '{0}' ", StringHelper.ToSafeSQL(id)));
+
+            return (Convert.ToInt32(this.ibatisMapper.QueryForObject(StringHelper.ToProcedurePrefix(string.Format("{0}_IsExist", tableName)), args)) == 0) ? false : true;
+        }
+        #endregion
+#if($supportAuthorization == "ON")
+        // -------------------------------------------------------
+        // 设置查询授权范围
+        // -------------------------------------------------------
+
+        #region 私有函数:BindAuthorizationScopeSQL(string whereClause)
+        /// <summary>绑定SQL查询条件</summary>
+        /// <param name="variables">程序上下文环境变量</param>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        /// <returns></returns>
+        private string BindAuthorizationScopeSQL(IDictionary<string, string> variables, string whereClause)
+        {
+            string scope = string.Format(@" (
+( T.Id IN(
+         SELECT DISTINCT EntityId FROM view_AuthorizationObject_Account A, ${dataTableName}_Scope S
+          WHERE A.AccountId = '{0}'
+            AND A.AuthorizationObjectId = S.AuthorizationObjectId
+            AND A.AuthorizationObjectType = S.AuthorizationObjectType)
+       GROUP BY EntityId)
+ OR ( T.AccountId = '{0}' )
+) ", StringHelper.ToSafeSQL(variables["AccountId"]));
+
+            if (whereClause.IndexOf(scope) == -1)
+            {
+                whereClause = string.IsNullOrEmpty(whereClause) ? scope : scope + " AND " + whereClause;
+            }
+
+            return whereClause;
+        }
+        #endregion
+#end
+    }
+}
