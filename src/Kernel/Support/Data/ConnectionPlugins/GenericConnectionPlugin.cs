@@ -10,8 +10,10 @@ namespace X3Platform.Data.ConnectionPlugins
         // 参数说明
         // http://www.connectionstrings.com/oracle/
 
+        /// <summary></summary>
         protected const string PREFIX_KEY = "DatabaseSettings.";
 
+        /// <summary></summary>
         protected IDictionary<string, string> dictionary = null;
 
         /// <summary>数据库的默认连接是否有效</summary>
@@ -90,6 +92,15 @@ namespace X3Platform.Data.ConnectionPlugins
             get
             {
                 return GetKeyValue(PREFIX_KEY + "DataSource", string.Empty);
+            }
+        }
+
+        /// <summary>数据库的服务器端口</summary>
+        public string Port
+        {
+            get
+            {
+                return GetKeyValue(PREFIX_KEY + "Port", string.Empty);
             }
         }
 

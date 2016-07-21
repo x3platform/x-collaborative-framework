@@ -103,6 +103,8 @@
     <Compile Include="CategoryIndexes\TextValueCategoryIndex.cs" />
     <Compile Include="ContextWrapper.cs" />
     <Compile Include="GenericException.cs" />
+    <Compile Include="Membership\IComputerInfo.cs" />
+    <Compile Include="Membership\IOrganizationInfo.cs" />
     <Compile Include="Security\VerificationCode\BLL\VerificationCodeTemplateService.cs" />
     <Compile Include="Security\VerificationCode\DAL\IBatis\VerificationCodeTemplateProvider.cs" />
     <Compile Include="Security\VerificationCode\IBLL\IVerificationCodeTemplateService.cs" />

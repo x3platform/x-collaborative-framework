@@ -15,6 +15,9 @@ namespace X3Platform.Data.ConnectionPlugins
         /// <summary>数据库的服务器地址</summary>
         string DataSource { get; }
 
+        /// <summary>数据库的服务器端口</summary>
+        string Port { get; }
+
         /// <summary>数据库的默认数据库名称</summary>
         string Database { get; }
 

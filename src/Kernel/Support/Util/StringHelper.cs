@@ -18,7 +18,7 @@ namespace X3Platform.Util
     {
         #region 函数:UnicodeEncode(string text)
         /// <summary>将文本信息转为 Unicode 编码</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string UnicodeEncode(string text)
         {
@@ -36,8 +36,8 @@ namespace X3Platform.Util
         #endregion
 
         #region 函数:UnicodeDecode(string text)
-        /// <summary></summary>
-        /// <param name="text"></param>
+        /// <summary>将 Unicode 编码转为文本信息</summary>
+        /// <param name="text">Unicode 编码文本信息</param>
         /// <returns></returns>
         public static string UnicodeDecode(string text)
         {
@@ -82,7 +82,7 @@ namespace X3Platform.Util
 
         #region 函数:ToStream(string text)
         /// <summary></summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns>string</returns>
         public static Stream ToStream(string text)
         {
@@ -125,7 +125,7 @@ namespace X3Platform.Util
 
         #region 函数:ToLeftString(string text, int length)
         /// <summary></summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="length">length</param>
         /// <returns>string</returns>
         public static string ToLeftString(string text, int length)
@@ -134,7 +134,7 @@ namespace X3Platform.Util
         }
 
         /// <summary></summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="length">length</param>
         /// <returns>string</returns>
         public static string ToLeftString(string text, int length, bool hasEllipsis)
@@ -390,7 +390,7 @@ namespace X3Platform.Util
 
         #region 函数:ToMD5(string text)
         /// <summary>取得MD5 Hash值</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToMD5(string text)
         {
@@ -523,7 +523,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeXml(string text)
         /// <summary>处理Xml节点中的非法字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeXml(string text)
         {
@@ -533,7 +533,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeJson(string text)
         /// <summary>Json格式字符串中的特殊字符.</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeJson(string text)
         {
@@ -563,7 +563,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeSQL(string text)
         /// <summary>处理SQL格式中的非法字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeSQL(string text)
         {
@@ -574,7 +574,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeSQL(string text, bool removeQuotes)
         /// <summary>处理SQL格式中的非法字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="removeQuotes"></param>
         /// <returns></returns>
         public static string ToSafeSQL(string text, bool removeQuotes)
@@ -587,20 +587,23 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeSQL(string text, string[] removeTags)
         /// <summary>处理SQL格式中的非法字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
+        /// <param name="removeTags"></param>
         /// <returns></returns>
         public static string ToSafeSQL(string text, string[] removeTags)
         {
             //-------------------------------------------------------
-            // 1.替换一个单引号为两个单引号.
-            //
-            // 2.替换两个井号为一个单引号.
+            // 1.替换一个单引号为两个单引号;
+            // 2.替换两个井号为一个单引号;
+            // 3.移除自定义标签;
             //-------------------------------------------------------
 
             if (string.IsNullOrEmpty(text)) { return string.Empty; }
 
+            // 替换一个单引号为两个单引号;
             text = text.Replace(";", string.Empty).Replace("'", "''").Replace("--", "''--''");
 
+            // 替换两个井号为一个单引号;
             // 字符串两边必须留白
             Regex regex = new Regex(@"##(.*?)##");
 
@@ -655,7 +658,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeLike(string text)
         /// <summary>处理SQL Like 条件中的通配字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeLike(string text)
         {
@@ -665,7 +668,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeHtml(string text)
         /// <summary>处理安全的Html字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeHtml(string text)
         {
@@ -730,7 +733,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeXSS(string text)
         /// <summary>处理安全的跨站脚本攻击字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeXSS(string text)
         {
@@ -775,102 +778,102 @@ namespace X3Platform.Util
 
             // now the only remaining whitespace attacks are \t, \n, and \r 
             string[] ra = new string[] {
-               "javascript", 
-               "vbscript", 
-               "expression", 
-               "applet", 
-               "meta", 
-               "xml", 
-               "blink", 
+               "javascript",
+               "vbscript",
+               "expression",
+               "applet",
+               "meta",
+               "xml",
+               "blink",
                "link", 
                // 由于富文本编辑器呈现的很多样式都是通过 style 标签展现的，所以取消过滤 style 标签。
                // "style", 
-               "script", 
-               "embed", 
-               "object", 
-               "iframe", 
-               "frame", 
-               "frameset", 
-               "ilayer", 
-               "layer", 
-               "bgsound", 
-               "title", 
-               "base", 
+               "script",
+               "embed",
+               "object",
+               "iframe",
+               "frame",
+               "frameset",
+               "ilayer",
+               "layer",
+               "bgsound",
+               "title",
+               "base",
                "onabort",
-               "onactivate", 
-               "onafterprint", 
-               "onafterupdate", 
-               "onbeforeactivate", 
-               "onbeforecopy", 
-               "onbeforecut", 
-               "onbeforedeactivate", 
-               "onbeforeeditfocus", 
-               "onbeforepaste", 
-               "onbeforeprint", 
-               "onbeforeunload", 
-               "onbeforeupdate", 
-               "onblur", 
-               "onbounce", 
-               "oncellchange", 
-               "onchange", 
-               "onclick", 
-               "oncontextmenu", 
-               "oncontrolselect", 
-               "oncopy", 
-               "oncut", 
-               "ondataavailable", 
-               "ondatasetchanged", 
-               "ondatasetcomplete", 
-               "ondblclick", 
-               "ondeactivate", 
-               "ondrag", 
-               "ondragend", 
-               "ondragenter", 
-               "ondragleave", 
-               "ondragover", 
-               "ondragstart", 
-               "ondrop", 
-               "onerror", 
-               "onerrorupdate", 
-               "onfilterchange", 
-               "onfinish", 
-               "onfocus", 
-               "onfocusin", 
-               "onfocusout", 
+               "onactivate",
+               "onafterprint",
+               "onafterupdate",
+               "onbeforeactivate",
+               "onbeforecopy",
+               "onbeforecut",
+               "onbeforedeactivate",
+               "onbeforeeditfocus",
+               "onbeforepaste",
+               "onbeforeprint",
+               "onbeforeunload",
+               "onbeforeupdate",
+               "onblur",
+               "onbounce",
+               "oncellchange",
+               "onchange",
+               "onclick",
+               "oncontextmenu",
+               "oncontrolselect",
+               "oncopy",
+               "oncut",
+               "ondataavailable",
+               "ondatasetchanged",
+               "ondatasetcomplete",
+               "ondblclick",
+               "ondeactivate",
+               "ondrag",
+               "ondragend",
+               "ondragenter",
+               "ondragleave",
+               "ondragover",
+               "ondragstart",
+               "ondrop",
+               "onerror",
+               "onerrorupdate",
+               "onfilterchange",
+               "onfinish",
+               "onfocus",
+               "onfocusin",
+               "onfocusout",
                "onhelp",
                "onkeydown",
-               "onkeypress", 
+               "onkeypress",
                "onkeyup",
                "onlayoutcomplete",
-               "onload", 
+               "onload",
                "onlosecapture",
-               "onmousedown", 
-               "onmouseenter", 
+               "onmousedown",
+               "onmouseenter",
                "onmouseleave",
                "onmousemove",
-               "onmouseout", 
-               "onmouseover", 
+               "onmouseout",
+               "onmouseover",
                "onmouseup",
-               "onmousewheel", 
+               "onmousewheel",
                "onmove",
-               "onmoveend", 
-               "onmovestart", 
-               "onpaste", 
-               "onpropertychange", 
-               "onreadystatechange", 
-               "onreset", 
+               "onmoveend",
+               "onmovestart",
+               "onpaste",
+               "onpropertychange",
+               "onreadystatechange",
+               "onreset",
                "onresize",
                "onresizeend",
-               "onresizestart", 
+               "onresizestart",
                "onrowenter",
-               "onrowexit", 
-               "onrowsdelete", 
-               "onrowsinserted", 
+               "onrowexit",
+               "onrowsdelete",
+               "onrowsinserted",
                "onscroll",
                "onselect",
-               "onselectionchange", 
-               "onselectstart", 
-               "onstart", 
+               "onselectionchange",
+               "onselectstart",
+               "onstart",
                "onstop",
                "onsubmit",
                "onunload"
@@ -920,7 +923,7 @@ namespace X3Platform.Util
 
         #region 函数:ToSafeUrl(string text)
         /// <summary>过滤Url地址</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToSafeUrl(string text)
         {
@@ -1020,7 +1023,7 @@ namespace X3Platform.Util
         //-------------------------------------------------------
 
         /// <summary>加密为 ASCII 编码方式的 Base64 字符串，如果是其他编码方式的请设置 codepage</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string ToBase64(string text)
         {
@@ -1040,7 +1043,7 @@ namespace X3Platform.Util
         }
 
         /// <summary>加密为 Base64 字符串</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="codepage"></param>
         /// <returns></returns>
         public static string ToBase64(string text, string codepage)
@@ -1062,7 +1065,7 @@ namespace X3Platform.Util
         }
 
         /// <summary>解密为 ASCII 编码方式的 Base64 字符串，如果是其他编码方式的请设置 codepage</summary>
-        /// <param name="text"></param>
+        /// <param name="base64Text"></param>
         /// <returns></returns>
         public static string FromBase64(string base64Text)
         {
@@ -1089,6 +1092,7 @@ namespace X3Platform.Util
             return outString.ToString();
         }
 
+        /// <summary>解密为 ASCII 编码方式的 Base64 字符串，如果是其他编码方式的请设置 codepage</summary>
         public static string FromBase64(string base64Text, string codepage)
         {
             // 补末尾的等号
@@ -1121,7 +1125,7 @@ namespace X3Platform.Util
 
         #region 函数:CamelToUnderline(string text)
         /// <summary>驼峰命名规则转为下划线命名规则</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string CamelToUnderline(string text)
         {
@@ -1149,7 +1153,7 @@ namespace X3Platform.Util
 
         #region 函数:NullTo(string text)
         /// <summary>默认的空值转换, 把 null 转换为 "" .</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string NullTo(string text)
         {
@@ -1159,7 +1163,7 @@ namespace X3Platform.Util
 
         #region 函数:NullTo(string text, string replaceText)
         /// <summary>空值转换，把 null 转换为 replaceText. e.g. NullTo(null,"ok") 返回 "ok", NullTo("1","ok")返回"1"</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="replaceText"></param>
         /// <returns></returns>
         public static string NullTo(string text, string replaceText)
@@ -1170,7 +1174,7 @@ namespace X3Platform.Util
 
         #region 函数:NullOrEmptyTo(string text, string replaceText)
         /// <summary>空字符串转换，把 null 或 "" 转换为 replaceText. e.g. NullOrEmptyTo(null,"ok")返回"ok", NullOrEmptyTo("","ok")返回"ok".</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="replaceText"></param>
         /// <returns></returns>
         public static string NullOrEmptyTo(string text, string replaceText)
@@ -1219,7 +1223,7 @@ namespace X3Platform.Util
 
         #region 函数:RemoveHtmlTag(string text)
         /// <summary>clear html tag of the text.</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <returns></returns>
         public static string RemoveHtmlTag(string text)
         {
@@ -1286,7 +1290,7 @@ namespace X3Platform.Util
 
         #region 函数:FixSQL(string text, string type)
         /// <summary>将SQL语句特殊字符</summary>
-        /// <param name="text"></param>
+        /// <param name="text">文本信息</param>
         /// <param name="type"></param>
         /// <returns></returns>
         public static string FixSQL(string text, string type)
@@ -1301,5 +1305,61 @@ namespace X3Platform.Util
             return text;
         }
         #endregion
+    }
+
+    // -------------------------------------------------------
+    // 扩展方法
+    // -------------------------------------------------------
+
+    /// <summary>字符串扩展方法类</summary>
+    public static class StringExtensions
+    {
+        /// <summary>处理SQL格式中的非法字符</summary>
+        /// <param name="text">文本信息</param>
+        /// <returns></returns>
+        public static string ToSafeSQL(this string text)
+        {
+            return StringHelper.ToSafeSQL(text);
+        }
+
+        /// <summary>处理SQL格式中的非法字符</summary>
+        /// <param name="text">文本信息</param>
+        /// <param name="removeQuotes"></param>
+        /// <returns></returns>
+        public static string ToSafeSQL(this string text, bool removeQuotes)
+        {
+            return StringHelper.ToSafeSQL(text, removeQuotes);
+        }
+
+        /// <summary>处理SQL格式中的非法字符</summary>
+        /// <param name="text">文本信息</param>
+        /// <param name="removeTags"></param>
+        /// <returns></returns>
+        public static string ToSafeSQL(this string text, string[] removeTags)
+        {
+            return StringHelper.ToSafeSQL(text, removeTags);
+        }
+
+        /// <summary>清除文本最后的标记</summary>
+        /// <param name="text">需处理的字符</param>
+        /// <param name="trimText">标签</param>
+        /// <returns>字符串</returns>
+        public static string TrimEnd(this string text, string trimText)
+        {
+            return StringHelper.TrimEnd(text, trimText);
+        }
+    }
+
+    /// <summary>StringBuilder 扩展方法类</summary>
+    public static class StringBuilderExtensions
+    {
+        /// <summary>清除文本最后的标记</summary>
+        /// <param name="text">需处理的字符</param>
+        /// <param name="trimText">标签</param>
+        /// <returns>字符串</returns>
+        public static StringBuilder TrimEnd(this StringBuilder text, string trimText)
+        {
+            return StringHelper.TrimEnd(text, trimText);
+        }
     }
 }

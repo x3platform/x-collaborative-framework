@@ -1093,6 +1093,7 @@
     <Compile Include="ISerializedJavaScriptObject.cs" />
     <Compile Include="ISerializedObject.cs" />
     <Compile Include="Data\DataQuery.cs" />
+    <Compile Include="Util\DataTableHelper.cs" />
     <Compile Include="Util\DateHelper.cs" />
     <Compile Include="Web\Util\RequestHelper.cs" />
     <Compile Include="Web\Util\UrlHelper.cs" />

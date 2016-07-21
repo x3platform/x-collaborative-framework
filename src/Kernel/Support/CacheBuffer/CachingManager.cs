@@ -6,6 +6,7 @@ namespace X3Platform.CacheBuffer
     using X3Platform.Logging;
 
     using X3Platform.CacheBuffer.Configuration;
+    using System.Collections.Generic;
     #endregion
 
     /// <summary></summary>
@@ -83,6 +84,26 @@ namespace X3Platform.CacheBuffer
         public static object Get(string name)
         {
             return Instance.cacheProvider.Get(name);
+        }
+        #endregion
+
+        #region 函数:Get(string name)
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static T Get<T>(string name)
+        {
+            return (T)Instance.cacheProvider.Get(name);
+        }
+        #endregion
+
+        #region 函数:Get(string name)
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static IDictionary<TKey, TValue> Get<TKey, TValue>(string name)
+        {
+            return (IDictionary<TKey, TValue>)Instance.cacheProvider.Get(name);
         }
         #endregion
 
