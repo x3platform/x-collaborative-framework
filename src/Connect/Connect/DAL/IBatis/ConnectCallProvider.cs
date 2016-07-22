@@ -114,7 +114,7 @@ namespace X3Platform.Connect.DAL.IBatis
             args.Add("StartIndex", startIndex);
             args.Add("PageSize", pageSize);
             args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
-            args.Add("OrderBy", query.GetOrderBySql(" Date DESC "));
+            args.Add("OrderBy", query.GetOrderBySql(" CreatedDate DESC "));
 
             args.Add("RowCount", 0);
 
