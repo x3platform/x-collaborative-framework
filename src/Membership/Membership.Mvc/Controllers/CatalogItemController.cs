@@ -25,6 +25,15 @@
             // 所属应用信息
             ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
 
+            // -------------------------------------------------------
+            // 身份验证
+            // -------------------------------------------------------
+
+            if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, application.ApplicationName))
+            {
+                ApplicationError.Write(401);
+            }
+
             JsonData request = JsonMapper.ToObject(options);
 
             string treeViewId = !request.Keys.Contains("treeViewId") ? string.Empty : request["treeViewId"].ToString();

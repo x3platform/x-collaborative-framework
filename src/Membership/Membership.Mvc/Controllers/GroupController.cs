@@ -25,7 +25,15 @@
             // 所属应用信息
             ApplicationInfo application = ViewBag.application = AppsContext.Instance.ApplicationService[APPLICATION_NAME];
 
-            // 角色
+            // -------------------------------------------------------
+            // 身份验证
+            // -------------------------------------------------------
+
+            if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, application.ApplicationName))
+            {
+                ApplicationError.Write(401);
+            }
+
             return View("/views/main/membership/group-list.cshtml");
         }
         #endregion

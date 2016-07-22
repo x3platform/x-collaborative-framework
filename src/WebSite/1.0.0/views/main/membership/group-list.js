@@ -2,8 +2,6 @@
 
 main.membership.group.list = {
 
-    // url: "/services/X3Platform/Membership/Ajax.GroupWrapper.aspx",
-
     paging: x.page.newPagingHelper(100),
 
     maskWrapper: x.ui.mask.newMaskWrapper('main.membership.group.list.maskWrapper'),
