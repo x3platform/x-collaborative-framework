@@ -33,13 +33,17 @@ namespace X3Platform.IBatis.DataMapper
 
         /// <summary>创建 SqlMapper</summary>
         /// <param name="ibatisMaping">配置文件路径</param>
-        /// <param name="throwException">是否抛出异常信息</param>
+        /// <param name="sessionStore"></param>
         /// <returns></returns>
         public static ISqlMapper CreateSqlMapper(string ibatisMaping, ISessionStore sessionStore)
         {
             return CreateSqlMapper(ibatisMaping, sessionStore, true);
         }
 
+        /// <summary>创建 SqlMapper</summary>
+        /// <param name="ibatisMaping">配置文件路径</param>
+        /// <param name="throwException">是否抛出异常信息</param>
+        /// <returns></returns>
         public static ISqlMapper CreateSqlMapper(string ibatisMaping, bool throwException)
         {
             return CreateSqlMapper(ibatisMaping, null, throwException);
@@ -47,6 +51,7 @@ namespace X3Platform.IBatis.DataMapper
 
         /// <summary>创建 SqlMapper</summary>
         /// <param name="ibatisMaping">配置文件路径</param>
+        /// <param name="sessionStore"></param>
         /// <param name="throwException">是否抛出异常信息</param>
         /// <returns></returns>
         public static ISqlMapper CreateSqlMapper(string ibatisMaping, ISessionStore sessionStore, bool throwException)

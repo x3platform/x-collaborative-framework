@@ -839,6 +839,17 @@ namespace X3Platform.IBatis.DataMapper.Configuration
                     dataSource.DbProvider = provider;
                     dataSource.ConnectionString = NodeUtils.ParsePropertyTokens(dataSource.ConnectionString, _configScope.Properties);
 
+                    // MySQL 数据库 自动增加非默认端口信息
+                    if (provider.Name == "MySql" && dataSource.ConnectionString.ToLower().IndexOf("port=") == -1)
+                    {
+                        string port = _configScope.Properties.Get("DatabaseSettings.Port");
+
+                        if (!string.IsNullOrEmpty(port) && port != "3306")
+                        {
+                            dataSource.ConnectionString += "port=" + port + ";";
+                        }
+                    }
+
                     _configScope.DataSource = dataSource;
                     _configScope.SqlMapper.DataSource = _configScope.DataSource;
                 }
@@ -1698,6 +1709,7 @@ namespace X3Platform.IBatis.DataMapper.Configuration
                 _configScope.Properties.Add("ApplicationPathRoot", KernelConfigurationView.Instance.ApplicationPathRoot);
 
                 _configScope.Properties.Add("DatabaseSettings.DataSource", connection.DataSource);
+                _configScope.Properties.Add("DatabaseSettings.Port", connection.Port);
                 _configScope.Properties.Add("DatabaseSettings.Database", connection.Database);
                 _configScope.Properties.Add("DatabaseSettings.LoginName", connection.LoginName);
                 _configScope.Properties.Add("DatabaseSettings.Password", connection.Password);
