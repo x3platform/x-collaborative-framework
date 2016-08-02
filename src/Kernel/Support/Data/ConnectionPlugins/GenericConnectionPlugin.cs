@@ -49,7 +49,7 @@ namespace X3Platform.Data.ConnectionPlugins
                 // 参考资料: http://www.connectionstrings.com/
                 if (Provider == "MySql")
                 {
-                    return string.Concat("server=", DataSource,
+                    return string.Concat("server=", DataSource, ((Port == "3306") ? "" : ";port=" + Port),
                         ";database=", Database,
                         ";uid=", LoginName,
                         ";pwd=", Password,
@@ -62,7 +62,7 @@ namespace X3Platform.Data.ConnectionPlugins
                 }
                 else if (Provider == "SqlServer")
                 {
-                    return string.Concat("server=", DataSource,
+                    return string.Concat("server=", DataSource, ((Port == "1433") ? "" : "," + Port),
                         ";database=", Database,
                         ";user id=", LoginName,
                         ";password=", Password,
