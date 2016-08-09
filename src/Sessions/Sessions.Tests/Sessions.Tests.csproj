@@ -96,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.example.config" />
+    <None Include="config\X3Platform.IBatis.Providers.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
