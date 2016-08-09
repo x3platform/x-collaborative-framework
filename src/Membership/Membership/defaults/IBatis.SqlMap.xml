@@ -35,6 +35,7 @@
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.GroupProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.CatalogProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.CatalogItemProvider.xml,X3Platform.Membership"/>
+    <sqlMap embedded="X3Platform.Membership.DAL.IBatis.ComputerProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.ContactProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.AssignedJobProvider.xml,X3Platform.Membership"/>
     <sqlMap embedded="X3Platform.Membership.DAL.IBatis.JobGradeProvider.xml,X3Platform.Membership"/>

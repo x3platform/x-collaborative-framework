@@ -106,6 +106,7 @@
     <Compile Include="Ajax\AssignedJobWrapper.cs" />
     <Compile Include="Ajax\CatalogItemWrapper.cs" />
     <Compile Include="Ajax\CatalogWrapper.cs" />
+    <Compile Include="Ajax\ComputerWrapper.cs" />
     <Compile Include="Ajax\ContactsWrapper.cs" />
     <Compile Include="Ajax\JobFamilyWrapper.cs" />
     <Compile Include="Ajax\OrganizationUnitWrapper.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="BLL\AccountService.cs" />
     <Compile Include="BLL\CatalogItemService.cs" />
     <Compile Include="BLL\CatalogService.cs" />
+    <Compile Include="BLL\ComputerService.cs" />
     <Compile Include="BLL\JobFamilyService.cs" />
     <Compile Include="BLL\OrganizationUnitService.cs" />
     <Compile Include="BLL\SettingService.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="DAL\IBatis\AccountProvider.cs" />
     <Compile Include="DAL\IBatis\CatalogItemProvider.cs" />
     <Compile Include="DAL\IBatis\CatalogProvider.cs" />
+    <Compile Include="DAL\IBatis\ComputerProvider.cs" />
     <Compile Include="DAL\IBatis\JobFamilyProvider.cs" />
     <Compile Include="DAL\IBatis\OrganizationUnitProvider.cs" />
     <Compile Include="DAL\IBatis\SettingProvider.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="IBLL\IAccountService.cs" />
     <Compile Include="IBLL\ICatalogNodeService.cs" />
     <Compile Include="IBLL\ICatalogService.cs" />
+    <Compile Include="IBLL\IComputerService.cs" />
     <Compile Include="IBLL\IJobFamilyService.cs" />
     <Compile Include="IBLL\IOrganizationUnitService.cs" />
     <Compile Include="IBLL\ISettingService.cs" />
@@ -192,6 +196,7 @@
     <Compile Include="IDAL\IAccountProvider.cs" />
     <Compile Include="IDAL\ICatalogItemProvider.cs" />
     <Compile Include="IDAL\ICatalogProvider.cs" />
+    <Compile Include="IDAL\IComputerProvider.cs" />
     <Compile Include="IDAL\IJobFamilyProvider.cs" />
     <Compile Include="IDAL\IOrganizationUnitProvider.cs" />
     <Compile Include="IDAL\ISettingProvider.cs" />
@@ -220,6 +225,7 @@
     <Compile Include="Model\AccountRoleRelationInfo.cs" />
     <Compile Include="Model\CatalogInfo.cs" />
     <Compile Include="Model\CatalogItemInfo.cs" />
+    <Compile Include="Model\ComputerInfo.cs" />
     <Compile Include="Model\JobFamilyInfo.cs" />
     <Compile Include="Model\OrganizationUnitInfo.cs" />
     <Compile Include="Model\SettingInfo.cs" />
@@ -300,6 +306,7 @@
     <EmbeddedResource Include="DAL\IBatis\AccountFriendProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\CatalogItemProvider.xml" />
     <EmbeddedResource Include="DAL\IBatis\CatalogProvider.xml" />
+    <EmbeddedResource Include="DAL\IBatis\ComputerProvider.xml" />
     <Content Include="db\Functions_MySQL\func_GetCorporationIdByOrganizationUnitId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentIdByOrganizationUnitId.sql" />
     <Content Include="db\Functions_MySQL\func_GetDepartmentLevelByOrganizationUnitId.sql" />

@@ -210,6 +210,16 @@ namespace X3Platform.Membership
         }
         #endregion
 
+        #region 属性:ComputerService
+        private IComputerService m_ComputerService = null;
+
+        /// <summary>计算机信息</summary>
+        public IComputerService ComputerService
+        {
+            get { return this.m_ComputerService; }
+        }
+        #endregion
+
         #region 属性:CatalogService
         private ICatalogService m_CatalogService = null;
 
@@ -350,6 +360,7 @@ namespace X3Platform.Membership
             this.m_StandardRoleService = objectBuilder.GetObject<IStandardRoleService>(typeof(IStandardRoleService));
             this.m_StandardOrganizationUnitService = objectBuilder.GetObject<IStandardOrganizationUnitService>(typeof(IStandardOrganizationUnitService));
             this.m_GroupService = objectBuilder.GetObject<IGroupService>(typeof(IGroupService));
+            this.m_ComputerService = objectBuilder.GetObject<IComputerService>(typeof(IComputerService));
             this.m_CatalogService = objectBuilder.GetObject<ICatalogService>(typeof(ICatalogService));
             this.m_CatalogItemService = objectBuilder.GetObject<ICatalogItemService>(typeof(ICatalogItemService));
             this.m_ContactService = objectBuilder.GetObject<IContactService>(typeof(IContactService));
