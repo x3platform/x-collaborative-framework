@@ -125,9 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.example.config" />
-    <Content Include="config\X3Platform.Web.APIs.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <None Include="config\X3Platform.IBatis.Providers.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
