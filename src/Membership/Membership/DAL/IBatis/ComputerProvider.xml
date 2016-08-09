@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="X3Platform.Membership.DAL.IBatis.ComputerProvider" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <alias>
+    <typeAlias alias="ComputerInfo" type="X3Platform.Membership.Model.ComputerInfo,X3Platform.Membership" />
+  </alias>
+  <resultMaps>
+    <resultMap id="proc_Computer_FindOne_Result" class="ComputerInfo">
+      <result property="Id" column="Id" />
+      <result property="Name" column="Name" />
+      <result property="Type" column="Type" />
+      <result property="IP" column="IP" />
+      <result property="MAC" column="MAC" />
+      <result property="DistinguishedName" column="DistinguishedName" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+    <resultMap id="proc_Computer_FindAll_Result" class="ComputerInfo">
+      <result property="Id" column="Id" />
+      <result property="Name" column="Name" />
+      <result property="Type" column="Type" />
+      <result property="IP" column="IP" />
+      <result property="MAC" column="MAC" />
+      <result property="DistinguishedName" column="DistinguishedName" />
+      <result property="ModifiedDate" column="ModifiedDate" />
+      <result property="CreatedDate" column="CreatedDate" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <insert id="proc_Computer_Insert" parameterClass="ComputerInfo">
+      INSERT INTO tb_Computer 
+      (
+        Id,
+        Name,
+        Type,
+        IP,
+        MAC,
+        DistinguishedName,
+        ModifiedDate,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #Name#,
+        #Type#,
+        #IP#,
+        #MAC#,
+        #DistinguishedName#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
+    <update id="proc_Computer_Update" parameterClass="ComputerInfo">
+      UPDATE tb_Computer SET
+
+        Name = #Name#,
+        Type = #Type#,
+        IP = #IP#,
+        MAC = #MAC#,
+        DistinguishedName = #DistinguishedName#,
+        ModifiedDate = CURRENT_TIMESTAMP
+
+      WHERE Id = #Id#
+    </update>
+    <delete id="proc_Computer_Delete" >
+      DELETE FROM tb_Computer WHERE $WhereClause$
+    </delete>
+    <select id="proc_Computer_FindOne" resultMap="proc_Computer_FindOne_Result" >
+      SELECT * FROM tb_Computer WHERE Id = #Id#
+    </select>
+    <select id="proc_Computer_FindAll#MySql" resultMap="proc_Computer_FindAll_Result" >
+      SELECT * FROM tb_Computer T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
+      <dynamic prepend="LIMIT">
+        <isNotEqual prepend="LIMIT" property="Length" compareValue="0">
+          0, $Length$
+        </isNotEqual>
+      </dynamic>
+    </select>
+    <select id="proc_Computer_FindAll#Oracle" resultMap="proc_Computer_FindAll_Result" >
+      SELECT * FROM tb_Computer T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+    </select>
+    <select id="proc_Computer_FindAll#SqlServer" resultMap="proc_Computer_FindAll_Result" >
+      SELECT
+
+      <dynamic prepend="TOP">
+        <isNotEqual prepend="TOP" property="Length" compareValue = "0">
+          $Length$
+        </isNotEqual>
+      </dynamic>
+
+      * FROM tb_Computer T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>      
+    </select>
+    <select id="proc_Computer_GetPaging#MySql"  resultMap="proc_Computer_FindAll_Result" >
+      SELECT * FROM tb_Computer T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
+      LIMIT $StartIndex$, $PageSize$
+    </select>
+    <select id="proc_Computer_GetPaging#Oracle"  resultMap="proc_Computer_FindAll_Result" >
+      SELECT T2.* FROM (   
+        SELECT ROWNUM RowIndex, T1.* FROM (   
+          SELECT * FROM tb_Computer T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>
+
+          ORDER BY $OrderBy$
+      
+        ) T1 WHERE ROWNUM &lt;= ($StartIndex$ + $PageSize$)
+      ) T2 WHERE T2.RowIndex &gt; $StartIndex$
+    </select>
+    <select id="proc_Computer_GetPaging#SqlServer" resultMap="proc_Computer_FindAll_Result" >
+      SELECT * 
+      FROM (
+           SELECT *, ROW_NUMBER() OVER(ORDER BY $OrderBy$) AS RowIndex
+           FROM tb_Computer T
+
+          <dynamic prepend="WHERE">
+            <isParameterPresent>
+              <isNotEmpty prepend="AND" property="WhereClause" >
+                $WhereClause$
+              </isNotEmpty>
+            </isParameterPresent>
+          </dynamic>) TableIndex
+
+      WHERE TableIndex.RowIndex BETWEEN $StartIndex$ + 1 AND $StartIndex$ + $PageSize$
+    </select>
+    <select id="proc_Computer_GetRowCount" >
+      SELECT COUNT(*) AS "RowCount" FROM tb_Computer T
+
+      <dynamic prepend="WHERE">
+        <isParameterPresent>
+          <isNotEmpty prepend="AND" property="WhereClause" >
+            $WhereClause$
+          </isNotEmpty>
+        </isParameterPresent>
+      </dynamic>
+    </select>
+    <select id="proc_Computer_IsExist" >
+      SELECT COUNT(0) AS "Count" FROM tb_Computer WHERE $WhereClause$
+    </select>
+  </statements>
+</sqlMap>

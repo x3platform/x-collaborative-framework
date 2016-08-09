@@ -137,15 +137,6 @@
             type="X3Platform.Membership.DAL.IBatis.StandardRoleProvider"
             lazy-init="true" />
 
-    <!-- 非标准角色 -->
-    <object name="X3Platform.Membership.IBLL.INonstandardRoleService"
-            type="X3Platform.Membership.BLL.NonstandardRoleService"
-            lazy-init="true" />
-
-    <object name="X3Platform.Membership.IDAL.INonstandardRoleProvider"
-            type="X3Platform.Membership.DAL.IBatis.NonstandardRoleProvider"
-            lazy-init="true" />
-
     <!-- 群组 -->
     <object name="X3Platform.Membership.IBLL.IGroupService"
             type="X3Platform.Membership.BLL.GroupService"
@@ -155,7 +146,16 @@
             type="X3Platform.Membership.DAL.IBatis.GroupProvider"
             lazy-init="true" />
 
-    <!-- 群组分类 -->
+    <!-- 计算机 -->
+    <object name="X3Platform.Membership.IBLL.IComputerService"
+            type="X3Platform.Membership.BLL.ComputerService"
+            lazy-init="true" />
+
+    <object name="X3Platform.Membership.IDAL.IComputerProvider"
+            type="X3Platform.Membership.DAL.IBatis.ComputerProvider"
+            lazy-init="true" />
+
+    <!-- 分类目录 -->
     <object name="X3Platform.Membership.IBLL.ICatalogService"
             type="X3Platform.Membership.BLL.CatalogService"
             lazy-init="true" />
@@ -164,7 +164,7 @@
             type="X3Platform.Membership.DAL.IBatis.CatalogProvider"
             lazy-init="true" />
 
-    <!-- 群组分类子节点 -->
+    <!-- 分类目录项 -->
     <object name="X3Platform.Membership.IBLL.ICatalogItemService"
             type="X3Platform.Membership.BLL.CatalogItemService"
             lazy-init="true" />

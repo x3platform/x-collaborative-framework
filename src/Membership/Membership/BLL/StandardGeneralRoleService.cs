@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :StandardOrganizationUnitService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership.BLL
 {
     using System;
@@ -21,14 +7,14 @@ namespace X3Platform.Membership.BLL
     using System.Text;
 
     using X3Platform.Spring;
+    using X3Platform.Data;
+    using X3Platform.DigitalNumber;
 
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.IDAL;
     using X3Platform.Membership.Model;
-    using X3Platform.DigitalNumber;
-    using X3Platform.Data;
-
+   
     /// <summary></summary>
     public class StandardGeneralRoleService : IStandardGeneralRoleService
     {
