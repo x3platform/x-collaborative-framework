@@ -91,7 +91,18 @@ namespace X3Platform.Web.APIs.Methods
 
             Dictionary<string, string> options = new Dictionary<string, string>();
 
-            JsonObject optionObjects = JsonObjectConverter.Deserialize(param.Options);
+            JsonObject optionObjects = null;
+
+            try
+            {
+                optionObjects = JsonObjectConverter.Deserialize(param.Options);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("methodName:" + methodName + ",options:" + param.Options);
+                logger.Error(ex);
+                throw;
+            }
 
             foreach (string key in optionObjects.Keys)
             {
