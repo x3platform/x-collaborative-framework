@@ -11,6 +11,8 @@ namespace X3Platform.Util
     using System.Text.RegularExpressions;
     using System.Web;
     using System.Threading;
+
+    using X3Platform.Security;
     #endregion
 
     /// <summary>字符串处理辅助类</summary>
@@ -943,7 +945,7 @@ namespace X3Platform.Util
             return text;
         }
         #endregion
-
+        
         #region 函数:ToRandom(int length)
         /// <summary>取得一个随机的字符串</summary>
         /// <param Name="length">字符串的长度</param>
@@ -968,7 +970,7 @@ namespace X3Platform.Util
 
             char[] buffer = new char[length];
 
-            Random random = new Random();
+            Random random = new Random(Encrypter.ToRandomnumber());
 
             for (int i = 0; i < length; i++)
             {
@@ -980,7 +982,7 @@ namespace X3Platform.Util
         }
         #endregion
 
-        #region 函数:ToSID(int length)
+        #region 函数:ToSID()
         /// <summary>取得一个类似uuid的随机的十六进制字符串</summary>
         /// <param Name="length">字符串的长度</param>
         /// <returns>长为length的随机的字符串</returns>
@@ -1001,7 +1003,7 @@ namespace X3Platform.Util
             // 等待定时器的推进, 避免在时间极短的情况下生成相同的随机数
             Thread.Sleep(1);
 
-            Random random = new Random();
+            Random random = new Random(Encrypter.ToRandomnumber());
 
             int codeLength = 1 + ((length - 1) / 4);
 
