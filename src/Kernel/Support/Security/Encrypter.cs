@@ -15,6 +15,20 @@ namespace X3Platform.Security
     {
         static Encrypter() { }
 
+        #region 函数:ToRandomnumber()
+        /// <summary>根据 RNG 算法生成随机数</summary>
+        public static int ToRandomnumber()
+        {
+            byte[] bytes = new byte[4];
+
+            System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+
+            rng.GetBytes(bytes);
+
+            return BitConverter.ToInt32(bytes, 0);
+        }
+        #endregion
+
         #region 函数:SortAndConcat(params string[] values)
         /// <summary>将字符串数组排序后拼接成一个文本信息</summary>
         /// <param name="values">任意多个文本信息</param>
