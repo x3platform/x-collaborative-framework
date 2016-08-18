@@ -2,17 +2,21 @@ namespace X3Platform.Storages
 {
     #region Using Libraries
     using System;
+    using System.Collections.Generic;
 
+    using Common.Logging;
+
+    using X3Platform.Configuration;
+    using X3Platform.Data.ConnectionPlugins;
+    using X3Platform.Globalization;
+    using X3Platform.IBatis.DataMapper;
     using X3Platform.Plugins;
     using X3Platform.Spring;
+    using X3Platform.Util;
+
 
     using X3Platform.Storages.Configuration;
     using X3Platform.Storages.IBLL;
-    using X3Platform.IBatis.DataMapper;
-    using System.Collections.Generic;
-    using X3Platform.Configuration;
-    using Common.Logging;
-    using X3Platform.Globalization;
     #endregion
 
     /// <summary>存储应用上下文环境</summary>
@@ -165,6 +169,19 @@ namespace X3Platform.Storages
                 var ibatisMapper = ISqlMapHelper.CreateSqlMapper(ibatisMapping, true);
 
                 ibatisMapper.DataSource.ConnectionString = KernelConfigurationView.Instance.ReplaceKeyValue(storageNode.ConnectionString);
+
+                // MySQL 数据库 自动增加非默认端口信息
+                if (ibatisMapper.DataSource.DbProvider.Name == "MySql" && ibatisMapper.DataSource.ConnectionString.ToLower().IndexOf("port=") == -1)
+                {
+                    IConnectionPlugin connection = KernelConfigurationView.Instance.ConnectionPlugin;
+
+                    string port = connection.Port;
+
+                    if (!string.IsNullOrEmpty(port) && port != "3306")
+                    {
+                        ibatisMapper.DataSource.ConnectionString = StringHelper.TrimEnd(ibatisMapper.DataSource.ConnectionString, ";") + ";port=" + port + ";";
+                    }
+                }
 
                 ibatisMappers.Add(storageNode.Name, ibatisMapper);
             }
