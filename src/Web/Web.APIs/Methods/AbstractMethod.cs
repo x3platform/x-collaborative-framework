@@ -30,6 +30,36 @@ namespace X3Platform.Web.APIs.Methods
             this.doc = doc;
         }
 
+        /// <summary>映射参数</summary>
+        public virtual void Mapping()
+        {
+            if (this.options.ContainsKey("mappingParams"))
+            {
+                JsonData data = JsonMapper.ToObject(this.options["mappingParams"]);
+
+                XmlNodeList nodes = doc.DocumentElement.ChildNodes;
+
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    XmlNode node = nodes[i];
+
+                    if (data.Keys.Contains(nodes[i].Name))
+                    {
+                        // 创建节点
+                        XmlElement mappingNode = doc.CreateElement(data[node.Name].ToString());
+
+                        mappingNode.SetAttribute("originalName", node.Name);
+
+                        mappingNode.InnerXml = node.InnerXml;
+
+                        doc.DocumentElement.InsertBefore(mappingNode, node);
+
+                        doc.DocumentElement.RemoveChild(node);
+                    }
+                }
+            }
+        }
+
         /// <summary>验证必填参数</summary>
         public virtual void Validate()
         {
@@ -62,38 +92,8 @@ namespace X3Platform.Web.APIs.Methods
                         if (!exists)
                         {
                             throw new GenericException(I18n.Exceptions["code_kernel_param_is_required"],
-                              string.Format(I18n.Exceptions["text_kernel_param_is_required"], paramName));
+                                  string.Format(I18n.Exceptions["text_kernel_param_is_required"], paramName));
                         }
-                    }
-                }
-            }
-        }
-
-        /// <summary>映射参数</summary>
-        public virtual void Mapping()
-        {
-            if (this.options.ContainsKey("mappingParams"))
-            {
-                JsonData data = JsonMapper.ToObject(this.options["mappingParams"]);
-
-                XmlNodeList nodes = doc.DocumentElement.ChildNodes;
-
-                for (int i = 0; i < nodes.Count; i++)
-                {
-                    XmlNode node = nodes[i];
-
-                    if (data.Keys.Contains(nodes[i].Name))
-                    {
-                        // 创建节点
-                        XmlElement mappingNode = doc.CreateElement(data[node.Name].ToString());
-
-                        mappingNode.SetAttribute("originalName", node.Name);
-
-                        mappingNode.InnerXml = node.InnerXml;
-
-                        doc.DocumentElement.InsertBefore(mappingNode, node);
-
-                        doc.DocumentElement.RemoveChild(node);
                     }
                 }
             }

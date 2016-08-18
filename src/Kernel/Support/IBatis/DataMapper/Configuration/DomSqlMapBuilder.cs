@@ -1697,15 +1697,11 @@ namespace X3Platform.IBatis.DataMapper.Configuration
             // -------------------------------------------------------
 
             KernelConfiguration kernelConfiguration = KernelConfigurationView.Instance.Configuration;
+            
+            IConnectionPlugin connection = KernelConfigurationView.Instance.ConnectionPlugin;
 
-            Type objectType = Type.GetType(kernelConfiguration.Keys.ContainsKey("DatabaseSettings.Plugin")
-                ? kernelConfiguration.Keys["DatabaseSettings.Plugin"].Value
-                : "X3Platform.Data.ConnectionPlugins.InnerConnectionPlugin,X3Platform.Support");
-
-            if (objectType != null)
+            if (connection != null)
             {
-                IConnectionPlugin connection = (IConnectionPlugin)Activator.CreateInstance(objectType, kernelConfiguration);
-
                 _configScope.Properties.Add("ApplicationPathRoot", KernelConfigurationView.Instance.ApplicationPathRoot);
 
                 _configScope.Properties.Add("DatabaseSettings.DataSource", connection.DataSource);
