@@ -965,12 +965,12 @@ namespace X3Platform.Util
         {
             if (length <= 0) { return string.Empty; }
 
-            // 等待定时器的推进, 避免在时间极短的情况下生成相同的随机数
-            Thread.Sleep(1);
+            // https://msdn.microsoft.com/zh-cn/library/System.Random(v=vs.110).aspx
+            // 生成一个随机数作为种子值, 避免在时间极短的情况下相同的系统时间生成相同的随机数
+            
+            Random random = new Random(Encrypter.ToRandomnumber());
 
             char[] buffer = new char[length];
-
-            Random random = new Random(Encrypter.ToRandomnumber());
 
             for (int i = 0; i < length; i++)
             {
@@ -1000,8 +1000,8 @@ namespace X3Platform.Util
         {
             if (length <= 0) { return string.Empty; }
 
-            // 等待定时器的推进, 避免在时间极短的情况下生成相同的随机数
-            Thread.Sleep(1);
+            // https://msdn.microsoft.com/zh-cn/library/System.Random(v=vs.110).aspx
+            // 生成一个随机数作为种子值, 避免在时间极短的情况下相同的系统时间生成相同的随机数
 
             Random random = new Random(Encrypter.ToRandomnumber());
 
