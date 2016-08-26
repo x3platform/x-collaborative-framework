@@ -46,6 +46,12 @@
   <string name="btn_refresh">刷新</string>
   <string name="btn_save">保存</string>
   <string name="btn_close">关闭</string>
+  <!-- connection state -->
+  <string name="connection_state_connecting">连接中</string>
+  <string name="connection_state_connected">已连接</string>
+  <string name="connection_state_open">打开</string>
+  <string name="connection_state_closing">关闭中</string>
+  <string name="connection_state_closed">已关闭</string>
   <!-- date -->
   <string name="date_dateformat_fulldaykey">yyyyMMdd</string>
   <string name="date_dateformat_fulldayshow">yyyy年M月d日</string>
@@ -58,4 +64,14 @@
   <string name="application_is_loading">应用 {0} 正在加载。</string>
   <string name="application_is_reloading">应用 {0} 正在重新加载。</string>
   <string name="application_is_successfully_loaded">应用 {0} 已成功加载。</string>
+  <!-- services -->
+  <string name="service_start">服务 {0} 启动</string>
+  <string name="service_pause">服务 {0} 暂停</string>
+  <string name="service_stop">服务 {0} 停止</string>
+  <string name="service_is_starting">服务 {0} 正在启动。</string>
+  <string name="service_is_starting_service_observer">服务 {0} 正在启动自定义监听器。</string>
+  <string name="service_is_starting_service_host">服务 {0} 正在启动自定义服务。</string>
+  <string name="service_is_closing">服务 {0} 正在关闭。</string>
+  <string name="service_is_stopping">服务 {0} 正在停止。</string>
+  <string name="service_unhandled_exception">服务 {0} 发生未处理异常。异常信息: {1}</string>
 </resources>
