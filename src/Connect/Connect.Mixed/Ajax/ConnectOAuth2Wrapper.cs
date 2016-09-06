@@ -70,11 +70,20 @@
 
                 if (account == null)
                 {
-                    // 输出登录页面
-                    // 设置输出的内容类型，默认为 html 格式。
-                    HttpContentTypeHelper.SetValue("html");
+                    if (string.IsNullOrEmpty(responseType))
+                    {
+                        outString.Append("{\"message\":{\"returnCode\":1,\"value\":\"帐号或者密码错误。\"}}");
 
-                    return CreateLoginPage(clientId, redirectUri, responseType, scope);
+                        return outString.ToString();
+                    }
+                    else
+                    {
+                        // 输出登录页面
+                        // 设置输出的内容类型，默认为 html 格式。
+                        HttpContentTypeHelper.SetValue("html");
+
+                        return CreateLoginPage(clientId, redirectUri, responseType, scope);
+                    }
                 }
                 else
                 {
@@ -258,7 +267,7 @@
             accessTokenInfo = ConnectContext.Instance.ConnectAccessTokenService.FindOne(accessTokenInfo.Id);
 
             StringBuilder outString = new StringBuilder();
-            
+
             outString.Append("{");
             outString.Append("\"access_token\":\"" + accessTokenInfo.Id + "\",");
             outString.Append("\"token_type\":\"bearer\",");
