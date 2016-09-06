@@ -118,6 +118,7 @@
 
         /// <summary>验证请求合法性</summary>
         /// <param name="context"></param>
+        /// <param name="method"></param>
         /// <returns></returns>
         public bool Authenticate(HttpContextBase context, string method)
         {

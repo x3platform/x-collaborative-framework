@@ -43,6 +43,7 @@ namespace X3Platform.Services
 
         }
 
+        /// <summary>广播事件</summary>
         public event BroadcastingEventHandler BroadcastingEvent;
 
         public void WriteLine(string text)
