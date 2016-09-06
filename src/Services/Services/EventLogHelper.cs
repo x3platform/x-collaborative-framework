@@ -10,7 +10,7 @@ namespace X3Platform.Services
     /// <summary></summary>
     public sealed class EventLogHelper
     {
-        public static EventLog eventLog = new EventLog();
+        private static EventLog eventLog = new EventLog();
 
         /// <summary>普通消息</summary>
         public static void Information(string text)

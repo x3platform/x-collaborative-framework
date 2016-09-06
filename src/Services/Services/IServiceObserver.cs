@@ -16,7 +16,7 @@ namespace X3Platform.Services
         /// <summary>服务监听器是否在运行</summary>
         bool IsRunning { get; }
 
-        /// <summary>运行服务监听器</summary>
+        /// <summary>启动服务监听器</summary>
         void Start();
         
         /// <summary>运行服务监听器</summary>
