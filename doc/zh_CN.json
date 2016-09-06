@@ -1,0 +1,27 @@
+{
+  "fontsAlias": {
+    "stdFont": "Microsoft Yahei",
+    "stdBold": "Microsoft Yahei",
+    "stdItalic": "Microsoft Yahei",
+    "stdBoldItalic": "Microsoft Yahei",
+    "stdMono": "Microsoft Yahei",
+    "stdMonoBold": "Microsoft Yahei",
+    "stdMonoItalic": "Microsoft Yahei",
+    "stdMonoBoldItalic": "Microsoft Yahei",
+    "stdSans": "Microsoft Yahei",
+    "stdSansBold": "Microsoft Yahei",
+    "stdSansItalic": "Microsoft Yahei",
+    "stdSansBoldItalic": "Microsoft Yahei"
+  },
+  "styles": [
+    [
+      "base", { "wordWrap": "CJK" }
+    ],
+    [
+      "literal",
+      {
+        "wordWrap": "None"
+      }
+    ]
+  ]
+}
