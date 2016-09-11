@@ -77,73 +77,73 @@
     <insert id="proc_Application_Menu_Insert" parameterClass="ApplicationMenuInfo">
       INSERT INTO tb_Application_Menu
       (
-      Id,
-      ApplicationId,
-      ParentId,
-      Code,
-      Name,
-      Description,
-      Url,
-      Target,
-      MenuType,
-      IconPath,
-      BigIconPath,
-      DisplayType,
-      HasChild,
-      ContextObject,
-      OrderId,
-      Status,
-      Remark,
-      FullPath,
-      ModifiedDate,
-      CreatedDate
+        Id,
+        ApplicationId,
+        ParentId,
+        Code,
+        Name,
+        Description,
+        Url,
+        Target,
+        MenuType,
+        IconPath,
+        BigIconPath,
+        DisplayType,
+        HasChild,
+        ContextObject,
+        OrderId,
+        Status,
+        Remark,
+        FullPath,
+        ModifiedDate,
+        CreatedDate
       )
       VALUES
       (
-      #Id#,
-      #ApplicationId#,
-      #ParentId#,
-      #Code#,
-      #Name#,
-      #Description#,
-      #Url#,
-      #Target#,
-      #MenuType#,
-      #IconPath#,
-      #BigIconPath#,
-      #DisplayType#,
-      #HasChild#,
-      #ContextObject#,
-      #OrderId#,
-      #Status#,
-      #Remark#,
-      #FullPath#,
-      CURRENT_TIMESTAMP,
-      CURRENT_TIMESTAMP
+        #Id#,
+        #ApplicationId#,
+        #ParentId#,
+        #Code#,
+        #Name#,
+        #Description#,
+        #Url#,
+        #Target#,
+        #MenuType#,
+        #IconPath#,
+        #BigIconPath#,
+        #DisplayType#,
+        #HasChild#,
+        #ContextObject#,
+        #OrderId#,
+        #Status#,
+        #Remark#,
+        #FullPath#,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
       )
     </insert>
 
     <update id="proc_Application_Menu_Update" parameterClass="ApplicationMenuInfo">
       UPDATE tb_Application_Menu SET
 
-      ApplicationId = #ApplicationId#,
-      ParentId = #ParentId#,
-      Code = #Code#,
-      Name = #Name#,
-      Description = #Description#,
-      Url = #Url#,
-      Target = #Target#,
-      MenuType = #MenuType#,
-      IconPath = #IconPath#,
-      BigIconPath = #BigIconPath#,
-      DisplayType = #DisplayType#,
-      HasChild = #HasChild#,
-      ContextObject = #ContextObject#,
-      OrderId = #OrderId#,
-      Status = #Status#,
-      Remark = #Remark#,
-      FullPath = #FullPath#,
-      ModifiedDate = CURRENT_TIMESTAMP
+        ApplicationId = #ApplicationId#,
+        ParentId = #ParentId#,
+        Code = #Code#,
+        Name = #Name#,
+        Description = #Description#,
+        Url = #Url#,
+        Target = #Target#,
+        MenuType = #MenuType#,
+        IconPath = #IconPath#,
+        BigIconPath = #BigIconPath#,
+        DisplayType = #DisplayType#,
+        HasChild = #HasChild#,
+        ContextObject = #ContextObject#,
+        OrderId = #OrderId#,
+        Status = #Status#,
+        Remark = #Remark#,
+        FullPath = #FullPath#,
+        ModifiedDate = CURRENT_TIMESTAMP
 
       WHERE Id = #Id#
     </update>
@@ -164,6 +164,12 @@
         </isParameterPresent>
       </dynamic>
 
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
       <dynamic prepend="LIMIT">
         <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
           0,$Length$
@@ -183,6 +189,12 @@
           ROWNUM &lt;= $Length$
         </isNotEqual>
       </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
     </select>
     <select id="proc_Application_Menu_FindAll#SqlServer" resultMap="proc_Application_Menu_FindAll_Result" >
       SELECT
@@ -201,6 +213,12 @@
           </isNotEmpty>
         </isParameterPresent>
       </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
     </select>
     <select id="proc_Application_Menu_FindAllQueryObject#MySql" resultMap="proc_Application_Menu_FindAllQueryObject_Result" >
       SELECT * FROM tb_Application_Menu T
@@ -213,6 +231,12 @@
         </isParameterPresent>
       </dynamic>
 
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
+      
       <dynamic prepend="LIMIT">
         <isNotEqual prepend="LIMIT" property="Length" compareValue = "0">
           0,$Length$
@@ -232,6 +256,12 @@
           ROWNUM &lt;= $Length$
         </isNotEqual>
       </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
+      </dynamic>
     </select>
     <select id="proc_Application_Menu_FindAllQueryObject#SqlServer" resultMap="proc_Application_Menu_FindAllQueryObject_Result" >
       SELECT
@@ -250,6 +280,12 @@
             $WhereClause$
           </isNotEmpty>
         </isParameterPresent>
+      </dynamic>
+      
+      <dynamic prepend="ORDER BY">
+        <isNotEmpty prepend="AND" property="OrderBy" >
+          $OrderBy$
+        </isNotEmpty>
       </dynamic>
     </select>
     <select id="proc_Application_Menu_GetPaging#MySql" resultMap="proc_Application_Menu_FindAll_Result" >

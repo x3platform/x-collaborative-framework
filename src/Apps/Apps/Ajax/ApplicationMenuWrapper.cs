@@ -13,7 +13,9 @@ namespace X3Platform.Apps.Ajax
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
     using X3Platform.Apps.Configuration;
-    using X3Platform.Globalization; using X3Platform.Messages;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
+    using Data;
     #endregion
 
     /// <summary></summary>
@@ -41,7 +43,7 @@ namespace X3Platform.Apps.Ajax
             this.service.Save(param);
 
             this.service.BindAuthorizationScopeObjects(param.Id, "应用_通用_查看权限", authorizationReadScopeObjectText);
-            
+
             return MessageObject.Stringify("0", I18n.Strings["msg_save_success"]);
         }
         #endregion
@@ -92,11 +94,9 @@ namespace X3Platform.Apps.Ajax
         {
             StringBuilder outString = new StringBuilder();
 
-            string whereClause = XmlHelper.Fetch("whereClause", doc);
+            DataQuery query = DataQuery.Create(XmlHelper.Fetch("query", doc, "xml"));
 
-            int length = Convert.ToInt32(XmlHelper.Fetch("length", doc));
-
-            IList<ApplicationMenuInfo> list = this.service.FindAll(whereClause, length);
+            IList<ApplicationMenuInfo> list = this.service.FindAll(query);
 
             outString.Append("{\"data\":" + AjaxUtil.Parse<ApplicationMenuInfo>(list) + ",");
 

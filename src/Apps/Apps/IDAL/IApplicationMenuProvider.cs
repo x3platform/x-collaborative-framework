@@ -83,11 +83,26 @@
         ApplicationMenuInfo FindOne(string id);
         #endregion
 
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        IList<ApplicationMenuInfo> FindAll(DataQuery query);
+        #endregion
+
+        #region 函数:FindAllQueryObject(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        IList<ApplicationMenuQueryInfo> FindAllQueryObject(DataQuery query);
+        #endregion
+
         #region 函数:FindAll(string whereClause, int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
         /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        [Obsolete("usage: FindAll(DataQuery query)")]
         IList<ApplicationMenuInfo> FindAll(string whereClause, int length);
         #endregion
 
@@ -96,6 +111,7 @@
         /// <param name="whereClause">SQL 查询条件</param>
         /// <param name="length">条数</param>
         /// <returns>返回所有实例<see cref="ApplicationMenuQueryInfo"/>的详细信息</returns>
+        [Obsolete("usage: FindAll(DataQuery query)")]
         IList<ApplicationMenuQueryInfo> FindAllQueryObject(string whereClause, int length);
         #endregion
 
