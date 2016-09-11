@@ -91,6 +91,26 @@
         }
         #endregion
 
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        public IList<ApplicationMenuInfo> FindAll(DataQuery query)
+        {
+            return this.provider.FindAll(query);
+        }
+        #endregion
+
+        #region 函数:FindAllQueryObject(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        public IList<ApplicationMenuQueryInfo> FindAllQueryObject(DataQuery query)
+        {
+            return this.provider.FindAllQueryObject(query);
+        }
+        #endregion
+
         #region 函数:FindAll()
         /// <summary>查询所有相关记录</summary>
         /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>

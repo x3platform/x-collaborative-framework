@@ -16,6 +16,7 @@
     using X3Platform.Apps.IDAL;
     using X3Platform.Apps.Model;
     using X3Platform.Data;
+    using System.Text;
     #endregion
 
     /// <summary></summary>
@@ -161,6 +162,131 @@
         }
         #endregion
 
+        #region 函数:FindAll(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        public IList<ApplicationMenuInfo> FindAll(DataQuery query)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            StringBuilder whereClause = new StringBuilder();
+
+            if (query.Variables["scence"] == "Search")
+            {
+                // query.Where.Add("AppKey", appKey);
+                // query.Where.Add("Code", bankCodes);
+
+                whereClause.Append(" Status = 5 ");
+
+                if (query.Where.ContainsKey("AppKey") && query.Where.ContainsKey("Code"))
+                {
+                    if (query.Where["Code"].ToString() == "0")
+                    {
+                        DataQueryBuilder.Equal(query.Where, "AppKey", whereClause);
+                    }
+                    else
+                    {
+                        query.Where["Code"] = "'" + query.Where["Code"].ToString().Replace(",", "','") + "'";
+
+                        DataQueryBuilder.Equal(query.Where, "AppKey", whereClause);
+                        DataQueryBuilder.In(query.Where, "Code", whereClause);
+                    }
+                }
+                else if (query.Where.ContainsKey("Id"))
+                {
+                    if (query.Where["Id"].ToString() == "0")
+                    {
+                        // =0 返回全库
+                    }
+                    else
+                    {
+                        DataQueryBuilder.In(query.Where, "Id", whereClause);
+                    }
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            }
+
+            args.Add("OrderBy", query.GetOrderBySql(" Id DESC "));
+            args.Add("Length", query.Length);
+
+            // 普通用户只能看到授权范围内的内容
+            if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, AppsConfiguration.ApplicationName) && !AppsSecurity.IsReviewer(KernelContext.Current.User, AppsConfiguration.ApplicationName))
+            {
+                args["WhereClause"] = this.BindAuthorizationScopeSQL((string)args["WhereClause"]);
+            }
+
+            return this.ibatisMapper.QueryForList<ApplicationMenuInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAll", tableName)), args);
+        }
+        #endregion
+
+        #region 函数:FindAllQueryObject(DataQuery query)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="query">数据查询参数</param>
+        /// <returns>返回所有实例<see cref="ApplicationMenuInfo"/>的详细信息</returns>
+        public IList<ApplicationMenuQueryInfo> FindAllQueryObject(DataQuery query)
+        {
+            Dictionary<string, object> args = new Dictionary<string, object>();
+
+            StringBuilder whereClause = new StringBuilder();
+
+            if (query.Variables["scence"] == "Search")
+            {
+                // query.Where.Add("AppKey", appKey);
+                // query.Where.Add("Code", bankCodes);
+
+                whereClause.Append(" Status = 5 ");
+
+                if (query.Where.ContainsKey("AppKey") && query.Where.ContainsKey("Code"))
+                {
+                    if (query.Where["Code"].ToString() == "0")
+                    {
+                        DataQueryBuilder.Equal(query.Where, "AppKey", whereClause);
+                    }
+                    else
+                    {
+                        query.Where["Code"] = "'" + query.Where["Code"].ToString().Replace(",", "','") + "'";
+
+                        DataQueryBuilder.Equal(query.Where, "AppKey", whereClause);
+                        DataQueryBuilder.In(query.Where, "Code", whereClause);
+                    }
+                }
+                else if (query.Where.ContainsKey("Id"))
+                {
+                    if (query.Where["Id"].ToString() == "0")
+                    {
+                        // =0 返回全库
+                    }
+                    else
+                    {
+                        DataQueryBuilder.In(query.Where, "Id", whereClause);
+                    }
+                }
+
+                args.Add("WhereClause", whereClause);
+            }
+            else
+            {
+                args.Add("WhereClause", query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } }));
+            }
+            args.Add("OrderBy", query.GetOrderBySql(" Id DESC "));
+            args.Add("Length", query.Length);
+
+            // 普通用户只能看到授权范围内的内容
+            if (!AppsSecurity.IsAdministrator(KernelContext.Current.User, AppsConfiguration.ApplicationName) && !AppsSecurity.IsReviewer(KernelContext.Current.User, AppsConfiguration.ApplicationName))
+            {
+                args["WhereClause"] = this.BindAuthorizationScopeSQL((string)args["WhereClause"]);
+            }
+
+            return this.ibatisMapper.QueryForList<ApplicationMenuQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllQueryObject", tableName)), args);
+        }
+        #endregion
+
         #region 函数:FindAll(string whereClause,int length)
         /// <summary>查询所有相关记录</summary>
         /// <param name="whereClause">SQL 查询条件</param>
@@ -189,9 +315,7 @@
             args.Add("WhereClause", StringHelper.ToSafeSQL(whereClause));
             args.Add("Length", length);
 
-            IList<ApplicationMenuQueryInfo> list = this.ibatisMapper.QueryForList<ApplicationMenuQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllQueryObject", tableName)), args);
-
-            return list;
+            return this.ibatisMapper.QueryForList<ApplicationMenuQueryInfo>(StringHelper.ToProcedurePrefix(string.Format("{0}_FindAllQueryObject", tableName)), args);
         }
         #endregion
 
@@ -321,6 +445,32 @@
                 entityId,
                 KernelContext.ParseObjectType(typeof(ApplicationMenuInfo)),
                 authorityName);
+        }
+        #endregion
+
+        #region 私有函数:BindAuthorizationScopeSQL(string whereClause)
+        ///<summary>绑定SQL查询条件</summary>
+        /// <param name="whereClause">WHERE 查询条件</param>
+        ///<returns></returns>
+        private string BindAuthorizationScopeSQL(string whereClause)
+        {
+            string accountId = KernelContext.Current.User == null ? Guid.Empty.ToString() : KernelContext.Current.User.Id;
+
+            string scope = string.Format(@" (
+(   T.Id IN ( 
+        SELECT DISTINCT EntityId FROM view_AuthObject_Account View1, tb_Application_Menu_Scope Scope
+        WHERE 
+            View1.AccountId = '{0}'
+            AND View1.AuthorizationObjectId = Scope.AuthorizationObjectId
+            AND View1.AuthorizationObjectType = Scope.AuthorizationObjectType)) 
+) ", accountId);
+
+            if (whereClause.IndexOf(scope) == -1)
+            {
+                whereClause = string.IsNullOrEmpty(whereClause) ? scope : scope + " AND " + whereClause;
+            }
+
+            return whereClause;
         }
         #endregion
 
