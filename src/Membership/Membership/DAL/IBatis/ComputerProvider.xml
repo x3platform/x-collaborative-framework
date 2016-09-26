@@ -8,6 +8,7 @@
       <result property="Id" column="Id" />
       <result property="Name" column="Name" />
       <result property="Type" column="Type" />
+      <result property="Remark" column="Remark" />
       <result property="IP" column="IP" />
       <result property="MAC" column="MAC" />
       <result property="DistinguishedName" column="DistinguishedName" />
@@ -18,6 +19,7 @@
       <result property="Id" column="Id" />
       <result property="Name" column="Name" />
       <result property="Type" column="Type" />
+      <result property="Remark" column="Remark" />
       <result property="IP" column="IP" />
       <result property="MAC" column="MAC" />
       <result property="DistinguishedName" column="DistinguishedName" />
@@ -32,6 +34,7 @@
         Id,
         Name,
         Type,
+        Remark,
         IP,
         MAC,
         DistinguishedName,
@@ -43,6 +46,7 @@
         #Id#,
         #Name#,
         #Type#,
+        #Remark#,
         #IP#,
         #MAC#,
         #DistinguishedName#,
@@ -55,6 +59,7 @@
 
         Name = #Name#,
         Type = #Type#,
+        Remark = #Remark#,
         IP = #IP#,
         MAC = #MAC#,
         DistinguishedName = #DistinguishedName#,

@@ -32,6 +32,11 @@ namespace X3Platform.Membership.Model
         public string Type { get; set; }
         #endregion
 
+        #region 属性:Remark
+        /// <summary>备注</summary>
+        public string Remark { get; set; }
+        #endregion
+
         #region 属性:IP
         /// <summary>IP 地址</summary>
         public string IP { get; set; }
