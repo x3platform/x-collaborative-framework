@@ -14,26 +14,6 @@ namespace X3Platform.Services.Host
         static void Main(string[] args)
         {
             // -------------------------------------------------------
-            // 创建服务跟踪对象
-            // -------------------------------------------------------
-
-            BinaryClientFormatterSinkProvider clientSinkProvider = new BinaryClientFormatterSinkProvider();
-
-            BinaryServerFormatterSinkProvider serverSinkProvider = new BinaryServerFormatterSinkProvider();
-
-            serverSinkProvider.TypeFilterLevel = TypeFilterLevel.Full;
-
-            IDictionary properties = new Hashtable();
-
-            properties["port"] = ServicesConfigurationView.Instance.TcpPort;
-
-            TcpChannel channel = new TcpChannel(properties, clientSinkProvider, serverSinkProvider);
-
-            ChannelServices.RegisterChannel(channel, false);
-
-            ObjRef serviceTraceRefObject = RemotingServices.Marshal(ServiceTrace.Instance, "X3Platform.Services.ServiceTrace");
-
-            // -------------------------------------------------------
             // 创建服务宿主对象
             // -------------------------------------------------------
 
