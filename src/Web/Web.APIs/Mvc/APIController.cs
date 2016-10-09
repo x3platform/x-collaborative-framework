@@ -22,7 +22,9 @@
     using X3Platform.Json;
     using System.Text;
     using Globalization;
-    using X3Platform.Util;    /// <summary></summary>
+    using X3Platform.Util;    
+    
+    /// <summary></summary>
     public sealed class APIController : Controller
     {
         /// <summary>日志记录器</summary>
