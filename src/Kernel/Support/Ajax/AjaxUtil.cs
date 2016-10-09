@@ -75,6 +75,7 @@ namespace X3Platform.Ajax
         /// <typeparam name="T"></typeparam>
         /// <param name="targetObject"></param>
         /// <param name="banKeys">禁止转化的键</param>
+        /// <param name="namingRule">命名规则</param>
         /// <returns></returns>
         public static string Parse<T>(T targetObject, List<string> banKeys, string namingRule)
         {
@@ -88,17 +89,36 @@ namespace X3Platform.Ajax
 
             Type type = targetObject.GetType();
 
-            //
-            // 对象的属性 反射为set_MethodName或者get_MethodName
-            //
-
-            MethodInfo[] methods = type.GetMethods();
-
-            string key;
-
-            string value;
+            string key, value;
 
             outString.Append("{");
+
+            // -------------------------------------------------------
+            // 对象的公有字段信息
+            // -------------------------------------------------------
+
+            MemberInfo[] members = type.GetFields();
+
+            foreach (MemberInfo member in members)
+            {
+                key = member.Name;
+
+                if (banKeys != null && banKeys.Contains(key))
+                    continue;
+
+                if (!string.IsNullOrEmpty(key))
+                {
+                    result = type.GetField(member.Name, BindingFlags.Public | BindingFlags.Instance).GetValue(targetObject);
+
+                    AppendKeyValue(outString, key, result, namingRule);
+                }
+            }
+
+            // -------------------------------------------------------
+            // 对象的属性 反射为 set_MethodName 或者 get_MethodName
+            // -------------------------------------------------------
+
+            MethodInfo[] methods = type.GetMethods();
 
             foreach (MethodInfo method in methods)
             {
@@ -113,64 +133,7 @@ namespace X3Platform.Ajax
                     {
                         result = type.InvokeMember(method.Name, BindingFlags.InvokeMethod, null, targetObject, new object[] { });
 
-                        if (namingRule == "camel")
-                        {
-                            if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
-                            {
-                                key = StringHelper.ToFirstLower(key);
-                            }
-                            else
-                            {
-                                key = AjaxConfigurationView.Instance.Configuration.SpecialWords[key].Value;
-                            }
-                        }
-                        else if (namingRule == "underline")
-                        {
-                            if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
-                            {
-                                key = StringHelper.CamelToUnderline(key);
-                            }
-                            else
-                            {
-                                key = AjaxConfigurationView.Instance.Configuration.SpecialWords[key].Value;
-                            }
-                        }
-
-                        if (result == null)
-                        {
-                            outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, string.Empty));
-                        }
-                        else
-                        {
-                            value = result.ToString();
-
-                            switch (result.GetType().FullName)
-                            {
-                                case "System.Int16":
-                                case "System.Int32":
-                                case "System.Int64":
-                                case "System.Double":
-                                case "System.Decimal":
-                                case "System.Guid":
-                                    outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, value));
-                                    break;
-
-                                case "System.Boolean":
-                                    outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, Convert.ToBoolean(value) ? 1 : 0));
-                                    break;
-
-                                case "System.DateTime":
-                                    AjaxUtil.SerializeDate(outString, namingRule, key, (DateTime)result);
-                                    break;
-
-                                case "System.String":
-                                    outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, StringHelper.ToSafeJson(value)));
-                                    break;
-
-                                default:
-                                    break;
-                            }
-                        }
+                        AppendKeyValue(outString, key, result, namingRule);
                     }
                 }
             }
@@ -183,6 +146,77 @@ namespace X3Platform.Ajax
             outString.Append("}");
 
             return StringHelper.RemoveEnterTag(outString.ToString());
+        }
+
+        /// <summary>附加</summary>
+        /// <param name="outString"></param>
+        /// <param name="key"></param>
+        /// <param name="result"></param>
+        /// <param name="namingRule"></param>
+        private static void AppendKeyValue(StringBuilder outString, string key, object result, string namingRule)
+        {
+            if (namingRule == "camel")
+            {
+                if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
+                {
+                    key = StringHelper.ToFirstLower(key);
+                }
+                else
+                {
+                    key = AjaxConfigurationView.Instance.Configuration.SpecialWords[key].Value;
+                }
+            }
+            else if (namingRule == "underline")
+            {
+                if (AjaxConfigurationView.Instance.Configuration.SpecialWords[key] == null)
+                {
+                    key = StringHelper.CamelToUnderline(key);
+                }
+                else
+                {
+                    key = AjaxConfigurationView.Instance.Configuration.SpecialWords[key].Value;
+                }
+            }
+
+            if (result == null)
+            {
+                outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, string.Empty));
+            }
+            else
+            {
+                string value = result.ToString();
+
+                switch (result.GetType().FullName)
+                {
+                    case "System.Int16":
+                    case "System.Int32":
+                    case "System.Int64":
+                    case "System.Double":
+                    case "System.Decimal":
+                    case "System.Guid":
+                        outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, value));
+                        break;
+
+                    case "System.Boolean":
+                        outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, Convert.ToBoolean(value) ? 1 : 0));
+                        break;
+
+                    case "System.DateTime":
+                        AjaxUtil.SerializeDate(outString, namingRule, key, (DateTime)result);
+                        break;
+
+                    case "System.String":
+                        outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, StringHelper.ToSafeJson(value)));
+                        break;
+
+                    case "System.Byte[]":
+                        outString.Append(string.Format(" \"{0}\" : \"{1}\",", key, ByteHelper.ToBase64((byte[])result)));
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
         #endregion
 
