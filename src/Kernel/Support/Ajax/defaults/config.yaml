@@ -4,6 +4,7 @@ keys:
   NamingRule: camel
 specialWords: 
   IP: ip
+  MAC: mac
   MSN: msn
   PinYin: pinyin
   QQ: qq

@@ -71,7 +71,7 @@
 
                 string[] files = Directory.GetFiles(defaultDirectory, "*.xml");
 
-                outString.Append(@"(function(i18n){ var init = function(destination, source) { for(var property in source) { destination[property] = source[property]; } return destination; }; i18n = init(i18n, {");
+                outString.Append(@"{");
 
                 foreach (var file in files)
                 {
@@ -125,13 +125,33 @@
 
                 StringHelper.TrimEnd(outString, ",");
 
-                outString.AppendLine(@"}); window.i18n = i18n; return i18n; })(typeof i18n !== 'undefined' ? i18n : {});");
+                outString.AppendLine(@"}");
 
                 string localFile = DirectoryHelper.FormatLocalPath(directory + "/i18n.js");
 
                 try
                 {
-                    File.WriteAllText(localFile, outString.ToString(), Encoding.UTF8);
+                    File.WriteAllText(localFile,
+                        string.Concat("(function(i18n){ var init = function(destination, source) { for(var property in source) { destination[property] = source[property]; } return destination; }; i18n = init(i18n, ",
+                            outString.ToString(),
+                            "); window.i18n = i18n; return i18n; })(typeof i18n !== 'undefined' ? i18n : {});"),
+                        Encoding.UTF8);
+
+                    logger.Info("本地化语言文件 " + localFile + " 生成成功.");
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Failed to write to " + localFile);
+
+                    logger.Error(ex.Message);
+                }
+
+                // 生成支持 Node.js 的本地化语言文件
+                localFile = DirectoryHelper.FormatLocalPath(directory + "/i18n-node.js");
+
+                try
+                {
+                    File.WriteAllText(localFile, string.Concat("module.exports = ", outString.ToString()), Encoding.UTF8);
 
                     logger.Info("本地化语言文件 " + localFile + " 生成成功.");
                 }
