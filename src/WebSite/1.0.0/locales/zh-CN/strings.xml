@@ -39,6 +39,7 @@
   <string name="btn_search">搜索</string>
   <string name="btn_filter">过滤</string>
   <string name="btn_query">查询</string>
+  <string name="btn_create">新建</string>
   <string name="btn_add">添加</string>
   <string name="btn_edit">编辑</string>
   <string name="btn_remove">移除</string>
