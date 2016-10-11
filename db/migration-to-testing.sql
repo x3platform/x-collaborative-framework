@@ -12,3 +12,6 @@ DELETE FROM tb_Connect_AccessToken;
 DELETE FROM tb_Connect_Call;
 -- 删除短信日志
 DELETE FROM tb_SMS;
+-- 删除附件信息
+DELETE FROM tb_Attachment_DistributedFile;
+DELETE FROM tb_Attachment_File;
