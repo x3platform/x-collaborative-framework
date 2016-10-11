@@ -945,7 +945,7 @@ namespace X3Platform.Util
             return text;
         }
         #endregion
-        
+
         #region 函数:ToRandom(int length)
         /// <summary>取得一个随机的字符串</summary>
         /// <param Name="length">字符串的长度</param>
@@ -967,7 +967,7 @@ namespace X3Platform.Util
 
             // https://msdn.microsoft.com/zh-cn/library/System.Random(v=vs.110).aspx
             // 生成一个随机数作为种子值, 避免在时间极短的情况下相同的系统时间生成相同的随机数
-            
+
             Random random = new Random(Encrypter.ToRandomnumber());
 
             char[] buffer = new char[length];
@@ -1196,6 +1196,8 @@ namespace X3Platform.Util
         /// <returns>字符串</returns>
         public static StringBuilder TrimEnd(StringBuilder text, string trimText)
         {
+            if (text.Length == 0) { return text; }
+
             return (text.ToString().Substring(text.Length - trimText.Length, trimText.Length) == trimText) ? text.Remove(text.Length - trimText.Length, trimText.Length) : text;
         }
         #endregion
@@ -1207,6 +1209,8 @@ namespace X3Platform.Util
         /// <returns>字符串</returns>
         public static string TrimEnd(string text, string trimText)
         {
+            if (text.Length == 0) { return text; }
+
             return (text.Substring(text.Length - trimText.Length, trimText.Length) == trimText) ? text.Substring(0, text.Length - trimText.Length) : text;
         }
         #endregion
