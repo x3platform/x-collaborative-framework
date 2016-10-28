@@ -38,6 +38,7 @@ namespace X3Platform.AttachmentStorage.Util
                     return StringHelper.ToGuid();
             }
         }
+
         #region 函数:CreateAttachmentFile(string entityId, string entityClassName, string attachmentEntityClassName, string attachmentFolder, string fileName, byte[] fileData)
         /// <summary>创建附件</summary>
         /// <param name="entityId"></param>

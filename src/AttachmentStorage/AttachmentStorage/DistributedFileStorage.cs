@@ -5,6 +5,7 @@ namespace X3Platform.AttachmentStorage
 
     using X3Platform.AttachmentStorage.Configuration;
     using X3Platform.AttachmentStorage.Util;
+    using System.IO;
     #endregion
 
     /// <summary>虚拟附件文件信息</summary>
@@ -13,10 +14,10 @@ namespace X3Platform.AttachmentStorage
         /// <summary>保存附件信息</summary>
         public static void Upload(IAttachmentFileInfo file)
         {
-            //
+            // -------------------------------------------------------
             // 保存 数据库
             // 数据库 支持数据库集群
-            // 
+            // -------------------------------------------------------
 
             if (AttachmentStorageConfigurationView.Instance.DistributedFileStorageMode == "ON")
             {
@@ -29,15 +30,18 @@ namespace X3Platform.AttachmentStorage
                 AttachmentStorageContext.Instance.AttachmentDistributedFileService.Save(param);
             }
 
-            //
+            // -------------------------------------------------------
             // 保存 二进制数据
-            //
+            // -------------------------------------------------------
 
             string path = UploadPathHelper.CombinePhysicalPath(file.Parent.AttachmentFolder, string.Format("{0}{1}", file.Id, file.FileType));
 
-            UploadPathHelper.TryCreateDirectory(path);
+            if (!File.Exists(path))
+            {
+                UploadPathHelper.TryCreateDirectory(path);
 
-            ByteHelper.ToFile(file.FileData, path);
+                ByteHelper.ToFile(file.FileData, path);
+            }
         }
 
         /// <summary>获取附件信息</summary>

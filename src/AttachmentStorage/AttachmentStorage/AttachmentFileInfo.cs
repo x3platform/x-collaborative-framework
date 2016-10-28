@@ -233,9 +233,9 @@ namespace X3Platform.AttachmentStorage
         {
             AttachmentStorageContext.Instance.AttachmentFileService.Save(this);
 
-            //
+            // -------------------------------------------------------
             // 保存 二进制数据
-            //
+            // -------------------------------------------------------
 
             string path = UploadPathHelper.CombinePhysicalPath(Parent.AttachmentFolder, string.Format("{0}{1}", Id, FileType));
 
@@ -243,9 +243,9 @@ namespace X3Platform.AttachmentStorage
 
             ByteHelper.ToFile(FileData, path);
 
-            //
+            // -------------------------------------------------------
             // 保存 二进制信息
-            //
+            // -------------------------------------------------------
 
             DistributedFileStorage.Upload(this);
         }
