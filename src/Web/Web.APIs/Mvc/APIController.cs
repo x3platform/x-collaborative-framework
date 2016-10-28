@@ -22,8 +22,8 @@
     using X3Platform.Json;
     using System.Text;
     using Globalization;
-    using X3Platform.Util;    
-    
+    using X3Platform.Util;
+
     /// <summary></summary>
     public sealed class APIController : Controller
     {
@@ -132,7 +132,7 @@
             string clientSignature = RequestHelper.Fetch(context.Request, "clientSignature", "client_signature");
             string timestamp = context.Request["timestamp"] == null ? string.Empty : context.Request["timestamp"];
             string nonce = context.Request["nonce"] == null ? string.Empty : context.Request["nonce"];
-            
+
             string accessToken = RequestHelper.Fetch(context.Request, "accessToken", "access_token");
 
             // 验证权限
@@ -228,27 +228,5 @@
                 return null;
             }
         }
-        
-        ///// <summary>统一格式化参数</summary>
-        ///// <returns></returns>
-        //private XmlElement CreateXmlElement(XmlDocument doc, string name)
-        //{
-        //    if (name == "client_id")
-        //    {
-        //        return doc.CreateElement("clientId");
-        //    }
-        //    else if (name == "client_secret")
-        //    {
-        //        return doc.CreateElement("clientSecret");
-        //    }
-        //    else if (name == "access_token")
-        //    {
-        //        return doc.CreateElement("accessToken");
-        //    }
-        //    else
-        //    {
-        //        return doc.CreateElement(name);
-        //    }
-        //}
     }
 }
