@@ -25,7 +25,7 @@
         private IApplicationSettingGroupProvider provider = null;
 
         /// <summary>缓存存储</summary>
-        private Dictionary<string, ApplicationSettingGroupInfo> Dictionary = new Dictionary<string, ApplicationSettingGroupInfo>();
+        private Dictionary<string, ApplicationSettingGroupInfo> dictionary = new Dictionary<string, ApplicationSettingGroupInfo>();
 
         #region 构造函数:ApplicationSettingGroupService()
         /// <summary>构造函数</summary>
@@ -53,6 +53,31 @@
         }
         #endregion
 
+        private object lockObject = new object();
+
+        #region 私有函数:SyncLocalDb()
+        /// <summary>同步本地数据信息</summary>
+        private void SyncLocalDb()
+        {
+            // 初始化缓存
+            if (this.dictionary.Count == 0)
+            {
+                lock (lockObject)
+                {
+                    if (this.dictionary.Count == 0)
+                    {
+                        IList<ApplicationSettingGroupInfo> list = this.FindAll();
+
+                        foreach (ApplicationSettingGroupInfo item in list)
+                        {
+                            this.dictionary.Add(item.Id, item);
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
         // -------------------------------------------------------
         // 保存 删除
         // -------------------------------------------------------
@@ -66,9 +91,9 @@
             param = provider.Save(param);
 
             // 更新缓存数据
-            if (this.Dictionary.ContainsKey(param.Id))
+            if (this.dictionary.ContainsKey(param.Id))
             {
-                this.Dictionary[param.Id] = param;
+                this.dictionary[param.Id] = param;
             }
 
             return param;
@@ -97,20 +122,12 @@
             ApplicationSettingGroupInfo param = null;
 
             // 初始化缓存
-            if (this.Dictionary.Count == 0)
-            {
-                IList<ApplicationSettingGroupInfo> list = this.FindAll();
-
-                foreach (ApplicationSettingGroupInfo item in list)
-                {
-                    this.Dictionary.Add(item.Id, item);
-                }
-            }
+            SyncLocalDb();
 
             // 查找缓存数据
-            if (this.Dictionary.ContainsKey(id))
+            if (this.dictionary.ContainsKey(id))
             {
-                param = this.Dictionary[id];
+                param = this.dictionary[id];
             }
 
             // 如果缓存中未找到相关数据，则查找数据库内容
