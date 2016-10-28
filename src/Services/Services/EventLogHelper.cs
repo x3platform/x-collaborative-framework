@@ -12,7 +12,7 @@ namespace X3Platform.Services
     /// <summary></summary>
     public sealed class EventLogHelper
     {
-        private ILog logger = LogManager.GetLogger("X3Platform.Services.EventLog");
+        private ILog logger = LogManager.GetLogger("X3Platform.Services");
 
         /// <summary>日志记录</summary>
         public static ILog Log
