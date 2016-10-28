@@ -109,12 +109,7 @@ namespace X3Platform.Web.APIs
                 }
 
                 string clientTargetObject = XmlHelper.Fetch("clientTargetObject", doc);
-
-                string resultType = (context.Request.Form["xhr-resultType"] == null) ? "json" : context.Request.Form["xhr-resultType"];
-
-                // 设置输出的内容类型，默认为 json 格式。
-                HttpContentTypeHelper.SetValue(resultType);
-
+                
                 try
                 {
                     // 记录
