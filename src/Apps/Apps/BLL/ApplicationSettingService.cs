@@ -57,6 +57,49 @@
         }
         #endregion
 
+        private object lockObject = new object();
+
+        #region 私有函数:SyncLocalDb()
+        /// <summary>同步本地数据信息</summary>
+        private void SyncLocalDb()
+        {
+            // 初始化缓存
+            if (settingTextDictionary.Count == 0)
+            {
+                lock (lockObject)
+                {
+                    if (settingTextDictionary.Count == 0)
+                    {
+                        IList<ApplicationSettingInfo> list = AppsContext.Instance.ApplicationSettingService.FindAll();
+
+                        foreach (ApplicationSettingInfo item in list)
+                        {
+                            string prefix = string.Format("{0}${1}", item.ApplicationId, item.ApplicationSettingGroupName);
+
+                            if (this.settingValueDictionary.ContainsKey(string.Format("{0}$text${1}", prefix, item.Text)))
+                            {
+                                KernelContext.Log.Warn(string.Format("{0}$text${1}", prefix, item.Text) + " is exists.");
+                            }
+                            else
+                            {
+                                this.settingTextDictionary.Add(string.Format("{0}$text${1}", prefix, item.Text), item);
+                            }
+
+                            if (this.settingValueDictionary.ContainsKey(string.Format("{0}$value${1}", prefix, item.Value)))
+                            {
+                                KernelContext.Log.Warn(string.Format("{0}$value${1}", prefix, item.Value) + " is exists.");
+                            }
+                            else
+                            {
+                                this.settingValueDictionary.Add(string.Format("{0}$value${1}", prefix, item.Value), item);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
         // -------------------------------------------------------
         // 保存 删除
         // -------------------------------------------------------
@@ -260,33 +303,7 @@
             string cacheKey = string.Format("{0}${1}${2}${3}", applicationId, applicationSettingGroupName, fetchItemType, fetchItemValue);
 
             // 初始化缓存
-            if (settingTextDictionary.Count == 0)
-            {
-                IList<ApplicationSettingInfo> list = AppsContext.Instance.ApplicationSettingService.FindAll();
-
-                foreach (ApplicationSettingInfo item in list)
-                {
-                    string prefix = string.Format("{0}${1}", item.ApplicationId, item.ApplicationSettingGroupName);
-
-                    if (this.settingValueDictionary.ContainsKey(string.Format("{0}$text${1}", prefix, item.Text)))
-                    {
-                        KernelContext.Log.Warn(string.Format("{0}$text${1}", prefix, item.Text) + " is exists.");
-                    }
-                    else
-                    {
-                        this.settingTextDictionary.Add(string.Format("{0}$text${1}", prefix, item.Text), item);
-                    }
-
-                    if (this.settingValueDictionary.ContainsKey(string.Format("{0}$value${1}", prefix, item.Value)))
-                    {
-                        KernelContext.Log.Warn(string.Format("{0}$value${1}", prefix, item.Value) + " is exists.");
-                    }
-                    else
-                    {
-                        this.settingValueDictionary.Add(string.Format("{0}$value${1}", prefix, item.Value), item);
-                    }
-                }
-            }
+            SyncLocalDb();
 
             // 查找缓存数据
             if (fetchItemType == "text")

@@ -52,6 +52,31 @@
         }
         #endregion
 
+        private object lockObject = new object();
+
+        #region 私有函数:SyncLocalDb()
+        /// <summary>同步本地数据信息</summary>
+        private void SyncLocalDb()
+        {
+            // 初始化缓存
+            if (this.dictionary.Count == 0)
+            {
+                lock (lockObject)
+                {
+                    if (this.dictionary.Count == 0)
+                    {
+                        IList<ApplicationInfo> list = this.FindAll();
+
+                        foreach (ApplicationInfo item in list)
+                        {
+                            this.dictionary.Add(item.Id, item);
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+
         // -------------------------------------------------------
         // 添加 删除 修改
         // -------------------------------------------------------
@@ -83,14 +108,14 @@
 
         #region 函数:FindOne(string id)
         /// <summary>查询某条记录</summary>
-        /// <param name="Id">ApplicationInfo Id号</param>
+        /// <param name="id">ApplicationInfo Id号</param>
         /// <returns>返回一个 ApplicationInfo 实例的详细信息</returns>
         public ApplicationInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
-
+        
         #region 函数:FindOneByApplicationName(string applicationName)
         /// <summary>查询某条记录</summary>
         /// <param name="applicationName">applicationName</param>
@@ -100,15 +125,7 @@
             ApplicationInfo param = null;
 
             // 初始化缓存
-            if (this.dictionary.Count == 0)
-            {
-                IList<ApplicationInfo> list = this.FindAll();
-
-                foreach (ApplicationInfo item in list)
-                {
-                    this.dictionary.Add(item.ApplicationName, item);
-                }
-            }
+            SyncLocalDb();
 
             // 查找缓存数据
             if (this.dictionary.ContainsKey(applicationName))
