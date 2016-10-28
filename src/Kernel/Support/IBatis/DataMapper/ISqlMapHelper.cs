@@ -56,7 +56,10 @@ namespace X3Platform.IBatis.DataMapper
         /// <returns></returns>
         public static ISqlMapper CreateSqlMapper(string ibatisMaping, ISessionStore sessionStore, bool throwException)
         {
-            string key = Encrypter.EncryptMD5(ibatisMaping);
+            // 部分操作系统系统上 MD5 加密方法 报如下异常
+            // This implementation is not part of the Windows Platform FIPS validated cryptographic algorithms
+            // string key = Encrypter.EncryptMD5(ibatisMaping);
+            string key = Encrypter.EncryptSHA1(ibatisMaping);
 
             if (dict.ContainsKey(key))
             {
