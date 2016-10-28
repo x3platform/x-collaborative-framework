@@ -157,7 +157,7 @@ namespace X3Platform.Membership.DAL.IBatis
             Dictionary<string, object> args = new Dictionary<string, object>();
 
             string whereClause = query.GetWhereSql(new Dictionary<string, string>() { { "Name", "LIKE" } });
-            string orderBy = query.GetOrderBySql(" UpdateDate DESC ");
+            string orderBy = query.GetOrderBySql(" Name DESC ");
 
             args.Add("WhereClause", whereClause);
             args.Add("OrderBy", orderBy);

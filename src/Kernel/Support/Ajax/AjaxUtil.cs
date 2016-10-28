@@ -191,6 +191,7 @@ namespace X3Platform.Ajax
                     case "System.Int16":
                     case "System.Int32":
                     case "System.Int64":
+                    case "System.Single":
                     case "System.Double":
                     case "System.Decimal":
                     case "System.Guid":
