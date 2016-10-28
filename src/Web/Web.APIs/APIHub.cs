@@ -109,7 +109,7 @@ namespace X3Platform.Web.APIs
                 }
 
                 string clientTargetObject = XmlHelper.Fetch("clientTargetObject", doc);
-                
+
                 try
                 {
                     // 记录
@@ -129,12 +129,12 @@ namespace X3Platform.Web.APIs
 
                             if (call.RequestData.Length > 2048)
                             {
-                                call.RequestData = "[Long String] " + call.RequestData.Length ;
+                                call.RequestData = "[Long String] " + call.RequestData.Length;
                             }
 
                             if (call.ResponseData.Length > 2048)
                             {
-                                call.ResponseData = "[Long String] " + call.ResponseData.Length ;
+                                call.ResponseData = "[Long String] " + call.ResponseData.Length;
                             }
 
                             call.ReturnCode = 0;
@@ -161,8 +161,7 @@ namespace X3Platform.Web.APIs
                         responseText = (responseObject == null) ? string.Empty : responseObject.ToString();
                     }
 
-                    if (resultType == "json"
-                        && responseText.IndexOf("\"message\":") > -1
+                    if (responseText.IndexOf("\"message\":") > -1
                         && !string.IsNullOrEmpty(clientTargetObject))
                     {
                         responseText = responseText.Insert(responseText.IndexOf("\"message\":"), "\"clientTargetObject\":\"" + clientTargetObject + "\",");

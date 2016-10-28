@@ -57,6 +57,22 @@
         CURRENT_TIMESTAMP
       )
     </insert>
+    <insert id="proc_Attachment_DistributedFile_Save#Oracle" parameterClass="DistributedFileInfo" >
+      INSERT INTO tb_Attachment_DistributedFile
+      (
+        Id,
+        VirtualPath,
+        FileData,
+        CreatedDate
+      )
+      VALUES
+      (
+        #Id#,
+        #VirtualPath#,
+        #FileData:blob#,
+        CURRENT_TIMESTAMP
+      )
+    </insert>
     <delete id="proc_Attachment_DistributedFile_Delete">
       DELETE FROM tb_Attachment_DistributedFile WHERE $WhereClause$
     </delete>
@@ -87,7 +103,7 @@
       <dynamic prepend="WHERE">
         <isParameterPresent>
           <isNotEmpty prepend="AND" property="WhereClause" >
-            $WhereClause$
+            $WhereClause$SELECT COUNT(*) AS "Count" FROM
           </isNotEmpty>
         </isParameterPresent>
       </dynamic>
@@ -105,7 +121,7 @@
       </dynamic>
     </select>
     <select id="proc_Attachment_DistributedFile_IsExist" >
-      SELECT COUNT(*) AS 'Count' FROM tb_Attachment_DistributedFile WHERE $WhereClause$
+      SELECT COUNT(*) AS "Count" FROM tb_Attachment_DistributedFile WHERE $WhereClause$
     </select>
   </statements>
 </sqlMap>
