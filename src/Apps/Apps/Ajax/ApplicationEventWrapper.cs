@@ -12,11 +12,12 @@ namespace X3Platform.Apps.Ajax
 
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
-    using X3Platform.Globalization; using X3Platform.Messages;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
-    public class ApplicationEventWrapper : ContextWrapper
+    public class ApplicationEventWrapper 
     {
         /// <summary>数据服务</summary>
         private IApplicationEventService service = AppsContext.Instance.ApplicationEventService;

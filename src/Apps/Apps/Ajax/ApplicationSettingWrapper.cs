@@ -8,16 +8,16 @@ namespace X3Platform.Apps.Ajax
 
     using X3Platform.Ajax;
     using X3Platform.DigitalNumber;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
     using X3Platform.Util;
 
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
-    using X3Platform.Globalization;
-    using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
-    public class ApplicationSettingWrapper : ContextWrapper
+    public class ApplicationSettingWrapper
     {
         /// <summary>数据服务</summary>
         private IApplicationSettingService service = AppsContext.Instance.ApplicationSettingService;
@@ -48,9 +48,9 @@ namespace X3Platform.Apps.Ajax
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
             return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
