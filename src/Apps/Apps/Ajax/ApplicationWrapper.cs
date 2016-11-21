@@ -7,11 +7,12 @@ namespace X3Platform.Apps.Ajax
     using System.Xml;
 
     using X3Platform.Ajax;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
     using X3Platform.Util;
 
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
-    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>

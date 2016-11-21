@@ -7,16 +7,17 @@ namespace X3Platform.Apps.Ajax
     using System.Text;
 
     using X3Platform.Ajax;
-    using X3Platform.Util;
     using X3Platform.DigitalNumber;
+    using X3Platform.Globalization;
+    using X3Platform.Messages;
+    using X3Platform.Util;
 
     using X3Platform.Apps.IBLL;
     using X3Platform.Apps.Model;
-    using X3Platform.Globalization; using X3Platform.Messages;
     #endregion
 
     /// <summary></summary>
-    public class ApplicationSettingGroupWrapper : ContextWrapper
+    public class ApplicationSettingGroupWrapper
     {
         /// <summary>数据服务</summary>
         private IApplicationSettingGroupService service = AppsContext.Instance.ApplicationSettingGroupService;

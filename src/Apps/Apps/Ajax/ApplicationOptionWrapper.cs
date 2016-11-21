@@ -16,7 +16,7 @@
     #endregion
 
     /// <summary></summary>
-    public class ApplicationOptionWrapper : ContextWrapper
+    public class ApplicationOptionWrapper
     {
         /// <summary>数据服务</summary>
         private IApplicationOptionService service = AppsContext.Instance.ApplicationOptionService;
@@ -47,9 +47,9 @@
         /// <returns>返回操作结果</returns>
         public string Delete(XmlDocument doc)
         {
-            string ids = XmlHelper.Fetch("ids", doc);
+            string id = XmlHelper.Fetch("id", doc);
 
-            this.service.Delete(ids);
+            this.service.Delete(id);
 
             return MessageObject.Stringify("0", I18n.Strings["msg_delete_success"]);
         }
