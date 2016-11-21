@@ -2,15 +2,20 @@ namespace X3Platform
 {
     #region Using Libraries
     using System;
-    using System.Reflection;
     using System.Collections.Generic;
-    
+    using System.IO;
+    using System.Reflection;
+    using System.Timers;
+
     using X3Platform.CacheBuffer;
     using X3Platform.Collections;
     using X3Platform.Configuration;
     using X3Platform.Membership;
     using X3Platform.Security.Authentication;
+
     using Common.Logging;
+
+    using X3Platform.Util;
     #endregion
 
     /// <summary>核心环境</summary>
@@ -24,6 +29,8 @@ namespace X3Platform
         {
             get { return Current.logger; }
         }
+
+        private Timer timer = new Timer();
 
         #region 属性:Current
         private static volatile KernelContext instance = null;
@@ -103,6 +110,47 @@ namespace X3Platform
             string authenticationManagementType = KernelConfigurationView.Instance.AuthenticationManagementType;
 
             this.authenticationManagement = (IAuthenticationManagement)CreateObject(authenticationManagementType);
+
+            // -------------------------------------------------------
+            // 设置定时器
+            // -------------------------------------------------------
+
+            // 定时清理临时目录下的临时文件 设置为 3 天
+            if (!Directory.Exists(KernelConfigurationView.Instance.ApplicationTempPathRoot))
+            {
+                DirectoryHelper.Create(KernelConfigurationView.Instance.ApplicationTempPathRoot);
+            }
+
+            timer.Enabled = true;
+
+            // 每天检测一次目录
+            timer.Interval = 24 * 60 * 60 * 1000;
+
+            timer.Elapsed += delegate (object sender, ElapsedEventArgs e)
+            {
+                try
+                {
+                    string[] files = Directory.GetFiles(KernelConfigurationView.Instance.ApplicationTempPathRoot, "*.*", SearchOption.AllDirectories);
+
+                    foreach (string file in files)
+                    {
+                        DateTime createdTime = File.GetCreationTime(file);
+
+                        if (createdTime.AddDays(KernelConfigurationView.Instance.ApplicationTempFileRemoveTimerInterval) < DateTime.Now)
+                        {
+                            File.Delete(file);
+
+                            logger.Info("Delete expired temporary file:" + file);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                }
+            };
+
+            timer.Start();
         }
         #endregion
 
