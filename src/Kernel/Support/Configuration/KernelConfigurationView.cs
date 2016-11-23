@@ -745,6 +745,34 @@ namespace X3Platform.Configuration
         }
         #endregion
 
+        #region 属性:ApplicationTempFileRemoveTimerInterval
+        private int m_ApplicationTempFileRemoveTimerInterval = -1;
+
+        /// <summary>物理路径临时文件清理间隔(单位:天数)</summary>
+        public int ApplicationTempFileRemoveTimerInterval
+        {
+            get
+            {
+                if (this.m_ApplicationTempFileRemoveTimerInterval == -1)
+                {
+                    if (this.Configuration.Keys["ApplicationTempFileRemoveTimerInterval"] == null)
+                    {
+                        // 设置应用临时目录的默认路径为应用目录下的temp文件夹。
+                        this.m_ApplicationTempFileRemoveTimerInterval = 3;
+
+                        this.Configuration.Keys.Add(new KernelConfigurationKey("ApplicationTempFileRemoveTimerInterval", this.m_ApplicationTempFileRemoveTimerInterval.ToString()));
+                    }
+                    else
+                    {
+                        this.m_ApplicationTempFileRemoveTimerInterval = Convert.ToInt32(this.Configuration.Keys["ApplicationTempFileRemoveTimerInterval"].Value);
+                    }
+                }
+
+                return this.m_ApplicationTempFileRemoveTimerInterval;
+            }
+        }
+        #endregion
+
         #region 属性:ApplicationSpringConfigFilePath
         private string m_ApplicationSpringConfigFilePath = string.Empty;
 

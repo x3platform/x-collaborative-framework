@@ -12,7 +12,7 @@ namespace X3Platform.CacheBuffer
         #endregion
 
         #region 函数:Contains(string name)
-        /// <summary></summary>
+        /// <summary>是否包含缓存记录</summary>
         /// <param name="name"></param>
         /// <returns></returns>
         bool Contains(string name);

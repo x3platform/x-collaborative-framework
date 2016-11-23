@@ -15,6 +15,9 @@ namespace X3Platform.CacheBuffer
         {
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public object this[string name]
         {
             get
@@ -23,35 +26,53 @@ namespace X3Platform.CacheBuffer
             }
             set
             {
-                this.cache.Set(name, value, DateTime.Now.AddHours(6));
+                this.cache.Set(name, value, GetAbsoluteExpiration());
             }
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool Contains(string name)
         {
             return this.cache.Contains(name);
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public object Get(string name)
         {
             return this.cache.Get(name);
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void Set(string name, object value)
         {
-            this.cache.Set(name, value, DateTime.Now.AddHours(6));
+            this.cache.Set(name, value, GetAbsoluteExpiration());
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         public void Add(string name, object value)
         {
-            this.cache.Add(name, value, DateTime.Now.AddHours(6));
+            this.cache.Add(name, value, GetAbsoluteExpiration());
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="minutes"></param>
         public void Add(string name, object value, int minutes)
         {
-            this.cache.Add(name, value, DateTime.Now.AddHours(6));
+            this.cache.Add(name, value, DateTime.Now.AddMinutes(minutes));
         }
 
+        /// <summary></summary>
+        /// <param name="name"></param>
         public void Remove(string name)
         {
             this.cache.Remove(name);
@@ -59,7 +80,7 @@ namespace X3Platform.CacheBuffer
 
         private DateTimeOffset GetAbsoluteExpiration()
         {
-            return DateTime.Now.AddMilliseconds(CacheBufferConfigurationView.Instance.CacheDefaultDuration);
+            return DateTime.Now.AddMinutes(CacheBufferConfigurationView.Instance.CacheDefaultDuration);
         }
     }
 }
