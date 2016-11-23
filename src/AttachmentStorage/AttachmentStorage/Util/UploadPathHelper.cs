@@ -91,7 +91,9 @@ namespace X3Platform.AttachmentStorage.Util
             return text.Replace("folder", folder.ToLower())
                        .Replace("year", datetime.Year.ToString())
                        .Replace("quarter", ((((datetime.Month - 1) / 3) + 1) + "Q"))
-                       .Replace("month", datetime.Month.ToString());
+                       .Replace("month", datetime.Month.ToString())
+                       .Replace("day", datetime.Day.ToString())
+                       .Replace("hour", datetime.Hour.ToString());
         }
     }
 }

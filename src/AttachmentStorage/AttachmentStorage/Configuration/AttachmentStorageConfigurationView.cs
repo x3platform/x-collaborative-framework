@@ -179,7 +179,7 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:AllowMaxFileSize
         private int m_AllowMaxFileSize = -1;
 
-        /// <summary>允许上传的最大文件大小 单位(MB)</summary>
+        /// <summary>允许上传的最大文件大小 单位(B)</summary>
         public int AllowMaxFileSize
         {
             get
@@ -206,7 +206,7 @@ namespace X3Platform.AttachmentStorage.Configuration
         #region 属性:AllowMinFileSize
         private int m_AllowMinFileSize = -1;
 
-        /// <summary>允许上传的最小文件大小 单位(MB)</summary>
+        /// <summary>允许上传的最小文件大小 单位(B)</summary>
         public int AllowMinFileSize
         {
             get

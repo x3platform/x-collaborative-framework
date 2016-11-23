@@ -30,23 +30,6 @@
 
             try
             {
-                foreach (string key in request.ServerVariables.Keys)
-                {
-                    KernelContext.Log.Info(key + ":" + request.ServerVariables[key]);
-                }
-
-                foreach (string key in request.Form.Keys)
-                {
-                    KernelContext.Log.Info(key + ":" + request.Form[key]);
-                }
-
-                foreach (string key in request.Files.Keys)
-                {
-                    KernelContext.Log.Info(key + ":" + request.Files[key].FileName);
-                }
-
-                KernelContext.Log.Info("file count:" + request.Files.Count);
-
                 HttpPostedFile file = request.Files["fileData"];
 
                 // 输出类型 id uri base64
