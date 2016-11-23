@@ -1,9 +1,9 @@
-﻿using System.ServiceProcess;
-
-using X3Platform.Services.Configuration;
-
-namespace X3Platform.Services
+﻿namespace X3Platform.Services
 {
+    using System.ServiceProcess;
+
+    using X3Platform.Services.Configuration;
+
     /// <summary>服务管理者</summary>
     partial class ServicesManagement
     {
@@ -27,7 +27,7 @@ namespace X3Platform.Services
             ServiceHostManagement.Start();
         }
 
-        public new void Stop()
+        public void Stop()
         {
             EventLogHelper.Write(string.Format("{0}服务被停止。", this.ServiceName));
 

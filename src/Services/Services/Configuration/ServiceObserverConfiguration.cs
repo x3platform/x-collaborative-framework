@@ -39,7 +39,7 @@ namespace X3Platform.Services.Configuration
         }
 
         /// <summary>
-        /// Intializes a new instance of the <see cref="ServiceObserverConfiguration"/> class.
+        /// Intializes a new instance of the <see cref="ServiceObserverConfigurationElement"/> class.
         /// </summary>
         /// <param name="name">The name of the provider.</param>
         public ServiceObserverConfigurationElement(string name, string typeName, string args, string nextRunTime)

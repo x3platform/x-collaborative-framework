@@ -51,9 +51,10 @@ namespace X3Platform.Services
         /// <summary>普通消息</summary>
         public static void Information(string text)
         {
+            // 普通消息不写入 Windows 事件日志
             Log.Info(text);
 
-            Write(text, EventLogEntryType.Information);
+            // Write(text, EventLogEntryType.Information);
         }
 
         /// <summary>警告信息</summary>

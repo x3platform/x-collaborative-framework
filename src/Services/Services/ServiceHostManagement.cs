@@ -21,11 +21,11 @@ namespace X3Platform.Services
              
                 foreach (NameTypeConfigurationElement service in configuration.Services)
                 {
-                    ServiceTrace.Instance.WriteLine("正在创建服务【" + service.Name + "】。");
+                    EventLogHelper.Information("正在创建服务【" + service.Name + "】。");
 
                     if (service.Type == null)
                     {
-                        EventLogHelper.Write(string.Format("服务【{0}】初始化类型【{1}】失败，请确认配置是否正确。", service.Name, service.TypeName));
+                        EventLogHelper.Error(string.Format("服务【{0}】初始化类型【{1}】失败，请确认配置是否正确。", service.Name, service.TypeName));
                     }
                     else
                     {
