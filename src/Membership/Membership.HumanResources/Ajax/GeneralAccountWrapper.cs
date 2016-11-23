@@ -116,12 +116,12 @@
             int result = service.ChangePassword(password, originalPassword);
 
             if (result == 0)
-            {
-                return "{message:{\"returnCode\":0,\"value\":\"修改成功。\"}}";
+            { 
+                return MessageObject.Stringify("0", I18n.Strings["msg_modify_success"]);
             }
             else
             {
-                return "{message:{\"returnCode\":1,\"value\":\"修改失败, 用户或密码错误.\"}}";
+                return MessageObject.Stringify("1", "修改失败, 用户或密码错误.");
             }
         }
         #endregion
