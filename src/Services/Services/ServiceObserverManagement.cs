@@ -7,6 +7,7 @@
 
     using X3Platform.Services.Configuration;
     
+    /// <summary></summary>
     public static class ServiceObserverManagement
     {
         /// <summary>服务列表</summary>
@@ -25,11 +26,11 @@
                 {
                     IServiceObserver serviceObserver = (IServiceObserver)Assembly.Load(observer.TypeName.Substring(observer.TypeName.IndexOf(",") + 1).Trim()).CreateInstance(observer.TypeName.Substring(0, observer.TypeName.IndexOf(",")).Trim(), false, BindingFlags.Default, null, new object[] { observer.Name, observer.Args }, null, null);
 
-                    ServiceTrace.Instance.WriteLine("正在创建监听器【" + observer.Name + "】。");
+                    EventLogHelper.Information("正在创建监听器【" + observer.Name + "】。");
 
                     if (serviceObserver == null)
                     {
-                        EventLogHelper.Write(string.Format("监听器【{0}】初始化类型【{1}】失败，请确认配置是否正确。", observer.Name, observer.TypeName));
+                        EventLogHelper.Error(string.Format("监听器【{0}】初始化类型【{1}】失败，请确认配置是否正确。", observer.Name, observer.TypeName));
                     }
                     else
                     {
@@ -75,7 +76,7 @@
         /// <summary></summary>
         public static void Run()
         {
-            ServiceTrace.Instance.WriteLine("监听服务正在运行(周期:" + (timer.Interval / 1000) + "秒)。");
+            EventLogHelper.Information("监听服务正在运行(周期:" + (timer.Interval / 1000) + "秒)。");
 
             foreach (IServiceObserver serviceObserver in serviceObservers)
             {

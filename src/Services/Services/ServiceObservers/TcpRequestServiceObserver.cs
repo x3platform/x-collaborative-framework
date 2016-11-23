@@ -84,9 +84,7 @@ namespace X3Platform.Services.ServiceObservers
             this.nextRunTime = this.configuration.Observers[this.Name].NextRunTime;
         }
 
-        /// <summary>
-        /// 运行
-        /// </summary>
+        /// <summary>运行</summary>
         public void Run()
         {
             if (running)
@@ -125,10 +123,10 @@ namespace X3Platform.Services.ServiceObservers
             {
                 try
                 {
-                    //取得客户端的连接
+                    // 取得客户端的连接
                     using (TcpClient client = tcpListener.AcceptTcpClient())
                     {
-                        //取得客户端发过来的字节流
+                        // 取得客户端发过来的字节流
                         using (NetworkStream stream = client.GetStream())
                         {
                             // 把字节流读入字节数组

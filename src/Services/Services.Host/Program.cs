@@ -1,11 +1,9 @@
 ﻿using System;
-using Topshelf;
-using X3Platform.Services.Configuration;
-using System.Runtime.Remoting.Channels;
 using System.Collections;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Remoting.Channels.Tcp;
-using System.Runtime.Remoting;
+
+using Topshelf;
+
+using X3Platform.Services.Configuration;
 
 namespace X3Platform.Services.Host
 {
