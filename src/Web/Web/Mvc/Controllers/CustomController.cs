@@ -99,7 +99,7 @@
             ViewData["themeName"] = WebConfigurationView.Instance.ThemeName;
             ViewData["i18nScriptFileName"] = I18nScript.Instance.GetFile();
 
-            ViewData["client"] = this.m_Client = X3Platform.Web.UserAgents.Parser.GetDefault().Parse(Request.UserAgent);
+            ViewData["client"] = this.m_Client = X3Platform.Web.UserAgents.Parser.GetDefault().Parse(Request.UserAgent == null ? string.Empty : Request.UserAgent);
             ViewData["deviceType"] = this.m_DeviceType = DeviceTypeParser.Parse(this.Client);
             ViewData["account"] = this.m_Account = KernelContext.Current.User;
 
@@ -116,7 +116,7 @@
             ViewData["domain"] = KernelConfigurationView.Instance.Domain;
             // 身份标识名称
             ViewData["identityName"] = KernelContext.Current.AuthenticationManagement.IdentityName;
-         
+
             // 当前年份信息
             ViewData["year"] = this.initializedTime.Year;
         }
