@@ -26,12 +26,16 @@ namespace X3Platform.Util
         /// <returns></returns>
         public static DataTable Limit(DataTable table, int offset, int length)
         {
-            int maxIndex = offset + length;
-
-            if (table.Rows.Count < maxIndex) return table;
-
             // 复制表结构
             DataTable newTable = table.Clone();
+
+            int maxIndex = offset + length;
+
+            // 偏移位置超过记录数 返回空表数据 
+            if (offset > table.Rows.Count) return newTable;
+
+            // 最大索引位置超过记录数 设置索引记录为表的记录数
+            if (maxIndex > table.Rows.Count) maxIndex = table.Rows.Count;
 
             for (int i = offset; i < maxIndex; i++)
             {
