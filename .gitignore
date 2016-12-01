@@ -7,7 +7,7 @@ doc
 node_modules
 releases
 /src/tests
-/src/WebSite/1.0.0/logs
+/src/WebSite/1.0.0/log
 /src/WebSite/1.0.0/tests
 
 # 临时文件
