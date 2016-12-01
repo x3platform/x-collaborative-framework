@@ -6,12 +6,23 @@ using System.Web;
 
 namespace X3Platform.Web
 {
-    /// <summary>虚拟路径 工具类</summary>
+    /// <summary>Url 工具类</summary>
     public class UrlHelper
     {
-        #region 静态函数:UrlEncode(string virtualPath)
-        /// <summary>获取物理路径</summary>
-        /// <param name="virtualPath">虚拟路径</param>
+        #region 静态函数:Combine(string url, string args)
+        /// <summary>合并路径</summary>
+        /// <param name="url">路径</param>
+        /// <param name="httpParams">参数</param>
+        /// <returns></returns>
+        public static string Combine(string url, string httpParams)
+        {
+            return url + ((url.IndexOf("?") == -1) ? "?" : "&") + httpParams;
+        }
+        #endregion
+
+        #region 静态函数:UrlEncode(string value)
+        /// <summary>地址编码</summary>
+        /// <param name="value">虚拟路径</param>
         /// <returns></returns>
         public static string UrlEncode(string value)
         {

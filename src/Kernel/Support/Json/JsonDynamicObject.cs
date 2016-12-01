@@ -72,6 +72,9 @@ namespace X3Platform.Json
             return this.ToString(false);
         }
 
+        /// <summary></summary>
+        /// <param name="camelStyle"></param>
+        /// <returns></returns>
         public string ToString(bool camelStyle)
         {
             var outString = new StringBuilder("{");
