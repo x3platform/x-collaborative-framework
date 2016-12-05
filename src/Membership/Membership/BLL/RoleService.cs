@@ -1,18 +1,4 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.BLL
+﻿namespace X3Platform.Membership.BLL
 {
     using System;
     using System.Collections;
@@ -20,9 +6,10 @@ namespace X3Platform.Membership.BLL
     using System.Data;
     using System.Text;
 
+    using X3Platform.Configuration;
+    using X3Platform.Data;
     using X3Platform.LDAP;
     using X3Platform.LDAP.Configuration;
-    using X3Platform.Configuration;
     using X3Platform.Security.Authority;
     using X3Platform.Spring;
     using X3Platform.Util;
@@ -31,7 +18,6 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.IDAL;
     using X3Platform.Membership.Model;
-    using X3Platform.Data;
 
     /// <summary></summary>
     public class RoleService : IRoleService

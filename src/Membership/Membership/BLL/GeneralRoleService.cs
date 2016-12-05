@@ -18,14 +18,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class GeneralRoleService : IGeneralRoleService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IGeneralRoleProvider provider = null;
 
-        #region ���캯��:GeneralRoleService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:GeneralRoleService()
+        /// <summary>构造函数</summary>
         public GeneralRoleService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -40,8 +40,8 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public GeneralRoleInfo this[string id]
@@ -51,13 +51,13 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(GeneralRoleInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="GeneralRoleInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="GeneralRoleInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(GeneralRoleInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="GeneralRoleInfo"/>详细信息</param>
+        /// <returns>实例<see cref="GeneralRoleInfo"/>详细信息</returns>
         public GeneralRoleInfo Save(GeneralRoleInfo param)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
@@ -72,19 +72,19 @@ namespace X3Platform.Membership.BLL
                 this.SyncToLDAP(param, originalObject.GlobalName, originalObject.CatalogItemId);
             }
 
-            // ������֯ȫ·��
+            // 设置组织全路径
             param.FullPath = this.CombineFullPath(param.Name, param.CatalogItemId);
 
-            // ����Ψһʶ������
+            // 设置唯一识别名称
             param.DistinguishedName = this.CombineDistinguishedName(param.Name, param.CatalogItemId);
 
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
         public void Delete(string ids)
         {
             provider.Delete(ids);
@@ -92,43 +92,43 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="GeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="GeneralRoleInfo"/>的详细信息</returns>
         public GeneralRoleInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="GeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="GeneralRoleInfo"/>的详细信息</returns>
         public IList<GeneralRoleInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="GeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="GeneralRoleInfo"/>的详细信息</returns>
         public IList<GeneralRoleInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="GeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="GeneralRoleInfo"/>的详细信息</returns>
         public IList<GeneralRoleInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
@@ -136,9 +136,9 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         #region 属性:FindAllByCatalogItemId(string CatalogItemId)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
-        /// <returns>��������ʵ��<see cref="GeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="groupTreeNodeId">分类节点标识</param>
+        /// <returns>返回所有实例<see cref="GeneralRoleInfo"/>的详细信息</returns>
         public IList<GeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId)
         {
             return provider.FindAllByCatalogItemId(CatalogItemId);
@@ -162,83 +162,83 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="name">ͨ�ý�ɫ����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">通用角色名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return provider.IsExistName(name);
         }
         #endregion
 
-        #region 属性:IsExistGlobalName(string globalName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="globalName">ͨ�ý�ɫȫ������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGlobalName(string globalName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="globalName">通用角色全局名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGlobalName(string globalName)
         {
             return provider.IsExistGlobalName(globalName);
         }
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">Ⱥ����ʶ</param>
-        /// <param name="name">Ⱥ������</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">群组标识</param>
+        /// <param name="name">群组名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         public int Rename(string id, string name)
         {
             return provider.Rename(id, name);
         }
         #endregion
 
-        #region 属性:CombineFullPath(string name, string CatalogItemId)
-        /// <summary>��ɫȫ·��</summary>
-        /// <param name="name">ͨ�ý�ɫ����</param>
-        /// <param name="CatalogItemId">����������ʶ</param>
+        #region 函数:CombineFullPath(string name, string groupTreeNodeId)
+        /// <summary>角色全路径</summary>
+        /// <param name="name">通用角色名称</param>
+        /// <param name="catalogItemId">所属类别标识</param>
         /// <returns></returns>
-        public string CombineFullPath(string name, string CatalogItemId)
+        public string CombineFullPath(string name, string catalogItemId)
         {
-            string path = MembershipManagement.Instance.CatalogItemService.GetCatalogItemPathByCatalogItemId(CatalogItemId);
+            string path = MembershipManagement.Instance.CatalogItemService.GetCatalogItemPathByCatalogItemId(catalogItemId);
 
             return string.Format(@"{0}{1}", path, name);
         }
         #endregion
 
-        #region 属性:CombineDistinguishedName(string name, string CatalogItemId)
-        /// <summary>ͨ�ý�ɫΨһ����</summary>
-        /// <param name="name">ͨ�ý�ɫ����</param>
-        /// <param name="CatalogItemId">����������ʶ</param>
+        #region 函数:CombineDistinguishedName(string name, string groupTreeNodeId)
+        /// <summary>通用角色唯一名称</summary>
+        /// <param name="name">通用角色名称</param>
+        /// <param name="catalogItemId">所属类别标识</param>
         /// <returns></returns>
-        public string CombineDistinguishedName(string name, string CatalogItemId)
+        public string CombineDistinguishedName(string name, string catalogItemId)
         {
-            string path = MembershipManagement.Instance.CatalogItemService.GetLDAPOUPathByCatalogItemId(CatalogItemId);
+            string path = MembershipManagement.Instance.CatalogItemService.GetLDAPOUPathByCatalogItemId(catalogItemId);
 
             return string.Format("CN={0},{1}{2}", name, path, LDAPConfigurationView.Instance.SuffixDistinguishedName);
         }
         #endregion
 
-        #region 属性:SetGlobalName(string id, string globalName)
-        /// <summary>����ȫ������</summary>
-        /// <param name="id">�ʻ���ʶ</param>
-        /// <param name="globalName">ȫ������</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetGlobalName(string id, string globalName)
+        /// <summary>设置全局名称</summary>
+        /// <param name="id">帐户标识</param>
+        /// <param name="globalName">全局名称</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetGlobalName(string id, string globalName)
         {
             if (string.IsNullOrEmpty(globalName))
             {
-                // ������${Id}��ȫ�����Ʋ���Ϊ�ա�
+                // 对象【${Id}】全局名称不能为空。
                 return 1;
             }
 
@@ -247,10 +247,10 @@ namespace X3Platform.Membership.BLL
                 return 2;
             }
 
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(id))
             {
-                // ������${Id}�������ڡ�
+                // 对象【${Id}】不存在。
                 return 3;
             }
 
@@ -261,9 +261,9 @@ namespace X3Platform.Membership.BLL
 
                 if (originalObject != null)
                 {
-                    // �����ⲿϵͳֱ��ͬ������Ա��Ȩ�޹��������ݿ��У�
-                    // ���� Active Directory �ϲ���ֱ�Ӵ������ض�������Ҫ�ֹ�����ȫ�����Ʋ��������ض�����
-                    if (!string.IsNullOrEmpty(originalObject.GlobalName) 
+                   // 由于外部系统直接同步到人员及权限管理的数据库中，
+                   // 所以 Active Directory 上不会直接创建相关对象，需要手工设置全局名称并创建相关对象。
+                   if (!string.IsNullOrEmpty(originalObject.GlobalName) 
                         && LDAPManagement.Instance.Group.IsExistName(globalName))
                     {
                         LDAPManagement.Instance.Group.Rename(originalObject.GlobalName, globalName);
@@ -282,10 +282,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CreatePackage(DateTime beginDate, DateTime endDate)
-        /// <summary>�������ݰ�</summary>
-        /// <param name="beginDate">��ʼʱ��</param>
-        /// <param name="endDate">����ʱ��</param>
+        #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
+        /// <summary>创建数据包</summary>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
         public string CreatePackage(DateTime beginDate, DateTime endDate)
         {
             StringBuilder outString = new StringBuilder();
@@ -311,50 +311,50 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IGroupInfo param)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">��ɫ��Ϣ</param>
+        #region 函数:SyncToActiveDirectory(IGroupInfo param)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">角色信息</param>
         public int SyncToLDAP(GeneralRoleInfo param)
         {
             return SyncToLDAP(param, param.GlobalName, param.CatalogItemId);
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IGroupInfo param, string originalGlobalName, string originalCatalogItemId)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">��ɫ��Ϣ</param>
-        /// <param name="originalGlobalName">ԭʼ��ȫ������</param>
-        /// <param name="originalCatalogItemId">ԭʼ�ķ�����ʶ</param>
+        #region 函数:SyncToActiveDirectory(IGroupInfo param, string originalGlobalName, string originalGroupTreeNodeId)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">角色信息</param>
+        /// <param name="originalGlobalName">原始的全局名称</param>
+        /// <param name="originalGroupTreeNodeId">原始的分组标识</param>
         public int SyncToLDAP(GeneralRoleInfo param, string originalGlobalName, string originalCatalogItemId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.Name))
                 {
-                    // ��ɫ��${Name}������Ϊ�գ�������������Ϣ��
+                    // 角色【${Name}】名称为空，请配置相关信息。
                     return 1;
                 }
                 else if (string.IsNullOrEmpty(param.GlobalName))
                 {
-                    // ��ɫ��${GlobalName}������Ϊ�գ�������������Ϣ��
+                    // 角色【${GlobalName}】名称为空，请配置相关信息。
                     return 1;
                 }
                 else
                 {
-                    // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
-                    // 2.Active Directory �������ض�����
+                    // 1.原始的全局名称不为空。
+                    // 2.Active Directory 上有相关对象。
                     if (!string.IsNullOrEmpty(originalGlobalName)
                         && LDAPManagement.Instance.Group.IsExistName(originalGlobalName))
                     {
                         if (param.GlobalName != originalGlobalName)
                         {
-                            // ��ɫ��${Name}�������Ʒ����ı䡣
+                            // 角色【${Name}】的名称发生改变。
                             LDAPManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
                         }
 
                         if (param.CatalogItemId != originalCatalogItemId)
                         {
-                            // ��ɫ��${Name}����������֯�����仯��
+                            // 角色【${Name}】所属的组织发生变化。
                             LDAPManagement.Instance.Group.MoveTo(param.GlobalName,
                                 MembershipManagement.Instance.CatalogItemService.GetLDAPOUPathByCatalogItemId(param.CatalogItemId));
                         }
@@ -367,7 +367,7 @@ namespace X3Platform.Membership.BLL
 
                         LDAPManagement.Instance.Group.Add(param.GlobalName, parentPath);
 
-                        // ��ɫ��${Name}�������ɹ���
+                        // 角色【${Name}】创建成功。
                         return 0;
                     }
                 }
@@ -377,9 +377,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(GeneralRoleInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">Ⱥ����Ϣ</param>
+        #region 函数:SyncFromPackPage(GeneralRoleInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">群组信息</param>
         public int SyncFromPackPage(GeneralRoleInfo param)
         {
             return provider.SyncFromPackPage(param);

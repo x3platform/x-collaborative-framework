@@ -12,17 +12,17 @@ namespace X3Platform.Membership.BLL
     using X3Platform.Membership.Model;
     using X3Platform.Data;
 
-    /// <summary>��ϵ�˷���</summary>
+    /// <summary>联系人服务</summary>
     public class ContactService : IContactService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IContactProvider provider = null;
 
-        #region ���캯��:ContactService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:ContactService()
+        /// <summary>构造函数</summary>
         public ContactService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -32,13 +32,13 @@ namespace X3Platform.Membership.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IContactProvider>(typeof(IContactProvider));
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public ContactInfo this[string id]
@@ -48,22 +48,22 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(ContactInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="ContactInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="ContactInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(ContactInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="ContactInfo"/>详细信息</param>
+        /// <returns>实例<see cref="ContactInfo"/>详细信息</returns>
         public ContactInfo Save(ContactInfo param)
         {
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
         public void Delete(string ids)
         {
             provider.Delete(ids);
@@ -71,43 +71,43 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="ContactInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="ContactInfo"/>的详细信息</returns>
         public ContactInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="ContactInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="ContactInfo"/>的详细信息</returns>
         public IList<ContactInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="ContactInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="ContactInfo"/>的详细信息</returns>
         public IList<ContactInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="ContactInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="ContactInfo"/>的详细信息</returns>
         public IList<ContactInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
@@ -131,10 +131,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);

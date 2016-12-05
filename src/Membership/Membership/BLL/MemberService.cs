@@ -30,7 +30,7 @@ namespace X3Platform.Membership.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IMemberProvider>(typeof(IMemberProvider));
         }
 

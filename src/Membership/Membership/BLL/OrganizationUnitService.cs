@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 namespace X3Platform.Membership.BLL
 {
     using System;
@@ -19,17 +5,19 @@ namespace X3Platform.Membership.BLL
     using System.Collections.Generic;
     using System.Data;
     using System.Text;
-    using X3Platform.LDAP;
-    using X3Platform.LDAP.Configuration;
+
     using X3Platform.CacheBuffer;
     using X3Platform.Configuration;
     using X3Platform.Data;
+    using X3Platform.LDAP;
+    using X3Platform.LDAP.Configuration;
+    using X3Platform.Spring;
+
     using X3Platform.Membership.Configuration;
     using X3Platform.Membership.IBLL;
     using X3Platform.Membership.IDAL;
     using X3Platform.Membership.Model;
-    using X3Platform.Spring;
-
+    
     /// <summary></summary>
     public class OrganizationUnitService : IOrganizationUnitService
     {
@@ -55,9 +43,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
-        /// <param name="id">��֯��ʶ</param>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
+        /// <param name="id">组织标识</param>
         /// <returns></returns>
         public IOrganizationUnitInfo this[string id]
         {
@@ -66,13 +54,13 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(AccountInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">IOrganizationUnitInfo ʵ����ϸ��Ϣ</param>
-        /// <returns>IOrganizationUnitInfo ʵ����ϸ��Ϣ</returns>
+        #region 属性:Save(IOrganizationInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">IOrganizationInfo 实例详细信息</param>
+        /// <returns>IOrganizationInfo 实例详细信息</returns>
         public IOrganizationUnitInfo Save(IOrganizationUnitInfo param)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
@@ -87,19 +75,19 @@ namespace X3Platform.Membership.BLL
                 SyncToLDAP(param, originalObject.Name, originalObject.GlobalName, originalObject.ParentId);
             }
 
-            // ������֯ȫ·��
+            // 设置组织全路径
             param.FullPath = this.CombineFullPath(param.Name, param.ParentId);
 
-            // ����Ψһʶ������
+            // 设置唯一识别名称
             param.DistinguishedName = this.CombineDistinguishedName(param.GlobalName, param.Id);
 
             return this.provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
         public void Delete(string id)
         {
             this.provider.Delete(id);
@@ -107,13 +95,13 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(int id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">AccountInfo Id��</param>
-        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOne(int id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">AccountInfo Id号</param>
+        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
         public IOrganizationUnitInfo FindOne(string id)
         {
             IOrganizationUnitInfo param = null;
@@ -137,110 +125,110 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindOneByGlobalName(string globalName)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="globalName">��֯��ȫ������</param>
-        /// <returns>����һ��<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByGlobalName(string globalName)
+        /// <summary>查询某条记录</summary>
+        /// <param name="globalName">组织的全局名称</param>
+        /// <returns>返回一个<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IOrganizationUnitInfo FindOneByGlobalName(string globalName)
         {
             return this.provider.FindOneByGlobalName(globalName);
         }
         #endregion
 
-        #region 属性:FindOneByRoleId(string roleId)
-        /// <summary>��ѯĳ����ɫ��������֯��Ϣ</summary>
-        /// <param name="roleId">��ɫ��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByRoleId(string roleId)
+        /// <summary>查询某个角色所属的组织信息</summary>
+        /// <param name="roleId">角色标识</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IOrganizationUnitInfo FindOneByRoleId(string roleId)
         {
             return this.provider.FindOneByRoleId(roleId);
         }
         #endregion
 
-        #region 属性:FindOneByRoleId(string roleId, int level)
-        /// <summary>��ѯĳ����ɫ������ĳһ���ε���֯��Ϣ</summary>
-        /// <param name="roleId">��ɫ��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindOneByRoleId(string roleId, int level)
+        /// <summary>查询某个角色所属的某一级次的组织信息</summary>
+        /// <param name="roleId">角色标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IOrganizationUnitInfo FindOneByRoleId(string roleId, int level)
         {
             return this.provider.FindOneByRoleId(roleId, level);
         }
         #endregion
 
-        #region 属性:FindCorporationByOrganizationUnitId(string id)
-        /// <summary>��ѯĳ����֯�����Ĺ�˾��Ϣ</summary>
-        /// <param name="id">��֯��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindCorporationByOrganizationUnitId(string id)
+        /// <summary>查询某个组织所属的公司信息</summary>
+        /// <param name="id">组织标识</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IOrganizationUnitInfo FindCorporationByOrganizationUnitId(string id)
         {
             return this.provider.FindCorporationByOrganizationUnitId(id);
         }
         #endregion
 
-        #region 属性:FindDepartmentByOrganizationUnitId(string organizationId, int level)
-        /// <summary>��ѯĳ����֯������ĳ���ϼ�������Ϣ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindDepartmentByOrganizationUnitId(string organizationId, int level)
+        /// <summary>查询某个组织的所属某个上级部门信息</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IOrganizationUnitInfo FindDepartmentByOrganizationUnitId(string organizationId, int level)
         {
             return this.provider.FindDepartmentByOrganizationUnitId(organizationId, level);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>�������� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有 IOrganizationInfo 实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAll()
         {
             return this.provider.FindAll(string.Empty, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>�������� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有 IOrganizationInfo 实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAll(string whereClause)
         {
             return this.provider.FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>�������� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有 IOrganizationInfo 实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAll(string whereClause, int length)
         {
             return this.provider.FindAll(whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAllByParentId(string parentId)
-        /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
-        /// <param name="parentId">���ڱ�ʶ</param>
-        /// <returns>��������ʵ��<see cref="IOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByParentId(string parentId)
+        /// <summary>查询某个父节点下的所有组织单位</summary>
+        /// <param name="parentId">父节标识</param>
+        /// <returns>返回所有实例<see cref="IOrganizationInfo"/>的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByParentId(string parentId)
         {
             return FindAllByParentId(parentId, 0);
         }
         #endregion
 
-        #region 属性:FindAllByParentId(string parentId, int depth)
-        /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
-        /// <param name="parentId">���ڱ�ʶ</param>
-        /// <param name="depth">������ȡ�Ĳ��Σ�0��ʾֻ��ȡ�����Σ�-1��ʾȫ����ȡ</param>
-        /// <returns>��������ʵ��<see cref="IOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByParentId(string parentId, int depth)
+        /// <summary>查询某个父节点下的所有组织单位</summary>
+        /// <param name="parentId">父节标识</param>
+        /// <param name="depth">深入获取的层次，0表示只获取本层次，-1表示全部获取</param>
+        /// <returns>返回所有实例<see cref="IOrganizationInfo"/>的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByParentId(string parentId, int depth)
         {
-            // �����б�
+            // 结果列表
             List<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
             //
-            // ������֯�Ӳ�����Ϣ
+            // 查找组织子部门信息
             //
 
             IList<IOrganizationUnitInfo> organizations = this.provider.FindAllByParentId(parentId);
@@ -264,13 +252,13 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByAccountId(string accountId)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByAccountId(string accountId)
+        /// <summary>查询某条记录</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByAccountId(string accountId)
         {
-            // ���� �Ƿ���������Ϣ
+            // 过滤 非法的内容信息
             if (string.IsNullOrEmpty(accountId) || accountId == "0")
             {
                 return new List<IOrganizationUnitInfo>();
@@ -280,10 +268,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByRoleIds(string roleIds)
-        /// <summary>��ѯĳ����ɫ������������֯</summary>
-        /// <param name="roleIds">��ɫ��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByRoleIds(string roleIds)
+        /// <summary>查询某个角色的所属相关组织</summary>
+        /// <param name="roleIds">角色标识</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByRoleIds(string roleIds)
         {
             IList<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
@@ -302,11 +290,11 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByRoleIds(string roleIds)
-        /// <summary>��ѯĳ����ɫ������������֯</summary>
-        /// <param name="roleIds">��ɫ��ʶ</param>
-        /// <param name="level">����</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByRoleIds(string roleIds)
+        /// <summary>查询某个角色的所属相关组织</summary>
+        /// <param name="roleIds">角色标识</param>
+        /// <param name="level">层次</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByRoleIds(string roleIds, int level)
         {
             IList<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
@@ -325,17 +313,17 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByCorporationId(string corporationId)
-        /// <summary>�ݹ���ѯĳ����˾�������еĽ�ɫ</summary>
-        /// <param name="corporationId">��֯��ʶ</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByCorporationId(string corporationId)
+        /// <summary>递归查询某个公司下面所有的角色</summary>
+        /// <param name="corporationId">组织标识</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByCorporationId(string corporationId)
         {
-            // �����б�
+            // 结果列表
             List<IOrganizationUnitInfo> list = new List<IOrganizationUnitInfo>();
 
             //
-            // ���Ҳ���(��˾��һ����֯�ܹ�)
+            // 查找部门(公司下一级组织架构)
             //
             IList<IOrganizationUnitInfo> organizations = MembershipManagement.Instance.OrganizationUnitService.FindAllByParentId(corporationId);
 
@@ -343,8 +331,8 @@ namespace X3Platform.Membership.BLL
             {
                 list.Add(organization);
 
-                // ��ȡ��Ŀ�Ŷ�������ֻ�ܲ���
-                if (organization.Name.IndexOf("��Ŀ�Ŷ�") == -1)
+                // 获取项目团队以外的只能部门
+                if (organization.Name.IndexOf("项目团队") == -1)
                 {
                     list.AddRange(FindAllByParentId(organization.Id, -1));
                 }
@@ -356,14 +344,14 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllByProjectId(string projectId)
-        /// <summary>�ݹ���ѯĳ����Ŀ�������еĽ�ɫ</summary>
-        /// <param name="projectId">��֯��ʶ</param>
-        /// <returns>����һ��<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByProjectId(string projectId)
+        /// <summary>递归查询某个项目下面所有的角色</summary>
+        /// <param name="projectId">组织标识</param>
+        /// <returns>返回一个<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindAllByProjectId(string projectId)
         {
             // 
-            // ��Ŀ�Ŷӵı�ʶ �� ��Ŀ��ʶ ����һ��
+            // 项目团队的标识 和 项目标识 保存一致
             //
 
             string organizationId = projectId;
@@ -376,10 +364,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindCorporationsByAccountId(string accountId)
-        /// <summary>��ѯĳ���ʻ����������й�˾��Ϣ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <returns>��������<see cref="IOrganizationUnitInfo"/>ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindCorporationsByAccountId(string accountId)
+        /// <summary>查询某个帐户所属的所有公司信息</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <returns>返回所有<see cref="IOrganizationInfo"/>实例的详细信息</returns>
         public IList<IOrganizationUnitInfo> FindCorporationsByAccountId(string accountId)
         {
             IList<IOrganizationUnitInfo> corporations = new List<IOrganizationUnitInfo>();
@@ -406,7 +394,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -422,47 +410,47 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return this.provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="name">��֯��λ����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="name">组织单位名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return this.provider.IsExistName(name);
         }
         #endregion
 
-        #region 属性:IsExistGlobalName(string globalName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="globalName">��֯��λȫ������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGlobalName(string globalName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="globalName">组织单位全局名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGlobalName(string globalName)
         {
             return this.provider.IsExistGlobalName(globalName);
         }
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">��֯��ʶ</param>
-        /// <param name="name">��֯����</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">组织标识</param>
+        /// <param name="name">组织名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         public int Rename(string id, string name)
         {
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(id))
             {
-                // �����ڶ���
+                // 不存在对象
                 return 1;
             }
 
@@ -470,10 +458,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CombineFullPath(string name, string parentId)
-        /// <summary>����ȫ·��</summary>
-        /// <param name="name">��֯����</param>
-        /// <param name="parentId">����������ʶ</param>
+        #region 函数:CombineFullPath(string name, string parentId)
+        /// <summary>组合全路径</summary>
+        /// <param name="name">组织名称</param>
+        /// <param name="parentId">父级对象标识</param>
         /// <returns></returns>
         public string CombineFullPath(string name, string parentId)
         {
@@ -483,9 +471,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:GetOrganizationPathByOrganizationUnitId(string organizationId)
-        /// <summary>������֯��ʶ������֯��ȫ·��</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:GetOrganizationPathByOrganizationId(string organizationId)
+        /// <summary>根据组织标识计算组织的全路径</summary>
+        /// <param name="organizationId">组织标识</param>
         /// <returns></returns>
         public string GetOrganizationPathByOrganizationUnitId(string organizationId)
         {
@@ -495,8 +483,8 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region ˽�к���:FormatOrganizationPath(string id)
-        /// <summary>��ʽ����֯·��</summary>
+        #region 私有函数:FormatOrganizationPath(string id)
+        /// <summary>格式化组织路径</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         private string FormatOrganizationPath(string id)
@@ -539,10 +527,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CombineDistinguishedName(string globalName, string id)
-        /// <summary>����Ψһ����</summary>
-        /// <param name="globalName">��֯ȫ������</param>
-        /// <param name="id">������ʶ</param>
+        #region 函数:CombineDistinguishedName(string globalName, string id)
+        /// <summary>组合唯一名称</summary>
+        /// <param name="globalName">组织全局名称</param>
+        /// <param name="id">对象标识</param>
         /// <returns></returns>
         public string CombineDistinguishedName(string globalName, string id)
         {
@@ -553,8 +541,8 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         #region 属性:GetLDAPOUPathByOrganizationUnitId(string organizationId)
-        /// <summary>������֯��ʶ���� Active Directory OU ·��</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
+        /// <summary>根据组织标识计算 Active Directory OU 路径</summary>
+        /// <param name="organizationId">组织标识</param>
         /// <returns></returns>
         public string GetLDAPOUPathByOrganizationUnitId(string organizationId)
         {
@@ -562,8 +550,8 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region ˽�к���:FormatLDAPPath(string id)
-        /// <summary>��ʽ�� Active Directory ·��</summary>
+        #region 私有函数:FormatActiveDirectoryPath(string id)
+        /// <summary>格式化 Active Directory 路径</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         private string FormatLDAPPath(string id)
@@ -572,7 +560,7 @@ namespace X3Platform.Membership.BLL
 
             string parentId = string.Empty;
 
-            // OU������
+            // OU的名称
             string name = null;
 
             IOrganizationUnitInfo param = FindOne(id);
@@ -585,13 +573,13 @@ namespace X3Platform.Membership.BLL
             {
                 name = param.Name;
 
-                // ��֯�ṹ�ĸ��ڵ�OU���⴦�� Ĭ��Ϊ��֯�ṹ
+                // 组织结构的根节点OU特殊处理 默认为组织结构
                 if (id == "00000000-0000-0000-0000-000000000001")
                 {
                     name = LDAPConfigurationView.Instance.CorporationOrganizationUnitFolderRoot;
                 }
 
-                // 1.���Ʋ���Ϊ�� 2.����������ʶ����Ϊ�� 
+                // 1.名称不能为空 2.父级对象标识不能为空 
                 if (!string.IsNullOrEmpty(name)
                     && !string.IsNullOrEmpty(param.ParentId) && param.ParentId != Guid.Empty.ToString())
                 {
@@ -609,16 +597,16 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetGlobalName(string id, string globalName)
-        /// <summary>����ȫ������</summary>
-        /// <param name="id">�ʻ���ʶ</param>
-        /// <param name="globalName">ȫ������</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetGlobalName(string id, string globalName)
+        /// <summary>设置全局名称</summary>
+        /// <param name="id">帐户标识</param>
+        /// <param name="globalName">全局名称</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetGlobalName(string id, string globalName)
         {
             if (string.IsNullOrEmpty(globalName))
             {
-                // ������${Id}��ȫ�����Ʋ���Ϊ�ա�
+                // 对象【${Id}】全局名称不能为空。
                 return 1;
             }
 
@@ -627,10 +615,10 @@ namespace X3Platform.Membership.BLL
                 return 2;
             }
 
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(id))
             {
-                // ������${Id}�������ڡ�
+                // 对象【${Id}】不存在。
                 return 3;
             }
 
@@ -640,8 +628,8 @@ namespace X3Platform.Membership.BLL
 
                 if (originalObject != null)
                 {
-                    // �����ⲿϵͳֱ��ͬ������Ա��Ȩ�޹��������ݿ��У�
-                    // ���� Active Directory �ϲ���ֱ�Ӵ������ض�������Ҫ�ֹ�����ȫ�����Ʋ��������ض�����
+                    // 由于外部系统直接同步到人员及权限管理的数据库中，
+                    // 所以 Active Directory 上不会直接创建相关对象，需要手工设置全局名称并创建相关对象。
                     if (!string.IsNullOrEmpty(originalObject.GlobalName)
                         && LDAPManagement.Instance.Group.IsExistName(originalObject.GlobalName))
                     {
@@ -660,31 +648,31 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetParentId(string id, string parentId)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">��֯��ʶ</param>
-        /// <param name="parentId">������֯��ʶ</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetParentId(string id, string parentId)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">组织标识</param>
+        /// <param name="parentId">父级组织标识</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetParentId(string id, string parentId)
         {
             return this.provider.SetGlobalName(id, parentId);
         }
         #endregion
 
-        #region 属性:SetExchangeStatus(string id, int status)
-        /// <summary>������ҵ����״̬</summary>
-        /// <param name="id">��֯��ʶ</param>
-        /// <param name="status">״̬��ʶ, 1:����, 0:����</param>
-        /// <returns>0 ���óɹ�, 1 ����ʧ��.</returns>
+        #region 函数:SetExchangeStatus(string id, int status)
+        /// <summary>设置企业邮箱状态</summary>
+        /// <param name="id">组织标识</param>
+        /// <param name="status">状态标识, 1:启用, 0:禁用</param>
+        /// <returns>0 设置成功, 1 设置失败.</returns>
         public int SetExchangeStatus(string id, int status)
         {
             return this.provider.SetExchangeStatus(id, status);
         }
         #endregion
 
-        #region 属性:GetChildNodes(string organizationId)
-        /// <summary>��ȡ��֯���ӳ�Ա</summary>
-        /// <param name="organizationId">��֯��λ��ʶ</param>
+        #region 函数:GetChildNodes(string organizationId)
+        /// <summary>获取组织的子成员</summary>
+        /// <param name="organizationId">组织单位标识</param>
         public IList<IAuthorizationObject> GetChildNodes(string organizationId)
         {
             IList<IAuthorizationObject> list = new List<IAuthorizationObject>();
@@ -707,10 +695,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CreatePackage(DateTime beginDate, DateTime endDate)
-        /// <summary>�������ݰ�</summary>
-        /// <param name="beginDate">��ʼʱ��</param>
-        /// <param name="endDate">����ʱ��</param>
+        #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
+        /// <summary>创建数据包</summary>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
         public string CreatePackage(DateTime beginDate, DateTime endDate)
         {
             StringBuilder outString = new StringBuilder();
@@ -736,45 +724,45 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IOrganizationUnitInfo param)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">��֯��Ϣ</param>
+        #region 函数:SyncToLDAP(IOrganizationUnitInfo param)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">组织信息</param>
         public int SyncToLDAP(IOrganizationUnitInfo param)
         {
             return SyncToLDAP(param, param.Name, param.GlobalName, param.ParentId);
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IOrganizationUnitInfo param, string originalName, string originalGlobalName, string originalParentId)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">��֯��Ϣ</param>
-        /// <param name="originalName">ԭʼ����</param>
-        /// <param name="originalGlobalName">ԭʼȫ������</param>
-        /// <param name="originalParentId">ԭʼ������ʶ</param>
+        #region 函数:SyncToLDAP(IOrganizationUnitInfo param, string originalName, string originalGlobalName, string originalParentId)
+        /// <summary>同步信息</summary>
+        /// <param name="param">组织信息</param>
+        /// <param name="originalName">原始名称</param>
+        /// <param name="originalGlobalName">原始全局名称</param>
+        /// <param name="originalParentId">原始父级标识</param>
         public int SyncToLDAP(IOrganizationUnitInfo param, string originalName, string originalGlobalName, string originalParentId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.GlobalName))
                 {
-                    // ��֯��${FullPath}��ȫ������Ϊ�գ�������������Ϣ��
+                    // 组织【${FullPath}】全局名称为空，请配置相关信息。
                     return 1;
                 }
                 else if (string.IsNullOrEmpty(param.Name))
                 {
-                    // ��֯��${FullPath}������Ϊ�գ�������������Ϣ��
+                    // 组织【${FullPath}】名称为空，请配置相关信息。
                     return 2;
                 }
                 else
                 {
-                    // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
-                    // 2.Active Directory �������ض�����
+                    // 1.原始的全局名称不为空。
+                    // 2.Active Directory 上有相关对象。
                     if (!string.IsNullOrEmpty(originalGlobalName)
                         && LDAPManagement.Instance.Group.IsExistName(originalGlobalName))
                     {
                         if (param.Name != originalName)
                         {
-                            // ��֯��${GlobalName}�������Ʒ����ı䡣
+                            // 组织【${GlobalName}】的名称发生改变。
                             LDAPManagement.Instance.OrganizationUnit.Rename(
                                     originalName,
                                     MembershipManagement.Instance.OrganizationUnitService.GetLDAPOUPathByOrganizationUnitId(originalParentId),
@@ -783,13 +771,13 @@ namespace X3Platform.Membership.BLL
 
                         if (param.GlobalName != originalGlobalName)
                         {
-                            // ��֯��${GlobalName}����ȫ�����Ʒ����ı䡣
+                            // 组织【${GlobalName}】的全局名称发生改变。
                             LDAPManagement.Instance.Group.Rename(originalGlobalName, param.GlobalName);
                         }
 
                         if (param.ParentId != originalParentId)
                         {
-                            // ��֯��${GlobalName}���ĸ����ڵ㷢���ı䡣
+                            // 组织【${GlobalName}】的父级节点发生改变。
                             LDAPManagement.Instance.OrganizationUnit.MoveTo(
                                 this.GetLDAPOUPathByOrganizationUnitId(param.Id),
                                 this.GetLDAPOUPathByOrganizationUnitId(param.ParentId));
@@ -803,7 +791,7 @@ namespace X3Platform.Membership.BLL
 
                         LDAPManagement.Instance.Group.Add(param.GlobalName, this.GetLDAPOUPathByOrganizationUnitId(param.Id));
 
-                        // ��֯��${GlobalName}�������ɹ���
+                        // 组织【${GlobalName}】创建成功。
                         return 0;
                     }
                 }
@@ -813,9 +801,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(IOrganizationUnitInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">��֯��Ϣ</param>
+        #region 函数:SyncFromPackPage(IOrganizationInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">组织信息</param>
         public int SyncFromPackPage(IOrganizationUnitInfo param)
         {
             return this.provider.SyncFromPackPage(param);
@@ -823,7 +811,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �����ʺź���֯��ϵ
+        // 设置帐号和组织关系
         // -------------------------------------------------------
 
         #region 属性:FindAllRelationByAccountId(string accountId)
@@ -836,44 +824,44 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAllRelationByRoleId(string organizationId)
-        /// <summary>������֯��ѯ�����ʺŵĹ�ϵ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <returns>Table Columns��AccountId, OrganizationUnitId, IsDefault, BeginDate, EndDate</returns>
+        #region 函数:FindAllRelationByRoleId(string organizationId)
+        /// <summary>根据组织查询相关帐号的关系</summary>
+        /// <param name="organizationId">组织标识</param>
+        /// <returns>Table Columns：AccountId, OrganizationId, IsDefault, BeginDate, EndDate</returns>
         public IList<IAccountOrganizationUnitRelationInfo> FindAllRelationByRoleId(string organizationId)
         {
             return this.provider.FindAllRelationByRoleId(organizationId);
         }
         #endregion
 
-        #region 属性:AddRelation(string accountId, string organizationId)
-        /// <summary>�����ʺ���������֯�Ĺ�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:AddRelation(string accountId, string organizationId)
+        /// <summary>添加帐号与相关组织的关系</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int AddRelation(string accountId, string organizationId)
         {
             return AddRelation(accountId, organizationId, false, DateTime.Now, DateTime.MaxValue);
         }
         #endregion
 
-        #region 属性:AddRelation(string accountId, string organizationId, bool isDefault, DateTime beginDate, DateTime endDate)
-        /// <summary>�����ʺ���������֯�Ĺ�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="isDefault">�Ƿ���Ĭ����֯</param>
-        /// <param name="beginDate">����ʱ��</param>
-        /// <param name="endDate">ͣ��ʱ��</param>
+        #region 函数:AddRelation(string accountId, string organizationId, bool isDefault, DateTime beginDate, DateTime endDate)
+        /// <summary>添加帐号与相关组织的关系</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="isDefault">是否是默认组织</param>
+        /// <param name="beginDate">启用时间</param>
+        /// <param name="endDate">停用时间</param>
         public int AddRelation(string accountId, string organizationId, bool isDefault, DateTime beginDate, DateTime endDate)
         {
             if (string.IsNullOrEmpty(accountId))
             {
-                // �ʺű�ʶ����Ϊ��
+                // 帐号标识不能为空
                 return 1;
             }
 
             if (string.IsNullOrEmpty(organizationId))
             {
-                // ��֯��ʶ����Ϊ��
+                // 组织标识不能为空
                 return 2;
             }
 
@@ -883,7 +871,7 @@ namespace X3Platform.Membership.BLL
 
                 IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
-                // �ʺŶ������ʺŵ�ȫ�����ơ��ʺŵĵ�¼������֯��������֯��ȫ�����ƵȲ���Ϊ�ա�
+                // 帐号对象、帐号的全局名称、帐号的登录名、组织对象、组织的全局名称等不能为空。
                 if (account != null && !string.IsNullOrEmpty(account.GlobalName) && !string.IsNullOrEmpty(account.LoginName)
                     && organization != null && !string.IsNullOrEmpty(organization.GlobalName))
                 {
@@ -895,10 +883,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:AddRelationRange(string accountIds, string organizationId)
-        /// <summary>�����ʺ���������֯�Ĺ�ϵ</summary>
-        /// <param name="accountIds">�ʺű�ʶ�������Զ��Ÿ���</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:AddRelationRange(string accountIds, string organizationId)
+        /// <summary>添加帐号与相关组织的关系</summary>
+        /// <param name="accountIds">帐号标识，多个以逗号隔开</param>
+        /// <param name="organizationId">组织标识</param>
         public int AddRelationRange(string accountIds, string organizationId)
         {
             string[] list = accountIds.Split(new char[] { ',' });
@@ -912,21 +900,21 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:AddParentRelations(string accountId, string organizationId)
-        /// <summary>�����ʺ���������֯�ĸ�����֯��ϵ(�ݹ�)</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:AddParentRelations(string accountId, string organizationId)
+        /// <summary>添加帐号与相关组织的父级组织关系(递归)</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int AddParentRelations(string accountId, string organizationId)
         {
             IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
-            // [�ݴ�]������ɫ��ϢΪ�գ���ֹ������֯����
+            // [容错]如果角色信息为空，中止相关组织设置
             if (organization != null && !string.IsNullOrEmpty(organization.ParentId) && organization.Parent != null)
             {
-                // ���Ӹ���������ϵ
+                // 添加父级对象关系
                 AddRelation(accountId, organization.ParentId);
 
-                // �ݹ����Ҹ���������ϵ
+                // 递归查找父级对象关系
                 AddParentRelations(accountId, organization.ParentId);
             }
 
@@ -934,21 +922,21 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:ExtendRelation(string accountId, string organizationId, DateTime endDate)
-        /// <summary>��Լ�ʺ���������֯�Ĺ�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="endDate">�µĽ�ֹʱ��</param>
+        #region 函数:ExtendRelation(string accountId, string organizationId, DateTime endDate)
+        /// <summary>续约帐号与相关组织的关系</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="endDate">新的截止时间</param>
         public int ExtendRelation(string accountId, string organizationId, DateTime endDate)
         {
             return this.provider.ExtendRelation(accountId, organizationId, endDate);
         }
         #endregion
 
-        #region 属性:RemoveRelation(string accountId, string organizationId)
-        /// <summary>�Ƴ��ʺ���������֯�Ĺ�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:RemoveRelation(string accountId, string organizationId)
+        /// <summary>移除帐号与相关组织的关系</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int RemoveRelation(string accountId, string organizationId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
@@ -957,7 +945,7 @@ namespace X3Platform.Membership.BLL
 
                 IOrganizationUnitInfo organization = MembershipManagement.Instance.OrganizationUnitService[organizationId];
 
-                // �ʺŶ������ʺŵ�ȫ�����ơ��ʺŵĵ�¼������֯��������֯��ȫ�����ƵȲ���Ϊ�ա�
+                // 帐号对象、帐号的全局名称、帐号的登录名、组织对象、组织的全局名称等不能为空。
                 if (account != null && !string.IsNullOrEmpty(account.GlobalName) && !string.IsNullOrEmpty(account.LoginName)
                     && organization != null && !string.IsNullOrEmpty(organization.GlobalName))
                 {
@@ -969,36 +957,36 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:RemoveDefaultRelation(string accountId)
-        /// <summary>�Ƴ��ʺ�������֯��Ĭ�Ϲ�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:RemoveDefaultRelation(string accountId)
+        /// <summary>移除帐号相关组织的默认关系</summary>
+        /// <param name="accountId">帐号标识</param>
         public int RemoveDefaultRelation(string accountId)
         {
             return this.provider.RemoveDefaultRelation(accountId);
         }
         #endregion
 
-        #region 属性:RemoveNondefaultRelation(string accountId)
-        /// <summary>�Ƴ��ʺ�������֯�ķ�Ĭ�Ϲ�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:RemoveNondefaultRelation(string accountId)
+        /// <summary>移除帐号相关组织的非默认关系</summary>
+        /// <param name="accountId">帐号标识</param>
         public int RemoveNondefaultRelation(string accountId)
         {
             return this.provider.RemoveNondefaultRelation(accountId);
         }
         #endregion
 
-        #region 属性:RemoveExpiredRelation(string accountId)
-        /// <summary>�Ƴ��ʺ��ѹ��ڵ���֯��ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:RemoveExpiredRelation(string accountId)
+        /// <summary>移除帐号已过期的组织关系</summary>
+        /// <param name="accountId">帐号标识</param>
         public int RemoveExpiredRelation(string accountId)
         {
             return this.provider.RemoveExpiredRelation(accountId);
         }
         #endregion
 
-        #region 属性:RemoveAllRelation(string accountId)
-        /// <summary>�Ƴ��ʺ�������֯�����й�ϵ</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:RemoveAllRelation(string accountId)
+        /// <summary>移除帐号相关组织的所有关系</summary>
+        /// <param name="accountId">帐号标识</param>
         public int RemoveAllRelation(string accountId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
@@ -1019,19 +1007,19 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:HasDefaultRelation(string accountId)
-        /// <summary>�����ʺŵ�Ĭ����֯</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
+        #region 函数:HasDefaultRelation(string accountId)
+        /// <summary>检测帐号的默认组织</summary>
+        /// <param name="accountId">帐号标识</param>
         public bool HasDefaultRelation(string accountId)
         {
             return this.provider.HasDefaultRelation(accountId);
         }
         #endregion
 
-        #region 属性:SetDefaultRelation(string accountId, string organizationId)
-        /// <summary>�����ʺŵ�Ĭ����֯</summary>
-        /// <param name="accountId">�ʺű�ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:SetDefaultRelation(string accountId, string organizationId)
+        /// <summary>设置帐号的默认组织</summary>
+        /// <param name="accountId">帐号标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int SetDefaultRelation(string accountId, string organizationId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
@@ -1050,9 +1038,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:ClearupRelation(string organizationId)
-        /// <summary>������֯���ʺŵĹ�ϵ</summary>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:ClearupRelation(string organizationId)
+        /// <summary>清理组织与帐号的关系</summary>
+        /// <param name="organizationId">组织标识</param>
         public int ClearupRelation(string organizationId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")

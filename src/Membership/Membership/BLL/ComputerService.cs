@@ -48,8 +48,8 @@ namespace X3Platform.Membership.BLL
         // 保存 删除
         // -------------------------------------------------------
 
-		#region 函数:Save(IComputerInfo param)
-		/// <summary>保存记录</summary>
+        #region 函数:Save(IComputerInfo param)
+        /// <summary>保存记录</summary>
         /// <param name="param">实例<see cref="IComputerInfo"/>详细信息</param>
         /// <returns>实例<see cref="IComputerInfo"/>详细信息</returns>
         public IComputerInfo Save(IComputerInfo param)
@@ -58,28 +58,28 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
         
-		#region 函数:Delete(string id)
+        #region 函数:Delete(string id)
         /// <summary>删除记录</summary>
         /// <param name="id">标识</param>
         public void Delete(string id)
-		{
+        {
             this.provider.Delete(id);
-		}
-		#endregion
+        }
+        #endregion
 
         // -------------------------------------------------------
         // 查询
         // -------------------------------------------------------
 
-		#region 函数:FindOne(string id)
-		/// <summary>查询某条记录</summary>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
         /// <param name="id">标识</param>
         /// <returns>返回实例<see cref="IComputerInfo"/>的详细信息</returns>
         public IComputerInfo FindOne(string id)
         {
             return this.provider.FindOne(id) ;
         }
-		#endregion
+        #endregion
         
         #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
@@ -89,9 +89,9 @@ namespace X3Platform.Membership.BLL
         {
             return this.provider.FindAll(query);
         }
-		#endregion
+        #endregion
 
-		// -------------------------------------------------------
+        // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
         
@@ -108,7 +108,7 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-		#region 函数:IsExist(string id)
+        #region 函数:IsExist(string id)
         /// <summary>查询是否存在相关的记录.</summary>
         /// <param name="id">标识</param>
         /// <returns>布尔值</returns>
@@ -116,6 +116,6 @@ namespace X3Platform.Membership.BLL
         {
             return this.provider.IsExist(id);
         }
-		#endregion
+        #endregion
     }
 }

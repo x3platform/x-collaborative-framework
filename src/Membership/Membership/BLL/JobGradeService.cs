@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :JobGradeService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,14 +15,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class JobGradeService : IJobGradeService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IJobGradeProvider provider = null;
 
-        #region ���캯��:JobGradeService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:JobGradeService()
+        /// <summary>构造函数</summary>
         public JobGradeService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -51,8 +37,8 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IJobGradeInfo this[string id]
@@ -62,22 +48,22 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IJobGradeInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IJobGradeInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IJobGradeInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IJobGradeInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IJobGradeInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IJobGradeInfo"/>详细信息</returns>
         public IJobGradeInfo Save(IJobGradeInfo param)
         {
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
         public void Delete(string id)
         {
             provider.Delete(id);
@@ -85,43 +71,43 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IJobGradeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IJobGradeInfo"/>的详细信息</returns>
         public IJobGradeInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="IJobGradeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="IJobGradeInfo"/>的详细信息</returns>
         public IList<IJobGradeInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="IJobGradeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="IJobGradeInfo"/>的详细信息</returns>
         public IList<IJobGradeInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IJobGradeInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IJobGradeInfo"/>的详细信息</returns>
         public IList<IJobGradeInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
@@ -129,7 +115,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -145,50 +131,50 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="name">ְ������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">职级名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return provider.IsExistName(name);
         }
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">ְ����ʶ</param>
-        /// <param name="name">ְ������</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">职级标识</param>
+        /// <param name="name">职级名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         public int Rename(string id, string name)
         {
             return provider.Rename(id, name);
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(IJobGradeInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">ְ����Ϣ</param>
+        #region 函数:SyncFromPackPage(IJobGradeInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">职级信息</param>
         public int SyncFromPackPage(IJobGradeInfo param)
         {
             return provider.SyncFromPackPage(param);
         }
         #endregion
 
-        #region 属性:CreatePackage(DateTime beginDate, DateTime endDate)
-        /// <summary>�������ݰ�</summary>
-        /// <param name="beginDate">��ʼʱ��</param>
-        /// <param name="endDate">����ʱ��</param>
+        #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
+        /// <summary>创建数据包</summary>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
         public string CreatePackage(DateTime beginDate, DateTime endDate)
         {
             StringBuilder outString = new StringBuilder();

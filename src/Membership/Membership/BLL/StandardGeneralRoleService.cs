@@ -18,14 +18,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class StandardGeneralRoleService : IStandardGeneralRoleService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IStandardGeneralRoleProvider provider = null;
 
-        #region ���캯��:StandardGeneralRoleService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:StandardGeneralRoleService()
+        /// <summary>构造函数</summary>
         public StandardGeneralRoleService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -35,13 +35,13 @@ namespace X3Platform.Membership.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IStandardGeneralRoleProvider>(typeof(IStandardGeneralRoleProvider));
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IStandardGeneralRoleInfo this[string id]
@@ -51,22 +51,22 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IStandardGeneralRoleInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IStandardGeneralRoleInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IStandardGeneralRoleInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IStandardGeneralRoleInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IStandardGeneralRoleInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IStandardGeneralRoleInfo"/>详细信息</returns>
         public IStandardGeneralRoleInfo Save(IStandardGeneralRoleInfo param)
         {
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
         public void Delete(string ids)
         {
             provider.Delete(ids);
@@ -74,43 +74,43 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IStandardGeneralRoleInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IList<IStandardGeneralRoleInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IList<IStandardGeneralRoleInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IList<IStandardGeneralRoleInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
@@ -118,17 +118,17 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         #region 属性:FindAllByCatalogItemId(string CatalogItemId)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
-        /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
-        public IList<IStandardGeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="catalogItemId">分类节点标识</param>
+        /// <returns>返回所有实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
+        public IList<IStandardGeneralRoleInfo> FindAllByCatalogItemId(string catalogItemId)
         {
-            return provider.FindAllByCatalogItemId(CatalogItemId);
+            return provider.FindAllByCatalogItemId(catalogItemId);
         }
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 属性:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -144,30 +144,30 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="name">��׼ͨ�ý�ɫ����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">标准通用角色名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return provider.IsExistName(name);
         }
         #endregion
 
-        #region 属性:GetMappingTable(string standardGeneralRoleId, string organizationId)
-        /// <summary>����������֯�µĽ�ɫ�ͱ�׼ͨ�ý�ɫ��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��ʼʱ��</param>
-        /// <param name="organizationId">�����ı�׼</param>
+        #region 函数:GetMappingTable(string standardGeneralRoleId, string organizationId)
+        /// <summary>查找所属组织下的角色和标准通用角色的映射关系</summary>
+        /// <param name="standardGeneralRoleId">开始时间</param>
+        /// <param name="organizationId">所属的标准</param>
         public DataTable GetMappingTable(string standardGeneralRoleId, string organizationId)
         {
             DataTable table = new DataTable();
@@ -204,10 +204,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CreatePackage(DateTime beginDate, DateTime endDate)
-        /// <summary>�������ݰ�</summary>
-        /// <param name="beginDate">��ʼʱ��</param>
-        /// <param name="endDate">����ʱ��</param>
+        #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
+        /// <summary>创建数据包</summary>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
         public string CreatePackage(DateTime beginDate, DateTime endDate)
         {
             StringBuilder outString = new StringBuilder();
@@ -234,13 +234,13 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���ñ�׼ͨ�ý�ɫ����֯ӳ����ϵ
+        // 设置标准通用角色和组织映射关系
         // -------------------------------------------------------
 
-        #region 属性:FindOneMappingRelation(string standardGeneralRoleId, string organizationId)
-        /// <summary>���ұ�׼ͨ�ý�ɫ����֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:FindOneMappingRelation(string standardGeneralRoleId, string organizationId)
+        /// <summary>查找标准通用角色与组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public IStandardGeneralRoleMappingRelationInfo FindOneMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             return this.provider.FindOneMappingRelation(standardGeneralRoleId, organizationId);
@@ -260,26 +260,26 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:AddMappingRelation(string standardGeneralRoleId, string organizationId)
-        /// <summary>���ӱ�׼ͨ�ý�ɫ��������֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:AddMappingRelation(string standardGeneralRoleId, string organizationId)
+        /// <summary>添加标准通用角色与相关组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int AddMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             return this.AddMappingRelation(standardGeneralRoleId, organizationId, string.Empty);
         }
         #endregion
 
-        #region 属性:AddMapping(string standardGeneralRoleId, string organizationId, string roleId)
-        /// <summary>���ӱ�׼ͨ�ý�ɫ��������֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="roleId">��ɫ��ʶ</param>
+        #region 函数:AddMapping(string standardGeneralRoleId, string organizationId, string roleId)
+        /// <summary>添加标准通用角色与相关组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="roleId">角色标识</param>
         public int AddMappingRelation(string standardGeneralRoleId, string organizationId, string roleId)
         {
             if (this.HasMappingRelation(standardGeneralRoleId, organizationId))
             {
-                // �Ѵ���ӳ����ϵ
+                // 已存在映射关系
                 return 1;
             }
 
@@ -296,7 +296,7 @@ namespace X3Platform.Membership.BLL
 
             if (role == null)
             {
-                // ���ؽ�ɫ��Ϣ������
+                // 相关角色信息不存在
                 return 2;
             }
 
@@ -316,8 +316,8 @@ namespace X3Platform.Membership.BLL
             role.Name = organization.GlobalName + "_" + standardGeneralRole.Name;
             role.OrganizationUnitId = organizationId;
             role.StandardRoleId = string.Empty;
-            role.Type = 65536; // �ڲ�������ɫ
-            role.Locking = 0; // ������
+            role.Type = 65536; // 内部虚拟角色
+            role.Locking = 0; // 非锁定
             role.Status = 1;
 
             string name = role.Name;
@@ -328,27 +328,27 @@ namespace X3Platform.Membership.BLL
             {
                 role.Name = name + count++;
 
-                // ����������ѭ��, ��ѭ������10��ʱ���ؿ�ֵ.
+                // 避免陷入死循环, 当循环超过10次时返回空值.
                 if (count > 10) { return null; }
             }
 
             return MembershipManagement.Instance.RoleService.Save(role);
         }
 
-        #region 属性:RemoveMapping(string standardGeneralRoleId, string organizationId)
-        /// <summary>�Ƴ���׼ͨ�ý�ɫ��������֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:RemoveMapping(string standardGeneralRoleId, string organizationId)
+        /// <summary>移除标准通用角色与相关组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int RemoveMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             return this.provider.RemoveMappingRelation(standardGeneralRoleId, organizationId);
         }
         #endregion
 
-        #region 属性:HasMapping(string standardGeneralRoleId, string organizationId)
-        /// <summary>������׼ͨ�ý�ɫ��������֯�Ƿ���ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:HasMapping(string standardGeneralRoleId, string organizationId)
+        /// <summary>检测标准通用角色与相关组织是否有映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public bool HasMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             return this.provider.HasMappingRelation(standardGeneralRoleId, organizationId);

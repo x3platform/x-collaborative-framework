@@ -26,16 +26,16 @@ namespace X3Platform.Membership.IBLL
         /// <param name="friendAccountId">好友的帐号唯一标识</param>
         /// <returns>返回实例<see cref="AccountFriendInfo"/>的详细信息</returns>
         AccountFriendInfo FindOne(string accountId, string friendAccountId);
-		#endregion
+        #endregion
         
         #region 函数:FindAll(DataQuery query)
         /// <summary>查询所有相关记录</summary>
         /// <param name="query">数据查询参数</param>
         /// <returns>返回所有实例<see cref="AccountFriendInfo"/>的详细信息</returns>
         IList<AccountFriendInfo> FindAll(DataQuery query);
-		#endregion
+        #endregion
 
-		// -------------------------------------------------------
+        // -------------------------------------------------------
         // 自定义功能
         // -------------------------------------------------------
 
