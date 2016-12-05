@@ -1,22 +1,9 @@
-﻿// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-namespace X3Platform.Membership.DAL.IBatis
+﻿namespace X3Platform.Membership.DAL.IBatis
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+
     using X3Platform.Data;
     using X3Platform.IBatis.DataMapper;
     using X3Platform.Membership.Configuration;

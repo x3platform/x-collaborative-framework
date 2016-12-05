@@ -18,14 +18,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class CatalogItemService : ICatalogItemService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private ICatalogItemProvider provider = null;
 
-        #region ���캯��:CatalogItemService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:CatalogItemService()
+        /// <summary>构造函数</summary>
         public CatalogItemService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -35,13 +35,13 @@ namespace X3Platform.Membership.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<ICatalogItemProvider>(typeof(ICatalogItemProvider));
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public CatalogItemInfo this[string id]
@@ -51,13 +51,13 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(CatalogItemInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="CatalogItemInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="CatalogItemInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(CatalogItemInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="CatalogItemInfo"/>详细信息</param>
+        /// <returns>实例<see cref="CatalogItemInfo"/>详细信息</returns>
         public CatalogItemInfo Save(CatalogItemInfo param)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
@@ -70,16 +70,16 @@ namespace X3Platform.Membership.BLL
                 SyncToLDAP(param, originalObject.Name, originalObject.ParentId);
             }
 
-            // ����Ψһʶ������
+            // 设置唯一识别名称
             param.DistinguishedName = this.CombineDistinguishedName(param.Name, param.ParentId);
 
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
         public void Delete(string ids)
         {
             provider.Delete(ids);
@@ -87,53 +87,53 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="CatalogItemInfo"/>的详细信息</returns>
         public CatalogItemInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
         public IList<CatalogItemInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
         public IList<CatalogItemInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
         public IList<CatalogItemInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAllByParentId(string parentId)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="parentId">���ڵ���ʶ</param>
-        /// <returns>��������ʵ��<see cref="CatalogItemInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAllByParentId(string parentId)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="parentId">父节点标识</param>
+        /// <returns>返回所有实例<see cref="CatalogItemInfo"/>的详细信息</returns>
         public IList<CatalogItemInfo> FindAllByParentId(string parentId)
         {
             return provider.FindAllByParentId(parentId);
@@ -141,7 +141,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -157,30 +157,30 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:GetCatalogItemPathByCatalogItemId(string CatalogItemId)
-        /// <summary>���ݷ��������ڵ���ʶ����������ȫ·��</summary>
-        /// <param name="CatalogItemId">���������ڵ���ʶ</param>
+        #region 函数:GetCatalogItemPathByCatalogItemId(string catalogItemId)
+        /// <summary>根据分组类别节点标识计算类别的全路径</summary>
+        /// <param name="catalogItemId">分组类别节点标识</param>
         /// <returns></returns>
-        public string GetCatalogItemPathByCatalogItemId(string CatalogItemId)
+        public string GetCatalogItemPathByCatalogItemId(string catalogItemId)
         {
-            string path = FormatCatalogItemPath(CatalogItemId);
+            string path = FormatCatalogItemPath(catalogItemId);
 
             return string.Format(@"{0}\", path);
         }
         #endregion
 
-        #region ˽�к���:FormatTreeNodePath(string id)
-        /// <summary>��ʽ����֯·��</summary>
+        #region 私有函数:FormatTreeNodePath(string id)
+        /// <summary>格式化组织路径</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         private string FormatCatalogItemPath(string id)
@@ -223,10 +223,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CombineDistinguishedName(string name, string parentId)
-        /// <summary>����Ψһ����</summary>
-        /// <param name="name">��֯ȫ������</param>
-        /// <param name="parentId">����������ʶ</param>
+        #region 函数:CombineDistinguishedName(string name, string parentId)
+        /// <summary>组合唯一名称</summary>
+        /// <param name="name">组织全局名称</param>
+        /// <param name="parentId">父级对象标识</param>
         /// <returns></returns>
         public string CombineDistinguishedName(string name, string parentId)
         {
@@ -236,30 +236,30 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:GetLDAPOUPathByCatalogItemId(string CatalogItemId)
-        /// <summary>���ݷ��������ڵ���ʶ���� Active Directory OU ·��</summary>
-        /// <param name="CatalogItemId">���������ڵ���ʶ</param>
+        #region 函数:GetLDAPOUPathByCatalogItemId(string catalogItemId)
+        /// <summary>根据分组类别节点标识计算 Active Directory OU 路径</summary>
+        /// <param name="groupTreeNodeId">分组类别节点标识</param>
         /// <returns></returns>
-        public string GetLDAPOUPathByCatalogItemId(string CatalogItemId)
+        public string GetLDAPOUPathByCatalogItemId(string catalogItemId)
         {
-            return FormatLDAPPath(CatalogItemId);
+            return FormatLDAPPath(catalogItemId);
         }
         #endregion
 
-        #region ˽�к���:FormatLDAPPath(string id)
-        /// <summary>��ʽ�� Active Directory ·��</summary>
-        /// <param name="CatalogItemId"></param>
+        #region 私有函数:FormatLDAPPath(string id)
+        /// <summary>格式化 Active Directory 路径</summary>
+        /// <param name="groupTreeNodeId"></param>
         /// <returns></returns>
-        private string FormatLDAPPath(string CatalogItemId)
+        private string FormatLDAPPath(string catalogItemId)
         {
             string path = string.Empty;
 
             string parentId = string.Empty;
 
-            // OU������
+            // OU的名称
             string name = null;
 
-            CatalogItemInfo param = FindOne(CatalogItemId);
+            CatalogItemInfo param = FindOne(catalogItemId);
 
             if (param == null)
             {
@@ -269,13 +269,13 @@ namespace X3Platform.Membership.BLL
             {
                 name = param.Name;
 
-                // ��֯�ṹ�ĸ��ڵ�OU���⴦�� Ĭ��Ϊ��֯�ṹ
+                // 组织结构的根节点OU特殊处理 默认为组织结构
                 //if (CatalogItemId == tree.RootTreeNodeId)
                 //{
                 //    name = tree.Name;
                 //}
 
-                // 1.���Ʋ���Ϊ�� 2.����������ʶ����Ϊ�� 
+                // 1.名称不能为空 2.父级对象标识不能为空 
                 if (!string.IsNullOrEmpty(name)
                     && !string.IsNullOrEmpty(param.ParentId) && param.ParentId != Guid.Empty.ToString())
                 {
@@ -293,10 +293,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:CreatePackage(DateTime beginDate, DateTime endDate)
-        /// <summary>�������ݰ�</summary>
-        /// <param name="beginDate">��ʼʱ��</param>
-        /// <param name="endDate">����ʱ��</param>
+        #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
+        /// <summary>创建数据包</summary>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
         public string CreatePackage(DateTime beginDate, DateTime endDate)
         {
             StringBuilder outString = new StringBuilder();
@@ -307,14 +307,14 @@ namespace X3Platform.Membership.BLL
 
             outString.AppendFormat("<package packageType=\"Catalog\" beginDate=\"{0}\" endDate=\"{1}\">", beginDate, endDate);
 
-            outString.Append("<Catalog>");
+            outString.Append("<catalog>");
 
             foreach (CatalogItemInfo item in list)
             {
                 outString.Append(item.Serializable());
             }
 
-            outString.Append("</Catalog>");
+            outString.Append("</catalog>");
 
             outString.Append("</package>");
 
@@ -322,41 +322,41 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IRoleInfo param)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">��ɫ��Ϣ</param>
+        #region 函数:SyncToLDAP(IRoleInfo param)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">角色信息</param>
         public int SyncToLDAP(CatalogItemInfo param)
         {
             return SyncToLDAP(param, param.Name, param.ParentId);
         }
         #endregion
 
-        #region 属性:SyncToLDAP(IRoleInfo param, string originalName, string originalParentId)
-        /// <summary>ͬ����Ϣ�� Active Directory</summary>
-        /// <param name="param">����������Ϣ</param>
-        /// <param name="originalName">ԭʼ������</param>
-        /// <param name="originalParentId">ԭʼ�ĸ�����ʶ</param>
+        #region 函数:SyncToLDAP(IRoleInfo param, string originalName, string originalParentId)
+        /// <summary>同步信息至 Active Directory</summary>
+        /// <param name="param">分组类别信息</param>
+        /// <param name="originalName">原始的名称</param>
+        /// <param name="originalParentId">原始的父级标识</param>
         public int SyncToLDAP(CatalogItemInfo param, string originalName, string originalParentId)
         {
             if (LDAPConfigurationView.Instance.IntegratedMode == "ON")
             {
                 if (string.IsNullOrEmpty(param.Name))
                 {
-                    // ��ɫ��${Name}������Ϊ�գ�������������Ϣ��
+                    // 角色【${Name}】名称为空，请配置相关信息。
                     return 1;
                 }
                 else
                 {
                     string parentPath = this.GetLDAPOUPathByCatalogItemId(originalParentId);
 
-                    // 1.ԭʼ��ȫ�����Ʋ�Ϊ�ա�
-                    // 2.Active Directory �������ض�����
+                    // 1.原始的全局名称不为空。
+                    // 2.Active Directory 上有相关对象。
                     if (!string.IsNullOrEmpty(originalName)
                         && LDAPManagement.Instance.OrganizationUnit.IsExistName(originalName, parentPath))
                     {
                         if (param.Name != originalName)
                         {
-                            // ����������${Name}�������Ʒ����ı䡣
+                            // 分组类别【${Name}】的名称发生改变。
                             LDAPManagement.Instance.OrganizationUnit.Rename(
                                     originalName,
                                     this.GetLDAPOUPathByCatalogItemId(originalParentId),
@@ -365,7 +365,7 @@ namespace X3Platform.Membership.BLL
 
                         if (param.ParentId != originalParentId)
                         {
-                            // ����������${Name}���ĸ����ڵ㷢���ı䡣
+                            // 分组类别【${Name}】的父级节点发生改变。
                             LDAPManagement.Instance.OrganizationUnit.MoveTo(
                                 this.GetLDAPOUPathByCatalogItemId(param.Id),
                                 this.GetLDAPOUPathByCatalogItemId(param.ParentId));
@@ -377,7 +377,7 @@ namespace X3Platform.Membership.BLL
                     {
                         LDAPManagement.Instance.OrganizationUnit.Add(param.Name, this.GetLDAPOUPathByCatalogItemId(param.ParentId));
 
-                        // ����������${Name}�������ɹ���
+                        // 分组类别【${Name}】创建成功。
                         return 0;
                     }
                 }

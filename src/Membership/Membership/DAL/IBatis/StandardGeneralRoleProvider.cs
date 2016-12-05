@@ -31,20 +31,20 @@ namespace X3Platform.Membership.DAL.IBatis
     [DataObject]
     public class StandardGeneralRoleProvider : IStandardGeneralRoleProvider
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>IBatisӳ���ļ�</summary>
+        /// <summary>IBatis映射文件</summary>
         private string ibatisMapping = null;
 
-        /// <summary>IBatisӳ������</summary>
+        /// <summary>IBatis映射对象</summary>
         private ISqlMapper ibatisMapper = null;
 
-        /// <summary>���ݱ���</summary>
+        /// <summary>数据表名</summary>
         private string tableName = "tb_StandardGeneralRole";
 
-        #region ���캯��:StandardGeneralRoleProvider()
-        /// <summary>���캯��</summary>
+        #region 构造函数:StandardGeneralRoleProvider()
+        /// <summary>构造函数</summary>
         public StandardGeneralRoleProvider()
         {
             configuration = MembershipConfigurationView.Instance.Configuration;
@@ -56,13 +56,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ�� �޸�
+        // 添加 删除 修改
         // -------------------------------------------------------
 
-        #region 属性:Save(IStandardGeneralRoleInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IStandardGeneralRoleInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IStandardGeneralRoleInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IStandardGeneralRoleInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IStandardGeneralRoleInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IStandardGeneralRoleInfo"/>详细信息</returns>
         public IStandardGeneralRoleInfo Save(IStandardGeneralRoleInfo param)
         {
             if (!IsExist(param.Id))
@@ -78,9 +78,9 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Insert(IStandardGeneralRoleInfo param)
-        /// <summary>���Ӽ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IStandardGeneralRoleInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Insert(IStandardGeneralRoleInfo param)
+        /// <summary>添加记录</summary>
+        /// <param name="param">实例<see cref="IStandardGeneralRoleInfo"/>详细信息</param>
         public void Insert(IStandardGeneralRoleInfo param)
         {
             if (string.IsNullOrEmpty(param.Id))
@@ -97,18 +97,18 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:Update(IStandardGeneralRoleInfo param)
-        /// <summary>�޸ļ�¼</summary>
-        /// <param name="param">ʵ��<see cref="IStandardGeneralRoleInfo"/>��ϸ��Ϣ</param>
+        #region 函数:Update(IStandardGeneralRoleInfo param)
+        /// <summary>修改记录</summary>
+        /// <param name="param">实例<see cref="IStandardGeneralRoleInfo"/>详细信息</param>
         public void Update(IStandardGeneralRoleInfo param)
         {
             ibatisMapper.Update(StringHelper.ToProcedurePrefix(string.Format("{0}_Update", tableName)), param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">��ʶ,�����Զ��Ÿ���.</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">标识,多个以逗号隔开.</param>
         public void Delete(string ids)
         {
             if (string.IsNullOrEmpty(ids))
@@ -123,13 +123,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IStandardGeneralRoleInfo FindOne(string id)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -142,11 +142,11 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause,int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause,int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IList<IStandardGeneralRoleInfo> FindAll(string whereClause, int length)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -161,9 +161,9 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         #region 属性:FindAllByCatalogItemId(string CatalogItemId)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="CatalogItemId">�����ڵ���ʶ</param>
-        /// <returns>��������ʵ��<see cref="IStandardGeneralRoleInfo"/>����ϸ��Ϣ</returns>
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="groupTreeNodeId">分类节点标识</param>
+        /// <returns>返回所有实例<see cref="IStandardGeneralRoleInfo"/>的详细信息</returns>
         public IList<IStandardGeneralRoleInfo> FindAllByCatalogItemId(string CatalogItemId)
         {
             string whereClause = string.Format(" CatalogItemId = ##{0}## ORDER BY OrderId ", CatalogItemId);
@@ -173,7 +173,7 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -202,14 +202,14 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             if (string.IsNullOrEmpty(id))
-                throw new Exception("ʵ����ʶ����Ϊ�ա�");
+                throw new Exception("实例标识不能为空。");
 
             bool isExist = true;
 
@@ -223,14 +223,14 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="name">��׼ͨ�ý�ɫ����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="name">标准通用角色名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new Exception("ʵ�����Ʋ���Ϊ�ա�");
+                throw new Exception("实例名称不能为空。");
 
             bool isExist = true;
 
@@ -245,13 +245,13 @@ namespace X3Platform.Membership.DAL.IBatis
         #endregion
 
         // -------------------------------------------------------
-        // ���ñ�׼ͨ�ý�ɫ����֯ӳ����ϵ
+        // 设置标准通用角色和组织映射关系
         // -------------------------------------------------------
 
-        #region 属性:FindOneMappingRelation(string standardGeneralRoleId, string organizationId)
-        /// <summary>���ұ�׼ͨ�ý�ɫ����֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:FindOneMappingRelation(string standardGeneralRoleId, string organizationId)
+        /// <summary>查找标准通用角色与组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public IStandardGeneralRoleMappingRelationInfo FindOneMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -263,7 +263,7 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:GetMappingRelationPaging(int startIndex, int pageSize,  DataQuery query, out int rowCount)
+        #region 函数:GetMappingRelationPaging(int startIndex, int pageSize,  DataQuery query, out int rowCount)
         /// <summary>标准通用角色映射关系分页函数</summary>
         /// <param name="startIndex">开始行索引数,由0开始统计</param>
         /// <param name="pageSize">页面大小</param>
@@ -289,12 +289,12 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:AddMappingRelation(string standardGeneralRoleId, string organizationId, string roleId, string standardRoleId)
-        /// <summary>���ӱ�׼ͨ�ý�ɫ��������֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
-        /// <param name="roleId">��֯��ʶ</param>
-        /// <param name="standardRoleId">��֯��ʶ</param>
+        #region 函数:AddMappingRelation(string standardGeneralRoleId, string organizationId, string roleId, string standardRoleId)
+        /// <summary>添加标准通用角色与相关组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
+        /// <param name="roleId">组织标识</param>
+        /// <param name="standardRoleId">组织标识</param>
         public int AddMappingRelation(string standardGeneralRoleId, string organizationId, string roleId, string standardRoleId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -310,10 +310,10 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:RemoveMappingRelation(string standardGeneralRoleId, string organizationId)
-        /// <summary>�Ƴ���׼ͨ�ý�ɫ��������֯��ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:RemoveMappingRelation(string standardGeneralRoleId, string organizationId)
+        /// <summary>移除标准通用角色与相关组织的映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public int RemoveMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();
@@ -327,10 +327,10 @@ namespace X3Platform.Membership.DAL.IBatis
         }
         #endregion
 
-        #region 属性:HasMappingRelation(string standardGeneralRoleId, string organizationId)
-        /// <summary>������׼ͨ�ý�ɫ��������֯�Ƿ���ӳ����ϵ</summary>
-        /// <param name="standardGeneralRoleId">��׼ͨ�ý�ɫ��ʶ</param>
-        /// <param name="organizationId">��֯��ʶ</param>
+        #region 函数:HasMappingRelation(string standardGeneralRoleId, string organizationId)
+        /// <summary>检测标准通用角色与相关组织是否有映射关系</summary>
+        /// <param name="standardGeneralRoleId">标准通用角色标识</param>
+        /// <param name="organizationId">组织标识</param>
         public bool HasMappingRelation(string standardGeneralRoleId, string organizationId)
         {
             Dictionary<string, object> args = new Dictionary<string, object>();

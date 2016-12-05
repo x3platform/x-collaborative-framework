@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :IJobService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,64 +13,64 @@ namespace X3Platform.Membership.IBLL
     [SpringObject("X3Platform.Membership.IBLL.IJobService")]
     public interface IJobService
     {
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         IJobInfo this[string id] { get; }
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IJobInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IJobInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IJobInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IJobInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IJobInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IJobInfo"/>详细信息</returns>
         IJobInfo Save(IJobInfo param);
         #endregion
 
-        #region 属性:Delete(string id)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="id">��ʶ</param>
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
         void Delete(string id);
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="IJobInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="IJobInfo"/>的详细信息</returns>
         IJobInfo FindOne(string id);
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="IJobInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="IJobInfo"/>的详细信息</returns>
         IList<IJobInfo> FindAll();
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="IJobInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="IJobInfo"/>的详细信息</returns>
         IList<IJobInfo> FindAll(string whereClause);
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IJobInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IJobInfo"/>的详细信息</returns>
         IList<IJobInfo> FindAll(string whereClause, int length);
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -97,38 +83,38 @@ namespace X3Platform.Membership.IBLL
         IList<IJobInfo> GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount);
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         bool IsExist(string id);
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="name">ְλ����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="name">职位名称</param>
+        /// <returns>布尔值</returns>
         bool IsExistName(string name);
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">ְλ��ʶ</param>
-        /// <param name="name">ְλ����</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">职位标识</param>
+        /// <param name="name">职位名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         int Rename(string id, string name);
         #endregion
 
-        #region 属性:SyncFromPackPage(IJobInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">ְλ��Ϣ</param>
+        #region 函数:SyncFromPackPage(IJobInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">职位信息</param>
         int SyncFromPackPage(IJobInfo param);
         #endregion
 
-        #region 属性:CreatePackage(DateTime beginDate, DateTime endDate)
-        /// <summary>�������ݰ�</summary>
-        /// <param name="beginDate">��ʼʱ��</param>
-        /// <param name="endDate">����ʱ��</param>
+        #region 函数:CreatePackage(DateTime beginDate, DateTime endDate)
+        /// <summary>创建数据包</summary>
+        /// <param name="beginDate">开始时间</param>
+        /// <param name="endDate">结束时间</param>
         string CreatePackage(DateTime beginDate, DateTime endDate);
         #endregion
     }

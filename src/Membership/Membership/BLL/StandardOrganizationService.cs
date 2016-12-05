@@ -1,17 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) ruanyu@live.com
-//
-// FileName     :StandardOrganizationUnitService.cs
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date		    :2010-01-01
-//
-// =============================================================================
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,14 +16,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class StandardOrganizationUnitService : IStandardOrganizationUnitService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private IStandardOrganizationUnitProvider provider = null;
 
-        #region ���캯��:StandardOrganizationUnitService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:StandardOrganizationUnitService()
+        /// <summary>构造函数</summary>
         public StandardOrganizationUnitService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -47,13 +33,13 @@ namespace X3Platform.Membership.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<IStandardOrganizationUnitProvider>(typeof(IStandardOrganizationUnitProvider));
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IStandardOrganizationUnitInfo this[string id]
@@ -63,30 +49,30 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(IStandardOrganizationUnitInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="IStandardOrganizationUnitInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="IStandardOrganizationUnitInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(IStandardOrganizationInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</param>
+        /// <returns>实例<see cref="IStandardOrganizationUnitInfo"/>详细信息</returns>
         public IStandardOrganizationUnitInfo Save(IStandardOrganizationUnitInfo param)
         {
             return provider.Save(param);
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
-        public void Delete(string ids)
+        #region 函数:Delete(string id)
+        /// <summary>删除记录</summary>
+        /// <param name="id">标识</param>
+        public void Delete(string id)
         {
-            provider.Delete(ids);
+            provider.Delete(id);
         }
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
         #region 属性:FindOne(string id)
@@ -123,21 +109,21 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="IStandardOrganizationUnitInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="IStandardOrganizationInfo"/>的详细信息</returns>
         public IList<IStandardOrganizationUnitInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
         }
         #endregion
 
-        #region 属性:FindAllByParentId(string parentId)
-        /// <summary>��ѯĳ�򸸽ڵ��µ�������֯��λ</summary>
-        /// <param name="parentId">���ڱ�ʶ</param>
-        /// <returns>����һ�� IOrganizationUnitInfo ʵ������ϸ��Ϣ</returns>
+        #region 函数:FindAllByParentId(string parentId)
+        /// <summary>查询某个父节点下的所有组织单位</summary>
+        /// <param name="parentId">父节标识</param>
+        /// <returns>返回一个 IOrganizationInfo 实例的详细信息</returns>
         public IList<IStandardOrganizationUnitInfo> FindAllByParentId(string parentId)
         {
             return provider.FindAllByParentId(parentId);
@@ -145,7 +131,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -161,57 +147,57 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);
         }
         #endregion
 
-        #region 属性:IsExistName(string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="name">��׼��֯����</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistName(string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="name">标准组织名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistName(string name)
         {
             return provider.IsExistName(name);
         }
         #endregion
 
-        #region 属性:IsExistGlobalName(string globalName)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="globalName">��׼��֯��λȫ������</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExistGlobalName(string globalName)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="globalName">标准组织单位全局名称</param>
+        /// <returns>布尔值</returns>
         public bool IsExistGlobalName(string globalName)
         {
             return provider.IsExistGlobalName(globalName);
         }
         #endregion
 
-        #region 属性:Rename(string id, string name)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">��׼��֯��ʶ</param>
-        /// <param name="name">��׼��֯����</param>
-        /// <returns>0:�����ɹ� 1:�����Ѵ�����ͬ����</returns>
+        #region 函数:Rename(string id, string name)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">标准组织标识</param>
+        /// <param name="name">标准组织名称</param>
+        /// <returns>0:代表成功 1:代表已存在相同名称</returns>
         public int Rename(string id, string name)
         {
             return provider.Rename(id, name);
         }
         #endregion
 
-        #region 属性:SetGlobalName(string id, string globalName)
-        /// <summary>����ȫ������</summary>
-        /// <param name="id">�ʻ���ʶ</param>
-        /// <param name="globalName">ȫ������</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetGlobalName(string id, string globalName)
+        /// <summary>设置全局名称</summary>
+        /// <param name="id">帐户标识</param>
+        /// <param name="globalName">全局名称</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetGlobalName(string id, string globalName)
         {
             if (string.IsNullOrEmpty(globalName))
             {
-                // ������${Id}��ȫ�����Ʋ���Ϊ�ա�
+                // 对象【${Id}】全局名称不能为空。
                 return 1;
             }
 
@@ -220,10 +206,10 @@ namespace X3Platform.Membership.BLL
                 return 2;
             }
 
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(id))
             {
-                // ������${Id}�������ڡ�
+                // 对象【${Id}】不存在。
                 return 3;
             }
 
@@ -231,24 +217,24 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SetParentId(string id, string parentId)
-        /// <summary>�����Ƿ��������صļ�¼</summary>
-        /// <param name="id">��֯��ʶ</param>
-        /// <param name="parentId">������֯��ʶ</param>
-        /// <returns>�޸ĳɹ�, ���� 0, �޸�ʧ��, ���� 1.</returns>
+        #region 函数:SetParentId(string id, string parentId)
+        /// <summary>检测是否存在相关的记录</summary>
+        /// <param name="id">组织标识</param>
+        /// <param name="parentId">父级组织标识</param>
+        /// <returns>0 操作成功 | 1 操作失败</returns>
         public int SetParentId(string id, string parentId)
         {
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(id))
             {
-                // ������${Id}�������ڡ�
+                // 对象【${Id}】不存在。
                 return 1;
             }
 
-            // �����Ƿ����ڶ���
+            // 检测是否存在对象
             if (!IsExist(parentId))
             {
-                // ����������${ParentId}�������ڡ�
+                // 父级对象【${ParentId}】不存在。
                 return 2;
             }
 
@@ -256,9 +242,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:SyncFromPackPage(IStandardOrganizationUnitInfo param)
-        /// <summary>ͬ����Ϣ</summary>
-        /// <param name="param">��λ��Ϣ</param>
+        #region 函数:SyncFromPackPage(IStandardOrganizationUnitInfo param)
+        /// <summary>同步信息</summary>
+        /// <param name="param">岗位信息</param>
         public int SyncFromPackPage(IStandardOrganizationUnitInfo param)
         {
             provider.SyncFromPackPage(param);

@@ -15,14 +15,14 @@ namespace X3Platform.Membership.BLL
     /// <summary></summary>
     public class CatalogService : ICatalogService
     {
-        /// <summary>����</summary>
+        /// <summary>配置</summary>
         private MembershipConfiguration configuration = null;
 
-        /// <summary>�����ṩ��</summary>
+        /// <summary>数据提供器</summary>
         private ICatalogProvider provider = null;
 
-        #region ���캯��:CatalogService()
-        /// <summary>���캯��</summary>
+        #region 构造函数:CatalogService()
+        /// <summary>构造函数</summary>
         public CatalogService()
         {
             this.configuration = MembershipConfigurationView.Instance.Configuration;
@@ -32,13 +32,13 @@ namespace X3Platform.Membership.BLL
 
             SpringObjectBuilder objectBuilder = SpringObjectBuilder.Create(MembershipConfiguration.ApplicationName, springObjectFile);
 
-            // ���������ṩ��
+            // 创建数据提供器
             this.provider = objectBuilder.GetObject<ICatalogProvider>(typeof(ICatalogProvider));
         }
         #endregion
 
-        #region 属性:this[string id]
-        /// <summary>����</summary>
+        #region 索引:this[string id]
+        /// <summary>索引</summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public CatalogInfo this[string id]
@@ -48,18 +48,18 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ���� ɾ��
+        // 保存 删除
         // -------------------------------------------------------
 
-        #region 属性:Save(CatalogInfo param)
-        /// <summary>������¼</summary>
-        /// <param name="param">ʵ��<see cref="CatalogInfo"/>��ϸ��Ϣ</param>
-        /// <returns>ʵ��<see cref="CatalogInfo"/>��ϸ��Ϣ</returns>
+        #region 函数:Save(CatalogInfo param)
+        /// <summary>保存记录</summary>
+        /// <param name="param">实例<see cref="CatalogInfo"/>详细信息</param>
+        /// <returns>实例<see cref="CatalogInfo"/>详细信息</returns>
         public CatalogInfo Save(CatalogInfo param)
         {
             if (string.IsNullOrEmpty(param.Id))
             {
-                throw new ApplicationException("�����������ı�ʶ����Ϊ�ա�");
+                throw new ApplicationException("分组类别树的标识不能为空。");
             }
 
             CatalogItemInfo node = new CatalogItemInfo();
@@ -82,9 +82,9 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:Delete(string ids)
-        /// <summary>ɾ����¼</summary>
-        /// <param name="ids">ʵ���ı�ʶ,������¼�Զ��ŷֿ�</param>
+        #region 函数:Delete(string ids)
+        /// <summary>删除记录</summary>
+        /// <param name="ids">实例的标识,多条记录以逗号分开</param>
         public void Delete(string ids)
         {
             provider.Delete(ids);
@@ -92,43 +92,43 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // ��ѯ
+        // 查询
         // -------------------------------------------------------
 
-        #region 属性:FindOne(string id)
-        /// <summary>��ѯĳ����¼</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindOne(string id)
+        /// <summary>查询某条记录</summary>
+        /// <param name="id">标识</param>
+        /// <returns>返回实例<see cref="CatalogInfo"/>的详细信息</returns>
         public CatalogInfo FindOne(string id)
         {
             return provider.FindOne(id);
         }
         #endregion
 
-        #region 属性:FindAll()
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <returns>��������ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll()
+        /// <summary>查询所有相关记录</summary>
+        /// <returns>返回所有实例<see cref="CatalogInfo"/>的详细信息</returns>
         public IList<CatalogInfo> FindAll()
         {
             return FindAll(string.Empty);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <returns>��������ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <returns>返回所有实例<see cref="CatalogInfo"/>的详细信息</returns>
         public IList<CatalogInfo> FindAll(string whereClause)
         {
             return FindAll(whereClause, 0);
         }
         #endregion
 
-        #region 属性:FindAll(string whereClause, int length)
-        /// <summary>��ѯ�������ؼ�¼</summary>
-        /// <param name="whereClause">SQL ��ѯ����</param>
-        /// <param name="length">����</param>
-        /// <returns>��������ʵ��<see cref="CatalogInfo"/>����ϸ��Ϣ</returns>
+        #region 函数:FindAll(string whereClause, int length)
+        /// <summary>查询所有相关记录</summary>
+        /// <param name="whereClause">SQL 查询条件</param>
+        /// <param name="length">条数</param>
+        /// <returns>返回所有实例<see cref="CatalogInfo"/>的详细信息</returns>
         public IList<CatalogInfo> FindAll(string whereClause, int length)
         {
             return provider.FindAll(whereClause, length);
@@ -136,7 +136,7 @@ namespace X3Platform.Membership.BLL
         #endregion
 
         // -------------------------------------------------------
-        // �Զ��幦��
+        // 自定义功能
         // -------------------------------------------------------
 
         #region 函数:GetPaging(int startIndex, int pageSize, DataQuery query, out int rowCount)
@@ -152,10 +152,10 @@ namespace X3Platform.Membership.BLL
         }
         #endregion
 
-        #region 属性:IsExist(string id)
-        /// <summary>��ѯ�Ƿ��������صļ�¼.</summary>
-        /// <param name="id">��ʶ</param>
-        /// <returns>����ֵ</returns>
+        #region 函数:IsExist(string id)
+        /// <summary>查询是否存在相关的记录.</summary>
+        /// <param name="id">标识</param>
+        /// <returns>布尔值</returns>
         public bool IsExist(string id)
         {
             return provider.IsExist(id);
