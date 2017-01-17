@@ -104,6 +104,9 @@ namespace X3Platform.Data
                 case "ORACLECLIENT":
                 case "ORACLECLIENT1.0":
                     return "System.Data.OracleClient";
+                case "SQLITE":
+                case "SQLITE3":
+                    return "System.Data.SQLite";                    
                 default:
                     return providerName;
             }
