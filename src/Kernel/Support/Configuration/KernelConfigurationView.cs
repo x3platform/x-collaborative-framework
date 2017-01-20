@@ -3,6 +3,7 @@ namespace X3Platform.Configuration
     using System;
     using System.Configuration;
     using System.Data;
+    using System.Data.Common;
     using System.Diagnostics;
     using System.IO;
     using System.Text;
@@ -65,9 +66,17 @@ namespace X3Platform.Configuration
         }
         #endregion
 
-        #region 构造函数:LoadOptions()
+        #region 函数:Reload()
         /// <summary>加载选项</summary>
-        public void LoadOptions()
+        public void Reload()
+        {
+            this.LoadOptions();
+        }
+        #endregion
+        
+        #region 函数:LoadOptions()
+        /// <summary>加载选项</summary>
+        private void LoadOptions()
         {
             // 加载配置文件信息
             this.configurationSource = (KernelConfiguration)ConfigurationManager.GetSection(KernelConfiguration.SectionName);
@@ -106,14 +115,36 @@ namespace X3Platform.Configuration
                 {
                     try
                     {
-                        // 加载数据库自定义选项信息
-                        GenericSqlCommand command = new GenericSqlCommand(connection.ConnectionString, connection.Provider);
+                        // 由于 GenericSqlCommand 使用了日志功能, 初始化时会调用 KernelConfigurationView 对象
+                        // 所以这里使用原生的对象读取数据
+                        DbProviderFactory providerFactory = DbProviderFactories.GetFactory(GetProviderName(connection.Provider));
 
-                        DataTable table = command.ExecuteQueryForDataTable(this.OptionCommandText);
-
-                        foreach (DataRow row in table.Rows)
+                        using (DbConnection conn = providerFactory.CreateConnection())
                         {
-                            this.AddKeyValue(row[0].ToString(), row[1].ToString(), true);
+                            conn.ConnectionString = connection.ConnectionString;
+
+                            conn.Open();
+
+                            using (DbCommand cmd = providerFactory.CreateCommand())
+                            {
+                                cmd.Connection = conn;
+
+                                cmd.CommandText = this.OptionCommandText;
+
+                                DbDataReader reader = cmd.ExecuteReader();
+
+                                if (reader != null)
+                                {
+                                    while (reader.Read())
+                                    {
+                                        this.AddKeyValue(reader.GetString(0), reader.GetString(1), true);
+                                    }
+
+                                    reader.Close();
+                                }
+                            }
+
+                            conn.Close();
                         }
                     }
                     catch
@@ -121,6 +152,31 @@ namespace X3Platform.Configuration
                         throw;
                     }
                 }
+            }
+        }
+        #endregion
+
+        #region 私有函数:GetProviderName(string providerName)
+        /// <summary>获取规则的数据提供器名称</summary>
+        /// <param name="providerName"></param>
+        /// <returns></returns>
+        private string GetProviderName(string providerName)
+        {
+            switch (providerName.ToUpper())
+            {
+                case "SQLSERVER":
+                case "System.Data.SqlClient":
+                    return "System.Data.SqlClient";
+                case "ORACLE":
+                    return "Oracle.DataAccess.Client";
+                case "MYSQL":
+                    return "MySql.Data.MySqlClient";
+                case "ORACLECLIENT":
+                    return "System.Data.OracleClient";
+                case "SQLITE":
+                    return "System.Data.SQLite";
+                default:
+                    return providerName;
             }
         }
         #endregion
