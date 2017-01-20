@@ -36,6 +36,10 @@ namespace X3Platform.Data.ConnectionPlugins
                 {
                     return true;
                 }
+                else if (Provider == "SQLite" && !string.IsNullOrEmpty(DataSource))
+                {
+                    return true;
+                }
 
                 return false;
             }
@@ -80,6 +84,12 @@ namespace X3Platform.Data.ConnectionPlugins
                         ";connection lifetime=", ConnectionLifetime,
                         ";min pool size=", MinPoolSize,
                         ";max pool size=", MaxPoolSize, ";");
+                }
+                else if (Provider == "SQLite")
+                {
+                    return string.Concat("data source=", DataSource,
+                        (string.IsNullOrEmpty(LoginName) ? string.Empty : (";password=" + Password)),
+                        ";version=3;");
                 }
 
                 return string.Empty;
