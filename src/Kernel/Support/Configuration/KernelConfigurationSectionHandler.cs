@@ -1,23 +1,10 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System.Configuration;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace X3Platform.Configuration
 {
+    /// <summary></summary>
     public class KernelConfigurationSectionHandler : IConfigurationSectionHandler
     {
         /// <summary>创建一个 <see cref="KernelConfiguration"/> 类的实例.</summary>

@@ -50,6 +50,8 @@ namespace X3Platform.Configuration
         /// <summary>重新加载配置信息</summary>
         public virtual void Reload()
         {
+            KernelConfigurationView.Instance.Reload();
+
             this.Load(this.ConfigFilePath);
         }
         #endregion
