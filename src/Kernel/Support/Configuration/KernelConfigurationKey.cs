@@ -1,16 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
 
 using System;
 using System.Xml.Serialization;
@@ -24,10 +11,12 @@ namespace X3Platform.Configuration
         // 私有成员变量.
         private string m_Name = null, m_Value = null;
 
+        /// <summary></summary>
         public KernelConfigurationKey()
         { 
         }
-        
+
+        /// <summary></summary>
         public KernelConfigurationKey(string name, string value)
         {
             m_Name = name;
