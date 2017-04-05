@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -24,43 +24,43 @@ using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Serialization.EventEmitters
 {
-	public sealed class WriterEventEmitter : IEventEmitter
-	{
-		private readonly IEmitter emitter;
+    public sealed class WriterEventEmitter : IEventEmitter
+    {
+        private readonly IEmitter emitter;
 
-		public WriterEventEmitter(IEmitter emitter)
-		{
-			this.emitter = emitter;
-		}
+        public WriterEventEmitter(IEmitter emitter)
+        {
+            this.emitter = emitter;
+        }
 
-		void IEventEmitter.Emit(AliasEventInfo eventInfo)
-		{
-			emitter.Emit(new AnchorAlias(eventInfo.Alias));
-		}
+        void IEventEmitter.Emit(AliasEventInfo eventInfo)
+        {
+            emitter.Emit(new AnchorAlias(eventInfo.Alias));
+        }
 
-		void IEventEmitter.Emit(ScalarEventInfo eventInfo)
-		{
-			emitter.Emit(new Scalar(eventInfo.Anchor, eventInfo.Tag, eventInfo.RenderedValue, eventInfo.Style, eventInfo.IsPlainImplicit, eventInfo.IsQuotedImplicit));
-		}
+        void IEventEmitter.Emit(ScalarEventInfo eventInfo)
+        {
+            emitter.Emit(new Scalar(eventInfo.Anchor, eventInfo.Tag, eventInfo.RenderedValue, eventInfo.Style, eventInfo.IsPlainImplicit, eventInfo.IsQuotedImplicit));
+        }
 
-		void IEventEmitter.Emit(MappingStartEventInfo eventInfo)
-		{
-			emitter.Emit(new MappingStart(eventInfo.Anchor, eventInfo.Tag, eventInfo.IsImplicit, eventInfo.Style));
-		}
+        void IEventEmitter.Emit(MappingStartEventInfo eventInfo)
+        {
+            emitter.Emit(new MappingStart(eventInfo.Anchor, eventInfo.Tag, eventInfo.IsImplicit, eventInfo.Style));
+        }
 
-		void IEventEmitter.Emit(MappingEndEventInfo eventInfo)
-		{
-			emitter.Emit(new MappingEnd());
-		}
+        void IEventEmitter.Emit(MappingEndEventInfo eventInfo)
+        {
+            emitter.Emit(new MappingEnd());
+        }
 
-		void IEventEmitter.Emit(SequenceStartEventInfo eventInfo)
-		{
-			emitter.Emit(new SequenceStart(eventInfo.Anchor, eventInfo.Tag, eventInfo.IsImplicit, eventInfo.Style));
-		}
+        void IEventEmitter.Emit(SequenceStartEventInfo eventInfo)
+        {
+            emitter.Emit(new SequenceStart(eventInfo.Anchor, eventInfo.Tag, eventInfo.IsImplicit, eventInfo.Style));
+        }
 
-		void IEventEmitter.Emit(SequenceEndEventInfo eventInfo)
-		{
-			emitter.Emit(new SequenceEnd());
-		}
-	}
+        void IEventEmitter.Emit(SequenceEndEventInfo eventInfo)
+        {
+            emitter.Emit(new SequenceEnd());
+        }
+    }
 }

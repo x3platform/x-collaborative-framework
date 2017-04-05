@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,75 +23,77 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization.TypeInspectors
 {
-	/// <summary>
-	/// Returns the properties of a type that are readable.
-	/// </summary>
-	public sealed class ReadablePropertiesTypeInspector : TypeInspectorSkeleton
-	{
-		private readonly ITypeResolver _typeResolver;
+    /// <summary>
+    /// Returns the properties of a type that are readable.
+    /// </summary>
+    public sealed class ReadablePropertiesTypeInspector : TypeInspectorSkeleton
+    {
+        private readonly ITypeResolver _typeResolver;
 
-		public ReadablePropertiesTypeInspector(ITypeResolver typeResolver)
-		{
-			if (typeResolver == null)
-			{
-				throw new ArgumentNullException("typeResolver");
-			}
+        public ReadablePropertiesTypeInspector(ITypeResolver typeResolver)
+        {
+            if (typeResolver == null)
+            {
+                throw new ArgumentNullException("typeResolver");
+            }
 
-			_typeResolver = typeResolver;
-		}
+            _typeResolver = typeResolver;
+        }
 
-		private static bool IsValidProperty(PropertyInfo property)
-		{
-			return property.CanRead
-				&& property.GetGetMethod().GetParameters().Length == 0;
-		}
+        private static bool IsValidProperty(PropertyInfo property)
+        {
+            return property.CanRead
+                && property.GetGetMethod().GetParameters().Length == 0;
+        }
 
-		public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
-		{
-			return type
-				.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-				.Where(IsValidProperty)
-				.Select(p => (IPropertyDescriptor)new ReflectionPropertyDescriptor(p, _typeResolver));
-		}
+        public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
+        {
+            return type
+                .GetPublicProperties()
+                .Where(IsValidProperty)
+                .Select(p => (IPropertyDescriptor)new ReflectionPropertyDescriptor(p, _typeResolver));
+        }
 
-		private sealed class ReflectionPropertyDescriptor : IPropertyDescriptor
-		{
-			private readonly PropertyInfo _propertyInfo;
-			private readonly ITypeResolver _typeResolver;
+        private sealed class ReflectionPropertyDescriptor : IPropertyDescriptor
+        {
+            private readonly PropertyInfo _propertyInfo;
+            private readonly ITypeResolver _typeResolver;
 
-			public ReflectionPropertyDescriptor(PropertyInfo propertyInfo, ITypeResolver typeResolver)
-			{
-				_propertyInfo = propertyInfo;
-				_typeResolver = typeResolver;
-			}
+            public ReflectionPropertyDescriptor(PropertyInfo propertyInfo, ITypeResolver typeResolver)
+            {
+                _propertyInfo = propertyInfo;
+                _typeResolver = typeResolver;
+                ScalarStyle = ScalarStyle.Any;
+            }
 
-			public string Name { get { return _propertyInfo.Name; } }
-			public Type Type { get { return _propertyInfo.PropertyType; } }
-			public Type TypeOverride { get; set; }
-			public bool CanWrite { get { return _propertyInfo.CanWrite; } }
+            public string Name { get { return _propertyInfo.Name; } }
+            public Type Type { get { return _propertyInfo.PropertyType; } }
+            public Type TypeOverride { get; set; }
+            public int Order { get; set; }
+            public bool CanWrite { get { return _propertyInfo.CanWrite; } }
+            public ScalarStyle ScalarStyle { get; set; }
 
-			public void Write(object target, object value)
-			{
-				_propertyInfo.SetValue(target, value, null);
-			}
+            public void Write(object target, object value)
+            {
+                _propertyInfo.SetValue(target, value, null);
+            }
 
-			public T GetCustomAttribute<T>() where T : Attribute
-			{
-				var attributes = _propertyInfo.GetCustomAttributes(typeof(T), true);
-				return attributes.Length > 0
-					? (T)attributes[0]
-					: null;
-			}
+            public T GetCustomAttribute<T>() where T : Attribute
+            {
+                var attributes = _propertyInfo.GetCustomAttributes(typeof(T), true);
+                return (T)attributes.FirstOrDefault();
+            }
 
-			public IObjectDescriptor Read(object target)
-			{
-				var propertyValue = _propertyInfo.GetValue(target, null);
-				var actualType = TypeOverride ?? _typeResolver.Resolve(Type, propertyValue);
-				return new ObjectDescriptor(propertyValue, actualType, Type);
-			}
-		}
-	}
+            public IObjectDescriptor Read(object target)
+            {
+                var propertyValue = _propertyInfo.ReadValue(target);
+                var actualType = TypeOverride ?? _typeResolver.Resolve(Type, propertyValue);
+                return new ObjectDescriptor(propertyValue, actualType, Type, ScalarStyle);
+            }
+        }
+    }
 }

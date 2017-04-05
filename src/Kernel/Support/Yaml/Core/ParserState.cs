@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -21,31 +21,31 @@
 
 namespace X3Platform.Yaml.Core
 {
-	internal enum ParserState
-	{
-		StreamStart,
-		StreamEnd,
-		ImplicitDocumentStart,
-		DocumentStart,
-		DocumentContent,
-		DocumentEnd,
-		BlockNode,
-		BlockNodeOrIndentlessSequence,
-		FlowNode,
-		BlockSequenceFirstEntry,
-		BlockSequenceEntry,
-		IndentlessSequenceEntry,
-		BlockMappingFirstKey,
-		BlockMappingKey,
-		BlockMappingValue,
-		FlowSequenceFirstEntry,
-		FlowSequenceEntry,
-		FlowSequenceEntryMappingKey,
-		FlowSequenceEntryMappingValue,
-		FlowSequenceEntryMappingEnd,
-		FlowMappingFirstKey,
-		FlowMappingKey,
-		FlowMappingValue,
-		FlowMappingEmptyValue
-	}
+    internal enum ParserState
+    {
+        StreamStart,
+        StreamEnd,
+        ImplicitDocumentStart,
+        DocumentStart,
+        DocumentContent,
+        DocumentEnd,
+        BlockNode,
+        BlockNodeOrIndentlessSequence,
+        FlowNode,
+        BlockSequenceFirstEntry,
+        BlockSequenceEntry,
+        IndentlessSequenceEntry,
+        BlockMappingFirstKey,
+        BlockMappingKey,
+        BlockMappingValue,
+        FlowSequenceFirstEntry,
+        FlowSequenceEntry,
+        FlowSequenceEntryMappingKey,
+        FlowSequenceEntryMappingValue,
+        FlowSequenceEntryMappingEnd,
+        FlowMappingFirstKey,
+        FlowMappingKey,
+        FlowMappingValue,
+        FlowMappingEmptyValue
+    }
 }

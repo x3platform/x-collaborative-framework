@@ -1,6 +1,6 @@
 ﻿//  This file is part of X3Platform.Yaml - A .NET library for YAML.
 //  Copyright (c) 2014 Leon Mlakar
-//  Copyright (c) 2014 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -22,21 +22,21 @@
 
 namespace X3Platform.Yaml.Core.Events
 {
-	/// <summary>
-	/// Callback interface for external event Visitor.
-	/// </summary>
-	public interface IParsingEventVisitor
-	{
-		void Visit(AnchorAlias e);
-		void Visit(StreamStart e);
-		void Visit(StreamEnd e);
-		void Visit(DocumentStart e);
-		void Visit(DocumentEnd e);
-		void Visit(Scalar e);
-		void Visit(SequenceStart e);
-		void Visit(SequenceEnd e);
-		void Visit(MappingStart e);
-		void Visit(MappingEnd e);
-		void Visit(Comment e);
-	}
+    /// <summary>
+    /// Callback interface for external event Visitor.
+    /// </summary>
+    public interface IParsingEventVisitor
+    {
+        void Visit(AnchorAlias e);
+        void Visit(StreamStart e);
+        void Visit(StreamEnd e);
+        void Visit(DocumentStart e);
+        void Visit(DocumentEnd e);
+        void Visit(Scalar e);
+        void Visit(SequenceStart e);
+        void Visit(SequenceEnd e);
+        void Visit(MappingStart e);
+        void Visit(MappingEnd e);
+        void Visit(Comment e);
+    }
 }

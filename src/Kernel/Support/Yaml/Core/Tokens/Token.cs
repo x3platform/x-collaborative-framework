@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,46 +23,47 @@ using System;
 
 namespace X3Platform.Yaml.Core.Tokens
 {
-	/// <summary>
-	/// Base class for YAML tokens.
-	/// </summary>
-	public abstract class Token
-	{
-		private readonly Mark start;
+    /// <summary>
+    /// Base class for YAML tokens.
+    /// </summary>
+    [Serializable]
+    public abstract class Token
+    {
+        private readonly Mark start;
 
-		/// <summary>
-		/// Gets the start of the token in the input stream.
-		/// </summary>
-		public Mark Start
-		{
-			get
-			{
-				return start;
-			}
-		}
+        /// <summary>
+        /// Gets the start of the token in the input stream.
+        /// </summary>
+        public Mark Start
+        {
+            get
+            {
+                return start;
+            }
+        }
 
-		private readonly Mark end;
+        private readonly Mark end;
 
-		/// <summary>
-		/// Gets the end of the token in the input stream.
-		/// </summary>
-		public Mark End
-		{
-			get
-			{
-				return end;
-			}
-		}
+        /// <summary>
+        /// Gets the end of the token in the input stream.
+        /// </summary>
+        public Mark End
+        {
+            get
+            {
+                return end;
+            }
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Token"/> class.
-		/// </summary>
-		/// <param name="start">The start position of the token.</param>
-		/// <param name="end">The end position of the token.</param>
-		protected Token(Mark start, Mark end)
-		{
-			this.start = start;
-			this.end = end;
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Token"/> class.
+        /// </summary>
+        /// <param name="start">The start position of the token.</param>
+        /// <param name="end">The end position of the token.</param>
+        protected Token(Mark start, Mark end)
+        {
+            this.start = start;
+            this.end = end;
+        }
+    }
 }

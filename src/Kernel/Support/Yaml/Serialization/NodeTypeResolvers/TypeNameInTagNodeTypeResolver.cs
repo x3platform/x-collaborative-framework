@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 aaubry
+// Copyright (c) Antoine Aubry
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,16 +24,22 @@ using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Serialization.NodeTypeResolvers
 {
-	public sealed class TypeNameInTagNodeTypeResolver : INodeTypeResolver
-	{
-		bool INodeTypeResolver.Resolve(NodeEvent nodeEvent, ref Type currentType)
-		{
-			if (!string.IsNullOrEmpty(nodeEvent.Tag))
-			{
-				currentType = Type.GetType(nodeEvent.Tag.Substring(1), true);
-				return true;
-			}
-			return false;
-		}
-	}
+    public sealed class TypeNameInTagNodeTypeResolver : INodeTypeResolver
+    {
+        bool INodeTypeResolver.Resolve(NodeEvent nodeEvent, ref Type currentType)
+        {
+            if (!string.IsNullOrEmpty(nodeEvent.Tag))
+            {
+                // If type could not be loaded, make sure to pass resolving
+                // to the next resolver
+                try
+                {
+                    currentType = Type.GetType(nodeEvent.Tag.Substring(1), true);
+                    return true;
+                }
+                catch { }
+            }
+            return false;
+        }
+    }
 }

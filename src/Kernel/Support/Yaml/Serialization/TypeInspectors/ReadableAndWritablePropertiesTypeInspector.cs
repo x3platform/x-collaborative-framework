@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -25,22 +25,22 @@ using System.Linq;
 
 namespace X3Platform.Yaml.Serialization.TypeInspectors
 {
-	/// <summary>
-	/// Returns the properties of a type that are both readable and writable.
-	/// </summary>
-	public sealed class ReadableAndWritablePropertiesTypeInspector : TypeInspectorSkeleton
-	{
-		private readonly ITypeInspector _innerTypeDescriptor;
+    /// <summary>
+    /// Returns the properties of a type that are both readable and writable.
+    /// </summary>
+    public sealed class ReadableAndWritablePropertiesTypeInspector : TypeInspectorSkeleton
+    {
+        private readonly ITypeInspector _innerTypeDescriptor;
 
-		public ReadableAndWritablePropertiesTypeInspector(ITypeInspector innerTypeDescriptor)
-		{
-			_innerTypeDescriptor = innerTypeDescriptor;
-		}
-	
-		public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
-		{
-			return _innerTypeDescriptor.GetProperties(type, container)
-				.Where(p => p.CanWrite);
-		}
-	}
+        public ReadableAndWritablePropertiesTypeInspector(ITypeInspector innerTypeDescriptor)
+        {
+            _innerTypeDescriptor = innerTypeDescriptor;
+        }
+    
+        public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
+        {
+            return _innerTypeDescriptor.GetProperties(type, container)
+                .Where(p => p.CanWrite);
+        }
+    }
 }

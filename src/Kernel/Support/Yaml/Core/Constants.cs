@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -24,21 +24,21 @@ using X3Platform.Yaml.Core.Tokens;
 
 namespace X3Platform.Yaml.Core
 {
-	/// <summary>
-	/// Defines constants thar relate to the YAML specification.
-	/// </summary>
-	internal static class Constants
-	{
-		public static readonly TagDirective[] DefaultTagDirectives = new[]
-		{
-			new TagDirective("!", "!"),
-			new TagDirective("!!", "tag:yaml.org,2002:"),
-		};
-		
-		public const int MajorVersion = 1;
-		public const int MinorVersion = 1;
-		
-		public const char HandleCharacter = '!';
-		public const string DefaultHandle = "!";
-	}
+    /// <summary>
+    /// Defines constants thar relate to the YAML specification.
+    /// </summary>
+    internal static class Constants
+    {
+        public static readonly TagDirective[] DefaultTagDirectives = new[]
+        {
+            new TagDirective("!", "!"),
+            new TagDirective("!!", "tag:yaml.org,2002:"),
+        };
+        
+        public const int MajorVersion = 1;
+        public const int MinorVersion = 1;
+        
+        public const char HandleCharacter = '!';
+        public const string DefaultHandle = "!";
+    }
 }

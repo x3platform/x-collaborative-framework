@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,26 +23,26 @@ using System;
 
 namespace X3Platform.Yaml.Serialization.ObjectFactories
 {
-	/// <summary>
-	/// Creates objects using a Func{Type,object}"/>.
-	/// </summary>
-	public sealed class LambdaObjectFactory : IObjectFactory
-	{
-		private readonly Func<Type, object> _factory;
+    /// <summary>
+    /// Creates objects using a Func{Type,object}"/>.
+    /// </summary>
+    public sealed class LambdaObjectFactory : IObjectFactory
+    {
+        private readonly Func<Type, object> _factory;
 
-		public LambdaObjectFactory(Func<Type, object> factory)
-		{
-			if (factory == null)
-			{
-				throw new ArgumentNullException("factory");
-			}
+        public LambdaObjectFactory(Func<Type, object> factory)
+        {
+            if (factory == null)
+            {
+                throw new ArgumentNullException("factory");
+            }
 
-			_factory = factory;
-		}
+            _factory = factory;
+        }
 
-		public object Create(Type type)
-		{
-			return _factory(type);
-		}
-	}
+        public object Create(Type type)
+        {
+            return _factory(type);
+        }
+    }
 }

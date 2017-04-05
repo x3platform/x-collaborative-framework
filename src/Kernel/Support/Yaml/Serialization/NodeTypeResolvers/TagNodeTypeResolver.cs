@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 aaubry
+// Copyright (c) Antoine Aubry
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,29 +25,29 @@ using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Serialization.NodeTypeResolvers
 {
-	public sealed class TagNodeTypeResolver : INodeTypeResolver
-	{
-		private readonly IDictionary<string, Type> tagMappings;
+    public sealed class TagNodeTypeResolver : INodeTypeResolver
+    {
+        private readonly IDictionary<string, Type> tagMappings;
 
-		public TagNodeTypeResolver(IDictionary<string, Type> tagMappings)
-		{
-			if (tagMappings == null)
-			{
-				throw new ArgumentNullException("tagMappings");
-			}
+        public TagNodeTypeResolver(IDictionary<string, Type> tagMappings)
+        {
+            if (tagMappings == null)
+            {
+                throw new ArgumentNullException("tagMappings");
+            }
 
-			this.tagMappings = tagMappings;
-		}
-		
-		bool INodeTypeResolver.Resolve(NodeEvent nodeEvent, ref Type currentType)
-		{
-			Type predefinedType;
-			if (!string.IsNullOrEmpty(nodeEvent.Tag) && tagMappings.TryGetValue(nodeEvent.Tag, out predefinedType))
-			{
-				currentType = predefinedType;
-				return true;
-			}
-			return false;
-		}
-	}
+            this.tagMappings = tagMappings;
+        }
+        
+        bool INodeTypeResolver.Resolve(NodeEvent nodeEvent, ref Type currentType)
+        {
+            Type predefinedType;
+            if (!string.IsNullOrEmpty(nodeEvent.Tag) && tagMappings.TryGetValue(nodeEvent.Tag, out predefinedType))
+            {
+                currentType = predefinedType;
+                return true;
+            }
+            return false;
+        }
+    }
 }

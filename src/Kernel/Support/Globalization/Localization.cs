@@ -37,6 +37,7 @@
             : this(fileName, nodeName, true)
         {
         }
+
         /// <summary></summary>
         /// <param name="fileName"></param>
         /// <param name="nodeName"></param>

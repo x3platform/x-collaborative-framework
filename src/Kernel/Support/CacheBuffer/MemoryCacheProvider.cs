@@ -3,13 +3,19 @@ namespace X3Platform.CacheBuffer
     using System;
     using System.Collections.Generic;
     using System.Runtime.Caching;
+#if NETCORE10
+    using Microsoft.Extensions.Caching.Memory;
+#endif
     using X3Platform.CacheBuffer.Configuration;
 
     /// <summary></summary>
     public class MemoryCacheProvider : ICacheProvider
     {
+#if NETCORE10
+        IMemoryCache cache = MemoryCache.Default;
+#else
         ObjectCache cache = MemoryCache.Default;
-
+#endif
         /// <summary></summary>
         public MemoryCacheProvider()
         {

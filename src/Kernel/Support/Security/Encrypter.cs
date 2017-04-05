@@ -357,7 +357,7 @@ namespace X3Platform.Security
         }
         #endregion
 
-        #region 函数:DecryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
+        #region 函数:EncryptAES(string text, byte[] key, byte[] iv, CiphertextFormat format)
         /// <summary>加密-AES方式</summary>
         /// <param name="text">文本</param>
         /// <param name="key">密钥</param>

@@ -1,27 +1,13 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
 using System.Web;
 
 namespace X3Platform
 {
-    /// <summary>���л����Ĵ������ӿ�</summary>
+    /// <summary>上下文封装接口</summary>
     public interface IContextWrapper
     {
         #region 属性:ProcessRequest(HttpContext context)
-        /// <summary>��������</summary>
-        /// <param name="context">�����Ļ���</param>
+        /// <summary>处理请求</summary>
+        /// <param name="context">HTTP 上下文对象</param>
         void ProcessRequest(HttpContext context);
         #endregion
     }

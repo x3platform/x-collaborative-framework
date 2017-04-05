@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -24,24 +24,24 @@ using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// Allows to customize how a type is serialized and deserialized.
-	/// </summary>
-	public interface IYamlTypeConverter
-	{
-		/// <summary>
-		/// Gets a value indicating whether the current converter supports converting the specified type.
-		/// </summary>
-		bool Accepts(Type type);
+    /// <summary>
+    /// Allows to customize how a type is serialized and deserialized.
+    /// </summary>
+    public interface IYamlTypeConverter
+    {
+        /// <summary>
+        /// Gets a value indicating whether the current converter supports converting the specified type.
+        /// </summary>
+        bool Accepts(Type type);
 
-		/// <summary>
-		/// Reads an object's state from a YAML parser.
-		/// </summary>
-		object ReadYaml(IParser parser, Type type);
+        /// <summary>
+        /// Reads an object's state from a YAML parser.
+        /// </summary>
+        object ReadYaml(IParser parser, Type type);
 
-		/// <summary>
-		/// Writes the specified object's state to a YAML emitter.
-		/// </summary>
-		void WriteYaml(IEmitter emitter, object value, Type type);
-	}
+        /// <summary>
+        /// Writes the specified object's state to a YAML emitter.
+        /// </summary>
+        void WriteYaml(IEmitter emitter, object value, Type type);
+    }
 }

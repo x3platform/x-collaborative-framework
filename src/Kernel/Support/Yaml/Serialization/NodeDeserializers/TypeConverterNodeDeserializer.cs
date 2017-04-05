@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -26,32 +26,32 @@ using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization.NodeDeserializers
 {
-	public sealed class TypeConverterNodeDeserializer : INodeDeserializer
-	{
-		private readonly IEnumerable<IYamlTypeConverter> converters;
+    public sealed class TypeConverterNodeDeserializer : INodeDeserializer
+    {
+        private readonly IEnumerable<IYamlTypeConverter> converters;
 
-		public TypeConverterNodeDeserializer(IEnumerable<IYamlTypeConverter> converters)
-		{
-			if (converters == null)
-			{
-				throw new ArgumentNullException("converters");
-			}
+        public TypeConverterNodeDeserializer(IEnumerable<IYamlTypeConverter> converters)
+        {
+            if (converters == null)
+            {
+                throw new ArgumentNullException("converters");
+            }
 
-			this.converters = converters;
-		}
+            this.converters = converters;
+        }
 
-		bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
-		{
-			var converter = converters.FirstOrDefault(c => c.Accepts(expectedType));
-			if (converter == null)
-			{
-				value = null;
-				return false;
-			}
+        bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
+        {
+            var converter = converters.FirstOrDefault(c => c.Accepts(expectedType));
+            if (converter == null)
+            {
+                value = null;
+                return false;
+            }
 
-			value = converter.ReadYaml(reader.Parser, expectedType);
-			return true;
-		}
-	}
+            value = converter.ReadYaml(reader.Parser, expectedType);
+            return true;
+        }
+    }
 }
 

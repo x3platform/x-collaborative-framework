@@ -1125,6 +1125,7 @@
     <Compile Include="Yaml\Core\Events\StreamStart.cs" />
     <Compile Include="Yaml\Core\FakeList.cs" />
     <Compile Include="Yaml\Core\ForwardAnchorNotSupportedException.cs" />
+    <Compile Include="Yaml\Core\HashCode.cs" />
     <Compile Include="Yaml\Core\IEmitter.cs" />
     <Compile Include="Yaml\Core\ILookAheadBuffer.cs" />
     <Compile Include="Yaml\Core\InsertionQueue.cs" />
@@ -1167,6 +1168,9 @@
     <Compile Include="Yaml\Core\Tokens\VersionDirective.cs" />
     <Compile Include="Yaml\Core\Version.cs" />
     <Compile Include="Yaml\Core\YamlException.cs" />
+    <Compile Include="Yaml\Helpers\GenericCollectionToNonGenericAdapter.cs" />
+    <Compile Include="Yaml\Helpers\GenericDictionaryToNonGenericAdapter.cs" />
+    <Compile Include="Yaml\Helpers\Portability.cs" />
     <Compile Include="Yaml\RepresentationModel\DocumentLoadingState.cs" />
     <Compile Include="Yaml\RepresentationModel\EmitterState.cs" />
     <Compile Include="Yaml\RepresentationModel\IYamlVisitor.cs" />
@@ -1175,10 +1179,13 @@
     <Compile Include="Yaml\RepresentationModel\YamlMappingNode.cs" />
     <Compile Include="Yaml\RepresentationModel\YamlNode.cs" />
     <Compile Include="Yaml\RepresentationModel\YamlNodeIdentityEqualityComparer.cs" />
+    <Compile Include="Yaml\RepresentationModel\YamlNodeType.cs" />
     <Compile Include="Yaml\RepresentationModel\YamlScalarNode.cs" />
     <Compile Include="Yaml\RepresentationModel\YamlSequenceNode.cs" />
     <Compile Include="Yaml\RepresentationModel\YamlStream.cs" />
     <Compile Include="Yaml\RepresentationModel\YamlVisitor.cs" />
+    <Compile Include="Yaml\RepresentationModel\YamlVisitorBase.cs" />
+    <Compile Include="Yaml\Serialization\Converters\GuidConverter.cs" />
     <Compile Include="Yaml\Serialization\Deserializer.cs" />
     <Compile Include="Yaml\Serialization\EventEmitters\ChainedEventEmitter.cs" />
     <Compile Include="Yaml\Serialization\EventEmitters\JsonEventEmitter.cs" />
@@ -1207,11 +1214,9 @@
     <Compile Include="Yaml\Serialization\NamingConventions\PascalCaseNamingConvention.cs" />
     <Compile Include="Yaml\Serialization\NamingConventions\UnderscoredNamingConvention.cs" />
     <Compile Include="Yaml\Serialization\NodeDeserializers\ArrayNodeDeserializer.cs" />
+    <Compile Include="Yaml\Serialization\NodeDeserializers\CollectionNodeDeserializer.cs" />
+    <Compile Include="Yaml\Serialization\NodeDeserializers\DictionaryNodeDeserializer.cs" />
     <Compile Include="Yaml\Serialization\NodeDeserializers\EnumerableNodeDeserializer.cs" />
-    <Compile Include="Yaml\Serialization\NodeDeserializers\GenericCollectionNodeDeserializer.cs" />
-    <Compile Include="Yaml\Serialization\NodeDeserializers\GenericDictionaryNodeDeserializer.cs" />
-    <Compile Include="Yaml\Serialization\NodeDeserializers\NonGenericDictionaryNodeDeserializer.cs" />
-    <Compile Include="Yaml\Serialization\NodeDeserializers\NonGenericListNodeDeserializer.cs" />
     <Compile Include="Yaml\Serialization\NodeDeserializers\NullNodeDeserializer.cs" />
     <Compile Include="Yaml\Serialization\NodeDeserializers\ObjectNodeDeserializer.cs" />
     <Compile Include="Yaml\Serialization\NodeDeserializers\ScalarNodeDeserializer.cs" />
@@ -1235,6 +1240,7 @@
     <Compile Include="Yaml\Serialization\Serializer.cs" />
     <Compile Include="Yaml\Serialization\StreamFragment.cs" />
     <Compile Include="Yaml\Serialization\TagMappings.cs" />
+    <Compile Include="Yaml\Serialization\TypeInspectors\CachedTypeInspector.cs" />
     <Compile Include="Yaml\Serialization\TypeInspectors\NamingConventionTypeInspector.cs" />
     <Compile Include="Yaml\Serialization\TypeInspectors\ReadableAndWritablePropertiesTypeInspector.cs" />
     <Compile Include="Yaml\Serialization\TypeInspectors\ReadablePropertiesTypeInspector.cs" />
@@ -1247,9 +1253,12 @@
     <Compile Include="Yaml\Serialization\Utilities\SerializerState.cs" />
     <Compile Include="Yaml\Serialization\Utilities\StringExtensions.cs" />
     <Compile Include="Yaml\Serialization\Utilities\TypeConverter.cs" />
+    <Compile Include="Yaml\Serialization\Utilities\YamlTypeConverters.cs" />
     <Compile Include="Yaml\Serialization\ValueDeserializers\AliasValueDeserializer.cs" />
     <Compile Include="Yaml\Serialization\ValueDeserializers\NodeValueDeserializer.cs" />
     <Compile Include="Yaml\Serialization\YamlAliasAttribute.cs" />
+    <Compile Include="Yaml\Serialization\YamlAttributeOverrides.cs" />
+    <Compile Include="Yaml\Serialization\YamlAttributeOverridesInspector.cs" />
     <Compile Include="Yaml\Serialization\YamlAttributesTypeInspector.cs" />
     <Compile Include="Yaml\Serialization\YamlFormatter.cs" />
     <Compile Include="Yaml\Serialization\YamlIgnoreAttribute.cs" />

@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 aaubry
+// Copyright (c) Antoine Aubry
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,17 +24,17 @@ using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Serialization
 {
-	public interface INodeTypeResolver
-	{
-		/// <summary>
-		/// Determines the type of the specified node.
-		/// </summary>
-		/// <param name="nodeEvent">The node to be deserialized.</param>
-		/// <param name="currentType">The type that has been determined so far.</param>
-		/// <returns>
-		/// true if <paramref name="currentType"/> has been resolved completely;
-		/// false if the next type <see cref="INodeTypeResolver"/> should be invoked.
-		/// </returns>
-		bool Resolve(NodeEvent nodeEvent, ref Type currentType);
-	}
+    public interface INodeTypeResolver
+    {
+        /// <summary>
+        /// Determines the type of the specified node.
+        /// </summary>
+        /// <param name="nodeEvent">The node to be deserialized.</param>
+        /// <param name="currentType">The type that has been determined so far.</param>
+        /// <returns>
+        /// true if <paramref name="currentType"/> has been resolved completely;
+        /// false if the next type <see cref="INodeTypeResolver"/> should be invoked.
+        /// </returns>
+        bool Resolve(NodeEvent nodeEvent, ref Type currentType);
+    }
 }

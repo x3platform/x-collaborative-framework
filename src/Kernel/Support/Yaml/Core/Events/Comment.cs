@@ -1,5 +1,5 @@
 ﻿//  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2014 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -22,31 +22,31 @@
 
 namespace X3Platform.Yaml.Core.Events
 {
-	public class Comment : ParsingEvent
-	{
-		public string Value { get; private set; }
-		public bool IsInline { get; private set; }
+    public class Comment : ParsingEvent
+    {
+        public string Value { get; private set; }
+        public bool IsInline { get; private set; }
 
-		public Comment(string value, bool isInline)
-			: this(value, isInline, Mark.Empty, Mark.Empty)
-		{
-		}
+        public Comment(string value, bool isInline)
+            : this(value, isInline, Mark.Empty, Mark.Empty)
+        {
+        }
 
-		public Comment(string value, bool isInline, Mark start, Mark end)
-			: base(start, end)
-		{
-			Value = value;
-			IsInline = isInline;
-		}
+        public Comment(string value, bool isInline, Mark start, Mark end)
+            : base(start, end)
+        {
+            Value = value;
+            IsInline = isInline;
+        }
 
-		internal override EventType Type
-		{
-			get { return EventType.Comment; }
-		}
+        internal override EventType Type
+        {
+            get { return EventType.Comment; }
+        }
 
-		public override void Accept(IParsingEventVisitor visitor)
-		{
-			visitor.Visit(this);
-		}
-	}
+        public override void Accept(IParsingEventVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+    }
 }

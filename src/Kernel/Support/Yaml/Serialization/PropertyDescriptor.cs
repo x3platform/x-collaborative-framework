@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,47 +20,56 @@
 //  SOFTWARE.
 
 using System;
+using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization
 {
-	public sealed class PropertyDescriptor : IPropertyDescriptor
-	{
-		private readonly IPropertyDescriptor baseDescriptor;
+    public sealed class PropertyDescriptor : IPropertyDescriptor
+    {
+        private readonly IPropertyDescriptor baseDescriptor;
 
-		public PropertyDescriptor(IPropertyDescriptor baseDescriptor)
-		{
-			this.baseDescriptor = baseDescriptor;
-			Name = baseDescriptor.Name;
-		}
+        public PropertyDescriptor(IPropertyDescriptor baseDescriptor)
+        {
+            this.baseDescriptor = baseDescriptor;
+            Name = baseDescriptor.Name;
+        }
 
-		public string Name { get; set; }
+        public string Name { get; set; }
 
-		public Type Type { get { return baseDescriptor.Type; } }
+        public Type Type { get { return baseDescriptor.Type; } }
 
-		public Type TypeOverride
-		{
-			get { return baseDescriptor.TypeOverride; }
-			set { baseDescriptor.TypeOverride = value; }
-		}
+        public Type TypeOverride
+        {
+            get { return baseDescriptor.TypeOverride; }
+            set { baseDescriptor.TypeOverride = value; }
+        }
 
-		public bool CanWrite
-		{
-			get { return baseDescriptor.CanWrite; }
-		}
+        public int Order { get; set; }
 
-		public void Write(object target, object value)
-		{
-			baseDescriptor.Write(target, value);
-		}
+        public ScalarStyle ScalarStyle
+        {
+            get { return baseDescriptor.ScalarStyle; }
+            set { baseDescriptor.ScalarStyle = value; }
+        }
 
-		public T GetCustomAttribute<T>() where T : Attribute
-		{
-			return baseDescriptor.GetCustomAttribute<T>();
-		}
+        public bool CanWrite
+        {
+            get { return baseDescriptor.CanWrite; }
+        }
 
-		public IObjectDescriptor Read(object target)
-		{
-			return baseDescriptor.Read(target);
-		}
-	}
+        public void Write(object target, object value)
+        {
+            baseDescriptor.Write(target, value);
+        }
+
+        public T GetCustomAttribute<T>() where T : Attribute
+        {
+            return baseDescriptor.GetCustomAttribute<T>();
+        }
+
+        public IObjectDescriptor Read(object target)
+        {
+            return baseDescriptor.Read(target);
+        }
+    }
 }

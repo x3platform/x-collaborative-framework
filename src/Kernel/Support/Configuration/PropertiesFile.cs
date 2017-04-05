@@ -1,16 +1,3 @@
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :
-//
-// Description  :
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
 
 namespace X3Platform.Configuration
 {
@@ -50,7 +37,7 @@ namespace X3Platform.Configuration
 
                 string sectionName = string.Empty;
 
-                using (StreamReader reader = new StreamReader(fileName, ASCIIEncoding.Default))
+                using (StreamReader reader = new StreamReader(fileName))
                 {
                     SortedList section = null;
 
@@ -66,11 +53,7 @@ namespace X3Platform.Configuration
 
                         if (s2[0] == '[' && s2[s2.Length - 1] == ']')
                         {
-                            //
-                            //
-                            //
-
-                            //new section
+                            // new section
                             s1 = s2.Substring(1, s2.Length - 2).Trim();
                             if (s1.Length == 0)
                                 continue;
@@ -93,7 +76,7 @@ namespace X3Platform.Configuration
                             // 获取 key=value
                             //
 
-                            //old section
+                            // old section
                             if (sectionName == string.Empty)
                                 continue;
 

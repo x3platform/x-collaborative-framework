@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -35,170 +35,179 @@ using X3Platform.Yaml.Serialization.ValueDeserializers;
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// A façade for the YAML library with the standard configuration.
-	/// </summary>
-	public sealed class Deserializer
-	{
-		private static readonly Dictionary<string, Type> predefinedTagMappings = new Dictionary<string, Type>
-		{
-			{ "tag:yaml.org,2002:map", typeof(Dictionary<object, object>) },
-			{ "tag:yaml.org,2002:bool", typeof(bool) },
-			{ "tag:yaml.org,2002:float", typeof(double) },
-			{ "tag:yaml.org,2002:int", typeof(int) },
-			{ "tag:yaml.org,2002:str", typeof(string) },
-			{ "tag:yaml.org,2002:timestamp", typeof(DateTime) },
-		};
+    /// <summary>
+    /// A faï¿½ade for the YAML library with the standard configuration.
+    /// </summary>
+    public sealed class Deserializer
+    {
+        private static readonly Dictionary<string, Type> predefinedTagMappings = new Dictionary<string, Type>
+        {
+            { "tag:yaml.org,2002:map", typeof(Dictionary<object, object>) },
+            { "tag:yaml.org,2002:bool", typeof(bool) },
+            { "tag:yaml.org,2002:float", typeof(double) },
+            { "tag:yaml.org,2002:int", typeof(int) },
+            { "tag:yaml.org,2002:str", typeof(string) },
+            { "tag:yaml.org,2002:timestamp", typeof(DateTime) },
+        };
 
-		private readonly Dictionary<string, Type> tagMappings;
-		private readonly List<IYamlTypeConverter> converters;
-		private TypeDescriptorProxy typeDescriptor = new TypeDescriptorProxy();
-		private IValueDeserializer valueDeserializer;
+        private readonly Dictionary<string, Type> tagMappings;
+        private readonly List<IYamlTypeConverter> converters;
+        private TypeDescriptorProxy typeDescriptor = new TypeDescriptorProxy();
+        private IValueDeserializer valueDeserializer;
 
-		public IList<INodeDeserializer> NodeDeserializers { get; private set; }
-		public IList<INodeTypeResolver> TypeResolvers { get; private set; }
+        public IList<INodeDeserializer> NodeDeserializers { get; private set; }
+        public IList<INodeTypeResolver> TypeResolvers { get; private set; }
 
-		private class TypeDescriptorProxy : ITypeInspector
-		{
-			public ITypeInspector TypeDescriptor;
+        private class TypeDescriptorProxy : ITypeInspector
+        {
+            public ITypeInspector TypeDescriptor;
 
-			public IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
-			{
-				return TypeDescriptor.GetProperties(type, container);
-			}
+            public IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
+            {
+                return TypeDescriptor.GetProperties(type, container);
+            }
 
-			public IPropertyDescriptor GetProperty(Type type, object container, string name, bool ignoreUnmatched)
-			{
-				return TypeDescriptor.GetProperty(type, container, name, ignoreUnmatched);
-			}
-		}
-		
-		public Deserializer(
-			IObjectFactory objectFactory = null,
-			INamingConvention namingConvention = null,
-			bool ignoreUnmatched = false)
-		{
-			objectFactory = objectFactory ?? new DefaultObjectFactory();
-			namingConvention = namingConvention ?? new NullNamingConvention();
-			
-			typeDescriptor.TypeDescriptor = 
-				new YamlAttributesTypeInspector(
-					new NamingConventionTypeInspector(
-						new ReadableAndWritablePropertiesTypeInspector(
-							new ReadablePropertiesTypeInspector(
-								new StaticTypeResolver()
-							)
-						),
-						namingConvention
-					)
-				);
+            public IPropertyDescriptor GetProperty(Type type, object container, string name, bool ignoreUnmatched)
+            {
+                return TypeDescriptor.GetProperty(type, container, name, ignoreUnmatched);
+            }
+        }
+        
+        public Deserializer(
+            IObjectFactory objectFactory = null,
+            INamingConvention namingConvention = null,
+            bool ignoreUnmatched = false,
+            YamlAttributeOverrides overrides = null)
+        {
+            objectFactory = objectFactory ?? new DefaultObjectFactory();
+            namingConvention = namingConvention ?? new NullNamingConvention();
+            
+            typeDescriptor.TypeDescriptor =
+                new CachedTypeInspector(
+                    new YamlAttributesTypeInspector(
+                        new YamlAttributeOverridesInspector(
+                            new NamingConventionTypeInspector(
+                                new ReadableAndWritablePropertiesTypeInspector(
+                                    new ReadablePropertiesTypeInspector(
+                                        new StaticTypeResolver()
+                                    )
+                                ),
+                                namingConvention
+                            ),
+                            overrides
+                        )
+                    )
+                );
 
-			converters = new List<IYamlTypeConverter>();
-			NodeDeserializers = new List<INodeDeserializer>();
-			NodeDeserializers.Add(new TypeConverterNodeDeserializer(converters));
-			NodeDeserializers.Add(new NullNodeDeserializer());
-			NodeDeserializers.Add(new ScalarNodeDeserializer());
-			NodeDeserializers.Add(new ArrayNodeDeserializer());
-			NodeDeserializers.Add(new GenericDictionaryNodeDeserializer(objectFactory));
-			NodeDeserializers.Add(new NonGenericDictionaryNodeDeserializer(objectFactory));
-			NodeDeserializers.Add(new GenericCollectionNodeDeserializer(objectFactory));
-			NodeDeserializers.Add(new NonGenericListNodeDeserializer(objectFactory));
-			NodeDeserializers.Add(new EnumerableNodeDeserializer());
-			NodeDeserializers.Add(new ObjectNodeDeserializer(objectFactory, typeDescriptor, ignoreUnmatched));
+            converters = new List<IYamlTypeConverter>();
+            foreach (IYamlTypeConverter yamlTypeConverter in YamlTypeConverters.GetBuiltInConverters(false))
+            {
+                converters.Add(yamlTypeConverter);
+            }
 
-			tagMappings = new Dictionary<string, Type>(predefinedTagMappings);
-			TypeResolvers = new List<INodeTypeResolver>();
-			TypeResolvers.Add(new TagNodeTypeResolver(tagMappings));
-			TypeResolvers.Add(new TypeNameInTagNodeTypeResolver());
-			TypeResolvers.Add(new DefaultContainersNodeTypeResolver());
-			
-			valueDeserializer =
-				new AliasValueDeserializer(
-					new NodeValueDeserializer(
-						NodeDeserializers,
-						TypeResolvers
-					)
-				);
-		}
+            NodeDeserializers = new List<INodeDeserializer>();
+            NodeDeserializers.Add(new TypeConverterNodeDeserializer(converters));
+            NodeDeserializers.Add(new NullNodeDeserializer());
+            NodeDeserializers.Add(new ScalarNodeDeserializer());
+            NodeDeserializers.Add(new ArrayNodeDeserializer());
+            NodeDeserializers.Add(new DictionaryNodeDeserializer(objectFactory));
+            NodeDeserializers.Add(new CollectionNodeDeserializer(objectFactory));
+            NodeDeserializers.Add(new EnumerableNodeDeserializer());
+            NodeDeserializers.Add(new ObjectNodeDeserializer(objectFactory, typeDescriptor, ignoreUnmatched));
 
-		public void RegisterTagMapping(string tag, Type type)
-		{
-			tagMappings.Add(tag, type);
-		}
+            tagMappings = new Dictionary<string, Type>(predefinedTagMappings);
+            TypeResolvers = new List<INodeTypeResolver>();
+            TypeResolvers.Add(new TagNodeTypeResolver(tagMappings));
+            TypeResolvers.Add(new TypeNameInTagNodeTypeResolver());
+            TypeResolvers.Add(new DefaultContainersNodeTypeResolver());
+            
+            valueDeserializer =
+                new AliasValueDeserializer(
+                    new NodeValueDeserializer(
+                        NodeDeserializers,
+                        TypeResolvers
+                    )
+                );
+        }
 
-		public void RegisterTypeConverter(IYamlTypeConverter typeConverter)
-		{
-			converters.Add(typeConverter);
-		}
+        public void RegisterTagMapping(string tag, Type type)
+        {
+            tagMappings.Add(tag, type);
+        }
 
-		public T Deserialize<T>(TextReader input)
-		{
-			return (T)Deserialize(input, typeof(T));
-		}
+        public void RegisterTypeConverter(IYamlTypeConverter typeConverter)
+        {
+            converters.Insert(0, typeConverter);
+        }
 
-		public object Deserialize(TextReader input)
-		{
-			return Deserialize(input, typeof(object));
-		}
+        public T Deserialize<T>(TextReader input)
+        {
+            return (T)Deserialize(input, typeof(T));
+        }
 
-		public object Deserialize(TextReader input, Type type)
-		{
-			return Deserialize(new EventReader(new Parser(input)), type);
-		}
+        public object Deserialize(TextReader input)
+        {
+            return Deserialize(input, typeof(object));
+        }
 
-		public T Deserialize<T>(EventReader reader)
-		{
-			return (T)Deserialize(reader, typeof(T));
-		}
+        public object Deserialize(TextReader input, Type type)
+        {
+            return Deserialize(new EventReader(new Parser(input)), type);
+        }
 
-		public object Deserialize(EventReader reader)
-		{
-			return Deserialize(reader, typeof(object));
-		}
+        public T Deserialize<T>(EventReader reader)
+        {
+            return (T)Deserialize(reader, typeof(T));
+        }
 
-		/// <summary>
-		/// Deserializes an object of the specified type.
-		/// </summary>
-		/// <param name="reader">The <see cref="EventReader" /> where to deserialize the object.</param>
-		/// <param name="type">The static type of the object to deserialize.</param>
-		/// <returns>Returns the deserialized object.</returns>
-		public object Deserialize(EventReader reader, Type type)
-		{
-			if (reader == null)
-			{
-				throw new ArgumentNullException("reader");
-			}
+        public object Deserialize(EventReader reader)
+        {
+            return Deserialize(reader, typeof(object));
+        }
 
-			if (type == null)
-			{
-				throw new ArgumentNullException("type");
-			}
+        /// <summary>
+        /// Deserializes an object of the specified type.
+        /// </summary>
+        /// <param name="reader">The <see cref="EventReader" /> where to deserialize the object.</param>
+        /// <param name="type">The static type of the object to deserialize.</param>
+        /// <returns>Returns the deserialized object.</returns>
+        public object Deserialize(EventReader reader, Type type)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
 
-			var hasStreamStart = reader.Allow<StreamStart>() != null;
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
 
-			var hasDocumentStart = reader.Allow<DocumentStart>() != null;
+            var hasStreamStart = reader.Allow<StreamStart>() != null;
 
-			object result = null;
-			if (!reader.Accept<DocumentEnd>() && !reader.Accept<StreamEnd>())
-			{
-				using (var state = new SerializerState())
-				{
-					result = valueDeserializer.DeserializeValue(reader, type, state, valueDeserializer);
-					state.OnDeserialization();
-				}
-			}
+            var hasDocumentStart = reader.Allow<DocumentStart>() != null;
 
-			if (hasDocumentStart)
-			{
-				reader.Expect<DocumentEnd>();
-			}
+            object result = null;
+            if (!reader.Accept<DocumentEnd>() && !reader.Accept<StreamEnd>())
+            {
+                using (var state = new SerializerState())
+                {
+                    result = valueDeserializer.DeserializeValue(reader, type, state, valueDeserializer);
+                    state.OnDeserialization();
+                }
+            }
 
-			if (hasStreamStart)
-			{
-				reader.Expect<StreamEnd>();
-			}
+            if (hasDocumentStart)
+            {
+                reader.Expect<DocumentEnd>();
+            }
 
-			return result;
-		}
-	}
+            if (hasStreamStart)
+            {
+                reader.Expect<StreamEnd>();
+            }
+
+            return result;
+        }
+    }
 }

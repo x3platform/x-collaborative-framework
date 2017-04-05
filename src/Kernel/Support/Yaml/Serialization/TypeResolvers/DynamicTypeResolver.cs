@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,14 +23,14 @@ using System;
 
 namespace X3Platform.Yaml.Serialization.TypeResolvers
 {
-	/// <summary>
-	/// The type returned will be the actual type of the value, if available.
-	/// </summary>
-	public sealed class DynamicTypeResolver : ITypeResolver
-	{
-		public Type Resolve(Type staticType, object actualValue)
-		{
-			return actualValue != null ? actualValue.GetType() : staticType;
-		}
-	}
+    /// <summary>
+    /// The type returned will be the actual type of the value, if available.
+    /// </summary>
+    public sealed class DynamicTypeResolver : ITypeResolver
+    {
+        public Type Resolve(Type staticType, object actualValue)
+        {
+            return actualValue != null ? actualValue.GetType() : staticType;
+        }
+    }
 }

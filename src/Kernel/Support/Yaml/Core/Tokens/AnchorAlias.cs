@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,43 +23,44 @@ using System;
 
 namespace X3Platform.Yaml.Core.Tokens
 {
-	/// <summary>
-	/// Represents an alias token.
-	/// </summary>
-	public class AnchorAlias : Token
-	{
-		private readonly string value;
+    /// <summary>
+    /// Represents an alias token.
+    /// </summary>
+    [Serializable]
+    public class AnchorAlias : Token
+    {
+        private readonly string value;
 
-		/// <summary>
-		/// Gets the value of the alias.
-		/// </summary>
-		public string Value
-		{
-			get
-			{
-				return value;
-			}
-		}
+        /// <summary>
+        /// Gets the value of the alias.
+        /// </summary>
+        public string Value
+        {
+            get
+            {
+                return value;
+            }
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AnchorAlias"/> class.
-		/// </summary>
-		/// <param name="value">The value of the anchor.</param>
-		public AnchorAlias(string value)
-			: this(value, Mark.Empty, Mark.Empty)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnchorAlias"/> class.
+        /// </summary>
+        /// <param name="value">The value of the anchor.</param>
+        public AnchorAlias(string value)
+            : this(value, Mark.Empty, Mark.Empty)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AnchorAlias"/> class.
-		/// </summary>
-		/// <param name="value">The value of the anchor.</param>
-		/// <param name="start">The start position of the event.</param>
-		/// <param name="end">The end position of the event.</param>
-		public AnchorAlias(string value, Mark start, Mark end)
-			: base(start, end)
-		{
-			this.value = value;
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnchorAlias"/> class.
+        /// </summary>
+        /// <param name="value">The value of the anchor.</param>
+        /// <param name="start">The start position of the event.</param>
+        /// <param name="end">The end position of the event.</param>
+        public AnchorAlias(string value, Mark start, Mark end)
+            : base(start, end)
+        {
+            this.value = value;
+        }
+    }
 }

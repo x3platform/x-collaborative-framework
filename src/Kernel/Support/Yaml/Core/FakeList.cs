@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -24,55 +24,55 @@ using System.Collections.Generic;
 
 namespace X3Platform.Yaml.Core
 {
-	/// <summary>
-	/// Implements an indexer through an IEnumerator&lt;T&gt;.
-	/// </summary>
-	public class FakeList<T>
-	{
-		private readonly IEnumerator<T> collection;
-		private int currentIndex = -1;
-		
-		/// <summary>
-		/// Initializes a new instance of FakeList&lt;T&gt;.
-		/// </summary>
-		/// <param name="collection">The enumerator to use to implement the indexer.</param>
-		public FakeList(IEnumerator<T> collection)
-		{
-			this.collection = collection; 
-		}
-		
-		/// <summary>
-		/// Initializes a new instance of FakeList&lt;T&gt;.
-		/// </summary>
-		/// <param name="collection">The collection to use to implement the indexer.</param>
-		public FakeList(IEnumerable<T> collection)
-			: this(collection.GetEnumerator())
-		{
-		}
+    /// <summary>
+    /// Implements an indexer through an IEnumerator&lt;T&gt;.
+    /// </summary>
+    public class FakeList<T>
+    {
+        private readonly IEnumerator<T> collection;
+        private int currentIndex = -1;
+        
+        /// <summary>
+        /// Initializes a new instance of FakeList&lt;T&gt;.
+        /// </summary>
+        /// <param name="collection">The enumerator to use to implement the indexer.</param>
+        public FakeList(IEnumerator<T> collection)
+        {
+            this.collection = collection; 
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of FakeList&lt;T&gt;.
+        /// </summary>
+        /// <param name="collection">The collection to use to implement the indexer.</param>
+        public FakeList(IEnumerable<T> collection)
+            : this(collection.GetEnumerator())
+        {
+        }
 
-		/// <summary>
-		/// Gets the element at the specified index. 
-		/// </summary>
-		/// <remarks>
-		/// If index is greater or equal than the last used index, this operation is O(index - lastIndex),
-		/// else this operation is O(index).
-		/// </remarks>
-		public T this[int index] {
-			get {
-				if(index < currentIndex) {
-					collection.Reset();
-					currentIndex = -1;
-				}
-				
-				while(currentIndex < index) {
-					if(!collection.MoveNext()) {
-						throw new ArgumentOutOfRangeException("index");
-					}
-					++currentIndex;
-				}
-				
-				return collection.Current;
-			}
-		}
-	}
+        /// <summary>
+        /// Gets the element at the specified index. 
+        /// </summary>
+        /// <remarks>
+        /// If index is greater or equal than the last used index, this operation is O(index - lastIndex),
+        /// else this operation is O(index).
+        /// </remarks>
+        public T this[int index] {
+            get {
+                if(index < currentIndex) {
+                    collection.Reset();
+                    currentIndex = -1;
+                }
+                
+                while(currentIndex < index) {
+                    if(!collection.MoveNext()) {
+                        throw new ArgumentOutOfRangeException("index");
+                    }
+                    ++currentIndex;
+                }
+                
+                return collection.Current;
+            }
+        }
+    }
 }

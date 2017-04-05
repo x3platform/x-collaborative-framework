@@ -7,6 +7,8 @@
     using System.Net;
     using System.Text;
     using System.Web;
+
+    using X3Platform.Web;
     using X3Platform.Util;
     #endregion
 
@@ -56,7 +58,7 @@
 
             foreach (KeyValuePair<string, string> arg in requestData.Args)
             {
-                httpParams.AppendFormat("{0}={1}&", arg.Key, HttpUtility.UrlEncode(arg.Value));
+                httpParams.AppendFormat("{0}={1}&", arg.Key, UrlHelper.UrlEncode(arg.Value));
             }
 
             httpParams = StringHelper.TrimEnd(httpParams, "&");
@@ -239,7 +241,7 @@
 
                 foreach (KeyValuePair<string, string> arg in requestData.Args)
                 {
-                    httpParams.AppendFormat("{0}={1}&", arg.Key, HttpUtility.UrlEncode(arg.Value));
+                    httpParams.AppendFormat("{0}={1}&", arg.Key, UrlHelper.UrlEncode(arg.Value));
                 }
 
                 streamWriter.Write(httpParams.ToString().TrimEnd(new char[] { '&' }));
@@ -254,7 +256,7 @@
         {
             WebRequest request = asyncResult.AsyncState as WebRequest;
 
-            using (HttpWebResponse response =  (HttpWebResponse)request.EndGetResponse(asyncResult))
+            using (HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asyncResult))
             {
                 using (Stream stream = response.GetResponseStream())
                 {

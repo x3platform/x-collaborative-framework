@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,47 +23,47 @@ using System;
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// Options that control the serialization process.
-	/// </summary>
-	[Flags]
-	public enum SerializationOptions
-	{
-		/// <summary>
-		/// Serializes using the default options
-		/// </summary>
-		None = 0,
+    /// <summary>
+    /// Options that control the serialization process.
+    /// </summary>
+    [Flags]
+    public enum SerializationOptions
+    {
+        /// <summary>
+        /// Serializes using the default options
+        /// </summary>
+        None = 0,
 
-		/// <summary>
-		/// Ensures that it will be possible to deserialize the serialized objects.
-		/// </summary>
-		Roundtrip = 1,
+        /// <summary>
+        /// Ensures that it will be possible to deserialize the serialized objects.
+        /// </summary>
+        Roundtrip = 1,
 
-		/// <summary>
-		/// If this flag is specified, if the same object appears more than once in the
-		/// serialization graph, it will be serialized each time instead of just once.
-		/// </summary>
-		/// <remarks>
-		/// If the serialization graph contains circular references and this flag is set,
-		/// a <see cref="StackOverflowException" /> will be thrown.
-		/// If this flag is not set, there is a performance penalty because the entire
-		/// object graph must be walked twice.
-		/// </remarks>
-		DisableAliases = 2,
+        /// <summary>
+        /// If this flag is specified, if the same object appears more than once in the
+        /// serialization graph, it will be serialized each time instead of just once.
+        /// </summary>
+        /// <remarks>
+        /// If the serialization graph contains circular references and this flag is set,
+        /// a StackOverflowException will be thrown.
+        /// If this flag is not set, there is a performance penalty because the entire
+        /// object graph must be walked twice.
+        /// </remarks>
+        DisableAliases = 2,
 
-		/// <summary>
-		/// Forces every value to be serialized, even if it is the default value for that type.
-		/// </summary>
-		EmitDefaults = 4,
+        /// <summary>
+        /// Forces every value to be serialized, even if it is the default value for that type.
+        /// </summary>
+        EmitDefaults = 4,
 
-		/// <summary>
-		/// Ensures that the result of the serialization is valid JSON.
-		/// </summary>
-		JsonCompatible = 8,
+        /// <summary>
+        /// Ensures that the result of the serialization is valid JSON.
+        /// </summary>
+        JsonCompatible = 8,
 
-		/// <summary>
-		/// Use the static type of values instead of their actual type.
-		/// </summary>
-		DefaultToStaticType = 16,
-	}
+        /// <summary>
+        /// Use the static type of values instead of their actual type.
+        /// </summary>
+        DefaultToStaticType = 16,
+    }
 }

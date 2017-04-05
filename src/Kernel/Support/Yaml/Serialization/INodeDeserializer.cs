@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 aaubry
+// Copyright (c) Antoine Aubry
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,8 +24,8 @@ using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization
 {
-	public interface INodeDeserializer
-	{
-		bool Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value);
-	}
+    public interface INodeDeserializer
+    {
+        bool Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value);
+    }
 }

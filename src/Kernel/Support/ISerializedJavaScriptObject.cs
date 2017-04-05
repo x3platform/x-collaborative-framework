@@ -1,22 +1,7 @@
-﻿// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :ISerializedObject.cs
-//
-// Description  :序列化对象接口
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-
-using System;
-using System.Xml;
-
-namespace X3Platform
+﻿namespace X3Platform
 {
+    using System;
+
     /// <summary>序列化JSON对象接口</summary>
     public interface ISerializedJavaScriptObject
     {

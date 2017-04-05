@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,19 +20,22 @@
 //  SOFTWARE.
 
 using System;
+using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization
 {
-	public interface IPropertyDescriptor
-	{
-		string Name { get; }
-		bool CanWrite { get; }
-		Type Type { get; }
-		Type TypeOverride { get; set; }
+    public interface IPropertyDescriptor
+    {
+        string Name { get; }
+        bool CanWrite { get; }
+        Type Type { get; }
+        Type TypeOverride { get; set; }
+        int Order { get; set; }
+        ScalarStyle ScalarStyle { get; set; }
 
-		T GetCustomAttribute<T>() where T : Attribute;
+        T GetCustomAttribute<T>() where T : Attribute;
 
-		IObjectDescriptor Read(object target);
-		void Write(object target, object value);
-	}
+        IObjectDescriptor Read(object target);
+        void Write(object target, object value);
+    }
 }

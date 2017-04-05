@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,24 +23,25 @@ using System;
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// Instructs the <see cref="Deserializer"/> to use a different field name for serialization.
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-	public class YamlAliasAttribute : Attribute
-	{
-		/// <summary>
-		/// Gets or sets the alias name.
-		/// </summary>
-		public string Alias { get; set; }
+    /// <summary>
+    /// Instructs the <see cref="Deserializer"/> to use a different field name for serialization.
+    /// </summary>
+    [Obsolete("Please use YamlMember instead")]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
+    public class YamlAliasAttribute : Attribute
+    {
+        /// <summary>
+        /// Gets or sets the alias name.
+        /// </summary>
+        public string Alias { get; set; }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="YamlAliasAttribute" /> class.
-		/// </summary>
-		/// <param name="alias">The alias to use for this field.</param>
-		public YamlAliasAttribute(string alias)
-		{
-			Alias = alias;
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YamlAliasAttribute" /> class.
+        /// </summary>
+        /// <param name="alias">The alias to use for this field.</param>
+        public YamlAliasAttribute(string alias)
+        {
+            Alias = alias;
+        }
+    }
 }

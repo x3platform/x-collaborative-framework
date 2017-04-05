@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 aaubry
+// Copyright (c) Antoine Aubry
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,37 +25,37 @@ using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Serialization.NodeDeserializers
 {
-	public sealed class NullNodeDeserializer : INodeDeserializer
-	{
-		bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
-		{
-			value = null;
-			var evt = reader.Peek<NodeEvent>();
-			var isNull = evt != null
-				&& NodeIsNull(evt);
+    public sealed class NullNodeDeserializer : INodeDeserializer
+    {
+        bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
+        {
+            value = null;
+            var evt = reader.Peek<NodeEvent>();
+            var isNull = evt != null
+                && NodeIsNull(evt);
 
-			if (isNull)
-			{
-				reader.SkipThisAndNestedEvents();
-			}
-			return isNull;
-		}
+            if (isNull)
+            {
+                reader.SkipThisAndNestedEvents();
+            }
+            return isNull;
+        }
 
-		private bool NodeIsNull(NodeEvent nodeEvent)
-		{
-			// http://yaml.org/type/null.html
+        private bool NodeIsNull(NodeEvent nodeEvent)
+        {
+            // http://yaml.org/type/null.html
 
-			if (nodeEvent.Tag == "tag:yaml.org,2002:null")
-			{
-				return true;
-			}
+            if (nodeEvent.Tag == "tag:yaml.org,2002:null")
+            {
+                return true;
+            }
 
-			var scalar = nodeEvent as Scalar;
-			if (scalar == null || scalar.Style != Core.ScalarStyle.Plain)
-				return false;
+            var scalar = nodeEvent as Scalar;
+            if (scalar == null || scalar.Style != Core.ScalarStyle.Plain)
+                return false;
 
-			var value = scalar.Value;
-			return value == "" || value == "~" || value == "null" || value == "Null" || value == "NULL";
-		}
-	}
+            var value = scalar.Value;
+            return value == "" || value == "~" || value == "null" || value == "Null" || value == "NULL";
+        }
+    }
 }

@@ -9,7 +9,6 @@ using Microsoft.CSharp;
 
 namespace X3Platform.Web.Util
 {
-
     /* 调用方式  
      *   string url = "http://www.webservicex.net/globalweather.asmx" ;  
      *   string[] args = new string[2] ;  
@@ -88,6 +87,7 @@ namespace X3Platform.Web.Util
                 importer.Style = ServiceDescriptionImportStyle.Client;
                 // Generate properties to represent primitive values.
                 importer.CodeGenerationOptions = System.Xml.Serialization.CodeGenerationOptions.GenerateProperties;
+                
                 // "Soap Soap12 HttpPost HttpGet HttpSoap
                 importer.ProtocolName = string.IsNullOrEmpty(protocolName) ? "Soap" : protocolName;  // Use SOAP 1.2.
                 //

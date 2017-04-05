@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,27 +23,28 @@ using System;
 
 namespace X3Platform.Yaml.Core.Tokens
 {
-	/// <summary>
-	/// Represents a stream start token.
-	/// </summary>
-	public class StreamStart : Token
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="StreamStart"/> class.
-		/// </summary>
-		public StreamStart()
-			: this(Mark.Empty, Mark.Empty)
-		{
-		}
+    /// <summary>
+    /// Represents a stream start token.
+    /// </summary>
+    [Serializable]
+    public class StreamStart : Token
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StreamStart"/> class.
+        /// </summary>
+        public StreamStart()
+            : this(Mark.Empty, Mark.Empty)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="StreamStart"/> class.
-		/// </summary>
-		/// <param name="start">The start position of the token.</param>
-		/// <param name="end">The end position of the token.</param>
-		public StreamStart(Mark start, Mark end)
-			: base(start, end)
-		{
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StreamStart"/> class.
+        /// </summary>
+        /// <param name="start">The start position of the token.</param>
+        /// <param name="end">The end position of the token.</param>
+        public StreamStart(Mark start, Mark end)
+            : base(start, end)
+        {
+        }
+    }
 }

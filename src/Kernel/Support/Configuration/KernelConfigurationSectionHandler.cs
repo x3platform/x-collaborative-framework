@@ -1,9 +1,10 @@
-using System.Configuration;
-using System.Xml;
-using System.Xml.Serialization;
-
 namespace X3Platform.Configuration
 {
+#if !NETSTANDARD
+    using System.Configuration;
+    using System.Xml;
+    using System.Xml.Serialization;
+
     /// <summary></summary>
     public class KernelConfigurationSectionHandler : IConfigurationSectionHandler
     {
@@ -20,4 +21,5 @@ namespace X3Platform.Configuration
             return ser.Deserialize(new XmlNodeReader(section));
         }
     }
+#endif
 }

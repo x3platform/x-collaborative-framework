@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,34 +20,134 @@
 //  SOFTWARE.
 
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using X3Platform.Yaml.Core;
-using X3Platform.Yaml.Serialization.Utilities;
 
 namespace X3Platform.Yaml.Serialization.NodeDeserializers
 {
-	public sealed class ArrayNodeDeserializer : INodeDeserializer
-	{
-		bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
-		{
-			if (!expectedType.IsArray)
-			{
-				value = false;
-				return false;
-			}
+    public sealed class ArrayNodeDeserializer : INodeDeserializer
+    {
+        bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
+        {
+            if (!expectedType.IsArray)
+            {
+                value = false;
+                return false;
+            }
 
-			value = _deserializeHelper.Invoke(new[] { expectedType.GetElementType() }, reader, expectedType, nestedObjectDeserializer);
-			return true;
-		}
+            var itemType = expectedType.GetElementType();
 
-		private static readonly GenericStaticMethod _deserializeHelper = new GenericStaticMethod(() => DeserializeHelper<object>(null, null, null));
+            var items = new ArrayList();
+            CollectionNodeDeserializer.DeserializeHelper(itemType, reader, expectedType, nestedObjectDeserializer, items, true);
 
-		private static TItem[] DeserializeHelper<TItem>(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer)
-		{
-			var items = new List<TItem>();
-			GenericCollectionNodeDeserializer.DeserializeHelper(reader, expectedType, nestedObjectDeserializer, items);
-			return items.ToArray();
-		}
-	}
+            var array = Array.CreateInstance(itemType, items.Count);
+            items.CopyTo(array, 0);
+
+            value = array;
+            return true;
+        }
+
+        private sealed class ArrayList : IList
+        {
+            private object[] data;
+            private int count;
+
+            public ArrayList()
+            {
+                Clear();
+            }
+
+            public int Add(object value)
+            {
+                if (count == data.Length)
+                {
+                    Array.Resize(ref data, data.Length * 2);
+                }
+                data[count] = value;
+                return count++;
+            }
+
+            public void Clear()
+            {
+                data = new object[10];
+                count = 0;
+            }
+
+            public bool Contains(object value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int IndexOf(object value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void Insert(int index, object value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool IsFixedSize
+            {
+                get { return false; }
+            }
+
+            public bool IsReadOnly
+            {
+                get { return false; }
+            }
+
+            public void Remove(object value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void RemoveAt(int index)
+            {
+                throw new NotImplementedException();
+            }
+
+            public object this[int index]
+            {
+                get
+                {
+                    return data[index];
+                }
+                set
+                {
+                    data[index] = value;
+                }
+            }
+
+            public void CopyTo(Array array, int index)
+            {
+                Array.Copy(data, 0, array, index, count);
+            }
+
+            public int Count
+            {
+                get { return count; }
+            }
+
+            public bool IsSynchronized
+            {
+                get { return false; }
+            }
+
+            public object SyncRoot
+            {
+                get { return data; }
+            }
+
+            public IEnumerator GetEnumerator()
+            {
+                for (int i = 0; i < count; ++i)
+                {
+                    yield return data[i];
+                }
+            }
+        }
+    }
 }
 

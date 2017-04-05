@@ -9,6 +9,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 
+using X3Platform.Web;
 
 namespace X3Platform.Markdown.Extensions.Wiki
 {
@@ -35,7 +36,7 @@ namespace X3Platform.Markdown.Extensions.Wiki
         private string ArticleEvaluator(Match match)
         {
             string lang = match.Groups[1].Value;
-            string title = HttpUtility.UrlDecode(match.Groups[2].Value);
+            string title = UrlHelper.UrlDecode(match.Groups[2].Value);
 
             return String.Format(
                 "[{0}_wiki://{1}](https://{0}.wikipedia.org/wiki/{1})",

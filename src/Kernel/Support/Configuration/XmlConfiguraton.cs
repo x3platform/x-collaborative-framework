@@ -66,8 +66,8 @@ namespace X3Platform.Configuration
         {
             if (File.Exists(configFilePath))
             {
-                // XmlDocument 的 Load 方法会锁定文件信息，所以使用 XmlTextReader 对象来释放资源。
-                using (XmlTextReader reader = new XmlTextReader(configFilePath))
+                // XmlDocument 的 Load 方法会锁定文件信息，所以使用 XmlReader 对象来释放资源。
+                using (XmlReader reader = XmlReader.Create(configFilePath))
                 {
                     XmlDocument doc = new XmlDocument();
 
@@ -79,8 +79,6 @@ namespace X3Platform.Configuration
                     {
                         this.Configure((XmlElement)node);
                     }
-
-                    reader.Close();
                 }
             }
         }

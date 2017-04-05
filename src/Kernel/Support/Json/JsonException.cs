@@ -14,7 +14,7 @@ using System;
 
 namespace X3Platform.Json
 {
-    public class JsonException : ApplicationException
+    public class JsonException : Exception
     {
         public JsonException () : base ()
         {

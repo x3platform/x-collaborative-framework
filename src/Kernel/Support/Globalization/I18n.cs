@@ -1,17 +1,7 @@
 ﻿namespace X3Platform.Globalization
 {
-    using Common.Logging;
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Xml;
-    using X3Platform.Configuration;
 
     /// <summary>本地化设置对象</summary>
     public class I18n

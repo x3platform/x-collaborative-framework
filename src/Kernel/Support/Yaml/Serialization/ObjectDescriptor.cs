@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,32 +20,41 @@
 //  SOFTWARE.
 
 using System;
+using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization
 {
-	public sealed class ObjectDescriptor : IObjectDescriptor
-	{
-		public object Value { get; private set; }
-		public Type Type { get; private set; }
-		public Type StaticType { get; private set; }
+    public sealed class ObjectDescriptor : IObjectDescriptor
+    {
+        public object Value { get; private set; }
+        public Type Type { get; private set; }
+        public Type StaticType { get; private set; }
+        public ScalarStyle ScalarStyle { get; private set; }
 
-		public ObjectDescriptor(object value, Type type, Type staticType)
-		{
-			Value = value;
+        public ObjectDescriptor(object value, Type type, Type staticType)
+            : this(value, type, staticType, ScalarStyle.Any)
+        {
+        }
 
-			if (type == null)
-			{
-				throw new ArgumentNullException("type");
-			}
+        public ObjectDescriptor(object value, Type type, Type staticType, ScalarStyle scalarStyle)
+        {
+            Value = value;
 
-			Type = type;
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
 
-			if (staticType == null)
-			{
-				throw new ArgumentNullException("staticType");
-			}
+            Type = type;
 
-			StaticType = staticType;
-		}
-	}
+            if (staticType == null)
+            {
+                throw new ArgumentNullException("staticType");
+            }
+
+            StaticType = staticType;
+
+            ScalarStyle = scalarStyle;
+        }
+    }
 }
