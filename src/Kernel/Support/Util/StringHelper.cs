@@ -9,10 +9,7 @@ namespace X3Platform.Util
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Web;
     using System.Threading;
-
-    using X3Platform.Security;
     #endregion
 
     /// <summary>字符串处理辅助类</summary>
@@ -225,11 +222,11 @@ namespace X3Platform.Util
         /// <returns></returns>
         public static string ToCutString(string text, int length, bool hasEllipsis)
         {
-            byte[] buffer = System.Text.Encoding.Default.GetBytes(text);
+            byte[] buffer = System.Text.Encoding.Unicode.GetBytes(text);
 
             if (buffer.Length > length)
             {
-                return System.Text.Encoding.Default.GetString(buffer, 0, length) + (hasEllipsis ? "..." : "");
+                return System.Text.Encoding.Unicode.GetString(buffer, 0, length) + (hasEllipsis ? "..." : "");
             }
             else
             {
@@ -680,6 +677,7 @@ namespace X3Platform.Util
         }
         #endregion
 
+#if !NETSTANDARD
         #region 函数:ToSafeXSS<T>(T targetObject)
         /// <summary>处理安全的跨站脚本攻击字符</summary>
         /// <typeparam name="T"></typeparam>
@@ -732,6 +730,7 @@ namespace X3Platform.Util
             return targetObject;
         }
         #endregion
+#endif
 
         #region 函数:ToSafeXSS(string text)
         /// <summary>处理安全的跨站脚本攻击字符</summary>
@@ -747,7 +746,6 @@ namespace X3Platform.Util
             // this prevents some character re-spacing such as <java\0script>
             // 这可以防止一些字符间的特殊字符，例如 <java\0script>
             // note that you have to handle splits with \n, \r, and \t later since they *are* allowed in some inputs  
-            // 
 
             text = Regex.Replace(text, "([\x00-\x08|\x0b-\x0c|\x0e-\x19])", string.Empty);
 
