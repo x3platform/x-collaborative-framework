@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -26,86 +26,86 @@ using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Serialization.EventEmitters
 {
-	public sealed class JsonEventEmitter : ChainedEventEmitter
-	{
-		public JsonEventEmitter(IEventEmitter nextEmitter)
-			: base(nextEmitter)
-		{
-		}
+    public sealed class JsonEventEmitter : ChainedEventEmitter
+    {
+        public JsonEventEmitter(IEventEmitter nextEmitter)
+            : base(nextEmitter)
+        {
+        }
 
-		public override void Emit(AliasEventInfo eventInfo)
-		{
-			throw new NotSupportedException("Aliases are not supported in JSON");
-		}
+        public override void Emit(AliasEventInfo eventInfo)
+        {
+            throw new NotSupportedException("Aliases are not supported in JSON");
+        }
 
-		public override void Emit(ScalarEventInfo eventInfo)
-		{
-			eventInfo.IsPlainImplicit = true;
-			eventInfo.Style = ScalarStyle.Plain;
+        public override void Emit(ScalarEventInfo eventInfo)
+        {
+            eventInfo.IsPlainImplicit = true;
+            eventInfo.Style = ScalarStyle.Plain;
 
-			var typeCode = eventInfo.Source.Value != null
-				? Type.GetTypeCode(eventInfo.Source.Type)
-				: TypeCode.Empty;
+            var typeCode = eventInfo.Source.Value != null
+                ? eventInfo.Source.Type.GetTypeCode()
+                : TypeCode.Empty;
 
-			switch (typeCode)
-			{
-				case TypeCode.Boolean:
-					eventInfo.RenderedValue = YamlFormatter.FormatBoolean(eventInfo.Source.Value);
-					break;
+            switch (typeCode)
+            {
+                case TypeCode.Boolean:
+                    eventInfo.RenderedValue = YamlFormatter.FormatBoolean(eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.Byte:
-				case TypeCode.Int16:
-				case TypeCode.Int32:
-				case TypeCode.Int64:
-				case TypeCode.SByte:
-				case TypeCode.UInt16:
-				case TypeCode.UInt32:
-				case TypeCode.UInt64:
-				case TypeCode.Single:
-				case TypeCode.Double:
-				case TypeCode.Decimal:
-					eventInfo.RenderedValue = YamlFormatter.FormatNumber(eventInfo.Source.Value);
-					break;
+                case TypeCode.Byte:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Single:
+                case TypeCode.Double:
+                case TypeCode.Decimal:
+                    eventInfo.RenderedValue = YamlFormatter.FormatNumber(eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.String:
-				case TypeCode.Char:
-					eventInfo.RenderedValue = eventInfo.Source.Value.ToString();
-					eventInfo.Style = ScalarStyle.DoubleQuoted;
-					break;
+                case TypeCode.String:
+                case TypeCode.Char:
+                    eventInfo.RenderedValue = eventInfo.Source.Value.ToString();
+                    eventInfo.Style = ScalarStyle.DoubleQuoted;
+                    break;
 
-				case TypeCode.DateTime:
-					eventInfo.RenderedValue = YamlFormatter.FormatDateTime(eventInfo.Source.Value);
-					break;
+                case TypeCode.DateTime:
+                    eventInfo.RenderedValue = YamlFormatter.FormatDateTime(eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.Empty:
-					eventInfo.RenderedValue = "null";
-					break;
+                case TypeCode.Empty:
+                    eventInfo.RenderedValue = "null";
+                    break;
 
-				default:
-					if (eventInfo.Source.Type == typeof(TimeSpan))
-					{
-						eventInfo.RenderedValue = YamlFormatter.FormatTimeSpan(eventInfo.Source.Value);
-						break;
-					}
+                default:
+                    if (eventInfo.Source.Type == typeof(TimeSpan))
+                    {
+                        eventInfo.RenderedValue = YamlFormatter.FormatTimeSpan(eventInfo.Source.Value);
+                        break;
+                    }
 
-					throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "TypeCode.{0} is not supported.", typeCode));
-			}
+                    throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "TypeCode.{0} is not supported.", typeCode));
+            }
 
-			base.Emit(eventInfo);
-		}
+            base.Emit(eventInfo);
+        }
 
-		public override void Emit(MappingStartEventInfo eventInfo)
-		{
-			eventInfo.Style = MappingStyle.Flow;
+        public override void Emit(MappingStartEventInfo eventInfo)
+        {
+            eventInfo.Style = MappingStyle.Flow;
 
-			base.Emit(eventInfo);
-		}
+            base.Emit(eventInfo);
+        }
 
-		public override void Emit(SequenceStartEventInfo eventInfo)
-		{
-			eventInfo.Style = SequenceStyle.Flow;
+        public override void Emit(SequenceStartEventInfo eventInfo)
+        {
+            eventInfo.Style = SequenceStyle.Flow;
 
-			base.Emit(eventInfo);
-		}
-	}
+            base.Emit(eventInfo);
+        }
+    }
 }

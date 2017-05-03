@@ -1,5 +1,5 @@
 ﻿//  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2014 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -19,39 +19,42 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+using System;
+
 namespace X3Platform.Yaml.Core.Tokens
 {
-	/// <summary>
-	/// Represents a comment
-	/// </summary>
-	public class Comment : Token
-	{
-		/// <summary>
-		/// Gets the value of the comment
-		/// </summary>
-		public string Value { get; private set; }
+    /// <summary>
+    /// Represents a comment
+    /// </summary>
+    [Serializable]
+    public class Comment : Token
+    {
+        /// <summary>
+        /// Gets the value of the comment
+        /// </summary>
+        public string Value { get; private set; }
 
-		/// <summary>
-		/// Gets a value indicating whether the comment appears other tokens on that line.
-		/// </summary>
-		public bool IsInline { get; private set; }
+        /// <summary>
+        /// Gets a value indicating whether the comment appears other tokens on that line.
+        /// </summary>
+        public bool IsInline { get; private set; }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Comment"/> class.
-		/// </summary>
-		public Comment(string value, bool isInline)
-			: this(value, isInline, Mark.Empty, Mark.Empty)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Comment"/> class.
+        /// </summary>
+        public Comment(string value, bool isInline)
+            : this(value, isInline, Mark.Empty, Mark.Empty)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Comment"/> class.
-		/// </summary>
-		public Comment(string value, bool isInline, Mark start, Mark end)
-			: base(start, end)
-		{
-			IsInline = isInline;
-			Value = value;
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Comment"/> class.
+        /// </summary>
+        public Comment(string value, bool isInline, Mark start, Mark end)
+            : base(start, end)
+        {
+            IsInline = isInline;
+            Value = value;
+        }
+    }
 }

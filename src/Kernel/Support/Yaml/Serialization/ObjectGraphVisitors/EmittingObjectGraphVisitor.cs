@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,56 +20,57 @@
 //  SOFTWARE.
 
 using System;
+using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization.ObjectGraphVisitors
 {
-	public sealed class EmittingObjectGraphVisitor : IObjectGraphVisitor
-	{
-		private readonly IEventEmitter eventEmitter;
+    public sealed class EmittingObjectGraphVisitor : IObjectGraphVisitor
+    {
+        private readonly IEventEmitter eventEmitter;
 
-		public EmittingObjectGraphVisitor(IEventEmitter eventEmitter)
-		{
-			this.eventEmitter = eventEmitter;
-		}
+        public EmittingObjectGraphVisitor(IEventEmitter eventEmitter)
+        {
+            this.eventEmitter = eventEmitter;
+        }
 
-		bool IObjectGraphVisitor.Enter(IObjectDescriptor value)
-		{
-			return true;
-		}
+        bool IObjectGraphVisitor.Enter(IObjectDescriptor value)
+        {
+            return true;
+        }
 
-		bool IObjectGraphVisitor.EnterMapping(IObjectDescriptor key, IObjectDescriptor value)
-		{
-			return true;
-		}
+        bool IObjectGraphVisitor.EnterMapping(IObjectDescriptor key, IObjectDescriptor value)
+        {
+            return true;
+        }
 
-		bool IObjectGraphVisitor.EnterMapping(IPropertyDescriptor key, IObjectDescriptor value)
-		{
-			return true;
-		}
+        bool IObjectGraphVisitor.EnterMapping(IPropertyDescriptor key, IObjectDescriptor value)
+        {
+            return true;
+        }
 
-		void IObjectGraphVisitor.VisitScalar(IObjectDescriptor scalar)
-		{
-			eventEmitter.Emit(new ScalarEventInfo(scalar));
-		}
+        void IObjectGraphVisitor.VisitScalar(IObjectDescriptor scalar)
+        {
+            eventEmitter.Emit(new ScalarEventInfo(scalar));
+        }
 
-		void IObjectGraphVisitor.VisitMappingStart(IObjectDescriptor mapping, Type keyType, Type valueType)
-		{
-			eventEmitter.Emit(new MappingStartEventInfo(mapping));
-		}
+        void IObjectGraphVisitor.VisitMappingStart(IObjectDescriptor mapping, Type keyType, Type valueType)
+        {
+            eventEmitter.Emit(new MappingStartEventInfo(mapping));
+        }
 
-		void IObjectGraphVisitor.VisitMappingEnd(IObjectDescriptor mapping)
-		{
-			eventEmitter.Emit(new MappingEndEventInfo(mapping));
-		}
+        void IObjectGraphVisitor.VisitMappingEnd(IObjectDescriptor mapping)
+        {
+            eventEmitter.Emit(new MappingEndEventInfo(mapping));
+        }
 
-		void IObjectGraphVisitor.VisitSequenceStart(IObjectDescriptor sequence, Type elementType)
-		{
-			eventEmitter.Emit(new SequenceStartEventInfo(sequence));
-		}
+        void IObjectGraphVisitor.VisitSequenceStart(IObjectDescriptor sequence, Type elementType)
+        {
+            eventEmitter.Emit(new SequenceStartEventInfo(sequence));
+        }
 
-		void IObjectGraphVisitor.VisitSequenceEnd(IObjectDescriptor sequence)
-		{
-			eventEmitter.Emit(new SequenceEndEventInfo(sequence));
-		}
-	}
+        void IObjectGraphVisitor.VisitSequenceEnd(IObjectDescriptor sequence)
+        {
+            eventEmitter.Emit(new SequenceEndEventInfo(sequence));
+        }
+    }
 }

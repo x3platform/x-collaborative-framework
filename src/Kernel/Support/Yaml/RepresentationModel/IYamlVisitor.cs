@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,49 +23,49 @@ using System;
 
 namespace X3Platform.Yaml.RepresentationModel
 {
-	/// <summary>
-	/// Defines the method needed to be able to visit Yaml elements.
-	/// </summary>
-	public interface IYamlVisitor
-	{
-		/// <summary>
-		/// Visits a <see cref="YamlStream"/>.
-		/// </summary>
-		/// <param name="stream">
-		/// The <see cref="YamlStream"/> that is being visited.
-		/// </param>
-		void Visit(YamlStream stream);
+    /// <summary>
+    /// Defines the method needed to be able to visit Yaml elements.
+    /// </summary>
+    public interface IYamlVisitor
+    {
+        /// <summary>
+        /// Visits a <see cref="YamlStream"/>.
+        /// </summary>
+        /// <param name="stream">
+        /// The <see cref="YamlStream"/> that is being visited.
+        /// </param>
+        void Visit(YamlStream stream);
 
-		/// <summary>
-		/// Visits a <see cref="YamlDocument"/>.
-		/// </summary>
-		/// <param name="document">
-		/// The <see cref="YamlDocument"/> that is being visited.
-		/// </param>
-		void Visit(YamlDocument document);
+        /// <summary>
+        /// Visits a <see cref="YamlDocument"/>.
+        /// </summary>
+        /// <param name="document">
+        /// The <see cref="YamlDocument"/> that is being visited.
+        /// </param>
+        void Visit(YamlDocument document);
 
-		/// <summary>
-		/// Visits a <see cref="YamlScalarNode"/>.
-		/// </summary>
-		/// <param name="scalar">
-		/// The <see cref="YamlScalarNode"/> that is being visited.
-		/// </param>
-		void Visit(YamlScalarNode scalar);
+        /// <summary>
+        /// Visits a <see cref="YamlScalarNode"/>.
+        /// </summary>
+        /// <param name="scalar">
+        /// The <see cref="YamlScalarNode"/> that is being visited.
+        /// </param>
+        void Visit(YamlScalarNode scalar);
 
-		/// <summary>
-		/// Visits a <see cref="YamlSequenceNode"/>.
-		/// </summary>
-		/// <param name="sequence">
-		/// The <see cref="YamlSequenceNode"/> that is being visited.
-		/// </param>
-		void Visit(YamlSequenceNode sequence);
+        /// <summary>
+        /// Visits a <see cref="YamlSequenceNode"/>.
+        /// </summary>
+        /// <param name="sequence">
+        /// The <see cref="YamlSequenceNode"/> that is being visited.
+        /// </param>
+        void Visit(YamlSequenceNode sequence);
 
-		/// <summary>
-		/// Visits a <see cref="YamlMappingNode"/>.
-		/// </summary>
-		/// <param name="mapping">
-		/// The <see cref="YamlMappingNode"/> that is being visited.
-		/// </param>
-		void Visit(YamlMappingNode mapping);
-	}
+        /// <summary>
+        /// Visits a <see cref="YamlMappingNode"/>.
+        /// </summary>
+        /// <param name="mapping">
+        /// The <see cref="YamlMappingNode"/> that is being visited.
+        /// </param>
+        void Visit(YamlMappingNode mapping);
+    }
 }

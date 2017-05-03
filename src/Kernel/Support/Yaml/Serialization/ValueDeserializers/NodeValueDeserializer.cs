@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 Antoine Aubry and contributors
+// Copyright (c) Antoine Aubry and contributors
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,61 +28,73 @@ using X3Platform.Yaml.Serialization.Utilities;
 
 namespace X3Platform.Yaml.Serialization.ValueDeserializers
 {
-	public sealed class NodeValueDeserializer : IValueDeserializer
-	{
-		private readonly IList<INodeDeserializer> deserializers;
-		private readonly IList<INodeTypeResolver> typeResolvers;
-		
-		public NodeValueDeserializer(IList<INodeDeserializer> deserializers, IList<INodeTypeResolver> typeResolvers)
-		{
-			if(deserializers == null)
-			{
-				throw new ArgumentNullException("deserializers");
-			}
+    public sealed class NodeValueDeserializer : IValueDeserializer
+    {
+        private readonly IList<INodeDeserializer> deserializers;
+        private readonly IList<INodeTypeResolver> typeResolvers;
+        
+        public NodeValueDeserializer(IList<INodeDeserializer> deserializers, IList<INodeTypeResolver> typeResolvers)
+        {
+            if(deserializers == null)
+            {
+                throw new ArgumentNullException("deserializers");
+            }
 
-			this.deserializers = deserializers;
-			
-			if(typeResolvers == null)
-			{
-				throw new ArgumentNullException("typeResolvers");
-			}
-			this.typeResolvers = typeResolvers;
-		}
-		
-		public object DeserializeValue (EventReader reader, Type expectedType, SerializerState state, IValueDeserializer nestedObjectDeserializer)
-		{
-			var nodeEvent = reader.Peek<NodeEvent>();
+            this.deserializers = deserializers;
+            
+            if(typeResolvers == null)
+            {
+                throw new ArgumentNullException("typeResolvers");
+            }
+            this.typeResolvers = typeResolvers;
+        }
+        
+        public object DeserializeValue (EventReader reader, Type expectedType, SerializerState state, IValueDeserializer nestedObjectDeserializer)
+        {
+            var nodeEvent = reader.Peek<NodeEvent>();
 
-			var nodeType = GetTypeFromEvent(nodeEvent, expectedType);
+            var nodeType = GetTypeFromEvent(nodeEvent, expectedType);
 
-			foreach (var deserializer in deserializers)
-			{
-				object value;
-				if (deserializer.Deserialize(reader, nodeType, (r, t) => nestedObjectDeserializer.DeserializeValue(r, t, state, nestedObjectDeserializer), out value))
-				{
-					return value;
-				}
-			}
+            try
+            {
+                foreach (var deserializer in deserializers)
+                {
+                    object value;
+                    if (deserializer.Deserialize(reader, nodeType, (r, t) => nestedObjectDeserializer.DeserializeValue(r, t, state, nestedObjectDeserializer), out value))
+                    {
+                        return value;
+                    }
+                }
+            }
+            catch (YamlException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new YamlException(nodeEvent.Start, nodeEvent.End, "Exception during deserialization", ex);
+            }
 
-			throw new SerializationException(
-				string.Format(
-					"No node deserializer was able to deserialize the node at {0} into type {1}",
-					reader.Parser.Current.Start,
-					expectedType.AssemblyQualifiedName
-				)
-			);
-		}
+            throw new YamlException(
+                nodeEvent.Start,
+                nodeEvent.End,
+                string.Format(
+                    "No node deserializer was able to deserialize the node into type {0}",
+                    expectedType.AssemblyQualifiedName
+                )
+            );
+        }
 
-		private Type GetTypeFromEvent(NodeEvent nodeEvent, Type currentType)
-		{
-			foreach (var typeResolver in typeResolvers)
-			{
-				if (typeResolver.Resolve(nodeEvent, ref currentType))
-				{
-					break;
-				}
-			}
-			return currentType;
-		}
-	}
+        private Type GetTypeFromEvent(NodeEvent nodeEvent, Type currentType)
+        {
+            foreach (var typeResolver in typeResolvers)
+            {
+                if (typeResolver.Resolve(nodeEvent, ref currentType))
+                {
+                    break;
+                }
+            }
+            return currentType;
+        }
+    }
 }

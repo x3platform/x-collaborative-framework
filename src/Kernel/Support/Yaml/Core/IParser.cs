@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -19,24 +19,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-using X3Platform.Yaml.Core.Events;
+﻿using X3Platform.Yaml.Core.Events;
 
 namespace X3Platform.Yaml.Core
 {
-	/// <summary>
-	/// Represents a YAML stream paser.
-	/// </summary>
-	public interface IParser
-	{
-		/// <summary>
-		/// Gets the current event.
-		/// </summary>
-		ParsingEvent Current { get; }
+    /// <summary>
+    /// Represents a YAML stream paser.
+    /// </summary>
+    public interface IParser
+    {
+        /// <summary>
+        /// Gets the current event.
+        /// </summary>
+        ParsingEvent Current { get; }
 
-		/// <summary>
-		/// Moves to the next event.
-		/// </summary>
-		/// <returns>Returns true if there are more events available, otherwise returns false.</returns>
-		bool MoveNext();
-	}
+        /// <summary>
+        /// Moves to the next event.
+        /// </summary>
+        /// <returns>Returns true if there are more events available, otherwise returns false.</returns>
+        bool MoveNext();
+    }
 }

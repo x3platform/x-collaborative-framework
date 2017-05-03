@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -21,67 +21,67 @@
 
 namespace X3Platform.Yaml.Core.Events
 {
-	/// <summary>
-	/// Represents a sequence end event.
-	/// </summary>
-	public class SequenceEnd : ParsingEvent
-	{
-		/// <summary>
-		/// Gets a value indicating the variation of depth caused by this event.
-		/// The value can be either -1, 0 or 1. For start events, it will be 1,
-		/// for end events, it will be -1, and for the remaining events, it will be 0.
-		/// </summary>
-		public override int NestingIncrease {
-			get {
-				return -1;
-			}
-		}
+    /// <summary>
+    /// Represents a sequence end event.
+    /// </summary>
+    public class SequenceEnd : ParsingEvent
+    {
+        /// <summary>
+        /// Gets a value indicating the variation of depth caused by this event.
+        /// The value can be either -1, 0 or 1. For start events, it will be 1,
+        /// for end events, it will be -1, and for the remaining events, it will be 0.
+        /// </summary>
+        public override int NestingIncrease {
+            get {
+                return -1;
+            }
+        }
 
-		/// <summary>
-		/// Gets the event type, which allows for simpler type comparisons.
-		/// </summary>
-		internal override EventType Type {
-			get {
-				return EventType.SequenceEnd;
-			}
-		}
-		
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SequenceEnd"/> class.
-		/// </summary>
-		/// <param name="start">The start position of the event.</param>
-		/// <param name="end">The end position of the event.</param>
-		public SequenceEnd(Mark start, Mark end)
-			: base(start, end)
-		{
-		}
+        /// <summary>
+        /// Gets the event type, which allows for simpler type comparisons.
+        /// </summary>
+        internal override EventType Type {
+            get {
+                return EventType.SequenceEnd;
+            }
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SequenceEnd"/> class.
+        /// </summary>
+        /// <param name="start">The start position of the event.</param>
+        /// <param name="end">The end position of the event.</param>
+        public SequenceEnd(Mark start, Mark end)
+            : base(start, end)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="SequenceEnd"/> class.
-		/// </summary>
-		public SequenceEnd()
-			: this(Mark.Empty, Mark.Empty)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SequenceEnd"/> class.
+        /// </summary>
+        public SequenceEnd()
+            : this(Mark.Empty, Mark.Empty)
+        {
+        }
 
-		/// <summary>
-		/// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-		/// </returns>
-		public override string ToString()
-		{
-			return "Sequence end";
-		}
+        /// <summary>
+        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
+        /// </returns>
+        public override string ToString()
+        {
+            return "Sequence end";
+        }
 
-		/// <summary>
-		/// Invokes run-time type specific Visit() method of the specified visitor.
-		/// </summary>
-		/// <param name="visitor">visitor, may not be null.</param>
-		public override void Accept(IParsingEventVisitor visitor)
-		{
-			visitor.Visit(this);
-		}
-	}
+        /// <summary>
+        /// Invokes run-time type specific Visit() method of the specified visitor.
+        /// </summary>
+        /// <param name="visitor">visitor, may not be null.</param>
+        public override void Accept(IParsingEventVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+    }
 }

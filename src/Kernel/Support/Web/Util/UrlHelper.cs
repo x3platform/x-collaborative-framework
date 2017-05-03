@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web.UI;
-using System.Web;
-
 namespace X3Platform.Web
 {
+    using System;
+
     /// <summary>Url 工具类</summary>
     public class UrlHelper
     {
@@ -26,7 +22,25 @@ namespace X3Platform.Web
         /// <returns></returns>
         public static string UrlEncode(string value)
         {
-            return HttpUtility.UrlEncode(value).Replace("(", "%28").Replace(")", "%29");
+#if NETCORE10
+            return System.Net.WebUtility.UrlEncode(value).Replace("(", "%28").Replace(")", "%29");
+#else
+            return System.Web.HttpUtility.UrlEncode(value).Replace("(", "%28").Replace(")", "%29");
+#endif
+        }
+        #endregion
+
+        #region 静态函数:UrlDecode(string value)
+        /// <summary>地址编码</summary>
+        /// <param name="value">虚拟路径</param>
+        /// <returns></returns>
+        public static string UrlDecode(string value)
+        {
+#if NETCORE10
+            return System.Net.WebUtility.UrlDecode(value);
+#else
+            return System.Web.HttpUtility.UrlDecode(value);
+#endif
         }
         #endregion
     }

@@ -261,7 +261,7 @@ namespace X3Platform.Connect.Configuration
         #region 属性:MessageQueueUsername
         private string m_MessageQueueUsername = string.Empty;
 
-        /// <summary>消息队列用户名</summary>
+        /// <summary>消息队列名称</summary>
         public string MessageQueueUsername
         {
             get
@@ -286,7 +286,7 @@ namespace X3Platform.Connect.Configuration
         #region 属性:MessageQueuePassword
         private string m_MessageQueuePassword = string.Empty;
 
-        /// <summary>消息队列密码</summary>
+        /// <summary>消息队列名称</summary>
         public string MessageQueuePassword
         {
             get

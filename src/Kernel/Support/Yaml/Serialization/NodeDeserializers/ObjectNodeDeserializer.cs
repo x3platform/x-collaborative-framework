@@ -1,5 +1,5 @@
 // This file is part of X3Platform.Yaml - A .NET library for YAML.
-// Copyright (c) 2013 aaubry
+// Copyright (c) Antoine Aubry
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,59 +29,59 @@ using X3Platform.Yaml.Serialization.Utilities;
 
 namespace X3Platform.Yaml.Serialization.NodeDeserializers
 {
-	public sealed class ObjectNodeDeserializer : INodeDeserializer
-	{
-		private readonly IObjectFactory _objectFactory;
-		private readonly ITypeInspector _typeDescriptor;
-		private readonly bool _ignoreUnmatched;
+    public sealed class ObjectNodeDeserializer : INodeDeserializer
+    {
+        private readonly IObjectFactory _objectFactory;
+        private readonly ITypeInspector _typeDescriptor;
+        private readonly bool _ignoreUnmatched;
 
-		public ObjectNodeDeserializer(IObjectFactory objectFactory, ITypeInspector typeDescriptor, bool ignoreUnmatched)
-		{
-			_objectFactory = objectFactory;
-			_typeDescriptor = typeDescriptor;
-			_ignoreUnmatched = ignoreUnmatched;
-		}
+        public ObjectNodeDeserializer(IObjectFactory objectFactory, ITypeInspector typeDescriptor, bool ignoreUnmatched)
+        {
+            _objectFactory = objectFactory;
+            _typeDescriptor = typeDescriptor;
+            _ignoreUnmatched = ignoreUnmatched;
+        }
 
-		bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
-		{
-			var mapping = reader.Allow<MappingStart>();
-			if (mapping == null)
-			{
-				value = null;
-				return false;
-			}
-			
-			value = _objectFactory.Create(expectedType);
-			while (!reader.Accept<MappingEnd>())
-			{
-				var propertyName = reader.Expect<Scalar>();
-				var property = _typeDescriptor.GetProperty(expectedType, null, propertyName.Value, _ignoreUnmatched);
-				if (property == null)
-				{
-					reader.SkipThisAndNestedEvents();
-					continue;
-				}
+        bool INodeDeserializer.Deserialize(EventReader reader, Type expectedType, Func<EventReader, Type, object> nestedObjectDeserializer, out object value)
+        {
+            var mapping = reader.Allow<MappingStart>();
+            if (mapping == null)
+            {
+                value = null;
+                return false;
+            }
+            
+            value = _objectFactory.Create(expectedType);
+            while (!reader.Accept<MappingEnd>())
+            {
+                var propertyName = reader.Expect<Scalar>();
+                var property = _typeDescriptor.GetProperty(expectedType, null, propertyName.Value, _ignoreUnmatched);
+                if (property == null)
+                {
+                    reader.SkipThisAndNestedEvents();
+                    continue;
+                }
 
-				var propertyValue = nestedObjectDeserializer(reader, property.Type);
-				var propertyValuePromise = propertyValue as IValuePromise;
-				if (propertyValuePromise == null)
-				{
-					var convertedValue = TypeConverter.ChangeType(propertyValue, property.Type);
-					property.Write(value, convertedValue);
-				}
-				else
-				{
-					var valueRef = value;
-					propertyValuePromise.ValueAvailable += v =>
-					{
-						var convertedValue = TypeConverter.ChangeType(v, property.Type);
-						property.Write(valueRef, convertedValue);
-					};
-				}
-			}
+                var propertyValue = nestedObjectDeserializer(reader, property.Type);
+                var propertyValuePromise = propertyValue as IValuePromise;
+                if (propertyValuePromise == null)
+                {
+                    var convertedValue = TypeConverter.ChangeType(propertyValue, property.Type);
+                    property.Write(value, convertedValue);
+                }
+                else
+                {
+                    var valueRef = value;
+                    propertyValuePromise.ValueAvailable += v =>
+                    {
+                        var convertedValue = TypeConverter.ChangeType(v, property.Type);
+                        property.Write(valueRef, convertedValue);
+                    };
+                }
+            }
 
-			reader.Expect<MappingEnd>();
-			return true;
-		}
-	}
+            reader.Expect<MappingEnd>();
+            return true;
+        }
+    }
 }

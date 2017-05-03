@@ -171,6 +171,7 @@ namespace X3Platform.Util
         }
         #endregion
 
+#if !NETSTANDARD
         #region 函数:ToXmlTable(DataTable table)
         /// <summary>将一个DataTable转化为Xml信息.</summary>
         /// <param name="table"></param>
@@ -193,6 +194,7 @@ namespace X3Platform.Util
             return outString.ToString();
         }
         #endregion
+#endif
 
         #region 函数:IsNullOrEmpty(string value)
         /// <summary>判断是否是空的Xml信息.</summary>

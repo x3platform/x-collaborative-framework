@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -25,35 +25,35 @@ using System.ComponentModel;
 
 namespace X3Platform.Yaml.Serialization.ObjectGraphVisitors
 {
-	public sealed class DefaultExclusiveObjectGraphVisitor : ChainedObjectGraphVisitor
-	{
-		public DefaultExclusiveObjectGraphVisitor(IObjectGraphVisitor nextVisitor)
-			: base(nextVisitor)
-		{
-		}
+    public sealed class DefaultExclusiveObjectGraphVisitor : ChainedObjectGraphVisitor
+    {
+        public DefaultExclusiveObjectGraphVisitor(IObjectGraphVisitor nextVisitor)
+            : base(nextVisitor)
+        {
+        }
 
-		private static object GetDefault(Type type)
-		{
-			return type.IsValueType ? Activator.CreateInstance(type) : null;
-		}
+        private static object GetDefault(Type type)
+        {
+            return type.IsValueType() ? Activator.CreateInstance(type) : null;
+        }
 
-		private static readonly IEqualityComparer<object> _objectComparer = EqualityComparer<object>.Default;
+        private static readonly IEqualityComparer<object> _objectComparer = EqualityComparer<object>.Default;
 
-		public override bool EnterMapping(IObjectDescriptor key, IObjectDescriptor value)
-		{
-			return !_objectComparer.Equals(value, GetDefault(value.Type))
-			       && base.EnterMapping(key, value);
-		}
+        public override bool EnterMapping(IObjectDescriptor key, IObjectDescriptor value)
+        {
+            return !_objectComparer.Equals(value, GetDefault(value.Type))
+                   && base.EnterMapping(key, value);
+        }
 
-		public override bool EnterMapping(IPropertyDescriptor key, IObjectDescriptor value)
-		{
-			var defaultValueAttribute = key.GetCustomAttribute<DefaultValueAttribute>();
-			var defaultValue = defaultValueAttribute != null
-				? defaultValueAttribute.Value
-				: GetDefault(key.Type);
+        public override bool EnterMapping(IPropertyDescriptor key, IObjectDescriptor value)
+        {
+            var defaultValueAttribute = key.GetCustomAttribute<DefaultValueAttribute>();
+            var defaultValue = defaultValueAttribute != null
+                ? defaultValueAttribute.Value
+                : GetDefault(key.Type);
 
-			return !_objectComparer.Equals(value.Value, defaultValue)
-				   && base.EnterMapping(key, value);
-		}
-	}
+            return !_objectComparer.Equals(value.Value, defaultValue)
+                   && base.EnterMapping(key, value);
+        }
+    }
 }

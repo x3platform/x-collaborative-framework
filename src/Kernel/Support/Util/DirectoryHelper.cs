@@ -116,6 +116,9 @@ namespace X3Platform.Util
         /// <returns></returns>
         public static string FormatLocalPath(string path)
         {
+#if NETSTANDARD
+            return path.Replace("\\", "/").Replace("//", "/");
+#else
             if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
             {
                 return path.Replace("\\", "/").Replace("//", "/");
@@ -124,6 +127,7 @@ namespace X3Platform.Util
             {
                 return path.Replace("/", "\\").Replace("\\\\", "\\");
             }
+#endif
         }
         #endregion
 

@@ -9,6 +9,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 
+using X3Platform.Web;
 
 namespace X3Platform.Markdown.Extensions.Mal
 {
@@ -31,13 +32,12 @@ namespace X3Platform.Markdown.Extensions.Mal
         {
             return _malArticles.Replace(text, new MatchEvaluator(ArticleEvaluator));
         }
-
-
+        
         private string ArticleEvaluator(Match match)
         {
             string categories = match.Groups[1].Value;                  // people|manga..
             string num = match.Groups[2].Value;                         // num section
-            string title = HttpUtility.UrlDecode(match.Groups[3].Value); // title e.g Kitamura_Eri
+            string title = UrlHelper.UrlDecode(match.Groups[3].Value); // title e.g Kitamura_Eri
 
             return String.Format(
                 "[mal://{0}](http://myanimelist.net/{1}/{2}/{0})", 

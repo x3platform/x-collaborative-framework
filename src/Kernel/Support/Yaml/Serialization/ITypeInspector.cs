@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -24,30 +24,30 @@ using System.Collections.Generic;
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// Provides access to the properties of a type.
-	/// </summary>
-	public interface ITypeInspector
-	{
-		/// <summary>
-		/// Gets all properties of the specified type.
-		/// </summary>
-		/// <param name="type">The type whose properties are to be enumerated.</param>
-		/// <param name="container">The actual object of type <paramref name="type"/> whose properties are to be enumerated. Can be null.</param>
-		/// <returns></returns>
-		IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container);
+    /// <summary>
+    /// Provides access to the properties of a type.
+    /// </summary>
+    public interface ITypeInspector
+    {
+        /// <summary>
+        /// Gets all properties of the specified type.
+        /// </summary>
+        /// <param name="type">The type whose properties are to be enumerated.</param>
+        /// <param name="container">The actual object of type <paramref name="type"/> whose properties are to be enumerated. Can be null.</param>
+        /// <returns></returns>
+        IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container);
 
-		/// <summary>
-		/// Gets the property of the type with the specified name.
-		/// </summary>
-		/// <param name="type">The type whose properties are to be searched.</param>
-		/// <param name="container">The actual object of type <paramref name="type"/> whose properties are to be searched. Can be null.</param>
-		/// <param name="name">The name of the property.</param>
-		/// <param name="ignoreUnmatched">
-		/// Determines if an exception or null should be returned if <paramref name="name"/> can't be
-		/// found in <paramref name="type"/>
-		/// </param>
-		/// <returns></returns>
-		IPropertyDescriptor GetProperty(Type type, object container, string name, bool ignoreUnmatched);
-	}
+        /// <summary>
+        /// Gets the property of the type with the specified name.
+        /// </summary>
+        /// <param name="type">The type whose properties are to be searched.</param>
+        /// <param name="container">The actual object of type <paramref name="type"/> whose properties are to be searched. Can be null.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <param name="ignoreUnmatched">
+        /// Determines if an exception or null should be returned if <paramref name="name"/> can't be
+        /// found in <paramref name="type"/>
+        /// </param>
+        /// <returns></returns>
+        IPropertyDescriptor GetProperty(Type type, object container, string name, bool ignoreUnmatched);
+    }
 }

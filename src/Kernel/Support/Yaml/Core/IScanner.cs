@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -19,48 +19,47 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+using System.Collections.Generic;
 using X3Platform.Yaml.Core.Tokens;
 
 namespace X3Platform.Yaml.Core
 {
-	/// <summary>
-	/// Defines the interface for a stand-alone YAML scanner that
-	/// converts a sequence of characters into a sequence of YAML tokens.
-	/// </summary>
-	public interface IScanner
-	{
-		/// <summary>
-		/// Gets the current position inside the input stream.
-		/// </summary>
-		/// <value>The current position.</value>
-		Mark CurrentPosition
-		{
-			get;
-		}
+    /// <summary>
+    /// Defines the interface for a stand-alone YAML scanner that
+    /// converts a sequence of characters into a sequence of YAML tokens.
+    /// </summary>
+    public interface IScanner
+    {
+        /// <summary>
+        /// Gets the current position inside the input stream.
+        /// </summary>
+        /// <value>The current position.</value>
+        Mark CurrentPosition
+        {
+            get;
+        }
 
-		/// <summary>
-		/// Gets the current token.
-		/// </summary>
-		Token Current
-		{
-			get;
-		}
+        /// <summary>
+        /// Gets the current token.
+        /// </summary>
+        Token Current
+        {
+            get;
+        }
 
-		/// <summary>
-		/// Moves to the next token.
-		/// </summary>
-		/// <returns></returns>
-		bool MoveNext();
+        /// <summary>
+        /// Moves to the next token and consumes the current token.
+        /// </summary>
+        bool MoveNext();
 
-		/// <summary>
-		/// Moves to the next token.
-		/// </summary>
-		/// <returns></returns>
-		bool ParserMoveNext();
+        /// <summary>
+        /// Moves to the next token without consuming the current token.
+        /// </summary>
+        bool MoveNextWithoutConsuming();
 
-		/// <summary>
-		/// Consumes the current token and increments the parsed token count
-		/// </summary>
-		void ConsumeCurrent();
-	}
+        /// <summary>
+        /// Consumes the current token.
+        /// </summary>
+        void ConsumeCurrent();
+    }
 }

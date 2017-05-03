@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,44 +23,45 @@ using System;
 
 namespace X3Platform.Yaml.Core.Tokens
 {
-	/// <summary>
-	/// Represents an anchor token.
-	/// </summary>
-	public class Anchor : Token
-	{
-		private readonly string value;
+    /// <summary>
+    /// Represents an anchor token.
+    /// </summary>
+    [Serializable]
+    public class Anchor : Token
+    {
+        private readonly string value;
 
-		/// <summary>
-		/// Gets the value.
-		/// </summary>
-		/// <value>The value.</value>
-		public string Value
-		{
-			get
-			{
-				return value;
-			}
-		}
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <value>The value.</value>
+        public string Value
+        {
+            get
+            {
+                return value;
+            }
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Anchor"/> class.
-		/// </summary>
-		/// <param name="value">The value.</param>
-		public Anchor(string value)
-			: this(value, Mark.Empty, Mark.Empty)
-		{
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Anchor"/> class.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        public Anchor(string value)
+            : this(value, Mark.Empty, Mark.Empty)
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Anchor"/> class.
-		/// </summary>
-		/// <param name="value">The value.</param>
-		/// <param name="start">The start position of the token.</param>
-		/// <param name="end">The end position of the token.</param>
-		public Anchor(string value, Mark start, Mark end)
-			: base(start, end)
-		{
-			this.value = value;
-		}
-	}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Anchor"/> class.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="start">The start position of the token.</param>
+        /// <param name="end">The end position of the token.</param>
+        public Anchor(string value, Mark start, Mark end)
+            : base(start, end)
+        {
+            this.value = value;
+        }
+    }
 }

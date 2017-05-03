@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,49 +23,50 @@ using System;
 
 namespace X3Platform.Yaml.Core
 {
-	internal class StringLookAheadBuffer : ILookAheadBuffer
-	{
-		private readonly string value;
+    [Serializable]
+    internal class StringLookAheadBuffer : ILookAheadBuffer
+    {
+        private readonly string value;
 
-		public int Position { get; private set; }
+        public int Position { get; private set; }
 
-		public StringLookAheadBuffer(string value)
-		{
-			this.value = value;
-		}
+        public StringLookAheadBuffer(string value)
+        {
+            this.value = value;
+        }
 
-		public int Length
-		{
-			get {
-				return value.Length;
-			}
-		}
+        public int Length
+        {
+            get {
+                return value.Length;
+            }
+        }
 
-		public bool EndOfInput
-		{
-			get {
-				return IsOutside(Position);
-			}
-		}
+        public bool EndOfInput
+        {
+            get {
+                return IsOutside(Position);
+            }
+        }
 
-		public char Peek(int offset)
-		{
-			var index = Position + offset;
-			return IsOutside(index) ? '\0' : value[index];
-		}
+        public char Peek(int offset)
+        {
+            var index = Position + offset;
+            return IsOutside(index) ? '\0' : value[index];
+        }
 
-		private bool IsOutside(int index)
-		{
-			return index >= value.Length;
-		}
+        private bool IsOutside(int index)
+        {
+            return index >= value.Length;
+        }
 
-		public void Skip(int length)
-		{
-			if (length < 0)
-			{
-				throw new ArgumentOutOfRangeException("length", "The length must be positive.");
-			}
-			Position += length;
-		}
-	}
+        public void Skip(int length)
+        {
+            if (length < 0)
+            {
+                throw new ArgumentOutOfRangeException("length", "The length must be positive.");
+            }
+            Position += length;
+        }
+    }
 }

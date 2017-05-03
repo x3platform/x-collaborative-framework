@@ -27,8 +27,7 @@
 #if !SSCLI
 // We don't want framework or platform specific code in the CLI version of X3Platform.Logging
 #if !CLI_1_0
-// SSCLI 1.0 has no support for Win32 Console API's
-#if !NETCORE10
+
 using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -96,7 +95,7 @@ namespace X3Platform.Logging.Appender
     /// <author>Nicko Cadell</author>
     public class ColoredConsoleAppender : AppenderSkeleton
     {
-#region Colors Enum
+        #region Colors Enum
 
         /// <summary>
         /// The enum of possible color values for use with the color mapping method
@@ -152,9 +151,9 @@ namespace X3Platform.Logging.Appender
             HighIntensity = 0x0008,
         }
 
-#endregion // Colors Enum
+        #endregion // Colors Enum
 
-#region Public Instance Constructors
+        #region Public Instance Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColoredConsoleAppender" /> class.
@@ -200,9 +199,9 @@ namespace X3Platform.Logging.Appender
             m_writeToErrorStream = writeToErrorStream;
         }
 
-#endregion // Public Instance Constructors
+        #endregion // Public Instance Constructors
 
-#region Public Instance Properties
+        #region Public Instance Properties
 
         /// <summary>
         /// Target is the value of the console output stream.
@@ -252,9 +251,9 @@ namespace X3Platform.Logging.Appender
             m_levelMapping.Add(mapping);
         }
 
-#endregion // Public Instance Properties
+        #endregion // Public Instance Properties
 
-#region Override implementation of AppenderSkeleton
+        #region Override implementation of AppenderSkeleton
 
         /// <summary>
         /// This method is called by the <see cref="M:AppenderSkeleton.DoAppend(X3Platform.Logging.Core.LoggingEvent)"/> method.
@@ -475,9 +474,9 @@ namespace X3Platform.Logging.Appender
             GC.SuppressFinalize(m_consoleOutputWriter);
         }
 
-#endregion // Override implementation of AppenderSkeleton
+        #endregion // Override implementation of AppenderSkeleton
 
-#region Public Static Fields
+        #region Public Static Fields
 
         /// <summary>
         /// The <see cref="ColoredConsoleAppender.Target"/> to use when writing to the Console 
@@ -503,9 +502,9 @@ namespace X3Platform.Logging.Appender
         /// </remarks>
         public const string ConsoleError = "Console.Error";
 
-#endregion // Public Static Fields
+        #endregion // Public Static Fields
 
-#region Private Instances Fields
+        #region Private Instances Fields
 
         /// <summary>
         /// Flag to write output to the error stream rather than the standard output stream
@@ -527,9 +526,9 @@ namespace X3Platform.Logging.Appender
         /// </remarks>
         private System.IO.StreamWriter m_consoleOutputWriter = null;
 
-#endregion // Private Instances Fields
+        #endregion // Private Instances Fields
 
-#region Win32 Methods
+        #region Win32 Methods
 
         [DllImport("Kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern int GetConsoleOutputCP();
@@ -586,9 +585,9 @@ namespace X3Platform.Logging.Appender
             public COORD dwMaximumWindowSize;
         }
 
-#endregion // Win32 Methods
+        #endregion // Win32 Methods
 
-#region LevelColors LevelMapping Entry
+        #region LevelColors LevelMapping Entry
 
         /// <summary>
         /// A class to act as a mapping between the level that a logging call is made at and
@@ -659,11 +658,10 @@ namespace X3Platform.Logging.Appender
             }
         }
 
-#endregion // LevelColors LevelMapping Entry
+        #endregion // LevelColors LevelMapping Entry
     }
 }
 
-#endif // !NETCORE10
 #endif // !CLI_1_0
 #endif // !SSCLI
 #endif // !MONO

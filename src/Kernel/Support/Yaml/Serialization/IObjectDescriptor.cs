@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -20,27 +20,33 @@
 //  SOFTWARE.
 
 using System;
+using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// Represents an object along with its type.
-	/// </summary>
-	public interface IObjectDescriptor
-	{
-		/// <summary>
-		/// A reference to the object.
-		/// </summary>
-		object Value { get; }
+    /// <summary>
+    /// Represents an object along with its type.
+    /// </summary>
+    public interface IObjectDescriptor
+    {
+        /// <summary>
+        /// A reference to the object.
+        /// </summary>
+        object Value { get; }
 
-		/// <summary>
-		/// The type that should be used when to interpret the <see cref="Value" />.
-		/// </summary>
-		Type Type { get; }
+        /// <summary>
+        /// The type that should be used when to interpret the <see cref="Value" />.
+        /// </summary>
+        Type Type { get; }
 
-		/// <summary>
-		/// The type of <see cref="Value" /> as determined by its container (e.g. a property).
-		/// </summary>
-		Type StaticType { get; }
-	}
+        /// <summary>
+        /// The type of <see cref="Value" /> as determined by its container (e.g. a property).
+        /// </summary>
+        Type StaticType { get; }
+
+        /// <summary>
+        /// The style to be used for scalars.
+        /// </summary>
+        ScalarStyle ScalarStyle { get; }
+    }
 }

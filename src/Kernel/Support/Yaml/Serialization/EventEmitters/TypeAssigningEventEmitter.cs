@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -25,102 +25,115 @@ using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization.EventEmitters
 {
-	public sealed class TypeAssigningEventEmitter : ChainedEventEmitter
-	{
-		private readonly bool _assignTypeWhenDifferent;
+    public sealed class TypeAssigningEventEmitter : ChainedEventEmitter
+    {
+        private readonly bool _assignTypeWhenDifferent;
 
-		public TypeAssigningEventEmitter(IEventEmitter nextEmitter, bool assignTypeWhenDifferent)
-			: base(nextEmitter)
-		{
-			_assignTypeWhenDifferent = assignTypeWhenDifferent;
-		}
+        public TypeAssigningEventEmitter(IEventEmitter nextEmitter, bool assignTypeWhenDifferent)
+            : base(nextEmitter)
+        {
+            _assignTypeWhenDifferent = assignTypeWhenDifferent;
+        }
 
-		public override void Emit(ScalarEventInfo eventInfo)
-		{
-			eventInfo.IsPlainImplicit = true;
-			eventInfo.Style = ScalarStyle.Plain;
+        public override void Emit(ScalarEventInfo eventInfo)
+        {
+            var suggestedStyle = ScalarStyle.Plain;
 
-			var typeCode = eventInfo.Source.Value != null
-				? Type.GetTypeCode(eventInfo.Source.Type)
-				: TypeCode.Empty;
+            var typeCode = eventInfo.Source.Value != null
+                ? eventInfo.Source.Type.GetTypeCode()
+                : TypeCode.Empty;
 
-			switch (typeCode)
-			{
-				case TypeCode.Boolean:
-					eventInfo.Tag = "tag:yaml.org,2002:bool";
-					eventInfo.RenderedValue = YamlFormatter.FormatBoolean(eventInfo.Source.Value);
-					break;
+            switch (typeCode)
+            {
+                case TypeCode.Boolean:
+                    eventInfo.Tag = "tag:yaml.org,2002:bool";
+                    eventInfo.RenderedValue = YamlFormatter.FormatBoolean(eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.Byte:
-				case TypeCode.Int16:
-				case TypeCode.Int32:
-				case TypeCode.Int64:
-				case TypeCode.SByte:
-				case TypeCode.UInt16:
-				case TypeCode.UInt32:
-				case TypeCode.UInt64:
-					eventInfo.Tag = "tag:yaml.org,2002:int";
-					eventInfo.RenderedValue = YamlFormatter.FormatNumber(eventInfo.Source.Value);
-					break;
+                case TypeCode.Byte:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.SByte:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                    eventInfo.Tag = "tag:yaml.org,2002:int";
+                    eventInfo.RenderedValue = YamlFormatter.FormatNumber(eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.Single:
-				case TypeCode.Double:
-				case TypeCode.Decimal:
-					eventInfo.Tag = "tag:yaml.org,2002:float";
-					eventInfo.RenderedValue = YamlFormatter.FormatNumber(eventInfo.Source.Value);
-					break;
+                case TypeCode.Single:
+                    eventInfo.Tag = "tag:yaml.org,2002:float";
+                    eventInfo.RenderedValue = YamlFormatter.FormatNumber((float)eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.String:
-				case TypeCode.Char:
-					eventInfo.Tag = "tag:yaml.org,2002:str";
-					eventInfo.RenderedValue = eventInfo.Source.Value.ToString();
-					eventInfo.Style = ScalarStyle.Any;
-					break;
+                case TypeCode.Double:
+                    eventInfo.Tag = "tag:yaml.org,2002:float";
+                    eventInfo.RenderedValue = YamlFormatter.FormatNumber((double)eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.DateTime:
-					eventInfo.Tag = "tag:yaml.org,2002:timestamp";
-					eventInfo.RenderedValue = YamlFormatter.FormatDateTime(eventInfo.Source.Value);
-					break;
+                case TypeCode.Decimal:
+                    eventInfo.Tag = "tag:yaml.org,2002:float";
+                    eventInfo.RenderedValue = YamlFormatter.FormatNumber(eventInfo.Source.Value);
+                    break;
 
-				case TypeCode.Empty:
-					eventInfo.Tag = "tag:yaml.org,2002:null";
-					eventInfo.RenderedValue = "";
-					break;
+                case TypeCode.String:
+                case TypeCode.Char:
+                    eventInfo.Tag = "tag:yaml.org,2002:str";
+                    eventInfo.RenderedValue = eventInfo.Source.Value.ToString();
+                    suggestedStyle = ScalarStyle.Any;
+                    break;
 
-				default:
-					if (eventInfo.Source.Type == typeof(TimeSpan))
-					{
-						eventInfo.RenderedValue = YamlFormatter.FormatTimeSpan(eventInfo.Source.Value);
-						break;
-					}
+                case TypeCode.DateTime:
+                    eventInfo.Tag = "tag:yaml.org,2002:timestamp";
+                    eventInfo.RenderedValue = YamlFormatter.FormatDateTime(eventInfo.Source.Value);
+                    break;
 
-					throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "TypeCode.{0} is not supported.", typeCode));
-			}
+                case TypeCode.Empty:
+                    eventInfo.Tag = "tag:yaml.org,2002:null";
+                    eventInfo.RenderedValue = "";
+                    break;
 
-			base.Emit(eventInfo);
-		}
+                default:
+                    if (eventInfo.Source.Type == typeof(TimeSpan))
+                    {
+                        eventInfo.RenderedValue = YamlFormatter.FormatTimeSpan(eventInfo.Source.Value);
+                        break;
+                    }
 
-		public override void Emit(MappingStartEventInfo eventInfo)
-		{
-			AssignTypeIfDifferent(eventInfo);
-			base.Emit(eventInfo);
-		}
+                    throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, "TypeCode.{0} is not supported.", typeCode));
+            }
 
-		public override void Emit(SequenceStartEventInfo eventInfo)
-		{
-			AssignTypeIfDifferent(eventInfo);
-			base.Emit(eventInfo);
-		}
+            eventInfo.IsPlainImplicit = true;
+            if (eventInfo.Style == ScalarStyle.Any)
+            {
+                eventInfo.Style = suggestedStyle;
+            }
 
-		private void AssignTypeIfDifferent(ObjectEventInfo eventInfo)
-		{
-			if (_assignTypeWhenDifferent && eventInfo.Source.Value != null)
-			{
-				if (eventInfo.Source.Type != eventInfo.Source.StaticType)
-				{
-					eventInfo.Tag = "!" + eventInfo.Source.Type.AssemblyQualifiedName;
-				}
-			}
-		}
-	}
+            base.Emit(eventInfo);
+        }
+
+        public override void Emit(MappingStartEventInfo eventInfo)
+        {
+            AssignTypeIfDifferent(eventInfo);
+            base.Emit(eventInfo);
+        }
+
+        public override void Emit(SequenceStartEventInfo eventInfo)
+        {
+            AssignTypeIfDifferent(eventInfo);
+            base.Emit(eventInfo);
+        }
+
+        private void AssignTypeIfDifferent(ObjectEventInfo eventInfo)
+        {
+            if (_assignTypeWhenDifferent && eventInfo.Source.Value != null)
+            {
+                if (eventInfo.Source.Type != eventInfo.Source.StaticType)
+                {
+                    eventInfo.Tag = "!" + eventInfo.Source.Type.AssemblyQualifiedName;
+                }
+            }
+        }
+    }
 }

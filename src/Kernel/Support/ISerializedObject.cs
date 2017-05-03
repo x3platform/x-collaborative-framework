@@ -1,26 +1,10 @@
-﻿#region Copyright & Author
-// =============================================================================
-//
-// Copyright (c) x3platfrom.com
-//
-// FileName     :ISerializedObject.cs
-//
-// Description  :序列化对象接口
-//
-// Author       :ruanyu@x3platfrom.com
-//
-// Date         :2010-01-01
-//
-// =============================================================================
-#endregion
-
-#region Using Libraries
-using System;
-using System.Xml;
-#endregion
-
-namespace X3Platform
+﻿namespace X3Platform
 {
+    #region Using Libraries
+    using System;
+    using System.Xml;
+    #endregion
+
     /// <summary>序列化对象接口</summary>
     public interface ISerializedObject
     {

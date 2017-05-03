@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -25,42 +25,42 @@ using X3Platform.Yaml.Core.Tokens;
 
 namespace X3Platform.Yaml.Core
 {
-	/// <summary>
-	/// Collection of <see cref="TagDirective"/>.
-	/// </summary>
-	public class TagDirectiveCollection : KeyedCollection<string, TagDirective>
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TagDirectiveCollection"/> class.
-		/// </summary>
-		public TagDirectiveCollection()
-		{
-		}
+    /// <summary>
+    /// Collection of <see cref="TagDirective"/>.
+    /// </summary>
+    public class TagDirectiveCollection : KeyedCollection<string, TagDirective>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TagDirectiveCollection"/> class.
+        /// </summary>
+        public TagDirectiveCollection()
+        {
+        }
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="TagDirectiveCollection"/> class.
-		/// </summary>
-		/// <param name="tagDirectives">Initial content of the collection.</param>
-		public TagDirectiveCollection(IEnumerable<TagDirective> tagDirectives)
-		{
-			foreach (var tagDirective in tagDirectives)
-			{
-				Add(tagDirective);
-			}
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TagDirectiveCollection"/> class.
+        /// </summary>
+        /// <param name="tagDirectives">Initial content of the collection.</param>
+        public TagDirectiveCollection(IEnumerable<TagDirective> tagDirectives)
+        {
+            foreach (var tagDirective in tagDirectives)
+            {
+                Add(tagDirective);
+            }
+        }
 
-		/// <summary/>
-		protected override string GetKeyForItem(TagDirective item)
-		{
-			return item.Handle;
-		}
-		
-		/// <summary>
-		/// Gets a value indicating whether the collection contains a directive with the same handle
-		/// </summary>
-		public new bool Contains(TagDirective directive)
-		{
-			return Contains(GetKeyForItem(directive));
-		}
-	}
+        /// <summary/>
+        protected override string GetKeyForItem(TagDirective item)
+        {
+            return item.Handle;
+        }
+        
+        /// <summary>
+        /// Gets a value indicating whether the collection contains a directive with the same handle
+        /// </summary>
+        public new bool Contains(TagDirective directive)
+        {
+            return Contains(GetKeyForItem(directive));
+        }
+    }
 }

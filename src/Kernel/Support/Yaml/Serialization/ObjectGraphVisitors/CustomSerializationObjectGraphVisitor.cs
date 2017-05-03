@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -25,37 +25,37 @@ using X3Platform.Yaml.Core;
 
 namespace X3Platform.Yaml.Serialization.ObjectGraphVisitors
 {
-	public sealed class CustomSerializationObjectGraphVisitor : ChainedObjectGraphVisitor
-	{
-		private readonly IEmitter emitter;
-		private readonly IEnumerable<IYamlTypeConverter> typeConverters;
+    public sealed class CustomSerializationObjectGraphVisitor : ChainedObjectGraphVisitor
+    {
+        private readonly IEmitter emitter;
+        private readonly IEnumerable<IYamlTypeConverter> typeConverters;
 
-		public CustomSerializationObjectGraphVisitor(IEmitter emitter, IObjectGraphVisitor nextVisitor, IEnumerable<IYamlTypeConverter> typeConverters)
-			: base(nextVisitor)
-		{
-			this.emitter = emitter;
-			this.typeConverters = typeConverters != null
-				? typeConverters.ToList()
-				: Enumerable.Empty<IYamlTypeConverter>();
-		}
+        public CustomSerializationObjectGraphVisitor(IEmitter emitter, IObjectGraphVisitor nextVisitor, IEnumerable<IYamlTypeConverter> typeConverters)
+            : base(nextVisitor)
+        {
+            this.emitter = emitter;
+            this.typeConverters = typeConverters != null
+                ? typeConverters.ToList()
+                : Enumerable.Empty<IYamlTypeConverter>();
+        }
 
-		public override bool Enter(IObjectDescriptor value)
-		{
-			var typeConverter = typeConverters.FirstOrDefault(t => t.Accepts(value.Type));
-			if (typeConverter != null)
-			{
-				typeConverter.WriteYaml(emitter, value.Value, value.Type);
-				return false;
-			}
+        public override bool Enter(IObjectDescriptor value)
+        {
+            var typeConverter = typeConverters.FirstOrDefault(t => t.Accepts(value.Type));
+            if (typeConverter != null)
+            {
+                typeConverter.WriteYaml(emitter, value.Value, value.Type);
+                return false;
+            }
 
-			var serializable = value as IYamlSerializable;
-			if (serializable != null)
-			{
-				serializable.WriteYaml(emitter);
-				return false;
-			}
+            var serializable = value as IYamlSerializable;
+            if (serializable != null)
+            {
+                serializable.WriteYaml(emitter);
+                return false;
+            }
 
-			return base.Enter(value);
-		}
-	}
+            return base.Enter(value);
+        }
+    }
 }

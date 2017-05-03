@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -21,16 +21,16 @@
 
 namespace X3Platform.Yaml.Serialization
 {
-	/// <summary>
-	/// Defines a strategy that walks through an object graph.
-	/// </summary>
-	public interface IObjectGraphTraversalStrategy
-	{
-		/// <summary>
-		/// Traverses the specified object graph.
-		/// </summary>
-		/// <param name="graph">The graph.</param>
-		/// <param name="visitor">An <see cref="IObjectGraphVisitor"/> that is to be notified during the traversal.</param>
-		void Traverse(IObjectDescriptor graph, IObjectGraphVisitor visitor);
-	}
+    /// <summary>
+    /// Defines a strategy that walks through an object graph.
+    /// </summary>
+    public interface IObjectGraphTraversalStrategy
+    {
+        /// <summary>
+        /// Traverses the specified object graph.
+        /// </summary>
+        /// <param name="graph">The graph.</param>
+        /// <param name="visitor">An <see cref="IObjectGraphVisitor"/> that is to be notified during the traversal.</param>
+        void Traverse(IObjectDescriptor graph, IObjectGraphVisitor visitor);
+    }
 }

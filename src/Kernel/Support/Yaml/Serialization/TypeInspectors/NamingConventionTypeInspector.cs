@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -25,36 +25,36 @@ using System.Linq;
 
 namespace X3Platform.Yaml.Serialization.TypeInspectors
 {
-	/// <summary>
-	/// Wraps another <see cref="ITypeInspector"/> and applies a
-	/// naming convention to the names of the properties.
-	/// </summary>
-	public sealed class NamingConventionTypeInspector : TypeInspectorSkeleton
-	{
-		private readonly ITypeInspector innerTypeDescriptor;
-		private readonly INamingConvention namingConvention;
+    /// <summary>
+    /// Wraps another <see cref="ITypeInspector"/> and applies a
+    /// naming convention to the names of the properties.
+    /// </summary>
+    public sealed class NamingConventionTypeInspector : TypeInspectorSkeleton
+    {
+        private readonly ITypeInspector innerTypeDescriptor;
+        private readonly INamingConvention namingConvention;
 
-		public NamingConventionTypeInspector(ITypeInspector innerTypeDescriptor, INamingConvention namingConvention)
-		{
-			if (innerTypeDescriptor == null)
-			{
-				throw new ArgumentNullException("innerTypeDescriptor");
-			}
+        public NamingConventionTypeInspector(ITypeInspector innerTypeDescriptor, INamingConvention namingConvention)
+        {
+            if (innerTypeDescriptor == null)
+            {
+                throw new ArgumentNullException("innerTypeDescriptor");
+            }
 
-			this.innerTypeDescriptor = innerTypeDescriptor;
+            this.innerTypeDescriptor = innerTypeDescriptor;
 
-			if (namingConvention == null)
-			{
-				throw new ArgumentNullException("namingConvention");
-			}
+            if (namingConvention == null)
+            {
+                throw new ArgumentNullException("namingConvention");
+            }
 
-			this.namingConvention = namingConvention;
-		}
+            this.namingConvention = namingConvention;
+        }
 
-		public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
-		{
-			return innerTypeDescriptor.GetProperties(type, container)
-				.Select(p => (IPropertyDescriptor)new PropertyDescriptor(p) { Name = namingConvention.Apply(p.Name) });
-		}
-	}
+        public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
+        {
+            return innerTypeDescriptor.GetProperties(type, container)
+                .Select(p => (IPropertyDescriptor)new PropertyDescriptor(p) { Name = namingConvention.Apply(p.Name) });
+        }
+    }
 }

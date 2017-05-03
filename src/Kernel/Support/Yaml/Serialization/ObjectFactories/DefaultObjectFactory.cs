@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -24,39 +24,39 @@ using System.Collections.Generic;
 
 namespace X3Platform.Yaml.Serialization.ObjectFactories
 {
-	/// <summary>
-	/// Creates objects using Activator.CreateInstance.
-	/// </summary>
-	public sealed class DefaultObjectFactory : IObjectFactory
-	{
-		private static readonly Dictionary<Type, Type> defaultInterfaceImplementations = new Dictionary<Type, Type>
-		{
-			{ typeof(IEnumerable<>), typeof(List<>) },
-			{ typeof(ICollection<>), typeof(List<>) },
-			{ typeof(IList<>), typeof(List<>) },
-			{ typeof(IDictionary<,>), typeof(Dictionary<,>) },
-		};
+    /// <summary>
+    /// Creates objects using Activator.CreateInstance.
+    /// </summary>
+    public sealed class DefaultObjectFactory : IObjectFactory
+    {
+        private static readonly Dictionary<Type, Type> defaultInterfaceImplementations = new Dictionary<Type, Type>
+        {
+            { typeof(IEnumerable<>), typeof(List<>) },
+            { typeof(ICollection<>), typeof(List<>) },
+            { typeof(IList<>), typeof(List<>) },
+            { typeof(IDictionary<,>), typeof(Dictionary<,>) },
+        };
 
-		public object Create(Type type)
-		{
-			if (type.IsInterface)
-			{
-				Type implementationType;
-				if (defaultInterfaceImplementations.TryGetValue(type.GetGenericTypeDefinition(), out implementationType))
-				{
-					type = implementationType.MakeGenericType(type.GetGenericArguments());
-				}
-			}
+        public object Create(Type type)
+        {
+            if (type.IsInterface())
+            {
+                Type implementationType;
+                if (defaultInterfaceImplementations.TryGetValue(type.GetGenericTypeDefinition(), out implementationType))
+                {
+                    type = implementationType.MakeGenericType(type.GetGenericArguments());
+                }
+            }
 
-			try
-			{
-				return Activator.CreateInstance(type);
-			}
-			catch (MissingMethodException err)
-			{
-				var message = string.Format("Failed to create an instance of type '{0}'.", type);
-				throw new InvalidOperationException(message, err);
-			}
-		}
-	}
+            try
+            {
+                return Activator.CreateInstance(type);
+            }
+            catch (Exception err)
+            {
+                var message = string.Format("Failed to create an instance of type '{0}'.", type);
+                throw new InvalidOperationException(message, err);
+            }
+        }
+    }
 }

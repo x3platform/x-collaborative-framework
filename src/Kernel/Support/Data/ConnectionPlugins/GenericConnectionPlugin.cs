@@ -139,14 +139,8 @@ namespace X3Platform.Data.ConnectionPlugins
             {
                 string password = GetKeyValue(PREFIX_KEY + "Password", string.Empty);
 
-                if (password.Length >= 32)
-                {
-                    return Encrypter.DecryptAES(password);
-                }
-                else
-                {
-                    return password;
-                }
+                return password;
+                // return Encrypter.EncryptAES(password);
             }
         }
 

@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,39 +23,39 @@ using System;
 
 namespace X3Platform.Yaml.Core
 {
-	/// <summary>
-	/// Specifies the style of a YAML scalar.
-	/// </summary>
-	public enum ScalarStyle
-	{
-		/// <summary>
-		/// Let the emitter choose the style.
-		/// </summary>
-		Any,
+    /// <summary>
+    /// Specifies the style of a YAML scalar.
+    /// </summary>
+    public enum ScalarStyle
+    {
+        /// <summary>
+        /// Let the emitter choose the style.
+        /// </summary>
+        Any,
 
-		/// <summary>
-		/// The plain scalar style.
-		/// </summary>
-		Plain,
+        /// <summary>
+        /// The plain scalar style.
+        /// </summary>
+        Plain,
 
-		/// <summary>
-		/// The single-quoted scalar style.
-		/// </summary>
-		SingleQuoted,
+        /// <summary>
+        /// The single-quoted scalar style.
+        /// </summary>
+        SingleQuoted,
 
-		/// <summary>
-		/// The double-quoted scalar style.
-		/// </summary>
-		DoubleQuoted,
+        /// <summary>
+        /// The double-quoted scalar style.
+        /// </summary>
+        DoubleQuoted,
 
-		/// <summary>
-		/// The literal scalar style.
-		/// </summary>
-		Literal,
+        /// <summary>
+        /// The literal scalar style.
+        /// </summary>
+        Literal,
 
-		/// <summary>
-		/// The folded scalar style.
-		/// </summary>
-		Folded,
-	}
+        /// <summary>
+        /// The folded scalar style.
+        /// </summary>
+        Folded,
+    }
 }

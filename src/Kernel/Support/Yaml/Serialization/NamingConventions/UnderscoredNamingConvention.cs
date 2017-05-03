@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -23,14 +23,14 @@ using X3Platform.Yaml.Serialization.Utilities;
 
 namespace X3Platform.Yaml.Serialization.NamingConventions
 {
-	/// <summary>
-	/// Convert the string from camelcase (thisIsATest) to a underscored (this_is_a_test) string
-	/// </summary>
-	public sealed class UnderscoredNamingConvention : INamingConvention
-	{
-		public string Apply(string value)
-		{
-			return value.FromCamelCase("_");
-		}
-	}
+    /// <summary>
+    /// Convert the string from camelcase (thisIsATest) to a underscored (this_is_a_test) string
+    /// </summary>
+    public sealed class UnderscoredNamingConvention : INamingConvention
+    {
+        public string Apply(string value)
+        {
+            return value.FromCamelCase("_");
+        }
+    }
 }

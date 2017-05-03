@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+#if !NETCORE10
     using System.Web.Script.Serialization;
 
     /// <summary></summary>
@@ -55,4 +56,5 @@
             return serializer.Deserialize<JsonObject>(json);
         }
     }
+#endif
 }

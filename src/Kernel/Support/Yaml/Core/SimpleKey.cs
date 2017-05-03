@@ -1,5 +1,5 @@
 //  This file is part of X3Platform.Yaml - A .NET library for YAML.
-//  Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013 Antoine Aubry and contributors
+//  Copyright (c) Antoine Aubry and contributors
     
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
 //  this software and associated documentation files (the "Software"), to deal in
@@ -19,33 +19,36 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+using System;
+
 namespace X3Platform.Yaml.Core
 {
-	internal class SimpleKey
-	{
-		private readonly Cursor cursor;
+    [Serializable]
+    internal class SimpleKey
+    {
+        private readonly Cursor cursor;
 
-		public bool IsPossible { get; set; }
+        public bool IsPossible { get; set; }
 
-		public bool IsRequired { get; private set; }
-		public int TokenNumber { get; private set; }
-		public int Index { get { return cursor.Index; } }
-		public int Line { get { return cursor.Line; } }
-		public int LineOffset { get { return cursor.LineOffset; } }
+        public bool IsRequired { get; private set; }
+        public int TokenNumber { get; private set; }
+        public int Index { get { return cursor.Index; } }
+        public int Line { get { return cursor.Line; } }
+        public int LineOffset { get { return cursor.LineOffset; } }
 
-		public Mark Mark { get { return cursor.Mark(); } }
+        public Mark Mark { get { return cursor.Mark(); } }
 
-		public SimpleKey()
-		{
-			cursor = new Cursor();
-		}
+        public SimpleKey()
+        {
+            cursor = new Cursor();
+        }
 
-		public SimpleKey(bool isPossible, bool isRequired, int tokenNumber, Cursor cursor)
-		{
-			IsPossible = isPossible;
-			IsRequired = isRequired;
-			TokenNumber = tokenNumber;
-			this.cursor = new Cursor(cursor);
-		}
-	}
+        public SimpleKey(bool isPossible, bool isRequired, int tokenNumber, Cursor cursor)
+        {
+            IsPossible = isPossible;
+            IsRequired = isRequired;
+            TokenNumber = tokenNumber;
+            this.cursor = new Cursor(cursor);
+        }
+    }
 }
