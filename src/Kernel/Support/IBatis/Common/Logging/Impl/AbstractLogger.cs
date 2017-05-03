@@ -421,6 +421,14 @@ namespace X3Platform.IBatis.Common.Logging.Impl
             get { throw new NotImplementedException(); }
         }
 
+        //public INestedVariablesContext NestedThreadVariablesContext
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
         public void Trace(IFormatProvider formatProvider, Action<FormatMessageHandler> formatMessageCallback, Exception exception)
         {
             throw new NotImplementedException();

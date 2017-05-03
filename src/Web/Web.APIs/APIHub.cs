@@ -40,13 +40,13 @@ namespace X3Platform.Web.APIs
             string xml = (context.Request.Form["xhr-xml"] == null) ? string.Empty : context.Request.Form["xhr-xml"];
 
             // 支持 application/xml 请求方式
-            if (context.Request.ContentType == "application/xml" && string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(rawInput))
+            if (context.Request.ContentType.IndexOf("application/xml") > -1 && string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(rawInput))
             {
                 xml = rawInput;
             }
 
             // 支持 application/json 请求方式
-            if (context.Request.ContentType == "application/json" && string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(rawInput))
+            if (context.Request.ContentType.IndexOf("application/json") > -1 && string.IsNullOrEmpty(xml) && !string.IsNullOrEmpty(rawInput))
             {
                 XmlDocument xmlDoc = JsonHelper.ToXmlDocument(rawInput);
 
@@ -115,8 +115,8 @@ namespace X3Platform.Web.APIs
                     // 记录
                     if (ConnectConfigurationView.Instance.EnableCallLog == "ON")
                     {
-                        ConnectCallInfo call = new ConnectCallInfo(clientId, context.Request.RawUrl, doc.InnerXml);
-
+                        ConnectCallInfo call = new ConnectCallInfo(clientId, context.Request.RawUrl, string.IsNullOrEmpty(rawInput) ? doc.InnerXml : rawInput);
+                        
                         call.AccessToken = accessToken;
 
                         try

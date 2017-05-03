@@ -17,6 +17,8 @@
 //
 #endregion
 
+// .NET CORE 1.0 has no support for Win32 Error APIs
+#if !NETCORE10
 // MONO 1.0 has no support for Win32 Error APIs
 #if !MONO
 // SSCLI 1.0 has no support for Win32 Error APIs
@@ -42,7 +44,7 @@ namespace X3Platform.Logging.Util
 	/// <author>Gert Driesen</author>
 	public sealed class NativeError 
 	{
-		#region Protected Instance Constructors
+#region Protected Instance Constructors
 
 		/// <summary>
 		/// Create an instance of the <see cref="NativeError" /> class with the specified 
@@ -62,9 +64,9 @@ namespace X3Platform.Logging.Util
 			m_message = message;
 		}
 
-		#endregion // Protected Instance Constructors
+#endregion // Protected Instance Constructors
 
-		#region Public Instance Properties
+#region Public Instance Properties
 
 		/// <summary>
 		/// Gets the number of the native error.
@@ -98,9 +100,9 @@ namespace X3Platform.Logging.Util
 			get { return m_message; }
 		}
 
-		#endregion // Public Instance Properties
+#endregion // Public Instance Properties
 
-		#region Public Static Methods
+#region Public Static Methods
 
 		/// <summary>
 		/// Create a new instance of the <see cref="NativeError" /> class for the last Windows error.
@@ -204,9 +206,9 @@ namespace X3Platform.Logging.Util
 			return msgBuf;
 		}
 
-		#endregion // Public Static Methods
+#endregion // Public Static Methods
 
-		#region Override Object Implementation
+#region Override Object Implementation
 
 		/// <summary>
 		/// Return error information string
@@ -222,9 +224,9 @@ namespace X3Platform.Logging.Util
 			return string.Format(CultureInfo.InvariantCulture, "0x{0:x8}", this.Number) + (this.Message != null ? ": " + this.Message : "");
 		}
 
-		#endregion // Override Object Implementation
+#endregion // Override Object Implementation
 
-		#region Stubs For Native Function Calls
+#region Stubs For Native Function Calls
 
 		/// <summary>
 		/// Formats a message string.
@@ -274,17 +276,18 @@ namespace X3Platform.Logging.Util
 			int nSize,
 			IntPtr Arguments);
 
-		#endregion // Stubs For Native Function Calls
+#endregion // Stubs For Native Function Calls
 
-		#region Private Instance Fields
+#region Private Instance Fields
 
 		private int m_number;
 		private string m_message;
 
-		#endregion
+#endregion
 	}
 }
 
 #endif // !CLI_1_0
 #endif // !SSCLI
 #endif // !MONO
+#endif // !.NET CORE 1.0

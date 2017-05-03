@@ -25,84 +25,91 @@ namespace X3Platform.Connect.Jobs
     {
         private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        private bool isSync = false;
+
         /// <summary>
         /// Called by the <see cref="IScheduler" /> when a
         /// <see cref="ITrigger" /> fires that is associated with the <see cref="IJob" />.
         /// </summary>
         public virtual void Execute(IJobExecutionContext context)
         {
-            logger.Info("Fetching...");
-
-            ConnectionFactory factory = new ConnectionFactory();
-
-            /*
-            IMessageQueueObject queue = new RabbitQueueObject<ConnectCallInfo>(ConnectConfigurationView.Instance.MessageQueueHostName,
-                ConnectConfigurationView.Instance.MessageQueuePort,
-                ConnectConfigurationView.Instance.MessageQueueUsername,
-                ConnectConfigurationView.Instance.MessageQueuePassword,
-                ConnectConfigurationView.Instance.MessageQueueName);
-            */
-
-            factory.HostName = ConnectConfigurationView.Instance.MessageQueueHostName;
-            factory.Port = ConnectConfigurationView.Instance.MessageQueuePort;
-            factory.UserName = ConnectConfigurationView.Instance.MessageQueueUsername;
-            factory.Password = ConnectConfigurationView.Instance.MessageQueuePassword;
-
-            using (IConnection connection = factory.CreateConnection())
+            if (isSync)
             {
-                using (IModel channel = connection.CreateModel())
+                return;
+            }
+            else
+            {
+                isSync = true;
+
+                try
                 {
-                    ConnectCallInfo data = new ConnectCallInfo();
+                    logger.Info("Fetching...");
 
-                    while (true)
+                    ConnectionFactory factory = new ConnectionFactory();
+
+                    /*
+                    IMessageQueueObject queue = new RabbitQueueObject<ConnectCallInfo>(ConnectConfigurationView.Instance.MessageQueueHostName,
+                        ConnectConfigurationView.Instance.MessageQueuePort,
+                        ConnectConfigurationView.Instance.MessageQueueUsername,
+                        ConnectConfigurationView.Instance.MessageQueuePassword,
+                        ConnectConfigurationView.Instance.MessageQueueName);
+                    */
+
+                    factory.HostName = ConnectConfigurationView.Instance.MessageQueueHostName;
+                    factory.Port = ConnectConfigurationView.Instance.MessageQueuePort;
+                    factory.UserName = ConnectConfigurationView.Instance.MessageQueueUsername;
+                    factory.Password = ConnectConfigurationView.Instance.MessageQueuePassword;
+
+                    using (IConnection connection = factory.CreateConnection())
                     {
-                        BasicGetResult result = channel.BasicGet(ConnectConfigurationView.Instance.MessageQueueName, false);
-
-                        if (result == null)
+                        using (IModel channel = connection.CreateModel())
                         {
-                            break;
-                        }
-                        else
-                        {
-                            bool t = result.Redelivered;
+                            ConnectCallInfo data = new ConnectCallInfo();
 
-                            byte[] bytes = result.Body;
-
-                            XmlDocument doc = new XmlDocument();
-
-                            doc.LoadXml(Encoding.UTF8.GetString(bytes));
-
-                            data.Deserialize(doc.DocumentElement);
-
-                            // 回复确认
-                            channel.BasicAck(result.DeliveryTag, false);
-
-                            // return data;
-                            if (data != null)
+                            while (true)
                             {
-                                ConnectContext.Instance.ConnectCallService.Save(data);
+                                BasicGetResult result = channel.BasicGet(ConnectConfigurationView.Instance.MessageQueueName, false);
 
-                                logger.Info("id:" + data.Id + " insert success.");
+                                if (result == null)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    bool t = result.Redelivered;
+
+                                    byte[] bytes = result.Body;
+
+                                    XmlDocument doc = new XmlDocument();
+
+                                    doc.LoadXml(Encoding.UTF8.GetString(bytes));
+
+                                    data.Deserialize(doc.DocumentElement);
+
+                                    // 回复确认
+                                    channel.BasicAck(result.DeliveryTag, false);
+
+                                    // return data;
+                                    if (data != null)
+                                    {
+                                        ConnectContext.Instance.ConnectCallService.Save(data);
+
+                                        logger.Info("id:" + data.Id + " insert success.");
+                                    }
+                                }
                             }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    logger.Info(ex);
+                }
+                finally
+                {
+                    this.isSync = false;
+                }
             }
-
-            /*
-            queue.Open();
-
-            ConnectCallInfo param = (ConnectCallInfo)queue.Receive();
-
-            if (param != null)
-            {
-                ConnectContext.Instance.ConnectCallService.Save(param);
-
-                logger.Info("id:" + param.Id + " insert success.");
-            }
-
-            queue.Close();
-            */
         }
     }
 }
